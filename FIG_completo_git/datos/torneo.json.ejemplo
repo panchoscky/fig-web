@@ -15,6 +15,11 @@
       "miembros": [
         {"nombre": "Nombre Apellido", "linkedin": "https://www.linkedin.com/in/usuario/"},
         {"nombre": "Nombre Apellido 2", "linkedin": ""}
+      ],
+      "historial": [
+        {"semana": 6, "puntos": 79.10, "posicion": 2},
+        {"semana": 7, "puntos": 83.55, "posicion": 2},
+        {"semana": 8, "puntos": 87.42, "posicion": 1}
       ]
     }
   ],
@@ -24,6 +29,7 @@
     "metricas": "valores crudos de PORT: ir y sharpe como número; exc, var95 y mdd como decimal (0.064 = 6.4%)",
     "puntosDetalle": "puntos por métrica según percentil continuo (máx 30/25/15/15/15)",
     "retRel": "retorno relativo vs ACWI como decimal",
-    "miembros.linkedin": "URL completa o cadena vacía si no tiene"
+    "miembros.linkedin": "URL completa o cadena vacía si no tiene",
+    "historial": "rendimiento pasado del equipo, una entrada por semana publicada (incluida la actual). generar_torneo.py lo mantiene solo: lee el torneo.json anterior, conserva su historial y agrega la semana nueva. Con 2+ entradas la página dibuja la trayectoria (overlay del equipo + tarjetas PNG/HTML descargables)."
   }
 }

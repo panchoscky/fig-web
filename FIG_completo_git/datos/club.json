@@ -6,9 +6,10 @@
       "bases": "#",
       "instagram": "https://www.instagram.com/fen.investment.group/",
       "linkedin": "https://www.linkedin.com/company/fen-investment-group",
-      "postula": "#",
+      "postula": "postula/index.html",
       "contacto": "#"
-    }
+    },
+    "postulaEndpoint": ""
   },
   "personas": {
     "directiva": [
