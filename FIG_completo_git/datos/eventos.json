@@ -1,0 +1,32 @@
+{
+  "_como_editar": "Cada evento es un objeto de la lista. Para agregar uno: copiar un bloque, cambiar los campos y guardar. 'tipo' acepta: torneo | visita | charla | comunidad. 'carpeta' es el nombre de la subcarpeta en fotos/eventos/ donde van las fotos (1.jpg, 2.jpg, 3.jpg…). 'participantes' es una lista de nombres. Este archivo puede generarse desde un Excel con un script tipo generar_eventos.py.",
+  "eventos": [
+    {"id":"torneo-portafolio-2026","titulo":"Torneo Portafolio 2026","fecha":"2026-05-11","fechaTexto":"MAY — NOV · 2026","tipo":"torneo","lugar":"Bloomberg Lab · FEN","live":true,"destacado":true,
+     "resumen":"63 equipos gestionan carteras simuladas de USD 10 millones en ETFs de iShares/BlackRock, medidas contra el MSCI ACWI con métricas de Bloomberg. Ranking semanal cada viernes y final ante jurado el 9 de noviembre.",
+     "participantes":[],"carpeta":"torneo-portafolio-2026"},
+    {"id":"clase-edv-2026","titulo":"Clase EDV — Colegios","fecha":"2026-06-23","fechaTexto":"23 · JUN · 2026","tipo":"charla","lugar":"FEN · Universidad de Chile",
+     "resumen":"Actividad educativa con estudiantes de colegio: una introducción práctica al mundo de los mercados y las inversiones. [Resumen por completar]",
+     "participantes":[],"carpeta":"clase-edv-2026"},
+    {"id":"visita-santander-2026","titulo":"Visita a Santander","fecha":"2026-06-22","fechaTexto":"22 · JUN · 2026","tipo":"visita","lugar":"Banco Santander Chile",
+     "resumen":"Visita a las oficinas de Santander, con presentación sobre fondos money market y un recorrido por el trabajo de la mesa. [Resumen por completar]",
+     "participantes":[],"carpeta":"visita-santander-2026"},
+    {"id":"visita-moneda-2026","titulo":"Visita a La Moneda","fecha":"2026-06-19","fechaTexto":"JUN · 2026","tipo":"visita","lugar":"Palacio de La Moneda",
+     "resumen":"Visita institucional de otoño al Palacio de La Moneda. [Resumen por completar]",
+     "participantes":[],"carpeta":"visita-moneda-2026"},
+    {"id":"fiw-mayo-2026","titulo":"Encuentro FEN Investment Woman","fecha":"2026-05-27","fechaTexto":"27 · MAY · 2026","tipo":"comunidad","lugar":"FEN · Universidad de Chile",
+     "resumen":"Actividad de la comunidad FEN Investment Woman, el área de FIG que impulsa la participación femenina en las finanzas. [Resumen por completar]",
+     "participantes":[],"carpeta":"fiw-mayo-2026"},
+    {"id":"charla-analisis-tecnico-2025","titulo":"Charla de Análisis Técnico","fecha":"2025-10-30","fechaTexto":"30 · OCT · 2025","tipo":"charla","lugar":"FEN · Universidad de Chile",
+     "resumen":"Charla abierta sobre análisis técnico: lectura de gráficos, tendencias y gestión del riesgo en el corto plazo. [Resumen por completar]",
+     "participantes":[],"carpeta":"charla-analisis-tecnico-2025"},
+    {"id":"torneo-primavera-2025","titulo":"Torneo — Primavera 2025","fecha":"2025-09-11","fechaTexto":"SEP · 2025","tipo":"torneo","lugar":"FEN · Universidad de Chile",
+     "resumen":"La edición anterior de nuestra competencia: una jornada completa de torneo con presentaciones y premiación. [Resumen por completar]",
+     "participantes":[],"carpeta":"torneo-primavera-2025"},
+    {"id":"charla-colegios-lab-2025","titulo":"Charla educativa — Colegios en el laboratorio","fecha":"2025-08-19","fechaTexto":"19 · AGO · 2025","tipo":"charla","lugar":"Bloomberg Lab · FEN",
+     "resumen":"Estudiantes de colegio visitaron el laboratorio para una charla introductoria a los mercados financieros. [Resumen por completar]",
+     "participantes":[],"carpeta":"charla-colegios-lab-2025"},
+    {"id":"lanzamiento-club-2025","titulo":"Lanzamiento de FEN Investment Group","fecha":"2025-09-08","fechaTexto":"PRIMAVERA · 2025","tipo":"comunidad","lugar":"FEN · Universidad de Chile",
+     "resumen":"El evento que lo inició todo: la presentación oficial de FIG ante la comunidad de la facultad. [Resumen por completar]",
+     "participantes":[],"carpeta":"lanzamiento-club-2025"}
+  ]
+}

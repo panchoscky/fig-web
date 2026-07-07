@@ -1,0 +1,50 @@
+{
+  "actualizado": "2026-07-06",
+  "config": {
+    "urls": {
+      "torneo": "https://feninvestmentgroup.com/torneo/",
+      "bases": "#",
+      "instagram": "#",
+      "linkedin": "#",
+      "postula": "#",
+      "contacto": "#"
+    }
+  },
+  "personas": {
+    "directiva": [
+      {"iniciales":"BS","nombre":"Benjamín Sáez Molina","rol":"Presidente","detalle":"Co-fundador · Área Portafolio.","destacado":true},
+      {"iniciales":"JG","nombre":"Jhosep García","rol":"Vicepresidente","detalle":"Co-fundador · Área Valuation.","destacado":true},
+      {"iniciales":"MP","nombre":"Manuel Paz","rol":"Director · Portafolio","detalle":"Comunicaciones, difusión y creador de la web original."},
+      {"iniciales":"FV","nombre":"Francisco Valenzuela","rol":"Director · Portafolio","detalle":"Plataforma web y dirección del Torneo Portafolio 2026."},
+      {"iniciales":"AA","nombre":"Agustín Arriagada","rol":"Director · Portafolio","detalle":"Co-fundador."},
+      {"iniciales":"BD","nombre":"Benjamín Disi","rol":"Director · Portafolio","detalle":"Co-fundador."},
+      {"iniciales":"BS","nombre":"Benjamín Solís","rol":"Director · Portafolio","detalle":"Co-fundador."},
+      {"iniciales":"RA","nombre":"Rafael Aliendre","rol":"Director · Trading","detalle":"Co-fundador."},
+      {"iniciales":"JL","nombre":"Juan José Limari","rol":"Director · Trading","detalle":"Co-fundador."},
+      {"iniciales":"JD","nombre":"Juan Pablo Díaz Cerda","rol":"Director · Trading","detalle":"Co-fundador."},
+      {"iniciales":"DG","nombre":"David González Cañon","rol":"Director · Valuation","detalle":"Co-fundador."},
+      {"iniciales":"DA","nombre":"Delia Avilán","rol":"Fundadora · FEN Investment Woman","detalle":"Co-fundadora."},
+      {"iniciales":"+6","nombre":"Directiva completa","detalle":"Los 18 perfiles se cargan desde Nosotros_FIG.xlsx al conectar el pipeline.","mas":true}
+    ],
+    "industria": [
+      {"iniciales":"AM","nombre":"Asset Management","rol":"Egresados FIG","detalle":"Sección por poblar desde la hoja Egresados.","mas":true},
+      {"iniciales":"IB","nombre":"Banca de inversión","rol":"Egresados FIG","detalle":"Sección por poblar desde la hoja Egresados.","mas":true},
+      {"iniciales":"RS","nombre":"Research & Sales","rol":"Egresados FIG","detalle":"Sección por poblar desde la hoja Egresados.","mas":true}
+    ],
+    "fama": [
+      {"iniciales":"🏆","nombre":"Campeón · Torneo Portafolio 2026","rol":"Se corona el 09 · NOV · 2026","detalle":"Cinco finalistas defenderán su gestión ante un jurado experto.","destacado":true},
+      {"iniciales":"★","nombre":"Reconocimientos FIG","detalle":"Logros y distinciones de la comunidad.","mas":true}
+    ]
+  },
+  "eventos": [
+    {"estado":"live","etiqueta":"En curso · May — Nov 2026","titulo":"Torneo Portafolio 2026","descripcion":"63 equipos, USD 10M simulados por cartera y ranking publicado cada viernes. La final ante jurado se juega el 9 de noviembre.","enlace":"torneo","cta":"Seguir el ranking"},
+    {"etiqueta":"Programa de formación","titulo":"Workshops Bloomberg","descripcion":"Sesiones prácticas de terminal: PORT, TMSG y análisis de carteras con datos reales. Fechas por anunciar.","enlace":"instagram","cta":"Enterarme primero"},
+    {"etiqueta":"Ciclo de charlas","titulo":"FIG Talks · La industria en la FEN","descripcion":"Conversaciones con profesionales de la gestión de activos, trading y research. Fechas por anunciar.","enlace":"instagram","cta":"Enterarme primero"}
+  ],
+  "historia": [
+    {"capitulo":"Capítulo I · Fundación","titulo":"Nace FEN Investment Group","texto":"Un grupo de estudiantes decide que los mercados se aprenden gestionándolos, no mirándolos. Nace FIG."},
+    {"capitulo":"Capítulo II · Estructura","titulo":"18 directores, 4 desks","texto":"La directiva fundadora organiza el club en cuatro áreas: Portafolio, Trading, Valuation y FEN Investment Woman."},
+    {"capitulo":"Capítulo III · Comunidad","titulo":"Más de 250 miembros","texto":"La comunidad FIG crece con estudiantes de toda la facultad, unidos por el interés en las inversiones y los mercados."},
+    {"capitulo":"Capítulo IV · 2026","titulo":"Torneo Portafolio 2026","texto":"63 equipos gestionan USD 10M simulados en Bloomberg durante seis meses. El mayor desafío organizado por FIG hasta hoy."}
+  ]
+}
