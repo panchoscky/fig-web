@@ -209,6 +209,12 @@ body.cursor-on #cursorRing.grow{width:58px;height:58px;border-color:var(--gold)}
 .mem-a:hover{color:#A9C8F0}
 .mem--empty{border-style:dashed;color:rgba(247,244,236,.45);font-family:var(--f-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;justify-content:center;padding:20px}
 .share-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
+/* Trayectoria (rendimiento pasado) */
+.spark-wrap{border:1px solid rgba(212,175,55,.14);border-radius:10px;background:rgba(247,244,236,.03);padding:20px 22px 14px}
+.spark-wrap svg{width:100%;height:auto;display:block}
+.spark-stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.spark-empty{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(247,244,236,.45);text-align:center;padding:12px 0}
+.spark-note{font-family:var(--f-mono);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,244,236,.4);margin-top:10px;text-align:right}
 .ov-note{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.1em;color:rgba(247,244,236,.42);margin-top:18px;line-height:1.9}
 body.locked{overflow:hidden}
 
@@ -357,6 +363,8 @@ footer a:hover{color:var(--gold)}
       </div>
       <div class="ov-h4">Métricas Bloomberg PORT</div>
       <div class="mt-grid" id="tmMetrics"></div>
+      <div class="ov-h4">Trayectoria</div>
+      <div id="tmSpark"></div>
       <div class="ov-h4">El equipo</div>
       <div class="members" id="tmMembers"></div>
       <div class="ov-h4">Comparte tu resultado</div>
@@ -413,31 +421,40 @@ function pct(v,d){return (v>=0?"+":"")+(v*100).toFixed(d==null?2:d)+"%"}
    ../datos/torneo.json con este MISMO esquema y la página lo usa sola.
    miembros[]: {nombre, linkedin} — desde el Excel de inscripciones.
    ========================================================================== */
+function H(p,q){return p.map(function(v,i){return {semana:i+1,puntos:v,posicion:q[i]}})}
 var DATA={demo:true,semana:null,corte:"—",equipos:[
  {id:"compass",nombre:"Compass Advisors",posicion:1,puntos:100.00,retRel:0.078,delta:0,
   metricas:{ir:0.95,exc:0.078,sharpe:1.61,var95:-0.0105,mdd:0.048},
-  puntosDetalle:{ir:30.00,exc:25.00,sharpe:15.00,var95:15.00,mdd:15.00},miembros:[]},
+  puntosDetalle:{ir:30.00,exc:25.00,sharpe:15.00,var95:15.00,mdd:15.00},miembros:[],
+  historial:H([61.4,68.2,74.9,80.6,86.1,92.0,96.7,100.00],[3,2,2,1,1,1,1,1])},
  {id:"alpha",nombre:"Alpha Capital",posicion:2,puntos:84.99,retRel:0.064,delta:1,
   metricas:{ir:0.82,exc:0.064,sharpe:1.45,var95:-0.012,mdd:0.065},
-  puntosDetalle:{ir:25.30,exc:20.00,sharpe:12.98,var95:13.59,mdd:13.11},miembros:[]},
+  puntosDetalle:{ir:25.30,exc:20.00,sharpe:12.98,var95:13.59,mdd:13.11},miembros:[],
+  historial:H([70.2,72.8,71.1,76.0,78.6,80.9,82.4,84.99],[1,1,3,2,2,2,3,2])},
  {id:"bullbear",nombre:"Bull & Bear",posicion:3,puntos:70.50,retRel:0.051,delta:-1,
   metricas:{ir:0.71,exc:0.051,sharpe:1.32,var95:-0.0145,mdd:0.082},
-  puntosDetalle:{ir:21.33,exc:15.36,sharpe:11.34,var95:11.25,mdd:11.22},miembros:[]},
+  puntosDetalle:{ir:21.33,exc:15.36,sharpe:11.34,var95:11.25,mdd:11.22},miembros:[],
+  historial:H([66.3,70.5,72.9,69.4,71.2,73.4,72.5,70.50],[2,3,1,3,3,3,2,3])},
  {id:"fenix",nombre:"FENIX Group",posicion:4,puntos:66.26,retRel:0.049,delta:0,
   metricas:{ir:0.68,exc:0.049,sharpe:1.28,var95:-0.0155,mdd:0.091},
-  puntosDetalle:{ir:20.24,exc:14.64,sharpe:10.84,var95:10.31,mdd:10.22},miembros:[]},
+  puntosDetalle:{ir:20.24,exc:14.64,sharpe:10.84,var95:10.31,mdd:10.22},miembros:[],
+  historial:H([48.7,55.3,60.1,63.8,61.9,64.5,65.7,66.26],[6,5,4,4,5,4,4,4])},
  {id:"horizon",nombre:"Horizon Capital",posicion:5,puntos:55.92,retRel:0.042,delta:2,
   metricas:{ir:0.58,exc:0.042,sharpe:1.18,var95:-0.017,mdd:0.105},
-  puntosDetalle:{ir:16.63,exc:12.14,sharpe:9.58,var95:8.91,mdd:8.67},miembros:[]},
+  puntosDetalle:{ir:16.63,exc:12.14,sharpe:9.58,var95:8.91,mdd:8.67},miembros:[],
+  historial:H([40.1,42.6,47.3,45.9,49.8,51.2,52.7,55.92],[7,7,6,6,6,6,7,5])},
  {id:"delta",nombre:"Delta Global",posicion:6,puntos:44.24,retRel:0.032,delta:-1,
   metricas:{ir:0.45,exc:0.032,sharpe:1.10,var95:-0.0185,mdd:0.114},
-  puntosDetalle:{ir:11.93,exc:8.57,sharpe:8.57,var95:7.50,mdd:7.67},miembros:[]},
+  puntosDetalle:{ir:11.93,exc:8.57,sharpe:8.57,var95:7.50,mdd:7.67},miembros:[],
+  historial:H([53.6,50.2,52.8,49.5,47.1,46.3,45.9,44.24],[4,6,5,5,4,5,5,6])},
  {id:"equinox",nombre:"Equinox Wealth",posicion:7,puntos:25.94,retRel:0.021,delta:0,
   metricas:{ir:0.28,exc:0.021,sharpe:0.88,var95:-0.021,mdd:0.142},
-  puntosDetalle:{ir:5.78,exc:4.64,sharpe:5.80,var95:5.16,mdd:4.56},miembros:[]},
+  puntosDetalle:{ir:5.78,exc:4.64,sharpe:5.80,var95:5.16,mdd:4.56},miembros:[],
+  historial:H([44.8,38.5,34.2,30.7,32.4,28.9,27.1,25.94],[5,4,7,7,7,7,6,7])},
  {id:"granite",nombre:"Granite Partners",posicion:8,puntos:0.00,retRel:0.008,delta:-1,
   metricas:{ir:0.12,exc:0.008,sharpe:0.42,var95:-0.0265,mdd:0.183},
-  puntosDetalle:{ir:0,exc:0,sharpe:0,var95:0,mdd:0},miembros:[]}
+  puntosDetalle:{ir:0,exc:0,sharpe:0,var95:0,mdd:0},miembros:[],
+  historial:H([12.3,9.8,7.4,5.1,6.2,3.8,1.5,0.00],[8,8,8,8,8,8,8,8])}
 ]};
 
 var PESOS={ir:30,exc:25,sharpe:15,var95:15,mdd:15};
@@ -518,6 +535,60 @@ function renderLb(eq,q){
   requestAnimationFrame(function(){$$(".lb-bar",body).forEach(function(b){b.style.width=b.getAttribute("data-w")+"%"})});
 }
 
+/* ---------------- Trayectoria (rendimiento pasado) ---------------- */
+function sparkPath(hist,W2,H2,pad){
+  var min=Math.min.apply(null,hist.map(function(h){return h.puntos}));
+  var max=Math.max.apply(null,hist.map(function(h){return h.puntos}));
+  if(max-min<1){max+=1;min-=1;}
+  var pts=hist.map(function(h,i){
+    var x=pad+(W2-2*pad)*(hist.length>1?i/(hist.length-1):0.5);
+    var y=(H2-pad)-((H2-2*pad)*((h.puntos-min)/(max-min)));
+    return [x,y];
+  });
+  return pts;
+}
+function sparkSVG(hist){
+  if(!hist||hist.length<2)return "";
+  var W2=600,H2=150,pad=18;
+  var pts=sparkPath(hist,W2,H2,pad);
+  var line=pts.map(function(p,i){return (i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)}).join(" ");
+  var area=line+" L"+pts[pts.length-1][0].toFixed(1)+" "+(H2-4)+" L"+pts[0][0].toFixed(1)+" "+(H2-4)+" Z";
+  var dots=pts.map(function(p,i){
+    var last=i===pts.length-1;
+    return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+(last?5:3)+'" fill="'+(last?"#EBD388":"#D4AF37")+'"'+(last?' stroke="#0A1128" stroke-width="2"':'')+'/>';
+  }).join("");
+  var labs=hist.map(function(h,i){
+    return '<text x="'+pts[i][0].toFixed(1)+'" y="'+(H2-6)+'" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="rgba(247,244,236,.45)">S'+h.semana+'</text>';
+  }).join("");
+  return '<svg viewBox="0 0 '+W2+' '+H2+'" role="img" aria-label="Evolución de puntaje por semana">'
+    +'<defs><linearGradient id="spGrad" x1="0" y1="0" x2="0" y2="1">'
+    +'<stop offset="0%" stop-color="rgba(212,175,55,.28)"/><stop offset="100%" stop-color="rgba(212,175,55,0)"/></linearGradient></defs>'
+    +'<path d="'+area+'" fill="url(#spGrad)"/>'
+    +'<path d="'+line+'" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>'
+    +dots+labs+'</svg>';
+}
+function renderSpark(t){
+  var box=$("#tmSpark"),h=t.historial;
+  if(!h||h.length<2){
+    box.innerHTML='<div class="spark-wrap"><div class="spark-empty">TRAYECTORIA DISPONIBLE DESDE LA SEGUNDA SEMANA PUBLICADA</div></div>';
+    return;
+  }
+  var mejorPos=Math.min.apply(null,h.map(function(x){return x.posicion}));
+  var mejorPts=Math.max.apply(null,h.map(function(x){return x.puntos}));
+  var top3=h.filter(function(x){return x.posicion<=3}).length;
+  var dif=h[h.length-1].puntos-h[0].puntos;
+  box.innerHTML='<div class="spark-wrap">'
+    +'<div class="spark-stats">'
+    +'<span class="mono-tag">MEJOR POSICIÓN · '+mejorPos+'°</span>'
+    +'<span class="mono-tag">MEJOR SCORE · '+mejorPts.toFixed(2)+'</span>'
+    +'<span class="mono-tag">SEMANAS EN TOP 3 · '+top3+'</span>'
+    +'<span class="mono-tag" style="color:'+(dif>=0?"var(--up)":"var(--down)")+';border-color:'+(dif>=0?"rgba(95,192,139,.35)":"rgba(224,122,95,.35)")+'">'+(dif>=0?"▲":"▼")+' '+Math.abs(dif).toFixed(2)+' PTS DESDE S'+h[0].semana+'</span>'
+    +'</div>'
+    +sparkSVG(h)
+    +'<div class="spark-note">SCORE ACUMULADO / 100 · POR SEMANA PUBLICADA</div>'
+    +'</div>';
+}
+
 /* ---------------- Overlay de equipo ---------------- */
 var ovT=$("#tmOverlay"),currentTeam=null;
 function openTeam(id){
@@ -538,6 +609,7 @@ function openTeam(id){
       +'<div class="mt-barwrap"><div class="mt-bar" data-w="'+(pd/PESOS[k]*100)+'"></div></div>'
       +'<span class="mt-pts">'+pd.toFixed(2)+' / '+PESOS[k]+'</span></div>';
   }).join("");
+  renderSpark(t);
   var mem=$("#tmMembers");
   if(t.miembros&&t.miembros.length){
     mem.innerHTML=t.miembros.map(function(m){
@@ -631,12 +703,48 @@ $("#btnPng").addEventListener("click",function(){
       if(bw>2){var bg2=c.createLinearGradient(64,0,64+bw,0);
         bg2.addColorStop(0,"#9E7E1E");bg2.addColorStop(1,"#EBD388");
         c.fillStyle=bg2;roundRect(c,64,y+18,bw,12,6);c.fill();}
-      y+=96;
+      y+=80;
     });
-    /* retorno relativo + footer */
+    /* retorno relativo */
     c.fillStyle=t.retRel>=0?"#5FC08B":"#E07A5F";
     c.font="600 30px 'IBM Plex Mono', monospace";
-    c.fillText("RETORNO RELATIVO VS ACWI  "+pct(t.retRel),64,y+18);
+    c.fillText("RETORNO RELATIVO VS ACWI  "+pct(t.retRel),64,y+14);
+    /* trayectoria (rendimiento pasado) */
+    if(t.historial&&t.historial.length>=2){
+      var sy=y+50,sh=80,sw=W-128;
+      c.fillStyle="rgba(212,175,55,.85)";c.font="600 18px 'IBM Plex Mono', monospace";
+      c.fillText("TRAYECTORIA · SCORE POR SEMANA",64,sy);
+      var hs=t.historial;
+      var mn=Math.min.apply(null,hs.map(function(x){return x.puntos}));
+      var mx=Math.max.apply(null,hs.map(function(x){return x.puntos}));
+      if(mx-mn<1){mx+=1;mn-=1;}
+      var sp=hs.map(function(x,i){
+        return [64+sw*(i/(hs.length-1)),(sy+14+sh)-sh*((x.puntos-mn)/(mx-mn))];
+      });
+      /* área */
+      c.beginPath();c.moveTo(sp[0][0],sy+14+sh);
+      sp.forEach(function(p){c.lineTo(p[0],p[1])});
+      c.lineTo(sp[sp.length-1][0],sy+14+sh);c.closePath();
+      var ag=c.createLinearGradient(0,sy+14,0,sy+14+sh);
+      ag.addColorStop(0,"rgba(212,175,55,.26)");ag.addColorStop(1,"rgba(212,175,55,0)");
+      c.fillStyle=ag;c.fill();
+      /* línea */
+      c.beginPath();sp.forEach(function(p,i){i?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1])});
+      c.strokeStyle="#D4AF37";c.lineWidth=4;c.lineJoin="round";c.lineCap="round";c.stroke();
+      /* puntos + último destacado */
+      sp.forEach(function(p,i){
+        var last=i===sp.length-1;
+        c.beginPath();c.arc(p[0],p[1],last?8:4.5,0,7);
+        c.fillStyle=last?"#EBD388":"#D4AF37";c.fill();
+        if(last){c.strokeStyle="#0A1128";c.lineWidth=3;c.stroke();}
+      });
+      /* etiquetas de semana */
+      c.fillStyle="rgba(247,244,236,.45)";c.font="500 15px 'IBM Plex Mono', monospace";
+      c.textAlign="center";
+      hs.forEach(function(x,i){c.fillText("S"+x.semana,sp[i][0],sy+14+sh+24)});
+      c.textAlign="left";
+    }
+    /* footer */
     c.strokeStyle="rgba(212,175,55,.3)";
     c.beginPath();c.moveTo(64,H-120);c.lineTo(W-64,H-120);c.stroke();
     c.fillStyle="rgba(247,244,236,.6)";c.font="500 19px 'IBM Plex Mono', monospace";
@@ -682,12 +790,14 @@ $("#btnHtml").addEventListener("click",function(){
     +'.r{display:grid;grid-template-columns:1fr auto;gap:3px 12px;font-size:.6rem;margin-bottom:4.2%}'
     +'.r .l{color:rgba(247,244,236,.75);letter-spacing:.08em}.r .v{text-align:right}.r .p{grid-column:2;text-align:right;color:#D4AF37;font-size:.56rem}'
     +'.bw{grid-column:1;height:7px;background:rgba(247,244,236,.09);border-radius:99px;overflow:hidden}.bw i{display:block;height:100%;background:linear-gradient(90deg,#9E7E1E,#EBD388);border-radius:99px}'
-    +'.rel{margin-top:auto;font-weight:600;font-size:.78rem;color:'+(t.retRel>=0?"#5FC08B":"#E07A5F")+'}'
+    +'.sp{margin-top:auto;padding-top:3%}.sp svg{width:100%;height:auto;display:block}.sp .spl{font-size:.5rem;letter-spacing:.2em;color:#D4AF37;margin-bottom:4px}'
+    +'.rel{margin-top:'+(t.historial&&t.historial.length>=2?'3%':'auto')+';font-weight:600;font-size:.78rem;color:'+(t.retRel>=0?"#5FC08B":"#E07A5F")+'}'
     +'.ft{display:flex;justify-content:space-between;font-size:.5rem;letter-spacing:.14em;color:rgba(247,244,236,.55);margin-top:4%}.ft b{color:#D4AF37}</style></head><body>'
     +'<div class="card"><div class="k">TORNEO PORTAFOLIO 2026 · FIG</div><div class="k2">RANKING OFICIAL · SEMANA '+wk+' · FEN INVESTMENT GROUP</div><hr>'
     +'<div class="score"><b>'+t.puntos.toFixed(2)+'</b><span>PUNTOS / 100</span></div>'
     +'<div class="pos">#'+t.posicion+'</div><div class="nm">'+esc(t.nombre)+'</div>'
     +rows
+    +(t.historial&&t.historial.length>=2?'<div class="sp"><div class="spl">TRAYECTORIA · SCORE POR SEMANA</div>'+sparkSVG(t.historial)+'</div>':'')
     +'<div class="rel">RETORNO RELATIVO VS ACWI '+esc(pct(t.retRel))+'</div>'
     +'<div class="ft"><span><b>feninvestmentgroup.com</b></span><span>#TorneoPortafolio2026</span></div></div></body></html>';
   var a=document.createElement("a");

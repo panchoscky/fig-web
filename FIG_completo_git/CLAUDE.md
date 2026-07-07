@@ -26,7 +26,10 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 ├── index.html              ← sitio principal FIG (hero, áreas, torneo resumen, historia, equipo, eventos resumen)
 ├── eventos/index.html      ← bitácora de actividades (torneos, visitas, charlas, comunidad)
 ├── fiw/index.html           ← página de FEN Investment Woman (paleta propia, editable)
-├── torneo/index.html        ← ranking oficial del Torneo Portafolio 2026
+├── torneo/index.html        ← ranking oficial del Torneo Portafolio 2026 (con trayectoria por equipo)
+├── postula/index.html       ← formulario de postulación al club
+├── generar_torneo.py        ← Excel ranking_ordenado → datos/torneo.json (mantiene historial semanal)
+├── HOJA_DE_RUTA_FIG.md      ← LISTA MAESTRA: backlog priorizado + protocolo de continuidad
 ├── datos/
 │   ├── club.json             ← personas, eventos resumen, historia, URLs del sitio principal
 │   ├── eventos.json           ← lista completa de eventos (bitácora)
@@ -56,9 +59,10 @@ explícitamente a Francisco, son la identidad visual de esa área.
 | `index.html` | ✅ Producción | Sitio principal completo |
 | `eventos/index.html` | ✅ Producción | 9 eventos reales cargados en `datos/eventos.json`, la mayoría con resúmenes marcados `[Resumen por completar]` y sin fotos aún |
 | `fiw/index.html` | ⚠️ Placeholder | Estructura y datos completos, pero **colores de marca aún no confirmados** por Delia Avilán/FIW — usa un oro rosa provisional. Sin fotos en `fotos/fiw/` todavía |
-| `torneo/index.html` | ⚠️ Modo DEMO | Muestra los 8 equipos ficticios de las Bases. **No existe `datos/torneo.json` real todavía** — ver "Pendiente" |
-| Enlaces cruzados | ❌ Sin conectar | El `index.html` principal NO enlaza aún a `eventos/`, `fiw/` ni `torneo/` — están hechas pero aisladas |
-| `generar_torneo.py` | ❌ No existe | Script que debe leer `ranking_ordenado` del Excel oficial + Excel de inscripciones (columna LinkedIn) y escribir `datos/torneo.json` |
+| `torneo/index.html` | ⚠️ Modo DEMO | 8 equipos ficticios de las Bases. **No existe `datos/torneo.json` real todavía**. Cada equipo muestra su **trayectoria** (rendimiento pasado, campo `historial`) en el overlay y en las tarjetas descargables PNG/HTML |
+| Enlaces cruzados | ✅ Conectados | `index.html` ya enlaza a `eventos/`, `fiw/`, `torneo/` y `postula/` (CTAs, footer, `CONFIG.urls` y `datos/club.json`) |
+| `generar_torneo.py` | ✅ Escrito | Lee `ranking_ordenado` + Excel de inscripciones → escribe `datos/torneo.json`, conserva el `historial` semanal y calcula `delta`. Probar con el Excel real (ajustar `ALIAS` si los encabezados no calzan). Modo `--demo` disponible |
+| `postula/index.html` | ⚠️ Falta endpoint | Formulario de postulación completo; envía a `config.postulaEndpoint` (Apps Script) de `datos/club.json` — mientras esté vacío muestra banner "en configuración" |
 | Fotos de eventos | ❌ Pendientes | Carpetas creadas en `fotos/eventos/*` pero vacías; las fotos reales están en Google Drive (ver `MAPEO_DRIVE_FIG.md`) y hay que bajarlas/subirlas manualmente (Drive es de solo lectura para IA) |
 
 ## Lo que YA existe fuera de esta carpeta (contexto crítico, no reinventar)
@@ -96,17 +100,19 @@ explícitamente a Francisco, son la identidad visual de esa área.
 
 ## Pendiente / próximos pasos conocidos
 
-1. **Escribir `generar_torneo.py`** — el bloqueador principal para sacar
-   `torneo/index.html` del modo demo. Esquema exacto en
-   `datos/torneo.json.ejemplo`.
-2. **Conectar los enlaces cruzados** en `index.html` (Eventos → `eventos/`,
-   desk FIW → `fiw/`, sección Torneo → `torneo/`).
-3. **Confirmar colores oficiales de FIW** con Delia y actualizar las 4
-   variables `--acc*` en `fiw/index.html`.
-4. **Subir fotos reales** a `fotos/eventos/*` y `fotos/fiw/` (bajarlas del
-   Drive mapeado, Francisco las sube — no hay escritura automática a Drive).
-5. Revisar `IDEAS_FIG.md` (ideas rápidas) e `IDEAS_GRAN_ESCALA_FIG.md`
-   (proyectos de pipeline/automatización) para priorizar próximos bloques.
+**La lista maestra vive en `HOJA_DE_RUTA_FIG.md`** (backlog priorizado,
+decisiones tomadas, protocolo de continuidad entre sesiones/modelos —
+leerla SIEMPRE al retomar el proyecto y actualizarla al terminar).
+Resumen de bloqueadores:
+
+1. **Endpoint de postulaciones** (Apps Script) → `config.postulaEndpoint`
+   en `datos/club.json` (Francisco debe crearlo — código listo en la hoja
+   de ruta, P0-1).
+2. **Primer `datos/torneo.json` real** con `generar_torneo.py` + Excel
+   oficial (P0-2).
+3. **Colores oficiales de FIW** con Delia → variables `--acc*` (P0-3).
+4. **URLs de `bases` y `contacto`** en `CONFIG.urls` / `club.json` (P0-4).
+5. **Fotos reales** en `fotos/eventos/*` y `fotos/fiw/` (P0-5, solo Francisco).
 
 ## Reglas duras (no romper)
 
