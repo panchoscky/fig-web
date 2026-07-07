@@ -57,7 +57,7 @@ explícitamente a Francisco, son la identidad visual de esa área.
 | `eventos/index.html` | ✅ Producción | 9 eventos reales cargados en `datos/eventos.json`, la mayoría con resúmenes marcados `[Resumen por completar]` y sin fotos aún |
 | `fiw/index.html` | ⚠️ Placeholder | Estructura y datos completos, pero **colores de marca aún no confirmados** por Delia Avilán/FIW — usa un oro rosa provisional. Sin fotos en `fotos/fiw/` todavía |
 | `torneo/index.html` | ⚠️ Modo DEMO | Muestra los 8 equipos ficticios de las Bases. **No existe `datos/torneo.json` real todavía** — ver "Pendiente" |
-| Enlaces cruzados | ❌ Sin conectar | El `index.html` principal NO enlaza aún a `eventos/`, `fiw/` ni `torneo/` — están hechas pero aisladas |
+| Enlaces cruzados | ✅ Conectados | `index.html` ya enlaza a `eventos/`, `fiw/` y `torneo/` (CTA en Eventos, CTA en desk FIW, footer y `CONFIG.urls.torneo`/`datos/club.json`) |
 | `generar_torneo.py` | ❌ No existe | Script que debe leer `ranking_ordenado` del Excel oficial + Excel de inscripciones (columna LinkedIn) y escribir `datos/torneo.json` |
 | Fotos de eventos | ❌ Pendientes | Carpetas creadas en `fotos/eventos/*` pero vacías; las fotos reales están en Google Drive (ver `MAPEO_DRIVE_FIG.md`) y hay que bajarlas/subirlas manualmente (Drive es de solo lectura para IA) |
 
@@ -99,12 +99,13 @@ explícitamente a Francisco, son la identidad visual de esa área.
 1. **Escribir `generar_torneo.py`** — el bloqueador principal para sacar
    `torneo/index.html` del modo demo. Esquema exacto en
    `datos/torneo.json.ejemplo`.
-2. **Conectar los enlaces cruzados** en `index.html` (Eventos → `eventos/`,
-   desk FIW → `fiw/`, sección Torneo → `torneo/`).
-3. **Confirmar colores oficiales de FIW** con Delia y actualizar las 4
+2. **Confirmar colores oficiales de FIW** con Delia y actualizar las 4
    variables `--acc*` en `fiw/index.html`.
-4. **Subir fotos reales** a `fotos/eventos/*` y `fotos/fiw/` (bajarlas del
+3. **Subir fotos reales** a `fotos/eventos/*` y `fotos/fiw/` (bajarlas del
    Drive mapeado, Francisco las sube — no hay escritura automática a Drive).
+4. **Completar URLs pendientes** en `CONFIG.urls` / `datos/club.json` (`bases`,
+   `postula`, `contacto` siguen en `"#"` — pedir a Francisco o revisar
+   `MAPEO_DRIVE_FIG.md`).
 5. Revisar `IDEAS_FIG.md` (ideas rápidas) e `IDEAS_GRAN_ESCALA_FIG.md`
    (proyectos de pipeline/automatización) para priorizar próximos bloques.
 

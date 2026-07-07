@@ -1,11 +1,11 @@
 {
-  "actualizado": "2026-07-06",
+  "actualizado": "2026-07-07",
   "config": {
     "urls": {
-      "torneo": "https://feninvestmentgroup.com/torneo/",
+      "torneo": "torneo/index.html",
       "bases": "#",
-      "instagram": "#",
-      "linkedin": "#",
+      "instagram": "https://www.instagram.com/fen.investment.group/",
+      "linkedin": "https://www.linkedin.com/company/fen-investment-group",
       "postula": "#",
       "contacto": "#"
     }
