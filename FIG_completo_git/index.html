@@ -210,11 +210,19 @@ body.on-light .rail-node .rn-lab{color:#A8871C;text-shadow:none}
   position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:22px;transition:opacity .45s;
 }
-#preloader .coin{width:70px;height:70px}
+#preloader .pl-lock{display:flex;align-items:center;gap:18px}
+#preloader .pl-logo{
+  width:76px;height:76px;object-fit:contain;opacity:0;transform:scale(.45);
+  transition:opacity .6s ease,transform .7s cubic-bezier(.34,1.56,.64,1);
+}
+#preloader.p1 .pl-logo{opacity:1;transform:scale(1)}
 #preloader .pl-word{
   font-family:var(--f-mono);font-size:.68rem;letter-spacing:.55em;text-transform:uppercase;
-  color:rgba(247,244,236,.7);text-indent:.55em;
+  color:rgba(247,244,236,.7);
+  max-width:0;overflow:hidden;white-space:nowrap;opacity:0;
+  transition:max-width .85s var(--ease-out),opacity .6s ease .12s;
 }
+#preloader.p2 .pl-word{max-width:420px;opacity:1}
 #preloader .pl-num{
   font-family:var(--f-mono);font-weight:600;font-size:.85rem;letter-spacing:.2em;color:var(--gold);
 }
@@ -232,7 +240,7 @@ body.on-light .rail-node .rn-lab{color:#A8871C;text-shadow:none}
 }
 .coin span{font-family:var(--f-disp);font-weight:700;color:var(--navy);letter-spacing:.02em}
 .coin::after{content:"";position:absolute;inset:5px;border-radius:50%;border:1px solid rgba(10,17,40,.3)}
-#preloader .coin span{font-size:1.3rem}
+.brand-logo{width:44px;height:44px;object-fit:contain;flex:none}
 
 /* ---------- Navegación ---------- */
 .nav{
@@ -714,8 +722,10 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
   <div class="curt l"></div>
   <div class="curt r"></div>
   <div class="pl-core">
-    <div class="coin" style="width:70px;height:70px"><span>FIG</span></div>
-    <div class="pl-word">FEN Investment Group</div>
+    <div class="pl-lock">
+      <img class="pl-logo" src="logos/fig-oro.png" alt="">
+      <div class="pl-word">FEN Investment Group</div>
+    </div>
     <div class="pl-num" id="plNum">00</div>
   </div>
 </div>
@@ -724,7 +734,7 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
 <nav class="nav" id="nav">
   <div class="wrap">
     <a href="#inicio" class="brand" aria-label="FEN Investment Group — Inicio">
-      <div class="coin"><span>FIG</span></div>
+      <img class="brand-logo" src="logos/fig-oro.png" alt="FIG">
       <div>
         <div class="brand-name">FEN Investment Group</div>
         <span class="brand-sub">Universidad de Chile</span>
@@ -1208,7 +1218,7 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
     <div class="f-grid">
       <div class="f-brand">
         <a href="#inicio" class="brand">
-          <div class="coin"><span>FIG</span></div>
+          <img class="brand-logo" src="logos/fig-oro.png" alt="FIG">
           <div>
             <div class="brand-name">FEN Investment Group</div>
             <span class="brand-sub">Forjando la Élite del Mañana</span>
@@ -1898,16 +1908,19 @@ function openCurtains(){
 }
 if(RM){pre.classList.add("open","gone");boot();}
 else{
+  /* secuencia: logo solo al centro → se desliza y aparece el nombre → telón */
+  setTimeout(function(){pre.classList.add("p1")},150);
+  setTimeout(function(){pre.classList.add("p2")},900);
   var pv=0,t0=null;
   (function count(t){
     if(!t0)t0=t;
-    var p=Math.min((t-t0)/950,1);
+    var p=Math.min((t-t0)/1750,1);
     var v=Math.round(100*(1-Math.pow(1-p,2)));
     plNum.textContent=(v<10?"0"+v:""+v);
     if(p<1)requestAnimationFrame(count);
     else openCurtains();
   })(performance.now());
-  setTimeout(function(){if(!booted)openCurtains()},2600);
+  setTimeout(function(){if(!booted)openCurtains()},3400);
 }
 
 /* ---------------- Resize orquestado ---------------- */
