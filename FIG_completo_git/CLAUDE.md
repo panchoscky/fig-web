@@ -30,6 +30,7 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 ├── postula/index.html       ← formulario de postulación al club
 ├── generar_torneo.py        ← Excel ranking_ordenado → datos/torneo.json (mantiene historial semanal)
 ├── HOJA_DE_RUTA_FIG.md      ← LISTA MAESTRA: backlog priorizado + protocolo de continuidad
+├── logos/                   ← logos oficiales bajados del Drive (FIG oro/blanco/navy, Itaú, BlackRock)
 ├── datos/
 │   ├── club.json             ← personas, eventos resumen, historia, URLs del sitio principal
 │   ├── eventos.json           ← lista completa de eventos (bitácora)
@@ -59,7 +60,7 @@ explícitamente a Francisco, son la identidad visual de esa área.
 | `index.html` | ✅ Producción | Sitio principal completo |
 | `eventos/index.html` | ✅ Producción | 9 eventos reales cargados en `datos/eventos.json`, la mayoría con resúmenes marcados `[Resumen por completar]` y sin fotos aún |
 | `fiw/index.html` | ⚠️ Placeholder | Estructura y datos completos, pero **colores de marca aún no confirmados** por Delia Avilán/FIW — usa un oro rosa provisional. Sin fotos en `fotos/fiw/` todavía |
-| `torneo/index.html` | ⚠️ Modo DEMO | 8 equipos ficticios de las Bases. **No existe `datos/torneo.json` real todavía**. Cada equipo muestra su **trayectoria** (rendimiento pasado, campo `historial`) en el overlay y en las tarjetas descargables PNG/HTML |
+| `torneo/index.html` | ⚠️ Modo DEMO | 8 equipos ficticios. **Falta `datos/torneo.json` real**. Overlay con gráfico de 3 líneas (retorno equipo/promedio/ACWI). Tarjetas: Feed PNG, LinkedIn PNG, HTML y **videos animados** Feed/Story con intro (logo→nombre→colaboradores→ficha). Logos de colaboradores en hero y tarjetas |
 | Enlaces cruzados | ✅ Conectados | `index.html` ya enlaza a `eventos/`, `fiw/`, `torneo/` y `postula/` (CTAs, footer, `CONFIG.urls` y `datos/club.json`) |
 | `generar_torneo.py` | ✅ Escrito | Lee `ranking_ordenado` + Excel de inscripciones → escribe `datos/torneo.json`, conserva el `historial` semanal y calcula `delta`. Probar con el Excel real (ajustar `ALIAS` si los encabezados no calzan). Modo `--demo` disponible |
 | `postula/index.html` | ⚠️ Falta endpoint | Formulario de postulación completo; envía a `config.postulaEndpoint` (Apps Script) de `datos/club.json` — mientras esté vacío muestra banner "en configuración" |
