@@ -30,6 +30,7 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 ├── postula/index.html       ← formulario de postulación al club
 ├── generar_torneo.py        ← Excel ranking_ordenado → datos/torneo.json (mantiene historial semanal)
 ├── HOJA_DE_RUTA_FIG.md      ← LISTA MAESTRA: backlog priorizado + protocolo de continuidad
+├── MAPA_CONTENIDO_FIG.html  ← guía visual para Francisco: dónde subir fotos y editar texto de cada página (abrir con doble clic)
 ├── logos/                   ← logos oficiales bajados del Drive (FIG oro/blanco/navy, Itaú, BlackRock)
 ├── datos/
 │   ├── club.json             ← personas, eventos resumen, historia, URLs del sitio principal
