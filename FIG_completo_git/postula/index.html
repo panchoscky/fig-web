@@ -48,6 +48,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .btn[disabled]{opacity:.45;pointer-events:none}
 .coin{border-radius:50%;flex:none;position:relative;background:radial-gradient(circle at 34% 30%,var(--gold-light),var(--gold) 58%,var(--gold-deep));display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px -6px rgba(212,175,55,.5),inset 0 0 0 2px rgba(10,17,40,.22)}
 .coin span{font-family:var(--f-disp);font-weight:700;color:var(--navy)}
+.brand-logo{width:40px;height:40px;object-fit:contain;flex:none}
 .coin::after{content:"";position:absolute;inset:5px;border-radius:50%;border:1px solid rgba(10,17,40,.3)}
 
 .nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 0;transition:padding .4s var(--ease),background .4s,border-color .4s;border-bottom:1px solid transparent}
@@ -115,7 +116,7 @@ footer a:hover{color:var(--gold)}
 <nav class="nav" id="nav">
   <div class="wrap">
     <a href="../index.html" class="brand" aria-label="FEN Investment Group — Inicio">
-      <div class="coin"><span>FIG</span></div>
+      <img class="brand-logo" src="../logos/fig-oro.png" alt="FIG">
       <div><div class="brand-name">FEN Investment Group</div><span class="brand-sub">Postulación</span></div>
     </a>
     <ul class="nav__links">

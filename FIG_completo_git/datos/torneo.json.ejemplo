@@ -2,6 +2,11 @@
   "_como_generar": "Este archivo lo produce el pipeline semanal (Claude Code): tras build_outputs.py, un script generar_torneo.py lee la hoja ranking_ordenado del Excel oficial + config/equipos.csv (+ columna LinkedIn del Excel de inscripciones) y escribe datos/torneo.json con este esquema. Al existir el archivo, la página abandona el modo DEMO automáticamente. RENOMBRAR este ejemplo a torneo.json cuando tenga datos reales.",
   "semana": 8,
   "corte": "03 · JUL · 2026",
+  "acwi": [
+    {"semana": 6, "ret": 0.046},
+    {"semana": 7, "ret": 0.058},
+    {"semana": 8, "ret": 0.078}
+  ],
   "equipos": [
     {
       "id": "hargous-co",
@@ -17,9 +22,9 @@
         {"nombre": "Nombre Apellido 2", "linkedin": ""}
       ],
       "historial": [
-        {"semana": 6, "puntos": 79.10, "posicion": 2},
-        {"semana": 7, "puntos": 83.55, "posicion": 2},
-        {"semana": 8, "puntos": 87.42, "posicion": 1}
+        {"semana": 6, "puntos": 79.10, "posicion": 2, "ret": 0.098},
+        {"semana": 7, "puntos": 83.55, "posicion": 2, "ret": 0.121},
+        {"semana": 8, "puntos": 87.42, "posicion": 1, "ret": 0.142}
       ]
     }
   ],
@@ -30,6 +35,8 @@
     "puntosDetalle": "puntos por métrica según percentil continuo (máx 30/25/15/15/15)",
     "retRel": "retorno relativo vs ACWI como decimal",
     "miembros.linkedin": "URL completa o cadena vacía si no tiene",
-    "historial": "rendimiento pasado del equipo, una entrada por semana publicada (incluida la actual). generar_torneo.py lo mantiene solo: lee el torneo.json anterior, conserva su historial y agrega la semana nueva. Con 2+ entradas la página dibuja la trayectoria (overlay del equipo + tarjetas PNG/HTML descargables)."
+    "historial": "rendimiento pasado del equipo, una entrada por semana publicada (incluida la actual). generar_torneo.py lo mantiene solo: lee el torneo.json anterior, conserva su historial y agrega la semana nueva. Con 2+ entradas la página dibuja la trayectoria (overlay del equipo + tarjetas PNG/HTML descargables).",
+    "historial.ret": "retorno acumulado since-inception del equipo esa semana, decimal (0.142 = 14.2%). Columna ret_acum del Excel. Permite el gráfico de 3 líneas (equipo vs ACWI vs promedio de equipos)",
+    "acwi": "retorno acumulado del benchmark iShares MSCI ACWI por semana (decimal). generar_torneo.py lo mantiene: conserva la serie anterior y agrega la semana nueva con --acwi <decimal>. El promedio de equipos NO se guarda: la página lo calcula sola desde los historiales"
   }
 }

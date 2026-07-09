@@ -61,6 +61,14 @@ body.cursor-on #cursorRing.grow{width:58px;height:58px;border-color:var(--gold)}
 /* Preloader ligero */
 #preloader{position:fixed;inset:0;background:var(--navy-deep);z-index:2600;display:flex;align-items:center;justify-content:center;transition:opacity .6s var(--ease),visibility .6s}
 #preloader.done{opacity:0;visibility:hidden}
+#preloader .in-lock{display:flex;align-items:center;gap:16px}
+#preloader .in-logo{width:66px;height:66px;object-fit:contain;opacity:0;transform:scale(.45);transition:opacity .6s ease,transform .7s cubic-bezier(.34,1.56,.64,1)}
+#preloader.p1 .in-logo{opacity:1;transform:scale(1)}
+#preloader .in-text{max-width:0;overflow:hidden;white-space:nowrap;opacity:0;transition:max-width .85s var(--ease),opacity .6s ease .12s}
+#preloader.p2 .in-text{max-width:360px;opacity:1}
+#preloader .in-text b{display:block;font-family:var(--f-disp);font-weight:600;font-size:1.2rem;color:var(--ivory);line-height:1.2}
+#preloader .in-text span{display:block;font-family:var(--f-mono);font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-top:5px}
+.brand-logo{width:40px;height:40px;object-fit:contain;flex:none}
 .coin{border-radius:50%;flex:none;position:relative;background:radial-gradient(circle at 34% 30%,var(--gold-light),var(--gold) 58%,var(--gold-deep));display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px -6px rgba(212,175,55,.5),inset 0 0 0 2px rgba(10,17,40,.22)}
 .coin span{font-family:var(--f-disp);font-weight:700;color:var(--navy)}
 .coin::after{content:"";position:absolute;inset:5px;border-radius:50%;border:1px solid rgba(10,17,40,.3)}
@@ -203,12 +211,12 @@ footer a:hover{color:var(--gold)}
 <div id="cursorDot" aria-hidden="true"></div>
 <div id="cursorRing" aria-hidden="true"></div>
 <div id="scrollbar"></div>
-<div id="preloader"><div class="coin" style="width:64px;height:64px"><span style="font-size:1.15rem">FIG</span></div></div>
+<div id="preloader"><div class="in-lock"><img class="in-logo" src="../logos/fig-oro.png" alt=""><div class="in-text"><b>FEN Investment Group</b><span>Eventos</span></div></div></div>
 
 <nav class="nav" id="nav">
   <div class="wrap">
     <a href="../index.html" class="brand" aria-label="FEN Investment Group — Inicio">
-      <div class="coin"><span>FIG</span></div>
+      <img class="brand-logo" src="../logos/fig-oro.png" alt="FIG">
       <div><div class="brand-name">FEN Investment Group</div><span class="brand-sub">Eventos</span></div>
     </a>
     <ul class="nav__links">
@@ -562,7 +570,18 @@ function openFromHash(){
 /* ---------------- Arranque ---------------- */
 renderGrid();
 observeReveals(document);
-setTimeout(function(){$("#preloader").classList.add("done");openFromHash();},RM?0:500);
+(function(){
+  var pre=$("#preloader"),seen=false;
+  try{seen=!!sessionStorage.getItem("figIntro:eventos")}catch(e){}
+  var quick=RM||seen;
+  if(quick){pre.classList.add("p1","p2");}
+  else{
+    setTimeout(function(){pre.classList.add("p1")},150);
+    setTimeout(function(){pre.classList.add("p2")},900);
+    try{sessionStorage.setItem("figIntro:eventos","1")}catch(e){}
+  }
+  setTimeout(function(){pre.classList.add("done");openFromHash();},RM?0:(quick?400:2400));
+})();
 })();
 </script>
 </body>
