@@ -438,40 +438,43 @@ function pct(v,d){return (v>=0?"+":"")+(v*100).toFixed(d==null?2:d)+"%"}
    ../datos/torneo.json con este MISMO esquema y la página lo usa sola.
    miembros[]: {nombre, linkedin} — desde el Excel de inscripciones.
    ========================================================================== */
-function H(p,q){return p.map(function(v,i){return {semana:i+1,puntos:v,posicion:q[i]}})}
-var DATA={demo:true,semana:null,corte:"—",equipos:[
+function H(p,q,r){return p.map(function(v,i){return {semana:i+1,puntos:v,posicion:q[i],ret:r?r[i]:null}})}
+/* acwi: retorno acumulado del benchmark por semana (decimal) — lo publica generar_torneo.py */
+var DATA={demo:true,semana:null,corte:"—",
+acwi:[{semana:1,ret:.005},{semana:2,ret:.014},{semana:3,ret:.018},{semana:4,ret:.025},{semana:5,ret:.034},{semana:6,ret:.046},{semana:7,ret:.058},{semana:8,ret:.078}],
+equipos:[
  {id:"compass",nombre:"Compass Advisors",posicion:1,puntos:100.00,retRel:0.078,delta:0,
   metricas:{ir:0.95,exc:0.078,sharpe:1.61,var95:-0.0105,mdd:0.048},
   puntosDetalle:{ir:30.00,exc:25.00,sharpe:15.00,var95:15.00,mdd:15.00},miembros:[],
-  historial:H([61.4,68.2,74.9,80.6,86.1,92.0,96.7,100.00],[3,2,2,1,1,1,1,1])},
+  historial:H([61.4,68.2,74.9,80.6,86.1,92.0,96.7,100.00],[3,2,2,1,1,1,1,1],[.012,.028,.045,.062,.083,.105,.128,.156])},
  {id:"alpha",nombre:"Alpha Capital",posicion:2,puntos:84.99,retRel:0.064,delta:1,
   metricas:{ir:0.82,exc:0.064,sharpe:1.45,var95:-0.012,mdd:0.065},
   puntosDetalle:{ir:25.30,exc:20.00,sharpe:12.98,var95:13.59,mdd:13.11},miembros:[],
-  historial:H([70.2,72.8,71.1,76.0,78.6,80.9,82.4,84.99],[1,1,3,2,2,2,3,2])},
+  historial:H([70.2,72.8,71.1,76.0,78.6,80.9,82.4,84.99],[1,1,3,2,2,2,3,2],[.010,.026,.021,.048,.071,.095,.118,.142])},
  {id:"bullbear",nombre:"Bull & Bear",posicion:3,puntos:70.50,retRel:0.051,delta:-1,
   metricas:{ir:0.71,exc:0.051,sharpe:1.32,var95:-0.0145,mdd:0.082},
   puntosDetalle:{ir:21.33,exc:15.36,sharpe:11.34,var95:11.25,mdd:11.22},miembros:[],
-  historial:H([66.3,70.5,72.9,69.4,71.2,73.4,72.5,70.50],[2,3,1,3,3,3,2,3])},
+  historial:H([66.3,70.5,72.9,69.4,71.2,73.4,72.5,70.50],[2,3,1,3,3,3,2,3],[.008,.022,.035,.041,.062,.085,.108,.129])},
  {id:"fenix",nombre:"FENIX Group",posicion:4,puntos:66.26,retRel:0.049,delta:0,
   metricas:{ir:0.68,exc:0.049,sharpe:1.28,var95:-0.0155,mdd:0.091},
   puntosDetalle:{ir:20.24,exc:14.64,sharpe:10.84,var95:10.31,mdd:10.22},miembros:[],
-  historial:H([48.7,55.3,60.1,63.8,61.9,64.5,65.7,66.26],[6,5,4,4,5,4,4,4])},
+  historial:H([48.7,55.3,60.1,63.8,61.9,64.5,65.7,66.26],[6,5,4,4,5,4,4,4],[.006,.018,.032,.050,.066,.088,.107,.127])},
  {id:"horizon",nombre:"Horizon Capital",posicion:5,puntos:55.92,retRel:0.042,delta:2,
   metricas:{ir:0.58,exc:0.042,sharpe:1.18,var95:-0.017,mdd:0.105},
   puntosDetalle:{ir:16.63,exc:12.14,sharpe:9.58,var95:8.91,mdd:8.67},miembros:[],
-  historial:H([40.1,42.6,47.3,45.9,49.8,51.2,52.7,55.92],[7,7,6,6,6,6,7,5])},
+  historial:H([40.1,42.6,47.3,45.9,49.8,51.2,52.7,55.92],[7,7,6,6,6,6,7,5],[.004,.015,.028,.042,.060,.081,.100,.120])},
  {id:"delta",nombre:"Delta Global",posicion:6,puntos:44.24,retRel:0.032,delta:-1,
   metricas:{ir:0.45,exc:0.032,sharpe:1.10,var95:-0.0185,mdd:0.114},
   puntosDetalle:{ir:11.93,exc:8.57,sharpe:8.57,var95:7.50,mdd:7.67},miembros:[],
-  historial:H([53.6,50.2,52.8,49.5,47.1,46.3,45.9,44.24],[4,6,5,5,4,5,5,6])},
+  historial:H([53.6,50.2,52.8,49.5,47.1,46.3,45.9,44.24],[4,6,5,5,4,5,5,6],[.009,.020,.030,.044,.058,.077,.094,.110])},
  {id:"equinox",nombre:"Equinox Wealth",posicion:7,puntos:25.94,retRel:0.021,delta:0,
   metricas:{ir:0.28,exc:0.021,sharpe:0.88,var95:-0.021,mdd:0.142},
   puntosDetalle:{ir:5.78,exc:4.64,sharpe:5.80,var95:5.16,mdd:4.56},miembros:[],
-  historial:H([44.8,38.5,34.2,30.7,32.4,28.9,27.1,25.94],[5,4,7,7,7,7,6,7])},
+  historial:H([44.8,38.5,34.2,30.7,32.4,28.9,27.1,25.94],[5,4,7,7,7,7,6,7],[.011,.019,.024,.035,.048,.063,.080,.099])},
  {id:"granite",nombre:"Granite Partners",posicion:8,puntos:0.00,retRel:0.008,delta:-1,
   metricas:{ir:0.12,exc:0.008,sharpe:0.42,var95:-0.0265,mdd:0.183},
   puntosDetalle:{ir:0,exc:0,sharpe:0,var95:0,mdd:0},miembros:[],
-  historial:H([12.3,9.8,7.4,5.1,6.2,3.8,1.5,0.00],[8,8,8,8,8,8,8,8])}
+  historial:H([12.3,9.8,7.4,5.1,6.2,3.8,1.5,0.00],[8,8,8,8,8,8,8,8],[.003,.010,.016,.024,.037,.052,.068,.086])}
 ]};
 
 var PESOS={ir:30,exc:25,sharpe:15,var95:15,mdd:15};

@@ -55,6 +55,7 @@ ALIAS = {
     "pts_sharpe": ["pts_sharpe", "puntos_sharpe", "p_sharpe"],
     "pts_var95":  ["pts_var", "pts_var95", "puntos_var", "p_var"],
     "pts_mdd":    ["pts_mdd", "puntos_mdd", "p_mdd"],
+    "ret":        ["ret_acum", "retorno_acum", "ret_total", "retorno_acumulado"],
 }
 
 # columnas del Excel de inscripciones
@@ -150,6 +151,7 @@ def leer_ranking(ruta):
                 "mdd": num(val("pts_mdd")) or 0,
             },
             "miembros": [],
+            "_ret": num(val("ret")),  # retorno acumulado del equipo (para historial)
         })
     return equipos
 
@@ -195,7 +197,8 @@ def integrar_historial(equipos, anterior, semana):
         prev = previos.get(eq["id"])
         hist = list(prev.get("historial", [])) if prev else []
         hist = [h for h in hist if h.get("semana") != semana]  # re-ejecución de la misma semana
-        hist.append({"semana": semana, "puntos": eq["puntos"], "posicion": eq["posicion"]})
+        hist.append({"semana": semana, "puntos": eq["puntos"], "posicion": eq["posicion"],
+                     "ret": eq.pop("_ret", None)})
         hist.sort(key=lambda h: h["semana"])
         eq["historial"] = hist
         if prev and len(hist) >= 2:
@@ -215,7 +218,8 @@ def demo():
         base = 100 - i * 12.5
         hist = [{"semana": s + 1,
                  "puntos": round(max(0, base - (7 - s) * 4 + random.uniform(-3, 3)), 2),
-                 "posicion": i + 1} for s in range(8)]
+                 "posicion": i + 1,
+                 "ret": round(.02 * (s + 1) * (1 - i * .06), 4)} for s in range(8)]
         equipos.append({
             "id": slug(n), "nombre": n, "posicion": i + 1,
             "puntos": hist[-1]["puntos"], "retRel": round(0.08 - i * 0.01, 4), "delta": 0,
@@ -227,7 +231,8 @@ def demo():
                               "mdd": round(15 - i * 1.9, 2)},
             "miembros": [], "historial": hist,
         })
-    return {"semana": 8, "corte": "03 · JUL · 2026", "equipos": equipos}
+    acwi = [{"semana": s + 1, "ret": round(.01 * (s + 1) * .97, 4)} for s in range(8)]
+    return {"semana": 8, "corte": "03 · JUL · 2026", "acwi": acwi, "equipos": equipos}
 
 
 def main():
@@ -236,6 +241,7 @@ def main():
     ap.add_argument("--inscripciones", help="Excel de inscripciones (columna LinkedIn)")
     ap.add_argument("--semana", type=int, help="número de semana del corte (1-25)")
     ap.add_argument("--corte", help='fecha del corte, ej: "03 · JUL · 2026"')
+    ap.add_argument("--acwi", type=float, help="retorno acumulado del ACWI esta semana, decimal (ej: 0.078)")
     ap.add_argument("--demo", action="store_true", help="escribe un torneo.json ficticio de prueba")
     ap.add_argument("--salida", default=str(SALIDA), help=f"ruta de salida (default {SALIDA})")
     args = ap.parse_args()
@@ -251,8 +257,14 @@ def main():
             insc = leer_inscripciones(args.inscripciones)
             for eq in equipos:
                 eq["miembros"] = insc.get(eq["id"], [])
-        integrar_historial(equipos, cargar_anterior(), args.semana)
-        datos = {"semana": args.semana, "corte": args.corte, "equipos": equipos}
+        anterior = cargar_anterior()
+        integrar_historial(equipos, anterior, args.semana)
+        acwi = list((anterior or {}).get("acwi", []))
+        acwi = [a for a in acwi if a.get("semana") != args.semana]
+        if args.acwi is not None:
+            acwi.append({"semana": args.semana, "ret": args.acwi})
+        acwi.sort(key=lambda a: a["semana"])
+        datos = {"semana": args.semana, "corte": args.corte, "acwi": acwi, "equipos": equipos}
 
     salida.parent.mkdir(parents=True, exist_ok=True)
     salida.write_text(json.dumps(datos, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
