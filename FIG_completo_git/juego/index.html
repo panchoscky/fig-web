@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Rally del Toro — FIG</title>
+<meta name="description" content="El Rally del Toro: el juego de espera de FEN Investment Group. Corre, haz crecer tu portafolio y decide cuándo vender — un inversionista debe saber cuándo salir.">
+<meta name="theme-color" content="#0A1128">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230A1128'/%3E%3Ccircle cx='50' cy='50' r='34' fill='%23D4AF37'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================================
+   FIG · EL RALLY DEL TORO — juego de espera.
+   Runner estilo "dinosaurio de Chrome" con el toro de FIG: el portafolio
+   crece mientras corres y el multiplicador sube, pero los obstáculos
+   (velas rojas, burbujas) se aceleran. Puedes VENDER en cualquier momento
+   y asegurar tu resultado en el ranking… o seguir y arriesgarlo todo.
+   Moraleja del club: un inversionista debe saber cuándo salir.
+   Ranking: localStorage (por navegador). Sin dependencias, sin build.
+   ============================================================================ */
+:root{
+  --navy-deep:#060B1C; --navy:#0A1128; --navy-panel:#0F1934;
+  --gold:#D4AF37; --gold-light:#EBD388; --gold-deep:#9E7E1E;
+  --gold-dim:rgba(212,175,55,.32); --gold-faint:rgba(212,175,55,.11);
+  --ivory:#F7F4EC; --line-d:rgba(212,175,55,.17);
+  --up:#5FC08B; --down:#E07A5F;
+  --f-disp:"Playfair Display",Georgia,serif;
+  --f-body:"Inter",-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono","SF Mono",monospace;
+  --wrap:980px; --ease:cubic-bezier(.22,.61,.21,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--navy);color:var(--ivory);font-family:var(--f-body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--gold);color:var(--navy)}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px;position:relative;z-index:2}
+.kicker{font-family:var(--f-mono);font-size:.72rem;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:14px}
+.kicker::before{content:"";width:34px;height:1px;background:var(--gold);opacity:.7;flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:600;font-size:.9rem;padding:13px 26px;border-radius:2px;transition:transform .3s var(--ease),box-shadow .3s,background .3s,color .3s,border-color .3s;white-space:nowrap}
+.btn--gold{background:var(--gold);color:var(--navy)}
+.btn--gold:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 16px 38px -12px rgba(212,175,55,.55)}
+.btn--ghost{border:1px solid var(--gold-dim);color:var(--ivory)}
+.btn--ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+.btn--sell{background:var(--up);color:var(--navy);font-weight:700}
+.btn--sell:hover{transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(95,192,139,.5)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.brand-logo{width:40px;height:40px;object-fit:contain;flex:none}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 0;background:rgba(6,11,28,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line-d)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:1180px}
+.brand{display:flex;align-items:center;gap:13px}
+.brand-name{font-family:var(--f-disp);font-weight:600;font-size:1.02rem;line-height:1.15}
+.brand-sub{font-family:var(--f-mono);font-size:.55rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);display:block;margin-top:2px}
+.nav a.back{font-size:.84rem;font-weight:500;color:rgba(247,244,236,.82)}
+.nav a.back:hover{color:var(--gold)}
+
+.hero{padding:clamp(7.5rem,13vh,9.5rem) 0 1.6rem;position:relative;
+  background:radial-gradient(1100px 520px at 85% -10%,rgba(212,175,55,.1),transparent 60%),var(--navy)}
+.hero h1{font-family:var(--f-disp);font-weight:600;font-size:clamp(2rem,4.6vw,3.2rem);line-height:1.08;margin:16px 0 12px}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero p{max-width:62ch;color:rgba(247,244,236,.75);font-size:.98rem}
+
+/* ---------- tablero ---------- */
+.game-sec{padding:1.6rem 0 4rem}
+.hud{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:14px;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.hud .stat{border:1px solid var(--line-d);border-radius:8px;background:rgba(15,25,52,.6);padding:9px 16px;font-size:.78rem;letter-spacing:.06em}
+.hud .stat b{color:var(--gold);font-weight:600}
+.hud .stat.up b{color:var(--up)}
+.hud .spacer{flex:1}
+#btnSell{display:none}
+#btnSell.on{display:inline-flex}
+
+.stage{position:relative;border:1px solid var(--line-d);border-radius:12px;background:linear-gradient(170deg,#0D1531,var(--navy-deep));overflow:hidden}
+#cv{display:block;width:100%;height:auto;touch-action:manipulation}
+.overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;background:rgba(6,11,28,.78);backdrop-filter:blur(4px);padding:24px;transition:opacity .35s var(--ease),visibility .35s}
+.overlay.off{opacity:0;visibility:hidden;pointer-events:none}
+.overlay h2{font-family:var(--f-disp);font-weight:600;font-size:clamp(1.4rem,3.4vw,2.1rem)}
+.overlay h2 em{font-style:italic;color:var(--gold)}
+.overlay h2 em.red{color:var(--down)}
+.overlay p{color:rgba(247,244,236,.75);max-width:52ch;font-size:.92rem}
+.overlay .big{font-family:var(--f-mono);font-weight:600;font-size:clamp(1.6rem,4.5vw,2.6rem);color:var(--gold)}
+.overlay .big.red{color:var(--down);text-decoration:line-through;text-decoration-thickness:3px}
+.overlay .keys{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,244,236,.5);line-height:2.1}
+.overlay .keys b{color:var(--gold);border:1px solid var(--gold-dim);border-radius:5px;padding:2px 9px;letter-spacing:.06em}
+.overlay .keys b.green{color:var(--up);border-color:rgba(95,192,139,.4)}
+.name-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.name-row input{background:rgba(247,244,236,.05);border:1px solid var(--line-d);border-radius:8px;padding:12px 16px;color:var(--ivory);font-family:var(--f-mono);font-size:.9rem;width:min(280px,70vw);text-align:center}
+.name-row input:focus{outline:none;border-color:var(--gold)}
+
+/* ---------- ranking ---------- */
+.rank-sec{padding:0 0 5rem}
+.rank-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.rank-head h3{font-family:var(--f-disp);font-weight:600;font-size:1.3rem}
+.rank-head span{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(247,244,236,.45)}
+.rank{border:1px solid var(--line-d);border-radius:12px;overflow:hidden;background:rgba(15,25,52,.4)}
+.rank-row{display:grid;grid-template-columns:56px 1fr 150px 120px;gap:12px;align-items:center;padding:12px 20px;border-bottom:1px solid rgba(212,175,55,.08);font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:.82rem}
+.rank-row:last-child{border-bottom:none}
+.rank-row.head{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(247,244,236,.45);background:rgba(15,25,52,.6)}
+.rank-row .pos{color:var(--gold);font-weight:600}
+.rank-row .val{text-align:right;color:var(--gold)}
+.rank-row .fecha{text-align:right;color:rgba(247,244,236,.45);font-size:.7rem}
+.rank-empty{padding:34px 20px;text-align:center;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em;color:rgba(247,244,236,.5)}
+.moral{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,244,236,.42);margin-top:18px;line-height:2}
+.moral b{color:var(--gold)}
+
+footer{background:var(--navy-deep);padding:30px 0;border-top:1px solid var(--line-d)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--f-mono);font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,244,236,.45);max-width:1180px}
+footer a{color:rgba(247,244,236,.65)}
+footer a:hover{color:var(--gold)}
+@media (max-width:640px){
+  .rank-row{grid-template-columns:44px 1fr 110px;padding:12px 14px}
+  .rank-row .fecha{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="../index.html" class="brand" aria-label="FEN Investment Group — Inicio">
+      <img class="brand-logo" src="../logos/fig-oro.png" alt="FIG">
+      <div><div class="brand-name">El Rally del Toro</div><span class="brand-sub">Sala de espera · FIG</span></div>
+    </a>
+    <a href="../index.html" class="back">← Volver a FIG</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Mientras esperas…</div>
+    <h1>Corre. Acumula. Y sobre todo: <em>sabe cuándo salir.</em></h1>
+    <p>Tu portafolio crece mientras el toro corre y el multiplicador sube — pero el mercado se acelera y las velas rojas no perdonan. Puedes <b style="color:var(--up)">VENDER</b> en cualquier momento y asegurar tu lugar en el ranking, o seguir por más y arriesgarte a perderlo todo. Como en los mercados de verdad.</p>
+  </div>
+</header>
+
+<section class="game-sec">
+  <div class="wrap">
+    <div class="hud">
+      <span class="stat">PORTAFOLIO <b id="hVal">USD 10.000</b></span>
+      <span class="stat up">MULTIPLICADOR <b id="hMult">×1.0</b></span>
+      <span class="stat">RÉCORD <b id="hBest">—</b></span>
+      <span class="spacer"></span>
+      <button class="btn btn--sell" id="btnSell">VENDER Y ASEGURAR (S)</button>
+    </div>
+
+    <div class="stage">
+      <canvas id="cv" width="960" height="320" aria-label="El Rally del Toro — juego"></canvas>
+
+      <!-- portada -->
+      <div class="overlay" id="ovStart">
+        <h2>El Rally <em>del Toro</em></h2>
+        <p>Salta las velas rojas y esquiva las burbujas. Tu portafolio parte en USD 10.000 y crece más rápido mientras más aguantes… pero un golpe te liquida y pierdes <b>todo lo no vendido</b>.</p>
+        <div class="keys"><b>ESPACIO</b> o <b>TAP</b> saltar &nbsp;·&nbsp; <b class="green">S</b> vender y asegurar</div>
+        <button class="btn btn--gold" id="btnPlay">Entrar al mercado →</button>
+      </div>
+
+      <!-- venta -->
+      <div class="overlay off" id="ovSell">
+        <h2>Saliste <em>a tiempo.</em></h2>
+        <div class="big" id="sellVal">USD 0</div>
+        <p id="sellMsg">Aseguraste tus ganancias. Deja tu nombre para el ranking:</p>
+        <div class="name-row">
+          <input id="inpName" type="text" maxlength="24" placeholder="Tu nombre" autocomplete="off">
+          <button class="btn btn--gold" id="btnSave">Guardar en el ranking</button>
+        </div>
+        <button class="btn btn--ghost" id="btnAgain1">Otra rueda →</button>
+      </div>
+
+      <!-- crash -->
+      <div class="overlay off" id="ovCrash">
+        <h2>Te <em class="red">liquidaste.</em></h2>
+        <div class="big red" id="crashVal">USD 0</div>
+        <p>Eso tenías en pantalla — y no vendiste. El mercado no espera al que no sabe salir: la ganancia solo es tuya cuando la aseguras.</p>
+        <button class="btn btn--gold" id="btnAgain2">Volver al mercado →</button>
+      </div>
+    </div>
+
+    <p class="moral">FILOSOFÍA FIG · <b>"LA GANANCIA NO REALIZADA ES SOLO UNA OPINIÓN DEL MERCADO"</b> · SALTA CON ESPACIO / TAP · VENDE CON S O EL BOTÓN VERDE</p>
+  </div>
+</section>
+
+<section class="rank-sec">
+  <div class="wrap">
+    <div class="rank-head">
+      <h3>Ranking de este navegador</h3>
+      <span>SOLO CUENTAN LAS GANANCIAS VENDIDAS</span>
+    </div>
+    <div class="rank">
+      <div class="rank-row head"><span>POS</span><span>INVERSIONISTA</span><span style="text-align:right">PORTAFOLIO</span><span style="text-align:right">FECHA</span></div>
+      <div id="rankBody"><div class="rank-empty">AÚN NADIE HA VENDIDO A TIEMPO · SÉ EL PRIMERO</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 FEN Investment Group · El Rally del Toro</span>
+    <a href="../index.html">← Volver a FIG</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+document.documentElement.classList.remove("no-js");
+var RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function $(s,r){return (r||document).querySelector(s)}
+function fmt(v){return "USD "+Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g,".")}
+function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+
+/* ---------------- estado ---------------- */
+var cv=$("#cv"),c=cv.getContext("2d");
+var W=cv.width,H=cv.height,GROUND=H-52;
+var running=false,over=false,sold=false;
+var valor=10000,mult=1,speed=6,t0=0,elapsed=0,lastSpawn=0;
+var toro={x:96,y:GROUND,vy:0,w:58,h:58,jumping:false};
+var obs=[],chartPts=[],chartSeed=GROUND-120;
+var logo=new Image();logo.src="../logos/fig-oro.png";
+
+/* ---------------- ranking (localStorage) ---------------- */
+var LS_KEY="figRallyScores";
+function getScores(){
+  try{return JSON.parse(localStorage.getItem(LS_KEY)||"[]")}catch(e){return []}
+}
+function saveScore(nombre,v){
+  var s=getScores();
+  s.push({n:nombre,v:Math.round(v),f:new Date().toISOString().slice(0,10)});
+  s.sort(function(a,b){return b.v-a.v});
+  s=s.slice(0,10);
+  try{localStorage.setItem(LS_KEY,JSON.stringify(s))}catch(e){}
+  renderRank();
+}
+function renderRank(){
+  var s=getScores(),body=$("#rankBody");
+  $("#hBest").textContent=s.length?fmt(s[0].v):"—";
+  if(!s.length){body.innerHTML='<div class="rank-empty">AÚN NADIE HA VENDIDO A TIEMPO · SÉ EL PRIMERO</div>';return;}
+  body.innerHTML=s.map(function(r,i){
+    return '<div class="rank-row"><span class="pos">'+(i+1)+'</span><span>'+esc(r.n)+'</span>'
+      +'<span class="val">'+fmt(r.v)+'</span><span class="fecha">'+esc(r.f)+'</span></div>';
+  }).join("");
+}
+
+/* ---------------- obstáculos ---------------- */
+function spawn(){
+  var r=Math.random();
+  if(r<.62){ /* grupo de velas rojas (1-3) en el suelo: saltar */
+    var n=1+Math.floor(Math.random()*Math.min(3,1+elapsed/25000));
+    for(var i=0;i<n;i++){
+      var h=34+Math.random()*34;
+      obs.push({tipo:"vela",x:W+40+i*24,y:GROUND-h,w:16,h:h});
+    }
+  }else if(r<.86){ /* burbuja baja: también se salta */
+    obs.push({tipo:"burbuja",x:W+40,y:GROUND-30,r:17,w:34,h:34,baja:true});
+  }else{ /* burbuja alta: pasa por encima — NO saltes */
+    obs.push({tipo:"burbuja",x:W+40,y:GROUND-108,r:19,w:38,h:38,baja:false});
+  }
+}
+function drawVela(o){
+  c.fillStyle="#E0554A";
+  /* mecha */
+  c.fillRect(o.x+o.w/2-1.5,o.y-12,3,o.h+18);
+  /* cuerpo */
+  c.fillRect(o.x,o.y,o.w,o.h);
+  c.strokeStyle="rgba(6,11,28,.6)";c.lineWidth=1.5;
+  c.strokeRect(o.x,o.y,o.w,o.h);
+}
+function drawBurbuja(o){
+  var cx=o.x+o.r,cy=o.y+o.r;
+  var g=c.createRadialGradient(cx-o.r*.35,cy-o.r*.35,2,cx,cy,o.r);
+  g.addColorStop(0,"rgba(247,244,236,.5)");
+  g.addColorStop(.7,"rgba(123,167,222,.25)");
+  g.addColorStop(1,"rgba(123,167,222,.5)");
+  c.fillStyle=g;
+  c.beginPath();c.arc(cx,cy,o.r,0,7);c.fill();
+  c.strokeStyle="rgba(123,167,222,.8)";c.lineWidth=1.5;
+  c.beginPath();c.arc(cx,cy,o.r,0,7);c.stroke();
+  c.fillStyle="rgba(247,244,236,.7)";
+  c.font="600 9px 'IBM Plex Mono', monospace";c.textAlign="center";
+  c.fillText("$",cx,cy+3);c.textAlign="left";
+}
+
+/* ---------------- dibujo ---------------- */
+function drawBG(){
+  var g=c.createLinearGradient(0,0,W,H);
+  g.addColorStop(0,"#0D1531");g.addColorStop(1,"#060B1C");
+  c.fillStyle=g;c.fillRect(0,0,W,H);
+  /* línea de precio de fondo (ambiente) */
+  c.strokeStyle="rgba(212,175,55,.12)";c.lineWidth=1.5;
+  c.beginPath();
+  for(var i=0;i<chartPts.length;i++){
+    var p=chartPts[i];
+    i?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1]);
+  }
+  c.stroke();
+  /* suelo */
+  c.strokeStyle="rgba(212,175,55,.45)";c.lineWidth=2;
+  c.beginPath();c.moveTo(0,GROUND+2);c.lineTo(W,GROUND+2);c.stroke();
+  c.strokeStyle="rgba(212,175,55,.15)";c.lineWidth=1;
+  c.setLineDash([6,14]);
+  c.beginPath();c.moveTo(-(elapsed*speed/28%20),GROUND+14);c.lineTo(W,GROUND+14);c.stroke();
+  c.setLineDash([]);
+}
+function drawToro(){
+  var y=toro.y-toro.h;
+  c.save();
+  if(toro.jumping){
+    c.translate(toro.x+toro.w/2,y+toro.h/2);
+    c.rotate(-.12);
+    c.translate(-(toro.x+toro.w/2),-(y+toro.h/2));
+  }
+  if(logo.width)c.drawImage(logo,toro.x,y,toro.w,toro.h);
+  else{ /* respaldo si el logo no cargó */
+    c.fillStyle="#D4AF37";
+    c.beginPath();c.arc(toro.x+toro.w/2,y+toro.h/2,toro.w/2,0,7);c.fill();
+  }
+  c.restore();
+}
+function drawHUDCanvas(){
+  c.fillStyle="rgba(247,244,236,.35)";
+  c.font="500 11px 'IBM Plex Mono', monospace";
+  c.fillText("MERCADO EN VIVO · VELOCIDAD "+speed.toFixed(1),16,24);
+}
+
+/* ---------------- lógica ---------------- */
+function reset(){
+  valor=10000;mult=1;speed=6;elapsed=0;lastSpawn=0;
+  toro.y=GROUND;toro.vy=0;toro.jumping=false;
+  obs=[];over=false;sold=false;
+  chartPts=[];
+  var y=chartSeed;
+  for(var x=0;x<=W;x+=24){
+    y+=(Math.random()-.5)*22;
+    y=Math.max(60,Math.min(GROUND-60,y));
+    chartPts.push([x,y]);
+  }
+  updateHUD();
+}
+function updateHUD(){
+  $("#hVal").textContent=fmt(valor);
+  $("#hMult").textContent="×"+mult.toFixed(1);
+}
+function jump(){
+  if(!running||toro.jumping)return;
+  toro.jumping=true;toro.vy=-13.2;
+}
+function crash(){
+  running=false;over=true;
+  $("#btnSell").classList.remove("on");
+  $("#crashVal").textContent=fmt(valor);
+  $("#ovCrash").classList.remove("off");
+}
+function sell(){
+  if(!running)return;
+  running=false;sold=true;
+  $("#btnSell").classList.remove("on");
+  $("#sellVal").textContent=fmt(valor);
+  var gan=valor-10000;
+  $("#sellMsg").textContent=gan>0
+    ? "Ganancia asegurada: "+fmt(gan).replace("USD","USD +")+". Deja tu nombre para el ranking:"
+    : "Saliste temprano — sin pérdidas. Deja tu nombre para el ranking:";
+  $("#ovSell").classList.remove("off");
+  $("#inpName").focus();
+}
+function start(){
+  reset();
+  $("#ovStart").classList.add("off");
+  $("#ovSell").classList.add("off");
+  $("#ovCrash").classList.add("off");
+  $("#btnSell").classList.add("on");
+  running=true;t0=performance.now();loop._t=t0;
+  requestAnimationFrame(loop);
+}
+function loop(now){
+  if(!running)return;
+  var dt=Math.max(0,Math.min(40,now-(loop._t||now)));loop._t=now;
+  elapsed=Math.max(0,now-t0);
+
+  /* dificultad y multiplicador crecen con el tiempo */
+  speed=6+elapsed/9000;
+  mult=1+Math.floor(elapsed/8000)*.5;
+  valor+=dt*.9*mult*(speed/6);
+
+  /* física del salto */
+  if(toro.jumping){
+    toro.vy+=.62*(dt/16.7);
+    toro.y+=toro.vy*(dt/16.7);
+    if(toro.y>=GROUND){toro.y=GROUND;toro.vy=0;toro.jumping=false;}
+  }
+
+  /* obstáculos */
+  var gap=Math.max(560,1400-elapsed/40); /* ms entre spawns, se achica */
+  if(now-lastSpawn>gap){spawn();lastSpawn=now;}
+  for(var i=obs.length-1;i>=0;i--){
+    obs[i].x-=speed*(dt/16.7);
+    if(obs[i].x+obs[i].w<-60)obs.splice(i,1);
+  }
+
+  /* colisiones (AABB con margen de gracia) */
+  var bx=toro.x+9,by=toro.y-toro.h+9,bw=toro.w-18,bh=toro.h-14;
+  for(var j=0;j<obs.length;j++){
+    var o=obs[j];
+    if(bx<o.x+o.w-4&&bx+bw>o.x+4&&by<o.y+o.h-4&&by+bh>o.y+4){crash();break;}
+  }
+
+  /* línea de precio ambiente se desplaza */
+  for(var k=0;k<chartPts.length;k++)chartPts[k][0]-=speed*.25*(dt/16.7);
+  if(chartPts.length&&chartPts[0][0]<-24){
+    chartPts.shift();
+    var last=chartPts[chartPts.length-1];
+    var ny=last[1]+(Math.random()-.5)*22;
+    ny=Math.max(60,Math.min(GROUND-60,ny));
+    chartPts.push([last[0]+24,ny]);
+  }
+
+  /* render */
+  drawBG();
+  for(var m=0;m<obs.length;m++){
+    obs[m].tipo==="vela"?drawVela(obs[m]):drawBurbuja(obs[m]);
+  }
+  drawToro();
+  drawHUDCanvas();
+  updateHUD();
+
+  if(running)requestAnimationFrame(loop);
+}
+
+/* ---------------- controles ---------------- */
+document.addEventListener("keydown",function(e){
+  if(e.code==="Space"||e.code==="ArrowUp"){
+    if(!running&&!over&&!sold&&!$("#ovStart").classList.contains("off")){start();}
+    else jump();
+    e.preventDefault();
+  }
+  if(e.key==="s"||e.key==="S")sell();
+  if(e.key==="Enter"&&!$("#ovSell").classList.contains("off")&&document.activeElement!==$("#inpName"))
+    $("#btnSave").click();
+});
+cv.addEventListener("pointerdown",function(){running?jump():null});
+$("#btnPlay").addEventListener("click",start);
+$("#btnAgain1").addEventListener("click",start);
+$("#btnAgain2").addEventListener("click",start);
+$("#btnSell").addEventListener("click",sell);
+$("#btnSave").addEventListener("click",function(){
+  var n=$("#inpName").value.trim();
+  if(!n){$("#inpName").focus();return;}
+  saveScore(n,valor);
+  $("#inpName").value="";
+  $("#ovSell").classList.add("off");
+  $("#ovStart").classList.remove("off");
+});
+
+/* dibujo inicial estático (portada de fondo) */
+reset();
+drawBG();
+drawToro();
+renderRank();
+})();
+</script>
+</body>
+</html>

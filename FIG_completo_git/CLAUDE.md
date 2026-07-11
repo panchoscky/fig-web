@@ -28,6 +28,7 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 ├── fiw/index.html           ← página de FEN Investment Woman (paleta propia, editable)
 ├── torneo/index.html        ← ranking oficial del Torneo Portafolio 2026 (con trayectoria por equipo)
 ├── postula/index.html       ← formulario de postulación al club
+├── juego/index.html          ← "El Rally del Toro": juego de espera (runner con el toro; vender = asegurar puntaje)
 ├── generar_torneo.py        ← Excel ranking_ordenado → datos/torneo.json (mantiene historial semanal)
 ├── HOJA_DE_RUTA_FIG.md      ← LISTA MAESTRA: backlog priorizado + protocolo de continuidad
 ├── MAPA_CONTENIDO_FIG.html  ← guía visual para Francisco: dónde subir fotos y editar texto de cada página (abrir con doble clic)
@@ -64,7 +65,8 @@ explícitamente a Francisco, son la identidad visual de esa área.
 | `torneo/index.html` | ⚠️ Modo DEMO | 8 equipos ficticios. **Falta `datos/torneo.json` real**. Overlay con gráfico de 3 líneas (retorno equipo/promedio/ACWI). Tarjetas: Feed PNG, LinkedIn PNG, HTML y **videos animados** Feed/Story con intro (logo→nombre→colaboradores→ficha). Logos de colaboradores en hero y tarjetas |
 | Enlaces cruzados | ✅ Conectados | `index.html` ya enlaza a `eventos/`, `fiw/`, `torneo/` y `postula/` (CTAs, footer, `CONFIG.urls` y `datos/club.json`) |
 | `generar_torneo.py` | ✅ Escrito | Lee `ranking_ordenado` + Excel de inscripciones → escribe `datos/torneo.json`, conserva el `historial` semanal y calcula `delta`. Probar con el Excel real (ajustar `ALIAS` si los encabezados no calzan). Modo `--demo` disponible |
-| `postula/index.html` | ⚠️ Falta endpoint | Formulario de postulación completo; envía a `config.postulaEndpoint` (Apps Script) de `datos/club.json` — mientras esté vacío muestra banner "en configuración" |
+| `postula/index.html` | ⚠️ Falta endpoint | Formulario de postulación completo; envía a `config.postulaEndpoint` (Apps Script) de `datos/club.json` — mientras esté vacío muestra banner "en configuración" (con enlace al juego) |
+| `juego/index.html` | ✅ Funcional | "El Rally del Toro": runner canvas con el toro del logo; velas rojas y burbujas como obstáculos; el portafolio crece con multiplicador creciente; VENDER asegura el puntaje en el ranking (localStorage) o sigues y un golpe te liquida — filosofía "saber cuándo salir". Enlazarlo en cualquier página en mantención/espera |
 | Fotos de eventos | ❌ Pendientes | Carpetas creadas en `fotos/eventos/*` pero vacías; las fotos reales están en Google Drive (ver `MAPEO_DRIVE_FIG.md`) y hay que bajarlas/subirlas manualmente (Drive es de solo lectura para IA) |
 
 ## Lo que YA existe fuera de esta carpeta (contexto crítico, no reinventar)
