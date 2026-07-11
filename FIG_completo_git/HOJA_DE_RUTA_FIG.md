@@ -10,8 +10,8 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-07-09** (sesión: logos del Drive + intros
-animadas + tarjetas v4 con 3 líneas de retorno y videos).
+Última actualización: **2026-07-11** (sesión: juego de espera "El Rally
+del Toro" + mapa de contenido para Francisco).
 
 ---
 
@@ -76,6 +76,8 @@ Instagram `instagram.com/fen.investment.group`.
 | 2026-07-07 | Formulario de postulación | `postula/index.html` — envía a `config.postulaEndpoint` (Apps Script) definido en club.json; mientras esté vacío muestra banner "en configuración" con envío deshabilitado; CTA "Quiero ser parte" del index ya apunta aquí |
 | 2026-07-09 | Logos oficiales | Bajados del Drive a `logos/` (toro FIG en oro/blanco/navy + lockup, Itaú, BlackRock + versión blanca). NO hay logo de FIW en el Drive — pendiente P0 |
 | 2026-07-09 | Intros animadas | Todas las páginas abren con logo al centro → nombre (+ área en subpáginas; FIW muestra su nombre + "FEN Investment Group"); 1 vez por sesión por página (sessionStorage), respeta reduced-motion. Logo real en navs/footer |
+| 2026-07-11 | El Rally del Toro | `juego/index.html`: runner canvas (toro del logo, velas rojas y burbujas). Mecánica central: el portafolio (USD 10.000 base) crece con multiplicador que sube cada 8 s mientras el mercado se acelera; VENDER (tecla S/botón) asegura el valor en el ranking local (localStorage top-10 con nombre); chocar = pierdes todo lo no vendido. Transmite "un inversionista debe saber cuándo salir". Enlazado desde el banner de postula/ como sala de espera |
+| 2026-07-11 | Mapa de contenido | `MAPA_CONTENIDO_FIG.html`: guía visual para Francisco de dónde subir fotos y editar textos por página |
 | 2026-07-09 | Tarjetas v4 | Feed 1080×1350 rediseñada + LinkedIn 1200×627 + HTML autocontenida + VIDEOS Feed/Story con intro animada (MediaRecorder; WebM Chrome / MP4 Safari). Gráfico de 3 líneas: retorno equipo vs promedio vs ACWI; miembros, delta badge, logos colaboradores, RRSS por formato. Esquema: `historial[].ret` + serie `acwi` (generar_torneo.py --acwi); el promedio lo calcula la página. Hook `window.__figCards` |
 
 ## 4. Backlog priorizado
@@ -104,6 +106,7 @@ que la divida y pida confirmación a Francisco en las decisiones de diseño.
 | 7 | **Resúmenes de eventos** | Haiku | 8 de 9 eventos en `datos/eventos.json` dicen "[Resumen por completar]" — redactar con Francisco 2-3 líneas por evento |
 | 8 | **SEO/social**: og:image + meta tags Open Graph/Twitter en las 5 páginas | Haiku | Generar una og:image estática 1200×630 con el estilo FIG (puede ser canvas→PNG una vez, guardada en fotos/) |
 | 9 | **404.html** de GitHub Pages con el estilo FIG | Haiku | Copia de la base de postula/index.html con mensaje + enlaces |
+| 10b | **Ranking global del juego** | Sonnet | Hoy el ranking de El Rally del Toro es por navegador (localStorage). Para hacerlo global: mismo patrón del formulario — Apps Script `doPost` que guarda {nombre, valor, fecha} en una planilla y `doGet` que devuelve el top-10; la página cae a localStorage si el endpoint no está configurado |
 | 10 | **Archivo semanal del ranking** | Sonnet | `generar_torneo.py` ya guarda historial dentro de torneo.json; opcional: volcar snapshot `datos/torneo/semana-N.json` para auditoría/disputas |
 
 ### P2 — Expansión (ver IDEAS_GRAN_ESCALA_FIG.md antes de empezar)
