@@ -188,7 +188,7 @@ footer a:hover{color:var(--gold)}
 <section class="rank-sec">
   <div class="wrap">
     <div class="rank-head">
-      <h3>Ranking de este navegador</h3>
+      <h3 id="rankTitle">Ranking de este navegador</h3>
       <span>SOLO CUENTAN LAS GANANCIAS VENDIDAS</span>
     </div>
     <div class="rank">
@@ -223,27 +223,62 @@ var toro={x:96,y:GROUND,vy:0,w:58,h:58,jumping:false};
 var obs=[],chartPts=[],chartSeed=GROUND-120;
 var logo=new Image();logo.src="../logos/fig-oro.png";
 
-/* ---------------- ranking (localStorage) ---------------- */
+/* ---------------- ranking ----------------
+   Global vía Apps Script (config.juegoEndpoint en datos/club.json):
+   doPost guarda {nombre,valor,fecha} en una planilla, doGet devuelve el
+   top-10 en JSON. Mientras el endpoint esté vacío (o falle el fetch),
+   la página cae a un ranking local por navegador (localStorage). */
 var LS_KEY="figRallyScores";
+var ENDPOINT="";
 function getScores(){
   try{return JSON.parse(localStorage.getItem(LS_KEY)||"[]")}catch(e){return []}
 }
-function saveScore(nombre,v){
+function saveLocal(nombre,v){
   var s=getScores();
   s.push({n:nombre,v:Math.round(v),f:new Date().toISOString().slice(0,10)});
   s.sort(function(a,b){return b.v-a.v});
   s=s.slice(0,10);
   try{localStorage.setItem(LS_KEY,JSON.stringify(s))}catch(e){}
+}
+function saveScore(nombre,v){
+  saveLocal(nombre,v);
+  if(ENDPOINT){
+    fetch(ENDPOINT,{method:"POST",mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({nombre:nombre,valor:Math.round(v),fecha:new Date().toISOString()})
+    }).catch(function(){});
+  }
   renderRank();
 }
-function renderRank(){
+function renderLocal(){
   var s=getScores(),body=$("#rankBody");
+  $("#rankTitle").textContent="Ranking de este navegador";
   $("#hBest").textContent=s.length?fmt(s[0].v):"—";
   if(!s.length){body.innerHTML='<div class="rank-empty">AÚN NADIE HA VENDIDO A TIEMPO · SÉ EL PRIMERO</div>';return;}
   body.innerHTML=s.map(function(r,i){
     return '<div class="rank-row"><span class="pos">'+(i+1)+'</span><span>'+esc(r.n)+'</span>'
       +'<span class="val">'+fmt(r.v)+'</span><span class="fecha">'+esc(r.f)+'</span></div>';
   }).join("");
+}
+function renderRank(){
+  if(!ENDPOINT){renderLocal();return;}
+  fetch(ENDPOINT+"?top=10",{cache:"no-store"})
+    .then(function(r){return r.ok?r.json():Promise.reject()})
+    .then(function(data){
+      var s=(data&&data.length?data:[]).map(function(r){
+        return {n:r.nombre,v:Math.round(r.valor),f:String(r.fecha||"").slice(0,10)};
+      });
+      var body=$("#rankBody");
+      $("#rankTitle").textContent="Ranking global";
+      var best=Math.max(s.length?s[0].v:0,getScores().length?getScores()[0].v:0);
+      $("#hBest").textContent=best?fmt(best):"—";
+      if(!s.length){body.innerHTML='<div class="rank-empty">AÚN NADIE HA VENDIDO A TIEMPO · SÉ EL PRIMERO</div>';return;}
+      body.innerHTML=s.map(function(r,i){
+        return '<div class="rank-row"><span class="pos">'+(i+1)+'</span><span>'+esc(r.n)+'</span>'
+          +'<span class="val">'+fmt(r.v)+'</span><span class="fecha">'+esc(r.f)+'</span></div>';
+      }).join("");
+    })
+    .catch(function(){renderLocal();});
 }
 
 /* ---------------- obstáculos ---------------- */
@@ -459,7 +494,15 @@ $("#btnSave").addEventListener("click",function(){
 reset();
 drawBG();
 drawToro();
-renderRank();
+renderLocal();
+
+/* endpoint global: se configura en datos/club.json → config.juegoEndpoint */
+fetch("../datos/club.json",{cache:"no-store"})
+  .then(function(r){return r.ok?r.json():null})
+  .then(function(d){
+    if(d&&d.config&&d.config.juegoEndpoint)ENDPOINT=d.config.juegoEndpoint;
+    renderRank();
+  }).catch(function(){});
 })();
 </script>
 </body>

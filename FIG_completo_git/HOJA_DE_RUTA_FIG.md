@@ -94,6 +94,7 @@ que la divida y pida confirmación a Francisco en las decisiones de diseño.
 | # | Tarea | Modelo | Detalle |
 |---|---|---|---|
 | 1 | **Crear el Apps Script de postulaciones** y pegar su URL en `datos/club.json → config.postulaEndpoint` | Sonnet | El formulario ya está listo. El script: Web App de Google Apps Script ligado a una planilla, `doPost(e)` que parsea `JSON.parse(e.postData.contents)` y hace `appendRow` con [fecha, nombre, correo, carrera, anio, area, motivacion, linkedin]. Desplegarlo "Cualquiera puede acceder". Francisco debe crearlo desde SU cuenta (Drive es solo-lectura para IAs) — darle el código listo para pegar |
+| 1b | **Crear el Apps Script del ranking de El Rally del Toro** y pegar su URL en `datos/club.json → config.juegoEndpoint` | Sonnet | ✅ Código del juego listo (2026-07-12, ver P1-10b abajo) — `juego/index.html` ya intenta leer/escribir en `config.juegoEndpoint`; mientras esté vacío sigue funcionando 100% con el ranking local (localStorage), sin romper nada. Francisco debe crear el Web App desde SU cuenta: código listo para pegar en la sección P1-10b |
 | 2 | **Primer torneo.json real** | Sonnet | Correr `python3 generar_torneo.py --excel <ranking.xlsx> --inscripciones <insc.xlsx> --semana N --corte "DD · MMM · 2026"`. Si los encabezados del Excel no calzan, ajustar `ALIAS` en el script. Pedir el Excel a Francisco |
 | 3 | **Confirmar colores FIW** con Delia | Haiku | Editar solo las 4 variables `--acc*` al inicio del `<style>` de `fiw/index.html` |
 | 3b | **Logo oficial de FIW** | Haiku | No existe en el Drive (carpeta FIG WOMEN solo tiene fotos). Pedirlo a Delia; guardarlo en `logos/fiw.png` y reemplazar `fig-blanco.png` en nav+intro de `fiw/index.html` |
@@ -146,10 +147,47 @@ salas del laboratorio). 2-3 fotos por evento en general; solo 1 para
 | 7 | **Resúmenes de eventos** | Haiku | 8 de 9 eventos en `datos/eventos.json` dicen "[Resumen por completar]" — redactar con Francisco 2-3 líneas por evento |
 | 8 | **SEO/social**: og:image + meta tags Open Graph/Twitter en las 5 páginas | Haiku | Generar una og:image estática 1200×630 con el estilo FIG (puede ser canvas→PNG una vez, guardada en fotos/) |
 | 9 | **404.html** de GitHub Pages con el estilo FIG | Haiku | Copia de la base de postula/index.html con mensaje + enlaces |
-| 10b | **Ranking global del juego** | Sonnet | Hoy el ranking de El Rally del Toro es por navegador (localStorage). Para hacerlo global: mismo patrón del formulario — Apps Script `doPost` que guarda {nombre, valor, fecha} en una planilla y `doGet` que devuelve el top-10; la página cae a localStorage si el endpoint no está configurado |
+| 10b | **Ranking global del juego** | Sonnet | ✅ Hecho (2026-07-12) — `juego/index.html` ahora lee `config.juegoEndpoint` de `datos/club.json`: si está vacío, se comporta exactamente igual que antes (ranking local por navegador vía localStorage, título "Ranking de este navegador"). Si Francisco despliega el Apps Script (código en la sección siguiente) y pega la URL en `config.juegoEndpoint`, el título cambia a "Ranking global", `saveScore()` hace un `POST` no-cors con `{nombre, valor, fecha}` (guarda también localmente como respaldo) y `renderRank()` hace `GET ENDPOINT?top=10` esperando un array JSON `[{nombre, valor, fecha}, …]`; si el fetch falla por cualquier motivo (red, endpoint mal configurado, CORS) cae automáticamente al ranking local sin romper la página |
 | 10 | **Archivo semanal del ranking** | Sonnet | `generar_torneo.py` ya guarda historial dentro de torneo.json; opcional: volcar snapshot `datos/torneo/semana-N.json` para auditoría/disputas |
 | 16 | **Mejorar el calendario/línea temporal de `torneo/index.html`** | Sonnet (pulir interacción/hover: Fable) | A la directiva le gustó el bloque "Calendario del torneo" agregado en la tarea #6 (hitos con fechas, dentro de §Metodología) y pidió ampliarlo: (1) que no muestre solo hitos del torneo/portafolio — sumar también otras actividades del club leyendo `datos/eventos.json` (charlas, visitas, torneos de otras áreas) para que sea una línea temporal real de TODO lo que hace FIG, no solo el torneo; (2) que al pasar el cursor sobre un hito/evento se vea su descripción y más información (hoy los items del calendario son solo fecha + una línea, sin hover). Ojo con la regla de nunca inventar datos: los hitos de rebalanceo/cierre del torneo salen del array `HITOS` ya verificado en el código, los de otras actividades deben salir de `datos/eventos.json` tal cual están (no inventar fechas ni descripciones que falten ahí) |
 | 17 | **Eventos futuros en `eventos/index.html` con resumen + form de inscripción** | Sonnet (diseño de la tarjeta "próximo evento": Fable) | Pedido de Francisco (2026-07-12): la página de eventos (bitácora) hoy solo muestra actividades pasadas — falta que los eventos FUTUROS también se vean ahí, distinguidos visualmente (ej. sección "Próximamente" o badge, similar al `live:true`/`destacado:true` que ya existe en el esquema de `datos/eventos.json`), y que al abrir el detalle de un evento futuro se vea su resumen (`resumen` ya existe en el esquema) MÁS un formulario/enlace de inscripción. Falta definir: (a) si la inscripción reusa el patrón de `postula/index.html` (Apps Script `doPost` a una planilla) o es un form nuevo por evento, (b) cómo se marca un evento como "futuro" en el JSON (¿comparar `fecha` contra hoy, o un campo explícito tipo `estado:"proximo"`?) — no asumir, confirmar con Francisco antes de diseñar el schema nuevo. Hoy los 9 eventos de `datos/eventos.json` son todos pasados, así que esto se probará recién cuando exista al menos un evento futuro real |
+
+#### Código del Apps Script para el ranking global de El Rally del Toro (P1-10b / P0-1b)
+
+Francisco debe crear esto desde SU cuenta (Drive es solo-lectura para IAs).
+Mismo patrón que el Apps Script de postulaciones (P0-1): una planilla nueva
+con una hoja llamada **"Ranking"** con encabezados en la fila 1: `fecha` |
+`nombre` | `valor`. Luego, en la planilla → **Extensiones → Apps Script**,
+pegar:
+
+```javascript
+function doPost(e) {
+  var datos = JSON.parse(e.postData.contents);
+  var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Ranking");
+  hoja.appendRow([datos.fecha, datos.nombre, datos.valor]);
+  return ContentService.createTextOutput("OK");
+}
+
+function doGet(e) {
+  var top = parseInt((e.parameter && e.parameter.top) || "10", 10);
+  var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Ranking");
+  var filas = hoja.getDataRange().getValues().slice(1); // sin encabezado
+  var scores = filas.map(function(f) {
+    return { fecha: f[0], nombre: f[1], valor: f[2] };
+  });
+  scores.sort(function(a, b) { return b.valor - a.valor; });
+  scores = scores.slice(0, top);
+  return ContentService.createTextOutput(JSON.stringify(scores))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+```
+
+Desplegar como Web App (**Implementar → Nueva implementación → Aplicación
+web**): Ejecutar como **"Yo"**, Acceso **"Cualquier usuario"**. Copiar la
+URL `/exec` resultante y pegarla en `datos/club.json → config.juegoEndpoint`.
+No hay que tocar el HTML — `juego/index.html` ya está listo para consumir
+ese endpoint apenas se configure, y sigue funcionando con ranking local si
+se deja vacío.
 
 ### P0.5 — Perfiles reales desde los CV del Drive
 
