@@ -1,0 +1,53 @@
+{
+  "_leeme": "Manifiesto anti-relectura de CVs del Drive (carpeta CV). Antes de leer un CV con read_file_content, comparar su modifiedTime actual (get_file_metadata o search_files) contra el valor registrado aquí para el mismo fileId. Si coincide, NO volver a leerlo ni a reprocesarlo: ya está reflejado en datos/club.json. Si no coincide (o el fileId es nuevo), leerlo, actualizar club.json según haga falta, y actualizar esta entrada con el modifiedTime nuevo y la fecha de hoy. Esto evita releer los mismos PDFs sesión tras sesión a medida que más cofundadores suban o actualicen su CV.",
+  "carpetaDriveId": "13mRDy9Yf6gqdy8S5bzLRQxuNNakAK8dm",
+  "actualizado": "2026-07-12",
+  "procesados": [
+    {
+      "archivo": "Benjamín_Sáez_Molina_CV.pdf",
+      "fileId": "1YAZ_kz3D_J3Dv8A_spoRX9u-My1wb0T6",
+      "modifiedTime": "2026-07-11T20:50:37Z",
+      "procesadoEl": "2026-07-12",
+      "persona": "Benjamín Sáez Molina",
+      "camposExtraidos": [
+        "personas.directiva[].linkedin",
+        "personas.industria (card Itaú · Wealth Management)"
+      ],
+      "notas": ""
+    },
+    {
+      "archivo": "CV_Jhosep_García (1).pdf",
+      "fileId": "1C7HKzNN2W4WzGsjj7k2NWrmXGoJodvgC",
+      "modifiedTime": "2026-07-09T16:18:12Z",
+      "procesadoEl": "2026-07-12",
+      "persona": "Jhosep García",
+      "camposExtraidos": [
+        "personas.directiva[].linkedin"
+      ],
+      "notas": "Sin práctica externa que agregar a personas.industria (solo roles internos FIG/FEN). Su CV se autodescribe como líder del área Valuation, lo mismo que dice club.json — pero el CV de Samuel Rodríguez Arnolds reclama el mismo liderazgo. Ver nota en Samuel más abajo; pendiente que Francisco lo resuelva, no se decidió por él."
+    },
+    {
+      "archivo": "Samuel R. Arnolds CV.pdf",
+      "fileId": "1t6Lv_pyNdWqS_rQh-Zg_7ViSA3b6yzdx",
+      "modifiedTime": "2026-07-06T23:33:18.093Z",
+      "procesadoEl": "2026-07-12",
+      "persona": "Samuel Rodríguez Arnolds",
+      "camposExtraidos": [
+        "personas.industria (card MoonValley Capital · Investment Banking Intern)"
+      ],
+      "notas": "No está en personas.directiva todavía — no se le agregó cargo directivo porque el CV lo autodescribe como fundador/líder de Valuation, lo que choca con el rol ya asignado a Jhosep García en club.json. No se resolvió el conflicto (no corresponde decidirlo por datos de un CV); queda pendiente para Francisco. El CV contiene PII (dirección particular, edad) que NO se copió a ningún archivo del repo, por la regla dura de CLAUDE.md (nombre + rol + LinkedIn público, nada más)."
+    },
+    {
+      "archivo": "CV_ESP_Rafael_Aliendre.pdf",
+      "fileId": "1kiVuNAr1o1YfuBV6vCno8vnAhf5zImFL",
+      "modifiedTime": "2026-06-01T16:51:16Z",
+      "procesadoEl": "2026-07-12",
+      "persona": "Rafael Aliendre",
+      "camposExtraidos": [
+        "personas.directiva[].linkedin",
+        "personas.industria (card CODELCO · Dirección Estrategia e Inteligencia de Mercado)"
+      ],
+      "notas": "CV lista prácticas previas en Factoring Capital Express, Moxi SpA y Falabella Financiero; se eligió CODELCO por ser la más reciente/relevante para la tarjeta de 'FIG en la industria'."
+    }
+  ]
+}

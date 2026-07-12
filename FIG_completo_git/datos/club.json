@@ -13,14 +13,14 @@
   },
   "personas": {
     "directiva": [
-      {"iniciales":"BS","nombre":"Benjamín Sáez Molina","rol":"Presidente","detalle":"Co-fundador · Área Portafolio.","destacado":true},
-      {"iniciales":"JG","nombre":"Jhosep García","rol":"Vicepresidente","detalle":"Co-fundador · Área Valuation.","destacado":true},
+      {"iniciales":"BS","nombre":"Benjamín Sáez Molina","rol":"Presidente","detalle":"Co-fundador · Área Portafolio.","destacado":true,"linkedin":"https://www.linkedin.com/in/benjamin-saez-molina/"},
+      {"iniciales":"JG","nombre":"Jhosep García","rol":"Vicepresidente","detalle":"Co-fundador · Área Valuation.","destacado":true,"linkedin":"https://linkedin.com/in/jhosep-garcia"},
       {"iniciales":"MP","nombre":"Manuel Paz","rol":"Director · Portafolio","detalle":"Comunicaciones, difusión y creador de la web original."},
       {"iniciales":"FV","nombre":"Francisco Valenzuela","rol":"Director · Portafolio","detalle":"Plataforma web y dirección del Torneo Portafolio 2026."},
       {"iniciales":"AA","nombre":"Agustín Arriagada","rol":"Director · Portafolio","detalle":"Co-fundador."},
       {"iniciales":"BD","nombre":"Benjamín Disi","rol":"Director · Portafolio","detalle":"Co-fundador."},
       {"iniciales":"BS","nombre":"Benjamín Solís","rol":"Director · Portafolio","detalle":"Co-fundador."},
-      {"iniciales":"RA","nombre":"Rafael Aliendre","rol":"Director · Trading","detalle":"Co-fundador."},
+      {"iniciales":"RA","nombre":"Rafael Aliendre","rol":"Director · Trading","detalle":"Co-fundador.","linkedin":"https://www.linkedin.com/in/rafael-aliendre-javier"},
       {"iniciales":"JL","nombre":"Juan José Limari","rol":"Director · Trading","detalle":"Co-fundador."},
       {"iniciales":"JD","nombre":"Juan Pablo Díaz Cerda","rol":"Director · Trading","detalle":"Co-fundador."},
       {"iniciales":"DG","nombre":"David González Cañon","rol":"Director · Valuation","detalle":"Co-fundador."},
@@ -28,9 +28,9 @@
       {"iniciales":"+6","nombre":"Directiva completa","detalle":"Los 18 perfiles se cargan desde Nosotros_FIG.xlsx al conectar el pipeline.","mas":true}
     ],
     "industria": [
-      {"iniciales":"AM","nombre":"Asset Management","rol":"Egresados FIG","detalle":"Sección por poblar desde la hoja Egresados.","mas":true},
-      {"iniciales":"IB","nombre":"Banca de inversión","rol":"Egresados FIG","detalle":"Sección por poblar desde la hoja Egresados.","mas":true},
-      {"iniciales":"RS","nombre":"Research & Sales","rol":"Egresados FIG","detalle":"Sección por poblar desde la hoja Egresados.","mas":true}
+      {"iniciales":"BS","nombre":"Benjamín Sáez Molina","rol":"Itaú · Wealth Management","detalle":"Práctica en Wealth Management en Itaú.","linkedin":"https://www.linkedin.com/in/benjamin-saez-molina/"},
+      {"iniciales":"RA","nombre":"Rafael Aliendre","rol":"CODELCO · Dirección Estrategia e Inteligencia de Mercado","detalle":"Memorista en la Dirección de Estrategia e Inteligencia de Mercado de CODELCO.","linkedin":"https://www.linkedin.com/in/rafael-aliendre-javier"},
+      {"iniciales":"SR","nombre":"Samuel Rodríguez Arnolds","rol":"MoonValley Capital · Investment Banking Intern","detalle":"Práctica en Investment Banking en MoonValley Capital.","linkedin":"https://www.linkedin.com/in/samuel-rodr%C3%ADguez-arnolds-8b9608241/"}
     ],
     "fama": [
       {"iniciales":"🏆","nombre":"Campeón · Torneo Portafolio 2026","rol":"Se corona el 09 · NOV · 2026","detalle":"Cinco finalistas defenderán su gestión ante un jurado experto.","destacado":true},

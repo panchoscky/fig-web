@@ -38,6 +38,7 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 ├── logos/                   ← logos oficiales bajados del Drive (FIG oro/blanco/navy, Itaú, BlackRock)
 ├── datos/
 │   ├── club.json             ← personas, eventos resumen, historia, URLs del sitio principal
+│   ├── cv_procesados.json    ← manifiesto anti-relectura de CV del Drive (fileId+modifiedTime, evita reprocesar los que no cambiaron)
 │   ├── eventos.json           ← lista completa de eventos (bitácora)
 │   ├── fiw.json                ← textos y equipo de FEN Investment Woman
 │   └── torneo.json.ejemplo      ← ESQUEMA del ranking (ver "Pendiente" abajo — aún no existe torneo.json real)

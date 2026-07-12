@@ -141,22 +141,41 @@ en la misma.
 En el Drive ya existe una carpeta `CV` con los currículums de algunos
 cofundadores. Objetivo: usarlos para completar `datos/club.json` con
 descripciones breves, LinkedIn, y poblar la sección **"FIG en la
-industria"** (`personas.industria` en `datos/club.json` — YA EXISTE en el
-sitio, hoy con 3 tarjetas placeholder "Sección por poblar desde la hoja
-Egresados") con los lugares reales donde los cofundadores han hecho sus
-prácticas.
+industria"** (`personas.industria` en `datos/club.json`).
+
+**✅ C1-C4 completados (2026-07-12) para los 4 CV que había en el Drive
+en esa fecha.** Solo algunos cofundadores han subido su CV todavía — es
+esperable que más se sumen o actualicen el suyo con el tiempo. Para no
+releer los mismos PDF sesión tras sesión, el estado de qué se procesó
+vive en **`datos/cv_procesados.json`**: por cada archivo guarda su
+`fileId` + `modifiedTime` de Drive. **Protocolo para sesiones futuras:**
+antes de leer un CV de la carpeta, comparar su `modifiedTime` actual
+contra el que está en `cv_procesados.json` — si coincide, saltárselo (ya
+está reflejado en `club.json`); si es nuevo o cambió, procesarlo y
+actualizar esa entrada.
 
 | # | Tarea | Modelo | Detalle |
 |---|---|---|---|
-| C1 | **Inventario de la carpeta CV** | Haiku | Listar (solo lectura) qué CV hay, de quién, y cruzarlos por nombre contra `personas.directiva` en `datos/club.json` para saber a quién le falta CV todavía. Reportar en esta hoja de ruta |
-| C2 | **Descripciones breves + LinkedIn** | Sonnet | Por cada CV encontrado: leerlo, escribir una `detalle` de 1 línea en el mismo tono que las existentes (ej: `"Co-fundador · Área Portafolio."`) y agregar el campo `linkedin` a esa persona en `personas.directiva`/`personas.industria` de `datos/club.json`. **Nunca inventar un dato que no esté en el CV o ya confirmado en el sitio** — si falta LinkedIn en el CV, dejarlo vacío y anotarlo como pendiente aquí en vez de adivinar |
-| C3 | **Poblar "FIG en la industria" con prácticas reales** | Sonnet | Reemplazar las 3 tarjetas placeholder de `personas.industria` por una tarjeta POR PERSONA con práctica confirmada: `{iniciales, nombre, rol: "<Empresa> · <Área>", detalle: "Práctica en <Área> en <Empresa>."}`. Ejemplo con el dato que Francisco ya dio: Francisco Valenzuela → LarraínVial, área de Riesgo. Fuente: el propio CV (si el cargo/práctica está ahí) o lo que cada persona confirme directamente — no inferir de LinkedIn sin confirmar |
-| C4 | **Revisión antes de publicar** | Opus/Fable | Antes de commitear cambios a `personas.*`: releer que ninguna descripción suene forzada/genérica, que los nombres de empresas estén bien escritos, y que no se haya expuesto ningún dato del CV más allá de nombre + rol + LinkedIn (regla dura de `CLAUDE.md` — nunca datos personales sensibles) |
+| C1 | **Inventario de la carpeta CV** | Haiku | ✅ Hecho — 4 CV encontrados: Benjamín Sáez Molina, Jhosep García, Rafael Aliendre (los 3 ya en `personas.directiva`) y Samuel Rodríguez Arnolds (no está en `personas.directiva`). Al reabrir esta tarea en el futuro, comparar `modifiedTime` contra `datos/cv_procesados.json` antes de listar/leer de nuevo |
+| C2 | **Descripciones breves + LinkedIn** | Sonnet | ✅ Hecho — se agregó `linkedin` a Benjamín Sáez Molina, Jhosep García y Rafael Aliendre en `personas.directiva`. Los `detalle` existentes ya calzaban con lo que dice cada CV, no se reescribieron |
+| C3 | **Poblar "FIG en la industria" con prácticas reales** | Sonnet | ✅ Hecho — se reemplazaron las 3 tarjetas placeholder por: Benjamín Sáez Molina (Itaú · Wealth Management), Rafael Aliendre (CODELCO · Dirección Estrategia e Inteligencia de Mercado) y Samuel Rodríguez Arnolds (MoonValley Capital · Investment Banking Intern). Jhosep García no tiene práctica externa que agregar (solo roles internos FIG/FEN) |
+| C4 | **Revisión antes de publicar** | Opus/Fable | ✅ Hecho — se verificó que `personas.*` solo tiene nombre + rol + LinkedIn público; del CV de Samuel se excluyó explícitamente dirección particular y edad (regla dura de `CLAUDE.md`). Falta una segunda pasada humana de Francisco si quiere afinar tono antes de que esto se difunda más |
+
+**⚠️ Pregunta abierta para Francisco (no resuelta por la IA a propósito):**
+el CV de Jhosep García se autodescribe como líder del Área Valuation
+(coincide con lo que ya dice `club.json`), pero el CV de Samuel Rodríguez
+Arnolds también se autodescribe como fundador/líder de Valuation. Son
+datos contradictorios entre dos CV — no se decidió a favor de ninguno,
+queda para que Francisco lo resuelva. Mientras tanto Samuel NO se agregó
+a `personas.directiva` (solo a `personas.industria`, por su práctica
+confirmada en MoonValley Capital), justamente para no tomar esa decisión
+por él.
 
 **Nota permanente:** el CV de Francisco ya lo subirá él mismo a esta
 conversación — cuando llegue, agregar su práctica en el área de Riesgo de
 LarraínVial a `personas.industria` (ver tarea C3) sin necesidad de ir al
-Drive por ese dato puntual.
+Drive por ese dato puntual, y registrar el CV en `datos/cv_procesados.json`
+igual que los demás.
 
 ### P1.5 — Macro repositorio de preguntas (cuando Francisco suba el material al Drive)
 
@@ -206,6 +225,9 @@ pregunta — es la guía de autoría y el contrato de calidad.**
 3. Colores oficiales FIW (vía Delia).
 4. Excel oficial del ranking (para el primer torneo.json real).
 5. Fotos de eventos y FIW (él las sube, numeradas).
+6. ¿Quién lidera el Área Valuation — Jhosep García (Vicepresidente, como
+   dice hoy `club.json`) o Samuel Rodríguez Arnolds (su propio CV dice que
+   fundó/lidera esa área)? Ver nota en P0.5, no se resolvió adivinando.
 
 ## 7. Cómo cambiar de modelo / intensidad (guía para Francisco)
 
