@@ -1,0 +1,15 @@
+{
+  "_que_es": "Índice del banco de preguntas del Desafío FIG. La página desafio/index.html lo lee primero y luego carga los archivos (shards) listados. Cada shard es un array de preguntas con el esquema documentado en LEEME.md. Mantener shards de máximo ~200 preguntas / ~150 KB; al crecer un tema, crear macro-02.json, macro-03.json… y listarlos aquí. SIEMPRE correr validar_preguntas.py antes de commitear.",
+  "version": 1,
+  "temas": [
+    {"id": "renta-variable", "nombre": "Renta Variable"},
+    {"id": "renta-fija", "nombre": "Renta Fija"},
+    {"id": "macroeconomia", "nombre": "Macroeconomía"},
+    {"id": "historia-mercados", "nombre": "Historia de los Mercados"}
+  ],
+  "ramos": [
+    {"id": "finanzas-i", "nombre": "Finanzas I"},
+    {"id": "economia", "nombre": "Economía"}
+  ],
+  "archivos": ["semilla.json"]
+}

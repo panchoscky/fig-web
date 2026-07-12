@@ -10,8 +10,8 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-07-11** (sesión: juego de espera "El Rally
-del Toro" + mapa de contenido para Francisco).
+Última actualización: **2026-07-12** (sesión: Desafío FIG + auditoría de
+rendimiento — logos redimensionados y guía de compresión de fotos).
 
 ---
 
@@ -77,6 +77,8 @@ Instagram `instagram.com/fen.investment.group`.
 | 2026-07-09 | Logos oficiales | Bajados del Drive a `logos/` (toro FIG en oro/blanco/navy + lockup, Itaú, BlackRock + versión blanca). NO hay logo de FIW en el Drive — pendiente P0 |
 | 2026-07-09 | Intros animadas | Todas las páginas abren con logo al centro → nombre (+ área en subpáginas; FIW muestra su nombre + "FEN Investment Group"); 1 vez por sesión por página (sessionStorage), respeta reduced-motion. Logo real en navs/footer |
 | 2026-07-11 | El Rally del Toro | `juego/index.html`: runner canvas (toro del logo, velas rojas y burbujas). Mecánica central: el portafolio (USD 10.000 base) crece con multiplicador que sube cada 8 s mientras el mercado se acelera; VENDER (tecla S/botón) asegura el valor en el ranking local (localStorage top-10 con nombre); chocar = pierdes todo lo no vendido. Transmite "un inversionista debe saber cuándo salir". Enlazado desde el banner de postula/ como sala de espera |
+| 2026-07-12 | Auditoría de rendimiento | Medido con datos reales: HTML/CSS/JS comprime ~70-75% con gzip (GitHub Pages lo sirve automático); logos redimensionados de 476 KB a 212 KB (venían al tamaño de archivo del Drive, 2000px+, mostrados a 40-150px); riesgo principal identificado: fotos de celular sin comprimir (3-8 MB c/u) — guía de compresión agregada a MAPA_CONTENIDO_FIG.html (máx 1600-2000px, JPG 75-80%, objetivo 150-400 KB/foto) |
+| 2026-07-12 | Desafío FIG (infraestructura) | `desafio/index.html`: trivia con modo DESAFÍO (10 preguntas secuenciales sin volver atrás; fase de lectura con cuenta regresiva y luego alternativas cuyo valor decae 100→20 pts en 20 s; malas −25, saltadas 0; revisión final con explicación de cada error/salto; áreas fuerte/débil; ranking localStorage con áreas) y modo ESTUDIO (por tema o por ramo, sin reloj, feedback inmediato). Banco: `datos/preguntas/` (index.json + shards) con 12 preguntas semilla, `validar_preguntas.py` como barrera de calidad y `datos/preguntas/LEEME.md` como guía de autoría para cualquier modelo |
 | 2026-07-11 | Mapa de contenido | `MAPA_CONTENIDO_FIG.html`: guía visual para Francisco de dónde subir fotos y editar textos por página |
 | 2026-07-09 | Tarjetas v4 | Feed 1080×1350 rediseñada + LinkedIn 1200×627 + HTML autocontenida + VIDEOS Feed/Story con intro animada (MediaRecorder; WebM Chrome / MP4 Safari). Gráfico de 3 líneas: retorno equipo vs promedio vs ACWI; miembros, delta badge, logos colaboradores, RRSS por formato. Esquema: `historial[].ret` + serie `acwi` (generar_torneo.py --acwi); el promedio lo calcula la página. Hook `window.__figCards` |
 
@@ -96,18 +98,119 @@ que la divida y pida confirmación a Francisco en las decisiones de diseño.
 | 3 | **Confirmar colores FIW** con Delia | Haiku | Editar solo las 4 variables `--acc*` al inicio del `<style>` de `fiw/index.html` |
 | 3b | **Logo oficial de FIW** | Haiku | No existe en el Drive (carpeta FIG WOMEN solo tiene fotos). Pedirlo a Delia; guardarlo en `logos/fiw.png` y reemplazar `fig-blanco.png` en nav+intro de `fiw/index.html` |
 | 4 | **URL de las Bases + contacto** en `CONFIG.urls` (`bases`, `contacto`) | Haiku | La de bases probablemente es `https://mpazq-afk.github.io/torneoportafolio2026/documentos/Bases_finales_torneo_portafolio_2026.pdf` (ya usada en torneo/index.html) — confirmar con Francisco y poner en index.html + club.json |
-| 5 | **Fotos reales** en `fotos/eventos/*` y `fotos/fiw/` | — | Solo Francisco (Drive solo-lectura). Numeradas 1.jpg, 2.jpg… sin saltos |
+| 5 | **Mapear y curar fotos desde el Drive** | Sonnet | ✅ Hecho (2026-07-12) para 7 de 9 eventos — ver detalle abajo. Faltan `torneo-portafolio-2026` y `charla-analisis-tecnico-2025` (sin carpeta de fotos en el Drive, preguntar a Francisco) |
+| 5b | **Compresión automática de fotos** | ✅ Hecho (Fable, 2026-07-12) | `optimizar_fotos.py`: redimensiona a máx 2000px + JPG calidad 78, idempotente. Correr siempre después de agregar fotos nuevas (a mano o vía tarea #5). Opcional: hook de pre-commit local, instrucciones al final del script |
+
+**Mapeo de carpetas del Drive → eventos y curación** (confianza alta por nombre de carpeta explícito):
+
+| Evento (`carpeta` en eventos.json) | Carpeta del Drive | folderId | Estado |
+|---|---|---|---|
+| `lanzamiento-club-2025` | Historial Audiovisual/Primavera 2025/Lanzamiento del club/Fotos | `1isnJzHfxkEH9Z5r0jB4ferTqdkQVnyzj` | ✅ 1 foto bajada (44 disponibles, pero son Samsung de 7-9 MB — por encima del límite del conector de Drive, ver nota) |
+| `charla-colegios-lab-2025` | ACTIVIDADES COLEGIOS/Charlas educativas (visitas de colegios al laboratorio)/Fotos | `1ZnRl_3Y3OibodNUETXRe4rloHVkMuq5G` | ✅ 3 fotos curadas (las DSLR de 9 MB de esta carpeta no se pudieron bajar, mismo límite) |
+| `torneo-primavera-2025` | Historial Audiovisual/Primavera 2025/Torneos/Fotos | `1vMgMjAjaqwkiqA2X37fk270miO571ldk` | ✅ 3 fotos curadas (premiación de trading, Juan Díaz Cerda y Benjamín Sáez Molina) |
+| `visita-santander-2026` | Visitas/Visita santander | `1cF_MK0-001thlqh20gyNPxpcWOOQs5ba` | ✅ 3 fotos curadas |
+| `visita-moneda-2026` | Visitas/Moneda otoño 2026 | `1tjo6sBjv-gqU0goefu00sebsvpDVGKj6` | ✅ 1 foto (la carpeta completa es una ráfaga del mismo grupo posando, se eligió la más nítida) |
+| `clase-edv-2026` | ACTIVIDADES COLEGIOS/Clase EDV | `1mq9LXwmIai037bQRVJ1W_A0vnakhNlcO` | ✅ 3 fotos curadas |
+| `fiw-mayo-2026` | FIG WOMEN (raíz) | `108dhOgXayjjleYURNaWkLOPlsgUPqoj_` | ✅ 2 fotos curadas |
+| `torneo-portafolio-2026` | **NO ENCONTRADA** | — | Sin carpeta de fotos propia — no confundir con `torneo-primavera-2025`. Preguntar a Francisco dónde están (o si aún no hay) |
+| `charla-analisis-tecnico-2025` | **NO ENCONTRADA** | — | Solo hay PPT + formulario de asistencia en MATERIAL ACTIVIDADES, sin carpeta de fotos. Preguntar a Francisco |
+
+**Límite de tamaño del conector de Drive (hallazgo confirmado 2026-07-12):**
+`download_file_content` funciona de forma confiable con archivos de hasta
+~6-7 MB; por encima de eso devuelve consistentemente `"MCP server session
+expired"` (probado repetidas veces con archivos de 7-9 MB de `lanzamiento-club-2025`
+y las DSLR de `charla-colegios-lab-2025` — todas fallaron; un archivo de
+6.28 MB sí funcionó). No es un corte temporal del conector como se pensó en
+la sesión anterior, es un límite de tamaño. **Implicancia:** las 44 fotos
+Samsung de `lanzamiento-club-2025` (7-9 MB c/u) son en su mayoría
+inalcanzables para la IA — si Francisco quiere más variedad ahí, tendría
+que bajarlas él mismo del Drive y subir versiones ya comprimidas a
+`fotos/eventos/lanzamiento-club-2025/`, o pasarlas por `optimizar_fotos.py`
+localmente antes de subirlas al Drive. Las carpetas HEIC (fotos de iPhone,
+~1-2 MB) no tuvieron este problema. Recomendación de la sesión anterior
+sigue vigente: descargar de a UNA por vez, nunca en paralelo.
+
+**Criterio de curación aplicado:** se descartaron capturas de pantalla de
+Bloomberg sin gente, ráfagas casi idénticas (se dejó solo la más nítida/mejor
+encuadrada de cada grupo), y se priorizaron fotos con caras visibles,
+buena luz y que muestren contexto/marca FIG (banner del toro, logos,
+salas del laboratorio). 2-3 fotos por evento en general; solo 1 para
+`visita-moneda-2026` porque toda la carpeta es la misma pose repetida.
 
 ### P1 — Alto valor, sin bloqueos
 
 | # | Tarea | Modelo | Detalle |
 |---|---|---|---|
-| 6 | **Página de metodología/reglas del torneo ampliada** | Sonnet | Sección o página con las reglas completas de las Bases (rebalanceos, pisos, disputas) para no depender solo del PDF |
+| 6 | **Página de metodología/reglas del torneo ampliada** | Sonnet | ✅ Hecho (2026-07-12) — sección `#metodologia` de `torneo/index.html` ampliada con 3 bloques nuevos: Calendario del torneo (inicio 11-may, corte semanal, ventanas de rebalanceo II/III, cierre, final), Reglas de piso (explicadas en prosa) y Disputas (48 hrs). El fetch automático del PDF de las Bases (`mpazq-afk.github.io`) está bloqueado por la política de red de este entorno (403 del proxy) — el contenido nuevo usa SOLO datos ya verificados en el propio código (HITOS, notas de metodología existentes), nada inventado. Queda un CTA al PDF para lo no cubierto aquí (concentración por activo, elegibilidad, procedimiento formal de disputa) |
+| 6b | **Confirmar vigencia de las Bases y resubir si cambiaron** | Haiku | Francisco debe subir la versión más reciente del PDF de Bases (al chat o Drive) para que un modelo verifique si hay cambios frente a lo que ya está reflejado en `torneo/index.html` §Metodología — el fetch automático al PDF público está bloqueado por red en este entorno |
 | 7 | **Resúmenes de eventos** | Haiku | 8 de 9 eventos en `datos/eventos.json` dicen "[Resumen por completar]" — redactar con Francisco 2-3 líneas por evento |
 | 8 | **SEO/social**: og:image + meta tags Open Graph/Twitter en las 5 páginas | Haiku | Generar una og:image estática 1200×630 con el estilo FIG (puede ser canvas→PNG una vez, guardada en fotos/) |
 | 9 | **404.html** de GitHub Pages con el estilo FIG | Haiku | Copia de la base de postula/index.html con mensaje + enlaces |
 | 10b | **Ranking global del juego** | Sonnet | Hoy el ranking de El Rally del Toro es por navegador (localStorage). Para hacerlo global: mismo patrón del formulario — Apps Script `doPost` que guarda {nombre, valor, fecha} en una planilla y `doGet` que devuelve el top-10; la página cae a localStorage si el endpoint no está configurado |
 | 10 | **Archivo semanal del ranking** | Sonnet | `generar_torneo.py` ya guarda historial dentro de torneo.json; opcional: volcar snapshot `datos/torneo/semana-N.json` para auditoría/disputas |
+| 16 | **Mejorar el calendario/línea temporal de `torneo/index.html`** | Sonnet (pulir interacción/hover: Fable) | A la directiva le gustó el bloque "Calendario del torneo" agregado en la tarea #6 (hitos con fechas, dentro de §Metodología) y pidió ampliarlo: (1) que no muestre solo hitos del torneo/portafolio — sumar también otras actividades del club leyendo `datos/eventos.json` (charlas, visitas, torneos de otras áreas) para que sea una línea temporal real de TODO lo que hace FIG, no solo el torneo; (2) que al pasar el cursor sobre un hito/evento se vea su descripción y más información (hoy los items del calendario son solo fecha + una línea, sin hover). Ojo con la regla de nunca inventar datos: los hitos de rebalanceo/cierre del torneo salen del array `HITOS` ya verificado en el código, los de otras actividades deben salir de `datos/eventos.json` tal cual están (no inventar fechas ni descripciones que falten ahí) |
+| 17 | **Eventos futuros en `eventos/index.html` con resumen + form de inscripción** | Sonnet (diseño de la tarjeta "próximo evento": Fable) | Pedido de Francisco (2026-07-12): la página de eventos (bitácora) hoy solo muestra actividades pasadas — falta que los eventos FUTUROS también se vean ahí, distinguidos visualmente (ej. sección "Próximamente" o badge, similar al `live:true`/`destacado:true` que ya existe en el esquema de `datos/eventos.json`), y que al abrir el detalle de un evento futuro se vea su resumen (`resumen` ya existe en el esquema) MÁS un formulario/enlace de inscripción. Falta definir: (a) si la inscripción reusa el patrón de `postula/index.html` (Apps Script `doPost` a una planilla) o es un form nuevo por evento, (b) cómo se marca un evento como "futuro" en el JSON (¿comparar `fecha` contra hoy, o un campo explícito tipo `estado:"proximo"`?) — no asumir, confirmar con Francisco antes de diseñar el schema nuevo. Hoy los 9 eventos de `datos/eventos.json` son todos pasados, así que esto se probará recién cuando exista al menos un evento futuro real |
+
+### P0.5 — Perfiles reales desde los CV del Drive
+
+En el Drive ya existe una carpeta `CV` con los currículums de algunos
+cofundadores. Objetivo: usarlos para completar `datos/club.json` con
+descripciones breves, LinkedIn, y poblar la sección **"FIG en la
+industria"** (`personas.industria` en `datos/club.json`).
+
+**✅ C1-C4 completados (2026-07-12) para los 4 CV que había en el Drive
+en esa fecha.** Solo algunos cofundadores han subido su CV todavía — es
+esperable que más se sumen o actualicen el suyo con el tiempo. Para no
+releer los mismos PDF sesión tras sesión, el estado de qué se procesó
+vive en **`datos/cv_procesados.json`**: por cada archivo guarda su
+`fileId` + `modifiedTime` de Drive. **Protocolo para sesiones futuras:**
+antes de leer un CV de la carpeta, comparar su `modifiedTime` actual
+contra el que está en `cv_procesados.json` — si coincide, saltárselo (ya
+está reflejado en `club.json`); si es nuevo o cambió, procesarlo y
+actualizar esa entrada.
+
+| # | Tarea | Modelo | Detalle |
+|---|---|---|---|
+| C1 | **Inventario de la carpeta CV** | Haiku | ✅ Hecho — 4 CV encontrados: Benjamín Sáez Molina, Jhosep García, Rafael Aliendre (los 3 ya en `personas.directiva`) y Samuel Rodríguez Arnolds (no está en `personas.directiva`). Al reabrir esta tarea en el futuro, comparar `modifiedTime` contra `datos/cv_procesados.json` antes de listar/leer de nuevo |
+| C2 | **Descripciones breves + LinkedIn** | Sonnet | ✅ Hecho — se agregó `linkedin` a Benjamín Sáez Molina, Jhosep García y Rafael Aliendre en `personas.directiva`. Los `detalle` existentes ya calzaban con lo que dice cada CV, no se reescribieron |
+| C3 | **Poblar "FIG en la industria" con prácticas reales** | Sonnet | ✅ Hecho — se reemplazaron las 3 tarjetas placeholder por: Benjamín Sáez Molina (Itaú · Wealth Management), Rafael Aliendre (CODELCO · Dirección Estrategia e Inteligencia de Mercado) y Samuel Rodríguez Arnolds (MoonValley Capital · Investment Banking Intern). Jhosep García no tiene práctica externa que agregar (solo roles internos FIG/FEN) |
+| C4 | **Revisión antes de publicar** | Opus/Fable | ✅ Hecho — se verificó que `personas.*` solo tiene nombre + rol + LinkedIn público; del CV de Samuel se excluyó explícitamente dirección particular y edad (regla dura de `CLAUDE.md`). Falta una segunda pasada humana de Francisco si quiere afinar tono antes de que esto se difunda más |
+
+**⚠️ Pregunta abierta para Francisco (no resuelta por la IA a propósito):**
+el CV de Jhosep García se autodescribe como líder del Área Valuation
+(coincide con lo que ya dice `club.json`), pero el CV de Samuel Rodríguez
+Arnolds también se autodescribe como fundador/líder de Valuation. Son
+datos contradictorios entre dos CV — no se decidió a favor de ninguno,
+queda para que Francisco lo resuelva. Mientras tanto Samuel NO se agregó
+a `personas.directiva` (solo a `personas.industria`, por su práctica
+confirmada en MoonValley Capital), justamente para no tomar esa decisión
+por él.
+
+**✅ Resuelto (2026-07-12):** Francisco subió su CV directo al chat (no al
+Drive). Se agregó `linkedin` y la tarjeta LarraínVial · Riesgo en
+`personas.industria`, y quedó registrado en `datos/cv_procesados.json`
+(sin `fileId`, marcado como subido fuera del Drive). También corrigió que
+su CV dice "Creador" del Torneo Portafolio 2026 pero es **co-creador** —
+el `detalle` de `personas.directiva` quedó así por esa corrección directa
+suya, no por el texto literal del CV.
+
+### P1.5 — Macro repositorio de preguntas (cuando Francisco suba el material al Drive)
+
+Francisco subirá una carpeta al Drive con AÑOS de pruebas y clases de
+finanzas (volumen colosal). Objetivo: convertirla en el banco de preguntas
+del Desafío FIG. La infraestructura ya existe (`desafio/` + `datos/preguntas/`
++ validador); esto es SOLO producción de contenido, diseñada para repartirse
+entre modelos. **Leer `datos/preguntas/LEEME.md` antes de escribir una sola
+pregunta — es la guía de autoría y el contrato de calidad.**
+
+| # | Tarea | Modelo | Detalle |
+|---|---|---|---|
+| Q1 | **Inventario del material** | Haiku | Listar la carpeta nueva del Drive (solo lectura), mapear archivo → ramo → tema(s) propuestos. Salida: tabla en esta hoja de ruta. Proponer temas/ramos nuevos para index.json si el material no calza en los existentes |
+| Q2 | **Extracción de preguntas por lotes** | Sonnet | Por archivo del material: leerlo del Drive, redactar 20-40 preguntas según LEEME.md (con `fuente` citando el archivo), guardarlas en el shard del tema, correr `validar_preguntas.py` (debe decir TODO OK), commit por lote. Shards de máx 200 preguntas/150 KB — crear `tema-02.json`… y listarlos en index.json |
+| Q3 | **Revisión pedagógica por muestreo** | Opus/Fable | ~10% de cada lote: precisión técnica, distractores plausibles, explicaciones que enseñan. Corregir o eliminar. Sin esta revisión un lote no se considera terminado |
+| Q4 | **Balance del banco** | Haiku | `validar_preguntas.py --stats` tras cada tanda: ningún tema raquítico, dificultades ~40/40/20. Anotar huecos aquí |
+| Q5 | **Ranking global del Desafío** | Sonnet | Igual que el del Rally (P1-10b): Apps Script doPost/doGet + planilla; la página cae a localStorage si no hay endpoint |
+| Q6 | **Preguntas de historia con narrativa** | Fable | El tema historia-mercados admite mini-historias como enunciado (2-3 frases de contexto + pregunta). Requiere redacción fina — no delegar a Haiku |
 
 ### P2 — Expansión (ver IDEAS_GRAN_ESCALA_FIG.md antes de empezar)
 
@@ -139,6 +242,9 @@ que la divida y pida confirmación a Francisco en las decisiones de diseño.
 3. Colores oficiales FIW (vía Delia).
 4. Excel oficial del ranking (para el primer torneo.json real).
 5. Fotos de eventos y FIW (él las sube, numeradas).
+6. ¿Quién lidera el Área Valuation — Jhosep García (Vicepresidente, como
+   dice hoy `club.json`) o Samuel Rodríguez Arnolds (su propio CV dice que
+   fundó/lidera esa área)? Ver nota en P0.5, no se resolvió adivinando.
 
 ## 7. Cómo cambiar de modelo / intensidad (guía para Francisco)
 

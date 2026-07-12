@@ -6,6 +6,16 @@
 <title>Torneo Portafolio 2026 — Ranking Oficial · FIG</title>
 <meta name="description" content="Ranking oficial del Torneo Portafolio 2026 de FEN Investment Group: 63 equipos, USD 10M simulados por cartera, métricas Bloomberg PORT.">
 <meta name="theme-color" content="#0A1128">
+<meta property="og:title" content="Torneo Portafolio 2026 — FIG">
+<meta property="og:description" content="Ranking oficial del Torneo Portafolio 2026: 63 equipos gestionan carteras de USD 10M en ETFs, medidas contra MSCI ACWI con métricas Bloomberg.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Torneo Portafolio 2026 — FIG">
+<meta name="twitter:description" content="Ranking oficial del Torneo Portafolio 2026: 63 equipos gestionan carteras de USD 10M en ETFs.">
+<meta name="twitter:image" content="/og-image.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230A1128'/%3E%3Ccircle cx='50' cy='50' r='34' fill='%23D4AF37'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -244,11 +254,37 @@ body.locked{overflow:hidden}
 .met-sec .lead{color:var(--ink-soft);max-width:58ch;font-size:1.04rem}
 .met-sec .lead b{color:var(--ink)}
 .met-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:clamp(2.2rem,4vw,3rem)}
-.met{border:1px solid var(--line-l);background:var(--paper);padding:24px 20px;text-align:center;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s}
+.met{border:1px solid var(--line-l);background:var(--paper);padding:24px 20px 20px;text-align:center;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s}
 .met:hover{transform:translateY(-5px);border-color:rgba(158,126,30,.5);box-shadow:0 20px 40px -20px rgba(16,24,40,.22)}
 .met b{display:block;font-family:var(--f-mono);font-weight:600;font-size:1.9rem;color:var(--navy);line-height:1}
 .met span{font-family:var(--f-mono);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-top:10px;line-height:1.8}
-.met-note{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-top:22px;line-height:2}
+.met i{display:block;height:3px;border-radius:2px;background:linear-gradient(90deg,#9E7E1E,var(--gold));margin:14px auto 0;width:var(--w,100%);max-width:100%;transition:width 1s var(--ease)}
+.met-specs{display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:14px 44px;margin-top:26px}
+.met-spec span{display:block;font-family:var(--f-mono);font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:#9E7E1E}
+.met-spec b{display:block;font-family:var(--f-mono);font-weight:500;font-size:.78rem;letter-spacing:.04em;color:var(--ink);margin-top:5px}
+.met-cols{display:grid;grid-template-columns:1.08fr 1fr;grid-template-rows:1fr 1fr;gap:20px;margin-top:clamp(2.2rem,4vw,3rem)}
+.met-card{border:1px solid var(--line-l);background:var(--paper);padding:28px 26px;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s}
+.met-card:hover{transform:translateY(-4px);border-color:rgba(158,126,30,.45);box-shadow:0 22px 44px -22px rgba(16,24,40,.24)}
+.met-card--cal{grid-row:1/3}
+.met-card .num{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.3em;color:#9E7E1E;display:block;margin-bottom:8px}
+.met-card h3{font-family:var(--f-disp);font-weight:600;font-size:1.12rem;color:var(--ink);margin:0 0 16px}
+.met-card p{color:var(--ink-soft);font-size:.92rem;line-height:1.65;margin:0}
+/* mini línea temporal del calendario */
+.met-tl{list-style:none;margin:6px 0 0;padding:0;position:relative}
+.met-tl::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:rgba(158,126,30,.28)}
+.met-tl li{position:relative;padding:0 0 20px 30px;font-size:.86rem;color:var(--ink-soft);line-height:1.55}
+.met-tl li:last-child{padding-bottom:0}
+.met-tl li::before{content:"";position:absolute;left:2px;top:.42em;width:9px;height:9px;border-radius:50%;background:var(--paper);border:2px solid #9E7E1E;box-sizing:border-box}
+.met-tl b{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:var(--f-mono);font-weight:600;font-size:.64rem;letter-spacing:.1em;color:var(--navy);margin-bottom:3px}
+.met-tl .chip{font-family:var(--f-mono);font-size:.52rem;font-weight:500;letter-spacing:.18em;color:var(--navy);background:var(--gold);border-radius:100px;padding:2px 9px}
+.met-tl li.tl-past{opacity:.52}
+.met-tl li.tl-past::before{background:#9E7E1E}
+.met-tl li.tl-next::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,175,55,.22)}
+@media (prefers-reduced-motion:no-preference){
+  .met-tl li.tl-next::before{animation:tlpulse 2.4s ease-in-out infinite}
+  @keyframes tlpulse{0%,100%{box-shadow:0 0 0 4px rgba(212,175,55,.22)}50%{box-shadow:0 0 0 8px rgba(212,175,55,.1)}}
+}
+.met-src{font-size:.78rem;color:var(--ink-soft);margin-top:18px;line-height:1.6}
 .met-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
 .btn--navy{background:var(--navy);color:var(--gold)}
 .btn--navy:hover{transform:translateY(-2px);box-shadow:0 18px 40px -14px rgba(10,17,40,.6)}
@@ -275,6 +311,9 @@ footer a:hover{color:var(--gold)}
   .lb-row{grid-template-columns:48px 1fr 90px;padding:16px 16px}
   .lb-barwrap,.lb-go{display:none}
   .met-grid{grid-template-columns:repeat(2,1fr)}
+  .met-cols{grid-template-columns:1fr;grid-template-rows:none}
+  .met-card--cal{grid-row:auto}
+  .met-specs{grid-template-columns:repeat(2,auto);gap:16px 36px}
   .mt-row{grid-template-columns:1fr 80px;grid-template-areas:"lab val" "bar bar" "pts pts"}
   .mt-lab{grid-area:lab}.mt-val{grid-area:val}.mt-barwrap{grid-area:bar}.mt-pts{grid-area:pts;text-align:left}
 }
@@ -408,13 +447,46 @@ footer a:hover{color:var(--gold)}
     <h2 class="h-sec reveal d1" style="color:var(--ink)">Cómo se construye <em>el score</em>.</h2>
     <p class="lead reveal d2" style="margin-top:18px">Cada equipo recibe hasta <b>100 puntos</b> repartidos en cinco métricas extraídas de Bloomberg PORT, convertidas a puntaje por <b>percentil continuo</b>: el mejor de cada métrica se lleva el peso completo, el peor se lleva 0, y el resto se interpola linealmente. IR, Retorno en Exceso o Sharpe negativos anotan 0 en esa métrica, sin excepción.</p>
     <div class="met-grid reveal d2">
-      <div class="met"><b>30</b><span>INFORMATION<br>RATIO</span></div>
-      <div class="met"><b>25</b><span>RETORNO EN<br>EXCESO ANUAL</span></div>
-      <div class="met"><b>15</b><span>RATIO DE<br>SHARPE</span></div>
-      <div class="met"><b>15</b><span>VaR 95%<br>EX-POST</span></div>
-      <div class="met"><b>15</b><span>MAXIMUM<br>DRAWDOWN</span></div>
+      <div class="met"><b>30</b><span>INFORMATION<br>RATIO</span><i style="--w:100%"></i></div>
+      <div class="met"><b>25</b><span>RETORNO EN<br>EXCESO ANUAL</span><i style="--w:83%"></i></div>
+      <div class="met"><b>15</b><span>RATIO DE<br>SHARPE</span><i style="--w:50%"></i></div>
+      <div class="met"><b>15</b><span>VaR 95%<br>EX-POST</span><i style="--w:50%"></i></div>
+      <div class="met"><b>15</b><span>MAXIMUM<br>DRAWDOWN</span><i style="--w:50%"></i></div>
     </div>
-    <div class="met-note reveal d3">BENCHMARK: iSHARES MSCI ACWI · CÁLCULO SINCE-INCEPTION DESDE EL 11 · MAY · 2026 · CORTE: VIERNES 16:00 EST · DISPUTAS: 48 HRS DESDE CADA PUBLICACIÓN</div>
+    <div class="met-specs reveal d3">
+      <div class="met-spec"><span>Benchmark</span><b>iShares MSCI ACWI</b></div>
+      <div class="met-spec"><span>Cálculo</span><b>Since-inception · 11 MAY 2026</b></div>
+      <div class="met-spec"><span>Corte semanal</span><b>Viernes · 16:00 EST</b></div>
+      <div class="met-spec"><span>Disputas</span><b>48 hrs por publicación</b></div>
+    </div>
+
+    <div class="met-cols reveal d3">
+      <div class="met-card met-card--cal">
+        <span class="num">01 · CALENDARIO</span>
+        <h3>Un torneo, seis hitos</h3>
+        <ul class="met-tl" id="metTl">
+          <li data-when="2026-05-11T09:00:00-04:00"><b>11 · MAY · 2026</b>Inicio del torneo — el cálculo since-inception de todas las métricas parte desde esta fecha.</li>
+          <li><b>CADA VIERNES · 16:00 EST</b>Corte semanal: se recalcula el ranking con el estado de cada portafolio a esa hora.</li>
+          <li data-when="2026-08-03T09:00:00-03:00"><b>3 · AGO · 2026</b>Ventana de rebalanceo II.</li>
+          <li data-when="2026-10-05T09:00:00-03:00"><b>5 · OCT · 2026</b>Ventana de rebalanceo III.</li>
+          <li data-when="2026-11-02T17:00:00-03:00"><b>2 · NOV · 2026 · 17:00 EST</b>Cierre del torneo — último corte que cuenta para el ranking oficial.</li>
+          <li data-when="2026-11-09T18:00:00-03:00"><b>9 · NOV · 2026</b>Final: los cinco mejores equipos defienden su gestión ante un jurado experto.</li>
+        </ul>
+      </div>
+      <div class="met-card">
+        <span class="num">02 · REGLAS DE PISO</span>
+        <h3>Lo negativo anota cero</h3>
+        <p>Si el Information Ratio, el Retorno en Exceso o el Ratio de Sharpe de un equipo cierran en negativo en un corte semanal, ese equipo anota <b style="color:var(--ink)">0 puntos en esa métrica específica</b> — sin excepción, independiente de qué tan negativo sea el número. Las otras métricas de ese mismo equipo se siguen calculando normalmente por percentil continuo.</p>
+      </div>
+      <div class="met-card">
+        <span class="num">03 · DISPUTAS</span>
+        <h3>48 horas para impugnar</h3>
+        <p>Cada equipo tiene <b style="color:var(--ink)">48 horas desde la publicación</b> de cada corte semanal para impugnar un dato de su propio ranking. Pasada esa ventana, el resultado de esa semana queda firme y no se recalcula.</p>
+      </div>
+    </div>
+
+    <div class="met-src reveal d3">Este resumen refleja únicamente lo verificado en las Bases oficiales. Para el texto legal completo — restricciones de concentración por activo, elegibilidad de equipos y el procedimiento formal de disputa — revisa el PDF.</div>
+
     <div class="met-ctas reveal d3">
       <a href="https://mpazq-afk.github.io/torneoportafolio2026/documentos/Bases_finales_torneo_portafolio_2026.pdf" target="_blank" rel="noopener" class="btn btn--navy">Bases de evaluación (PDF) <span class="arr">→</span></a>
       <a href="../index.html#torneo" class="btn btn--ghost">Sobre el torneo</a>
@@ -515,6 +587,23 @@ function initCountdown(){
     $("#cdS").textContent=Math.floor(d/1e3)%60;
   }
   tick();setInterval(tick,1000);
+}
+
+/* Estado temporal del calendario de metodología: pasado / próximo */
+function initMetTl(){
+  var tl=$("#metTl"); if(!tl)return;
+  var items=$$("li[data-when]",tl),now=Date.now(),next=null;
+  for(var i=0;i<items.length;i++){
+    var t=Date.parse(items[i].getAttribute("data-when"));
+    if(t<=now){items[i].className="tl-past";}
+    else if(!next){next=items[i];}
+  }
+  if(next){
+    next.className="tl-next";
+    var chip=document.createElement("span");
+    chip.className="chip";chip.textContent="PRÓXIMO";
+    next.querySelector("b").appendChild(chip);
+  }
 }
 
 /* ---------------- Render ---------------- */
@@ -1346,6 +1435,7 @@ function openFromHash(){
 /* ---------------- Arranque ---------------- */
 renderAll();
 initCountdown();
+initMetTl();
 observeReveals(document);
 (function(){
   var pre=$("#preloader"),seen=false;
