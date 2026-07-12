@@ -98,32 +98,44 @@ que la divida y pida confirmación a Francisco en las decisiones de diseño.
 | 3 | **Confirmar colores FIW** con Delia | Haiku | Editar solo las 4 variables `--acc*` al inicio del `<style>` de `fiw/index.html` |
 | 3b | **Logo oficial de FIW** | Haiku | No existe en el Drive (carpeta FIG WOMEN solo tiene fotos). Pedirlo a Delia; guardarlo en `logos/fiw.png` y reemplazar `fig-blanco.png` en nav+intro de `fiw/index.html` |
 | 4 | **URL de las Bases + contacto** en `CONFIG.urls` (`bases`, `contacto`) | Haiku | La de bases probablemente es `https://mpazq-afk.github.io/torneoportafolio2026/documentos/Bases_finales_torneo_portafolio_2026.pdf` (ya usada en torneo/index.html) — confirmar con Francisco y poner en index.html + club.json |
-| 5 | **Mapear y curar fotos desde el Drive** | Sonnet | ⏳ EN CURSO (2026-07-12) — mapeo de carpetas YA HECHO (ver tabla abajo), descarga bloqueada por un problema del conector de Drive (ver nota). Retomar: para cada fila de la tabla, bajar los fileId ya elegidos (o rehacer la selección — criterio: spread parejo en el tiempo dentro de la carpeta, priorizando nitidez/que se vea gente), convertir HEIC→JPG con `pillow_heif`, correr `optimizar_fotos.py`, numerar `1.jpg, 2.jpg…` sin saltos, commitear |
+| 5 | **Mapear y curar fotos desde el Drive** | Sonnet | ✅ Hecho (2026-07-12) para 7 de 9 eventos — ver detalle abajo. Faltan `torneo-portafolio-2026` y `charla-analisis-tecnico-2025` (sin carpeta de fotos en el Drive, preguntar a Francisco) |
 | 5b | **Compresión automática de fotos** | ✅ Hecho (Fable, 2026-07-12) | `optimizar_fotos.py`: redimensiona a máx 2000px + JPG calidad 78, idempotente. Correr siempre después de agregar fotos nuevas (a mano o vía tarea #5). Opcional: hook de pre-commit local, instrucciones al final del script |
 
-**Mapeo de carpetas del Drive → eventos** (confianza alta, por nombre de carpeta explícito — no hace falta re-verificar esta parte, solo descargar):
+**Mapeo de carpetas del Drive → eventos y curación** (confianza alta por nombre de carpeta explícito):
 
-| Evento (`carpeta` en eventos.json) | Carpeta del Drive | folderId | Fotos disponibles |
+| Evento (`carpeta` en eventos.json) | Carpeta del Drive | folderId | Estado |
 |---|---|---|---|
-| `lanzamiento-club-2025` | Historial Audiovisual/Primavera 2025/Lanzamiento del club/Fotos | `1isnJzHfxkEH9Z5r0jB4ferTqdkQVnyzj` | 44 JPG (Samsung, ~7-9 MB c/u) |
-| `charla-colegios-lab-2025` | ACTIVIDADES COLEGIOS/Charlas educativas (visitas de colegios al laboratorio)/Fotos | `1ZnRl_3Y3OibodNUETXRe4rloHVkMuq5G` | ~20 JPG (mezcla DSLR pesadas + WhatsApp livianas) |
-| `torneo-primavera-2025` | Historial Audiovisual/Primavera 2025/Torneos/Fotos | `1vMgMjAjaqwkiqA2X37fk270miO571ldk` | 9 JPG (WhatsApp, ~200-350 KB) |
-| `visita-santander-2026` | Visitas/Visita santander | `1cF_MK0-001thlqh20gyNPxpcWOOQs5ba` | 50+ (HEIC + JPG + algunos .MOV a ignorar) — tiene más de 50, pedir página siguiente si se quiere ver todo |
-| `visita-moneda-2026` | Visitas/Moneda otoño 2026 | `1tjo6sBjv-gqU0goefu00sebsvpDVGKj6` | ~29 HEIC + 1 .MOV a ignorar |
-| `clase-edv-2026` | ACTIVIDADES COLEGIOS/Clase EDV | `1mq9LXwmIai037bQRVJ1W_A0vnakhNlcO` | 9 HEIC |
-| `fiw-mayo-2026` | FIG WOMEN (raíz) | `108dhOgXayjjleYURNaWkLOPlsgUPqoj_` | ~7 JPG (ya mapeada en sesión anterior) |
+| `lanzamiento-club-2025` | Historial Audiovisual/Primavera 2025/Lanzamiento del club/Fotos | `1isnJzHfxkEH9Z5r0jB4ferTqdkQVnyzj` | ✅ 1 foto bajada (44 disponibles, pero son Samsung de 7-9 MB — por encima del límite del conector de Drive, ver nota) |
+| `charla-colegios-lab-2025` | ACTIVIDADES COLEGIOS/Charlas educativas (visitas de colegios al laboratorio)/Fotos | `1ZnRl_3Y3OibodNUETXRe4rloHVkMuq5G` | ✅ 3 fotos curadas (las DSLR de 9 MB de esta carpeta no se pudieron bajar, mismo límite) |
+| `torneo-primavera-2025` | Historial Audiovisual/Primavera 2025/Torneos/Fotos | `1vMgMjAjaqwkiqA2X37fk270miO571ldk` | ✅ 3 fotos curadas (premiación de trading, Juan Díaz Cerda y Benjamín Sáez Molina) |
+| `visita-santander-2026` | Visitas/Visita santander | `1cF_MK0-001thlqh20gyNPxpcWOOQs5ba` | ✅ 3 fotos curadas |
+| `visita-moneda-2026` | Visitas/Moneda otoño 2026 | `1tjo6sBjv-gqU0goefu00sebsvpDVGKj6` | ✅ 1 foto (la carpeta completa es una ráfaga del mismo grupo posando, se eligió la más nítida) |
+| `clase-edv-2026` | ACTIVIDADES COLEGIOS/Clase EDV | `1mq9LXwmIai037bQRVJ1W_A0vnakhNlcO` | ✅ 3 fotos curadas |
+| `fiw-mayo-2026` | FIG WOMEN (raíz) | `108dhOgXayjjleYURNaWkLOPlsgUPqoj_` | ✅ 2 fotos curadas |
 | `torneo-portafolio-2026` | **NO ENCONTRADA** | — | Sin carpeta de fotos propia — no confundir con `torneo-primavera-2025`. Preguntar a Francisco dónde están (o si aún no hay) |
 | `charla-analisis-tecnico-2025` | **NO ENCONTRADA** | — | Solo hay PPT + formulario de asistencia en MATERIAL ACTIVIDADES, sin carpeta de fotos. Preguntar a Francisco |
 
-**Nota de la sesión 2026-07-12:** el conector de Google Drive dejó de responder a
-`download_file_content` específicamente (search/listado siguió funcionando)
-después de ~10 descargas — probablemente un límite temporal del conector, no
-del contenido. Se alcanzaron a bajar 2 fotos de prueba de `lanzamiento-club-2025`
-(guardadas fuera del repo, en el scratchpad de esa sesión, se perdieron al
-cerrar). **Recomendación:** descargar de a UNA por vez (nunca en paralelo —
-eso fue lo que gatilló el primer corte), y si el error "session expired"
-aparece, probar de nuevo en una sesión nueva en vez de reintentar muchas veces
-en la misma.
+**Límite de tamaño del conector de Drive (hallazgo confirmado 2026-07-12):**
+`download_file_content` funciona de forma confiable con archivos de hasta
+~6-7 MB; por encima de eso devuelve consistentemente `"MCP server session
+expired"` (probado repetidas veces con archivos de 7-9 MB de `lanzamiento-club-2025`
+y las DSLR de `charla-colegios-lab-2025` — todas fallaron; un archivo de
+6.28 MB sí funcionó). No es un corte temporal del conector como se pensó en
+la sesión anterior, es un límite de tamaño. **Implicancia:** las 44 fotos
+Samsung de `lanzamiento-club-2025` (7-9 MB c/u) son en su mayoría
+inalcanzables para la IA — si Francisco quiere más variedad ahí, tendría
+que bajarlas él mismo del Drive y subir versiones ya comprimidas a
+`fotos/eventos/lanzamiento-club-2025/`, o pasarlas por `optimizar_fotos.py`
+localmente antes de subirlas al Drive. Las carpetas HEIC (fotos de iPhone,
+~1-2 MB) no tuvieron este problema. Recomendación de la sesión anterior
+sigue vigente: descargar de a UNA por vez, nunca en paralelo.
+
+**Criterio de curación aplicado:** se descartaron capturas de pantalla de
+Bloomberg sin gente, ráfagas casi idénticas (se dejó solo la más nítida/mejor
+encuadrada de cada grupo), y se priorizaron fotos con caras visibles,
+buena luz y que muestren contexto/marca FIG (banner del toro, logos,
+salas del laboratorio). 2-3 fotos por evento en general; solo 1 para
+`visita-moneda-2026` porque toda la carpeta es la misma pose repetida.
 
 ### P1 — Alto valor, sin bloqueos
 
