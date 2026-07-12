@@ -16,7 +16,7 @@
       {"iniciales":"BS","nombre":"Benjamín Sáez Molina","rol":"Presidente","detalle":"Co-fundador · Área Portafolio.","destacado":true,"linkedin":"https://www.linkedin.com/in/benjamin-saez-molina/"},
       {"iniciales":"JG","nombre":"Jhosep García","rol":"Vicepresidente","detalle":"Co-fundador · Área Valuation.","destacado":true,"linkedin":"https://linkedin.com/in/jhosep-garcia"},
       {"iniciales":"MP","nombre":"Manuel Paz","rol":"Director · Portafolio","detalle":"Comunicaciones, difusión y creador de la web original."},
-      {"iniciales":"FV","nombre":"Francisco Valenzuela","rol":"Director · Portafolio","detalle":"Plataforma web y dirección del Torneo Portafolio 2026."},
+      {"iniciales":"FV","nombre":"Francisco Valenzuela","rol":"Director · Portafolio","detalle":"Plataforma web y co-creador del Torneo Portafolio 2026.","linkedin":"https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/"},
       {"iniciales":"AA","nombre":"Agustín Arriagada","rol":"Director · Portafolio","detalle":"Co-fundador."},
       {"iniciales":"BD","nombre":"Benjamín Disi","rol":"Director · Portafolio","detalle":"Co-fundador."},
       {"iniciales":"BS","nombre":"Benjamín Solís","rol":"Director · Portafolio","detalle":"Co-fundador."},
@@ -30,7 +30,8 @@
     "industria": [
       {"iniciales":"BS","nombre":"Benjamín Sáez Molina","rol":"Itaú · Wealth Management","detalle":"Práctica en Wealth Management en Itaú.","linkedin":"https://www.linkedin.com/in/benjamin-saez-molina/"},
       {"iniciales":"RA","nombre":"Rafael Aliendre","rol":"CODELCO · Dirección Estrategia e Inteligencia de Mercado","detalle":"Memorista en la Dirección de Estrategia e Inteligencia de Mercado de CODELCO.","linkedin":"https://www.linkedin.com/in/rafael-aliendre-javier"},
-      {"iniciales":"SR","nombre":"Samuel Rodríguez Arnolds","rol":"MoonValley Capital · Investment Banking Intern","detalle":"Práctica en Investment Banking en MoonValley Capital.","linkedin":"https://www.linkedin.com/in/samuel-rodr%C3%ADguez-arnolds-8b9608241/"}
+      {"iniciales":"SR","nombre":"Samuel Rodríguez Arnolds","rol":"MoonValley Capital · Investment Banking Intern","detalle":"Práctica en Investment Banking en MoonValley Capital.","linkedin":"https://www.linkedin.com/in/samuel-rodr%C3%ADguez-arnolds-8b9608241/"},
+      {"iniciales":"FV","nombre":"Francisco Valenzuela","rol":"LarraínVial · Riesgo","detalle":"Práctica en el área de Riesgo en LarraínVial.","linkedin":"https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/"}
     ],
     "fama": [
       {"iniciales":"🏆","nombre":"Campeón · Torneo Portafolio 2026","rol":"Se corona el 09 · NOV · 2026","detalle":"Cinco finalistas defenderán su gestión ante un jurado experto.","destacado":true},

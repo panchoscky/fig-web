@@ -171,11 +171,13 @@ a `personas.directiva` (solo a `personas.industria`, por su práctica
 confirmada en MoonValley Capital), justamente para no tomar esa decisión
 por él.
 
-**Nota permanente:** el CV de Francisco ya lo subirá él mismo a esta
-conversación — cuando llegue, agregar su práctica en el área de Riesgo de
-LarraínVial a `personas.industria` (ver tarea C3) sin necesidad de ir al
-Drive por ese dato puntual, y registrar el CV en `datos/cv_procesados.json`
-igual que los demás.
+**✅ Resuelto (2026-07-12):** Francisco subió su CV directo al chat (no al
+Drive). Se agregó `linkedin` y la tarjeta LarraínVial · Riesgo en
+`personas.industria`, y quedó registrado en `datos/cv_procesados.json`
+(sin `fileId`, marcado como subido fuera del Drive). También corrigió que
+su CV dice "Creador" del Torneo Portafolio 2026 pero es **co-creador** —
+el `detalle` de `personas.directiva` quedó así por esa corrección directa
+suya, no por el texto literal del CV.
 
 ### P1.5 — Macro repositorio de preguntas (cuando Francisco suba el material al Drive)
 

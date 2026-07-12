@@ -48,6 +48,18 @@
         "personas.industria (card CODELCO · Dirección Estrategia e Inteligencia de Mercado)"
       ],
       "notas": "CV lista prácticas previas en Factoring Capital Express, Moxi SpA y Falabella Financiero; se eligió CODELCO por ser la más reciente/relevante para la tarjeta de 'FIG en la industria'."
+    },
+    {
+      "archivo": "IMG_8873.png (foto del CV, subida directo al chat, no está en la carpeta CV del Drive)",
+      "fileId": null,
+      "modifiedTime": null,
+      "procesadoEl": "2026-07-12",
+      "persona": "Francisco Valenzuela",
+      "camposExtraidos": [
+        "personas.directiva[].linkedin",
+        "personas.industria (card LarraínVial · Riesgo)"
+      ],
+      "notas": "CV subido por el propio Francisco fuera del Drive. Su CV dice 'Organizador y Creador — Torneo de Portafolio FEN Investment 2026'; él mismo corrigió en el chat que es co-creador, no creador único — el detalle en personas.directiva quedó como 'co-creador' por esa corrección directa, no por el texto literal del CV. La práctica en LarraínVial · Riesgo tampoco aparece en este CV (Francisco avisó que le faltaba agregarla); se incluyó igual porque él la confirmó directamente en el chat, no se infirió de nada."
     }
   ]
 }
