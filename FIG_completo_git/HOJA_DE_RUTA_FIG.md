@@ -10,8 +10,8 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-07-11** (sesión: juego de espera "El Rally
-del Toro" + mapa de contenido para Francisco).
+Última actualización: **2026-07-12** (sesión: Desafío FIG — trivia con
+banco de preguntas + pipeline del macro repositorio de material).
 
 ---
 
@@ -77,6 +77,7 @@ Instagram `instagram.com/fen.investment.group`.
 | 2026-07-09 | Logos oficiales | Bajados del Drive a `logos/` (toro FIG en oro/blanco/navy + lockup, Itaú, BlackRock + versión blanca). NO hay logo de FIW en el Drive — pendiente P0 |
 | 2026-07-09 | Intros animadas | Todas las páginas abren con logo al centro → nombre (+ área en subpáginas; FIW muestra su nombre + "FEN Investment Group"); 1 vez por sesión por página (sessionStorage), respeta reduced-motion. Logo real en navs/footer |
 | 2026-07-11 | El Rally del Toro | `juego/index.html`: runner canvas (toro del logo, velas rojas y burbujas). Mecánica central: el portafolio (USD 10.000 base) crece con multiplicador que sube cada 8 s mientras el mercado se acelera; VENDER (tecla S/botón) asegura el valor en el ranking local (localStorage top-10 con nombre); chocar = pierdes todo lo no vendido. Transmite "un inversionista debe saber cuándo salir". Enlazado desde el banner de postula/ como sala de espera |
+| 2026-07-12 | Desafío FIG (infraestructura) | `desafio/index.html`: trivia con modo DESAFÍO (10 preguntas secuenciales sin volver atrás; fase de lectura con cuenta regresiva y luego alternativas cuyo valor decae 100→20 pts en 20 s; malas −25, saltadas 0; revisión final con explicación de cada error/salto; áreas fuerte/débil; ranking localStorage con áreas) y modo ESTUDIO (por tema o por ramo, sin reloj, feedback inmediato). Banco: `datos/preguntas/` (index.json + shards) con 12 preguntas semilla, `validar_preguntas.py` como barrera de calidad y `datos/preguntas/LEEME.md` como guía de autoría para cualquier modelo |
 | 2026-07-11 | Mapa de contenido | `MAPA_CONTENIDO_FIG.html`: guía visual para Francisco de dónde subir fotos y editar textos por página |
 | 2026-07-09 | Tarjetas v4 | Feed 1080×1350 rediseñada + LinkedIn 1200×627 + HTML autocontenida + VIDEOS Feed/Story con intro animada (MediaRecorder; WebM Chrome / MP4 Safari). Gráfico de 3 líneas: retorno equipo vs promedio vs ACWI; miembros, delta badge, logos colaboradores, RRSS por formato. Esquema: `historial[].ret` + serie `acwi` (generar_torneo.py --acwi); el promedio lo calcula la página. Hook `window.__figCards` |
 
@@ -108,6 +109,24 @@ que la divida y pida confirmación a Francisco en las decisiones de diseño.
 | 9 | **404.html** de GitHub Pages con el estilo FIG | Haiku | Copia de la base de postula/index.html con mensaje + enlaces |
 | 10b | **Ranking global del juego** | Sonnet | Hoy el ranking de El Rally del Toro es por navegador (localStorage). Para hacerlo global: mismo patrón del formulario — Apps Script `doPost` que guarda {nombre, valor, fecha} en una planilla y `doGet` que devuelve el top-10; la página cae a localStorage si el endpoint no está configurado |
 | 10 | **Archivo semanal del ranking** | Sonnet | `generar_torneo.py` ya guarda historial dentro de torneo.json; opcional: volcar snapshot `datos/torneo/semana-N.json` para auditoría/disputas |
+
+### P1.5 — Macro repositorio de preguntas (cuando Francisco suba el material al Drive)
+
+Francisco subirá una carpeta al Drive con AÑOS de pruebas y clases de
+finanzas (volumen colosal). Objetivo: convertirla en el banco de preguntas
+del Desafío FIG. La infraestructura ya existe (`desafio/` + `datos/preguntas/`
++ validador); esto es SOLO producción de contenido, diseñada para repartirse
+entre modelos. **Leer `datos/preguntas/LEEME.md` antes de escribir una sola
+pregunta — es la guía de autoría y el contrato de calidad.**
+
+| # | Tarea | Modelo | Detalle |
+|---|---|---|---|
+| Q1 | **Inventario del material** | Haiku | Listar la carpeta nueva del Drive (solo lectura), mapear archivo → ramo → tema(s) propuestos. Salida: tabla en esta hoja de ruta. Proponer temas/ramos nuevos para index.json si el material no calza en los existentes |
+| Q2 | **Extracción de preguntas por lotes** | Sonnet | Por archivo del material: leerlo del Drive, redactar 20-40 preguntas según LEEME.md (con `fuente` citando el archivo), guardarlas en el shard del tema, correr `validar_preguntas.py` (debe decir TODO OK), commit por lote. Shards de máx 200 preguntas/150 KB — crear `tema-02.json`… y listarlos en index.json |
+| Q3 | **Revisión pedagógica por muestreo** | Opus/Fable | ~10% de cada lote: precisión técnica, distractores plausibles, explicaciones que enseñan. Corregir o eliminar. Sin esta revisión un lote no se considera terminado |
+| Q4 | **Balance del banco** | Haiku | `validar_preguntas.py --stats` tras cada tanda: ningún tema raquítico, dificultades ~40/40/20. Anotar huecos aquí |
+| Q5 | **Ranking global del Desafío** | Sonnet | Igual que el del Rally (P1-10b): Apps Script doPost/doGet + planilla; la página cae a localStorage si no hay endpoint |
+| Q6 | **Preguntas de historia con narrativa** | Fable | El tema historia-mercados admite mini-historias como enunciado (2-3 frases de contexto + pregunta). Requiere redacción fina — no delegar a Haiku |
 
 ### P2 — Expansión (ver IDEAS_GRAN_ESCALA_FIG.md antes de empezar)
 
