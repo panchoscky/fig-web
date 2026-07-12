@@ -250,6 +250,23 @@ pregunta — es la guía de autoría y el contrato de calidad.**
 | Q5 | **Ranking global del Desafío** | Sonnet | Igual que el del Rally (P1-10b): Apps Script doPost/doGet + planilla; la página cae a localStorage si no hay endpoint |
 | Q6 | **Preguntas de historia con narrativa** | Fable | El tema historia-mercados admite mini-historias como enunciado (2-3 frases de contexto + pregunta). Requiere redacción fina — no delegar a Haiku |
 
+### P1.6 — Ideas de mejora seleccionadas (sesión 2026-07-12, agregadas — NO ejecutadas)
+
+Francisco pidió 10 ideas de mejora para el sitio y eligió estas 6 para
+dejar anotadas en el backlog (las otras 4 —lightbox en galerías, GitHub
+Action de compresión de fotos, contador en vivo de comunidad, muro de la
+fama— quedan en `IDEAS_FIG.md` sin promover todavía, se pueden agregar
+después si se pide). Ninguna de las 6 se ha empezado a implementar.
+
+| # | Tarea | Modelo | Detalle |
+|---|---|---|---|
+| 18 | **Badges automáticos en el ranking del torneo** | Sonnet | Distinciones calculadas a partir de métricas que `torneo.json` ya trae por equipo: "Mejor Sharpe", "Menor Drawdown", "Remontada de la semana" (mayor `delta` positivo). Sin tocar el scoring ni pedir datos nuevos — se derivan en el propio `torneo/index.html` al renderizar. Funciona incluso con los datos DEMO actuales, útil para probarlo antes de que exista el `torneo.json` real (P0-2) |
+| 19 | **Modo TV/kiosko para el torneo** (`torneo/index.html?tv=1`) | Sonnet (pulir transiciones: Fable) | Parámetro de URL que activa una vista a pantalla completa sin nav/footer, rotando automáticamente podio → tabla completa → countdown al próximo hito (reutiliza `HITOS` y el countdown que ya existe en `#metodologia`). Pensado para proyectar en el Bloomberg Lab los viernes de publicación del ranking |
+| 20 | **Botón "Agregar a calendario" (.ics) por evento** | Sonnet | En `eventos/index.html`, generar un archivo `.ics` descargable a partir de `fecha`/`titulo`/`lugar` de cada evento (construcción de texto plano, sin librerías). Tiene más sentido una vez exista al menos un evento futuro real en `datos/eventos.json` (ver tarea #17) — se puede construir antes e ir probando con fechas pasadas mientras tanto |
+| 21 | **Comparador de equipos en el torneo** | Sonnet | Seleccionar 2 equipos de `torneo.json` y verlos lado a lado, métrica por métrica (retorno, Sharpe, MDD, posición, delta). Toda la data ya está en el JSON que consume `torneo/index.html`; es una vista nueva sobre datos existentes, sin backend nuevo |
+| 22 | **PWA ligera para el torneo** | Sonnet | `manifest.json` + service worker mínimo (cache de assets estáticos) para que `torneo/index.html` se pueda "instalar" en el celular y cargue rápido los viernes de publicación, cuando hay más tráfico. No requiere backend ni cambia el fetch de `torneo.json` (siempre debe pedirse fresco, no cachear el JSON del ranking) |
+| 23 | **Sección "Referentes" en FIW** | Sonnet | Tarjetas de entrevistas breves a mujeres de la industria (foto + cita + cargo), mismo patrón JSON que el resto del sitio (`datos/fiw.json`). Da contenido real al área mientras se resuelven los colores oficiales con Delia (P0-3) — el contenido no depende de esa decisión, solo el estilo visual sí. Requiere que Francisco/Delia consigan las entrevistas o testimonios primero, no inventar citas |
+
 ### P2 — Expansión (ver IDEAS_GRAN_ESCALA_FIG.md antes de empezar)
 
 | # | Tarea | Modelo | Detalle |
