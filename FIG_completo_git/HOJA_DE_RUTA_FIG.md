@@ -98,7 +98,8 @@ que la divida y pida confirmación a Francisco en las decisiones de diseño.
 | 3 | **Confirmar colores FIW** con Delia | Haiku | Editar solo las 4 variables `--acc*` al inicio del `<style>` de `fiw/index.html` |
 | 3b | **Logo oficial de FIW** | Haiku | No existe en el Drive (carpeta FIG WOMEN solo tiene fotos). Pedirlo a Delia; guardarlo en `logos/fiw.png` y reemplazar `fig-blanco.png` en nav+intro de `fiw/index.html` |
 | 4 | **URL de las Bases + contacto** en `CONFIG.urls` (`bases`, `contacto`) | Haiku | La de bases probablemente es `https://mpazq-afk.github.io/torneoportafolio2026/documentos/Bases_finales_torneo_portafolio_2026.pdf` (ya usada en torneo/index.html) — confirmar con Francisco y poner en index.html + club.json |
-| 5 | **Fotos reales** en `fotos/eventos/*` y `fotos/fiw/` | — | Solo Francisco (Drive solo-lectura). Numeradas 1.jpg, 2.jpg… sin saltos |
+| 5 | **Mapear y curar fotos desde el Drive** | Sonnet | Recorrer las carpetas de fotos del Drive (solo lectura), cruzarlas contra `datos/eventos.json` (campo `carpeta` de cada evento) y `fotos/fiw/`, y **seleccionar una cantidad acotada por evento** (6-12 fotos, priorizando nitidez/encuadre/que se vea gente) de las que el modelo esté seguro que corresponden — nunca adivinar: si la carpeta del Drive no deja claro a qué evento pertenece una tanda de fotos, dejarla fuera y anotarla como duda en esta hoja de ruta para que Francisco confirme. Descargar, correr `optimizar_fotos.py` sobre lo bajado, numerar `1.jpg, 2.jpg…` sin saltos y commitear. Repetir para `fotos/fiw/` con la carpeta "FIG WOMEN" del Drive |
+| 5b | **Compresión automática de fotos** | ✅ Hecho (Fable, 2026-07-12) | `optimizar_fotos.py`: redimensiona a máx 2000px + JPG calidad 78, idempotente. Correr siempre después de agregar fotos nuevas (a mano o vía tarea #5). Opcional: hook de pre-commit local, instrucciones al final del script |
 
 ### P1 — Alto valor, sin bloqueos
 
@@ -110,6 +111,28 @@ que la divida y pida confirmación a Francisco en las decisiones de diseño.
 | 9 | **404.html** de GitHub Pages con el estilo FIG | Haiku | Copia de la base de postula/index.html con mensaje + enlaces |
 | 10b | **Ranking global del juego** | Sonnet | Hoy el ranking de El Rally del Toro es por navegador (localStorage). Para hacerlo global: mismo patrón del formulario — Apps Script `doPost` que guarda {nombre, valor, fecha} en una planilla y `doGet` que devuelve el top-10; la página cae a localStorage si el endpoint no está configurado |
 | 10 | **Archivo semanal del ranking** | Sonnet | `generar_torneo.py` ya guarda historial dentro de torneo.json; opcional: volcar snapshot `datos/torneo/semana-N.json` para auditoría/disputas |
+
+### P0.5 — Perfiles reales desde los CV del Drive
+
+En el Drive ya existe una carpeta `CV` con los currículums de algunos
+cofundadores. Objetivo: usarlos para completar `datos/club.json` con
+descripciones breves, LinkedIn, y poblar la sección **"FIG en la
+industria"** (`personas.industria` en `datos/club.json` — YA EXISTE en el
+sitio, hoy con 3 tarjetas placeholder "Sección por poblar desde la hoja
+Egresados") con los lugares reales donde los cofundadores han hecho sus
+prácticas.
+
+| # | Tarea | Modelo | Detalle |
+|---|---|---|---|
+| C1 | **Inventario de la carpeta CV** | Haiku | Listar (solo lectura) qué CV hay, de quién, y cruzarlos por nombre contra `personas.directiva` en `datos/club.json` para saber a quién le falta CV todavía. Reportar en esta hoja de ruta |
+| C2 | **Descripciones breves + LinkedIn** | Sonnet | Por cada CV encontrado: leerlo, escribir una `detalle` de 1 línea en el mismo tono que las existentes (ej: `"Co-fundador · Área Portafolio."`) y agregar el campo `linkedin` a esa persona en `personas.directiva`/`personas.industria` de `datos/club.json`. **Nunca inventar un dato que no esté en el CV o ya confirmado en el sitio** — si falta LinkedIn en el CV, dejarlo vacío y anotarlo como pendiente aquí en vez de adivinar |
+| C3 | **Poblar "FIG en la industria" con prácticas reales** | Sonnet | Reemplazar las 3 tarjetas placeholder de `personas.industria` por una tarjeta POR PERSONA con práctica confirmada: `{iniciales, nombre, rol: "<Empresa> · <Área>", detalle: "Práctica en <Área> en <Empresa>."}`. Ejemplo con el dato que Francisco ya dio: Francisco Valenzuela → LarraínVial, área de Riesgo. Fuente: el propio CV (si el cargo/práctica está ahí) o lo que cada persona confirme directamente — no inferir de LinkedIn sin confirmar |
+| C4 | **Revisión antes de publicar** | Opus/Fable | Antes de commitear cambios a `personas.*`: releer que ninguna descripción suene forzada/genérica, que los nombres de empresas estén bien escritos, y que no se haya expuesto ningún dato del CV más allá de nombre + rol + LinkedIn (regla dura de `CLAUDE.md` — nunca datos personales sensibles) |
+
+**Nota permanente:** el CV de Francisco ya lo subirá él mismo a esta
+conversación — cuando llegue, agregar su práctica en el área de Riesgo de
+LarraínVial a `personas.industria` (ver tarea C3) sin necesidad de ir al
+Drive por ese dato puntual.
 
 ### P1.5 — Macro repositorio de preguntas (cuando Francisco suba el material al Drive)
 
