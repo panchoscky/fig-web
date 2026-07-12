@@ -141,7 +141,8 @@ salas del laboratorio). 2-3 fotos por evento en general; solo 1 para
 
 | # | Tarea | Modelo | Detalle |
 |---|---|---|---|
-| 6 | **Página de metodología/reglas del torneo ampliada** | Sonnet | Sección o página con las reglas completas de las Bases (rebalanceos, pisos, disputas) para no depender solo del PDF |
+| 6 | **Página de metodología/reglas del torneo ampliada** | Sonnet | ✅ Hecho (2026-07-12) — sección `#metodologia` de `torneo/index.html` ampliada con 3 bloques nuevos: Calendario del torneo (inicio 11-may, corte semanal, ventanas de rebalanceo II/III, cierre, final), Reglas de piso (explicadas en prosa) y Disputas (48 hrs). El fetch automático del PDF de las Bases (`mpazq-afk.github.io`) está bloqueado por la política de red de este entorno (403 del proxy) — el contenido nuevo usa SOLO datos ya verificados en el propio código (HITOS, notas de metodología existentes), nada inventado. Queda un CTA al PDF para lo no cubierto aquí (concentración por activo, elegibilidad, procedimiento formal de disputa) |
+| 6b | **Confirmar vigencia de las Bases y resubir si cambiaron** | Haiku | Francisco debe subir la versión más reciente del PDF de Bases (al chat o Drive) para que un modelo verifique si hay cambios frente a lo que ya está reflejado en `torneo/index.html` §Metodología — el fetch automático al PDF público está bloqueado por red en este entorno |
 | 7 | **Resúmenes de eventos** | Haiku | 8 de 9 eventos en `datos/eventos.json` dicen "[Resumen por completar]" — redactar con Francisco 2-3 líneas por evento |
 | 8 | **SEO/social**: og:image + meta tags Open Graph/Twitter en las 5 páginas | Haiku | Generar una og:image estática 1200×630 con el estilo FIG (puede ser canvas→PNG una vez, guardada en fotos/) |
 | 9 | **404.html** de GitHub Pages con el estilo FIG | Haiku | Copia de la base de postula/index.html con mensaje + enlaces |
