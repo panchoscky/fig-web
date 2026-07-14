@@ -10,8 +10,8 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-07-12** (sesión: Desafío FIG + auditoría de
-rendimiento — logos redimensionados y guía de compresión de fotos).
+Última actualización: **2026-07-14** (sesión Fable: toros rediseñados,
+lote de 8 mejoras, línea temporal del torneo con eventos del club).
 
 ---
 
@@ -147,9 +147,9 @@ salas del laboratorio). 2-3 fotos por evento en general; solo 1 para
 |---|---|---|---|
 | 6 | **Página de metodología/reglas del torneo ampliada** | Sonnet | ✅ Hecho (2026-07-12) — sección `#metodologia` de `torneo/index.html` ampliada con 3 bloques nuevos: Calendario del torneo (inicio 11-may, corte semanal, ventanas de rebalanceo II/III, cierre, final), Reglas de piso (explicadas en prosa) y Disputas (48 hrs). El fetch automático del PDF de las Bases (`mpazq-afk.github.io`) está bloqueado por la política de red de este entorno (403 del proxy) — el contenido nuevo usa SOLO datos ya verificados en el propio código (HITOS, notas de metodología existentes), nada inventado. Queda un CTA al PDF para lo no cubierto aquí (concentración por activo, elegibilidad, procedimiento formal de disputa) |
 | 6b | **Confirmar vigencia de las Bases y resubir si cambiaron** | Haiku | Francisco debe subir la versión más reciente del PDF de Bases (al chat o Drive) para que un modelo verifique si hay cambios frente a lo que ya está reflejado en `torneo/index.html` §Metodología — el fetch automático al PDF público está bloqueado por red en este entorno |
-| 7 | **Resúmenes de eventos** | Haiku | 8 de 9 eventos en `datos/eventos.json` dicen "[Resumen por completar]" — redactar con Francisco 2-3 líneas por evento |
-| 8 | **SEO/social**: og:image + meta tags Open Graph/Twitter en las 5 páginas | Haiku | Generar una og:image estática 1200×630 con el estilo FIG (puede ser canvas→PNG una vez, guardada en fotos/) |
-| 9 | **404.html** de GitHub Pages con el estilo FIG | Haiku | Copia de la base de postula/index.html con mensaje + enlaces |
+| 7 | **Resúmenes de eventos** | Haiku | ✅ Hecho (2026-07-12) — los 9 eventos de `datos/eventos.json` tienen resumen real de 2-3 líneas, cero placeholders "[Resumen por completar]" restantes |
+| 8 | **SEO/social**: og:image + meta tags Open Graph/Twitter en las 5 páginas | Haiku | ✅ Hecho (2026-07-12) — `og-image.png` (1200×630, estilo FIG) generada; meta tags Open Graph/Twitter presentes en las 6 páginas actuales (index, eventos, torneo, postula, fiw, en) |
+| 9 | **404.html** de GitHub Pages con el estilo FIG | Haiku | ✅ Hecho (2026-07-12) — `404.html` en la raíz, mensaje + enlaces con el sistema de diseño FIG |
 | 10b | **Ranking global del juego** | Sonnet | ✅ Hecho (2026-07-12) — `juego/index.html` ahora lee `config.juegoEndpoint` de `datos/club.json`: si está vacío, se comporta exactamente igual que antes (ranking local por navegador vía localStorage, título "Ranking de este navegador"). Si Francisco despliega el Apps Script (código en la sección siguiente) y pega la URL en `config.juegoEndpoint`, el título cambia a "Ranking global", `saveScore()` hace un `POST` no-cors con `{nombre, valor, fecha}` (guarda también localmente como respaldo) y `renderRank()` hace `GET ENDPOINT?top=10` esperando un array JSON `[{nombre, valor, fecha}, …]`; si el fetch falla por cualquier motivo (red, endpoint mal configurado, CORS) cae automáticamente al ranking local sin romper la página |
 | 10 | **Archivo semanal del ranking** | Sonnet | `generar_torneo.py` ya guarda historial dentro de torneo.json; opcional: volcar snapshot `datos/torneo/semana-N.json` para auditoría/disputas |
 | 16 | **Mejorar el calendario/línea temporal de `torneo/index.html`** | Sonnet (pulir interacción/hover: Fable) | ✅ Hecho (2026-07-14, Fable) — la tarjeta "01 · Calendario" de §Metodología ahora se titula "El torneo y la vida del club": `cargarEventosTl()` lee `datos/eventos.json` y ordena las actividades del club (charlas, visitas, comunidad) cronológicamente entre los hitos del torneo, cada una con tag de tipo (CHARLA/VISITA/…) y un desplegable al hover/focus (`.tl-tip`) con su `resumen` + `lugar` — cero datos inventados, todo sale del JSON tal cual. El evento `torneo-portafolio-2026` se omite (este calendario ya ES su detalle). `initMetTl()` pasó a `classList` para marcar pasado/próximo sin pisar clases; la lista scrollea (max-height 600px) si crece; accesible por teclado (`tabindex=0`, `:focus-within`). Si el fetch falla, la línea queda solo con los hitos del torneo, como antes. Verificado con Playwright: 14 items en orden, chip PRÓXIMO en 3 AGO, tip desplegado al hover. Con inline hook `window.__eventosFIG` para las demos autocontenidas |
