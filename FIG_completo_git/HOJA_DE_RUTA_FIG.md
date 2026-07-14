@@ -304,7 +304,7 @@ después si se pide). Ninguna de las 6 se ha empezado a implementar.
 | 12 | **Newsletter / resumen semanal automático** | Opus | Generar un HTML de resumen semanal del torneo (top movimientos, sube/baja) desde torneo.json — diseño nuevo |
 | 13 | **Página de alumni/red de ex-miembros** | Opus | Diseño nuevo; datos en `datos/alumni.json`; requiere aprobación de Francisco sobre qué datos publicar (regla: solo nombre+rol+LinkedIn) |
 | 14 | **Dashboard interno de la directiva** | Opus | Métricas del club (asistencia a eventos, postulaciones). Definir alcance con Francisco primero |
-| 15 | **Migrar a dominio propio** las páginas nuevas | Sonnet | Coordinar con el GitHub Pages existente (`mpazq-afk`) y feninvestmentgroup.com — decisión de Francisco |
+| 15 | **Migrar a dominio propio** las páginas nuevas | Sonnet | Coordinar con el GitHub Pages existente (`mpazq-afk`) y feninvestmentgroup.com — decisión de Francisco. **Recordatorio explícito de Francisco (2026-07-14): aprovechar la migración para crear la planilla de Google Sheets + el Apps Script consolidado** (`config.figEndpoint` — postulaciones, ranking del Rally, métricas de visitas en una sola planilla de 3 pestañas; código completo y pasos de despliegue en la sección "Código del Apps Script COMPARTIDO del sitio" más arriba, P0-1). El endpoint en sí no depende del dominio (Apps Script ya responde cross-origin), pero es un buen momento para dejarlo listo junto con el resto del lanzamiento |
 
 ## 5. Decisiones tomadas (no re-litigar)
 
