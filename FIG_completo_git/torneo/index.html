@@ -269,8 +269,10 @@ body.locked{overflow:hidden}
 .met-card .num{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.3em;color:#9E7E1E;display:block;margin-bottom:8px}
 .met-card h3{font-family:var(--f-disp);font-weight:600;font-size:1.12rem;color:var(--ink);margin:0 0 16px}
 .met-card p{color:var(--ink-soft);font-size:.92rem;line-height:1.65;margin:0}
-/* mini línea temporal del calendario */
-.met-tl{list-style:none;margin:6px 0 0;padding:0;position:relative}
+/* mini línea temporal del calendario (hitos del torneo + vida del club) */
+.met-tl{list-style:none;margin:6px 0 0;padding:0 8px 0 0;position:relative;max-height:600px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(158,126,30,.45) transparent}
+.met-tl::-webkit-scrollbar{width:5px}
+.met-tl::-webkit-scrollbar-thumb{background:rgba(158,126,30,.4);border-radius:4px}
 .met-tl::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:rgba(158,126,30,.28)}
 .met-tl li{position:relative;padding:0 0 20px 30px;font-size:.86rem;color:var(--ink-soft);line-height:1.55}
 .met-tl li:last-child{padding-bottom:0}
@@ -280,6 +282,12 @@ body.locked{overflow:hidden}
 .met-tl li.tl-past{opacity:.52}
 .met-tl li.tl-past::before{background:#9E7E1E}
 .met-tl li.tl-next::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,175,55,.22)}
+/* actividades del club (leídas de datos/eventos.json) dentro de la línea */
+.met-tl .tag{font-family:var(--f-mono);font-size:.5rem;font-weight:500;letter-spacing:.16em;color:#9E7E1E;border:1px solid rgba(158,126,30,.45);border-radius:100px;padding:1px 8px}
+.met-tl li.tl-ev::before{border-radius:2px}
+.met-tl li .tl-tip{display:block;max-height:0;overflow:hidden;opacity:0;font-size:.78rem;color:var(--ink-soft);line-height:1.6;border-left:2px solid rgba(158,126,30,.35);padding-left:10px;margin-top:0;transition:max-height .5s var(--ease),opacity .4s,margin-top .4s}
+.met-tl li:hover .tl-tip,.met-tl li:focus .tl-tip,.met-tl li:focus-within .tl-tip{max-height:160px;opacity:1;margin-top:7px}
+.tl-hint{font-family:var(--f-mono);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);opacity:.75;margin:0 0 14px!important}
 @media (prefers-reduced-motion:no-preference){
   .met-tl li.tl-next::before{animation:tlpulse 2.4s ease-in-out infinite}
   @keyframes tlpulse{0%,100%{box-shadow:0 0 0 4px rgba(212,175,55,.22)}50%{box-shadow:0 0 0 8px rgba(212,175,55,.1)}}
@@ -463,7 +471,8 @@ footer a:hover{color:var(--gold)}
     <div class="met-cols reveal d3">
       <div class="met-card met-card--cal">
         <span class="num">01 · CALENDARIO</span>
-        <h3>Un torneo, seis hitos</h3>
+        <h3>El torneo y la vida del club</h3>
+        <p class="tl-hint">Hitos del torneo + actividades FIG · pasa el cursor (o toca) una actividad para ver su descripción</p>
         <ul class="met-tl" id="metTl">
           <li data-when="2026-05-11T09:00:00-04:00"><b>11 · MAY · 2026</b>Inicio del torneo — el cálculo since-inception de todas las métricas parte desde esta fecha.</li>
           <li><b>CADA VIERNES · 16:00 EST</b>Corte semanal: se recalcula el ranking con el estado de cada portafolio a esa hora.</li>
@@ -595,15 +604,67 @@ function initMetTl(){
   var items=$$("li[data-when]",tl),now=Date.now(),next=null;
   for(var i=0;i<items.length;i++){
     var t=Date.parse(items[i].getAttribute("data-when"));
-    if(t<=now){items[i].className="tl-past";}
+    items[i].classList.remove("tl-past","tl-next");
+    if(t<=now){items[i].classList.add("tl-past");}
     else if(!next){next=items[i];}
   }
   if(next){
-    next.className="tl-next";
-    var chip=document.createElement("span");
-    chip.className="chip";chip.textContent="PRÓXIMO";
-    next.querySelector("b").appendChild(chip);
+    next.classList.add("tl-next");
+    if(!next.querySelector(".chip")){
+      var chip=document.createElement("span");
+      chip.className="chip";chip.textContent="PRÓXIMO";
+      next.querySelector("b").appendChild(chip);
+    }
   }
+}
+
+/* Integra las actividades del club (datos/eventos.json) en la línea temporal,
+   ordenadas por fecha entre los hitos del torneo. Cada actividad lleva un tag
+   con su tipo y un desplegable (.tl-tip) con resumen + lugar al hover/focus.
+   Si el fetch falla, la línea queda solo con los hitos del torneo, como antes.
+   El evento torneo-portafolio-2026 se omite: este calendario YA es su detalle. */
+function cargarEventosTl(){
+  var tl=$("#metTl");
+  if(!tl){initMetTl();return;}
+  function integrar(evs){
+    try{
+      for(var i=0;i<evs.length;i++){
+        var ev=evs[i];
+        if(!ev||!ev.fecha||ev.id==="torneo-portafolio-2026")continue;
+        var iso=ev.fecha+"T12:00:00-03:00";
+        var t=Date.parse(iso);
+        if(isNaN(t))continue;
+        var li=document.createElement("li");
+        li.className="tl-ev";li.tabIndex=0;
+        li.setAttribute("data-when",iso);
+        var b=document.createElement("b");
+        b.appendChild(document.createTextNode((ev.fechaTexto||ev.fecha)+" "));
+        var tag=document.createElement("span");
+        tag.className="tag";tag.textContent=String(ev.tipo||"evento").toUpperCase();
+        b.appendChild(tag);
+        li.appendChild(b);
+        li.appendChild(document.createTextNode(ev.titulo||""));
+        if(ev.resumen||ev.lugar){
+          var tip=document.createElement("span");tip.className="tl-tip";
+          tip.textContent=(ev.resumen||"")+(ev.lugar?" — "+ev.lugar:"");
+          li.appendChild(tip);
+        }
+        /* insertar en orden cronológico respecto de los items ya fechados */
+        var ref=null,lis=$$("li",tl);
+        for(var j=0;j<lis.length;j++){
+          var w=lis[j].getAttribute("data-when");
+          if(w&&Date.parse(w)>t){ref=lis[j];break;}
+        }
+        tl.insertBefore(li,ref);
+      }
+    }catch(e){}
+    initMetTl();
+  }
+  if(window.__eventosFIG&&window.__eventosFIG.eventos){integrar(window.__eventosFIG.eventos);return;}
+  fetch("../datos/eventos.json",{cache:"no-store"})
+    .then(function(r){return r.ok?r.json():null})
+    .then(function(d){integrar(d&&d.eventos?d.eventos:[])})
+    .catch(function(){initMetTl()});
 }
 
 /* ---------------- Render ---------------- */
@@ -1435,7 +1496,7 @@ function openFromHash(){
 /* ---------------- Arranque ---------------- */
 renderAll();
 initCountdown();
-initMetTl();
+cargarEventosTl();
 observeReveals(document);
 (function(){
   var pre=$("#preloader"),seen=false;

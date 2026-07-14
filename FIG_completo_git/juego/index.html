@@ -219,9 +219,8 @@ var cv=$("#cv"),c=cv.getContext("2d");
 var W=cv.width,H=cv.height,GROUND=H-52;
 var running=false,over=false,sold=false;
 var valor=10000,mult=1,speed=6,t0=0,elapsed=0,lastSpawn=0;
-var toro={x:96,y:GROUND,vy:0,w:58,h:58,jumping:false};
+var toro={x:96,y:GROUND,vy:0,w:64,h:52,jumping:false};
 var obs=[],chartPts=[],chartSeed=GROUND-120;
-var logo=new Image();logo.src="../logos/fig-oro.png";
 
 /* ---------------- ranking ----------------
    Global vía Apps Script (config.juegoEndpoint en datos/club.json):
@@ -341,19 +340,72 @@ function drawBG(){
   c.beginPath();c.moveTo(-(elapsed*speed/28%20),GROUND+14);c.lineTo(W,GROUND+14);c.stroke();
   c.setLineDash([]);
 }
+/* Toro dibujado a mano, inspirado en el toro del logo FIG: silueta dorada
+   embistiendo, con galope de 4 patas (pares diagonales), cola con borla,
+   giba, cuernos claros y ojo navy. Coordenadas locales: pezuñas en y=0,
+   el cuerpo crece hacia y negativo. */
+function pata(px,dx,lift,col,grosor){
+  c.strokeStyle=col;c.lineWidth=grosor;c.lineCap="round";
+  c.beginPath();
+  c.moveTo(px,-20);
+  c.quadraticCurveTo(px+dx*.35,-10,px+dx,-lift);
+  c.stroke();
+}
 function drawToro(){
-  var y=toro.y-toro.h;
+  var run=running&&!toro.jumping;
+  var p=elapsed/64;                         /* fase del galope */
+  var bob=run?Math.sin(p*2)*1.6:0;          /* rebote del lomo al correr */
   c.save();
+  c.translate(toro.x,toro.y+bob);
   if(toro.jumping){
-    c.translate(toro.x+toro.w/2,y+toro.h/2);
-    c.rotate(-.12);
-    c.translate(-(toro.x+toro.w/2),-(y+toro.h/2));
+    c.translate(toro.w/2,-toro.h/2);c.rotate(-.16);c.translate(-toro.w/2,toro.h/2);
   }
-  if(logo.width)c.drawImage(logo,toro.x,y,toro.w,toro.h);
-  else{ /* respaldo si el logo no cargó */
-    c.fillStyle="#D4AF37";
-    c.beginPath();c.arc(toro.x+toro.w/2,y+toro.h/2,toro.w/2,0,7);c.fill();
-  }
+  var GOLD="#D4AF37",DEEP="#9E7E1E",LIGHT="#EBD388",DARK="#67511A";
+  /* fases de las patas: en salto quedan recogidas/estiradas; quieto, plantadas */
+  var dxA,liA,dxB,liB;
+  if(toro.jumping){dxA=-11;liA=9;dxB=9;liB=12;}
+  else if(run){
+    dxA=Math.sin(p)*11;liA=Math.max(0,Math.cos(p))*6;
+    dxB=Math.sin(p+Math.PI)*11;liB=Math.max(0,Math.cos(p+Math.PI))*6;
+  }else{dxA=-3;liA=0;dxB=3;liB=0;}
+  /* patas del lado lejano (más oscuras, detrás del cuerpo) */
+  pata(18,dxB,liB,DEEP,5);
+  pata(50,dxA,liA,DEEP,4.5);
+  /* cola con borla */
+  var tw=run?Math.sin(p*.9)*3:0;
+  c.strokeStyle=DEEP;c.lineWidth=3;c.lineCap="round";
+  c.beginPath();c.moveTo(9,-38);c.quadraticCurveTo(-4,-42,-6+tw,-30);c.stroke();
+  c.fillStyle=DARK;c.beginPath();c.arc(-6+tw,-28,3.2,0,7);c.fill();
+  /* cuerpo + cabeza embistiendo, una sola silueta con degradado dorado */
+  var g=c.createLinearGradient(0,-52,0,-6);
+  g.addColorStop(0,LIGHT);g.addColorStop(.55,GOLD);g.addColorStop(1,DEEP);
+  c.fillStyle=g;
+  c.beginPath();
+  c.moveTo(6,-20);                       /* bajo vientre trasero */
+  c.bezierCurveTo(2,-30,4,-40,14,-43);   /* grupa */
+  c.bezierCurveTo(24,-46,34,-52,46,-49); /* lomo y giba */
+  c.bezierCurveTo(54,-47,60,-42,63,-35); /* cuello */
+  c.bezierCurveTo(70,-32,75,-25,73,-16); /* frente embistiendo */
+  c.bezierCurveTo(71,-10,64,-9,60,-13);  /* hocico y mandíbula */
+  c.bezierCurveTo(56,-17,52,-19,46,-21); /* garganta al pecho */
+  c.bezierCurveTo(32,-25,16,-16,6,-20);  /* vientre */
+  c.closePath();c.fill();
+  /* patas del lado cercano (doradas, fase diagonal opuesta) */
+  pata(14,dxA,liA,GOLD,5.5);
+  pata(46,dxB,liB,GOLD,5);
+  /* cuernos: medialunas gruesas que curvan hacia arriba, como el logo */
+  c.strokeStyle=LIGHT;c.lineCap="round";
+  c.lineWidth=4.6;
+  c.beginPath();c.moveTo(64,-33);c.quadraticCurveTo(73,-38,72,-49);c.stroke();
+  c.lineWidth=4;
+  c.beginPath();c.moveTo(58,-35);c.quadraticCurveTo(50,-42,53,-52);c.stroke();
+  /* puntas de los cuernos más finas, hacia adentro */
+  c.lineWidth=2.4;
+  c.beginPath();c.moveTo(72,-49);c.quadraticCurveTo(71,-53,68,-55);c.stroke();
+  c.beginPath();c.moveTo(53,-52);c.quadraticCurveTo(54,-56,58,-57);c.stroke();
+  /* ojo y nariz */
+  c.fillStyle="#0A1128";c.beginPath();c.arc(66,-27,2,0,7);c.fill();
+  c.beginPath();c.arc(71,-14,1.4,0,7);c.fill();
   c.restore();
 }
 function drawHUDCanvas(){
