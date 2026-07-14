@@ -96,8 +96,7 @@ que la divida y pida confirmación a Francisco en las decisiones de diseño.
 
 | # | Tarea | Modelo | Detalle |
 |---|---|---|---|
-| 1 | **Crear el Apps Script de postulaciones** y pegar su URL en `datos/club.json → config.postulaEndpoint` | Sonnet | El formulario ya está listo. El script: Web App de Google Apps Script ligado a una planilla, `doPost(e)` que parsea `JSON.parse(e.postData.contents)` y hace `appendRow` con [fecha, nombre, correo, carrera, anio, area, motivacion, linkedin]. Desplegarlo "Cualquiera puede acceder". Francisco debe crearlo desde SU cuenta (Drive es solo-lectura para IAs) — darle el código listo para pegar |
-| 1b | **Crear el Apps Script del ranking de El Rally del Toro** y pegar su URL en `datos/club.json → config.juegoEndpoint` | Sonnet | ✅ Código del juego listo (2026-07-12, ver P1-10b abajo) — `juego/index.html` ya intenta leer/escribir en `config.juegoEndpoint`; mientras esté vacío sigue funcionando 100% con el ranking local (localStorage), sin romper nada. Francisco debe crear el Web App desde SU cuenta: código listo para pegar en la sección P1-10b |
+| 1 | **Crear el Apps Script COMPARTIDO del sitio** y pegar su URL en `datos/club.json → config.figEndpoint` | Sonnet | ✅ Consolidado (2026-07-14) — antes eran 3 Apps Script separados (postulaciones/ranking del juego/métricas), ahora es **UNO SOLO** con una planilla de 3 pestañas. El formulario de postulación, el ranking de El Rally del Toro y el beacon de visitas de las 8 páginas ya están listos para usarlo — cada envío lleva un campo `tipo` ("postulacion" / "rally" / "visita") para que el script sepa dónde escribir. Mientras `figEndpoint` esté vacío, todo sigue funcionando en modo degradado sin romper nada (formulario deshabilitado, ranking local, beacon inerte). Código completo + pasos de despliegue en la sección siguiente. Francisco debe crearlo desde SU cuenta (Drive es solo-lectura para IAs) |
 | 2 | **Primer torneo.json real** | Sonnet | Correr `python3 generar_torneo.py --excel <ranking.xlsx> --inscripciones <insc.xlsx> --semana N --corte "DD · MMM · 2026"`. Si los encabezados del Excel no calzan, ajustar `ALIAS` en el script. Pedir el Excel a Francisco |
 | 3 | **Confirmar colores FIW** con Delia | Haiku | Editar solo las 4 variables `--acc*` al inicio del `<style>` de `fiw/index.html` |
 | 3b | **Logo oficial de FIW** | Haiku | No existe en el Drive (carpeta FIG WOMEN solo tiene fotos). Pedirlo a Delia; guardarlo en `logos/fiw.png` y reemplazar `fig-blanco.png` en nav+intro de `fiw/index.html` |
@@ -150,68 +149,74 @@ salas del laboratorio). 2-3 fotos por evento en general; solo 1 para
 | 7 | **Resúmenes de eventos** | Haiku | ✅ Hecho (2026-07-12) — los 9 eventos de `datos/eventos.json` tienen resumen real de 2-3 líneas, cero placeholders "[Resumen por completar]" restantes |
 | 8 | **SEO/social**: og:image + meta tags Open Graph/Twitter en las 5 páginas | Haiku | ✅ Hecho (2026-07-12) — `og-image.png` (1200×630, estilo FIG) generada; meta tags Open Graph/Twitter presentes en las 6 páginas actuales (index, eventos, torneo, postula, fiw, en) |
 | 9 | **404.html** de GitHub Pages con el estilo FIG | Haiku | ✅ Hecho (2026-07-12) — `404.html` en la raíz, mensaje + enlaces con el sistema de diseño FIG |
-| 10b | **Ranking global del juego** | Sonnet | ✅ Hecho (2026-07-12) — `juego/index.html` ahora lee `config.juegoEndpoint` de `datos/club.json`: si está vacío, se comporta exactamente igual que antes (ranking local por navegador vía localStorage, título "Ranking de este navegador"). Si Francisco despliega el Apps Script (código en la sección siguiente) y pega la URL en `config.juegoEndpoint`, el título cambia a "Ranking global", `saveScore()` hace un `POST` no-cors con `{nombre, valor, fecha}` (guarda también localmente como respaldo) y `renderRank()` hace `GET ENDPOINT?top=10` esperando un array JSON `[{nombre, valor, fecha}, …]`; si el fetch falla por cualquier motivo (red, endpoint mal configurado, CORS) cae automáticamente al ranking local sin romper la página |
+| 10b | **Ranking global del juego** | Sonnet | ✅ Hecho (2026-07-12, endpoint consolidado 2026-07-14) — `juego/index.html` lee `config.figEndpoint` de `datos/club.json` (el Apps Script COMPARTIDO del sitio, ver P0-1): si está vacío, se comporta exactamente igual que antes (ranking local por navegador vía localStorage, título "Ranking de este navegador"). Si Francisco despliega el Apps Script y pega la URL en `config.figEndpoint`, el título cambia a "Ranking global", `saveScore()` hace un `POST` no-cors con `{tipo:"rally", nombre, valor, fecha}` (guarda también localmente como respaldo) y `renderRank()` hace `GET ENDPOINT?tipo=rally&top=10` esperando un array JSON `[{nombre, valor, fecha}, …]`; si el fetch falla por cualquier motivo (red, endpoint mal configurado, CORS) cae automáticamente al ranking local sin romper la página |
 | 10 | **Archivo semanal del ranking** | Sonnet | `generar_torneo.py` ya guarda historial dentro de torneo.json; opcional: volcar snapshot `datos/torneo/semana-N.json` para auditoría/disputas |
 | 16 | **Mejorar el calendario/línea temporal de `torneo/index.html`** | Sonnet (pulir interacción/hover: Fable) | ✅ Hecho (2026-07-14, Fable) — la tarjeta "01 · Calendario" de §Metodología ahora se titula "El torneo y la vida del club": `cargarEventosTl()` lee `datos/eventos.json` y ordena las actividades del club (charlas, visitas, comunidad) cronológicamente entre los hitos del torneo, cada una con tag de tipo (CHARLA/VISITA/…) y un desplegable al hover/focus (`.tl-tip`) con su `resumen` + `lugar` — cero datos inventados, todo sale del JSON tal cual. El evento `torneo-portafolio-2026` se omite (este calendario ya ES su detalle). `initMetTl()` pasó a `classList` para marcar pasado/próximo sin pisar clases; la lista scrollea (max-height 600px) si crece; accesible por teclado (`tabindex=0`, `:focus-within`). Si el fetch falla, la línea queda solo con los hitos del torneo, como antes. Verificado con Playwright: 14 items en orden, chip PRÓXIMO en 3 AGO, tip desplegado al hover. Con inline hook `window.__eventosFIG` para las demos autocontenidas |
 | 17 | **Eventos futuros en `eventos/index.html` con resumen + form de inscripción** | Sonnet (diseño de la tarjeta "próximo evento": Fable) | Pedido de Francisco (2026-07-12): la página de eventos (bitácora) hoy solo muestra actividades pasadas — falta que los eventos FUTUROS también se vean ahí, distinguidos visualmente (ej. sección "Próximamente" o badge, similar al `live:true`/`destacado:true` que ya existe en el esquema de `datos/eventos.json`), y que al abrir el detalle de un evento futuro se vea su resumen (`resumen` ya existe en el esquema) MÁS un formulario/enlace de inscripción. Falta definir: (a) si la inscripción reusa el patrón de `postula/index.html` (Apps Script `doPost` a una planilla) o es un form nuevo por evento, (b) cómo se marca un evento como "futuro" en el JSON (¿comparar `fecha` contra hoy, o un campo explícito tipo `estado:"proximo"`?) — no asumir, confirmar con Francisco antes de diseñar el schema nuevo. Hoy los 9 eventos de `datos/eventos.json` son todos pasados, así que esto se probará recién cuando exista al menos un evento futuro real |
 
-#### Código del Apps Script para el ranking global de El Rally del Toro (P1-10b / P0-1b)
+#### Código del Apps Script COMPARTIDO del sitio (config.figEndpoint)
 
-Francisco debe crear esto desde SU cuenta (Drive es solo-lectura para IAs).
-Mismo patrón que el Apps Script de postulaciones (P0-1): una planilla nueva
-con una hoja llamada **"Ranking"** con encabezados en la fila 1: `fecha` |
-`nombre` | `valor`. Luego, en la planilla → **Extensiones → Apps Script**,
-pegar:
+**Un solo Web App para las tres cosas** (postulaciones, ranking de El
+Rally del Toro, métricas de visitas) — antes eran 3 scripts separados, se
+consolidaron el 2026-07-14 para que Francisco solo tenga que crear y
+mantener uno. Cada página envía un campo `tipo` para que el script sepa
+en qué pestaña escribir; el ranking del juego además usa `doGet` para leer.
 
-```javascript
-function doPost(e) {
-  var datos = JSON.parse(e.postData.contents);
-  var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Ranking");
-  hoja.appendRow([datos.fecha, datos.nombre, datos.valor]);
-  return ContentService.createTextOutput("OK");
-}
+**Paso 1 — la planilla.** Crear una planilla nueva de Google Sheets con
+**tres pestañas**, cada una con sus encabezados en la fila 1:
 
-function doGet(e) {
-  var top = parseInt((e.parameter && e.parameter.top) || "10", 10);
-  var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Ranking");
-  var filas = hoja.getDataRange().getValues().slice(1); // sin encabezado
-  var scores = filas.map(function(f) {
-    return { fecha: f[0], nombre: f[1], valor: f[2] };
-  });
-  scores.sort(function(a, b) { return b.valor - a.valor; });
-  scores = scores.slice(0, top);
-  return ContentService.createTextOutput(JSON.stringify(scores))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-```
+| Pestaña | Encabezados (fila 1) |
+|---|---|
+| `Postulaciones` | `fecha` \| `nombre` \| `correo` \| `carrera` \| `anio` \| `area` \| `motivacion` \| `linkedin` |
+| `Ranking` | `fecha` \| `nombre` \| `valor` |
+| `Visitas` | `fecha` \| `pagina` \| `origen` |
 
-Desplegar como Web App (**Implementar → Nueva implementación → Aplicación
-web**): Ejecutar como **"Yo"**, Acceso **"Cualquier usuario"**. Copiar la
-URL `/exec` resultante y pegarla en `datos/club.json → config.juegoEndpoint`.
-No hay que tocar el HTML — `juego/index.html` ya está listo para consumir
-ese endpoint apenas se configure, y sigue funcionando con ranking local si
-se deja vacío.
-
-#### Código del Apps Script para las métricas de visitas (config.statsEndpoint)
-
-Mismo procedimiento: planilla nueva con una hoja **"Visitas"** y encabezados
-`fecha | pagina | origen` en la fila 1. Las 8 páginas del sitio ya llevan el
-beacon (anónimo, sin cookies: solo página visitada, fecha y sitio de origen)
-y queda inerte mientras `config.statsEndpoint` esté vacío en `club.json`.
+**Paso 2 — el script.** En esa misma planilla → **Extensiones → Apps
+Script**, borrar el contenido de ejemplo y pegar:
 
 ```javascript
 function doPost(e) {
   var d = JSON.parse(e.postData.contents);
-  var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Visitas");
-  hoja.appendRow([d.fecha, d.pagina, d.origen]);
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (d.tipo === "postulacion") {
+    ss.getSheetByName("Postulaciones").appendRow(
+      [d.fecha, d.nombre, d.correo, d.carrera, d.anio, d.area, d.motivacion, d.linkedin]);
+  } else if (d.tipo === "rally") {
+    ss.getSheetByName("Ranking").appendRow([d.fecha, d.nombre, d.valor]);
+  } else if (d.tipo === "visita") {
+    ss.getSheetByName("Visitas").appendRow([d.fecha, d.pagina, d.origen]);
+  }
   return ContentService.createTextOutput("OK");
+}
+
+function doGet(e) {
+  if (e.parameter && e.parameter.tipo === "rally") {
+    var top = parseInt(e.parameter.top || "10", 10);
+    var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Ranking");
+    var filas = hoja.getDataRange().getValues().slice(1); // sin encabezado
+    var scores = filas.map(function(f) {
+      return { fecha: f[0], nombre: f[1], valor: f[2] };
+    });
+    scores.sort(function(a, b) { return b.valor - a.valor; });
+    scores = scores.slice(0, top);
+    return ContentService.createTextOutput(JSON.stringify(scores))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  return ContentService.createTextOutput("Endpoint FIG activo");
 }
 ```
 
-Desplegar igual que los anteriores y pegar la URL `/exec` en
-`datos/club.json → config.statsEndpoint`. Para leer los resultados basta la
-propia planilla (una tabla dinámica por `pagina` ya responde "qué se visita
-más"), sin construir nada extra.
+**Paso 3 — desplegar.** **Implementar → Nueva implementación → Aplicación
+web**: Ejecutar como **"Yo"**, Acceso **"Cualquier usuario"**. Copiar la
+URL `/exec` resultante y pegarla **una sola vez** en
+`datos/club.json → config.figEndpoint`.
+
+No hay que tocar ningún HTML — `postula/index.html`, `juego/index.html` y
+el beacon de las 8 páginas ya están listos para consumir ese mismo
+endpoint apenas se configure. Mientras esté vacío, cada pieza sigue
+funcionando en su modo degradado de siempre (formulario con banner "en
+configuración", ranking local por navegador, beacon simplemente inerte) —
+nada se rompe.
 
 ### P0.5 — Perfiles reales desde los CV del Drive
 
@@ -271,7 +276,7 @@ pregunta — es la guía de autoría y el contrato de calidad.**
 | Q2 | **Extracción de preguntas por lotes** | Sonnet | Por archivo del material: leerlo del Drive, redactar 20-40 preguntas según LEEME.md (con `fuente` citando el archivo), guardarlas en el shard del tema, correr `validar_preguntas.py` (debe decir TODO OK), commit por lote. Shards de máx 200 preguntas/150 KB — crear `tema-02.json`… y listarlos en index.json |
 | Q3 | **Revisión pedagógica por muestreo** | Opus/Fable | ~10% de cada lote: precisión técnica, distractores plausibles, explicaciones que enseñan. Corregir o eliminar. Sin esta revisión un lote no se considera terminado |
 | Q4 | **Balance del banco** | Haiku | `validar_preguntas.py --stats` tras cada tanda: ningún tema raquítico, dificultades ~40/40/20. Anotar huecos aquí |
-| Q5 | **Ranking global del Desafío** | Sonnet | Igual que el del Rally (P1-10b): Apps Script doPost/doGet + planilla; la página cae a localStorage si no hay endpoint |
+| Q5 | **Ranking global del Desafío** | Sonnet | Igual que el del Rally (P1-10b): puede sumarse como un `tipo` más ("desafio") al Apps Script COMPARTIDO ya existente (P0-1) en vez de crear uno nuevo — una pestaña más en la planilla, un `else if` más en `doPost`/`doGet`. La página cae a localStorage si no hay endpoint |
 | Q6 | **Preguntas de historia con narrativa** | Fable | El tema historia-mercados admite mini-historias como enunciado (2-3 frases de contexto + pregunta). Requiere redacción fina — no delegar a Haiku |
 
 ### P1.6 — Ideas de mejora seleccionadas (sesión 2026-07-12, agregadas — NO ejecutadas)
