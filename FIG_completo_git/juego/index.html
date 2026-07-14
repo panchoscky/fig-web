@@ -222,7 +222,7 @@ var cv=$("#cv"),c=cv.getContext("2d");
 var W=cv.width,H=cv.height,GROUND=H-52;
 var running=false,over=false,sold=false;
 var valor=10000,mult=1,speed=6,t0=0,elapsed=0,lastSpawn=0;
-var toro={x:96,y:GROUND,vy:0,w:64,h:52,jumping:false};
+var toro={x:96,y:GROUND,vy:0,w:80,h:58,jumping:false};
 var obs=[],chartPts=[],chartSeed=GROUND-120;
 var runHist=[],lastSample=0;   /* sparkline: curva de equity de ESTA corrida */
 
@@ -344,57 +344,117 @@ function drawBG(){
   c.beginPath();c.moveTo(-(elapsed*speed/28%20),GROUND+14);c.lineTo(W,GROUND+14);c.stroke();
   c.setLineDash([]);
 }
-/* Toro dibujado a mano, inspirado en el toro del logo FIG: silueta dorada
-   embistiendo, con galope de 4 patas (pares diagonales), cola con borla,
-   giba, cuernos claros y ojo navy. Coordenadas locales: pezuñas en y=0,
-   el cuerpo crece hacia y negativo. toroSilueta() recibe el contexto para
-   poder reutilizarse en la tarjeta compartible del resultado. */
-function pata(ctx,px,dx,lift,col,grosor){
-  ctx.strokeStyle=col;ctx.lineWidth=grosor;ctx.lineCap="round";
-  ctx.beginPath();
-  ctx.moveTo(px,-20);
-  ctx.quadraticCurveTo(px+dx*.35,-10,px+dx,-lift);
-  ctx.stroke();
+/* Toros dibujados a mano (dos versiones aprobables por Francisco):
+   - toroSilueta      → "Charging Bull" estilo Wall Street: giba maciza,
+     cabeza grande y baja embistiendo, cola en latigazo — el corredor del juego.
+   - toroSiluetaLogo  → perfil noble del logo FIG: cabeza alta, medialunas
+     hacia atrás — se usa en la tarjeta compartible del resultado.
+   Coordenadas locales: pezuñas en y=0, el cuerpo crece hacia y negativo.
+   Ambas reciben el contexto para reutilizarse en cualquier canvas. */
+var TORO_GOLD="#D4AF37",TORO_DEEP="#9E7E1E",TORO_LIGHT="#EBD388",TORO_DARK="#67511A";
+function pata(ctx,px,py,dx,lift,colA,colB,g1,g2){
+  var kx=px+dx*.45,ky=py*.45;
+  var hx=px+dx,hy=-1-lift;
+  ctx.strokeStyle=colA;ctx.lineCap="round";
+  ctx.lineWidth=g1;
+  ctx.beginPath();ctx.moveTo(px,py);ctx.quadraticCurveTo(px+dx*.2,py*.7,kx,ky);ctx.stroke();
+  ctx.lineWidth=g2;
+  ctx.beginPath();ctx.moveTo(kx,ky);ctx.lineTo(hx,hy);ctx.stroke();
+  ctx.fillStyle=colB;
+  ctx.beginPath();ctx.arc(hx,hy,g2*.6,0,7);ctx.fill();
 }
-function toroSilueta(ctx,dxA,liA,dxB,liB,tw){
-  var GOLD="#D4AF37",DEEP="#9E7E1E",LIGHT="#EBD388",DARK="#67511A";
-  /* patas del lado lejano (más oscuras, detrás del cuerpo) */
-  pata(ctx,18,dxB,liB,DEEP,5);
-  pata(ctx,50,dxA,liA,DEEP,4.5);
-  /* cola con borla */
-  ctx.strokeStyle=DEEP;ctx.lineWidth=3;ctx.lineCap="round";
-  ctx.beginPath();ctx.moveTo(9,-38);ctx.quadraticCurveTo(-4,-42,-6+tw,-30);ctx.stroke();
-  ctx.fillStyle=DARK;ctx.beginPath();ctx.arc(-6+tw,-28,3.2,0,7);ctx.fill();
-  /* cuerpo + cabeza embistiendo, una sola silueta con degradado dorado */
-  var g=ctx.createLinearGradient(0,-52,0,-6);
-  g.addColorStop(0,LIGHT);g.addColorStop(.55,GOLD);g.addColorStop(1,DEEP);
+/* cuerno: medialuna RELLENA con base ancha, como las del logo.
+   curv negativo = se comba hacia atrás (perfil del logo). */
+function cuerno(ctx,bx,by,tx,ty,curv,grosor,col){
+  var dx=tx-bx,dy=ty-by,L=Math.sqrt(dx*dx+dy*dy);
+  var nx=-dy/L,ny=dx/L;
+  var mx=(bx+tx)/2,my=(by+ty)/2;
+  ctx.fillStyle=col;
+  ctx.beginPath();
+  ctx.moveTo(bx+nx*grosor,by+ny*grosor);
+  ctx.quadraticCurveTo(mx+nx*curv,my+ny*curv,tx,ty);
+  ctx.quadraticCurveTo(mx+nx*(curv-grosor*1.1),my+ny*(curv-grosor*1.1),bx,by);
+  ctx.closePath();ctx.fill();
+}
+/* ---- versión Wall Street: embistiendo (corredor del juego) ---- */
+function toroSilueta(ctx,dxA,liA,dxB,liB){
+  pata(ctx,20,-26,dxB,liB,TORO_DEEP,TORO_DARK,10,5.5);
+  pata(ctx,56,-28,dxA,liA,TORO_DEEP,TORO_DARK,9,5);
+  /* cola: latigazo en S hacia arriba, marca del Charging Bull */
+  ctx.strokeStyle=TORO_DEEP;ctx.lineWidth=3.6;ctx.lineCap="round";
+  ctx.beginPath();ctx.moveTo(8,-44);ctx.bezierCurveTo(-4,-48,-8,-56,-1,-60);ctx.stroke();
+  ctx.fillStyle=TORO_DARK;ctx.beginPath();ctx.arc(0,-61,3.8,0,7);ctx.fill();
+  /* cuerno lejano */
+  cuerno(ctx,70,-42,78,-62,10,6,TORO_GOLD);
+  /* cuerpo: giba enorme, cabeza grande y baja */
+  var g=ctx.createLinearGradient(0,-68,0,-6);
+  g.addColorStop(0,TORO_LIGHT);g.addColorStop(.5,TORO_GOLD);g.addColorStop(1,TORO_DEEP);
   ctx.fillStyle=g;
   ctx.beginPath();
-  ctx.moveTo(6,-20);                       /* bajo vientre trasero */
-  ctx.bezierCurveTo(2,-30,4,-40,14,-43);   /* grupa */
-  ctx.bezierCurveTo(24,-46,34,-52,46,-49); /* lomo y giba */
-  ctx.bezierCurveTo(54,-47,60,-42,63,-35); /* cuello */
-  ctx.bezierCurveTo(70,-32,75,-25,73,-16); /* frente embistiendo */
-  ctx.bezierCurveTo(71,-10,64,-9,60,-13);  /* hocico y mandíbula */
-  ctx.bezierCurveTo(56,-17,52,-19,46,-21); /* garganta al pecho */
-  ctx.bezierCurveTo(32,-25,16,-16,6,-20);  /* vientre */
+  ctx.moveTo(12,-22);
+  ctx.bezierCurveTo(2,-30,2,-42,10,-48);     /* grupa */
+  ctx.bezierCurveTo(18,-52,28,-50,36,-52);   /* lomo */
+  ctx.bezierCurveTo(42,-64,58,-68,66,-58);   /* GIBA maciza */
+  ctx.bezierCurveTo(72,-50,74,-44,78,-40);   /* cuello corto que baja */
+  ctx.bezierCurveTo(86,-36,92,-30,94,-22);   /* frente ancha embistiendo */
+  ctx.bezierCurveTo(95,-15,92,-9,85,-8);     /* hocico ancho */
+  ctx.bezierCurveTo(78,-8,74,-10,71,-14);    /* mandíbula */
+  ctx.bezierCurveTo(68,-18,66,-13,60,-9);    /* papada colgante */
+  ctx.bezierCurveTo(52,-11,40,-16,26,-18);   /* pecho → vientre */
+  ctx.bezierCurveTo(20,-19,14,-20,12,-22);
   ctx.closePath();ctx.fill();
-  /* patas del lado cercano (doradas, fase diagonal opuesta) */
-  pata(ctx,14,dxA,liA,GOLD,5.5);
-  pata(ctx,46,dxB,liB,GOLD,5);
-  /* cuernos: medialunas gruesas que curvan hacia arriba, como el logo */
-  ctx.strokeStyle=LIGHT;ctx.lineCap="round";
-  ctx.lineWidth=4.6;
-  ctx.beginPath();ctx.moveTo(64,-33);ctx.quadraticCurveTo(73,-38,72,-49);ctx.stroke();
-  ctx.lineWidth=4;
-  ctx.beginPath();ctx.moveTo(58,-35);ctx.quadraticCurveTo(50,-42,53,-52);ctx.stroke();
-  /* puntas de los cuernos más finas, hacia adentro */
-  ctx.lineWidth=2.4;
-  ctx.beginPath();ctx.moveTo(72,-49);ctx.quadraticCurveTo(71,-53,68,-55);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(53,-52);ctx.quadraticCurveTo(54,-56,58,-57);ctx.stroke();
-  /* ojo y nariz */
-  ctx.fillStyle="#0A1128";ctx.beginPath();ctx.arc(66,-27,2,0,7);ctx.fill();
-  ctx.beginPath();ctx.arc(71,-14,1.4,0,7);ctx.fill();
+  /* sombras de músculo (hombro y cadera) */
+  ctx.strokeStyle="rgba(103,81,26,.45)";ctx.lineWidth=2;ctx.lineCap="round";
+  ctx.beginPath();ctx.moveTo(58,-54);ctx.quadraticCurveTo(62,-42,58,-30);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(16,-44);ctx.quadraticCurveTo(24,-38,22,-28);ctx.stroke();
+  pata(ctx,16,-22,dxA,liA,TORO_GOLD,TORO_DEEP,11,6);
+  pata(ctx,52,-24,dxB,liB,TORO_GOLD,TORO_DEEP,10,5.5);
+  /* cuerno cercano hacia adelante-arriba, como la estatua */
+  cuerno(ctx,76,-40,90,-60,12,8,TORO_LIGHT);
+  /* oreja, ojo con ceño y nariz */
+  ctx.fillStyle=TORO_DEEP;
+  ctx.beginPath();ctx.ellipse(70,-42,5,2.8,.5,0,7);ctx.fill();
+  ctx.fillStyle="#0A1128";
+  ctx.beginPath();ctx.moveTo(80,-30);ctx.lineTo(88,-27);ctx.lineTo(81,-25.5);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.arc(90,-14,1.8,0,7);ctx.fill();
+}
+/* ---- versión perfil del logo: cabeza alta y noble (tarjeta) ---- */
+function toroSiluetaLogo(ctx,dxA,liA,dxB,liB){
+  pata(ctx,22,-26,dxB,liB,TORO_DEEP,TORO_DARK,9,5);
+  pata(ctx,54,-28,dxA,liA,TORO_DEEP,TORO_DARK,8,4.5);
+  ctx.strokeStyle=TORO_DEEP;ctx.lineWidth=3.4;ctx.lineCap="round";
+  ctx.beginPath();ctx.moveTo(10,-44);ctx.quadraticCurveTo(-2,-40,-2,-28);ctx.stroke();
+  ctx.fillStyle=TORO_DARK;ctx.beginPath();ctx.arc(-2,-26,3.6,0,7);ctx.fill();
+  /* cuerno lejano detrás de la cabeza */
+  cuerno(ctx,78,-74,64,-96,-13,8,TORO_GOLD);
+  var g=ctx.createLinearGradient(0,-80,0,-8);
+  g.addColorStop(0,TORO_LIGHT);g.addColorStop(.5,TORO_GOLD);g.addColorStop(1,TORO_DEEP);
+  ctx.fillStyle=g;
+  ctx.beginPath();
+  ctx.moveTo(12,-24);
+  ctx.bezierCurveTo(4,-32,4,-44,12,-50);     /* grupa */
+  ctx.bezierCurveTo(24,-56,36,-54,46,-56);   /* lomo */
+  ctx.bezierCurveTo(54,-58,58,-62,62,-68);   /* cruz → cuello grueso que sube */
+  ctx.bezierCurveTo(64,-72,66,-75,70,-77);   /* nuca */
+  ctx.bezierCurveTo(76,-79,82,-77,85,-72);   /* frente ancha */
+  ctx.bezierCurveTo(89,-66,92,-60,91,-55);   /* caída del perfil */
+  ctx.bezierCurveTo(90,-50,86,-47,81,-48);   /* hocico redondo */
+  ctx.bezierCurveTo(76,-49,73,-51,71,-54);   /* belfo y mentón */
+  ctx.bezierCurveTo(70,-46,68,-38,64,-30);   /* garganta ancha baja al pecho */
+  ctx.bezierCurveTo(60,-20,56,-14,50,-12);   /* pecho */
+  ctx.bezierCurveTo(40,-16,28,-19,20,-20);   /* vientre */
+  ctx.bezierCurveTo(16,-21,13,-22,12,-24);
+  ctx.closePath();ctx.fill();
+  pata(ctx,18,-24,dxA,liA,TORO_GOLD,TORO_DEEP,10,5.5);
+  pata(ctx,50,-24,dxB,liB,TORO_GOLD,TORO_DEEP,9,5);
+  /* cuerno cercano: medialuna clara combada hacia atrás, como el logo */
+  cuerno(ctx,72,-76,56,-100,-16,10,TORO_LIGHT);
+  /* oreja, ojo fiero (muesca del logo) y nariz */
+  ctx.fillStyle=TORO_DEEP;
+  ctx.beginPath();ctx.ellipse(62,-68,5,2.6,-.5,0,7);ctx.fill();
+  ctx.fillStyle="#0A1128";
+  ctx.beginPath();ctx.moveTo(76,-68);ctx.lineTo(84,-66);ctx.lineTo(78,-63.5);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.arc(88,-56,1.7,0,7);ctx.fill();
 }
 function drawToro(){
   var run=running&&!toro.jumping;
@@ -407,12 +467,12 @@ function drawToro(){
   }
   /* fases de las patas: en salto quedan recogidas/estiradas; quieto, plantadas */
   var dxA,liA,dxB,liB;
-  if(toro.jumping){dxA=-11;liA=9;dxB=9;liB=12;}
+  if(toro.jumping){dxA=-12;liA=10;dxB=10;liB=13;}
   else if(run){
-    dxA=Math.sin(p)*11;liA=Math.max(0,Math.cos(p))*6;
-    dxB=Math.sin(p+Math.PI)*11;liB=Math.max(0,Math.cos(p+Math.PI))*6;
-  }else{dxA=-3;liA=0;dxB=3;liB=0;}
-  toroSilueta(c,dxA,liA,dxB,liB,run?Math.sin(p*.9)*3:0);
+    dxA=Math.sin(p)*12;liA=Math.max(0,Math.cos(p))*7;
+    dxB=Math.sin(p+Math.PI)*12;liB=Math.max(0,Math.cos(p+Math.PI))*7;
+  }else{dxA=-4;liA=0;dxB=4;liB=0;}
+  toroSilueta(c,dxA,liA,dxB,liB);
   c.restore();
 }
 function drawHUDCanvas(){
@@ -612,9 +672,9 @@ function tarjetaRally(nombre,v){
   x.font="500 30px 'IBM Plex Mono', monospace";
   x.fillText(gan>0?"VENDIÓ A TIEMPO · +"+Math.round(gan/100)+"% DE GANANCIA"
                   :"SALIÓ DEL MERCADO SIN PÉRDIDAS",W2/2,562);
-  /* toro al centro (pose plantada, escala 6) */
-  x.save();x.translate(W2/2-33*6,1000);x.scale(6,6);
-  toroSilueta(x,-3,0,3,0,0);
+  /* toro al centro: versión noble del logo (pose plantada) */
+  x.save();x.translate(W2/2-42*4.4,1030);x.scale(4.4,4.4);
+  toroSiluetaLogo(x,-4,0,4,0);
   x.restore();
   /* cita y pie */
   x.fillStyle="rgba(247,244,236,.5)";x.font="500 24px 'IBM Plex Mono', monospace";
