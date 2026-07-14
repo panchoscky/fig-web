@@ -612,5 +612,23 @@ $("#btnHome").addEventListener("click",function(){show("scrHome")});
 renderRank();
 })();
 </script>
+<script>
+/* Métricas anónimas de visitas — SIN cookies ni identificadores. Solo se
+   activa si config.statsEndpoint está configurado en datos/club.json
+   (Apps Script; código listo en HOJA_DE_RUTA_FIG.md). Registra página,
+   fecha y sitio de origen. Nada más. */
+(function(){
+try{
+fetch("../datos/club.json",{cache:"force-cache"})
+.then(function(r){return r.ok?r.json():null})
+.then(function(d){
+  var u=d&&d.config&&d.config.statsEndpoint;if(!u)return;
+  var b=JSON.stringify({pagina:location.pathname,fecha:new Date().toISOString(),origen:(document.referrer.split("/")[2]||"")});
+  if(navigator.sendBeacon){navigator.sendBeacon(u,b);}
+  else{fetch(u,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:b}).catch(function(){});}
+}).catch(function(){});
+}catch(e){}
+})();
+</script>
 </body>
 </html>

@@ -83,6 +83,7 @@ Instagram `instagram.com/fen.investment.group`.
 | 2026-07-09 | Tarjetas v4 | Feed 1080×1350 rediseñada + LinkedIn 1200×627 + HTML autocontenida + VIDEOS Feed/Story con intro animada (MediaRecorder; WebM Chrome / MP4 Safari). Gráfico de 3 líneas: retorno equipo vs promedio vs ACWI; miembros, delta badge, logos colaboradores, RRSS por formato. Esquema: `historial[].ret` + serie `acwi` (generar_torneo.py --acwi); el promedio lo calcula la página. Hook `window.__figCards` |
 | 2026-07-14 | Toro dibujado en el Rally | Pedido de Francisco: que se vea un toro corriendo inspirado en el logo, no el logo plano. `drawToro()` de `juego/index.html` ahora dibuja la silueta en canvas: cuerpo con degradado oro (EBD388→D4AF37→9E7E1E), giba, cabeza baja embistiendo, cuernos medialuna claros como el logo, ojo/nariz navy, cola con borla animada, y galope de 4 patas en pares diagonales (fase por `elapsed`); en el salto las patas quedan recogidas/estiradas y el cuerpo rota −.16 rad; quieto, posa plantado (portada). Sin imágenes: se eliminó el `Image` del logo en el canvas (el nav lo conserva). Hitbox ajustada a 64×52 con los mismos márgenes de gracia |
 | 2026-07-14 | Demos autocontenidas | `build_demos.py` (scratchpad de la sesión, no comiteado) genera 3 archivos HTML de un solo archivo para compartir de prueba: principal, torneo y juego — logos embebidos en base64 y `club.json`/`eventos.json` inyectados vía shim de `fetch()`; torneo.json se omite a propósito para que la página muestre su modo DEMO honestamente. Enviados a Francisco por chat |
+| 2026-07-14 | Lote de 8 mejoras (Fable) | Pedido de Francisco ("desarrolla las 8 ideas"): (1) **Tarjeta compartible del Rally** — al vender, botón "Descargar tarjeta del resultado" genera un PNG 1080×1350 con el monto, % de ganancia, el toro dibujado (reutiliza `toroSilueta()`) y la cita del club; (2) **Ticker bursátil** en `index.html` — cinta fija al pie con el top 5 del torneo (puntos, retorno vs ACWI, delta ▲▼), SOLO aparece si existe `datos/torneo.json` real, cerrable y recordado por sesión, pausa al hover, respeta reduced-motion; (3) **Sparkline "TU RUN"** en el juego — curva de equity de la corrida actual arriba a la derecha del canvas; (4) **Filtro por año** en la bitácora (píldoras generadas desde los datos; se ocultan si hay un solo año) combinado con el filtro por tipo existente; (5) **Calendario .ics** — `generar_ics.py` (stdlib, RFC 5545, correr tras editar eventos.json) → `eventos/fig.ics`, botón en la página; en GitHub Pages la URL del .ics sirve para suscripción; (6) **Métricas anónimas sin cookies** — beacon en las 8 páginas, inerte hasta configurar `config.statsEndpoint` (código Apps Script abajo); (7) **`en/index.html`** — one-pager en inglés para partners (única página en inglés del sitio, enlazada del footer), solo datos verificados; (8) **Modo pantalla** (`eventos/?pantalla=1`) — fotos de todos los eventos a pantalla completa con título/fecha rotando cada 8 s, para TVs de la FEN, ESC sale, enlazado del footer de eventos. Todo verificado con Playwright; resúmenes demo embebidos de eventos/index.html sincronizados con eventos.json |
 
 ## 4. Backlog priorizado
 
@@ -191,6 +192,27 @@ No hay que tocar el HTML — `juego/index.html` ya está listo para consumir
 ese endpoint apenas se configure, y sigue funcionando con ranking local si
 se deja vacío.
 
+#### Código del Apps Script para las métricas de visitas (config.statsEndpoint)
+
+Mismo procedimiento: planilla nueva con una hoja **"Visitas"** y encabezados
+`fecha | pagina | origen` en la fila 1. Las 8 páginas del sitio ya llevan el
+beacon (anónimo, sin cookies: solo página visitada, fecha y sitio de origen)
+y queda inerte mientras `config.statsEndpoint` esté vacío en `club.json`.
+
+```javascript
+function doPost(e) {
+  var d = JSON.parse(e.postData.contents);
+  var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Visitas");
+  hoja.appendRow([d.fecha, d.pagina, d.origen]);
+  return ContentService.createTextOutput("OK");
+}
+```
+
+Desplegar igual que los anteriores y pegar la URL `/exec` en
+`datos/club.json → config.statsEndpoint`. Para leer los resultados basta la
+propia planilla (una tabla dinámica por `pagina` ya responde "qué se visita
+más"), sin construir nada extra.
+
 ### P0.5 — Perfiles reales desde los CV del Drive
 
 En el Drive ya existe una carpeta `CV` con los currículums de algunos
@@ -264,7 +286,7 @@ después si se pide). Ninguna de las 6 se ha empezado a implementar.
 |---|---|---|---|
 | 18 | **Badges automáticos en el ranking del torneo** | Sonnet | Distinciones calculadas a partir de métricas que `torneo.json` ya trae por equipo: "Mejor Sharpe", "Menor Drawdown", "Remontada de la semana" (mayor `delta` positivo). Sin tocar el scoring ni pedir datos nuevos — se derivan en el propio `torneo/index.html` al renderizar. Funciona incluso con los datos DEMO actuales, útil para probarlo antes de que exista el `torneo.json` real (P0-2) |
 | 19 | **Modo TV/kiosko para el torneo** (`torneo/index.html?tv=1`) | Sonnet (pulir transiciones: Fable) | Parámetro de URL que activa una vista a pantalla completa sin nav/footer, rotando automáticamente podio → tabla completa → countdown al próximo hito (reutiliza `HITOS` y el countdown que ya existe en `#metodologia`). Pensado para proyectar en el Bloomberg Lab los viernes de publicación del ranking |
-| 20 | **Botón "Agregar a calendario" (.ics) por evento** | Sonnet | En `eventos/index.html`, generar un archivo `.ics` descargable a partir de `fecha`/`titulo`/`lugar` de cada evento (construcción de texto plano, sin librerías). Tiene más sentido una vez exista al menos un evento futuro real en `datos/eventos.json` (ver tarea #17) — se puede construir antes e ir probando con fechas pasadas mientras tanto |
+| 20 | **Botón "Agregar a calendario" (.ics) por evento** | Sonnet | Parcialmente cubierto (2026-07-14): ya existe el calendario COMPLETO descargable/suscribible (`generar_ics.py` → `eventos/fig.ics`, botón en la página). Queda pendiente solo la variante POR EVENTO individual (un .ics de un solo VEVENT generado en el navegador desde el overlay del evento) — tiene más sentido cuando existan eventos futuros (tarea #17) |
 | 21 | **Comparador de equipos en el torneo** | Sonnet | Seleccionar 2 equipos de `torneo.json` y verlos lado a lado, métrica por métrica (retorno, Sharpe, MDD, posición, delta). Toda la data ya está en el JSON que consume `torneo/index.html`; es una vista nueva sobre datos existentes, sin backend nuevo |
 | 22 | **PWA ligera para el torneo** | Sonnet | `manifest.json` + service worker mínimo (cache de assets estáticos) para que `torneo/index.html` se pueda "instalar" en el celular y cargue rápido los viernes de publicación, cuando hay más tráfico. No requiere backend ni cambia el fetch de `torneo.json` (siempre debe pedirse fresco, no cachear el JSON del ranking) |
 | 23 | **Sección "Referentes" en FIW** | Sonnet | Tarjetas de entrevistas breves a mujeres de la industria (foto + cita + cargo), mismo patrón JSON que el resto del sitio (`datos/fiw.json`). Da contenido real al área mientras se resuelven los colores oficiales con Delia (P0-3) — el contenido no depende de esa decisión, solo el estilo visual sí. Requiere que Francisco/Delia consigan las entrevistas o testimonios primero, no inventar citas |

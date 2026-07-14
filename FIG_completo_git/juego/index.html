@@ -169,7 +169,10 @@ footer a:hover{color:var(--gold)}
           <input id="inpName" type="text" maxlength="24" placeholder="Tu nombre" autocomplete="off">
           <button class="btn btn--gold" id="btnSave">Guardar en el ranking</button>
         </div>
-        <button class="btn btn--ghost" id="btnAgain1">Otra rueda →</button>
+        <div class="name-row">
+          <button class="btn btn--ghost" id="btnCard">Descargar tarjeta del resultado</button>
+          <button class="btn btn--ghost" id="btnAgain1">Otra rueda →</button>
+        </div>
       </div>
 
       <!-- crash -->
@@ -221,6 +224,7 @@ var running=false,over=false,sold=false;
 var valor=10000,mult=1,speed=6,t0=0,elapsed=0,lastSpawn=0;
 var toro={x:96,y:GROUND,vy:0,w:64,h:52,jumping:false};
 var obs=[],chartPts=[],chartSeed=GROUND-120;
+var runHist=[],lastSample=0;   /* sparkline: curva de equity de ESTA corrida */
 
 /* ---------------- ranking ----------------
    Global vía Apps Script (config.juegoEndpoint en datos/club.json):
@@ -343,13 +347,54 @@ function drawBG(){
 /* Toro dibujado a mano, inspirado en el toro del logo FIG: silueta dorada
    embistiendo, con galope de 4 patas (pares diagonales), cola con borla,
    giba, cuernos claros y ojo navy. Coordenadas locales: pezuñas en y=0,
-   el cuerpo crece hacia y negativo. */
-function pata(px,dx,lift,col,grosor){
-  c.strokeStyle=col;c.lineWidth=grosor;c.lineCap="round";
-  c.beginPath();
-  c.moveTo(px,-20);
-  c.quadraticCurveTo(px+dx*.35,-10,px+dx,-lift);
-  c.stroke();
+   el cuerpo crece hacia y negativo. toroSilueta() recibe el contexto para
+   poder reutilizarse en la tarjeta compartible del resultado. */
+function pata(ctx,px,dx,lift,col,grosor){
+  ctx.strokeStyle=col;ctx.lineWidth=grosor;ctx.lineCap="round";
+  ctx.beginPath();
+  ctx.moveTo(px,-20);
+  ctx.quadraticCurveTo(px+dx*.35,-10,px+dx,-lift);
+  ctx.stroke();
+}
+function toroSilueta(ctx,dxA,liA,dxB,liB,tw){
+  var GOLD="#D4AF37",DEEP="#9E7E1E",LIGHT="#EBD388",DARK="#67511A";
+  /* patas del lado lejano (más oscuras, detrás del cuerpo) */
+  pata(ctx,18,dxB,liB,DEEP,5);
+  pata(ctx,50,dxA,liA,DEEP,4.5);
+  /* cola con borla */
+  ctx.strokeStyle=DEEP;ctx.lineWidth=3;ctx.lineCap="round";
+  ctx.beginPath();ctx.moveTo(9,-38);ctx.quadraticCurveTo(-4,-42,-6+tw,-30);ctx.stroke();
+  ctx.fillStyle=DARK;ctx.beginPath();ctx.arc(-6+tw,-28,3.2,0,7);ctx.fill();
+  /* cuerpo + cabeza embistiendo, una sola silueta con degradado dorado */
+  var g=ctx.createLinearGradient(0,-52,0,-6);
+  g.addColorStop(0,LIGHT);g.addColorStop(.55,GOLD);g.addColorStop(1,DEEP);
+  ctx.fillStyle=g;
+  ctx.beginPath();
+  ctx.moveTo(6,-20);                       /* bajo vientre trasero */
+  ctx.bezierCurveTo(2,-30,4,-40,14,-43);   /* grupa */
+  ctx.bezierCurveTo(24,-46,34,-52,46,-49); /* lomo y giba */
+  ctx.bezierCurveTo(54,-47,60,-42,63,-35); /* cuello */
+  ctx.bezierCurveTo(70,-32,75,-25,73,-16); /* frente embistiendo */
+  ctx.bezierCurveTo(71,-10,64,-9,60,-13);  /* hocico y mandíbula */
+  ctx.bezierCurveTo(56,-17,52,-19,46,-21); /* garganta al pecho */
+  ctx.bezierCurveTo(32,-25,16,-16,6,-20);  /* vientre */
+  ctx.closePath();ctx.fill();
+  /* patas del lado cercano (doradas, fase diagonal opuesta) */
+  pata(ctx,14,dxA,liA,GOLD,5.5);
+  pata(ctx,46,dxB,liB,GOLD,5);
+  /* cuernos: medialunas gruesas que curvan hacia arriba, como el logo */
+  ctx.strokeStyle=LIGHT;ctx.lineCap="round";
+  ctx.lineWidth=4.6;
+  ctx.beginPath();ctx.moveTo(64,-33);ctx.quadraticCurveTo(73,-38,72,-49);ctx.stroke();
+  ctx.lineWidth=4;
+  ctx.beginPath();ctx.moveTo(58,-35);ctx.quadraticCurveTo(50,-42,53,-52);ctx.stroke();
+  /* puntas de los cuernos más finas, hacia adentro */
+  ctx.lineWidth=2.4;
+  ctx.beginPath();ctx.moveTo(72,-49);ctx.quadraticCurveTo(71,-53,68,-55);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(53,-52);ctx.quadraticCurveTo(54,-56,58,-57);ctx.stroke();
+  /* ojo y nariz */
+  ctx.fillStyle="#0A1128";ctx.beginPath();ctx.arc(66,-27,2,0,7);ctx.fill();
+  ctx.beginPath();ctx.arc(71,-14,1.4,0,7);ctx.fill();
 }
 function drawToro(){
   var run=running&&!toro.jumping;
@@ -360,7 +405,6 @@ function drawToro(){
   if(toro.jumping){
     c.translate(toro.w/2,-toro.h/2);c.rotate(-.16);c.translate(-toro.w/2,toro.h/2);
   }
-  var GOLD="#D4AF37",DEEP="#9E7E1E",LIGHT="#EBD388",DARK="#67511A";
   /* fases de las patas: en salto quedan recogidas/estiradas; quieto, plantadas */
   var dxA,liA,dxB,liB;
   if(toro.jumping){dxA=-11;liA=9;dxB=9;liB=12;}
@@ -368,44 +412,7 @@ function drawToro(){
     dxA=Math.sin(p)*11;liA=Math.max(0,Math.cos(p))*6;
     dxB=Math.sin(p+Math.PI)*11;liB=Math.max(0,Math.cos(p+Math.PI))*6;
   }else{dxA=-3;liA=0;dxB=3;liB=0;}
-  /* patas del lado lejano (más oscuras, detrás del cuerpo) */
-  pata(18,dxB,liB,DEEP,5);
-  pata(50,dxA,liA,DEEP,4.5);
-  /* cola con borla */
-  var tw=run?Math.sin(p*.9)*3:0;
-  c.strokeStyle=DEEP;c.lineWidth=3;c.lineCap="round";
-  c.beginPath();c.moveTo(9,-38);c.quadraticCurveTo(-4,-42,-6+tw,-30);c.stroke();
-  c.fillStyle=DARK;c.beginPath();c.arc(-6+tw,-28,3.2,0,7);c.fill();
-  /* cuerpo + cabeza embistiendo, una sola silueta con degradado dorado */
-  var g=c.createLinearGradient(0,-52,0,-6);
-  g.addColorStop(0,LIGHT);g.addColorStop(.55,GOLD);g.addColorStop(1,DEEP);
-  c.fillStyle=g;
-  c.beginPath();
-  c.moveTo(6,-20);                       /* bajo vientre trasero */
-  c.bezierCurveTo(2,-30,4,-40,14,-43);   /* grupa */
-  c.bezierCurveTo(24,-46,34,-52,46,-49); /* lomo y giba */
-  c.bezierCurveTo(54,-47,60,-42,63,-35); /* cuello */
-  c.bezierCurveTo(70,-32,75,-25,73,-16); /* frente embistiendo */
-  c.bezierCurveTo(71,-10,64,-9,60,-13);  /* hocico y mandíbula */
-  c.bezierCurveTo(56,-17,52,-19,46,-21); /* garganta al pecho */
-  c.bezierCurveTo(32,-25,16,-16,6,-20);  /* vientre */
-  c.closePath();c.fill();
-  /* patas del lado cercano (doradas, fase diagonal opuesta) */
-  pata(14,dxA,liA,GOLD,5.5);
-  pata(46,dxB,liB,GOLD,5);
-  /* cuernos: medialunas gruesas que curvan hacia arriba, como el logo */
-  c.strokeStyle=LIGHT;c.lineCap="round";
-  c.lineWidth=4.6;
-  c.beginPath();c.moveTo(64,-33);c.quadraticCurveTo(73,-38,72,-49);c.stroke();
-  c.lineWidth=4;
-  c.beginPath();c.moveTo(58,-35);c.quadraticCurveTo(50,-42,53,-52);c.stroke();
-  /* puntas de los cuernos más finas, hacia adentro */
-  c.lineWidth=2.4;
-  c.beginPath();c.moveTo(72,-49);c.quadraticCurveTo(71,-53,68,-55);c.stroke();
-  c.beginPath();c.moveTo(53,-52);c.quadraticCurveTo(54,-56,58,-57);c.stroke();
-  /* ojo y nariz */
-  c.fillStyle="#0A1128";c.beginPath();c.arc(66,-27,2,0,7);c.fill();
-  c.beginPath();c.arc(71,-14,1.4,0,7);c.fill();
+  toroSilueta(c,dxA,liA,dxB,liB,run?Math.sin(p*.9)*3:0);
   c.restore();
 }
 function drawHUDCanvas(){
@@ -413,12 +420,34 @@ function drawHUDCanvas(){
   c.font="500 11px 'IBM Plex Mono', monospace";
   c.fillText("MERCADO EN VIVO · VELOCIDAD "+speed.toFixed(1),16,24);
 }
+/* mini curva de equity de la corrida actual, arriba a la derecha */
+function drawSpark(){
+  if(runHist.length<2)return;
+  var x0=W-250,x1=W-16,y0=22,y1=66,mn=Infinity,mx=-Infinity,i,px,py;
+  for(i=0;i<runHist.length;i++){
+    if(runHist[i]<mn)mn=runHist[i];
+    if(runHist[i]>mx)mx=runHist[i];
+  }
+  if(mx-mn<1)mx=mn+1;
+  c.strokeStyle="rgba(212,175,55,.85)";c.lineWidth=1.6;c.lineCap="round";c.beginPath();
+  for(i=0;i<runHist.length;i++){
+    px=x0+(x1-x0)*i/(runHist.length-1);
+    py=y1-(y1-y0)*((runHist[i]-mn)/(mx-mn));
+    i?c.lineTo(px,py):c.moveTo(px,py);
+  }
+  c.stroke();
+  c.fillStyle="#EBD388";
+  c.beginPath();c.arc(px,py,2.6,0,7);c.fill();
+  c.fillStyle="rgba(247,244,236,.35)";c.font="500 10px 'IBM Plex Mono', monospace";
+  c.textAlign="right";c.fillText("TU RUN",x1,y0-8);c.textAlign="left";
+}
 
 /* ---------------- lógica ---------------- */
 function reset(){
   valor=10000;mult=1;speed=6;elapsed=0;lastSpawn=0;
   toro.y=GROUND;toro.vy=0;toro.jumping=false;
   obs=[];over=false;sold=false;
+  runHist=[];lastSample=0;
   chartPts=[];
   var y=chartSeed;
   for(var x=0;x<=W;x+=24){
@@ -472,6 +501,11 @@ function loop(now){
   speed=6+elapsed/9000;
   mult=1+Math.floor(elapsed/8000)*.5;
   valor+=dt*.9*mult*(speed/6);
+  if(now-lastSample>220){
+    runHist.push(valor);
+    if(runHist.length>150)runHist.shift();
+    lastSample=now;
+  }
 
   /* física del salto */
   if(toro.jumping){
@@ -512,6 +546,7 @@ function loop(now){
   }
   drawToro();
   drawHUDCanvas();
+  drawSpark();
   updateHUD();
 
   if(running)requestAnimationFrame(loop);
@@ -542,6 +577,67 @@ $("#btnSave").addEventListener("click",function(){
   $("#ovStart").classList.remove("off");
 });
 
+/* ---------------- tarjeta compartible del resultado (1080×1350) ----------------
+   Reutiliza toroSilueta() sobre un canvas aparte y descarga un PNG con el
+   portafolio asegurado — pensada para stories/feed. Todo en el navegador. */
+function tarjetaRally(nombre,v){
+  var W2=1080,H2=1350;
+  var cv2=document.createElement("canvas");cv2.width=W2;cv2.height=H2;
+  var x=cv2.getContext("2d");
+  var g=x.createLinearGradient(0,0,0,H2);
+  g.addColorStop(0,"#0D1531");g.addColorStop(1,"#060B1C");
+  x.fillStyle=g;x.fillRect(0,0,W2,H2);
+  /* línea de precio ambiente */
+  x.strokeStyle="rgba(212,175,55,.14)";x.lineWidth=2;x.beginPath();
+  var yy=740,i;
+  for(i=0;i<=W2;i+=36){
+    yy+=(Math.random()-.48)*40;yy=Math.max(600,Math.min(880,yy));
+    i?x.lineTo(i,yy):x.moveTo(i,yy);
+  }
+  x.stroke();
+  /* marco */
+  x.strokeStyle="rgba(212,175,55,.4)";x.lineWidth=2;x.strokeRect(36,36,W2-72,H2-72);
+  x.textAlign="center";
+  x.fillStyle="#D4AF37";x.font="500 30px 'IBM Plex Mono', monospace";
+  x.fillText("E L  R A L L Y  D E L  T O R O",W2/2,150);
+  x.fillStyle="rgba(247,244,236,.55)";x.font="500 22px 'IBM Plex Mono', monospace";
+  x.fillText("F E N  I N V E S T M E N T  G R O U P",W2/2,196);
+  /* resultado */
+  var gan=Math.round(v)-10000;
+  x.fillStyle="#F7F4EC";x.font="600 62px 'Playfair Display', Georgia, serif";
+  x.fillText(nombre,W2/2,330);
+  x.fillStyle="#D4AF37";x.font="600 110px 'IBM Plex Mono', monospace";
+  x.fillText(fmt(v),W2/2,486);
+  x.fillStyle=gan>0?"#5FC08B":"rgba(247,244,236,.6)";
+  x.font="500 30px 'IBM Plex Mono', monospace";
+  x.fillText(gan>0?"VENDIÓ A TIEMPO · +"+Math.round(gan/100)+"% DE GANANCIA"
+                  :"SALIÓ DEL MERCADO SIN PÉRDIDAS",W2/2,562);
+  /* toro al centro (pose plantada, escala 6) */
+  x.save();x.translate(W2/2-33*6,1000);x.scale(6,6);
+  toroSilueta(x,-3,0,3,0,0);
+  x.restore();
+  /* cita y pie */
+  x.fillStyle="rgba(247,244,236,.5)";x.font="500 24px 'IBM Plex Mono', monospace";
+  x.fillText("“LA GANANCIA NO REALIZADA ES SOLO",W2/2,1160);
+  x.fillText("UNA OPINIÓN DEL MERCADO”",W2/2,1198);
+  x.fillStyle="rgba(247,244,236,.35)";x.font="500 20px 'IBM Plex Mono', monospace";
+  x.fillText(new Date().toISOString().slice(0,10)+" · JUEGA EN LA WEB DE FIG",W2/2,1276);
+  x.textAlign="left";
+  return cv2;
+}
+$("#btnCard").addEventListener("click",function(){
+  var n=$("#inpName").value.trim()||"Inversionista FIG";
+  var cv2=tarjetaRally(n,valor);
+  cv2.toBlob(function(b){
+    if(!b)return;
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(b);
+    a.download="rally-del-toro-fig.png";
+    document.body.appendChild(a);a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);a.parentNode.removeChild(a);},1200);
+  },"image/png");
+});
+
 /* dibujo inicial estático (portada de fondo) */
 reset();
 drawBG();
@@ -555,6 +651,24 @@ fetch("../datos/club.json",{cache:"no-store"})
     if(d&&d.config&&d.config.juegoEndpoint)ENDPOINT=d.config.juegoEndpoint;
     renderRank();
   }).catch(function(){});
+})();
+</script>
+<script>
+/* Métricas anónimas de visitas — SIN cookies ni identificadores. Solo se
+   activa si config.statsEndpoint está configurado en datos/club.json
+   (Apps Script; código listo en HOJA_DE_RUTA_FIG.md). Registra página,
+   fecha y sitio de origen. Nada más. */
+(function(){
+try{
+fetch("../datos/club.json",{cache:"force-cache"})
+.then(function(r){return r.ok?r.json():null})
+.then(function(d){
+  var u=d&&d.config&&d.config.statsEndpoint;if(!u)return;
+  var b=JSON.stringify({pagina:location.pathname,fecha:new Date().toISOString(),origen:(document.referrer.split("/")[2]||"")});
+  if(navigator.sendBeacon){navigator.sendBeacon(u,b);}
+  else{fetch(u,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:b}).catch(function(){});}
+}).catch(function(){});
+}catch(e){}
 })();
 </script>
 </body>

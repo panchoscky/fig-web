@@ -10,7 +10,8 @@
       "contacto": "#"
     },
     "postulaEndpoint": "",
-    "juegoEndpoint": ""
+    "juegoEndpoint": "",
+    "statsEndpoint": ""
   },
   "personas": {
     "directiva": [
