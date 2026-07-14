@@ -30,7 +30,9 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 ├── postula/index.html       ← formulario de postulación al club
 ├── juego/index.html          ← "El Rally del Toro": juego de espera (runner con el toro; vender = asegurar puntaje)
 ├── desafio/index.html        ← "Desafío FIG": trivia de finanzas (banco en datos/preguntas/, validar con validar_preguntas.py)
+├── en/index.html              ← one-pager en INGLÉS para partners internacionales (única página en inglés del sitio)
 ├── generar_torneo.py        ← Excel ranking_ordenado → datos/torneo.json (mantiene historial semanal)
+├── generar_ics.py           ← datos/eventos.json → eventos/fig.ics (calendario iCal; correr tras editar eventos)
 ├── optimizar_fotos.py       ← comprime fotos/ automáticamente (máx 2000px, JPG 78%) — correr tras agregar fotos
 ├── validar_preguntas.py     ← barrera de calidad del banco de preguntas del Desafío FIG
 ├── HOJA_DE_RUTA_FIG.md      ← LISTA MAESTRA: backlog priorizado + protocolo de continuidad
@@ -63,15 +65,16 @@ explícitamente a Francisco, son la identidad visual de esa área.
 
 | Pieza | Estado | Detalle |
 |---|---|---|
-| `index.html` | ✅ Producción | Sitio principal completo |
-| `eventos/index.html` | ✅ Producción | 9 eventos reales cargados en `datos/eventos.json`, la mayoría con resúmenes marcados `[Resumen por completar]` y sin fotos aún |
+| `index.html` | ✅ Producción | Sitio principal completo. Ticker bursátil al pie con el top 5 del torneo — aparece solo cuando exista `datos/torneo.json` real (hoy oculto). Footer enlaza `en/index.html` |
+| `eventos/index.html` | ✅ Producción | 9 eventos reales con resúmenes completos en `datos/eventos.json`; filtros por tipo Y año; botón de calendario `fig.ics` (regenerar con `generar_ics.py`); modo proyección `?pantalla=1` (fotos fullscreen para TVs, enlazado en el footer) |
+| `en/index.html` | ✅ Producción | One-pager en inglés para partners (BlackRock, bancos): áreas + torneo con solo datos verificados. Única página del sitio con texto en inglés — es su propósito |
 | `fiw/index.html` | ⚠️ Placeholder | Estructura y datos completos, pero **colores de marca aún no confirmados** por Delia Avilán/FIW — usa un oro rosa provisional. Sin fotos en `fotos/fiw/` todavía |
-| `torneo/index.html` | ⚠️ Modo DEMO | 8 equipos ficticios. **Falta `datos/torneo.json` real**. Overlay con gráfico de 3 líneas (retorno equipo/promedio/ACWI). Tarjetas: Feed PNG, LinkedIn PNG, HTML y **videos animados** Feed/Story con intro (logo→nombre→colaboradores→ficha). Logos de colaboradores en hero y tarjetas |
+| `torneo/index.html` | ⚠️ Modo DEMO | 8 equipos ficticios. **Falta `datos/torneo.json` real**. Overlay con gráfico de 3 líneas (retorno equipo/promedio/ACWI). Tarjetas: Feed PNG, LinkedIn PNG, HTML y **videos animados** Feed/Story con intro (logo→nombre→colaboradores→ficha). Logos de colaboradores en hero y tarjetas. La línea temporal de §Metodología integra las actividades del club desde `datos/eventos.json` (tags por tipo + descripción al hover, tarea #16 ✅) |
 | Enlaces cruzados | ✅ Conectados | `index.html` ya enlaza a `eventos/`, `fiw/`, `torneo/` y `postula/` (CTAs, footer, `CONFIG.urls` y `datos/club.json`) |
 | `generar_torneo.py` | ✅ Escrito | Lee `ranking_ordenado` + Excel de inscripciones → escribe `datos/torneo.json`, conserva el `historial` semanal y calcula `delta`. Probar con el Excel real (ajustar `ALIAS` si los encabezados no calzan). Modo `--demo` disponible |
 | `postula/index.html` | ⚠️ Falta endpoint | Formulario de postulación completo; envía a `config.postulaEndpoint` (Apps Script) de `datos/club.json` — mientras esté vacío muestra banner "en configuración" (con enlace al juego) |
 | `desafio/index.html` | ✅ Funcional (banco semilla) | Trivia: modo desafío (secuencial, puntaje decae, malas descuentan, revisión con explicaciones, áreas fuerte/débil, ranking local) y modo estudio (por tema o ramo, sin reloj). Banco en `datos/preguntas/` — 12 preguntas semilla; el banco real saldrá del material que Francisco subirá al Drive (ver hoja de ruta P1.5 y `datos/preguntas/LEEME.md`) |
-| `juego/index.html` | ✅ Funcional | "El Rally del Toro": runner canvas con el toro del logo; velas rojas y burbujas como obstáculos; el portafolio crece con multiplicador creciente; VENDER asegura el puntaje en el ranking (localStorage) o sigues y un golpe te liquida — filosofía "saber cuándo salir". Enlazarlo en cualquier página en mantención/espera |
+| `juego/index.html` | ✅ Funcional | "El Rally del Toro": runner canvas con un **toro dorado dibujado a mano** (silueta embistiendo inspirada en el logo, galope de 4 patas, cola y cuernos animados — ya no se usa la imagen del logo en el canvas); velas rojas y burbujas como obstáculos; sparkline "TU RUN" con la curva de equity de la corrida; VENDER asegura el puntaje y ofrece **descargar una tarjeta PNG 1080×1350** del resultado (monto, % ganancia, el toro, cita del club) — filosofía "saber cuándo salir". Ranking: lee `config.juegoEndpoint` de `datos/club.json` (Apps Script doPost/doGet, código listo en `HOJA_DE_RUTA_FIG.md` P1-10b) y muestra "Ranking global"; si el endpoint está vacío o el fetch falla, cae automático a localStorage por navegador. Falta que Francisco despliegue el Apps Script y pegue la URL |
 | Fotos de eventos | ⚠️ Parcial | 7 de 9 eventos con fotos curadas y comprimidas (ver `HOJA_DE_RUTA_FIG.md` tarea #5). Faltan `torneo-portafolio-2026` y `charla-analisis-tecnico-2025` (sin carpeta en el Drive) y más variedad en `lanzamiento-club-2025` (fotos Samsung de 7-9 MB, por encima del límite del conector de Drive) |
 
 ## Lo que YA existe fuera de esta carpeta (contexto crítico, no reinventar)
@@ -133,7 +136,13 @@ Resumen de bloqueadores:
   LinkedIn público (eso sí está aprobado para el torneo).
 - Mantener las páginas **sin build step**: HTML/CSS/JS planos, sin npm ni
   bundler, porque así es como se despliegan a GitHub Pages hoy.
-- Todo texto de cara al usuario va en **español**.
+- Todo texto de cara al usuario va en **español** (única excepción:
+  `en/index.html`, el brief para partners internacionales — ese va en inglés
+  a propósito).
+- Las 8 páginas llevan un **beacon de métricas anónimas** (sin cookies:
+  página + fecha + origen) que queda inerte mientras
+  `config.statsEndpoint` de `club.json` esté vacío. Al agregar una página
+  nueva, copiar el snippet del final de cualquier página existente.
 - Antes de escribir un script nuevo `generar_X.py`, revisar si el patrón ya
   existe para otro dato (todos siguen la misma forma: leer Excel → validar
   → volcar JSON con el esquema documentado en el propio archivo o en su

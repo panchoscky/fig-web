@@ -9,7 +9,9 @@
       "postula": "postula/index.html",
       "contacto": "#"
     },
-    "postulaEndpoint": ""
+    "postulaEndpoint": "",
+    "juegoEndpoint": "",
+    "statsEndpoint": ""
   },
   "personas": {
     "directiva": [

@@ -676,6 +676,28 @@ footer{background:var(--navy-deep);padding:clamp(4rem,8vw,6rem) 0 0;border-top:1
 html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY(30px)}
 .no-js .reveal{opacity:1;transform:none}
 .no-js .hero h1 .ln>span{transform:none}
+/* ---------- Ticker del torneo (cinta bursátil, solo con torneo.json real) ---------- */
+#ticker{position:fixed;left:0;right:0;bottom:0;z-index:900;background:rgba(6,11,28,.94);border-top:1px solid var(--line-d);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:none;align-items:stretch;height:38px}
+#ticker.on{display:flex}
+#ticker .tk-tag{flex:none;display:flex;align-items:center;gap:8px;padding:0 14px;background:var(--gold);color:var(--navy);font-family:var(--f-mono);font-size:.6rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap}
+#ticker .tk-track{flex:1;overflow:hidden;position:relative}
+#ticker .tk-move{display:flex;align-items:center;height:100%;white-space:nowrap;width:max-content}
+@media (prefers-reduced-motion:no-preference){
+  #ticker .tk-move{animation:tkscroll 44s linear infinite}
+  #ticker .tk-track:hover .tk-move{animation-play-state:paused}
+}
+@keyframes tkscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+#ticker .tk-item{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;color:rgba(247,244,236,.8);padding:0 24px;display:inline-flex;align-items:center;gap:8px}
+#ticker .tk-item b{color:var(--gold);font-weight:600}
+#ticker .tk-item .up{color:var(--up)}
+#ticker .tk-item .down{color:var(--down)}
+#ticker a.tk-item{transition:color .3s}
+#ticker a.tk-item:hover{color:var(--gold)}
+#ticker .tk-close{flex:none;display:flex;align-items:center;padding:0 14px;color:rgba(247,244,236,.5);font-size:.85rem;transition:color .3s}
+#ticker .tk-close:hover{color:var(--gold)}
+body.has-ticker{padding-bottom:38px}
+.no-js #ticker{display:none!important}
+
 .no-js #preloader{display:none}
 @media (prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none}
@@ -1227,6 +1249,13 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
 </section>
 
 <!-- ============ FOOTER ============ -->
+<!-- Ticker del torneo: cinta bursátil al pie, solo con datos/torneo.json real -->
+<div id="ticker" aria-label="Ranking del torneo en vivo">
+  <span class="tk-tag">TORNEO</span>
+  <div class="tk-track"><div class="tk-move"></div></div>
+  <button class="tk-close" aria-label="Cerrar ticker">✕</button>
+</div>
+
 <footer>
   <div class="wrap">
     <div class="f-grid">
@@ -1269,6 +1298,7 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
           <li><a data-link="instagram" href="#">Instagram</a></li>
           <li><a data-link="linkedin" href="#">LinkedIn</a></li>
           <li><a data-link="contacto" href="#">Contacto</a></li>
+          <li><a href="en/index.html">English brief 🌐</a></li>
         </ul>
       </div>
     </div>
@@ -1428,6 +1458,39 @@ fetch("datos/club.json",{cache:"no-store"})
     if(d.historia) renderHistoria(d.historia);
     applyLinks();
   }).catch(function(){});
+
+/* ---------------- Ticker del torneo (cinta bursátil al pie) ----------------
+   Solo aparece si existe datos/torneo.json real (el mismo que consume
+   torneo/index.html). Muestra el top 5 con puntos, retorno vs ACWI y delta
+   de posición. Cerrable (se recuerda por sesión). Nada hardcodeado. */
+(function(){
+  var t=$("#ticker");if(!t)return;
+  try{if(sessionStorage.getItem("figTickerOff"))return;}catch(e){}
+  function pct(v){return (v>0?"+":"")+(v*100).toFixed(1)+"%"}
+  fetch("datos/torneo.json",{cache:"no-store"})
+    .then(function(r){return r.ok?r.json():null})
+    .then(function(d){
+      if(!d||!d.equipos||!d.equipos.length)return;
+      var eq=d.equipos.slice().sort(function(a,b){return a.posicion-b.posicion}).slice(0,5);
+      var html=eq.map(function(e){
+        var delta=e.delta>0?' <span class="up">▲'+e.delta+'</span>'
+                 :e.delta<0?' <span class="down">▼'+(-e.delta)+'</span>':"";
+        var rel=(typeof e.retRel==="number")?' · <span class="'+(e.retRel>=0?"up":"down")+'">'+pct(e.retRel)+' vs ACWI</span>':"";
+        return '<span class="tk-item"><b>'+e.posicion+'</b> '+esc(e.nombre)+' — '
+             +(typeof e.puntos==="number"?e.puntos.toFixed(1)+" pts":"")+rel+delta+'</span>';
+      }).join("")
+      +'<a class="tk-item" data-link="torneo" href="torneo/index.html">VER RANKING COMPLETO →</a>';
+      $(".tk-move",t).innerHTML=html+html; /* duplicado para el loop continuo */
+      $(".tk-tag",t).textContent="TORNEO · SEMANA "+(d.semana||"—");
+      t.classList.add("on");
+      document.body.classList.add("has-ticker");
+      $(".tk-close",t).addEventListener("click",function(){
+        t.classList.remove("on");
+        document.body.classList.remove("has-ticker");
+        try{sessionStorage.setItem("figTickerOff","1")}catch(e){}
+      });
+    }).catch(function(){});
+})();
 
 /* ---------------- Filtro de personas ---------------- */
 function applyFilter(name){
@@ -1956,6 +2019,24 @@ renderEvents(CLUB_DATA.eventos);
 renderHistoria(CLUB_DATA.historia);
 applyLinks();
 
+})();
+</script>
+<script>
+/* Métricas anónimas de visitas — SIN cookies ni identificadores. Solo se
+   activa si config.statsEndpoint está configurado en datos/club.json
+   (Apps Script; código listo en HOJA_DE_RUTA_FIG.md). Registra página,
+   fecha y sitio de origen. Nada más. */
+(function(){
+try{
+fetch("datos/club.json",{cache:"force-cache"})
+.then(function(r){return r.ok?r.json():null})
+.then(function(d){
+  var u=d&&d.config&&d.config.statsEndpoint;if(!u)return;
+  var b=JSON.stringify({pagina:location.pathname,fecha:new Date().toISOString(),origen:(document.referrer.split("/")[2]||"")});
+  if(navigator.sendBeacon){navigator.sendBeacon(u,b);}
+  else{fetch(u,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:b}).catch(function(){});}
+}).catch(function(){});
+}catch(e){}
 })();
 </script>
 </body>

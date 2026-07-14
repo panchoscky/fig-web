@@ -169,7 +169,10 @@ footer a:hover{color:var(--gold)}
           <input id="inpName" type="text" maxlength="24" placeholder="Tu nombre" autocomplete="off">
           <button class="btn btn--gold" id="btnSave">Guardar en el ranking</button>
         </div>
-        <button class="btn btn--ghost" id="btnAgain1">Otra rueda →</button>
+        <div class="name-row">
+          <button class="btn btn--ghost" id="btnCard">Descargar tarjeta del resultado</button>
+          <button class="btn btn--ghost" id="btnAgain1">Otra rueda →</button>
+        </div>
       </div>
 
       <!-- crash -->
@@ -188,7 +191,7 @@ footer a:hover{color:var(--gold)}
 <section class="rank-sec">
   <div class="wrap">
     <div class="rank-head">
-      <h3>Ranking de este navegador</h3>
+      <h3 id="rankTitle">Ranking de este navegador</h3>
       <span>SOLO CUENTAN LAS GANANCIAS VENDIDAS</span>
     </div>
     <div class="rank">
@@ -219,31 +222,66 @@ var cv=$("#cv"),c=cv.getContext("2d");
 var W=cv.width,H=cv.height,GROUND=H-52;
 var running=false,over=false,sold=false;
 var valor=10000,mult=1,speed=6,t0=0,elapsed=0,lastSpawn=0;
-var toro={x:96,y:GROUND,vy:0,w:58,h:58,jumping:false};
+var toro={x:96,y:GROUND,vy:0,w:80,h:58,jumping:false};
 var obs=[],chartPts=[],chartSeed=GROUND-120;
-var logo=new Image();logo.src="../logos/fig-oro.png";
+var runHist=[],lastSample=0;   /* sparkline: curva de equity de ESTA corrida */
 
-/* ---------------- ranking (localStorage) ---------------- */
+/* ---------------- ranking ----------------
+   Global vía Apps Script (config.juegoEndpoint en datos/club.json):
+   doPost guarda {nombre,valor,fecha} en una planilla, doGet devuelve el
+   top-10 en JSON. Mientras el endpoint esté vacío (o falle el fetch),
+   la página cae a un ranking local por navegador (localStorage). */
 var LS_KEY="figRallyScores";
+var ENDPOINT="";
 function getScores(){
   try{return JSON.parse(localStorage.getItem(LS_KEY)||"[]")}catch(e){return []}
 }
-function saveScore(nombre,v){
+function saveLocal(nombre,v){
   var s=getScores();
   s.push({n:nombre,v:Math.round(v),f:new Date().toISOString().slice(0,10)});
   s.sort(function(a,b){return b.v-a.v});
   s=s.slice(0,10);
   try{localStorage.setItem(LS_KEY,JSON.stringify(s))}catch(e){}
+}
+function saveScore(nombre,v){
+  saveLocal(nombre,v);
+  if(ENDPOINT){
+    fetch(ENDPOINT,{method:"POST",mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({nombre:nombre,valor:Math.round(v),fecha:new Date().toISOString()})
+    }).catch(function(){});
+  }
   renderRank();
 }
-function renderRank(){
+function renderLocal(){
   var s=getScores(),body=$("#rankBody");
+  $("#rankTitle").textContent="Ranking de este navegador";
   $("#hBest").textContent=s.length?fmt(s[0].v):"—";
   if(!s.length){body.innerHTML='<div class="rank-empty">AÚN NADIE HA VENDIDO A TIEMPO · SÉ EL PRIMERO</div>';return;}
   body.innerHTML=s.map(function(r,i){
     return '<div class="rank-row"><span class="pos">'+(i+1)+'</span><span>'+esc(r.n)+'</span>'
       +'<span class="val">'+fmt(r.v)+'</span><span class="fecha">'+esc(r.f)+'</span></div>';
   }).join("");
+}
+function renderRank(){
+  if(!ENDPOINT){renderLocal();return;}
+  fetch(ENDPOINT+"?top=10",{cache:"no-store"})
+    .then(function(r){return r.ok?r.json():Promise.reject()})
+    .then(function(data){
+      var s=(data&&data.length?data:[]).map(function(r){
+        return {n:r.nombre,v:Math.round(r.valor),f:String(r.fecha||"").slice(0,10)};
+      });
+      var body=$("#rankBody");
+      $("#rankTitle").textContent="Ranking global";
+      var best=Math.max(s.length?s[0].v:0,getScores().length?getScores()[0].v:0);
+      $("#hBest").textContent=best?fmt(best):"—";
+      if(!s.length){body.innerHTML='<div class="rank-empty">AÚN NADIE HA VENDIDO A TIEMPO · SÉ EL PRIMERO</div>';return;}
+      body.innerHTML=s.map(function(r,i){
+        return '<div class="rank-row"><span class="pos">'+(i+1)+'</span><span>'+esc(r.n)+'</span>'
+          +'<span class="val">'+fmt(r.v)+'</span><span class="fecha">'+esc(r.f)+'</span></div>';
+      }).join("");
+    })
+    .catch(function(){renderLocal();});
 }
 
 /* ---------------- obstáculos ---------------- */
@@ -306,19 +344,135 @@ function drawBG(){
   c.beginPath();c.moveTo(-(elapsed*speed/28%20),GROUND+14);c.lineTo(W,GROUND+14);c.stroke();
   c.setLineDash([]);
 }
+/* Toros dibujados a mano (dos versiones aprobables por Francisco):
+   - toroSilueta      → "Charging Bull" estilo Wall Street: giba maciza,
+     cabeza grande y baja embistiendo, cola en latigazo — el corredor del juego.
+   - toroSiluetaLogo  → perfil noble del logo FIG: cabeza alta, medialunas
+     hacia atrás — se usa en la tarjeta compartible del resultado.
+   Coordenadas locales: pezuñas en y=0, el cuerpo crece hacia y negativo.
+   Ambas reciben el contexto para reutilizarse en cualquier canvas. */
+var TORO_GOLD="#D4AF37",TORO_DEEP="#9E7E1E",TORO_LIGHT="#EBD388",TORO_DARK="#67511A";
+function pata(ctx,px,py,dx,lift,colA,colB,g1,g2){
+  var kx=px+dx*.45,ky=py*.45;
+  var hx=px+dx,hy=-1-lift;
+  ctx.strokeStyle=colA;ctx.lineCap="round";
+  ctx.lineWidth=g1;
+  ctx.beginPath();ctx.moveTo(px,py);ctx.quadraticCurveTo(px+dx*.2,py*.7,kx,ky);ctx.stroke();
+  ctx.lineWidth=g2;
+  ctx.beginPath();ctx.moveTo(kx,ky);ctx.lineTo(hx,hy);ctx.stroke();
+  ctx.fillStyle=colB;
+  ctx.beginPath();ctx.arc(hx,hy,g2*.6,0,7);ctx.fill();
+}
+/* cuerno: medialuna RELLENA con base ancha, como las del logo.
+   curv negativo = se comba hacia atrás (perfil del logo). */
+function cuerno(ctx,bx,by,tx,ty,curv,grosor,col){
+  var dx=tx-bx,dy=ty-by,L=Math.sqrt(dx*dx+dy*dy);
+  var nx=-dy/L,ny=dx/L;
+  var mx=(bx+tx)/2,my=(by+ty)/2;
+  ctx.fillStyle=col;
+  ctx.beginPath();
+  ctx.moveTo(bx+nx*grosor,by+ny*grosor);
+  ctx.quadraticCurveTo(mx+nx*curv,my+ny*curv,tx,ty);
+  ctx.quadraticCurveTo(mx+nx*(curv-grosor*1.1),my+ny*(curv-grosor*1.1),bx,by);
+  ctx.closePath();ctx.fill();
+}
+/* ---- versión Wall Street: embistiendo (corredor del juego) ---- */
+function toroSilueta(ctx,dxA,liA,dxB,liB){
+  pata(ctx,20,-26,dxB,liB,TORO_DEEP,TORO_DARK,10,5.5);
+  pata(ctx,56,-28,dxA,liA,TORO_DEEP,TORO_DARK,9,5);
+  /* cola: latigazo en S hacia arriba, marca del Charging Bull */
+  ctx.strokeStyle=TORO_DEEP;ctx.lineWidth=3.6;ctx.lineCap="round";
+  ctx.beginPath();ctx.moveTo(8,-44);ctx.bezierCurveTo(-4,-48,-8,-56,-1,-60);ctx.stroke();
+  ctx.fillStyle=TORO_DARK;ctx.beginPath();ctx.arc(0,-61,3.8,0,7);ctx.fill();
+  /* cuerno lejano */
+  cuerno(ctx,70,-42,78,-62,10,6,TORO_GOLD);
+  /* cuerpo: giba enorme, cabeza grande y baja */
+  var g=ctx.createLinearGradient(0,-68,0,-6);
+  g.addColorStop(0,TORO_LIGHT);g.addColorStop(.5,TORO_GOLD);g.addColorStop(1,TORO_DEEP);
+  ctx.fillStyle=g;
+  ctx.beginPath();
+  ctx.moveTo(12,-22);
+  ctx.bezierCurveTo(2,-30,2,-42,10,-48);     /* grupa */
+  ctx.bezierCurveTo(18,-52,28,-50,36,-52);   /* lomo */
+  ctx.bezierCurveTo(42,-64,58,-68,66,-58);   /* GIBA maciza */
+  ctx.bezierCurveTo(72,-50,74,-44,78,-40);   /* cuello corto que baja */
+  ctx.bezierCurveTo(86,-36,92,-30,94,-22);   /* frente ancha embistiendo */
+  ctx.bezierCurveTo(95,-15,92,-9,85,-8);     /* hocico ancho */
+  ctx.bezierCurveTo(78,-8,74,-10,71,-14);    /* mandíbula */
+  ctx.bezierCurveTo(68,-18,66,-13,60,-9);    /* papada colgante */
+  ctx.bezierCurveTo(52,-11,40,-16,26,-18);   /* pecho → vientre */
+  ctx.bezierCurveTo(20,-19,14,-20,12,-22);
+  ctx.closePath();ctx.fill();
+  /* sombras de músculo (hombro y cadera) */
+  ctx.strokeStyle="rgba(103,81,26,.45)";ctx.lineWidth=2;ctx.lineCap="round";
+  ctx.beginPath();ctx.moveTo(58,-54);ctx.quadraticCurveTo(62,-42,58,-30);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(16,-44);ctx.quadraticCurveTo(24,-38,22,-28);ctx.stroke();
+  pata(ctx,16,-22,dxA,liA,TORO_GOLD,TORO_DEEP,11,6);
+  pata(ctx,52,-24,dxB,liB,TORO_GOLD,TORO_DEEP,10,5.5);
+  /* cuerno cercano hacia adelante-arriba, como la estatua */
+  cuerno(ctx,76,-40,90,-60,12,8,TORO_LIGHT);
+  /* oreja, ojo con ceño y nariz */
+  ctx.fillStyle=TORO_DEEP;
+  ctx.beginPath();ctx.ellipse(70,-42,5,2.8,.5,0,7);ctx.fill();
+  ctx.fillStyle="#0A1128";
+  ctx.beginPath();ctx.moveTo(80,-30);ctx.lineTo(88,-27);ctx.lineTo(81,-25.5);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.arc(90,-14,1.8,0,7);ctx.fill();
+}
+/* ---- versión perfil del logo: cabeza alta y noble (tarjeta) ---- */
+function toroSiluetaLogo(ctx,dxA,liA,dxB,liB){
+  pata(ctx,22,-26,dxB,liB,TORO_DEEP,TORO_DARK,9,5);
+  pata(ctx,54,-28,dxA,liA,TORO_DEEP,TORO_DARK,8,4.5);
+  ctx.strokeStyle=TORO_DEEP;ctx.lineWidth=3.4;ctx.lineCap="round";
+  ctx.beginPath();ctx.moveTo(10,-44);ctx.quadraticCurveTo(-2,-40,-2,-28);ctx.stroke();
+  ctx.fillStyle=TORO_DARK;ctx.beginPath();ctx.arc(-2,-26,3.6,0,7);ctx.fill();
+  /* cuerno lejano detrás de la cabeza */
+  cuerno(ctx,78,-74,64,-96,-13,8,TORO_GOLD);
+  var g=ctx.createLinearGradient(0,-80,0,-8);
+  g.addColorStop(0,TORO_LIGHT);g.addColorStop(.5,TORO_GOLD);g.addColorStop(1,TORO_DEEP);
+  ctx.fillStyle=g;
+  ctx.beginPath();
+  ctx.moveTo(12,-24);
+  ctx.bezierCurveTo(4,-32,4,-44,12,-50);     /* grupa */
+  ctx.bezierCurveTo(24,-56,36,-54,46,-56);   /* lomo */
+  ctx.bezierCurveTo(54,-58,58,-62,62,-68);   /* cruz → cuello grueso que sube */
+  ctx.bezierCurveTo(64,-72,66,-75,70,-77);   /* nuca */
+  ctx.bezierCurveTo(76,-79,82,-77,85,-72);   /* frente ancha */
+  ctx.bezierCurveTo(89,-66,92,-60,91,-55);   /* caída del perfil */
+  ctx.bezierCurveTo(90,-50,86,-47,81,-48);   /* hocico redondo */
+  ctx.bezierCurveTo(76,-49,73,-51,71,-54);   /* belfo y mentón */
+  ctx.bezierCurveTo(70,-46,68,-38,64,-30);   /* garganta ancha baja al pecho */
+  ctx.bezierCurveTo(60,-20,56,-14,50,-12);   /* pecho */
+  ctx.bezierCurveTo(40,-16,28,-19,20,-20);   /* vientre */
+  ctx.bezierCurveTo(16,-21,13,-22,12,-24);
+  ctx.closePath();ctx.fill();
+  pata(ctx,18,-24,dxA,liA,TORO_GOLD,TORO_DEEP,10,5.5);
+  pata(ctx,50,-24,dxB,liB,TORO_GOLD,TORO_DEEP,9,5);
+  /* cuerno cercano: medialuna clara combada hacia atrás, como el logo */
+  cuerno(ctx,72,-76,56,-100,-16,10,TORO_LIGHT);
+  /* oreja, ojo fiero (muesca del logo) y nariz */
+  ctx.fillStyle=TORO_DEEP;
+  ctx.beginPath();ctx.ellipse(62,-68,5,2.6,-.5,0,7);ctx.fill();
+  ctx.fillStyle="#0A1128";
+  ctx.beginPath();ctx.moveTo(76,-68);ctx.lineTo(84,-66);ctx.lineTo(78,-63.5);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.arc(88,-56,1.7,0,7);ctx.fill();
+}
 function drawToro(){
-  var y=toro.y-toro.h;
+  var run=running&&!toro.jumping;
+  var p=elapsed/64;                         /* fase del galope */
+  var bob=run?Math.sin(p*2)*1.6:0;          /* rebote del lomo al correr */
   c.save();
+  c.translate(toro.x,toro.y+bob);
   if(toro.jumping){
-    c.translate(toro.x+toro.w/2,y+toro.h/2);
-    c.rotate(-.12);
-    c.translate(-(toro.x+toro.w/2),-(y+toro.h/2));
+    c.translate(toro.w/2,-toro.h/2);c.rotate(-.16);c.translate(-toro.w/2,toro.h/2);
   }
-  if(logo.width)c.drawImage(logo,toro.x,y,toro.w,toro.h);
-  else{ /* respaldo si el logo no cargó */
-    c.fillStyle="#D4AF37";
-    c.beginPath();c.arc(toro.x+toro.w/2,y+toro.h/2,toro.w/2,0,7);c.fill();
-  }
+  /* fases de las patas: en salto quedan recogidas/estiradas; quieto, plantadas */
+  var dxA,liA,dxB,liB;
+  if(toro.jumping){dxA=-12;liA=10;dxB=10;liB=13;}
+  else if(run){
+    dxA=Math.sin(p)*12;liA=Math.max(0,Math.cos(p))*7;
+    dxB=Math.sin(p+Math.PI)*12;liB=Math.max(0,Math.cos(p+Math.PI))*7;
+  }else{dxA=-4;liA=0;dxB=4;liB=0;}
+  toroSilueta(c,dxA,liA,dxB,liB);
   c.restore();
 }
 function drawHUDCanvas(){
@@ -326,12 +480,34 @@ function drawHUDCanvas(){
   c.font="500 11px 'IBM Plex Mono', monospace";
   c.fillText("MERCADO EN VIVO · VELOCIDAD "+speed.toFixed(1),16,24);
 }
+/* mini curva de equity de la corrida actual, arriba a la derecha */
+function drawSpark(){
+  if(runHist.length<2)return;
+  var x0=W-250,x1=W-16,y0=22,y1=66,mn=Infinity,mx=-Infinity,i,px,py;
+  for(i=0;i<runHist.length;i++){
+    if(runHist[i]<mn)mn=runHist[i];
+    if(runHist[i]>mx)mx=runHist[i];
+  }
+  if(mx-mn<1)mx=mn+1;
+  c.strokeStyle="rgba(212,175,55,.85)";c.lineWidth=1.6;c.lineCap="round";c.beginPath();
+  for(i=0;i<runHist.length;i++){
+    px=x0+(x1-x0)*i/(runHist.length-1);
+    py=y1-(y1-y0)*((runHist[i]-mn)/(mx-mn));
+    i?c.lineTo(px,py):c.moveTo(px,py);
+  }
+  c.stroke();
+  c.fillStyle="#EBD388";
+  c.beginPath();c.arc(px,py,2.6,0,7);c.fill();
+  c.fillStyle="rgba(247,244,236,.35)";c.font="500 10px 'IBM Plex Mono', monospace";
+  c.textAlign="right";c.fillText("TU RUN",x1,y0-8);c.textAlign="left";
+}
 
 /* ---------------- lógica ---------------- */
 function reset(){
   valor=10000;mult=1;speed=6;elapsed=0;lastSpawn=0;
   toro.y=GROUND;toro.vy=0;toro.jumping=false;
   obs=[];over=false;sold=false;
+  runHist=[];lastSample=0;
   chartPts=[];
   var y=chartSeed;
   for(var x=0;x<=W;x+=24){
@@ -385,6 +561,11 @@ function loop(now){
   speed=6+elapsed/9000;
   mult=1+Math.floor(elapsed/8000)*.5;
   valor+=dt*.9*mult*(speed/6);
+  if(now-lastSample>220){
+    runHist.push(valor);
+    if(runHist.length>150)runHist.shift();
+    lastSample=now;
+  }
 
   /* física del salto */
   if(toro.jumping){
@@ -425,6 +606,7 @@ function loop(now){
   }
   drawToro();
   drawHUDCanvas();
+  drawSpark();
   updateHUD();
 
   if(running)requestAnimationFrame(loop);
@@ -455,11 +637,98 @@ $("#btnSave").addEventListener("click",function(){
   $("#ovStart").classList.remove("off");
 });
 
+/* ---------------- tarjeta compartible del resultado (1080×1350) ----------------
+   Reutiliza toroSilueta() sobre un canvas aparte y descarga un PNG con el
+   portafolio asegurado — pensada para stories/feed. Todo en el navegador. */
+function tarjetaRally(nombre,v){
+  var W2=1080,H2=1350;
+  var cv2=document.createElement("canvas");cv2.width=W2;cv2.height=H2;
+  var x=cv2.getContext("2d");
+  var g=x.createLinearGradient(0,0,0,H2);
+  g.addColorStop(0,"#0D1531");g.addColorStop(1,"#060B1C");
+  x.fillStyle=g;x.fillRect(0,0,W2,H2);
+  /* línea de precio ambiente */
+  x.strokeStyle="rgba(212,175,55,.14)";x.lineWidth=2;x.beginPath();
+  var yy=740,i;
+  for(i=0;i<=W2;i+=36){
+    yy+=(Math.random()-.48)*40;yy=Math.max(600,Math.min(880,yy));
+    i?x.lineTo(i,yy):x.moveTo(i,yy);
+  }
+  x.stroke();
+  /* marco */
+  x.strokeStyle="rgba(212,175,55,.4)";x.lineWidth=2;x.strokeRect(36,36,W2-72,H2-72);
+  x.textAlign="center";
+  x.fillStyle="#D4AF37";x.font="500 30px 'IBM Plex Mono', monospace";
+  x.fillText("E L  R A L L Y  D E L  T O R O",W2/2,150);
+  x.fillStyle="rgba(247,244,236,.55)";x.font="500 22px 'IBM Plex Mono', monospace";
+  x.fillText("F E N  I N V E S T M E N T  G R O U P",W2/2,196);
+  /* resultado */
+  var gan=Math.round(v)-10000;
+  x.fillStyle="#F7F4EC";x.font="600 62px 'Playfair Display', Georgia, serif";
+  x.fillText(nombre,W2/2,330);
+  x.fillStyle="#D4AF37";x.font="600 110px 'IBM Plex Mono', monospace";
+  x.fillText(fmt(v),W2/2,486);
+  x.fillStyle=gan>0?"#5FC08B":"rgba(247,244,236,.6)";
+  x.font="500 30px 'IBM Plex Mono', monospace";
+  x.fillText(gan>0?"VENDIÓ A TIEMPO · +"+Math.round(gan/100)+"% DE GANANCIA"
+                  :"SALIÓ DEL MERCADO SIN PÉRDIDAS",W2/2,562);
+  /* toro al centro: versión noble del logo (pose plantada) */
+  x.save();x.translate(W2/2-42*4.4,1030);x.scale(4.4,4.4);
+  toroSiluetaLogo(x,-4,0,4,0);
+  x.restore();
+  /* cita y pie */
+  x.fillStyle="rgba(247,244,236,.5)";x.font="500 24px 'IBM Plex Mono', monospace";
+  x.fillText("“LA GANANCIA NO REALIZADA ES SOLO",W2/2,1160);
+  x.fillText("UNA OPINIÓN DEL MERCADO”",W2/2,1198);
+  x.fillStyle="rgba(247,244,236,.35)";x.font="500 20px 'IBM Plex Mono', monospace";
+  x.fillText(new Date().toISOString().slice(0,10)+" · JUEGA EN LA WEB DE FIG",W2/2,1276);
+  x.textAlign="left";
+  return cv2;
+}
+$("#btnCard").addEventListener("click",function(){
+  var n=$("#inpName").value.trim()||"Inversionista FIG";
+  var cv2=tarjetaRally(n,valor);
+  cv2.toBlob(function(b){
+    if(!b)return;
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(b);
+    a.download="rally-del-toro-fig.png";
+    document.body.appendChild(a);a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);a.parentNode.removeChild(a);},1200);
+  },"image/png");
+});
+
 /* dibujo inicial estático (portada de fondo) */
 reset();
 drawBG();
 drawToro();
-renderRank();
+renderLocal();
+
+/* endpoint global: se configura en datos/club.json → config.juegoEndpoint */
+fetch("../datos/club.json",{cache:"no-store"})
+  .then(function(r){return r.ok?r.json():null})
+  .then(function(d){
+    if(d&&d.config&&d.config.juegoEndpoint)ENDPOINT=d.config.juegoEndpoint;
+    renderRank();
+  }).catch(function(){});
+})();
+</script>
+<script>
+/* Métricas anónimas de visitas — SIN cookies ni identificadores. Solo se
+   activa si config.statsEndpoint está configurado en datos/club.json
+   (Apps Script; código listo en HOJA_DE_RUTA_FIG.md). Registra página,
+   fecha y sitio de origen. Nada más. */
+(function(){
+try{
+fetch("../datos/club.json",{cache:"force-cache"})
+.then(function(r){return r.ok?r.json():null})
+.then(function(d){
+  var u=d&&d.config&&d.config.statsEndpoint;if(!u)return;
+  var b=JSON.stringify({pagina:location.pathname,fecha:new Date().toISOString(),origen:(document.referrer.split("/")[2]||"")});
+  if(navigator.sendBeacon){navigator.sendBeacon(u,b);}
+  else{fetch(u,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:b}).catch(function(){});}
+}).catch(function(){});
+}catch(e){}
 })();
 </script>
 </body>

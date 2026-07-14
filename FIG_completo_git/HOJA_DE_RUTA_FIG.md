@@ -81,6 +81,9 @@ Instagram `instagram.com/fen.investment.group`.
 | 2026-07-12 | Desafío FIG (infraestructura) | `desafio/index.html`: trivia con modo DESAFÍO (10 preguntas secuenciales sin volver atrás; fase de lectura con cuenta regresiva y luego alternativas cuyo valor decae 100→20 pts en 20 s; malas −25, saltadas 0; revisión final con explicación de cada error/salto; áreas fuerte/débil; ranking localStorage con áreas) y modo ESTUDIO (por tema o por ramo, sin reloj, feedback inmediato). Banco: `datos/preguntas/` (index.json + shards) con 12 preguntas semilla, `validar_preguntas.py` como barrera de calidad y `datos/preguntas/LEEME.md` como guía de autoría para cualquier modelo |
 | 2026-07-11 | Mapa de contenido | `MAPA_CONTENIDO_FIG.html`: guía visual para Francisco de dónde subir fotos y editar textos por página |
 | 2026-07-09 | Tarjetas v4 | Feed 1080×1350 rediseñada + LinkedIn 1200×627 + HTML autocontenida + VIDEOS Feed/Story con intro animada (MediaRecorder; WebM Chrome / MP4 Safari). Gráfico de 3 líneas: retorno equipo vs promedio vs ACWI; miembros, delta badge, logos colaboradores, RRSS por formato. Esquema: `historial[].ret` + serie `acwi` (generar_torneo.py --acwi); el promedio lo calcula la página. Hook `window.__figCards` |
+| 2026-07-14 | Toro dibujado en el Rally | Pedido de Francisco: que se vea un toro corriendo inspirado en el logo, no el logo plano. `drawToro()` de `juego/index.html` ahora dibuja la silueta en canvas: cuerpo con degradado oro (EBD388→D4AF37→9E7E1E), giba, cabeza baja embistiendo, cuernos medialuna claros como el logo, ojo/nariz navy, cola con borla animada, y galope de 4 patas en pares diagonales (fase por `elapsed`); en el salto las patas quedan recogidas/estiradas y el cuerpo rota −.16 rad; quieto, posa plantado (portada). Sin imágenes: se eliminó el `Image` del logo en el canvas (el nav lo conserva). Hitbox ajustada a 64×52 con los mismos márgenes de gracia |
+| 2026-07-14 | Demos autocontenidas | `build_demos.py` (scratchpad de la sesión, no comiteado) genera 3 archivos HTML de un solo archivo para compartir de prueba: principal, torneo y juego — logos embebidos en base64 y `club.json`/`eventos.json` inyectados vía shim de `fetch()`; torneo.json se omite a propósito para que la página muestre su modo DEMO honestamente. Enviados a Francisco por chat |
+| 2026-07-14 | Lote de 8 mejoras (Fable) | Pedido de Francisco ("desarrolla las 8 ideas"): (1) **Tarjeta compartible del Rally** — al vender, botón "Descargar tarjeta del resultado" genera un PNG 1080×1350 con el monto, % de ganancia, el toro dibujado (reutiliza `toroSilueta()`) y la cita del club; (2) **Ticker bursátil** en `index.html` — cinta fija al pie con el top 5 del torneo (puntos, retorno vs ACWI, delta ▲▼), SOLO aparece si existe `datos/torneo.json` real, cerrable y recordado por sesión, pausa al hover, respeta reduced-motion; (3) **Sparkline "TU RUN"** en el juego — curva de equity de la corrida actual arriba a la derecha del canvas; (4) **Filtro por año** en la bitácora (píldoras generadas desde los datos; se ocultan si hay un solo año) combinado con el filtro por tipo existente; (5) **Calendario .ics** — `generar_ics.py` (stdlib, RFC 5545, correr tras editar eventos.json) → `eventos/fig.ics`, botón en la página; en GitHub Pages la URL del .ics sirve para suscripción; (6) **Métricas anónimas sin cookies** — beacon en las 8 páginas, inerte hasta configurar `config.statsEndpoint` (código Apps Script abajo); (7) **`en/index.html`** — one-pager en inglés para partners (única página en inglés del sitio, enlazada del footer), solo datos verificados; (8) **Modo pantalla** (`eventos/?pantalla=1`) — fotos de todos los eventos a pantalla completa con título/fecha rotando cada 8 s, para TVs de la FEN, ESC sale, enlazado del footer de eventos. Todo verificado con Playwright; resúmenes demo embebidos de eventos/index.html sincronizados con eventos.json |
 
 ## 4. Backlog priorizado
 
@@ -94,6 +97,7 @@ que la divida y pida confirmación a Francisco en las decisiones de diseño.
 | # | Tarea | Modelo | Detalle |
 |---|---|---|---|
 | 1 | **Crear el Apps Script de postulaciones** y pegar su URL en `datos/club.json → config.postulaEndpoint` | Sonnet | El formulario ya está listo. El script: Web App de Google Apps Script ligado a una planilla, `doPost(e)` que parsea `JSON.parse(e.postData.contents)` y hace `appendRow` con [fecha, nombre, correo, carrera, anio, area, motivacion, linkedin]. Desplegarlo "Cualquiera puede acceder". Francisco debe crearlo desde SU cuenta (Drive es solo-lectura para IAs) — darle el código listo para pegar |
+| 1b | **Crear el Apps Script del ranking de El Rally del Toro** y pegar su URL en `datos/club.json → config.juegoEndpoint` | Sonnet | ✅ Código del juego listo (2026-07-12, ver P1-10b abajo) — `juego/index.html` ya intenta leer/escribir en `config.juegoEndpoint`; mientras esté vacío sigue funcionando 100% con el ranking local (localStorage), sin romper nada. Francisco debe crear el Web App desde SU cuenta: código listo para pegar en la sección P1-10b |
 | 2 | **Primer torneo.json real** | Sonnet | Correr `python3 generar_torneo.py --excel <ranking.xlsx> --inscripciones <insc.xlsx> --semana N --corte "DD · MMM · 2026"`. Si los encabezados del Excel no calzan, ajustar `ALIAS` en el script. Pedir el Excel a Francisco |
 | 3 | **Confirmar colores FIW** con Delia | Haiku | Editar solo las 4 variables `--acc*` al inicio del `<style>` de `fiw/index.html` |
 | 3b | **Logo oficial de FIW** | Haiku | No existe en el Drive (carpeta FIG WOMEN solo tiene fotos). Pedirlo a Delia; guardarlo en `logos/fiw.png` y reemplazar `fig-blanco.png` en nav+intro de `fiw/index.html` |
@@ -146,10 +150,68 @@ salas del laboratorio). 2-3 fotos por evento en general; solo 1 para
 | 7 | **Resúmenes de eventos** | Haiku | 8 de 9 eventos en `datos/eventos.json` dicen "[Resumen por completar]" — redactar con Francisco 2-3 líneas por evento |
 | 8 | **SEO/social**: og:image + meta tags Open Graph/Twitter en las 5 páginas | Haiku | Generar una og:image estática 1200×630 con el estilo FIG (puede ser canvas→PNG una vez, guardada en fotos/) |
 | 9 | **404.html** de GitHub Pages con el estilo FIG | Haiku | Copia de la base de postula/index.html con mensaje + enlaces |
-| 10b | **Ranking global del juego** | Sonnet | Hoy el ranking de El Rally del Toro es por navegador (localStorage). Para hacerlo global: mismo patrón del formulario — Apps Script `doPost` que guarda {nombre, valor, fecha} en una planilla y `doGet` que devuelve el top-10; la página cae a localStorage si el endpoint no está configurado |
+| 10b | **Ranking global del juego** | Sonnet | ✅ Hecho (2026-07-12) — `juego/index.html` ahora lee `config.juegoEndpoint` de `datos/club.json`: si está vacío, se comporta exactamente igual que antes (ranking local por navegador vía localStorage, título "Ranking de este navegador"). Si Francisco despliega el Apps Script (código en la sección siguiente) y pega la URL en `config.juegoEndpoint`, el título cambia a "Ranking global", `saveScore()` hace un `POST` no-cors con `{nombre, valor, fecha}` (guarda también localmente como respaldo) y `renderRank()` hace `GET ENDPOINT?top=10` esperando un array JSON `[{nombre, valor, fecha}, …]`; si el fetch falla por cualquier motivo (red, endpoint mal configurado, CORS) cae automáticamente al ranking local sin romper la página |
 | 10 | **Archivo semanal del ranking** | Sonnet | `generar_torneo.py` ya guarda historial dentro de torneo.json; opcional: volcar snapshot `datos/torneo/semana-N.json` para auditoría/disputas |
-| 16 | **Mejorar el calendario/línea temporal de `torneo/index.html`** | Sonnet (pulir interacción/hover: Fable) | A la directiva le gustó el bloque "Calendario del torneo" agregado en la tarea #6 (hitos con fechas, dentro de §Metodología) y pidió ampliarlo: (1) que no muestre solo hitos del torneo/portafolio — sumar también otras actividades del club leyendo `datos/eventos.json` (charlas, visitas, torneos de otras áreas) para que sea una línea temporal real de TODO lo que hace FIG, no solo el torneo; (2) que al pasar el cursor sobre un hito/evento se vea su descripción y más información (hoy los items del calendario son solo fecha + una línea, sin hover). Ojo con la regla de nunca inventar datos: los hitos de rebalanceo/cierre del torneo salen del array `HITOS` ya verificado en el código, los de otras actividades deben salir de `datos/eventos.json` tal cual están (no inventar fechas ni descripciones que falten ahí) |
+| 16 | **Mejorar el calendario/línea temporal de `torneo/index.html`** | Sonnet (pulir interacción/hover: Fable) | ✅ Hecho (2026-07-14, Fable) — la tarjeta "01 · Calendario" de §Metodología ahora se titula "El torneo y la vida del club": `cargarEventosTl()` lee `datos/eventos.json` y ordena las actividades del club (charlas, visitas, comunidad) cronológicamente entre los hitos del torneo, cada una con tag de tipo (CHARLA/VISITA/…) y un desplegable al hover/focus (`.tl-tip`) con su `resumen` + `lugar` — cero datos inventados, todo sale del JSON tal cual. El evento `torneo-portafolio-2026` se omite (este calendario ya ES su detalle). `initMetTl()` pasó a `classList` para marcar pasado/próximo sin pisar clases; la lista scrollea (max-height 600px) si crece; accesible por teclado (`tabindex=0`, `:focus-within`). Si el fetch falla, la línea queda solo con los hitos del torneo, como antes. Verificado con Playwright: 14 items en orden, chip PRÓXIMO en 3 AGO, tip desplegado al hover. Con inline hook `window.__eventosFIG` para las demos autocontenidas |
 | 17 | **Eventos futuros en `eventos/index.html` con resumen + form de inscripción** | Sonnet (diseño de la tarjeta "próximo evento": Fable) | Pedido de Francisco (2026-07-12): la página de eventos (bitácora) hoy solo muestra actividades pasadas — falta que los eventos FUTUROS también se vean ahí, distinguidos visualmente (ej. sección "Próximamente" o badge, similar al `live:true`/`destacado:true` que ya existe en el esquema de `datos/eventos.json`), y que al abrir el detalle de un evento futuro se vea su resumen (`resumen` ya existe en el esquema) MÁS un formulario/enlace de inscripción. Falta definir: (a) si la inscripción reusa el patrón de `postula/index.html` (Apps Script `doPost` a una planilla) o es un form nuevo por evento, (b) cómo se marca un evento como "futuro" en el JSON (¿comparar `fecha` contra hoy, o un campo explícito tipo `estado:"proximo"`?) — no asumir, confirmar con Francisco antes de diseñar el schema nuevo. Hoy los 9 eventos de `datos/eventos.json` son todos pasados, así que esto se probará recién cuando exista al menos un evento futuro real |
+
+#### Código del Apps Script para el ranking global de El Rally del Toro (P1-10b / P0-1b)
+
+Francisco debe crear esto desde SU cuenta (Drive es solo-lectura para IAs).
+Mismo patrón que el Apps Script de postulaciones (P0-1): una planilla nueva
+con una hoja llamada **"Ranking"** con encabezados en la fila 1: `fecha` |
+`nombre` | `valor`. Luego, en la planilla → **Extensiones → Apps Script**,
+pegar:
+
+```javascript
+function doPost(e) {
+  var datos = JSON.parse(e.postData.contents);
+  var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Ranking");
+  hoja.appendRow([datos.fecha, datos.nombre, datos.valor]);
+  return ContentService.createTextOutput("OK");
+}
+
+function doGet(e) {
+  var top = parseInt((e.parameter && e.parameter.top) || "10", 10);
+  var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Ranking");
+  var filas = hoja.getDataRange().getValues().slice(1); // sin encabezado
+  var scores = filas.map(function(f) {
+    return { fecha: f[0], nombre: f[1], valor: f[2] };
+  });
+  scores.sort(function(a, b) { return b.valor - a.valor; });
+  scores = scores.slice(0, top);
+  return ContentService.createTextOutput(JSON.stringify(scores))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+```
+
+Desplegar como Web App (**Implementar → Nueva implementación → Aplicación
+web**): Ejecutar como **"Yo"**, Acceso **"Cualquier usuario"**. Copiar la
+URL `/exec` resultante y pegarla en `datos/club.json → config.juegoEndpoint`.
+No hay que tocar el HTML — `juego/index.html` ya está listo para consumir
+ese endpoint apenas se configure, y sigue funcionando con ranking local si
+se deja vacío.
+
+#### Código del Apps Script para las métricas de visitas (config.statsEndpoint)
+
+Mismo procedimiento: planilla nueva con una hoja **"Visitas"** y encabezados
+`fecha | pagina | origen` en la fila 1. Las 8 páginas del sitio ya llevan el
+beacon (anónimo, sin cookies: solo página visitada, fecha y sitio de origen)
+y queda inerte mientras `config.statsEndpoint` esté vacío en `club.json`.
+
+```javascript
+function doPost(e) {
+  var d = JSON.parse(e.postData.contents);
+  var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Visitas");
+  hoja.appendRow([d.fecha, d.pagina, d.origen]);
+  return ContentService.createTextOutput("OK");
+}
+```
+
+Desplegar igual que los anteriores y pegar la URL `/exec` en
+`datos/club.json → config.statsEndpoint`. Para leer los resultados basta la
+propia planilla (una tabla dinámica por `pagina` ya responde "qué se visita
+más"), sin construir nada extra.
 
 ### P0.5 — Perfiles reales desde los CV del Drive
 
@@ -211,6 +273,23 @@ pregunta — es la guía de autoría y el contrato de calidad.**
 | Q4 | **Balance del banco** | Haiku | `validar_preguntas.py --stats` tras cada tanda: ningún tema raquítico, dificultades ~40/40/20. Anotar huecos aquí |
 | Q5 | **Ranking global del Desafío** | Sonnet | Igual que el del Rally (P1-10b): Apps Script doPost/doGet + planilla; la página cae a localStorage si no hay endpoint |
 | Q6 | **Preguntas de historia con narrativa** | Fable | El tema historia-mercados admite mini-historias como enunciado (2-3 frases de contexto + pregunta). Requiere redacción fina — no delegar a Haiku |
+
+### P1.6 — Ideas de mejora seleccionadas (sesión 2026-07-12, agregadas — NO ejecutadas)
+
+Francisco pidió 10 ideas de mejora para el sitio y eligió estas 6 para
+dejar anotadas en el backlog (las otras 4 —lightbox en galerías, GitHub
+Action de compresión de fotos, contador en vivo de comunidad, muro de la
+fama— quedan en `IDEAS_FIG.md` sin promover todavía, se pueden agregar
+después si se pide). Ninguna de las 6 se ha empezado a implementar.
+
+| # | Tarea | Modelo | Detalle |
+|---|---|---|---|
+| 18 | **Badges automáticos en el ranking del torneo** | Sonnet | Distinciones calculadas a partir de métricas que `torneo.json` ya trae por equipo: "Mejor Sharpe", "Menor Drawdown", "Remontada de la semana" (mayor `delta` positivo). Sin tocar el scoring ni pedir datos nuevos — se derivan en el propio `torneo/index.html` al renderizar. Funciona incluso con los datos DEMO actuales, útil para probarlo antes de que exista el `torneo.json` real (P0-2) |
+| 19 | **Modo TV/kiosko para el torneo** (`torneo/index.html?tv=1`) | Sonnet (pulir transiciones: Fable) | Parámetro de URL que activa una vista a pantalla completa sin nav/footer, rotando automáticamente podio → tabla completa → countdown al próximo hito (reutiliza `HITOS` y el countdown que ya existe en `#metodologia`). Pensado para proyectar en el Bloomberg Lab los viernes de publicación del ranking |
+| 20 | **Botón "Agregar a calendario" (.ics) por evento** | Sonnet | Parcialmente cubierto (2026-07-14): ya existe el calendario COMPLETO descargable/suscribible (`generar_ics.py` → `eventos/fig.ics`, botón en la página). Queda pendiente solo la variante POR EVENTO individual (un .ics de un solo VEVENT generado en el navegador desde el overlay del evento) — tiene más sentido cuando existan eventos futuros (tarea #17) |
+| 21 | **Comparador de equipos en el torneo** | Sonnet | Seleccionar 2 equipos de `torneo.json` y verlos lado a lado, métrica por métrica (retorno, Sharpe, MDD, posición, delta). Toda la data ya está en el JSON que consume `torneo/index.html`; es una vista nueva sobre datos existentes, sin backend nuevo |
+| 22 | **PWA ligera para el torneo** | Sonnet | `manifest.json` + service worker mínimo (cache de assets estáticos) para que `torneo/index.html` se pueda "instalar" en el celular y cargue rápido los viernes de publicación, cuando hay más tráfico. No requiere backend ni cambia el fetch de `torneo.json` (siempre debe pedirse fresco, no cachear el JSON del ranking) |
+| 23 | **Sección "Referentes" en FIW** | Sonnet | Tarjetas de entrevistas breves a mujeres de la industria (foto + cita + cargo), mismo patrón JSON que el resto del sitio (`datos/fiw.json`). Da contenido real al área mientras se resuelven los colores oficiales con Delia (P0-3) — el contenido no depende de esa decisión, solo el estilo visual sí. Requiere que Francisco/Delia consigan las entrevistas o testimonios primero, no inventar citas |
 
 ### P2 — Expansión (ver IDEAS_GRAN_ESCALA_FIG.md antes de empezar)
 

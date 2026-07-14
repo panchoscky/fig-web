@@ -127,6 +127,26 @@ body.cursor-on #cursorRing.grow{width:58px;height:58px;border-color:var(--gold)}
 .pill{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;padding:11px 22px;border:1px solid rgba(247,244,236,.22);border-radius:100px;color:rgba(247,244,236,.66);transition:all .35s var(--ease)}
 .pill:hover{border-color:var(--gold);color:var(--gold)}
 .pill.active{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+#yearRow{margin-top:10px}
+#yearRow .pill{font-size:.6rem;padding:8px 18px}
+#yearRow:empty{display:none}
+
+/* ---------- Modo proyección (?pantalla=1): fotos fullscreen para TVs ---------- */
+#pant{position:fixed;inset:0;z-index:3000;background:#060B1C;display:none;cursor:none}
+#pant.on{display:block}
+#pant .pt-img{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.4s ease}
+#pant .pt-img.show{opacity:1}
+@media (prefers-reduced-motion:no-preference){
+  #pant .pt-img.show{animation:ptzoom 9s ease-out forwards}
+  @keyframes ptzoom{from{transform:scale(1)}to{transform:scale(1.05)}}
+}
+#pant .pt-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,11,28,.5),transparent 32%,transparent 58%,rgba(6,11,28,.86))}
+#pant .pt-cap{position:absolute;left:0;right:0;bottom:0;padding:36px 50px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+#pant .pt-meta{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:10px}
+#pant .pt-cap h2{font-family:var(--f-disp);font-weight:600;font-size:clamp(1.6rem,3.6vw,2.8rem);color:var(--ivory);line-height:1.12;margin:0}
+#pant .pt-brand{display:flex;align-items:center;gap:12px;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(247,244,236,.6);white-space:nowrap;flex:none}
+#pant .pt-brand img{width:36px;height:36px;object-fit:contain}
+#pant .pt-hint{position:absolute;top:22px;right:28px;font-family:var(--f-mono);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(247,244,236,.35)}
 
 /* Grid de eventos */
 .ev-section{padding:clamp(1rem,2vw,2rem) 0 clamp(5rem,9vw,7rem)}
@@ -267,6 +287,7 @@ footer a:hover{color:var(--gold)}
       <button class="pill" data-f="charla">Charlas</button>
       <button class="pill" data-f="comunidad">Comunidad</button>
     </div>
+    <div class="pill-row reveal" id="yearRow"><!-- años, se generan desde los datos --></div>
   </div>
 </div>
 
@@ -301,12 +322,14 @@ footer a:hover{color:var(--gold)}
     <h2 class="reveal">El próximo capítulo <em>se escribe contigo</em>.</h2>
     <p class="reveal d1">Sigue nuestras redes para enterarte de las próximas actividades de FIG.</p>
     <a href="https://www.instagram.com/fen.investment.group/" target="_blank" rel="noopener" class="btn btn--ghost reveal d2" style="border-color:rgba(10,17,40,.35);color:var(--navy)">Seguir en Instagram <span class="arr">→</span></a>
+    <a href="fig.ics" class="btn btn--ghost reveal d2" style="border-color:rgba(10,17,40,.35);color:var(--navy)" download>Calendario FIG (.ics) <span class="arr">↓</span></a>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
     <span>© 2026 FEN Investment Group</span>
+    <a href="?pantalla=1" title="Fotos a pantalla completa, para proyectar en TVs de la facultad">Modo pantalla ⛶</a>
     <a href="../index.html">← Volver al inicio</a>
   </div>
 </footer>
@@ -333,28 +356,28 @@ var DATA={eventos:[
    resumen:"63 equipos gestionan carteras simuladas de USD 10 millones en ETFs de iShares/BlackRock, medidas contra el MSCI ACWI con métricas de Bloomberg. Ranking semanal cada viernes y final ante jurado el 9 de noviembre.",
    participantes:[],carpeta:"torneo-portafolio-2026"},
   {id:"clase-edv-2026",titulo:"Clase EDV — Colegios",fecha:"2026-06-23",fechaTexto:"23 · JUN · 2026",tipo:"charla",lugar:"FEN · Universidad de Chile",
-   resumen:"Actividad educativa con estudiantes de colegio: una introducción práctica al mundo de los mercados y las inversiones. [Resumen por completar]",
+   resumen:"Educación financiera para estudiantes de educación media. Introducción a conceptos de inversiones, análisis de mercados y construcción de portafolio con ejercicios prácticos en el Bloomberg Lab.",
    participantes:[],carpeta:"clase-edv-2026"},
   {id:"visita-santander-2026",titulo:"Visita a Santander",fecha:"2026-06-22",fechaTexto:"22 · JUN · 2026",tipo:"visita",lugar:"Banco Santander Chile",
-   resumen:"Visita a las oficinas de Santander, con presentación sobre fondos money market y un recorrido por el trabajo de la mesa. [Resumen por completar]",
+   resumen:"Visita corporativa a las oficinas del Banco Santander Chile. Presentación sobre gestión de fondos money market, operaciones de tesorería y experiencias del equipo de inversiones.",
    participantes:[],carpeta:"visita-santander-2026"},
   {id:"visita-moneda-2026",titulo:"Visita a La Moneda",fecha:"2026-06-19",fechaTexto:"JUN · 2026",tipo:"visita",lugar:"Palacio de La Moneda",
-   resumen:"Visita institucional de otoño al Palacio de La Moneda. [Resumen por completar]",
+   resumen:"Visita institucional al Palacio de La Moneda. Exposición sobre política fiscal y monetaria, con énfasis en la gestión económica del Estado y sus implicaciones para los mercados.",
    participantes:[],carpeta:"visita-moneda-2026"},
   {id:"fiw-mayo-2026",titulo:"Encuentro FEN Investment Woman",fecha:"2026-05-27",fechaTexto:"27 · MAY · 2026",tipo:"comunidad",lugar:"FEN · Universidad de Chile",
-   resumen:"Actividad de la comunidad FEN Investment Woman, el área de FIG que impulsa la participación femenina en las finanzas. [Resumen por completar]",
+   resumen:"Encuentro de FEN Investment Woman, iniciativa que impulsa la participación de mujeres en inversión y mercados financieros. Red de colaboración, mentoría y desarrollo profesional.",
    participantes:[],carpeta:"fiw-mayo-2026"},
   {id:"charla-analisis-tecnico-2025",titulo:"Charla de Análisis Técnico",fecha:"2025-10-30",fechaTexto:"30 · OCT · 2025",tipo:"charla",lugar:"FEN · Universidad de Chile",
-   resumen:"Charla abierta sobre análisis técnico: lectura de gráficos, tendencias y gestión del riesgo en el corto plazo. [Resumen por completar]",
+   resumen:"Masterclass sobre análisis técnico de mercados: lectura de gráficos, identificación de patrones y tendencias, gestión de riesgo y operativa en el corto plazo.",
    participantes:[],carpeta:"charla-analisis-tecnico-2025"},
   {id:"torneo-primavera-2025",titulo:"Torneo — Primavera 2025",fecha:"2025-09-11",fechaTexto:"SEP · 2025",tipo:"torneo",lugar:"FEN · Universidad de Chile",
-   resumen:"La edición anterior de nuestra competencia: una jornada completa de torneo con presentaciones y premiación. [Resumen por completar]",
+   resumen:"Primera edición del Torneo de Portafolio FIG: competencia completa con gestión de carteras simuladas, presentaciones de equipos y premiación de ganadores.",
    participantes:[],carpeta:"torneo-primavera-2025"},
   {id:"charla-colegios-lab-2025",titulo:"Charla educativa — Colegios en el laboratorio",fecha:"2025-08-19",fechaTexto:"19 · AGO · 2025",tipo:"charla",lugar:"Bloomberg Lab · FEN",
-   resumen:"Estudiantes de colegio visitaron el laboratorio para una charla introductoria a los mercados financieros. [Resumen por completar]",
+   resumen:"Introducción a los mercados financieros para estudiantes de educación media. Actividad en el Bloomberg Lab con demostraciones prácticas de herramientas de inversión.",
    participantes:[],carpeta:"charla-colegios-lab-2025"},
   {id:"lanzamiento-club-2025",titulo:"Lanzamiento de FEN Investment Group",fecha:"2025-09-08",fechaTexto:"PRIMAVERA · 2025",tipo:"comunidad",lugar:"FEN · Universidad de Chile",
-   resumen:"El evento que lo inició todo: la presentación oficial de FIG ante la comunidad de la facultad. [Resumen por completar]",
+   resumen:"Presentación oficial de FEN Investment Group ante la comunidad de la FEN. Lanzamiento de la iniciativa con participación de fundadores, socios estratégicos y potenciales miembros.",
    participantes:[],carpeta:"lanzamiento-club-2025"}
 ]};
 
@@ -381,11 +404,14 @@ function probeFotos(carpeta,max,cb){
 }
 
 /* ---------------- Render de la grilla ---------------- */
-var currentFilter="todos";
+var currentFilter="todos",currentYear="todos";
 function renderGrid(){
   var g=$("#evGrid");
   var evs=DATA.eventos.slice().sort(function(a,b){return b.fecha<a.fecha?-1:1});
-  var list=evs.filter(function(e){return currentFilter==="todos"||e.tipo===currentFilter});
+  var list=evs.filter(function(e){
+    return (currentFilter==="todos"||e.tipo===currentFilter)
+        && (currentYear==="todos"||(e.fecha||"").slice(0,4)===currentYear);
+  });
   if(!list.length){g.innerHTML='<div class="ev-empty">Aún no hay eventos en esta categoría — pronto habrá novedades.</div>';return;}
   var html="";
   list.forEach(function(e,i){
@@ -437,6 +463,27 @@ $$("#filterRow .pill").forEach(function(p){
     renderGrid();
   });
 });
+
+/* filtro por año: las píldoras se generan desde los datos reales */
+function buildYearRow(){
+  var row=$("#yearRow"),years={},list=[];
+  DATA.eventos.forEach(function(e){
+    var y=(e.fecha||"").slice(0,4);
+    if(y&&!years[y]){years[y]=1;list.push(y);}
+  });
+  if(list.length<2){row.innerHTML="";currentYear="todos";return;}
+  list.sort().reverse();
+  var html='<button class="pill active" data-y="todos">Todos los años</button>';
+  list.forEach(function(y){html+='<button class="pill" data-y="'+esc(y)+'">'+esc(y)+'</button>';});
+  row.innerHTML=html;
+  $$(".pill",row).forEach(function(p){
+    p.addEventListener("click",function(){
+      currentYear=p.getAttribute("data-y");
+      $$(".pill",row).forEach(function(x){x.classList.toggle("active",x===p)});
+      renderGrid();
+    });
+  });
+}
 
 /* ---------------- Overlay con slideshow de fondo ---------------- */
 var ov=$("#evOverlay"),bg1=$(".ov-bg"),bg2=$(".ov-bg2"),slideT=null,slideI=0,slideFotos=[],useBg1=true;
@@ -502,8 +549,69 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape"&&ov.classLis
 fetch("../datos/eventos.json",{cache:"no-store"})
   .then(function(r){return r.ok?r.json():null})
   .then(function(d){
-    if(d&&d.eventos&&d.eventos.length){DATA=d;renderGrid();openFromHash();}
-  }).catch(function(){});
+    if(d&&d.eventos&&d.eventos.length){DATA=d;buildYearRow();renderGrid();openFromHash();}
+    if(window.__armaPantalla)window.__armaPantalla();
+  }).catch(function(){if(window.__armaPantalla)window.__armaPantalla();});
+
+/* ---------------- Modo proyección (?pantalla=1) ----------------
+   Fotos de todos los eventos a pantalla completa con título y fecha,
+   rotando solas — para dejar corriendo en los televisores de la FEN
+   durante actividades. ESC sale. Usa las mismas fotos numeradas de
+   fotos/eventos/, no requiere configurar nada. */
+(function(){
+  if(!/[?&]pantalla=1/.test(location.search))return;
+  var el=document.createElement("div");el.id="pant";
+  el.innerHTML='<div class="pt-img"></div><div class="pt-img"></div><div class="pt-veil"></div>'
+    +'<div class="pt-cap"><div><span class="pt-meta" id="ptMeta"></span><h2 id="ptTitle"></h2></div>'
+    +'<div class="pt-brand"><img src="../logos/fig-oro.png" alt="">FEN Investment Group</div></div>'
+    +'<div class="pt-hint">ESC PARA SALIR</div>';
+  document.body.appendChild(el);
+  var imgs=$$(".pt-img",el),useA=true,cola=[],idx=-1,timer=null,armado=false;
+  function avanza(){
+    if(!cola.length)return;
+    idx=(idx+1)%cola.length;
+    var it=cola[idx];
+    var a=useA?imgs[0]:imgs[1],b=useA?imgs[1]:imgs[0];
+    a.style.backgroundImage="url('"+it.url+"')";
+    a.classList.remove("show");void a.offsetWidth;a.classList.add("show");
+    b.classList.remove("show");
+    useA=!useA;
+    $("#ptMeta").textContent=(it.ev.fechaTexto||it.ev.fecha||"")+" · "+(TIPOS[it.ev.tipo]||it.ev.tipo||"");
+    $("#ptTitle").textContent=it.ev.titulo||"";
+  }
+  function arma(){
+    if(armado)return;armado=true;
+    var pend=DATA.eventos.length;
+    if(!pend)return;
+    DATA.eventos.forEach(function(e){
+      probeFotos(e.carpeta||e.id,12,function(fs){
+        fs.forEach(function(u){cola.push({url:u,ev:e})});
+        pend--;
+        if(!pend){
+          el.classList.add("on");
+          document.body.classList.add("locked");
+          if(!cola.length){
+            $("#ptTitle").textContent="Aún no hay fotos — sube imágenes a fotos/eventos/ y vuelve a abrir";
+            imgs[0].style.backgroundImage="linear-gradient(140deg,#0F1934,#060B1C)";
+            imgs[0].classList.add("show");
+            return;
+          }
+          avanza();
+          timer=setInterval(avanza,8000);
+        }
+      });
+    });
+  }
+  window.__armaPantalla=arma;
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"&&el.classList.contains("on")){
+      clearInterval(timer);
+      el.classList.remove("on");
+      document.body.classList.remove("locked");
+      history.replaceState(null,"",location.pathname);
+    }
+  });
+})();
 
 /* ---------------- Infraestructura compartida ---------------- */
 var revIO=null;
@@ -578,6 +686,7 @@ function openFromHash(){
 }
 
 /* ---------------- Arranque ---------------- */
+buildYearRow();
 renderGrid();
 observeReveals(document);
 (function(){
@@ -592,6 +701,24 @@ observeReveals(document);
   }
   setTimeout(function(){pre.classList.add("done");openFromHash();},RM?0:(quick?400:2400));
 })();
+})();
+</script>
+<script>
+/* Métricas anónimas de visitas — SIN cookies ni identificadores. Solo se
+   activa si config.statsEndpoint está configurado en datos/club.json
+   (Apps Script; código listo en HOJA_DE_RUTA_FIG.md). Registra página,
+   fecha y sitio de origen. Nada más. */
+(function(){
+try{
+fetch("../datos/club.json",{cache:"force-cache"})
+.then(function(r){return r.ok?r.json():null})
+.then(function(d){
+  var u=d&&d.config&&d.config.statsEndpoint;if(!u)return;
+  var b=JSON.stringify({pagina:location.pathname,fecha:new Date().toISOString(),origen:(document.referrer.split("/")[2]||"")});
+  if(navigator.sendBeacon){navigator.sendBeacon(u,b);}
+  else{fetch(u,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:b}).catch(function(){});}
+}).catch(function(){});
+}catch(e){}
 })();
 </script>
 </body>
