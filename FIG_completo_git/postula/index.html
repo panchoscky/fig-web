@@ -24,9 +24,9 @@
 /* ============================================================================
    FIG · POSTULACIÓN — formulario de ingreso al club.
    El destino del envío se configura en datos/club.json →
-   config.postulaEndpoint (URL de un Web App de Google Apps Script que
-   escribe en la planilla de postulaciones). Mientras esté vacío, la página
-   muestra el formulario en modo vista previa con el envío deshabilitado.
+   config.figEndpoint (el Apps Script COMPARTIDO de todo el sitio; este
+   formulario envía con tipo:"postulacion"). Mientras esté vacío, la
+   página muestra el formulario en modo vista previa con envío deshabilitado.
    ============================================================================ */
 :root{
   --navy-deep:#060B1C; --navy:#0A1128; --navy-panel:#0F1934;
@@ -149,7 +149,7 @@ footer a:hover{color:var(--gold)}
 <section class="form-sec">
   <div class="wrap">
     <div class="panel reveal">
-      <div id="cfgBanner">FORMULARIO EN CONFIGURACIÓN · El envío se habilitará cuando la directiva conecte la planilla de postulaciones (datos/club.json → config.postulaEndpoint).<br>Mientras tanto, escríbenos por Instagram o LinkedIn — o juega <a href="../juego/index.html" style="color:var(--gold);text-decoration:underline">El Rally del Toro</a> y aprende cuándo salir del mercado.</div>
+      <div id="cfgBanner">FORMULARIO EN CONFIGURACIÓN · El envío se habilitará cuando la directiva conecte el Apps Script del sitio (datos/club.json → config.figEndpoint).<br>Mientras tanto, escríbenos por Instagram o LinkedIn — o juega <a href="../juego/index.html" style="color:var(--gold);text-decoration:underline">El Rally del Toro</a> y aprende cuándo salir del mercado.</div>
       <form id="fPostula" novalidate>
         <div class="f-grid">
           <div class="f-field">
@@ -229,14 +229,16 @@ function $$(s,r){return [].slice.call((r||document).querySelectorAll(s))}
   }
 })();
 
-/* endpoint: se configura en datos/club.json → config.postulaEndpoint.
-   Es un Web App de Google Apps Script que recibe el POST y escribe una fila
-   en la planilla de postulaciones de la directiva. */
+/* endpoint: se configura en datos/club.json → config.figEndpoint.
+   Es UN SOLO Web App de Google Apps Script compartido por todo el sitio
+   (postulaciones, ranking del Rally, métricas de visitas): cada envío
+   lleva un campo "tipo" para que el script sepa en qué pestaña de la
+   planilla escribir. Ver el código completo en HOJA_DE_RUTA_FIG.md. */
 var ENDPOINT="";
 fetch("../datos/club.json",{cache:"no-store"})
   .then(function(r){return r.ok?r.json():null})
   .then(function(d){
-    if(d&&d.config&&d.config.postulaEndpoint)ENDPOINT=d.config.postulaEndpoint;
+    if(d&&d.config&&d.config.figEndpoint)ENDPOINT=d.config.figEndpoint;
     refreshState();
   }).catch(function(){refreshState()});
 function refreshState(){
@@ -254,7 +256,7 @@ form.addEventListener("submit",function(e){
   btn.disabled=true;msg.className="";msg.textContent="ENVIANDO…";
   var datos={};
   $$("input,select,textarea",form).forEach(function(el){datos[el.name]=el.value.trim()});
-  datos.origen="fig-web/postula";datos.fecha=new Date().toISOString();
+  datos.tipo="postulacion";datos.origen="fig-web/postula";datos.fecha=new Date().toISOString();
   fetch(ENDPOINT,{method:"POST",mode:"no-cors",
     headers:{"Content-Type":"text/plain;charset=utf-8"},
     body:JSON.stringify(datos)})
@@ -285,17 +287,18 @@ if(!RM&&"IntersectionObserver" in window){
 })();
 </script>
 <script>
-/* Métricas anónimas de visitas — SIN cookies ni identificadores. Solo se
-   activa si config.statsEndpoint está configurado en datos/club.json
-   (Apps Script; código listo en HOJA_DE_RUTA_FIG.md). Registra página,
-   fecha y sitio de origen. Nada más. */
+/* Métricas anónimas de visitas — SIN cookies ni identificadores. Usa el
+   mismo Apps Script COMPARTIDO del sitio (config.figEndpoint), con
+   tipo:"visita" para que escriba en la pestaña correcta. Solo se activa
+   si config.figEndpoint está configurado en datos/club.json (código
+   completo en HOJA_DE_RUTA_FIG.md). Registra página, fecha y origen. */
 (function(){
 try{
 fetch("../datos/club.json",{cache:"force-cache"})
 .then(function(r){return r.ok?r.json():null})
 .then(function(d){
-  var u=d&&d.config&&d.config.statsEndpoint;if(!u)return;
-  var b=JSON.stringify({pagina:location.pathname,fecha:new Date().toISOString(),origen:(document.referrer.split("/")[2]||"")});
+  var u=d&&d.config&&d.config.figEndpoint;if(!u)return;
+  var b=JSON.stringify({tipo:"visita",pagina:location.pathname,fecha:new Date().toISOString(),origen:(document.referrer.split("/")[2]||"")});
   if(navigator.sendBeacon){navigator.sendBeacon(u,b);}
   else{fetch(u,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:b}).catch(function(){});}
 }).catch(function(){});

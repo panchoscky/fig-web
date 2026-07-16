@@ -222,7 +222,8 @@
         <span class="ptag">Texto</span>
         <div class="pbody">
           <p>Los campos del formulario están escritos directo en el HTML (cambian poco). El destino de los envíos se configura en:</p>
-          <code>datos/club.json → config.postulaEndpoint</code>
+          <code>datos/club.json → config.figEndpoint</code>
+          <p style="margin-top:8px">Ese mismo <code>figEndpoint</code> es <b style="color:var(--ivory)">un solo Apps Script compartido</b> por todo el sitio: postulaciones, ranking del Rally del Toro y métricas de visitas. Solo hay que crear uno — código completo y pasos de despliegue en <code>HOJA_DE_RUTA_FIG.md</code>.</p>
         </div>
       </div>
       <div class="prow">
@@ -231,7 +232,7 @@
           <p>Esta página <b style="color:var(--ivory)">no usa fotos</b>.</p>
         </div>
       </div>
-      <div class="warn">Hasta que <code>postulaEndpoint</code> tenga una URL real, el formulario muestra un aviso "en configuración" y el botón de enviar queda deshabilitado.</div>
+      <div class="warn">Hasta que <code>figEndpoint</code> tenga una URL real, el formulario muestra un aviso "en configuración" y el botón de enviar queda deshabilitado.</div>
     </div>
 
     <!-- LOGOS -->
