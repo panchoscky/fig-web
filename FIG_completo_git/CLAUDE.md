@@ -72,9 +72,9 @@ explícitamente a Francisco, son la identidad visual de esa área.
 | `torneo/index.html` | ⚠️ Modo DEMO | 8 equipos ficticios. **Falta `datos/torneo.json` real**. Overlay con gráfico de 3 líneas (retorno equipo/promedio/ACWI). Tarjetas: Feed PNG, LinkedIn PNG, HTML y **videos animados** Feed/Story con intro (logo→nombre→colaboradores→ficha). Logos de colaboradores en hero y tarjetas. La línea temporal de §Metodología integra las actividades del club desde `datos/eventos.json` (tags por tipo + descripción al hover, tarea #16 ✅) |
 | Enlaces cruzados | ✅ Conectados | `index.html` ya enlaza a `eventos/`, `fiw/`, `torneo/` y `postula/` (CTAs, footer, `CONFIG.urls` y `datos/club.json`) |
 | `generar_torneo.py` | ✅ Escrito | Lee `ranking_ordenado` + Excel de inscripciones → escribe `datos/torneo.json`, conserva el `historial` semanal y calcula `delta`. Probar con el Excel real (ajustar `ALIAS` si los encabezados no calzan). Modo `--demo` disponible |
-| `postula/index.html` | ⚠️ Falta endpoint | Formulario de postulación completo; envía a `config.postulaEndpoint` (Apps Script) de `datos/club.json` — mientras esté vacío muestra banner "en configuración" (con enlace al juego) |
+| `postula/index.html` | ⚠️ Falta endpoint | Formulario de postulación completo; envía (con `tipo:"postulacion"`) a `config.figEndpoint` (el Apps Script COMPARTIDO del sitio) de `datos/club.json` — mientras esté vacío muestra banner "en configuración" (con enlace al juego) |
 | `desafio/index.html` | ✅ Funcional (banco semilla) | Trivia: modo desafío (secuencial, puntaje decae, malas descuentan, revisión con explicaciones, áreas fuerte/débil, ranking local) y modo estudio (por tema o ramo, sin reloj). Banco en `datos/preguntas/` — 12 preguntas semilla; el banco real saldrá del material que Francisco subirá al Drive (ver hoja de ruta P1.5 y `datos/preguntas/LEEME.md`) |
-| `juego/index.html` | ✅ Funcional | "El Rally del Toro": runner canvas con un **toro dorado dibujado a mano** (silueta embistiendo inspirada en el logo, galope de 4 patas, cola y cuernos animados — ya no se usa la imagen del logo en el canvas); velas rojas y burbujas como obstáculos; sparkline "TU RUN" con la curva de equity de la corrida; VENDER asegura el puntaje y ofrece **descargar una tarjeta PNG 1080×1350** del resultado (monto, % ganancia, el toro, cita del club) — filosofía "saber cuándo salir". Ranking: lee `config.juegoEndpoint` de `datos/club.json` (Apps Script doPost/doGet, código listo en `HOJA_DE_RUTA_FIG.md` P1-10b) y muestra "Ranking global"; si el endpoint está vacío o el fetch falla, cae automático a localStorage por navegador. Falta que Francisco despliegue el Apps Script y pegue la URL |
+| `juego/index.html` | ✅ Funcional | "El Rally del Toro": runner canvas con un **toro dorado dibujado a mano** (silueta embistiendo inspirada en el logo, galope de 4 patas, cola y cuernos animados — ya no se usa la imagen del logo en el canvas); velas rojas y burbujas como obstáculos; sparkline "TU RUN" con la curva de equity de la corrida; VENDER asegura el puntaje y ofrece **descargar una tarjeta PNG 1080×1350** del resultado (monto, % ganancia, el toro, cita del club) — filosofía "saber cuándo salir". Ranking: lee `config.figEndpoint` de `datos/club.json` (el Apps Script COMPARTIDO del sitio, código listo en `HOJA_DE_RUTA_FIG.md` P0-1) y muestra "Ranking global"; si el endpoint está vacío o el fetch falla, cae automático a localStorage por navegador. Falta que Francisco despliegue el Apps Script y pegue la URL |
 | Fotos de eventos | ⚠️ Parcial | 7 de 9 eventos con fotos curadas y comprimidas (ver `HOJA_DE_RUTA_FIG.md` tarea #5). Faltan `torneo-portafolio-2026` y `charla-analisis-tecnico-2025` (sin carpeta en el Drive) y más variedad en `lanzamiento-club-2025` (fotos Samsung de 7-9 MB, por encima del límite del conector de Drive) |
 
 ## Lo que YA existe fuera de esta carpeta (contexto crítico, no reinventar)
@@ -117,9 +117,10 @@ decisiones tomadas, protocolo de continuidad entre sesiones/modelos —
 leerla SIEMPRE al retomar el proyecto y actualizarla al terminar).
 Resumen de bloqueadores:
 
-1. **Endpoint de postulaciones** (Apps Script) → `config.postulaEndpoint`
-   en `datos/club.json` (Francisco debe crearlo — código listo en la hoja
-   de ruta, P0-1).
+1. **Endpoint COMPARTIDO del sitio** (un solo Apps Script para
+   postulaciones + ranking del Rally + métricas de visitas) →
+   `config.figEndpoint` en `datos/club.json` (Francisco debe crearlo —
+   código completo listo en la hoja de ruta, P0-1).
 2. **Primer `datos/torneo.json` real** con `generar_torneo.py` + Excel
    oficial (P0-2).
 3. **Colores oficiales de FIW** con Delia → variables `--acc*` (P0-3).
@@ -140,9 +141,15 @@ Resumen de bloqueadores:
   `en/index.html`, el brief para partners internacionales — ese va en inglés
   a propósito).
 - Las 8 páginas llevan un **beacon de métricas anónimas** (sin cookies:
-  página + fecha + origen) que queda inerte mientras
-  `config.statsEndpoint` de `club.json` esté vacío. Al agregar una página
-  nueva, copiar el snippet del final de cualquier página existente.
+  página + fecha + origen) que envía con `tipo:"visita"` al mismo
+  `config.figEndpoint` compartido, y queda inerte mientras esté vacío.
+  Al agregar una página nueva, copiar el snippet del final de cualquier
+  página existente.
+- **Un solo Apps Script para todo el sitio** (`config.figEndpoint` en
+  `club.json`): postulaciones, ranking del Rally del Toro y métricas de
+  visitas comparten el mismo Web App y la misma planilla (3 pestañas). No
+  crear un endpoint nuevo por feature — sumar un `tipo` más al `doPost`/
+  `doGet` existente (código completo en `HOJA_DE_RUTA_FIG.md`, P0-1).
 - Antes de escribir un script nuevo `generar_X.py`, revisar si el patrón ya
   existe para otro dato (todos siguen la misma forma: leer Excel → validar
   → volcar JSON con el esquema documentado en el propio archivo o en su
