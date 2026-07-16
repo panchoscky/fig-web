@@ -10,8 +10,8 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-07-14** (sesión Fable: toros rediseñados,
-lote de 8 mejoras, línea temporal del torneo con eventos del club).
+Última actualización: **2026-07-16** (sesión: Material Finanzas P1.5 Q1 
+Inventario — 189 archivos mapeados, 4 ramos + 4 temas nuevos propuestos).
 
 ---
 
@@ -272,7 +272,7 @@ pregunta — es la guía de autoría y el contrato de calidad.**
 
 | # | Tarea | Modelo | Detalle |
 |---|---|---|---|
-| Q1 | **Inventario del material** | Haiku | Listar la carpeta nueva del Drive (solo lectura), mapear archivo → ramo → tema(s) propuestos. Salida: tabla en esta hoja de ruta. Proponer temas/ramos nuevos para index.json si el material no calza en los existentes |
+| Q1 | **Inventario del material** | Haiku | ✅ Completado (2026-07-16). Resultado: 189 archivos en 4 ramos. Detalle en `Q1_INVENTARIO_FINANZAS.md`. Ramos nuevos: `finanzas-ii`, `intro-finanzas`, `apf`. Temas nuevos: derivados-opciones, derivados-futuros, matematica-financiera, riesgo-crediticio |
 | Q2 | **Extracción de preguntas por lotes** | Sonnet | Por archivo del material: leerlo del Drive, redactar 20-40 preguntas según LEEME.md (con `fuente` citando el archivo), guardarlas en el shard del tema, correr `validar_preguntas.py` (debe decir TODO OK), commit por lote. Shards de máx 200 preguntas/150 KB — crear `tema-02.json`… y listarlos en index.json |
 | Q3 | **Revisión pedagógica por muestreo** | Opus/Fable | ~10% de cada lote: precisión técnica, distractores plausibles, explicaciones que enseñan. Corregir o eliminar. Sin esta revisión un lote no se considera terminado |
 | Q4 | **Balance del banco** | Haiku | `validar_preguntas.py --stats` tras cada tanda: ningún tema raquítico, dificultades ~40/40/20. Anotar huecos aquí |
