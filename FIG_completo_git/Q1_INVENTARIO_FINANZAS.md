@@ -136,7 +136,7 @@
 ## Estado
 
 - ✅ **Q1 completado:** 2026-07-16 23:35
-- ⏭️ **Q2 pendiente:** Extracción de preguntas (Sonnet, lotes de 20-40 por archivo)
+- 🔄 **Q2 en curso:** Lote 1 hecho 2026-07-17 — `datos/preguntas/finanzas-01.json`, 26 preguntas desde 2 archivos de "Intro a Finanzas" (Guía Valor Actual + Ratios Financieros). Quedan ~63 archivos de Intro a Finanzas + Finanzas I (70) + Finanzas II (45) + APF (7)
 - ⏳ **Q3 pendiente:** Revisión pedagógica (Opus/Fable, muestreo ~10%)
 - ⏳ **Q4 pendiente:** Balance del banco
 
