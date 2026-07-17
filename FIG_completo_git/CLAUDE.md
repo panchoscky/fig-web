@@ -46,6 +46,7 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 │   └── torneo.json.ejemplo      ← ESQUEMA del ranking (ver "Pendiente" abajo — aún no existe torneo.json real)
 ├── fotos/
 │   ├── eventos/<carpeta-evento>/  ← 1.jpg, 2.jpg, 3.jpg… por evento (numeradas, sin saltos)
+│   ├── directiva/                  ← retratos de cofundadores: <nombre-slug>.jpg (ver LEEME.txt de la carpeta)
 │   └── fiw/                        ← 1.jpg, 2.jpg, 3.jpg… de la comunidad FIW
 ├── LEEME_PAGINAS.md          ← documentación de cómo se conectan las páginas nuevas
 ├── IDEAS_FIG.md               ← ideas de una sesión (rápidas)
@@ -65,7 +66,7 @@ explícitamente a Francisco, son la identidad visual de esa área.
 
 | Pieza | Estado | Detalle |
 |---|---|---|
-| `index.html` | ✅ Producción | Sitio principal completo. Ticker bursátil al pie con el top 5 del torneo — aparece solo cuando exista `datos/torneo.json` real (hoy oculto). Footer enlaza `en/index.html` |
+| `index.html` | ✅ Producción | Sitio principal completo. Ticker bursátil al pie con el top 5 del torneo — aparece solo cuando exista `datos/torneo.json` real (hoy oculto). Footer enlaza `en/index.html`. **Expediente de cofundadores**: clic en cualquier tarjeta de §Nosotros abre un overlay con ficha completa (bio + trayectoria desde `perfil` en `club.json`, foto grande si existe en `fotos/directiva/<slug>.jpg` — ver `fotos/directiva/LEEME.txt` —, monograma dorado si no), flechas ←/→ para recorrer el grupo, ✕/Esc para cerrar, navegable por teclado |
 | `eventos/index.html` | ✅ Producción | 9 eventos reales con resúmenes completos en `datos/eventos.json`; filtros por tipo Y año; botón de calendario `fig.ics` (regenerar con `generar_ics.py`); modo proyección `?pantalla=1` (fotos fullscreen para TVs, enlazado en el footer) |
 | `en/index.html` | ✅ Producción | One-pager en inglés para partners (BlackRock, bancos): áreas + torneo con solo datos verificados. Única página del sitio con texto en inglés — es su propósito |
 | `fiw/index.html` | ⚠️ Placeholder | Estructura y datos completos, pero **colores de marca aún no confirmados** por Delia Avilán/FIW — usa un oro rosa provisional. Sin fotos en `fotos/fiw/` todavía |
@@ -73,7 +74,7 @@ explícitamente a Francisco, son la identidad visual de esa área.
 | Enlaces cruzados | ✅ Conectados | `index.html` ya enlaza a `eventos/`, `fiw/`, `torneo/` y `postula/` (CTAs, footer, `CONFIG.urls` y `datos/club.json`) |
 | `generar_torneo.py` | ✅ Escrito | Lee `ranking_ordenado` + Excel de inscripciones → escribe `datos/torneo.json`, conserva el `historial` semanal y calcula `delta`. Probar con el Excel real (ajustar `ALIAS` si los encabezados no calzan). Modo `--demo` disponible |
 | `postula/index.html` | ⚠️ Falta endpoint | Formulario de postulación completo; envía (con `tipo:"postulacion"`) a `config.figEndpoint` (el Apps Script COMPARTIDO del sitio) de `datos/club.json` — mientras esté vacío muestra banner "en configuración" (con enlace al juego) |
-| `desafio/index.html` | ✅ Funcional (banco semilla) | Trivia: modo desafío (secuencial, puntaje decae, malas descuentan, revisión con explicaciones, áreas fuerte/débil, ranking local) y modo estudio (por tema o ramo, sin reloj). Banco en `datos/preguntas/` — 12 preguntas semilla; el banco real saldrá del material que Francisco subirá al Drive (ver hoja de ruta P1.5 y `datos/preguntas/LEEME.md`) |
+| `desafio/index.html` | ✅ Funcional (banco real) | Trivia: modo desafío (secuencial, puntaje decae, malas descuentan, revisión con explicaciones, áreas fuerte/débil, ranking local) y modo estudio (por tema o ramo, sin reloj). Banco en `datos/preguntas/` — **300 preguntas reales en 12 temas** extraídas del material de finanzas del Drive (P1.5 Q2, lotes 1-23; validar siempre con `validar_preguntas.py`). Idea pendiente de Francisco: selector de dificultad (1/2/3) en el juego — el campo `dificultad` ya existe en todas las preguntas |
 | `juego/index.html` | ✅ Funcional | "El Rally del Toro": runner canvas con un **toro dorado dibujado a mano** (silueta embistiendo inspirada en el logo, galope de 4 patas, cola y cuernos animados — ya no se usa la imagen del logo en el canvas); velas rojas y burbujas como obstáculos; sparkline "TU RUN" con la curva de equity de la corrida; VENDER asegura el puntaje y ofrece **descargar una tarjeta PNG 1080×1350** del resultado (monto, % ganancia, el toro, cita del club) — filosofía "saber cuándo salir". Ranking: lee `config.figEndpoint` de `datos/club.json` (el Apps Script COMPARTIDO del sitio, código listo en `HOJA_DE_RUTA_FIG.md` P0-1) y muestra "Ranking global"; si el endpoint está vacío o el fetch falla, cae automático a localStorage por navegador. Falta que Francisco despliegue el Apps Script y pegue la URL |
 | Fotos de eventos | ⚠️ Parcial | 7 de 9 eventos con fotos curadas y comprimidas (ver `HOJA_DE_RUTA_FIG.md` tarea #5). Faltan `torneo-portafolio-2026` y `charla-analisis-tecnico-2025` (sin carpeta en el Drive) y más variedad en `lanzamiento-club-2025` (fotos Samsung de 7-9 MB, por encima del límite del conector de Drive) |
 

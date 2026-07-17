@@ -603,6 +603,151 @@ body.on-light .rail-node .rn-lab{color:#A8871C;text-shadow:none}
 .p-card--more{align-items:center;justify-content:center;text-align:center;border-style:dashed;background:transparent}
 .p-card--more .p-extra{max-width:24ch}
 
+/* ---------- Expediente (perfil expandido de cofundadores) ---------- */
+.p-card--exp{cursor:pointer}
+.p-card--exp::after{
+  content:"⤢";position:absolute;top:12px;right:15px;
+  font-size:.9rem;color:#A8871C;opacity:0;transform:translate(4px,-4px);
+  transition:opacity .35s,transform .35s var(--ease);
+}
+.p-card--exp{position:relative}
+.p-card--exp:hover::after{opacity:.9;transform:none}
+
+.pv{position:fixed;inset:0;z-index:1500;display:none}
+.pv.on{display:block}
+.pv-back{
+  position:absolute;inset:0;background:rgba(5,9,22,.87);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  opacity:0;transition:opacity .45s;
+}
+.pv.in .pv-back{opacity:1}
+.pv-ghost{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-family:var(--f-disp);font-weight:700;line-height:1;
+  font-size:clamp(11rem,38vw,24rem);color:transparent;
+  -webkit-text-stroke:1px rgba(212,175,55,.08);
+  pointer-events:none;user-select:none;transition:opacity .6s;
+}
+.pv-shell{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  padding:clamp(12px,3.5vw,46px);
+}
+.pv-card{
+  position:relative;width:min(960px,100%);max-height:90vh;
+  background:linear-gradient(158deg,#0E1633,var(--navy) 52%,#070D20);
+  border:1px solid rgba(212,175,55,.32);
+  display:grid;grid-template-columns:minmax(260px,340px) 1fr;
+  box-shadow:0 70px 130px -45px rgba(0,0,0,.85);
+  opacity:0;transform:translateY(30px) scale(.965);
+  transition:opacity .5s var(--ease),transform .55s var(--ease);
+}
+.pv.in .pv-card{opacity:1;transform:none}
+.pv-corner{position:absolute;width:26px;height:26px;pointer-events:none;transition:width .6s var(--ease),height .6s var(--ease)}
+.pv-corner.tl{top:-1px;left:-1px;border-top:2px solid var(--gold);border-left:2px solid var(--gold)}
+.pv-corner.tr{top:-1px;right:-1px;border-top:2px solid var(--gold);border-right:2px solid var(--gold)}
+.pv-corner.bl{bottom:-1px;left:-1px;border-bottom:2px solid var(--gold);border-left:2px solid var(--gold)}
+.pv-corner.br{bottom:-1px;right:-1px;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold)}
+.pv.in .pv-corner{width:44px;height:44px}
+
+.pv-media{
+  position:relative;min-height:420px;overflow:hidden;
+  background:
+    radial-gradient(340px 260px at 50% 30%, rgba(212,175,55,.14), transparent 70%),
+    linear-gradient(200deg,#101A3D,#0A1128 70%);
+  border-right:1px solid rgba(212,175,55,.18);
+  display:flex;align-items:center;justify-content:center;
+}
+.pv-mono{
+  font-family:var(--f-disp);font-weight:600;line-height:1;
+  font-size:clamp(5rem,12vw,8.5rem);
+  background:linear-gradient(160deg,var(--gold-light),var(--gold) 55%,var(--gold-deep));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  transition:opacity .4s;
+}
+.pv-img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;
+  opacity:0;transition:opacity .6s;
+}
+.pv-img.ok{opacity:1}
+.pv-media::after{ /* veladura para que el conteo se lea sobre la foto */
+  content:"";position:absolute;inset:auto 0 0 0;height:110px;pointer-events:none;
+  background:linear-gradient(transparent,rgba(7,13,32,.85));
+}
+.pv-count{
+  position:absolute;left:22px;bottom:16px;z-index:2;
+  font-family:var(--f-mono);font-size:.68rem;letter-spacing:.3em;color:var(--gold);
+}
+.pv-count b{font-size:1.05rem;letter-spacing:.12em}
+
+.pv-body{padding:clamp(28px,4.5vw,52px) clamp(24px,4.5vw,54px);position:relative;max-height:90vh;overflow:auto}
+.pv-anim{transition:opacity .28s,transform .28s var(--ease)}
+.pv-card.swap .pv-anim{opacity:0;transform:translateX(14px)}
+.pv-kicker{
+  font-family:var(--f-mono);font-size:.63rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;
+}
+.pv-name{
+  font-family:var(--f-disp);font-weight:600;color:var(--paper);
+  font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.12;margin-bottom:8px;
+}
+.pv-role{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#D9B84A;margin-bottom:18px}
+.pv-rule{height:1px;background:linear-gradient(90deg,var(--gold),transparent);width:0;transition:width .8s var(--ease) .15s;margin-bottom:20px}
+.pv.in .pv-rule{width:120px}
+.pv-bio{font-size:.95rem;line-height:1.75;color:rgba(247,244,236,.78);margin-bottom:26px;max-width:54ch}
+.pv-hitos h4{
+  font-family:var(--f-mono);font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(247,244,236,.5);margin-bottom:12px;
+}
+.pv-hitos ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:26px}
+.pv-hitos li{
+  font-size:.88rem;color:rgba(247,244,236,.85);line-height:1.5;
+  padding-left:20px;position:relative;
+}
+.pv-hitos li::before{content:"—";position:absolute;left:0;color:var(--gold)}
+.pv-lk{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--f-mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);border:1px solid rgba(212,175,55,.4);padding:11px 20px;
+  transition:background .35s,color .35s,border-color .35s;
+}
+.pv-lk:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+
+.pv-x{
+  position:absolute;top:14px;right:14px;z-index:5;width:42px;height:42px;border-radius:50%;
+  border:1px solid rgba(212,175,55,.4);color:var(--gold);font-size:1.15rem;line-height:1;
+  display:flex;align-items:center;justify-content:center;background:rgba(10,17,40,.55);
+  transition:background .3s,color .3s,transform .35s var(--ease);
+}
+.pv-x:hover{background:var(--gold);color:var(--navy);transform:rotate(90deg)}
+.pv-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:5;
+  width:52px;height:52px;border-radius:50%;
+  border:1px solid rgba(212,175,55,.45);color:var(--gold);font-size:1.25rem;
+  display:flex;align-items:center;justify-content:center;background:rgba(10,17,40,.6);
+  transition:background .3s,color .3s,transform .3s var(--ease);
+}
+.pv-prev{left:clamp(6px,2vw,26px)}
+.pv-next{right:clamp(6px,2vw,26px)}
+.pv-arrow:hover{background:var(--gold);color:var(--navy)}
+.pv-prev:hover{transform:translateY(-50%) translateX(-3px)}
+.pv-next:hover{transform:translateY(-50%) translateX(3px)}
+
+@media(max-width:840px){
+  .pv-card{grid-template-columns:1fr;max-height:82vh;overflow:auto}
+  .pv-corner{display:none}
+  .pv-body{max-height:none;overflow:visible}
+  .pv-media{min-height:250px;border-right:0;border-bottom:1px solid rgba(212,175,55,.18)}
+  .pv-shell{align-items:flex-start;padding-top:52px}
+  .pv-x{position:fixed;top:10px;right:10px}
+  .pv-arrow{top:auto;bottom:12px;transform:none;position:fixed}
+  .pv-prev{left:calc(50% - 64px)}.pv-next{right:calc(50% - 64px)}
+  .pv-prev:hover,.pv-next:hover{transform:none}
+}
+@media (prefers-reduced-motion: reduce){
+  .pv-back,.pv-card,.pv-anim,.pv-rule,.pv-corner,.pv-img,.pv-x,.pv-arrow{transition:none!important}
+  .pv.in .pv-rule{width:120px}
+}
+
 /* ---------- Eventos ---------- */
 .events{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .e-card{
@@ -1202,6 +1347,40 @@ body.has-ticker{padding-bottom:38px}
   </div>
 </section>
 
+<!-- Expediente: perfil expandido (se abre al tocar una tarjeta del equipo) -->
+<div class="pv" id="perfilView" role="dialog" aria-modal="true" aria-label="Perfil del equipo" aria-hidden="true">
+  <div class="pv-back" data-pv="close"></div>
+  <div class="pv-ghost" aria-hidden="true">FIG</div>
+  <div class="pv-shell">
+    <div class="pv-card">
+      <span class="pv-corner tl" aria-hidden="true"></span>
+      <span class="pv-corner tr" aria-hidden="true"></span>
+      <span class="pv-corner bl" aria-hidden="true"></span>
+      <span class="pv-corner br" aria-hidden="true"></span>
+      <button class="pv-x" data-pv="close" aria-label="Cerrar perfil">✕</button>
+      <div class="pv-media">
+        <div class="pv-mono pv-anim" aria-hidden="true"></div>
+        <img class="pv-img" alt="">
+        <div class="pv-count"><b>01</b> / 12</div>
+      </div>
+      <div class="pv-body">
+        <div class="pv-kicker pv-anim"></div>
+        <h3 class="pv-name pv-anim"></h3>
+        <div class="pv-role pv-anim"></div>
+        <div class="pv-rule" aria-hidden="true"></div>
+        <p class="pv-bio pv-anim"></p>
+        <div class="pv-hitos pv-anim">
+          <h4>Trayectoria</h4>
+          <ul></ul>
+        </div>
+        <a class="pv-lk pv-anim" href="#" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </div>
+  <button class="pv-arrow pv-prev" data-pv="prev" aria-label="Perfil anterior">←</button>
+  <button class="pv-arrow pv-next" data-pv="next" aria-label="Perfil siguiente">→</button>
+</div>
+
 <!-- ============ EVENTOS ============ -->
 <section class="section--dark" id="eventos" data-rail="Eventos" data-theme="dark">
   <div class="wrap">
@@ -1342,25 +1521,26 @@ var CONFIG = { urls:{
 var CLUB_DATA = {
   personas:{
     directiva:[
-      {iniciales:"BS",nombre:"Benjamín Sáez Molina",rol:"Presidente",detalle:"Co-fundador · Área Portafolio.",destacado:true,linkedin:"https://www.linkedin.com/in/benjamin-saez-molina/"},
-      {iniciales:"JG",nombre:"Jhosep García",rol:"Vicepresidente",detalle:"Co-fundador · Área Valuation.",destacado:true,linkedin:"https://linkedin.com/in/jhosep-garcia"},
-      {iniciales:"MP",nombre:"Manuel Paz",rol:"Director · Portafolio",detalle:"Comunicaciones, difusión y creador de la web original."},
-      {iniciales:"FV",nombre:"Francisco Valenzuela",rol:"Director · Portafolio",detalle:"Plataforma web y co-creador del Torneo Portafolio 2026.",linkedin:"https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/"},
-      {iniciales:"AA",nombre:"Agustín Arriagada",rol:"Director · Portafolio",detalle:"Co-fundador."},
-      {iniciales:"BD",nombre:"Benjamín Disi",rol:"Director · Portafolio",detalle:"Co-fundador."},
-      {iniciales:"BS",nombre:"Benjamín Solís",rol:"Director · Portafolio",detalle:"Co-fundador."},
-      {iniciales:"RA",nombre:"Rafael Aliendre",rol:"Director · Trading",detalle:"Co-fundador.",linkedin:"https://www.linkedin.com/in/rafael-aliendre-javier"},
-      {iniciales:"JL",nombre:"Juan José Limari",rol:"Director · Trading",detalle:"Co-fundador."},
-      {iniciales:"JD",nombre:"Juan Pablo Díaz Cerda",rol:"Director · Trading",detalle:"Co-fundador."},
-      {iniciales:"DG",nombre:"David González Cañon",rol:"Director · Valuation",detalle:"Co-fundador."},
-      {iniciales:"DA",nombre:"Delia Avilán",rol:"Fundadora · FEN Investment Woman",detalle:"Co-fundadora."},
+      {iniciales:"BS",nombre:"Benjamín Sáez Molina",rol:"Presidente",detalle:"Co-fundador · Área Portafolio.",destacado:true,linkedin:"https://www.linkedin.com/in/benjamin-saez-molina/",perfil:{bio:"Presidente y co-fundador de FEN Investment Group. Lidera el área Portafolio y la dirección estratégica del club, desde donde se articulan el Torneo Portafolio y las alianzas con la industria. Realizó su práctica profesional en Wealth Management en Itaú.",hitos:["Presidente de FEN Investment Group","Co-fundador · Área Portafolio","Práctica en Wealth Management · Itaú"]}},
+      {iniciales:"JG",nombre:"Jhosep García",rol:"Vicepresidente",detalle:"Co-fundador · Área Valuation.",destacado:true,linkedin:"https://linkedin.com/in/jhosep-garcia",perfil:{bio:"Vicepresidente y co-fundador de FEN Investment Group. Lidera el área Valuation, donde los miembros analizan y valorizan compañías reales aplicando las metodologías que se usan en la industria financiera.",hitos:["Vicepresidente de FEN Investment Group","Co-fundador · Área Valuation"]}},
+      {iniciales:"MP",nombre:"Manuel Paz",rol:"Director · Portafolio",detalle:"Comunicaciones, difusión y creador de la web original.",perfil:{bio:"Director del área Portafolio y responsable de comunicaciones y difusión del club. Creador de la web original de FIG, la primera presencia digital del grupo.",hitos:["Director · Portafolio","Comunicaciones y difusión de FIG","Creador de la web original del club"]}},
+      {iniciales:"FV",nombre:"Francisco Valenzuela",rol:"Director · Portafolio",detalle:"Plataforma web y co-creador del Torneo Portafolio 2026.",linkedin:"https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/",perfil:{bio:"Director del área Portafolio, responsable de la plataforma web del club y co-creador del Torneo Portafolio 2026, la competencia insignia de FIG con 63 equipos y USD 10M simulados por cartera. Realizó su práctica profesional en el área de Riesgo de LarraínVial.",hitos:["Director · Portafolio","Co-creador del Torneo Portafolio 2026","Plataforma web de FIG","Práctica en Riesgo · LarraínVial"]}},
+      {iniciales:"AA",nombre:"Agustín Arriagada",rol:"Director · Portafolio",detalle:"Co-fundador.",perfil:{bio:"Co-fundador de FEN Investment Group y director del área Portafolio, donde se gestionan las carteras simuladas y la metodología de inversión del club.",hitos:["Director · Portafolio","Co-fundador de FIG"]}},
+      {iniciales:"BD",nombre:"Benjamín Disi",rol:"Director · Portafolio",detalle:"Magíster en Finanzas (en curso) · Tutor de Finanzas II y monitor del Lab. Bloomberg Itaú.",linkedin:"https://www.linkedin.com/in/benjam%C3%ADn-disi-hernandez-12b570297",perfil:{bio:"Co-fundador y director del área Portafolio. Titulado de Ingeniería Comercial y estudiante del Magíster en Finanzas de la Universidad de Chile. Tutor de Finanzas II y monitor del Laboratorio Bloomberg Itaú de la FEN, lideró el diseño de reglas, criterios de evaluación y metodología de construcción de portafolios del primer torneo de inversión de la facultad.",hitos:["Director · Portafolio","Magíster en Finanzas (en curso) · U. de Chile","Tutor de Finanzas II y monitor del Lab. Bloomberg Itaú · FEN","Diseño metodológico del Torneo Portafolio 2026","Top 10 · Torneo de trading Banco Itaú"]}},
+      {iniciales:"BS",nombre:"Benjamín Solís",rol:"Director · Portafolio",detalle:"Co-fundador.",perfil:{bio:"Co-fundador de FEN Investment Group y director del área Portafolio.",hitos:["Director · Portafolio","Co-fundador de FIG"]}},
+      {iniciales:"RA",nombre:"Rafael Aliendre",rol:"Director · Trading",detalle:"Co-fundador.",linkedin:"https://www.linkedin.com/in/rafael-aliendre-javier",perfil:{bio:"Co-fundador y director del área Trading. Memorista en la Dirección de Estrategia e Inteligencia de Mercado de CODELCO, con prácticas previas en Factoring Capital Express, Moxi SpA y Falabella Financiero.",hitos:["Director · Trading","Memorista · CODELCO, Estrategia e Inteligencia de Mercado","Prácticas en Factoring Capital Express, Moxi SpA y Falabella Financiero"]}},
+      {iniciales:"JL",nombre:"Juan José Limari",rol:"Director · Trading",detalle:"Co-fundador.",perfil:{bio:"Co-fundador de FEN Investment Group y director del área Trading, donde se estudian estrategias de mercado y ejecución.",hitos:["Director · Trading","Co-fundador de FIG"]}},
+      {iniciales:"JD",nombre:"Juan Pablo Díaz Cerda",rol:"Director · Trading",detalle:"Co-fundador.",perfil:{bio:"Co-fundador de FEN Investment Group y director del área Trading.",hitos:["Director · Trading","Co-fundador de FIG"]}},
+      {iniciales:"DG",nombre:"David González Cañon",rol:"Director · Valuation",detalle:"Práctica en HSBC · ex Banco BICE · Coordinador Lab. Bloomberg FEN.",linkedin:"https://www.linkedin.com/in/davidgonzalezca%C3%B1on/",perfil:{bio:"Co-fundador y director del área Valuation. Realizó su práctica en HSBC apoyando a banqueros de Instituciones Financieras, Sector Público y Grandes Corporativos, y antes se desempeñó como Analista de Riesgo Financiero Junior en Banco BICE. En la FEN ha sido coordinador del Laboratorio Bloomberg y ayudante de cursos.",hitos:["Director · Valuation","Práctica · HSBC, Large Corporates & Institutional Banking","Analista de Riesgo Financiero Junior · Banco BICE","Coordinador del Laboratorio Bloomberg · FEN"]}},
+      {iniciales:"DA",nombre:"Delia Avilán",rol:"Fundadora · FEN Investment Woman",detalle:"Co-fundadora.",perfil:{bio:"Co-fundadora de FEN Investment Group y fundadora de FEN Investment Woman, el área que impulsa la participación de mujeres en el mundo de las inversiones dentro de la FEN.",hitos:["Fundadora · FEN Investment Woman","Co-fundadora de FIG"]}},
       {iniciales:"+6",nombre:"Directiva completa",detalle:"Los 18 perfiles se cargan desde Nosotros_FIG.xlsx al conectar el pipeline.",mas:true}
     ],
     industria:[
       {iniciales:"BS",nombre:"Benjamín Sáez Molina",rol:"Itaú · Wealth Management",detalle:"Práctica en Wealth Management en Itaú.",linkedin:"https://www.linkedin.com/in/benjamin-saez-molina/"},
       {iniciales:"RA",nombre:"Rafael Aliendre",rol:"CODELCO · Dirección Estrategia e Inteligencia de Mercado",detalle:"Memorista en la Dirección de Estrategia e Inteligencia de Mercado de CODELCO.",linkedin:"https://www.linkedin.com/in/rafael-aliendre-javier"},
       {iniciales:"SR",nombre:"Samuel Rodríguez Arnolds",rol:"MoonValley Capital · Investment Banking Intern",detalle:"Práctica en Investment Banking en MoonValley Capital.",linkedin:"https://www.linkedin.com/in/samuel-rodr%C3%ADguez-arnolds-8b9608241/"},
-      {iniciales:"FV",nombre:"Francisco Valenzuela",rol:"LarraínVial · Riesgo",detalle:"Práctica en el área de Riesgo en LarraínVial.",linkedin:"https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/"}
+      {iniciales:"FV",nombre:"Francisco Valenzuela",rol:"LarraínVial · Riesgo",detalle:"Práctica en el área de Riesgo en LarraínVial.",linkedin:"https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/"},
+      {iniciales:"DG",nombre:"David González Cañon",rol:"HSBC · Large Corporates & Institutional Banking",detalle:"Práctica de apoyo a banqueros de Instituciones Financieras, Sector Público y Grandes Corporativos.",linkedin:"https://www.linkedin.com/in/davidgonzalezca%C3%B1on/"}
     ],
     fama:[
       {iniciales:"🏆",nombre:"Campeón · Torneo Portafolio 2026",rol:"Se corona el 09 · NOV · 2026",detalle:"Cinco finalistas defenderán su gestión ante un jurado experto.",destacado:true},
@@ -1396,12 +1576,17 @@ function applyLinks(){
 var currentFilter="directiva";
 var D=["","d1","d2","d3"];
 
+var PEOPLE_DATA=null; /* último set de personas renderizado (para el expediente) */
 function renderPeople(p){
   var g=$("#peopleGrid"); if(!g||!p) return;
+  PEOPLE_DATA=p;
   var html="";
   ["directiva","industria","fama"].forEach(function(grp){
+    var n=0;
     (p[grp]||[]).forEach(function(x,i){
-      html+='<div class="p-card reveal '+D[i%4]+(x.destacado?" p-card--lead":"")+(x.mas?" p-card--more":"")+'" data-group="'+grp+'">'
+      var exp=!x.mas;
+      html+='<div class="p-card reveal '+D[i%4]+(x.destacado?" p-card--lead":"")+(x.mas?" p-card--more":"")+(exp?" p-card--exp":"")+'" data-group="'+grp+'"'
+          + (exp?' data-idx="'+n+'" role="button" tabindex="0" aria-label="Ver perfil de '+esc(x.nombre)+'"':"")+'>'
           + '<div class="avatar">'+esc(x.iniciales||"·")+'</div>'
           + '<div><div class="p-name">'+esc(x.nombre)+'</div>'
           + (x.rol?'<div class="p-role">'+esc(x.rol)+'</div>':"")
@@ -1409,6 +1594,7 @@ function renderPeople(p){
           + (x.detalle?'<p class="p-extra">'+esc(x.detalle)+'</p>':"")
           + (x.linkedin?'<a class="p-linkedin" href="'+esc(x.linkedin)+'" target="_blank" rel="noopener">LinkedIn ↗</a>':"")
           + '</div>';
+      if(exp)n++;
     });
   });
   g.innerHTML=html;
@@ -1507,6 +1693,138 @@ function applyFilter(name){
 $$(".pill").forEach(function(pl){
   pl.addEventListener("click",function(){applyFilter(pl.getAttribute("data-filter"))});
 });
+
+/* ---------------- Expediente: perfil expandido del equipo ----------------
+   Al tocar una tarjeta se abre un overlay con la ficha completa de la
+   persona (foto grande si existe en fotos/directiva/<slug>.jpg, monograma
+   si no), bio y trayectoria desde club.json (campo perfil), flechas para
+   recorrer al resto del grupo y ✕/Esc para cerrar. Sin datos inventados:
+   si una persona no tiene perfil, se muestra su detalle breve. */
+(function(){
+  var pv=$("#perfilView"); if(!pv) return;
+  var GK={directiva:"Directiva fundadora · FIG",industria:"FIG en la industria",fama:"Muro de la Fama"};
+  var list=[],idx=0,grp="directiva",lastFocus=null,fotoCache={};
+
+  function slug(n){
+    var s=String(n||"").toLowerCase();
+    s=s.replace(/[áàä]/g,"a").replace(/[éèë]/g,"e").replace(/[íìï]/g,"i")
+       .replace(/[óòö]/g,"o").replace(/[úùü]/g,"u").replace(/ñ/g,"n");
+    return s.replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
+  }
+  function pad(n){return (n<10?"0":"")+n}
+
+  /* Busca fotos/directiva/<slug>.(jpg|jpeg|png|webp); cachea el resultado */
+  function probeFoto(sl,cb){
+    if(fotoCache.hasOwnProperty(sl)){cb(fotoCache[sl]);return}
+    var exts=["jpg","jpeg","png","webp"],k=0;
+    (function next(){
+      if(k>=exts.length){fotoCache[sl]=null;cb(null);return}
+      var url="fotos/directiva/"+sl+"."+exts[k++];
+      var im=new Image();
+      im.onload=function(){fotoCache[sl]=url;cb(url)};
+      im.onerror=next;
+      im.src=url;
+    })();
+  }
+
+  function fill(){
+    var x=list[idx]; if(!x)return;
+    var pf=x.perfil||{};
+    $(".pv-kicker",pv).textContent=GK[grp]||"FIG";
+    $(".pv-name",pv).textContent=x.nombre||"";
+    $(".pv-role",pv).textContent=x.rol||"";
+    $(".pv-bio",pv).textContent=pf.bio||x.detalle||"";
+    var hit=$(".pv-hitos",pv),ul=$(".pv-hitos ul",pv),hs=pf.hitos||[];
+    ul.innerHTML=hs.map(function(h){return "<li>"+esc(h)+"</li>"}).join("");
+    hit.style.display=hs.length?"":"none";
+    var lk=$(".pv-lk",pv);
+    if(x.linkedin){lk.style.display="";lk.setAttribute("href",x.linkedin);}
+    else{lk.style.display="none";}
+    $(".pv-count",pv).innerHTML="<b>"+pad(idx+1)+"</b> / "+pad(list.length);
+    var mono=$(".pv-mono",pv),img=$(".pv-img",pv);
+    mono.textContent=x.iniciales||"·";mono.style.opacity="";
+    img.classList.remove("ok");img.removeAttribute("src");img.setAttribute("alt","");
+    if(grp==="directiva"){
+      var cur=x.nombre;
+      probeFoto(slug(cur),function(url){
+        if(!url)return;
+        if(!list[idx]||list[idx].nombre!==cur)return; /* ya navegó a otra persona */
+        img.src=url;img.setAttribute("alt","Foto de "+cur);
+        img.classList.add("ok");mono.style.opacity="0";
+      });
+    }
+  }
+  function show(){
+    var card=$(".pv-card",pv);
+    if(RM){fill();return}
+    card.classList.add("swap");
+    setTimeout(function(){fill();card.classList.remove("swap")},240);
+  }
+  function open(g,i){
+    grp=g;
+    list=((PEOPLE_DATA&&PEOPLE_DATA[g])||[]).filter(function(x){return !x.mas});
+    if(!list.length)return;
+    idx=Math.max(0,Math.min(i,list.length-1));
+    lastFocus=document.activeElement;
+    fill();
+    pv.classList.add("on");pv.setAttribute("aria-hidden","false");
+    document.body.style.overflow="hidden";
+    if(RM){pv.classList.add("in");}
+    else{requestAnimationFrame(function(){requestAnimationFrame(function(){pv.classList.add("in")})});}
+    $(".pv-x",pv).focus();
+  }
+  function close(){
+    pv.classList.remove("in");pv.setAttribute("aria-hidden","true");
+    document.body.style.overflow="";
+    if(RM){pv.classList.remove("on");}
+    else{setTimeout(function(){pv.classList.remove("on")},430);}
+    if(lastFocus&&lastFocus.focus){try{lastFocus.focus()}catch(e){}}
+  }
+  function nav(d){
+    if(!list.length)return;
+    idx=(idx+d+list.length)%list.length;
+    show();
+  }
+
+  var grid=$("#peopleGrid");
+  if(grid){
+    grid.addEventListener("click",function(e){
+      var t=e.target;
+      while(t&&t!==grid){
+        if(t.tagName==="A")return; /* no interceptar el enlace de LinkedIn */
+        if(t.classList&&t.classList.contains("p-card--exp")){
+          open(t.getAttribute("data-group"),parseInt(t.getAttribute("data-idx"),10)||0);return;
+        }
+        t=t.parentNode;
+      }
+    });
+    grid.addEventListener("keydown",function(e){
+      if(e.key!=="Enter"&&e.key!==" ")return;
+      var t=e.target;
+      if(t.classList&&t.classList.contains("p-card--exp")){
+        e.preventDefault();
+        open(t.getAttribute("data-group"),parseInt(t.getAttribute("data-idx"),10)||0);
+      }
+    });
+  }
+  pv.addEventListener("click",function(e){
+    if(e.target.classList&&e.target.classList.contains("pv-shell")){close();return}
+    var t=e.target;
+    while(t&&t!==pv){
+      var a=t.getAttribute?t.getAttribute("data-pv"):null;
+      if(a==="close"){close();return}
+      if(a==="prev"){nav(-1);return}
+      if(a==="next"){nav(1);return}
+      t=t.parentNode;
+    }
+  });
+  document.addEventListener("keydown",function(e){
+    if(!pv.classList.contains("on"))return;
+    if(e.key==="Escape")close();
+    else if(e.key==="ArrowLeft")nav(-1);
+    else if(e.key==="ArrowRight")nav(1);
+  });
+})();
 
 /* ---------------- Reveals + efectos de entrada ---------------- */
 var revIO=null;
