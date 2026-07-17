@@ -136,7 +136,7 @@
 ## Estado
 
 - ✅ **Q1 completado:** 2026-07-16 23:35
-- 🔄 **Q2 en curso:** Lote 1 (2026-07-17) — `finanzas-01.json`, 26 preguntas (Guía Valor Actual + Ratios Financieros). Lote 2 (2026-07-17) — `finanzas-02.json`, 20 preguntas (Resumen Renta Fija + Resumen Riesgo Financiero, Iván Abarca). Lote 3 (2026-07-17) — `finanzas-03.json`, 20 preguntas (Resumen Completo Bonilla: evaluación de proyectos + CAPM/portafolios). Banco total: 78 preguntas. Quedan ~60 archivos de Intro a Finanzas + Finanzas I (70) + Finanzas II (45) + APF (7)
+- 🔄 **Q2 en curso:** 5 lotes hechos (2026-07-17) — `finanzas-01.json` a `finanzas-05.json`, 102 preguntas totales cubriendo matemática financiera, análisis de ratios, renta fija, riesgo financiero, evaluación de proyectos, CAPM/portafolios y estructura de capital (M&M/WACC), desde 8 archivos distintos de "Intro a Finanzas". Un archivo (Pauta Tarea 1 Hansen 2014, caso societario) se descartó por fórmulas ilegibles en la extracción de texto. Quedan ~55 archivos de Intro a Finanzas + Finanzas I (70) + Finanzas II (45) + APF (7)
 - ⏳ **Q3 pendiente:** Revisión pedagógica (Opus/Fable, muestreo ~10%)
 - ⏳ **Q4 pendiente:** Balance del banco
 
