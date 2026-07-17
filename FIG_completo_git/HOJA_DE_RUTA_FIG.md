@@ -238,7 +238,15 @@ descripciones breves, LinkedIn, y poblar la sección **"FIG en la
 industria"** (`personas.industria` en `datos/club.json`).
 
 **✅ C1-C4 completados (2026-07-12) para los 4 CV que había en el Drive
-en esa fecha.** Solo algunos cofundadores han subido su CV todavía — es
+en esa fecha. Ronda 2 completada (2026-07-17): 2 CV nuevos procesados**
+(David González Cañon y Benjamín Disi Hernández, ambos ya en
+`personas.directiva` sin LinkedIn) — se agregó `linkedin` a ambos y una
+tarjeta de industria para David (HSBC · Large Corporates & Institutional
+Banking, elegida por ser su práctica externa más reciente/relevante,
+igual criterio que con Rafael Aliendre). Benjamín Disi no sumó tarjeta de
+industria: su única práctica externa (Lidz.AI) es una startup
+tecnológica, no encaja en el criterio de mostrar prácticas de
+finanzas/banca/inversión usado hasta ahora. Solo algunos cofundadores han subido su CV todavía — es
 esperable que más se sumen o actualicen el suyo con el tiempo. Para no
 releer los mismos PDF sesión tras sesión, el estado de qué se procesó
 vive en **`datos/cv_procesados.json`**: por cada archivo guarda su
@@ -254,6 +262,7 @@ actualizar esa entrada.
 | C2 | **Descripciones breves + LinkedIn** | Sonnet | ✅ Hecho — se agregó `linkedin` a Benjamín Sáez Molina, Jhosep García y Rafael Aliendre en `personas.directiva`. Los `detalle` existentes ya calzaban con lo que dice cada CV, no se reescribieron |
 | C3 | **Poblar "FIG en la industria" con prácticas reales** | Sonnet | ✅ Hecho — se reemplazaron las 3 tarjetas placeholder por: Benjamín Sáez Molina (Itaú · Wealth Management), Rafael Aliendre (CODELCO · Dirección Estrategia e Inteligencia de Mercado) y Samuel Rodríguez Arnolds (MoonValley Capital · Investment Banking Intern). Jhosep García no tiene práctica externa que agregar (solo roles internos FIG/FEN) |
 | C4 | **Revisión antes de publicar** | Opus/Fable | ✅ Hecho — se verificó que `personas.*` solo tiene nombre + rol + LinkedIn público; del CV de Samuel se excluyó explícitamente dirección particular y edad (regla dura de `CLAUDE.md`). Falta una segunda pasada humana de Francisco si quiere afinar tono antes de que esto se difunda más |
+| C5 | **Ronda 2: David González y Benjamín Disi** | Sonnet | ✅ Hecho (2026-07-17) — 2 CV nuevos detectados en la carpeta (comparando `modifiedTime` contra `cv_procesados.json`, ninguno de los 4 anteriores había cambiado). Se agregó `linkedin` a ambos en `personas.directiva` y una tarjeta de industria para David (HSBC). Teléfono y correo de ambos CV NO se copiaron a ningún archivo del repo |
 
 **⚠️ Pregunta abierta para Francisco (no resuelta por la IA a propósito):**
 el CV de Jhosep García se autodescribe como líder del Área Valuation

@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-07-07",
+  "actualizado": "2026-07-17",
   "config": {
     "urls": {
       "torneo": "torneo/index.html",
@@ -18,12 +18,12 @@
       {"iniciales":"MP","nombre":"Manuel Paz","rol":"Director · Portafolio","detalle":"Comunicaciones, difusión y creador de la web original."},
       {"iniciales":"FV","nombre":"Francisco Valenzuela","rol":"Director · Portafolio","detalle":"Plataforma web y co-creador del Torneo Portafolio 2026.","linkedin":"https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/"},
       {"iniciales":"AA","nombre":"Agustín Arriagada","rol":"Director · Portafolio","detalle":"Co-fundador."},
-      {"iniciales":"BD","nombre":"Benjamín Disi","rol":"Director · Portafolio","detalle":"Co-fundador."},
+      {"iniciales":"BD","nombre":"Benjamín Disi","rol":"Director · Portafolio","detalle":"Co-fundador.","linkedin":"https://www.linkedin.com/in/benjam%C3%ADn-disi-hernandez-12b570297"},
       {"iniciales":"BS","nombre":"Benjamín Solís","rol":"Director · Portafolio","detalle":"Co-fundador."},
       {"iniciales":"RA","nombre":"Rafael Aliendre","rol":"Director · Trading","detalle":"Co-fundador.","linkedin":"https://www.linkedin.com/in/rafael-aliendre-javier"},
       {"iniciales":"JL","nombre":"Juan José Limari","rol":"Director · Trading","detalle":"Co-fundador."},
       {"iniciales":"JD","nombre":"Juan Pablo Díaz Cerda","rol":"Director · Trading","detalle":"Co-fundador."},
-      {"iniciales":"DG","nombre":"David González Cañon","rol":"Director · Valuation","detalle":"Co-fundador."},
+      {"iniciales":"DG","nombre":"David González Cañon","rol":"Director · Valuation","detalle":"Co-fundador.","linkedin":"https://www.linkedin.com/in/davidgonzalezca%C3%B1on/"},
       {"iniciales":"DA","nombre":"Delia Avilán","rol":"Fundadora · FEN Investment Woman","detalle":"Co-fundadora."},
       {"iniciales":"+6","nombre":"Directiva completa","detalle":"Los 18 perfiles se cargan desde Nosotros_FIG.xlsx al conectar el pipeline.","mas":true}
     ],
@@ -31,7 +31,8 @@
       {"iniciales":"BS","nombre":"Benjamín Sáez Molina","rol":"Itaú · Wealth Management","detalle":"Práctica en Wealth Management en Itaú.","linkedin":"https://www.linkedin.com/in/benjamin-saez-molina/"},
       {"iniciales":"RA","nombre":"Rafael Aliendre","rol":"CODELCO · Dirección Estrategia e Inteligencia de Mercado","detalle":"Memorista en la Dirección de Estrategia e Inteligencia de Mercado de CODELCO.","linkedin":"https://www.linkedin.com/in/rafael-aliendre-javier"},
       {"iniciales":"SR","nombre":"Samuel Rodríguez Arnolds","rol":"MoonValley Capital · Investment Banking Intern","detalle":"Práctica en Investment Banking en MoonValley Capital.","linkedin":"https://www.linkedin.com/in/samuel-rodr%C3%ADguez-arnolds-8b9608241/"},
-      {"iniciales":"FV","nombre":"Francisco Valenzuela","rol":"LarraínVial · Riesgo","detalle":"Práctica en el área de Riesgo en LarraínVial.","linkedin":"https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/"}
+      {"iniciales":"FV","nombre":"Francisco Valenzuela","rol":"LarraínVial · Riesgo","detalle":"Práctica en el área de Riesgo en LarraínVial.","linkedin":"https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/"},
+      {"iniciales":"DG","nombre":"David González Cañon","rol":"HSBC · Large Corporates & Institutional Banking","detalle":"Práctica de apoyo a banqueros de Instituciones Financieras, Sector Público y Grandes Corporativos.","linkedin":"https://www.linkedin.com/in/davidgonzalezca%C3%B1on/"}
     ],
     "fama": [
       {"iniciales":"🏆","nombre":"Campeón · Torneo Portafolio 2026","rol":"Se corona el 09 · NOV · 2026","detalle":"Cinco finalistas defenderán su gestión ante un jurado experto.","destacado":true},

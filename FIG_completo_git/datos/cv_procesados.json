@@ -1,8 +1,31 @@
 {
   "_leeme": "Manifiesto anti-relectura de CVs del Drive (carpeta CV). Antes de leer un CV con read_file_content, comparar su modifiedTime actual (get_file_metadata o search_files) contra el valor registrado aquí para el mismo fileId. Si coincide, NO volver a leerlo ni a reprocesarlo: ya está reflejado en datos/club.json. Si no coincide (o el fileId es nuevo), leerlo, actualizar club.json según haga falta, y actualizar esta entrada con el modifiedTime nuevo y la fecha de hoy. Esto evita releer los mismos PDFs sesión tras sesión a medida que más cofundadores suban o actualicen su CV.",
   "carpetaDriveId": "13mRDy9Yf6gqdy8S5bzLRQxuNNakAK8dm",
-  "actualizado": "2026-07-12",
+  "actualizado": "2026-07-17",
   "procesados": [
+    {
+      "archivo": "CV_David..pdf",
+      "fileId": "1wezvpwXmX_81cyGmrQIUOK6UebiVtl1G",
+      "modifiedTime": "2026-07-16T22:12:27.104Z",
+      "procesadoEl": "2026-07-17",
+      "persona": "David González Cañon",
+      "camposExtraidos": [
+        "personas.directiva[].linkedin",
+        "personas.industria (card HSBC · Large Corporates & Institutional Banking)"
+      ],
+      "notas": "El CV lista varias prácticas (HSBC Large Corporates & Institutional Banking Oct 2024-Mar 2025; Analista de Riesgo Financiero Junior en Banco BICE Jun 2022-Mar 2023) además de roles internos FEN (Data Analyst, Coordinador Lab. Bloomberg, ayudantías). Se eligió HSBC por ser la más reciente/relevante para la tarjeta de 'FIG en la industria', siguiendo el mismo criterio usado con Rafael Aliendre. El CV contiene teléfono y correo personal que NO se copiaron al repo (regla dura de CLAUDE.md)."
+    },
+    {
+      "archivo": "CV_BenjaminDisi.pdf",
+      "fileId": "1YwJnrh808ZN8UlIOXkaPFfMY60ox2U4f",
+      "modifiedTime": "2026-07-16T22:09:31Z",
+      "procesadoEl": "2026-07-17",
+      "persona": "Benjamín Disi",
+      "camposExtraidos": [
+        "personas.directiva[].linkedin"
+      ],
+      "notas": "Sin tarjeta de industria agregada: la única práctica externa del CV es en Lidz.AI (startup tecnológica, soporte operativo/comercial), que no encaja en el criterio de 'FIG en la industria' usado hasta ahora (prácticas específicamente en finanzas/banca/inversiones como Itaú, CODELCO, HSBC, LarraínVial). El resto de su experiencia es interna a la FEN (Tutor Finanzas II, Monitor Lab. Bloomberg, Consultoría interna, Co-fundador FIG). El CV contiene teléfono y correo personal que NO se copiaron al repo (regla dura de CLAUDE.md)."
+    },
     {
       "archivo": "Benjamín_Sáez_Molina_CV.pdf",
       "fileId": "1YAZ_kz3D_J3Dv8A_spoRX9u-My1wb0T6",
