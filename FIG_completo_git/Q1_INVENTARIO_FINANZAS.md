@@ -136,7 +136,7 @@
 ## Estado
 
 - ✅ **Q1 completado:** 2026-07-16 23:35
-- 🔄 **Q2 en curso:** 5 lotes hechos (2026-07-17) — `finanzas-01.json` a `finanzas-05.json`, 102 preguntas totales cubriendo matemática financiera, análisis de ratios, renta fija, riesgo financiero, evaluación de proyectos, CAPM/portafolios y estructura de capital (M&M/WACC), desde 8 archivos distintos de "Intro a Finanzas". Un archivo (Pauta Tarea 1 Hansen 2014, caso societario) se descartó por fórmulas ilegibles en la extracción de texto. Quedan ~55 archivos de Intro a Finanzas + Finanzas I (70) + Finanzas II (45) + APF (7)
+- 🔄 **Q2 en curso:** 10 lotes hechos (2026-07-17) — `finanzas-01.json` a `finanzas-10.json`, **142 preguntas totales** cubriendo matemática financiera, análisis de ratios, renta fija, riesgo financiero, evaluación de proyectos, CAPM/portafolios, estructura de capital (M&M/WACC), historia de mercados (caso real fusión LAN-TAM) y macroeconomía, desde 13 archivos distintos de "Intro a Finanzas". 2 archivos descartados por baja confiabilidad (fórmulas ilegibles / ejercicios sin pauta resuelta). Quedan ~44 archivos de Intro a Finanzas + Finanzas I (70) + Finanzas II (45) + APF (7)
 - ⏳ **Q3 pendiente:** Revisión pedagógica (Opus/Fable, muestreo ~10%)
 - ⏳ **Q4 pendiente:** Balance del banco
 
