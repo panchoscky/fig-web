@@ -9,12 +9,13 @@
     {"id": "matematica-financiera", "nombre": "Matemática Financiera"},
     {"id": "analisis-financiero", "nombre": "Análisis Financiero (Ratios)"},
     {"id": "riesgo-financiero", "nombre": "Riesgo Financiero"},
-    {"id": "evaluacion-proyectos", "nombre": "Evaluación de Proyectos"}
+    {"id": "evaluacion-proyectos", "nombre": "Evaluación de Proyectos"},
+    {"id": "estructura-capital", "nombre": "Estructura de Capital"}
   ],
   "ramos": [
     {"id": "finanzas-i", "nombre": "Finanzas I"},
     {"id": "economia", "nombre": "Economía"},
     {"id": "intro-finanzas", "nombre": "Introducción a Finanzas"}
   ],
-  "archivos": ["semilla.json", "finanzas-01.json", "finanzas-02.json", "finanzas-03.json"]
+  "archivos": ["semilla.json", "finanzas-01.json", "finanzas-02.json", "finanzas-03.json", "finanzas-04.json", "finanzas-05.json"]
 }
