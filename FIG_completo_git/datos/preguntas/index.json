@@ -7,12 +7,13 @@
     {"id": "macroeconomia", "nombre": "Macroeconomía"},
     {"id": "historia-mercados", "nombre": "Historia de los Mercados"},
     {"id": "matematica-financiera", "nombre": "Matemática Financiera"},
-    {"id": "analisis-financiero", "nombre": "Análisis Financiero (Ratios)"}
+    {"id": "analisis-financiero", "nombre": "Análisis Financiero (Ratios)"},
+    {"id": "riesgo-financiero", "nombre": "Riesgo Financiero"}
   ],
   "ramos": [
     {"id": "finanzas-i", "nombre": "Finanzas I"},
     {"id": "economia", "nombre": "Economía"},
     {"id": "intro-finanzas", "nombre": "Introducción a Finanzas"}
   ],
-  "archivos": ["semilla.json", "finanzas-01.json"]
+  "archivos": ["semilla.json", "finanzas-01.json", "finanzas-02.json"]
 }
