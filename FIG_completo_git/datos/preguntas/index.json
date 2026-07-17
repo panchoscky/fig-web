@@ -20,5 +20,5 @@
     {"id": "economia", "nombre": "Economía"},
     {"id": "intro-finanzas", "nombre": "Introducción a Finanzas"}
   ],
-  "archivos": ["semilla.json", "finanzas-01.json", "finanzas-02.json", "finanzas-03.json", "finanzas-04.json", "finanzas-05.json", "finanzas-06.json", "finanzas-07.json", "finanzas-08.json", "finanzas-09.json", "finanzas-10.json", "finanzas-11.json", "finanzas-12.json", "finanzas-13.json", "finanzas-14.json", "finanzas-15.json", "finanzas-16.json", "finanzas-17.json", "finanzas-18.json", "finanzas-19.json", "finanzas-20.json"]
+  "archivos": ["semilla.json", "finanzas-01.json", "finanzas-02.json", "finanzas-03.json", "finanzas-04.json", "finanzas-05.json", "finanzas-06.json", "finanzas-07.json", "finanzas-08.json", "finanzas-09.json", "finanzas-10.json", "finanzas-11.json", "finanzas-12.json", "finanzas-13.json", "finanzas-14.json", "finanzas-15.json", "finanzas-16.json", "finanzas-17.json", "finanzas-18.json", "finanzas-19.json", "finanzas-20.json", "finanzas-21.json", "finanzas-22.json"]
 }
