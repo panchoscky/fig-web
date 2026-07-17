@@ -136,7 +136,7 @@
 ## Estado
 
 - ✅ **Q1 completado:** 2026-07-16 23:35
-- 🔄 **Q2 en curso:** 10 lotes hechos (2026-07-17) — `finanzas-01.json` a `finanzas-10.json`, **142 preguntas totales** cubriendo matemática financiera, análisis de ratios, renta fija, riesgo financiero, evaluación de proyectos, CAPM/portafolios, estructura de capital (M&M/WACC), historia de mercados (caso real fusión LAN-TAM) y macroeconomía, desde 13 archivos distintos de "Intro a Finanzas". 2 archivos descartados por baja confiabilidad (fórmulas ilegibles / ejercicios sin pauta resuelta). Quedan ~44 archivos de Intro a Finanzas + Finanzas I (70) + Finanzas II (45) + APF (7)
+- 🔄 **Q2 en curso:** 13 lotes hechos (2026-07-17) — `finanzas-01.json` a `finanzas-13.json`, **187 preguntas totales** cubriendo matemática financiera, análisis de ratios, renta fija, riesgo financiero, evaluación de proyectos, CAPM/portafolios, estructura de capital (M&M/WACC), historia de mercados (caso real fusión LAN-TAM), macroeconomía y fundamentos/gobierno corporativo (tema nuevo, lote 13), desde 22 archivos distintos entre "Intro a Finanzas" y "Finanzas I" (el encabezado real del documento no siempre coincide con la carpeta del Drive — varios archivos de la carpeta "Intro a Finanzas" resultaron ser exámenes de "Finanzas I"). 3 archivos descartados por baja confiabilidad (fórmulas ilegibles / ejercicios sin pauta resuelta). Antes de los lotes 11-13 se hizo un escaneo rápido de calidad de 15 archivos (sin comprometerse a extraer) para elegir mejor qué procesar — recomendable seguir haciéndolo. Quedan archivos sin escanear en Intro a Finanzas y Finanzas I + Finanzas II (45) + APF (7)
 - ⏳ **Q3 pendiente:** Revisión pedagógica (Opus/Fable, muestreo ~10%)
 - ⏳ **Q4 pendiente:** Balance del banco
 
