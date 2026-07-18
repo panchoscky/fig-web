@@ -180,9 +180,16 @@ en qué pestaña escribir; el ranking del juego además usa `doGet` para leer.
 
 | Pestaña | Encabezados (fila 1) |
 |---|---|
-| `Postulaciones` | `fecha` \| `nombre` \| `correo` \| `carrera` \| `anio` \| `area` \| `motivacion` \| `linkedin` |
+| `Postulaciones` | `fecha` \| `nombre` \| `correo` \| `carrera` \| `Año` \| `area` \| `motivacion` \| `linkedin` |
 | `Ranking` | `fecha` \| `nombre` \| `valor` |
 | `Visitas` | `fecha` \| `pagina` \| `origen` |
+
+Los encabezados son solo para que tú identifiques cada columna — el script
+escribe por posición (`appendRow`), no busca el nombre exacto. Por eso la
+columna de año puede decir "Año" con tilde ahí aunque por dentro el campo
+técnico se siga llamando `anio` (en el formulario y en el código, sin
+tilde/ñ a propósito, para evitar problemas de encoding en nombres de
+variables).
 
 **Paso 2 — el script.** En esa misma planilla → **Extensiones → Apps
 Script**, borrar el contenido de ejemplo y pegar:
