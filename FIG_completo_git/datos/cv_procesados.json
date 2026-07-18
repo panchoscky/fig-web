@@ -47,7 +47,7 @@
       "camposExtraidos": [
         "personas.directiva[].linkedin"
       ],
-      "notas": "Sin práctica externa que agregar a personas.industria (solo roles internos FIG/FEN). Su CV se autodescribe como líder del área Valuation, lo mismo que dice club.json — pero el CV de Samuel Rodríguez Arnolds reclama el mismo liderazgo. Ver nota en Samuel más abajo; pendiente que Francisco lo resuelva, no se decidió por él."
+      "notas": "Sin práctica externa que agregar a personas.industria (solo roles internos FIG/FEN). Su CV se autodescribe como líder del área Valuation, lo mismo que el CV de Samuel Rodríguez Arnolds — RESUELTO (2026-07-18): Francisco confirmó que ambos son co-encargados del área. Ver nota de Samuel más abajo."
     },
     {
       "archivo": "Samuel R. Arnolds CV.pdf",
@@ -56,9 +56,10 @@
       "procesadoEl": "2026-07-12",
       "persona": "Samuel Rodríguez Arnolds",
       "camposExtraidos": [
-        "personas.industria (card MoonValley Capital · Investment Banking Intern)"
+        "personas.industria (card MoonValley Capital · Investment Banking Intern)",
+        "personas.directiva[] (agregado 2026-07-18, ver nota)"
       ],
-      "notas": "No está en personas.directiva todavía — no se le agregó cargo directivo porque el CV lo autodescribe como fundador/líder de Valuation, lo que choca con el rol ya asignado a Jhosep García en club.json. No se resolvió el conflicto (no corresponde decidirlo por datos de un CV); queda pendiente para Francisco. El CV contiene PII (dirección particular, edad) que NO se copió a ningún archivo del repo, por la regla dura de CLAUDE.md (nombre + rol + LinkedIn público, nada más)."
+      "notas": "RESUELTO (2026-07-18): Francisco confirmó directamente que Samuel es co-encargado del área Valuation junto a Jhosep García (el conflicto entre ambos CV, cada uno autodescribiéndose como líder del área, no se resolvió con datos del CV — se resolvió porque Francisco lo aclaró en el chat). Se agregó a personas.directiva con rol 'Director · Valuation' y se ajustó el detalle de Jhosep para reflejar el liderazgo compartido. El CV contiene PII (dirección particular, edad) que NO se copió a ningún archivo del repo, por la regla dura de CLAUDE.md (nombre + rol + LinkedIn público, nada más)."
     },
     {
       "archivo": "CV_ESP_Rafael_Aliendre.pdf",

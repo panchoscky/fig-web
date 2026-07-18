@@ -23,6 +23,7 @@ Ejemplos:
   Juan Pablo Díaz Cerda   → juan-pablo-diaz-cerda.jpg
   David González Cañon    → david-gonzalez-canon.jpg
   Delia Avilán            → delia-avilan.jpg
+  Samuel Rodríguez Arnolds → samuel-rodriguez-arnolds.jpg
 
 Recomendaciones:
 - Foto vertical (retrato), idealmente 800×1000 px o más.
