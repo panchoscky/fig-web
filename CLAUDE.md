@@ -142,6 +142,11 @@ Resumen de bloqueadores:
 - Todo texto de cara al usuario va en **español** (única excepción:
   `en/index.html`, el brief para partners internacionales — ese va en inglés
   a propósito).
+- Las 8 páginas llevan al pie del footer el crédito **"Creado por
+  Francisco Valenzuela y Manuel Paz"** (en inglés en `en/index.html`:
+  "Made by... and..."), cada nombre enlazado a su LinkedIn real. Al
+  agregar una página nueva, copiar ese `<span>` del footer de cualquier
+  página existente.
 - Las 8 páginas llevan un **beacon de métricas anónimas** (sin cookies:
   página + fecha + origen) que envía con `tipo:"visita"` al mismo
   `config.figEndpoint` compartido, y queda inerte mientras esté vacío.
