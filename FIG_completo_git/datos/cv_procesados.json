@@ -1,8 +1,33 @@
 {
   "_leeme": "Manifiesto anti-relectura de CVs del Drive (carpeta CV). Antes de leer un CV con read_file_content, comparar su modifiedTime actual (get_file_metadata o search_files) contra el valor registrado aquí para el mismo fileId. Si coincide, NO volver a leerlo ni a reprocesarlo: ya está reflejado en datos/club.json. Si no coincide (o el fileId es nuevo), leerlo, actualizar club.json según haga falta, y actualizar esta entrada con el modifiedTime nuevo y la fecha de hoy. Esto evita releer los mismos PDFs sesión tras sesión a medida que más cofundadores suban o actualicen su CV.",
   "carpetaDriveId": "13mRDy9Yf6gqdy8S5bzLRQxuNNakAK8dm",
-  "actualizado": "2026-07-17",
+  "actualizado": "2026-07-19",
   "procesados": [
+    {
+      "archivo": "CV_Juan_Pablo_Díaz_C.pdf",
+      "fileId": "14FkxfzfrwvlSJcxpGRGRrYDtHMWJdYNl",
+      "modifiedTime": "2026-07-19T00:08:21Z",
+      "procesadoEl": "2026-07-19",
+      "persona": "Juan Pablo Díaz Cerda",
+      "camposExtraidos": [
+        "personas.directiva[].linkedin",
+        "personas.directiva[].perfil (bio + hitos)",
+        "personas.industria (card BCI Seguros · Gerencia de Inversiones)"
+      ],
+      "notas": "CV confirma su rol como Co-Fundador y Encargado del Área de Trading (coincide con club.json). Práctica en BCI Seguros, Gerencia de Inversiones (Gestión de Cartera Táctica) elegida para la tarjeta de industria por ser su única práctica externa. Logros verificables usados en hitos: 2° lugar nacional Concurso de Inversiones con Información Privilegiada (Radio Duna) y 2° lugar Torneo de Trading Itaú-FEN. El CV contiene teléfono y RUT que NO se copiaron al repo (regla dura de CLAUDE.md)."
+    },
+    {
+      "archivo": "CV_Benjam_Solis.pdfa.pdf",
+      "fileId": "1l_9y_d3VuvdrsgHNMfTqwzBqS6QB0htO",
+      "modifiedTime": "2026-07-18T23:47:27.996Z",
+      "procesadoEl": "2026-07-19",
+      "persona": "Benjamín Solís",
+      "camposExtraidos": [
+        "personas.directiva[].linkedin",
+        "personas.directiva[].perfil (bio + hitos)"
+      ],
+      "notas": "Sin tarjeta de industria agregada: su práctica más reciente (ENGIE Energía Chile, Analítica de Datos y Automatización de Procesos) no es una práctica de finanzas/banca/inversión, mismo criterio de exclusión usado con Benjamín Disi (Lidz.AI). Su rol anterior en Memory SPA (Analista de Operaciones y Tesorería, part-time) es finance-adjacent pero antiguo (2023-2025) y no se consideró suficientemente relevante/reciente frente al criterio ya aplicado a otros cofundadores — decisión no forzada, se puede reconsiderar si Francisco lo pide. El CV contiene teléfono, correo personal y ciudad que NO se copiaron al repo (regla dura de CLAUDE.md)."
+    },
     {
       "archivo": "CV_David..pdf",
       "fileId": "1wezvpwXmX_81cyGmrQIUOK6UebiVtl1G",
