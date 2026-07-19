@@ -110,10 +110,7 @@ section{padding:clamp(5rem,10vw,9rem) 0;position:relative}
 .section--light{
   background:
     radial-gradient(1200px 500px at 85% -5%, rgba(212,175,55,.06), transparent 60%),
-    linear-gradient(rgba(16,24,40,.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16,24,40,.028) 1px, transparent 1px),
     var(--ivory);
-  background-size:auto, 72px 72px, 72px 72px, auto;
   color:var(--ink);
 }
 .sec-head{max-width:740px;margin-bottom:clamp(2.6rem,6vw,4.4rem)}
@@ -279,6 +276,29 @@ body.on-light .rail-node .rn-lab{color:#A8871C;text-shadow:none}
 .nav__links a:hover,.nav__links a.active{color:var(--gold)}
 .nav__links a:hover::after,.nav__links a.active::after{transform:scaleX(1)}
 .nav .btn{padding:11px 22px;font-size:.82rem}
+
+/* Menú "Jugar": desplegable con los dos juegos del club */
+.nav__play{position:relative}
+.nav__play>a{cursor:pointer}
+.nav__play-menu{
+  position:absolute;top:calc(100% + 10px);left:50%;transform:translate(-50%,6px);
+  min-width:210px;background:rgba(10,17,40,.97);border:1px solid rgba(212,175,55,.35);
+  padding:8px;display:flex;flex-direction:column;gap:2px;
+  opacity:0;visibility:hidden;transition:opacity .25s,transform .3s var(--ease),visibility .25s;
+  box-shadow:0 24px 50px -18px rgba(0,0,0,.7);z-index:50;
+}
+.nav__play:hover .nav__play-menu,.nav__play:focus-within .nav__play-menu{
+  opacity:1;visibility:visible;transform:translate(-50%,0);
+}
+.nav__play-menu a{
+  display:block;padding:11px 14px;font-size:.82rem;color:rgba(247,244,236,.85);
+}
+.nav__play-menu a::after{display:none}
+.nav__play-menu a:hover{background:rgba(212,175,55,.12);color:var(--gold)}
+.nav__play-menu small{
+  display:block;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(247,244,236,.42);margin-top:2px;
+}
 .nav__burger{display:none;flex-direction:column;gap:5.5px;padding:8px;z-index:1101}
 .nav__burger i{display:block;width:24px;height:2px;background:var(--ivory);transition:transform .35s var(--ease),opacity .3s}
 .nav__burger.open i:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
@@ -918,11 +938,19 @@ body.has-ticker{padding-bottom:38px}
     </a>
     <ul class="nav__links">
       <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#eventos">Eventos</a></li>
       <li><a href="#areas">Áreas</a></li>
       <li><a href="#torneo">Torneo</a></li>
       <li><a href="#historia">Historia</a></li>
       <li><a href="#equipo">Equipo</a></li>
-      <li><a href="#eventos">Eventos</a></li>
+      <li><a href="fiw/index.html">FIG Woman</a></li>
+      <li class="nav__play">
+        <a href="juego/index.html" aria-haspopup="true">Jugar ▾</a>
+        <div class="nav__play-menu">
+          <a href="juego/index.html">El Rally del Toro<small>Runner · vende a tiempo</small></a>
+          <a href="desafio/index.html">Desafío FIG<small>Trivia de finanzas · 300 preguntas</small></a>
+        </div>
+      </li>
     </ul>
     <a data-link="torneo" href="#torneo" class="btn btn--gold btn--nav">Torneo 2026</a>
     <button class="nav__burger" id="burger" aria-label="Abrir menú" aria-expanded="false">
@@ -933,11 +961,14 @@ body.has-ticker{padding-bottom:38px}
 
 <div class="m-menu" id="mmenu">
   <a href="#nosotros">Nosotros</a>
+  <a href="#eventos">Eventos</a>
   <a href="#areas">Áreas</a>
   <a href="#torneo">Torneo 2026</a>
   <a href="#historia">Historia</a>
   <a href="#equipo">Equipo</a>
-  <a href="#eventos">Eventos</a>
+  <a href="fiw/index.html">FIG Woman</a>
+  <a href="juego/index.html">El Rally del Toro</a>
+  <a href="desafio/index.html">Desafío FIG</a>
   <span class="mono-tag">Forjando la Élite del Mañana</span>
 </div>
 
@@ -1047,6 +1078,40 @@ body.has-ticker{padding-bottom:38px}
     </div>
   </div>
 </section>
+
+<!-- ============ EVENTOS ============ -->
+<section class="section--dark" id="eventos" data-rail="Eventos" data-theme="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker reveal"><span class="scr" data-text="Eventos">Eventos</span></div>
+      <h2 class="h-sec reveal d1">Lo que está <em>pasando</em> en FIG.</h2>
+    </div>
+    <div class="events">
+      <div class="e-card e-card--live glowable reveal">
+        <span class="e-date"><span class="live-dot" aria-hidden="true"></span>En curso · May — Nov 2026</span>
+        <h3>Torneo Portafolio 2026</h3>
+        <p>63 equipos, USD 10M simulados por cartera y ranking publicado cada viernes. La final ante jurado se juega el 9 de noviembre.</p>
+        <a data-link="torneo" href="#" class="a-link">Seguir el ranking <span class="arr">→</span></a>
+      </div>
+      <div class="e-card glowable reveal d1">
+        <span class="e-date">Programa de formación</span>
+        <h3>Workshops Bloomberg</h3>
+        <p>Sesiones prácticas de terminal: PORT, TMSG y análisis de carteras con datos reales. Fechas por anunciar.</p>
+        <a data-link="instagram" href="#" class="a-link">Enterarme primero <span class="arr">→</span></a>
+      </div>
+      <div class="e-card glowable reveal d2">
+        <span class="e-date">Ciclo de charlas</span>
+        <h3>FIG Talks · La industria en la FEN</h3>
+        <p>Conversaciones con profesionales de la gestión de activos, trading y research. Fechas por anunciar.</p>
+        <a data-link="instagram" href="#" class="a-link">Enterarme primero <span class="arr">→</span></a>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:32px">
+      <a href="eventos/index.html" class="btn btn--ghost">Ver toda la bitácora de eventos <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
 
 <!-- ============ ÁREAS · MESA DE DESKS ============ -->
 <section class="section--dark" id="areas" data-rail="Áreas" data-theme="dark">
@@ -1380,39 +1445,6 @@ body.has-ticker{padding-bottom:38px}
   <button class="pv-arrow pv-prev" data-pv="prev" aria-label="Perfil anterior">←</button>
   <button class="pv-arrow pv-next" data-pv="next" aria-label="Perfil siguiente">→</button>
 </div>
-
-<!-- ============ EVENTOS ============ -->
-<section class="section--dark" id="eventos" data-rail="Eventos" data-theme="dark">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker reveal"><span class="scr" data-text="Eventos">Eventos</span></div>
-      <h2 class="h-sec reveal d1">Lo que está <em>pasando</em> en FIG.</h2>
-    </div>
-    <div class="events">
-      <div class="e-card e-card--live glowable reveal">
-        <span class="e-date"><span class="live-dot" aria-hidden="true"></span>En curso · May — Nov 2026</span>
-        <h3>Torneo Portafolio 2026</h3>
-        <p>63 equipos, USD 10M simulados por cartera y ranking publicado cada viernes. La final ante jurado se juega el 9 de noviembre.</p>
-        <a data-link="torneo" href="#" class="a-link">Seguir el ranking <span class="arr">→</span></a>
-      </div>
-      <div class="e-card glowable reveal d1">
-        <span class="e-date">Programa de formación</span>
-        <h3>Workshops Bloomberg</h3>
-        <p>Sesiones prácticas de terminal: PORT, TMSG y análisis de carteras con datos reales. Fechas por anunciar.</p>
-        <a data-link="instagram" href="#" class="a-link">Enterarme primero <span class="arr">→</span></a>
-      </div>
-      <div class="e-card glowable reveal d2">
-        <span class="e-date">Ciclo de charlas</span>
-        <h3>FIG Talks · La industria en la FEN</h3>
-        <p>Conversaciones con profesionales de la gestión de activos, trading y research. Fechas por anunciar.</p>
-        <a data-link="instagram" href="#" class="a-link">Enterarme primero <span class="arr">→</span></a>
-      </div>
-    </div>
-    <div class="reveal" style="margin-top:32px">
-      <a href="eventos/index.html" class="btn btn--ghost">Ver toda la bitácora de eventos <span class="arr">→</span></a>
-    </div>
-  </div>
-</section>
 
 <!-- ============ CTA ============ -->
 <section class="cta-band has-ghost">
