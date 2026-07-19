@@ -434,12 +434,13 @@ footer a:hover{color:var(--gold)}
       <div class="ov-h4">Comparte tu resultado</div>
       <div class="share-row">
         <button class="btn btn--gold" id="btnPng">Imagen Feed IG <span class="arr">↓</span></button>
+        <button class="btn btn--gold" id="btnImgStory">Imagen Story IG <span class="arr">↓</span></button>
         <button class="btn btn--gold" id="btnLi">Imagen LinkedIn <span class="arr">↓</span></button>
         <button class="btn btn--ghost" id="btnVidFeed">Video Feed IG <span class="arr">↓</span></button>
         <button class="btn btn--ghost" id="btnVidStory">Video Story IG <span class="arr">↓</span></button>
         <button class="btn btn--ghost" id="btnHtml">Tarjeta HTML <span class="arr">↓</span></button>
       </div>
-      <div class="ov-note">FEED: 1080×1350 · LINKEDIN: 1200×627 · VIDEOS: ~7 SEG CON INTRO ANIMADA (FEED 1080×1350 / STORY 1080×1920), GENERADOS EN TU NAVEGADOR — CHROME LOS EXPORTA EN WEBM Y SAFARI EN MP4 (INSTAGRAM ACEPTA MP4; WEBM SE PUEDE CONVERTIR O COMPARTIR DIRECTO POR WHATSAPP/TELEGRAM).<br>LA TARJETA HTML ES UN ARCHIVO AUTOCONTENIDO · LINKEDIN DE LOS MIEMBROS: DESDE EL EXCEL DE INSCRIPCIONES (datos/torneo.json).</div>
+      <div class="ov-note" id="ovNoteShare">FEED: 1080×1350 · STORY: 1080×1920 · LINKEDIN: 1200×627 · VIDEOS: ~7 SEG CON INTRO ANIMADA, GENERADOS EN TU NAVEGADOR — CHROME LOS EXPORTA EN WEBM Y SAFARI EN MP4 (INSTAGRAM ACEPTA MP4; WEBM SE PUEDE CONVERTIR O COMPARTIR DIRECTO POR WHATSAPP/TELEGRAM).<br>LA TARJETA HTML ES UN ARCHIVO AUTOCONTENIDO · LINKEDIN DE LOS MIEMBROS: DESDE EL EXCEL DE INSCRIPCIONES (datos/torneo.json).</div>
     </div>
   </div>
 </div>
@@ -1290,19 +1291,75 @@ function drawIntro(c,W,H,ms){
   }
   c.restore();
 }
+/* ---------- Compartir directo (Web Share + deep link de Stories en iPhone) ----------
+   En celulares con soporte, "compartir" abre el panel nativo del sistema con
+   Instagram como una de las apps — un toque menos que "descargar y después
+   buscar el archivo en la Galería para recién ahí abrir Instagram". En
+   iPhone, la imagen de Story además intenta abrir Instagram directo en el
+   compositor de Historias (truco de portapapeles + URL scheme que usa la
+   propia Instagram — no requiere registrar nada en Meta for Developers; si
+   Instagram no está instalado o el truco falla, cae automático a compartir
+   con el panel nativo, y si tampoco hay soporte, cae a la descarga normal
+   de siempre). No existe un atajo equivalente para Android: ahí compartir
+   con el panel nativo es lo más directo que permite un sitio web sin app
+   propia — Instagram igual queda a un toque en ese panel. */
+function esIOS(){
+  return /iP(hone|od|ad)/.test(navigator.platform) ||
+    (navigator.userAgent.indexOf("Mac")>-1 && "ontouchend" in document);
+}
+function puedeCompartirArchivo(file){
+  return !!(navigator.canShare && navigator.share && navigator.canShare({files:[file]}));
+}
+function descargarBlob(blob,filename){
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=filename;
+  a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},4000);
+}
+function entregarArchivo(blob,filename,mime,titulo,texto){
+  var file=null;
+  try{file=new File([blob],filename,{type:mime})}catch(e){}
+  if(file&&puedeCompartirArchivo(file)){
+    navigator.share({files:[file],title:titulo,text:texto}).catch(function(err){
+      if(err&&err.name==="AbortError")return; /* el usuario cerró el panel, no forzar descarga */
+      descargarBlob(blob,filename);
+    });
+  }else{
+    descargarBlob(blob,filename);
+  }
+}
+function compartirStoryIOS(blob,filename,fallback){
+  if(!esIOS()||!navigator.clipboard||!navigator.clipboard.write||typeof ClipboardItem==="undefined"){
+    fallback();return;
+  }
+  navigator.clipboard.write([new ClipboardItem({"image/png":blob})]).then(function(){
+    var salio=false;
+    function onHide(){if(document.hidden)salio=true}
+    document.addEventListener("visibilitychange",onHide);
+    window.location.href="instagram-stories://share?source_application=fig.torneo";
+    setTimeout(function(){
+      document.removeEventListener("visibilitychange",onHide);
+      if(!salio)fallback();
+    },1500);
+  }).catch(fallback);
+}
 /* ---------- Descargas ---------- */
 function descargarPng(t,fmt){
   if(!t)return;
   loadLogos().then(function(){return document.fonts.ready}).then(function(){
-    var W=fmt==="li"?1200:1080,H=fmt==="li"?627:1350;
+    var W=fmt==="li"?1200:1080,H=fmt==="li"?627:(fmt==="story"?1920:1350);
     var cv=document.createElement("canvas");cv.width=W;cv.height=H;
     var c=cv.getContext("2d");
-    (fmt==="li"?drawLi:drawFeed)(c,t,1,1);
+    var draw=fmt==="li"?drawLi:(fmt==="story"?drawStory:drawFeed);
+    draw(c,t,1,1);
     cv.toBlob(function(b){
-      var a=document.createElement("a");
-      a.href=URL.createObjectURL(b);
-      a.download="FIG_"+t.id+"_"+fmt+"_semana"+(DATA.semana||semanaHoy())+".png";
-      a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},4000);
+      var filename="FIG_"+t.id+"_"+fmt+"_semana"+(DATA.semana||semanaHoy())+".png";
+      var titulo="FIG · Torneo Portafolio 2026",texto=t.nombre+" — #"+t.posicion+" · "+t.puntos.toFixed(2)+" pts";
+      if(fmt==="story"){
+        compartirStoryIOS(b,filename,function(){entregarArchivo(b,filename,"image/png",titulo,texto)});
+      }else{
+        entregarArchivo(b,filename,"image/png",titulo,texto);
+      }
     },"image/png");
   });
 }
@@ -1312,13 +1369,13 @@ function grabarVideo(t,fmt,btn){
     alert("Tu navegador no soporta la grabación de video. Prueba en Chrome, Edge o Safari recientes.");
     return;
   }
-  var old=btn.innerHTML;btn.disabled=true;btn.textContent="GRABANDO… 7 S";
+  var old=btn.innerHTML;btn.disabled=true;btn.textContent="GRABANDO… 0%";
   loadLogos().then(function(){return document.fonts.ready}).then(function(){
     var W=1080,H=fmt==="story"?1920:1350;
     var cv=document.createElement("canvas");cv.width=W;cv.height=H;
     var c=cv.getContext("2d");
     drawIntro(c,W,H,0);
-    var stream=cv.captureStream(30);
+    var stream=cv.captureStream(24);
     var mime=MediaRecorder.isTypeSupported("video/mp4")?"video/mp4":
              (MediaRecorder.isTypeSupported("video/webm;codecs=vp9")?"video/webm;codecs=vp9":"video/webm");
     var rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:8e6});
@@ -1326,16 +1383,16 @@ function grabarVideo(t,fmt,btn){
     rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data)};
     rec.onstop=function(){
       var ext=mime.indexOf("mp4")>-1?"mp4":"webm";
-      var a=document.createElement("a");
-      a.href=URL.createObjectURL(new Blob(chunks,{type:mime.split(";")[0]}));
-      a.download="FIG_"+t.id+"_"+fmt+"_semana"+(DATA.semana||semanaHoy())+"."+ext;
-      a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},4000);
+      var blob=new Blob(chunks,{type:mime.split(";")[0]});
+      var filename="FIG_"+t.id+"_"+fmt+"_semana"+(DATA.semana||semanaHoy())+"."+ext;
+      entregarArchivo(blob,filename,mime.split(";")[0],"FIG · Torneo Portafolio 2026",t.nombre+" — #"+t.posicion);
       btn.disabled=false;btn.innerHTML=old;
     };
     rec.start();
     var T0=performance.now(),INTRO=4400,DUR=7400;
     (function fr(now){
       var ms=now-T0;
+      btn.textContent="GRABANDO… "+Math.min(100,Math.round(ms/DUR*100))+"%";
       if(ms<INTRO)drawIntro(c,W,H,ms);
       else{
         var p=ease3(clamp01((ms-INTRO)/2100));
@@ -1402,10 +1459,22 @@ function descargarHtml(t){
 }
 /* ---------- Botones ---------- */
 $("#btnPng").addEventListener("click",function(){descargarPng(currentTeam,"feed")});
+$("#btnImgStory").addEventListener("click",function(){descargarPng(currentTeam,"story")});
 $("#btnLi").addEventListener("click",function(){descargarPng(currentTeam,"li")});
 $("#btnVidFeed").addEventListener("click",function(){grabarVideo(currentTeam,"feed",this)});
 $("#btnVidStory").addEventListener("click",function(){grabarVideo(currentTeam,"story",this)});
 $("#btnHtml").addEventListener("click",function(){descargarHtml(currentTeam)});
+/* En celulares con Web Share, cambia la flechita de descarga por un ícono
+   de compartir en los botones que sí pueden abrir el panel nativo (todos
+   menos la tarjeta HTML) — señal visual de que ahí se comparte directo. */
+if(navigator.canShare&&navigator.share){
+  $$(".share-row button").forEach(function(b){
+    if(b.id==="btnHtml")return;
+    var arr=$(".arr",b);if(arr)arr.textContent="⇪";
+  });
+  var note=$("#ovNoteShare");
+  if(note)note.innerHTML="EN EL CELULAR, COMPARTIR ABRE DIRECTO EL PANEL NATIVO CON INSTAGRAM COMO OPCIÓN (EN IPHONE, LA IMAGEN STORY INTENTA ABRIR INSTAGRAM DIRECTO EN HISTORIAS).<br>"+note.innerHTML;
+}
 loadLogos();
 /* hook para herramientas externas (overlay OBS, pruebas) */
 window.__figCards={drawFeed:drawFeed,drawStory:drawStory,drawLi:drawLi,drawIntro:drawIntro,loadLogos:loadLogos,data:function(){return DATA}};
