@@ -4,6 +4,18 @@
   "actualizado": "2026-07-19",
   "procesados": [
     {
+      "archivo": "ManuelPaz.cv.pdf",
+      "fileId": "16w28rCiqqHD6z895Cu95F7m0N2oPPv3P",
+      "modifiedTime": "2026-07-19T00:44:31Z",
+      "procesadoEl": "2026-07-19",
+      "persona": "Manuel Paz",
+      "camposExtraidos": [
+        "personas.directiva[].linkedin",
+        "personas.directiva[].perfil (bio + hitos)"
+      ],
+      "notas": "Sin tarjeta de industria: el CV menciona una práctica reciente como 'Wealth Management Sales Intern' (Ene-Jun 2026) pero el texto extraído no incluye el nombre de la institución — se omitió para no inventar el dato. Hitos usados: fundador de una tienda e-commerce D2C con +$280M CLP en ventas (Shopify/Dropshipping, 2020-2023) y gestor de un portafolio personal de acciones y criptomonedas (+70% de retorno desde abril 2025, estrategia GARP). El CV contiene teléfono y correo personal que NO se copiaron al repo (regla dura de CLAUDE.md)."
+    },
+    {
       "archivo": "CV_Juan_Pablo_Díaz_C.pdf",
       "fileId": "14FkxfzfrwvlSJcxpGRGRrYDtHMWJdYNl",
       "modifiedTime": "2026-07-19T00:08:21Z",
