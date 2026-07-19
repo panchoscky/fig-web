@@ -10,9 +10,9 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-07-19** (sesión: 2 CV y 2 fotos nuevos —Juan
-Pablo Díaz Cerda y Benjamín Solís—, mejora de calidad de la foto de
-Francisco Valenzuela).
+Última actualización: **2026-07-19** (sesión: CV y foto de Manuel Paz
+agregados; antes también Juan Pablo Díaz Cerda, Benjamín Solís y mejora
+de la foto de Francisco Valenzuela).
 
 ---
 
@@ -42,7 +42,8 @@ Estas reglas hacen que el trabajo de cualquier modelo se vea igual:
 ## 2. Mapa del ecosistema
 
 ```
-FIG_completo_git/
+/ (raíz del repo — movido aquí el 2026-07-19, antes vivía en FIG_completo_git/
+  para que GitHub Pages pueda servirlo directo sin subcarpeta)
 ├── index.html               ✅ sitio principal (enlaza a todas las subpáginas)
 ├── eventos/index.html        ✅ bitácora de actividades (lee datos/eventos.json)
 ├── torneo/index.html          ✅ ranking del torneo + trayectoria por equipo (lee datos/torneo.json)
@@ -104,6 +105,8 @@ Instagram `instagram.com/fen.investment.group`.
 | 2026-07-18 | Samuel Rodríguez Arnolds pasa a la directiva | Francisco resolvió directamente la ambigüedad pendiente de la ronda de CV (2026-07-12): Samuel y Jhosep García son co-encargados del área Valuation, no solo Jhosep. Se agregó Samuel a `personas.directiva` en `club.json` (rol "Director · Valuation", `perfil` con bio/hitos basados solo en su CV ya procesado — práctica en MoonValley Capital) y se ajustó el `detalle`/`perfil.bio` de Jhosep para nombrar el liderazgo compartido. Samuel se mantiene también en `personas.industria` (mismo patrón que Francisco Valenzuela, presente en ambos grupos). `cv_procesados.json` actualizado marcando la pregunta como resuelta. Directiva pasa de 12 a 13 personas reales (+1 tarjeta "mas"). Verificado con Playwright: Samuel aparece como perfil 13/13 del Expediente con su foto real y el rol correcto |
 | 2026-07-19 | Ronda 3 de CV/fotos: Juan Pablo Díaz Cerda y Benjamín Solís + mejora de foto | Francisco subió 2 CV y 2 fotos nuevos al Drive. **Juan Pablo Díaz Cerda**: bio/hitos reales (práctica en Gestión de Cartera Táctica · BCI Seguros, gestión directa de USD 150.000 en renta variable, 2° lugar nacional Concurso de Inversiones Radio Duna, 2° lugar Torneo de Trading Itaú-FEN) + `linkedin` + nueva tarjeta en `personas.industria` (BCI Seguros). **Benjamín Solís**: bio/hitos reales (diseño de la arquitectura del Torneo Portafolio —65+ equipos, 170+ participantes—, intercambio en emlyon business school Francia) + `linkedin`; sin tarjeta de industria porque su práctica más reciente (ENGIE, Analítica de Datos) no es finance-específica, mismo criterio usado con Benjamín Disi — decisión documentada en `cv_procesados.json`, no forzada. Ambas fotos guardadas en `fotos/directiva/` (`juan-pablo-diaz-cerda.jpg`, `benjamin-solis.jpg` — convertida de PNG). **Pedido aparte de Francisco: "mejora la calidad de mi foto"** — su foto (LinkedIn, solo 200×200 px) se reescaló a 900×900 con Lanczos + realce leve de nitidez/contraste (`ImageFilter.UnsharpMask` + `ImageEnhance`), sin inventar detalle que no estaba en el original. Directiva llega a 9/13 personas con foto real. Verificado con Playwright: las 3 fichas (Francisco, Juan Pablo, Benjamín Solís) muestran foto, bio y trayectoria correctas, 0 pageerror |
 | 2026-07-19 | Foto real de Francisco Valenzuela (reemplaza la mejorada por upscale) | Minutos después de la mejora por upscale de la fila anterior, Francisco subió al Drive una foto vertical real de mayor resolución (`Foto Fv.png`, 704×1058, ~1 MB). Se descargó, se aplanó el canal alfa sobre fondo blanco y se guardó como `fotos/directiva/francisco-valenzuela.jpg` (103 KB), reemplazando la versión con upscale — esta ya no depende de ningún reescalado artificial. Verificado con Playwright que la ficha del Expediente la muestra correctamente |
+| 2026-07-19 | Ronda 4 de CV/foto: Manuel Paz | Francisco subió el CV y la foto de Manuel Paz al Drive. Bio/hitos reales agregados a `personas.directiva`: creador de la web original de FIG (ya sabido), fundador de una tienda e-commerce D2C con más de $280M CLP en ventas (Shopify/Dropshipping 2020-2023), gestor de un portafolio personal de acciones y criptomonedas (+70% de retorno desde abril 2025). Se agregó `linkedin`. **Sin tarjeta de industria**: el CV menciona una práctica reciente como "Wealth Management Sales Intern" (Ene-Jun 2026) pero el texto extraído no incluye el nombre de la institución — se omitió para no inventar el dato (documentado en `cv_procesados.json`). Foto guardada en `fotos/directiva/manuel-paz.jpg`. Directiva llega a 10/13 personas con foto real. Verificado con Playwright: ficha 03/13 con foto, bio y trayectoria correctas, 0 pageerror |
+| 2026-07-19 | Repo movido a la raíz (listo para GitHub Pages) | Pedido de Francisco tras confirmar con su amigo que el host final es GitHub Pages: todo lo que vivía dentro de `FIG_completo_git/` se movió a la raíz del repo con `git mv` (conserva el historial de cada archivo como rename, no como archivo nuevo). GitHub Pages solo puede servir desde la raíz o `/docs` de un repo, no desde una subcarpeta arbitraria — con la carpeta extra de por medio, Pages no habría encontrado `index.html`. Verificado sirviendo con `python3 -m http.server` desde la nueva raíz: `index.html`, `desafio/`, `eventos/`, logos y fotos responden 200, y el Expediente de cofundadores se probó con Playwright sin errores. Sin build step de por medio — sigue siendo HTML/CSS/JS plano, "compilar" no aplica a este proyecto |
 
 ## 4. Backlog priorizado
 
@@ -279,6 +282,7 @@ actualizar esa entrada.
 | C4 | **Revisión antes de publicar** | Opus/Fable | ✅ Hecho — se verificó que `personas.*` solo tiene nombre + rol + LinkedIn público; del CV de Samuel se excluyó explícitamente dirección particular y edad (regla dura de `CLAUDE.md`). Falta una segunda pasada humana de Francisco si quiere afinar tono antes de que esto se difunda más |
 | C5 | **Ronda 2: David González y Benjamín Disi** | Sonnet | ✅ Hecho (2026-07-17) — 2 CV nuevos detectados en la carpeta (comparando `modifiedTime` contra `cv_procesados.json`, ninguno de los 4 anteriores había cambiado). Se agregó `linkedin` a ambos en `personas.directiva` y una tarjeta de industria para David (HSBC). Teléfono y correo de ambos CV NO se copiaron a ningún archivo del repo |
 | C6 | **Ronda 3: Juan Pablo Díaz Cerda y Benjamín Solís** | Sonnet | ✅ Hecho (2026-07-19) — 2 CV nuevos. Juan Pablo: `linkedin` + tarjeta de industria (BCI Seguros, Gerencia de Inversiones). Benjamín Solís: `linkedin`, sin tarjeta de industria (su práctica más reciente no es finance-específica). Teléfono, RUT, correo personal y dirección de ambos CV NO se copiaron al repo |
+| C7 | **Ronda 4: Manuel Paz** | Sonnet | ✅ Hecho (2026-07-19) — `linkedin` + bio/hitos reales (e-commerce D2C, portafolio personal). Sin tarjeta de industria: el nombre de la institución de su práctica en Wealth Management no estaba en el texto extraído del CV, se omitió para no inventarlo. Teléfono y correo personal NO se copiaron al repo |
 
 **✅ Resuelto (2026-07-18):** la pregunta abierta sobre Valuation (el CV de
 Jhosep García se autodescribe como líder del área, y el de Samuel
