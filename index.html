@@ -110,10 +110,7 @@ section{padding:clamp(5rem,10vw,9rem) 0;position:relative}
 .section--light{
   background:
     radial-gradient(1200px 500px at 85% -5%, rgba(212,175,55,.06), transparent 60%),
-    linear-gradient(rgba(16,24,40,.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16,24,40,.028) 1px, transparent 1px),
     var(--ivory);
-  background-size:auto, 72px 72px, 72px 72px, auto;
   color:var(--ink);
 }
 .sec-head{max-width:740px;margin-bottom:clamp(2.6rem,6vw,4.4rem)}
@@ -279,6 +276,29 @@ body.on-light .rail-node .rn-lab{color:#A8871C;text-shadow:none}
 .nav__links a:hover,.nav__links a.active{color:var(--gold)}
 .nav__links a:hover::after,.nav__links a.active::after{transform:scaleX(1)}
 .nav .btn{padding:11px 22px;font-size:.82rem}
+
+/* Menú "Jugar": desplegable con los dos juegos del club */
+.nav__play{position:relative}
+.nav__play>a{cursor:pointer}
+.nav__play-menu{
+  position:absolute;top:calc(100% + 10px);left:50%;transform:translate(-50%,6px);
+  min-width:210px;background:rgba(10,17,40,.97);border:1px solid rgba(212,175,55,.35);
+  padding:8px;display:flex;flex-direction:column;gap:2px;
+  opacity:0;visibility:hidden;transition:opacity .25s,transform .3s var(--ease),visibility .25s;
+  box-shadow:0 24px 50px -18px rgba(0,0,0,.7);z-index:50;
+}
+.nav__play:hover .nav__play-menu,.nav__play:focus-within .nav__play-menu{
+  opacity:1;visibility:visible;transform:translate(-50%,0);
+}
+.nav__play-menu a{
+  display:block;padding:11px 14px;font-size:.82rem;color:rgba(247,244,236,.85);
+}
+.nav__play-menu a::after{display:none}
+.nav__play-menu a:hover{background:rgba(212,175,55,.12);color:var(--gold)}
+.nav__play-menu small{
+  display:block;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(247,244,236,.42);margin-top:2px;
+}
 .nav__burger{display:none;flex-direction:column;gap:5.5px;padding:8px;z-index:1101}
 .nav__burger i{display:block;width:24px;height:2px;background:var(--ivory);transition:transform .35s var(--ease),opacity .3s}
 .nav__burger.open i:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
@@ -591,10 +611,44 @@ body.on-light .rail-node .rn-lab{color:#A8871C;text-shadow:none}
   width:56px;height:56px;border-radius:50%;background:var(--navy);color:var(--gold);
   display:flex;align-items:center;justify-content:center;flex:none;
   font-family:var(--f-disp);font-weight:600;font-size:1.05rem;
-  transition:box-shadow .4s;
+  transition:box-shadow .4s;position:relative;overflow:hidden;
 }
 .p-card:hover .avatar{box-shadow:0 0 0 3px var(--paper), 0 0 0 4.5px var(--gold)}
 .p-card--lead .avatar{background:radial-gradient(circle at 32% 28%,var(--gold-light),var(--gold) 60%,var(--gold-deep));color:var(--navy)}
+/* miniatura con foto real (cofundadores) o logo real (empresas de la industria) —
+   se prueba en fotos/directiva/<slug>.* y logos/industria/<slug>.*; si no existe,
+   se queda el monograma de siempre, sin inventar nada */
+.thumb-mono{position:relative;z-index:1;transition:opacity .35s}
+.thumb-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s}
+.thumb-img.ok{opacity:1}
+.avatar.has-photo .thumb-mono{opacity:0}
+.ind-logo{
+  width:56px;height:56px;border-radius:12px;background:#fff;border:1px solid var(--line-l);
+  display:flex;align-items:center;justify-content:center;flex:none;position:relative;overflow:hidden;
+}
+.ind-logo .thumb-mono{color:var(--ink);font-family:var(--f-disp);font-weight:600;font-size:1rem}
+.ind-logo .thumb-img{object-fit:contain;padding:9px}
+.ind-logo.has-photo .thumb-mono{opacity:0}
+/* ---------- FIG en la industria: tarjetas por empresa con tooltip ---------- */
+.ind-card{position:relative;cursor:default;flex-direction:row;align-items:center;gap:16px}
+.ind-card:hover,.ind-card:focus-within{transform:translateY(-6px);border-color:rgba(168,135,28,.5);box-shadow:0 24px 46px -24px rgba(16,24,40,.25)}
+.ind-count{font-family:var(--f-mono);font-size:.61rem;letter-spacing:.14em;text-transform:uppercase;color:#A8871C;margin-top:4px}
+.ind-tip{
+  position:absolute;left:50%;bottom:calc(100% + 12px);transform:translate(-50%,8px);width:max-content;
+  min-width:220px;max-width:300px;background:var(--navy);border:1px solid rgba(212,175,55,.35);
+  padding:16px 18px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .25s,transform .3s var(--ease),visibility .25s;z-index:30;
+  box-shadow:0 24px 50px -18px rgba(0,0,0,.55);
+}
+.ind-card:hover .ind-tip,.ind-card:focus-within .ind-tip{opacity:1;visibility:visible;transform:translate(-50%,0);pointer-events:auto}
+.ind-tip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:var(--navy)}
+.ind-tip h5{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.ind-tip ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.ind-tip li{font-size:.82rem;color:rgba(247,244,236,.9);line-height:1.4}
+.ind-tip li span{display:block;font-size:.66rem;color:rgba(247,244,236,.5);margin-top:2px;letter-spacing:.02em}
+.ind-tip a{color:inherit;border-bottom:1px solid transparent;transition:color .25s,border-color .25s}
+.ind-tip a:hover{color:var(--gold);border-color:var(--gold)}
+@media(max-width:640px){.ind-tip{left:0;transform:translateY(8px);bottom:calc(100% + 10px)}.ind-card:hover .ind-tip,.ind-card:focus-within .ind-tip{transform:translateY(0)}.ind-tip::after{left:28px}}
 .p-name{font-family:var(--f-disp);font-weight:600;font-size:1.12rem;line-height:1.25;color:var(--ink)}
 .p-role{font-family:var(--f-mono);font-size:.61rem;letter-spacing:.16em;text-transform:uppercase;color:#A8871C;margin-top:4px}
 .p-extra{font-size:.83rem;color:var(--ink-soft);line-height:1.55}
@@ -813,6 +867,8 @@ footer{background:var(--navy-deep);padding:clamp(4rem,8vw,6rem) 0 0;border-top:1
   padding:26px 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   font-family:var(--f-mono);font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,244,236,.45);
 }
+.f-bottom a{color:inherit;transition:color .3s}
+.f-bottom a:hover{color:var(--gold)}
 
 /* ---------- Reveals ---------- */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .95s var(--ease),transform .95s var(--ease)}
@@ -918,11 +974,19 @@ body.has-ticker{padding-bottom:38px}
     </a>
     <ul class="nav__links">
       <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#eventos">Eventos</a></li>
       <li><a href="#areas">Áreas</a></li>
       <li><a href="#torneo">Torneo</a></li>
       <li><a href="#historia">Historia</a></li>
       <li><a href="#equipo">Equipo</a></li>
-      <li><a href="#eventos">Eventos</a></li>
+      <li><a href="fiw/index.html">FIG Woman</a></li>
+      <li class="nav__play">
+        <a href="juego/index.html" aria-haspopup="true">Jugar ▾</a>
+        <div class="nav__play-menu">
+          <a href="juego/index.html">El Rally del Toro<small>Runner · vende a tiempo</small></a>
+          <a href="desafio/index.html">Desafío FIG<small>Trivia de finanzas · 300 preguntas</small></a>
+        </div>
+      </li>
     </ul>
     <a data-link="torneo" href="#torneo" class="btn btn--gold btn--nav">Torneo 2026</a>
     <button class="nav__burger" id="burger" aria-label="Abrir menú" aria-expanded="false">
@@ -933,11 +997,14 @@ body.has-ticker{padding-bottom:38px}
 
 <div class="m-menu" id="mmenu">
   <a href="#nosotros">Nosotros</a>
+  <a href="#eventos">Eventos</a>
   <a href="#areas">Áreas</a>
   <a href="#torneo">Torneo 2026</a>
   <a href="#historia">Historia</a>
   <a href="#equipo">Equipo</a>
-  <a href="#eventos">Eventos</a>
+  <a href="fiw/index.html">FIG Woman</a>
+  <a href="juego/index.html">El Rally del Toro</a>
+  <a href="desafio/index.html">Desafío FIG</a>
   <span class="mono-tag">Forjando la Élite del Mañana</span>
 </div>
 
@@ -1047,6 +1114,40 @@ body.has-ticker{padding-bottom:38px}
     </div>
   </div>
 </section>
+
+<!-- ============ EVENTOS ============ -->
+<section class="section--dark" id="eventos" data-rail="Eventos" data-theme="dark">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker reveal"><span class="scr" data-text="Eventos">Eventos</span></div>
+      <h2 class="h-sec reveal d1">Lo que está <em>pasando</em> en FIG.</h2>
+    </div>
+    <div class="events">
+      <div class="e-card e-card--live glowable reveal">
+        <span class="e-date"><span class="live-dot" aria-hidden="true"></span>En curso · May — Nov 2026</span>
+        <h3>Torneo Portafolio 2026</h3>
+        <p>63 equipos, USD 10M simulados por cartera y ranking publicado cada viernes. La final ante jurado se juega el 9 de noviembre.</p>
+        <a data-link="torneo" href="#" class="a-link">Seguir el ranking <span class="arr">→</span></a>
+      </div>
+      <div class="e-card glowable reveal d1">
+        <span class="e-date">Programa de formación</span>
+        <h3>Workshops Bloomberg</h3>
+        <p>Sesiones prácticas de terminal: PORT, TMSG y análisis de carteras con datos reales. Fechas por anunciar.</p>
+        <a data-link="instagram" href="#" class="a-link">Enterarme primero <span class="arr">→</span></a>
+      </div>
+      <div class="e-card glowable reveal d2">
+        <span class="e-date">Ciclo de charlas</span>
+        <h3>FIG Talks · La industria en la FEN</h3>
+        <p>Conversaciones con profesionales de la gestión de activos, trading y research. Fechas por anunciar.</p>
+        <a data-link="instagram" href="#" class="a-link">Enterarme primero <span class="arr">→</span></a>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:32px">
+      <a href="eventos/index.html" class="btn btn--ghost">Ver toda la bitácora de eventos <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
 
 <!-- ============ ÁREAS · MESA DE DESKS ============ -->
 <section class="section--dark" id="areas" data-rail="Áreas" data-theme="dark">
@@ -1381,39 +1482,6 @@ body.has-ticker{padding-bottom:38px}
   <button class="pv-arrow pv-next" data-pv="next" aria-label="Perfil siguiente">→</button>
 </div>
 
-<!-- ============ EVENTOS ============ -->
-<section class="section--dark" id="eventos" data-rail="Eventos" data-theme="dark">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker reveal"><span class="scr" data-text="Eventos">Eventos</span></div>
-      <h2 class="h-sec reveal d1">Lo que está <em>pasando</em> en FIG.</h2>
-    </div>
-    <div class="events">
-      <div class="e-card e-card--live glowable reveal">
-        <span class="e-date"><span class="live-dot" aria-hidden="true"></span>En curso · May — Nov 2026</span>
-        <h3>Torneo Portafolio 2026</h3>
-        <p>63 equipos, USD 10M simulados por cartera y ranking publicado cada viernes. La final ante jurado se juega el 9 de noviembre.</p>
-        <a data-link="torneo" href="#" class="a-link">Seguir el ranking <span class="arr">→</span></a>
-      </div>
-      <div class="e-card glowable reveal d1">
-        <span class="e-date">Programa de formación</span>
-        <h3>Workshops Bloomberg</h3>
-        <p>Sesiones prácticas de terminal: PORT, TMSG y análisis de carteras con datos reales. Fechas por anunciar.</p>
-        <a data-link="instagram" href="#" class="a-link">Enterarme primero <span class="arr">→</span></a>
-      </div>
-      <div class="e-card glowable reveal d2">
-        <span class="e-date">Ciclo de charlas</span>
-        <h3>FIG Talks · La industria en la FEN</h3>
-        <p>Conversaciones con profesionales de la gestión de activos, trading y research. Fechas por anunciar.</p>
-        <a data-link="instagram" href="#" class="a-link">Enterarme primero <span class="arr">→</span></a>
-      </div>
-    </div>
-    <div class="reveal" style="margin-top:32px">
-      <a href="eventos/index.html" class="btn btn--ghost">Ver toda la bitácora de eventos <span class="arr">→</span></a>
-    </div>
-  </div>
-</section>
-
 <!-- ============ CTA ============ -->
 <section class="cta-band has-ghost">
   <span class="cta-ghost" aria-hidden="true">ÚNETE A FIG — ÚNETE A FIG — ÚNETE A FIG — ÚNETE A FIG — ÚNETE A FIG — ÚNETE A FIG — </span>
@@ -1483,6 +1551,7 @@ body.has-ticker{padding-bottom:38px}
     </div>
     <div class="f-bottom">
       <span>© 2026 FEN Investment Group</span>
+      <span>Creado por <a href="https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/" target="_blank" rel="noopener">Francisco Valenzuela</a> y <a href="https://www.linkedin.com/in/mpazq" target="_blank" rel="noopener">Manuel Paz</a></span>
       <span>Universidad de Chile · FEN</span>
     </div>
   </div>
@@ -1576,18 +1645,121 @@ function applyLinks(){
 var currentFilter="directiva";
 var D=["","d1","d2","d3"];
 
+/* slug de nombre/empresa + detección automática de fotos y logos (sin
+   inventar nada: si el archivo no existe, se cae al monograma de siempre).
+   Compartido entre las miniaturas de la grilla y el Expediente. */
+function slug(n){
+  var s=String(n||"").toLowerCase();
+  s=s.replace(/[áàä]/g,"a").replace(/[éèë]/g,"e").replace(/[íìï]/g,"i")
+     .replace(/[óòö]/g,"o").replace(/[úùü]/g,"u").replace(/ñ/g,"n");
+  return s.replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
+}
+var fotoCache={};
+/* Busca fotos/directiva/<slug>.(jpg|jpeg|png|webp) */
+function probeFoto(sl,cb){
+  if(fotoCache.hasOwnProperty(sl)){cb(fotoCache[sl]);return}
+  var exts=["jpg","jpeg","png","webp"],k=0;
+  (function next(){
+    if(k>=exts.length){fotoCache[sl]=null;cb(null);return}
+    var url="fotos/directiva/"+sl+"."+exts[k++];
+    var im=new Image();
+    im.onload=function(){fotoCache[sl]=url;cb(url)};
+    im.onerror=next;
+    im.src=url;
+  })();
+}
+var logoCache={};
+/* Busca logos/industria/<slug>.(png|svg|jpg|jpeg|webp) */
+function probeLogo(sl,cb){
+  if(logoCache.hasOwnProperty(sl)){cb(logoCache[sl]);return}
+  var exts=["png","svg","jpg","jpeg","webp"],k=0;
+  (function next(){
+    if(k>=exts.length){logoCache[sl]=null;cb(null);return}
+    var url="logos/industria/"+sl+"."+exts[k++];
+    var im=new Image();
+    im.onload=function(){logoCache[sl]=url;cb(url)};
+    im.onerror=next;
+    im.src=url;
+  })();
+}
+
 var PEOPLE_DATA=null; /* último set de personas renderizado (para el expediente) */
+/* Iniciales de fallback para el logo de una empresa (2 letras, sin inventar
+   nada: es solo un monograma hasta que exista un logo real en logos/industria/) */
+function empresaIniciales(nombre){
+  var palabras=String(nombre||"").split(/\s+/).filter(Boolean);
+  if(palabras.length>=2)return (palabras[0].charAt(0)+palabras[1].charAt(0)).toUpperCase();
+  return String(nombre||"").slice(0,2).toUpperCase();
+}
+/* "FIG en la industria": una tarjeta por empresa (no por persona), con su
+   logo si existe en logos/industria/<slug>.* y un tooltip al hover/foco que
+   lista a quiénes de FIG han pasado por ahí (enlazando a su LinkedIn si lo
+   tienen). El rol de cada persona viene como "Empresa · detalle" en
+   club.json — se agrupa por el primer segmento. */
+function renderIndustria(list){
+  var porEmpresa=[],idxMap={};
+  (list||[]).forEach(function(x,i){
+    if(x.mas)return;
+    var partes=String(x.rol||"").split(" · ");
+    var empresa=partes[0]||x.rol||"Industria";
+    if(!idxMap.hasOwnProperty(empresa)){idxMap[empresa]=porEmpresa.length;porEmpresa.push({empresa:empresa,personas:[]})}
+    porEmpresa[idxMap[empresa]].personas.push({
+      nombre:x.nombre,rolEspecifico:partes.slice(1).join(" · "),linkedin:x.linkedin
+    });
+  });
+  var html="";
+  porEmpresa.forEach(function(e,i){
+    var sl=slug(e.empresa);
+    html+='<div class="p-card ind-card reveal '+D[i%4]+'" data-group="industria" tabindex="0">'
+        + '<div class="ind-logo" data-slug="'+esc(sl)+'"><span class="thumb-mono">'+esc(empresaIniciales(e.empresa))+'</span><img class="thumb-img" alt="'+esc(e.empresa)+'"></div>'
+        + '<div><div class="p-name">'+esc(e.empresa)+'</div>'
+        + '<div class="ind-count">'+e.personas.length+(e.personas.length===1?' persona de FIG':' personas de FIG')+'</div></div>'
+        + '<div class="ind-tip"><h5>Han pasado por '+esc(e.empresa)+'</h5><ul>'
+        + e.personas.map(function(pp){
+            var nm=pp.linkedin?'<a href="'+esc(pp.linkedin)+'" target="_blank" rel="noopener">'+esc(pp.nombre)+' ↗</a>':esc(pp.nombre);
+            return '<li>'+nm+(pp.rolEspecifico?'<span>'+esc(pp.rolEspecifico)+'</span>':'')+'</li>';
+          }).join("")
+        + '</ul></div>'
+        + '</div>';
+  });
+  return html;
+}
+/* Prueba fotos/logos reales para las miniaturas ya insertadas en el DOM;
+   si no existen, se quedan con el monograma (sin romper nada) */
+function cargarMiniaturas(g){
+  $$(".avatar[data-slug]",g).forEach(function(av){
+    probeFoto(av.getAttribute("data-slug"),function(url){
+      if(!url)return;
+      var img=$(".thumb-img",av);
+      img.src=url;img.classList.add("ok");
+      av.classList.add("has-photo");
+    });
+  });
+  $$(".ind-logo[data-slug]",g).forEach(function(lg){
+    probeLogo(lg.getAttribute("data-slug"),function(url){
+      if(!url)return;
+      var img=$(".thumb-img",lg);
+      img.src=url;img.classList.add("ok");
+      lg.classList.add("has-photo");
+    });
+  });
+}
 function renderPeople(p){
   var g=$("#peopleGrid"); if(!g||!p) return;
   PEOPLE_DATA=p;
   var html="";
   ["directiva","industria","fama"].forEach(function(grp){
+    if(grp==="industria"){html+=renderIndustria(p.industria);return}
     var n=0;
     (p[grp]||[]).forEach(function(x,i){
       var exp=!x.mas;
+      var conFoto=grp==="directiva"&&exp;
       html+='<div class="p-card reveal '+D[i%4]+(x.destacado?" p-card--lead":"")+(x.mas?" p-card--more":"")+(exp?" p-card--exp":"")+'" data-group="'+grp+'"'
           + (exp?' data-idx="'+n+'" role="button" tabindex="0" aria-label="Ver perfil de '+esc(x.nombre)+'"':"")+'>'
-          + '<div class="avatar">'+esc(x.iniciales||"·")+'</div>'
+          + '<div class="avatar"'+(conFoto?' data-slug="'+esc(slug(x.nombre))+'"':'')+'>'
+          + '<span class="thumb-mono">'+esc(x.iniciales||"·")+'</span>'
+          + (conFoto?'<img class="thumb-img" alt="">':'')
+          + '</div>'
           + '<div><div class="p-name">'+esc(x.nombre)+'</div>'
           + (x.rol?'<div class="p-role">'+esc(x.rol)+'</div>':"")
           + '</div>'
@@ -1600,6 +1772,7 @@ function renderPeople(p){
   g.innerHTML=html;
   applyFilter(currentFilter);
   observeReveals(g);
+  cargarMiniaturas(g);
 }
 
 function renderEvents(evs){
@@ -1703,29 +1876,10 @@ $$(".pill").forEach(function(pl){
 (function(){
   var pv=$("#perfilView"); if(!pv) return;
   var GK={directiva:"Directiva fundadora · FIG",industria:"FIG en la industria",fama:"Muro de la Fama"};
-  var list=[],idx=0,grp="directiva",lastFocus=null,fotoCache={};
-
-  function slug(n){
-    var s=String(n||"").toLowerCase();
-    s=s.replace(/[áàä]/g,"a").replace(/[éèë]/g,"e").replace(/[íìï]/g,"i")
-       .replace(/[óòö]/g,"o").replace(/[úùü]/g,"u").replace(/ñ/g,"n");
-    return s.replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
-  }
+  var list=[],idx=0,grp="directiva",lastFocus=null;
+  /* slug()/probeFoto() ahora son globales (compartidas con las miniaturas
+     de la grilla) — ver definición más arriba, junto a renderPeople */
   function pad(n){return (n<10?"0":"")+n}
-
-  /* Busca fotos/directiva/<slug>.(jpg|jpeg|png|webp); cachea el resultado */
-  function probeFoto(sl,cb){
-    if(fotoCache.hasOwnProperty(sl)){cb(fotoCache[sl]);return}
-    var exts=["jpg","jpeg","png","webp"],k=0;
-    (function next(){
-      if(k>=exts.length){fotoCache[sl]=null;cb(null);return}
-      var url="fotos/directiva/"+sl+"."+exts[k++];
-      var im=new Image();
-      im.onload=function(){fotoCache[sl]=url;cb(url)};
-      im.onerror=next;
-      im.src=url;
-    })();
-  }
 
   function fill(){
     var x=list[idx]; if(!x)return;

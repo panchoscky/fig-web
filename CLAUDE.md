@@ -38,6 +38,7 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 ├── HOJA_DE_RUTA_FIG.md      ← LISTA MAESTRA: backlog priorizado + protocolo de continuidad
 ├── MAPA_CONTENIDO_FIG.html  ← guía visual para Francisco: dónde subir fotos y editar texto de cada página (abrir con doble clic)
 ├── logos/                   ← logos oficiales bajados del Drive (FIG oro/blanco/navy, Itaú, BlackRock)
+│   └── industria/            ← logos de empresas para "FIG en la industria" (ver LEEME.txt de la carpeta)
 ├── datos/
 │   ├── club.json             ← personas, eventos resumen, historia, URLs del sitio principal
 │   ├── cv_procesados.json    ← manifiesto anti-relectura de CV del Drive (fileId+modifiedTime, evita reprocesar los que no cambiaron)
@@ -66,11 +67,11 @@ explícitamente a Francisco, son la identidad visual de esa área.
 
 | Pieza | Estado | Detalle |
 |---|---|---|
-| `index.html` | ✅ Producción | Sitio principal completo. Ticker bursátil al pie con el top 5 del torneo — aparece solo cuando exista `datos/torneo.json` real (hoy oculto). Footer enlaza `en/index.html`. **Expediente de cofundadores**: clic en cualquier tarjeta de §Nosotros abre un overlay con ficha completa (bio + trayectoria desde `perfil` en `club.json`, foto grande si existe en `fotos/directiva/<slug>.jpg` — ver `fotos/directiva/LEEME.txt` —, monograma dorado si no), flechas ←/→ para recorrer el grupo, ✕/Esc para cerrar, navegable por teclado |
+| `index.html` | ✅ Producción | Sitio principal completo. Orden de secciones (2026-07-19, pedido de Francisco): inicio → nosotros → **eventos** → áreas → torneo → historia → equipo. Nav con ese mismo orden + enlace **FIG Woman** + menú **"Jugar ▾"** (desplegable hover/focus con El Rally del Toro y el Desafío FIG; en móvil van como enlaces directos). Fondos claros SIN cuadrícula gris (se eliminó el patrón de líneas de 72px, solo queda el glow radial dorado). Ticker bursátil al pie con el top 5 del torneo — aparece solo cuando exista `datos/torneo.json` real (hoy oculto). Footer enlaza `en/index.html`. **Expediente de cofundadores**: clic en cualquier tarjeta de §Nosotros abre un overlay con ficha completa (bio + trayectoria desde `perfil` en `club.json`, foto grande si existe en `fotos/directiva/<slug>.jpg` — ver `fotos/directiva/LEEME.txt` —, monograma dorado si no), flechas ←/→ para recorrer el grupo, ✕/Esc para cerrar, navegable por teclado. **Miniaturas con foto real** en la grilla de §Nosotros (mismo `probeFoto()`, ahora en alcance global). **"FIG en la industria"** agrupada por empresa (no por persona): logo real si existe `logos/industria/<slug>.*` (ver `logos/industria/LEEME.txt`) o chip de iniciales si no, tooltip al hover/foco con quiénes de FIG han pasado por esa empresa enlazados a su LinkedIn |
 | `eventos/index.html` | ✅ Producción | 9 eventos reales con resúmenes completos en `datos/eventos.json`; filtros por tipo Y año; botón de calendario `fig.ics` (regenerar con `generar_ics.py`); modo proyección `?pantalla=1` (fotos fullscreen para TVs, enlazado en el footer) |
 | `en/index.html` | ✅ Producción | One-pager en inglés para partners (BlackRock, bancos): áreas + torneo con solo datos verificados. Única página del sitio con texto en inglés — es su propósito |
 | `fiw/index.html` | ⚠️ Placeholder | Estructura y datos completos, pero **colores de marca aún no confirmados** por Delia Avilán/FIW — usa un oro rosa provisional. Sin fotos en `fotos/fiw/` todavía |
-| `torneo/index.html` | ⚠️ Modo DEMO | 8 equipos ficticios. **Falta `datos/torneo.json` real**. Overlay con gráfico de 3 líneas (retorno equipo/promedio/ACWI). Tarjetas: Feed PNG, LinkedIn PNG, HTML y **videos animados** Feed/Story con intro (logo→nombre→colaboradores→ficha). Logos de colaboradores en hero y tarjetas. La línea temporal de §Metodología integra las actividades del club desde `datos/eventos.json` (tags por tipo + descripción al hover, tarea #16 ✅) |
+| `torneo/index.html` | ⚠️ Modo DEMO | 8 equipos ficticios. **Falta `datos/torneo.json` real**. Overlay con gráfico de 3 líneas (retorno equipo/promedio/ACWI). Tarjetas: Feed PNG, **Story PNG**, LinkedIn PNG, HTML y **videos animados** Feed/Story con intro (logo→nombre→colaboradores→ficha). En celular, los botones de tarjetas **comparten directo con el panel nativo del sistema** (`navigator.share`, Instagram queda a un toque) en vez de forzar una descarga; en iPhone la tarjeta Story además intenta abrir Instagram directo en el compositor de Historias (truco de portapapeles + `instagram-stories://`, con fallback automático). Grabación de video a 24fps con progreso visible en el botón. Logos de colaboradores en hero y tarjetas. La línea temporal de §Metodología integra las actividades del club desde `datos/eventos.json` (tags por tipo + descripción al hover, tarea #16 ✅) |
 | Enlaces cruzados | ✅ Conectados | `index.html` ya enlaza a `eventos/`, `fiw/`, `torneo/` y `postula/` (CTAs, footer, `CONFIG.urls` y `datos/club.json`) |
 | `generar_torneo.py` | ✅ Escrito | Lee `ranking_ordenado` + Excel de inscripciones → escribe `datos/torneo.json`, conserva el `historial` semanal y calcula `delta`. Probar con el Excel real (ajustar `ALIAS` si los encabezados no calzan). Modo `--demo` disponible |
 | `postula/index.html` | ✅ Endpoint conectado (sin verificar en vivo) | Formulario de postulación completo; envía (con `tipo:"postulacion"`) a `config.figEndpoint` (el Apps Script COMPARTIDO del sitio) de `datos/club.json` — la URL ya está pegada (2026-07-18), pero nadie ha confirmado aún que una postulación real llegue a la planilla (este entorno no puede alcanzar `script.google.com`); Francisco debe probarlo una vez |
@@ -142,6 +143,11 @@ Resumen de bloqueadores:
 - Todo texto de cara al usuario va en **español** (única excepción:
   `en/index.html`, el brief para partners internacionales — ese va en inglés
   a propósito).
+- Las 8 páginas llevan al pie del footer el crédito **"Creado por
+  Francisco Valenzuela y Manuel Paz"** (en inglés en `en/index.html`:
+  "Made by... and..."), cada nombre enlazado a su LinkedIn real. Al
+  agregar una página nueva, copiar ese `<span>` del footer de cualquier
+  página existente.
 - Las 8 páginas llevan un **beacon de métricas anónimas** (sin cookies:
   página + fecha + origen) que envía con `tipo:"visita"` al mismo
   `config.figEndpoint` compartido, y queda inerte mientras esté vacío.
