@@ -1,0 +1,2490 @@
+{
+  "semana": 1,
+  "corte": "19 · JUN · 2026",
+  "acwi": [],
+  "equipos": [
+    {
+      "id": "los-default",
+      "nombre": "Los Default",
+      "posicion": 1,
+      "puntos": 77.65,
+      "retRel": 0.3514,
+      "delta": 0,
+      "metricas": {
+        "ir": 5.26,
+        "exc": 0.3514,
+        "sharpe": 5.48,
+        "var95": -0.0060999999999999995,
+        "mdd": -0.0256
+      },
+      "puntosDetalle": {
+        "ir": 25.714286,
+        "exc": 11.898502,
+        "sharpe": 15.0,
+        "var95": 12.457627,
+        "mdd": 12.577229
+      },
+      "miembros": [
+        {
+          "nombre": "Cristóbal Benavente Espinoza",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Benjamín Araneda Nash",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Christian Hidalgo",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 77.65,
+          "posicion": 1,
+          "ret": 0.0594
+        }
+      ]
+    },
+    {
+      "id": "expertos-en-blackrock",
+      "nombre": "Expertos en Blackrock",
+      "posicion": 2,
+      "puntos": 77.15,
+      "retRel": 0.5099,
+      "delta": 0,
+      "metricas": {
+        "ir": 6.56,
+        "exc": 0.5099,
+        "sharpe": 3.68,
+        "var95": -0.0098,
+        "mdd": -0.0393
+      },
+      "puntosDetalle": {
+        "ir": 30.0,
+        "exc": 14.752917,
+        "sharpe": 11.525097,
+        "var95": 10.105932,
+        "mdd": 10.76346
+      },
+      "miembros": [
+        {
+          "nombre": "Juan José Esbeile Peña",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Benjamín Roberto Hernández González",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Cesar Antonio Ahumada Acevedo",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 77.15,
+          "posicion": 2,
+          "ret": 0.0811
+        }
+      ]
+    },
+    {
+      "id": "beta-capital",
+      "nombre": "Beta capital",
+      "posicion": 3,
+      "puntos": 76.4,
+      "retRel": 0.5299,
+      "delta": 0,
+      "metricas": {
+        "ir": 5.5,
+        "exc": 0.5299,
+        "sharpe": 4.68,
+        "var95": -0.0101,
+        "mdd": -0.0344
+      },
+      "puntosDetalle": {
+        "ir": 26.505495,
+        "exc": 15.113096,
+        "sharpe": 13.455598,
+        "var95": 9.915254,
+        "mdd": 11.41218
+      },
+      "miembros": [
+        {
+          "nombre": "Isabel rojas aravena",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Isabel rojas aravena",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 76.4,
+          "posicion": 3,
+          "ret": 0.0901
+        }
+      ]
+    },
+    {
+      "id": "jav-capital",
+      "nombre": "JAV Capital",
+      "posicion": 4,
+      "puntos": 66.21,
+      "retRel": 0.12789999999999999,
+      "delta": 0,
+      "metricas": {
+        "ir": 4.0,
+        "exc": 0.12789999999999999,
+        "sharpe": 3.79,
+        "var95": -0.0076,
+        "mdd": -0.0184
+      },
+      "puntosDetalle": {
+        "ir": 21.56044,
+        "exc": 7.873505,
+        "sharpe": 11.737452,
+        "var95": 11.504237,
+        "mdd": 13.53045
+      },
+      "miembros": [
+        {
+          "nombre": "Valente Zecchetto Puigrredón",
+          "linkedin": ""
+        },
+        {
+          "nombre": "José Luis Farías Reyes",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Agustín Gabriel Gomez Rebolledo",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 66.21,
+          "posicion": 4,
+          "ret": 0.0427
+        }
+      ]
+    },
+    {
+      "id": "black-swan-capital",
+      "nombre": "Black Swan Capital",
+      "posicion": 5,
+      "puntos": 65.85,
+      "retRel": 0.10880000000000001,
+      "delta": 0,
+      "metricas": {
+        "ir": 2.68,
+        "exc": 0.10880000000000001,
+        "sharpe": 4.83,
+        "var95": -0.0046,
+        "mdd": -0.0152
+      },
+      "puntosDetalle": {
+        "ir": 17.208791,
+        "exc": 7.529535,
+        "sharpe": 13.745174,
+        "var95": 13.411017,
+        "mdd": 13.954104
+      },
+      "miembros": [
+        {
+          "nombre": "Daniela Olmedo San Martin",
+          "linkedin": "https://www.linkedin.com/in/daniela-olmedo-13a029318?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+        },
+        {
+          "nombre": "Arantza Ramírez Opazo",
+          "linkedin": "https://www.linkedin.com/in/arantza-ramírez-opazo-6bbaab2a2?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 65.85,
+          "posicion": 5,
+          "ret": 0.0404
+        }
+      ]
+    },
+    {
+      "id": "aconcagua-capital",
+      "nombre": "Aconcagua Capital",
+      "posicion": 6,
+      "puntos": 65.11,
+      "retRel": 0.2723,
+      "delta": 0,
+      "metricas": {
+        "ir": 3.45,
+        "exc": 0.2723,
+        "sharpe": 3.91,
+        "var95": -0.0084,
+        "mdd": -0.0305
+      },
+      "puntosDetalle": {
+        "ir": 19.747253,
+        "exc": 10.473995,
+        "sharpe": 11.969112,
+        "var95": 10.995763,
+        "mdd": 11.928508
+      },
+      "miembros": [
+        {
+          "nombre": "Hugo Alonso Fuentes Martines",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Dorian Robles",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 65.11,
+          "posicion": 6,
+          "ret": 0.0387
+        }
+      ]
+    },
+    {
+      "id": "bjp-capitals",
+      "nombre": "B&JP Capitals",
+      "posicion": 7,
+      "puntos": 63.32,
+      "retRel": 0.3486,
+      "delta": 0,
+      "metricas": {
+        "ir": 4.64,
+        "exc": 0.3486,
+        "sharpe": 3.19,
+        "var95": -0.0132,
+        "mdd": -0.050499999999999996
+      },
+      "puntosDetalle": {
+        "ir": 23.67033,
+        "exc": 11.848077,
+        "sharpe": 10.579151,
+        "var95": 7.944915,
+        "mdd": 9.280671
+      },
+      "miembros": [
+        {
+          "nombre": "Benjamín Acevedo",
+          "linkedin": "https://cl.linkedin.com/in/benjam%C3%ADn-antonio-acevedo-frugone-14b616325"
+        },
+        {
+          "nombre": "Juan Tank",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Baltasar Correa Cortés",
+          "linkedin": "https://www.linkedin.com/in/baltasar-correa-cortés-2473bb359?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 63.32,
+          "posicion": 7,
+          "ret": 0.0734
+        }
+      ]
+    },
+    {
+      "id": "i-c",
+      "nombre": "I.C",
+      "posicion": 8,
+      "puntos": 63.03,
+      "retRel": 0.18359999999999999,
+      "delta": 0,
+      "metricas": {
+        "ir": 5.11,
+        "exc": 0.18359999999999999,
+        "sharpe": 2.14,
+        "var95": -0.0123,
+        "mdd": -0.031
+      },
+      "puntosDetalle": {
+        "ir": 25.21978,
+        "exc": 8.876603,
+        "sharpe": 8.552124,
+        "var95": 8.516949,
+        "mdd": 11.862312
+      },
+      "miembros": [
+        {
+          "nombre": "Rafael Ariztía Baraona",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Arturo Claro García",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 63.03,
+          "posicion": 8,
+          "ret": 0.0402
+        }
+      ]
+    },
+    {
+      "id": "equipo-rocket",
+      "nombre": "Equipo rocket",
+      "posicion": 9,
+      "puntos": 61.6,
+      "retRel": 0.0735,
+      "delta": 0,
+      "metricas": {
+        "ir": 3.77,
+        "exc": 0.0735,
+        "sharpe": 3.32,
+        "var95": -0.0084,
+        "mdd": -0.0294
+      },
+      "puntosDetalle": {
+        "ir": 20.802198,
+        "exc": 6.893819,
+        "sharpe": 10.830116,
+        "var95": 10.995763,
+        "mdd": 12.074139
+      },
+      "miembros": [],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 61.6,
+          "posicion": 9,
+          "ret": 0.0432
+        }
+      ]
+    },
+    {
+      "id": "cimientos-financieros",
+      "nombre": "Cimientos financieros",
+      "posicion": 10,
+      "puntos": 61.4,
+      "retRel": 0.25670000000000004,
+      "delta": 0,
+      "metricas": {
+        "ir": 3.52,
+        "exc": 0.25670000000000004,
+        "sharpe": 2.58,
+        "var95": -0.0096,
+        "mdd": -0.033
+      },
+      "puntosDetalle": {
+        "ir": 19.978022,
+        "exc": 10.193056,
+        "sharpe": 9.401544,
+        "var95": 10.233051,
+        "mdd": 11.597529
+      },
+      "miembros": [
+        {
+          "nombre": "Javiera Esperanza González Herrera",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Camila Antonia Retamales Rodríguez",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Felipe Andrés Pérez Belmar",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 61.4,
+          "posicion": 10,
+          "ret": 0.0615
+        }
+      ]
+    },
+    {
+      "id": "warren-bufen",
+      "nombre": "Warren BuFEN",
+      "posicion": 11,
+      "puntos": 61.36,
+      "retRel": 1.0789,
+      "delta": 0,
+      "metricas": {
+        "ir": 4.1,
+        "exc": 1.0789,
+        "sharpe": 2.81,
+        "var95": -0.025699999999999997,
+        "mdd": -0.0857
+      },
+      "puntosDetalle": {
+        "ir": 21.89011,
+        "exc": 25.0,
+        "sharpe": 9.84556,
+        "var95": 0,
+        "mdd": 4.620477
+      },
+      "miembros": [
+        {
+          "nombre": "Oscar Javier Mardones Urrutia",
+          "linkedin": "https://www.linkedin.com/in/oscar-javier-mardones-urrutia-b44933334/"
+        },
+        {
+          "nombre": "Cristóbal Hernan Órdenes Galassi",
+          "linkedin": "https://www.linkedin.com/in/cristobal-ordenes-1b3447181/"
+        },
+        {
+          "nombre": "Victoria Paz Tapia Rivera",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 61.36,
+          "posicion": 11,
+          "ret": 0.1478
+        }
+      ]
+    },
+    {
+      "id": "martes-negro",
+      "nombre": "Martes negro",
+      "posicion": 12,
+      "puntos": 59.91,
+      "retRel": 0.3632,
+      "delta": 0,
+      "metricas": {
+        "ir": 4.44,
+        "exc": 0.3632,
+        "sharpe": 2.78,
+        "var95": -0.0168,
+        "mdd": -0.05
+      },
+      "puntosDetalle": {
+        "ir": 23.010989,
+        "exc": 12.111007,
+        "sharpe": 9.787645,
+        "var95": 5.65678,
+        "mdd": 9.346867
+      },
+      "miembros": [
+        {
+          "nombre": "Sebastián Andrés Espinosa Huentemil",
+          "linkedin": "https://www.linkedin.com/in/daniel-torres-molins-304067408"
+        },
+        {
+          "nombre": "Daniel Torres Molins",
+          "linkedin": "https://www.linkedin.com/in/sebasti%C3%A1n-espinosa-214764315?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 59.91,
+          "posicion": 12,
+          "ret": 0.0687
+        }
+      ]
+    },
+    {
+      "id": "vantedge-asset-management",
+      "nombre": "Vantedge Asset Management",
+      "posicion": 13,
+      "puntos": 59.56,
+      "retRel": 0.6234000000000001,
+      "delta": 0,
+      "metricas": {
+        "ir": 3.9,
+        "exc": 0.6234000000000001,
+        "sharpe": 2.46,
+        "var95": -0.0175,
+        "mdd": -0.0666
+      },
+      "puntosDetalle": {
+        "ir": 21.230769,
+        "exc": 16.796931,
+        "sharpe": 9.169884,
+        "var95": 5.211864,
+        "mdd": 7.149162
+      },
+      "miembros": [
+        {
+          "nombre": "Yommer Haniel Hernandez Herrera",
+          "linkedin": "https://www.linkedin.com/in/yommer-haniel-hernandez-herrera-b53a5b304?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+        },
+        {
+          "nombre": "Cristobal Maximiliano Saavedra Fuentes",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Vicente Andrés Avendaño Stevenson",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 59.56,
+          "posicion": 13,
+          "ret": 0.1037
+        }
+      ]
+    },
+    {
+      "id": "fat-fingers",
+      "nombre": "Fat fingers",
+      "posicion": 14,
+      "puntos": 59.28,
+      "retRel": 0.8795000000000001,
+      "delta": 0,
+      "metricas": {
+        "ir": 2.94,
+        "exc": 0.8795000000000001,
+        "sharpe": 2.25,
+        "var95": -0.0171,
+        "mdd": -0.0785
+      },
+      "puntosDetalle": {
+        "ir": 18.065934,
+        "exc": 21.409019,
+        "sharpe": 8.764479,
+        "var95": 5.466102,
+        "mdd": 5.573698
+      },
+      "miembros": [
+        {
+          "nombre": "Benjamín Palma",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Nicolás Saba",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Santiago Phillips",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 59.28,
+          "posicion": 14,
+          "ret": 0.1303
+        }
+      ]
+    },
+    {
+      "id": "athena",
+      "nombre": "Athena",
+      "posicion": 15,
+      "puntos": 59.18,
+      "retRel": 0.1375,
+      "delta": 0,
+      "metricas": {
+        "ir": 1.73,
+        "exc": 0.1375,
+        "sharpe": 3.4,
+        "var95": -0.0067,
+        "mdd": -0.0149
+      },
+      "puntosDetalle": {
+        "ir": 14.076923,
+        "exc": 8.046391,
+        "sharpe": 10.984556,
+        "var95": 12.076271,
+        "mdd": 13.993822
+      },
+      "miembros": [
+        {
+          "nombre": "Maria José Silva Lizana",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Maria Consuelo Villarroel Uribe",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Antonia Javiera Wuth Cabrera",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 59.18,
+          "posicion": 15,
+          "ret": 0.0281
+        }
+      ]
+    },
+    {
+      "id": "terra-capital",
+      "nombre": "Terra Capital",
+      "posicion": 16,
+      "puntos": 58.79,
+      "retRel": 0.020499999999999997,
+      "delta": 0,
+      "metricas": {
+        "ir": 3.86,
+        "exc": 0.020499999999999997,
+        "sharpe": 2.54,
+        "var95": -0.008199999999999999,
+        "mdd": -0.0352
+      },
+      "puntosDetalle": {
+        "ir": 21.098901,
+        "exc": 5.939346,
+        "sharpe": 9.324324,
+        "var95": 11.122881,
+        "mdd": 11.306267
+      },
+      "miembros": [
+        {
+          "nombre": "Alonso Ortega",
+          "linkedin": "https://www.linkedin.com/in/alonso-ortega-9610b93b8?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+        },
+        {
+          "nombre": "Miguel Montaner",
+          "linkedin": "https://www.linkedin.com/in/miguel-montaner-037277292?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+        },
+        {
+          "nombre": "Lukas Bravo",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 58.79,
+          "posicion": 16,
+          "ret": 0.0287
+        }
+      ]
+    },
+    {
+      "id": "rs-investment-group",
+      "nombre": "R&S Investment Group",
+      "posicion": 17,
+      "puntos": 58.61,
+      "retRel": 0.3186,
+      "delta": 0,
+      "metricas": {
+        "ir": 3.7,
+        "exc": 0.3186,
+        "sharpe": 2.42,
+        "var95": -0.0131,
+        "mdd": -0.0479
+      },
+      "puntosDetalle": {
+        "ir": 20.571429,
+        "exc": 11.307809,
+        "sharpe": 9.092664,
+        "var95": 8.008475,
+        "mdd": 9.62489
+      },
+      "miembros": [
+        {
+          "nombre": "Diego Alonso Ruz Castillo",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Arturo Andrés Saavedra Sepúlveda",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 58.61,
+          "posicion": 17,
+          "ret": 0.0597
+        }
+      ]
+    },
+    {
+      "id": "riskisamurai",
+      "nombre": "RiskiSamurai",
+      "posicion": 18,
+      "puntos": 58.57,
+      "retRel": 0.0,
+      "delta": 0,
+      "metricas": {
+        "ir": 4.76,
+        "exc": 0.0,
+        "sharpe": 3.8,
+        "var95": -0.011699999999999999,
+        "mdd": -0.016
+      },
+      "puntosDetalle": {
+        "ir": 24.065934,
+        "exc": 0,
+        "sharpe": 11.756757,
+        "var95": 8.898305,
+        "mdd": 13.848191
+      },
+      "miembros": [
+        {
+          "nombre": "Juan Pablo Díaz Cerda",
+          "linkedin": "https://www.linkedin.com/in/juan-pablo-díaz-cerda-449133310/"
+        },
+        {
+          "nombre": "Valentina Perez Perez",
+          "linkedin": "https://www.linkedin.com/in/valentina-perez-perez-96b87b279"
+        },
+        {
+          "nombre": "Vicente Burgos",
+          "linkedin": "https://www.linkedin.com/in/vicenteburgos?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 58.57,
+          "posicion": 18,
+          "ret": 0.0
+        }
+      ]
+    },
+    {
+      "id": "optimo-investment",
+      "nombre": "Optimo Investment",
+      "posicion": 19,
+      "puntos": 58.26,
+      "retRel": 0.6149,
+      "delta": 0,
+      "metricas": {
+        "ir": 4.47,
+        "exc": 0.6149,
+        "sharpe": 2.61,
+        "var95": -0.0204,
+        "mdd": -0.07769999999999999
+      },
+      "puntosDetalle": {
+        "ir": 23.10989,
+        "exc": 16.643855,
+        "sharpe": 9.459459,
+        "var95": 3.368644,
+        "mdd": 5.679612
+      },
+      "miembros": [
+        {
+          "nombre": "Renato Ortega",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Benjamin Mundaca",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 58.26,
+          "posicion": 19,
+          "ret": 0.0966
+        }
+      ]
+    },
+    {
+      "id": "fencashticos",
+      "nombre": "Fencashticos",
+      "posicion": 20,
+      "puntos": 56.72,
+      "retRel": 0.2607,
+      "delta": 0,
+      "metricas": {
+        "ir": 3.47,
+        "exc": 0.2607,
+        "sharpe": 2.02,
+        "var95": -0.0115,
+        "mdd": -0.0504
+      },
+      "puntosDetalle": {
+        "ir": 19.813187,
+        "exc": 10.265091,
+        "sharpe": 8.320463,
+        "var95": 9.025424,
+        "mdd": 9.29391
+      },
+      "miembros": [
+        {
+          "nombre": "Francisco Antonio Freire Sabaj",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Carlos Ignacio Piaggio Stack",
+          "linkedin": "https://www.linkedin.com/in/carlos-piaggio-stack-84319027b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 56.72,
+          "posicion": 20,
+          "ret": 0.055
+        }
+      ]
+    },
+    {
+      "id": "malaga-capital-partners",
+      "nombre": "Malaga Capital Partners",
+      "posicion": 21,
+      "puntos": 55.22,
+      "retRel": 0.2779,
+      "delta": 0,
+      "metricas": {
+        "ir": 3.5,
+        "exc": 0.2779,
+        "sharpe": 1.84,
+        "var95": -0.0132,
+        "mdd": -0.054000000000000006
+      },
+      "puntosDetalle": {
+        "ir": 19.912088,
+        "exc": 10.574845,
+        "sharpe": 7.972973,
+        "var95": 7.944915,
+        "mdd": 8.817299
+      },
+      "miembros": [
+        {
+          "nombre": "Diego Letelier",
+          "linkedin": "https://www.linkedin.com/in/diego-letelier-reyman-54927136b?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+        },
+        {
+          "nombre": "Guillermo Barros",
+          "linkedin": "https://www.linkedin.com/in/gbarrosm?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 55.22,
+          "posicion": 21,
+          "ret": 0.0444
+        }
+      ]
+    },
+    {
+      "id": "market-moggers",
+      "nombre": "Market Moggers",
+      "posicion": 22,
+      "puntos": 54.91,
+      "retRel": 0.0867,
+      "delta": 0,
+      "metricas": {
+        "ir": 3.2,
+        "exc": 0.0867,
+        "sharpe": 2.47,
+        "var95": -0.0118,
+        "mdd": -0.0388
+      },
+      "puntosDetalle": {
+        "ir": 18.923077,
+        "exc": 7.131537,
+        "sharpe": 9.189189,
+        "var95": 8.834746,
+        "mdd": 10.829656
+      },
+      "miembros": [
+        {
+          "nombre": "Álvaro Pacheco Correa",
+          "linkedin": "https://www.linkedin.com/in/%C3%A1lvaro-pacheco-correa-b418a13a9/"
+        },
+        {
+          "nombre": "Renato Urrutia Gandolfo",
+          "linkedin": "https://www.linkedin.com/in/renato-urrutia-gandolfo-36a3322a3/"
+        },
+        {
+          "nombre": "Alberto Muñoz Molina",
+          "linkedin": "https://www.linkedin.com/in/alberto-josé-muñoz-molina-62b32831b?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 54.91,
+          "posicion": 22,
+          "ret": 0.0349
+        }
+      ]
+    },
+    {
+      "id": "orb-asset-management",
+      "nombre": "ORB Asset Management",
+      "posicion": 23,
+      "puntos": 53.38,
+      "retRel": 0.6074,
+      "delta": 0,
+      "metricas": {
+        "ir": 2.73,
+        "exc": 0.6074,
+        "sharpe": 1.75,
+        "var95": -0.0178,
+        "mdd": -0.0702
+      },
+      "puntosDetalle": {
+        "ir": 17.373626,
+        "exc": 16.508788,
+        "sharpe": 7.799228,
+        "var95": 5.021186,
+        "mdd": 6.672551
+      },
+      "miembros": [
+        {
+          "nombre": "Oscar Troncoso Espinosa",
+          "linkedin": "https://www.linkedin.com/in/oscar-troncoso-espinosa-6145bb259"
+        },
+        {
+          "nombre": "Benjamín Caro Cuevas",
+          "linkedin": "https://www.linkedin.com/in/benjam%C3%ADn-alonso-caro-cuevas-70a348343"
+        },
+        {
+          "nombre": "Rafael Román Durán",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 53.38,
+          "posicion": 23,
+          "ret": 0.0796
+        }
+      ]
+    },
+    {
+      "id": "alpha-makers",
+      "nombre": "Alpha makers",
+      "posicion": 24,
+      "puntos": 52.91,
+      "retRel": 0.32939999999999997,
+      "delta": 0,
+      "metricas": {
+        "ir": 2.86,
+        "exc": 0.32939999999999997,
+        "sharpe": 1.95,
+        "var95": -0.0161,
+        "mdd": -0.050199999999999995
+      },
+      "puntosDetalle": {
+        "ir": 17.802198,
+        "exc": 11.502305,
+        "sharpe": 8.185328,
+        "var95": 6.101695,
+        "mdd": 9.320388
+      },
+      "miembros": [
+        {
+          "nombre": "Raúl Ignacio Salinas Muñoz",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Isable Antonia Cabezas Salvatierra",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 52.91,
+          "posicion": 24,
+          "ret": 0.071
+        }
+      ]
+    },
+    {
+      "id": "free-riders",
+      "nombre": "Free Riders",
+      "posicion": 25,
+      "puntos": 52.0,
+      "retRel": 0.8401000000000001,
+      "delta": 0,
+      "metricas": {
+        "ir": 2.72,
+        "exc": 0.8401000000000001,
+        "sharpe": 2.03,
+        "var95": -0.022799999999999997,
+        "mdd": -0.09210000000000002
+      },
+      "puntosDetalle": {
+        "ir": 17.340659,
+        "exc": 20.699467,
+        "sharpe": 8.339768,
+        "var95": 1.84322,
+        "mdd": 3.773169
+      },
+      "miembros": [
+        {
+          "nombre": "Lucas Daniel Valenzuela Pavez",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Martin Amaru Farias Gaete",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 52.0,
+          "posicion": 25,
+          "ret": 0.1261
+        }
+      ]
+    },
+    {
+      "id": "dfs-capital",
+      "nombre": "DFS CAPITAL",
+      "posicion": 26,
+      "puntos": 51.92,
+      "retRel": 0.2271,
+      "delta": 0,
+      "metricas": {
+        "ir": 2.74,
+        "exc": 0.2271,
+        "sharpe": 1.8,
+        "var95": -0.0146,
+        "mdd": -0.0458
+      },
+      "puntosDetalle": {
+        "ir": 17.406593,
+        "exc": 9.659991,
+        "sharpe": 7.895753,
+        "var95": 7.055085,
+        "mdd": 9.902913
+      },
+      "miembros": [
+        {
+          "nombre": "Felipe Cifuentes",
+          "linkedin": "https://www.linkedin.com/in/felipe-ignacio-cifuentes-urra-146954229?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+        },
+        {
+          "nombre": "Diego Adones",
+          "linkedin": "https://www.linkedin.com/in/diego-adones-lópez?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+        },
+        {
+          "nombre": "Sergio Contreras",
+          "linkedin": "https://www.linkedin.com/in/sergio-contreras-cabrera-0463372a5/details/experience/"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 51.92,
+          "posicion": 26,
+          "ret": 0.0457
+        }
+      ]
+    },
+    {
+      "id": "barber-iker-investment-group",
+      "nombre": "Barber Iker Investment Group",
+      "posicion": 27,
+      "puntos": 51.88,
+      "retRel": 0.1699,
+      "delta": 0,
+      "metricas": {
+        "ir": 3.48,
+        "exc": 0.1699,
+        "sharpe": 1.99,
+        "var95": -0.016,
+        "mdd": -0.0528
+      },
+      "puntosDetalle": {
+        "ir": 19.846154,
+        "exc": 8.62988,
+        "sharpe": 8.262548,
+        "var95": 6.165254,
+        "mdd": 8.976169
+      },
+      "miembros": [
+        {
+          "nombre": "Maximiliano Benjamín Cea Vera",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Vicente Luis Castillo Gonazalez",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Martin Alonso Calderon Cavieres",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 51.88,
+          "posicion": 27,
+          "ret": 0.0533
+        }
+      ]
+    },
+    {
+      "id": "o-c-g-investment",
+      "nombre": "O.C.G. Investment",
+      "posicion": 28,
+      "puntos": 51.43,
+      "retRel": 0.4877,
+      "delta": 0,
+      "metricas": {
+        "ir": 2.83,
+        "exc": 0.4877,
+        "sharpe": 1.93,
+        "var95": -0.018600000000000002,
+        "mdd": -0.0699
+      },
+      "puntosDetalle": {
+        "ir": 17.703297,
+        "exc": 14.353119,
+        "sharpe": 8.146718,
+        "var95": 4.512712,
+        "mdd": 6.712268
+      },
+      "miembros": [
+        {
+          "nombre": "Agustina María Correa Erlbaum",
+          "linkedin": "https://www.linkedin.com/in/agustinacorreaerlbaum"
+        },
+        {
+          "nombre": "Jacinta Lucía Olavarría Quingles",
+          "linkedin": "https://www.linkedin.com/in/jacinta-lucía-olavarría-quingles-603833364?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+        },
+        {
+          "nombre": "Vicente Gabriel Gómez Órdenes",
+          "linkedin": "https://www.linkedin.com/in/vicenteggomez"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 51.43,
+          "posicion": 28,
+          "ret": 0.0792
+        }
+      ]
+    },
+    {
+      "id": "coclea-corp",
+      "nombre": "Coclea Corp",
+      "posicion": 29,
+      "puntos": 51.02,
+      "retRel": 0.18350000000000002,
+      "delta": 0,
+      "metricas": {
+        "ir": 3.2,
+        "exc": 0.18350000000000002,
+        "sharpe": 2.06,
+        "var95": -0.0179,
+        "mdd": -0.0461
+      },
+      "puntosDetalle": {
+        "ir": 18.923077,
+        "exc": 8.874802,
+        "sharpe": 8.397683,
+        "var95": 4.957627,
+        "mdd": 9.863195
+      },
+      "miembros": [
+        {
+          "nombre": "Santiago Gaete",
+          "linkedin": ""
+        },
+        {
+          "nombre": "alfonso romanini",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 51.02,
+          "posicion": 29,
+          "ret": 0.0547
+        }
+      ]
+    },
+    {
+      "id": "vcl-capital",
+      "nombre": "VCL Capital",
+      "posicion": 30,
+      "puntos": 50.1,
+      "retRel": 0.1411,
+      "delta": 0,
+      "metricas": {
+        "ir": 2.5,
+        "exc": 0.1411,
+        "sharpe": 1.74,
+        "var95": -0.0126,
+        "mdd": -0.0506
+      },
+      "puntosDetalle": {
+        "ir": 16.615385,
+        "exc": 8.111223,
+        "sharpe": 7.779923,
+        "var95": 8.326271,
+        "mdd": 9.267432
+      },
+      "miembros": [
+        {
+          "nombre": "Pedro Pablo Castillo Rosenberg",
+          "linkedin": "https://Pedro Pablo Castillo Rosenberg"
+        },
+        {
+          "nombre": "Josefa Varela Jacob",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Juan José Limarí Campos",
+          "linkedin": "https://Juan José Limari"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 50.1,
+          "posicion": 30,
+          "ret": 0.0406
+        }
+      ]
+    },
+    {
+      "id": "dinamico-italiano",
+      "nombre": "Dinamico-Italiano",
+      "posicion": 31,
+      "puntos": 50.05,
+      "retRel": 0.0611,
+      "delta": 0,
+      "metricas": {
+        "ir": 1.65,
+        "exc": 0.0611,
+        "sharpe": 1.98,
+        "var95": -0.011000000000000001,
+        "mdd": -0.0301
+      },
+      "puntosDetalle": {
+        "ir": 13.813187,
+        "exc": 6.670509,
+        "sharpe": 8.243243,
+        "var95": 9.34322,
+        "mdd": 11.981465
+      },
+      "miembros": [
+        {
+          "nombre": "Valentina Aguilera Vega",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Martín Maldini Ramírez",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 50.05,
+          "posicion": 31,
+          "ret": 0.0313
+        }
+      ]
+    },
+    {
+      "id": "emax-wealth",
+      "nombre": "Emax Wealth",
+      "posicion": 32,
+      "puntos": 48.01,
+      "retRel": 0.3226,
+      "delta": 0,
+      "metricas": {
+        "ir": 2.75,
+        "exc": 0.3226,
+        "sharpe": 1.82,
+        "var95": -0.0192,
+        "mdd": -0.0668
+      },
+      "puntosDetalle": {
+        "ir": 17.43956,
+        "exc": 11.379844,
+        "sharpe": 7.934363,
+        "var95": 4.131356,
+        "mdd": 7.122683
+      },
+      "miembros": [
+        {
+          "nombre": "Maximiliano Bittelman Olmos",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Emilia Jorquera Perez",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 48.01,
+          "posicion": 32,
+          "ret": 0.0664
+        }
+      ]
+    },
+    {
+      "id": "luky-capital",
+      "nombre": "Luky Capital",
+      "posicion": 33,
+      "puntos": 47.98,
+      "retRel": -0.026000000000000002,
+      "delta": 0,
+      "metricas": {
+        "ir": 1.27,
+        "exc": -0.026000000000000002,
+        "sharpe": 2.61,
+        "var95": -0.0060999999999999995,
+        "mdd": -0.018600000000000002
+      },
+      "puntosDetalle": {
+        "ir": 12.56044,
+        "exc": 0,
+        "sharpe": 9.459459,
+        "var95": 12.457627,
+        "mdd": 13.503972
+      },
+      "miembros": [
+        {
+          "nombre": "Andres Llaña",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Barbara Johnson",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 47.98,
+          "posicion": 33,
+          "ret": 0.0057
+        }
+      ]
+    },
+    {
+      "id": "indarra-investments",
+      "nombre": "Indarra Investments",
+      "posicion": 34,
+      "puntos": 47.9,
+      "retRel": 0.3041,
+      "delta": 0,
+      "metricas": {
+        "ir": 2.29,
+        "exc": 0.3041,
+        "sharpe": 1.48,
+        "var95": -0.0163,
+        "mdd": -0.0626
+      },
+      "puntosDetalle": {
+        "ir": 15.923077,
+        "exc": 11.046679,
+        "sharpe": 7.277992,
+        "var95": 5.974576,
+        "mdd": 7.678729
+      },
+      "miembros": [
+        {
+          "nombre": "Benjamín Alfonso Reyes Meza",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Ignacio Paul Sepúlveda Inzunza",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Pol Antón Martí Rishmague",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 47.9,
+          "posicion": 34,
+          "ret": 0.057
+        }
+      ]
+    },
+    {
+      "id": "portafen",
+      "nombre": "Portafen",
+      "posicion": 35,
+      "puntos": 47.62,
+      "retRel": 0.4208,
+      "delta": 0,
+      "metricas": {
+        "ir": 2.21,
+        "exc": 0.4208,
+        "sharpe": 1.47,
+        "var95": -0.0181,
+        "mdd": -0.0698
+      },
+      "puntosDetalle": {
+        "ir": 15.659341,
+        "exc": 13.148322,
+        "sharpe": 7.258687,
+        "var95": 4.830508,
+        "mdd": 6.725508
+      },
+      "miembros": [
+        {
+          "nombre": "renato retamales",
+          "linkedin": ""
+        },
+        {
+          "nombre": "gabriel loyola",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 47.62,
+          "posicion": 35,
+          "ret": 0.059
+        }
+      ]
+    },
+    {
+      "id": "diagonal-capital",
+      "nombre": "Diagonal Capital",
+      "posicion": 36,
+      "puntos": 47.57,
+      "retRel": 0.10289999999999999,
+      "delta": 0,
+      "metricas": {
+        "ir": 1.83,
+        "exc": 0.10289999999999999,
+        "sharpe": 1.49,
+        "var95": -0.011000000000000001,
+        "mdd": -0.0519
+      },
+      "puntosDetalle": {
+        "ir": 14.406593,
+        "exc": 7.423282,
+        "sharpe": 7.297297,
+        "var95": 9.34322,
+        "mdd": 9.095322
+      },
+      "miembros": [
+        {
+          "nombre": "Matías Alejandro Garrido Henríquez",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Sebastián Alonso Quiroz Gómez",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Jorge Ignacio Cantallopts Jara",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 47.57,
+          "posicion": 36,
+          "ret": 0.0365
+        }
+      ]
+    },
+    {
+      "id": "bull-market-boys",
+      "nombre": "Bull Market Boys",
+      "posicion": 37,
+      "puntos": 47.54,
+      "retRel": 0.0012,
+      "delta": 0,
+      "metricas": {
+        "ir": 2.07,
+        "exc": 0.0012,
+        "sharpe": 1.65,
+        "var95": -0.0121,
+        "mdd": -0.041299999999999996
+      },
+      "puntosDetalle": {
+        "ir": 15.197802,
+        "exc": 5.591774,
+        "sharpe": 7.606178,
+        "var95": 8.644068,
+        "mdd": 10.498676
+      },
+      "miembros": [
+        {
+          "nombre": "Daniel Cortés Tirado",
+          "linkedin": "https://www.linkedin.com/in/daniel-cortés-tirado-7025b8313"
+        },
+        {
+          "nombre": "Cristóbal Amaro jerez Domínguez",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 47.54,
+          "posicion": 37,
+          "ret": 0.0299
+        }
+      ]
+    },
+    {
+      "id": "nova-praxis-asset-management",
+      "nombre": "Nova Praxis Asset Management",
+      "posicion": 38,
+      "puntos": 45.65,
+      "retRel": 0.20149999999999998,
+      "delta": 0,
+      "metricas": {
+        "ir": 2.86,
+        "exc": 0.20149999999999998,
+        "sharpe": 1.08,
+        "var95": -0.0206,
+        "mdd": -0.053399999999999996
+      },
+      "puntosDetalle": {
+        "ir": 17.802198,
+        "exc": 9.198963,
+        "sharpe": 6.505792,
+        "var95": 3.241525,
+        "mdd": 8.896734
+      },
+      "miembros": [
+        {
+          "nombre": "Vicente Contreras Gormaz",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Mariana Pérez Machado",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Vicente Contreras Gormaz",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 45.65,
+          "posicion": 38,
+          "ret": 0.0421
+        }
+      ]
+    },
+    {
+      "id": "bbr-investments",
+      "nombre": "BBR Investments",
+      "posicion": 39,
+      "puntos": 41.73,
+      "retRel": 0.052199999999999996,
+      "delta": 0,
+      "metricas": {
+        "ir": 1.95,
+        "exc": 0.052199999999999996,
+        "sharpe": 1.29,
+        "var95": -0.0179,
+        "mdd": -0.055999999999999994
+      },
+      "puntosDetalle": {
+        "ir": 14.802198,
+        "exc": 6.510229,
+        "sharpe": 6.911197,
+        "var95": 4.957627,
+        "mdd": 8.552515
+      },
+      "miembros": [
+        {
+          "nombre": "Benjamin Lavin Pulido",
+          "linkedin": "https://www.linkedin.com/in/benjamin-lavin-pulido-066390347?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+        },
+        {
+          "nombre": "Bastian Alexander Angulo Rojas",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Rodrigo ignacio dumigual gomez",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 41.73,
+          "posicion": 39,
+          "ret": 0.0346
+        }
+      ]
+    },
+    {
+      "id": "clb",
+      "nombre": "CLB",
+      "posicion": 40,
+      "puntos": 41.28,
+      "retRel": -0.1014,
+      "delta": 0,
+      "metricas": {
+        "ir": 1.2,
+        "exc": -0.1014,
+        "sharpe": 1.43,
+        "var95": -0.010700000000000001,
+        "mdd": -0.0282
+      },
+      "puntosDetalle": {
+        "ir": 12.32967,
+        "exc": 0,
+        "sharpe": 7.181467,
+        "var95": 9.533898,
+        "mdd": 12.23301
+      },
+      "miembros": [
+        {
+          "nombre": "Lucas Vicente Troy Casanova",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Bruno Aspee Von Knorring",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Claudio Antonio Ogaz Solar",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 41.28,
+          "posicion": 40,
+          "ret": 0.0191
+        }
+      ]
+    },
+    {
+      "id": "mosqueteros",
+      "nombre": "Mosqueteros",
+      "posicion": 41,
+      "puntos": 40.48,
+      "retRel": 0.06280000000000001,
+      "delta": 0,
+      "metricas": {
+        "ir": -0.15,
+        "exc": 0.06280000000000001,
+        "sharpe": 1.08,
+        "var95": -0.0040999999999999995,
+        "mdd": -0.0183
+      },
+      "puntosDetalle": {
+        "ir": 0,
+        "exc": 6.701124,
+        "sharpe": 6.505792,
+        "var95": 13.728814,
+        "mdd": 13.543689
+      },
+      "miembros": [
+        {
+          "nombre": "Jorge Mery",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Clemente Hurtado",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Borja Bizzarri Edwars",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 40.48,
+          "posicion": 41,
+          "ret": 0.0115
+        }
+      ]
+    },
+    {
+      "id": "9-financiero",
+      "nombre": "9 financiero",
+      "posicion": 42,
+      "puntos": 40.28,
+      "retRel": 0.0496,
+      "delta": 0,
+      "metricas": {
+        "ir": 0.24,
+        "exc": 0.0496,
+        "sharpe": 0.67,
+        "var95": -0.011399999999999999,
+        "mdd": -0.0462
+      },
+      "puntosDetalle": {
+        "ir": 9.164835,
+        "exc": 6.463406,
+        "sharpe": 5.714286,
+        "var95": 9.088983,
+        "mdd": 9.849956
+      },
+      "miembros": [
+        {
+          "nombre": "Vicente Andrés Arias Venegas",
+          "linkedin": "https://www.linkedin.com/in/vicente-arias-1bb45625b?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+        },
+        {
+          "nombre": "Alfonso Gómez-Lobo Alcalde",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Clemente Laborde Benavente",
+          "linkedin": "https://www.linkedin.com/in/clemente-laborde-benavente-649600241?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 40.28,
+          "posicion": 42,
+          "ret": 0.0249
+        }
+      ]
+    },
+    {
+      "id": "alpha-partners",
+      "nombre": "Alpha Partners",
+      "posicion": 43,
+      "puntos": 38.09,
+      "retRel": -0.0466,
+      "delta": 0,
+      "metricas": {
+        "ir": 0.29,
+        "exc": -0.0466,
+        "sharpe": 0.72,
+        "var95": -0.0064,
+        "mdd": -0.039900000000000005
+      },
+      "puntosDetalle": {
+        "ir": 9.32967,
+        "exc": 0,
+        "sharpe": 5.810811,
+        "var95": 12.266949,
+        "mdd": 10.684025
+      },
+      "miembros": [
+        {
+          "nombre": "Antonia Paz Vilches Ureta",
+          "linkedin": "https://www.linkedin.com/in/antoniavilchesureta"
+        },
+        {
+          "nombre": "Elizabeth Salome Núñez Neira",
+          "linkedin": "https://www.linkedin.com/in/elizabethnuñez"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 38.09,
+          "posicion": 43,
+          "ret": 0.0232
+        }
+      ]
+    },
+    {
+      "id": "dcf-supremacy",
+      "nombre": "DCF Supremacy",
+      "posicion": 44,
+      "puntos": 38.03,
+      "retRel": -0.129,
+      "delta": 0,
+      "metricas": {
+        "ir": 0.74,
+        "exc": -0.129,
+        "sharpe": 1.13,
+        "var95": -0.011000000000000001,
+        "mdd": -0.0355
+      },
+      "puntosDetalle": {
+        "ir": 10.813187,
+        "exc": 0,
+        "sharpe": 6.602317,
+        "var95": 9.34322,
+        "mdd": 11.266549
+      },
+      "miembros": [
+        {
+          "nombre": "Jhosep Gabriel García Suarez",
+          "linkedin": "https://www.linkedin.com/in/jhosep-garcia/"
+        },
+        {
+          "nombre": "Samuel Rodriguez Arnolds",
+          "linkedin": "https://www.linkedin.com/in/samuel-rodr%C3%ADguez-arnolds-8b9608241/"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 38.03,
+          "posicion": 44,
+          "ret": 0.0079
+        }
+      ]
+    },
+    {
+      "id": "seriosfc",
+      "nombre": "SeriosFc",
+      "posicion": 45,
+      "puntos": 35.79,
+      "retRel": 0.1535,
+      "delta": 0,
+      "metricas": {
+        "ir": 1.04,
+        "exc": 0.1535,
+        "sharpe": 0.74,
+        "var95": -0.0215,
+        "mdd": -0.0667
+      },
+      "puntosDetalle": {
+        "ir": 11.802198,
+        "exc": 8.334534,
+        "sharpe": 5.849421,
+        "var95": 2.669492,
+        "mdd": 7.135922
+      },
+      "miembros": [
+        {
+          "nombre": "Tomas Rojas Moya",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Flavio Pérez Bustos",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 35.79,
+          "posicion": 45,
+          "ret": 0.0408
+        }
+      ]
+    },
+    {
+      "id": "pink-capital",
+      "nombre": "Pink Capital",
+      "posicion": 46,
+      "puntos": 35.45,
+      "retRel": -0.2165,
+      "delta": 0,
+      "metricas": {
+        "ir": 0.28,
+        "exc": -0.2165,
+        "sharpe": 0.78,
+        "var95": -0.0106,
+        "mdd": -0.0403
+      },
+      "puntosDetalle": {
+        "ir": 9.296703,
+        "exc": 0,
+        "sharpe": 5.926641,
+        "var95": 9.597458,
+        "mdd": 10.631068
+      },
+      "miembros": [
+        {
+          "nombre": "Daniela Andrea Flores Albornoz",
+          "linkedin": "https://www.linkedin.com/in/daniela-flores-412a8a309?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+        },
+        {
+          "nombre": "Valentina Samai Aguirre Berroeta",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Maureen Sayen Salazar Rosales",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 35.45,
+          "posicion": 46,
+          "ret": 0.0104
+        }
+      ]
+    },
+    {
+      "id": "sa-partners",
+      "nombre": "SA Partners",
+      "posicion": 47,
+      "puntos": 35.42,
+      "retRel": -0.0288,
+      "delta": 0,
+      "metricas": {
+        "ir": -0.44,
+        "exc": -0.0288,
+        "sharpe": 0.52,
+        "var95": -0.0021,
+        "mdd": -0.0073
+      },
+      "puntosDetalle": {
+        "ir": 0,
+        "exc": 0,
+        "sharpe": 5.42471,
+        "var95": 15.0,
+        "mdd": 15.0
+      },
+      "miembros": [
+        {
+          "nombre": "Gabriel Soliz",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Sebastian Atencia",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 35.42,
+          "posicion": 47,
+          "ret": 0.0016
+        }
+      ]
+    },
+    {
+      "id": "ccq",
+      "nombre": "CCQ",
+      "posicion": 48,
+      "puntos": 35.12,
+      "retRel": -0.048,
+      "delta": 0,
+      "metricas": {
+        "ir": 0.73,
+        "exc": -0.048,
+        "sharpe": 0.91,
+        "var95": -0.0104,
+        "mdd": -0.056900000000000006
+      },
+      "puntosDetalle": {
+        "ir": 10.78022,
+        "exc": 0,
+        "sharpe": 6.177606,
+        "var95": 9.724576,
+        "mdd": 8.433363
+      },
+      "miembros": [
+        {
+          "nombre": "Jeferson Alexis Quispe Infante",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Jeferson Alexis Quispe Infante",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Benjamín Ignacio Castillo Collio",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 35.12,
+          "posicion": 48,
+          "ret": 0.0195
+        }
+      ]
+    },
+    {
+      "id": "los-estadisticos-inconscientes",
+      "nombre": "Los Estadísticos Inconscientes",
+      "posicion": 49,
+      "puntos": 34.37,
+      "retRel": 0.2799,
+      "delta": 0,
+      "metricas": {
+        "ir": 1.16,
+        "exc": 0.2799,
+        "sharpe": 0.96,
+        "var95": -0.024399999999999998,
+        "mdd": -0.08689999999999999
+      },
+      "puntosDetalle": {
+        "ir": 12.197802,
+        "exc": 10.610863,
+        "sharpe": 6.274131,
+        "var95": 0.826271,
+        "mdd": 4.461606
+      },
+      "miembros": [
+        {
+          "nombre": "Diego Alejandro Muñoz Gutierrez",
+          "linkedin": "https://www.linkedin.com/in/diego-a-mu%C3%B1oz-g-9060a9215?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+        },
+        {
+          "nombre": "Jorge Andrés Bustamante Bustamante",
+          "linkedin": "https://www.linkedin.com/in/jorge-bustamante-565a922a4"
+        },
+        {
+          "nombre": "Juan Luis Silva Garrido",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 34.37,
+          "posicion": 49,
+          "ret": 0.0579
+        }
+      ]
+    },
+    {
+      "id": "mvf-capital",
+      "nombre": "MVF Capital",
+      "posicion": 51,
+      "puntos": 33.37,
+      "retRel": 0.2426,
+      "delta": 0,
+      "metricas": {
+        "ir": 0.49,
+        "exc": 0.2426,
+        "sharpe": 0.52,
+        "var95": -0.0216,
+        "mdd": -0.0797
+      },
+      "puntosDetalle": {
+        "ir": 9.989011,
+        "exc": 9.93913,
+        "sharpe": 5.42471,
+        "var95": 2.605932,
+        "mdd": 5.414828
+      },
+      "miembros": [
+        {
+          "nombre": "Santiago Meza Fernandez",
+          "linkedin": "https://www.linkedin.com/in/santiago-meza-fern%C3%A1ndez-b95258365"
+        },
+        {
+          "nombre": "Matías Vial Correa",
+          "linkedin": "https://www.linkedin.com/in/matias-vial-0191bb271"
+        },
+        {
+          "nombre": "José Fabres Bengolea",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 33.37,
+          "posicion": 51,
+          "ret": 0.0434
+        }
+      ]
+    },
+    {
+      "id": "pgat",
+      "nombre": "PGAt",
+      "posicion": 52,
+      "puntos": 32.96,
+      "retRel": -0.0138,
+      "delta": 0,
+      "metricas": {
+        "ir": 1.17,
+        "exc": -0.0138,
+        "sharpe": 0.97,
+        "var95": -0.0149,
+        "mdd": -0.0634
+      },
+      "puntosDetalle": {
+        "ir": 12.230769,
+        "exc": 0,
+        "sharpe": 6.293436,
+        "var95": 6.864407,
+        "mdd": 7.572816
+      },
+      "miembros": [
+        {
+          "nombre": "Agustin Palacios",
+          "linkedin": "https://www.linkedin.com/in/agustin-palacios-soto"
+        },
+        {
+          "nombre": "José Pedro Amenábar",
+          "linkedin": "https://www.linkedin.com/in/jose-amenabar/"
+        },
+        {
+          "nombre": "Tomás Guzmán",
+          "linkedin": "https://www.linkedin.com/in/tom%C3%A1s-agust%C3%ADn-guzm%C3%A1n-di-giammarino-211407389/"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 32.96,
+          "posicion": 52,
+          "ret": 0.0329
+        }
+      ]
+    },
+    {
+      "id": "edp",
+      "nombre": "EDP",
+      "posicion": 53,
+      "puntos": 27.51,
+      "retRel": 0.06269999999999999,
+      "delta": 0,
+      "metricas": {
+        "ir": 0.04,
+        "exc": 0.06269999999999999,
+        "sharpe": 0.31,
+        "var95": -0.024,
+        "mdd": -0.0737
+      },
+      "puntosDetalle": {
+        "ir": 8.505495,
+        "exc": 6.699323,
+        "sharpe": 5.019305,
+        "var95": 1.080508,
+        "mdd": 6.209179
+      },
+      "miembros": [
+        {
+          "nombre": "Ignacio Aylwin Campos",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Cristian Eduardo Meriño Riquelme",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Richard Orlando Figueroa Villegas",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 27.51,
+          "posicion": 53,
+          "ret": 0.0234
+        }
+      ]
+    },
+    {
+      "id": "inversion-racional",
+      "nombre": "Inversión Racional",
+      "posicion": 54,
+      "puntos": 24.81,
+      "retRel": -0.1746,
+      "delta": 0,
+      "metricas": {
+        "ir": -1.44,
+        "exc": -0.1746,
+        "sharpe": -1.78,
+        "var95": -0.0067,
+        "mdd": -0.024399999999999998
+      },
+      "puntosDetalle": {
+        "ir": 0,
+        "exc": 0,
+        "sharpe": 0,
+        "var95": 12.076271,
+        "mdd": 12.736099
+      },
+      "miembros": [
+        {
+          "nombre": "Patricio Caceres",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Jonas jncharles",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 24.81,
+          "posicion": 54,
+          "ret": -0.01
+        }
+      ]
+    },
+    {
+      "id": "black-bulls",
+      "nombre": "Black Bulls",
+      "posicion": 55,
+      "puntos": 24.25,
+      "retRel": -0.0842,
+      "delta": 0,
+      "metricas": {
+        "ir": 0.08,
+        "exc": -0.0842,
+        "sharpe": 0.44,
+        "var95": -0.0208,
+        "mdd": -0.066
+      },
+      "puntosDetalle": {
+        "ir": 8.637363,
+        "exc": 0,
+        "sharpe": 5.27027,
+        "var95": 3.114407,
+        "mdd": 7.228597
+      },
+      "miembros": [
+        {
+          "nombre": "Pablo Fernando Aguilera Bravo",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Cristobal Riveros",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 24.25,
+          "posicion": 55,
+          "ret": 0.0123
+        }
+      ]
+    },
+    {
+      "id": "vnm-capital-partners",
+      "nombre": "VNM Capital Partners",
+      "posicion": 56,
+      "puntos": 20.16,
+      "retRel": -0.2915,
+      "delta": 0,
+      "metricas": {
+        "ir": -1.96,
+        "exc": -0.2915,
+        "sharpe": -1.25,
+        "var95": -0.0105,
+        "mdd": -0.041299999999999996
+      },
+      "puntosDetalle": {
+        "ir": 0,
+        "exc": 0,
+        "sharpe": 0,
+        "var95": 9.661017,
+        "mdd": 10.498676
+      },
+      "miembros": [
+        {
+          "nombre": "Javier Villavicencio",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Benjamin Madariaga",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Sebastian Norambuena",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 20.16,
+          "posicion": 56,
+          "ret": -0.0144
+        }
+      ]
+    },
+    {
+      "id": "vbp-investments",
+      "nombre": "VBP Investments",
+      "posicion": 57,
+      "puntos": 19.58,
+      "retRel": -0.2952,
+      "delta": 0,
+      "metricas": {
+        "ir": -1.85,
+        "exc": -0.2952,
+        "sharpe": -1.15,
+        "var95": -0.0123,
+        "mdd": -0.037000000000000005
+      },
+      "puntosDetalle": {
+        "ir": 0,
+        "exc": 0,
+        "sharpe": 0,
+        "var95": 8.516949,
+        "mdd": 11.067961
+      },
+      "miembros": [
+        {
+          "nombre": "Pablo Andres Menning Squella",
+          "linkedin": "https://www.linkedin.com/in/pablo-menning-squella-ba8061349?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+        },
+        {
+          "nombre": "Benjamin Maximiliano Valenzuela Vigas",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Vicente Alejandro Fuenzalida León",
+          "linkedin": "https://www.linkedin.com/in/vicente-fuenzalida-leon-550a50278?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 19.58,
+          "posicion": 57,
+          "ret": -0.0123
+        }
+      ]
+    },
+    {
+      "id": "default-capital",
+      "nombre": "Default Capital",
+      "posicion": 58,
+      "puntos": 15.6,
+      "retRel": -0.0484,
+      "delta": 0,
+      "metricas": {
+        "ir": -0.5,
+        "exc": -0.0484,
+        "sharpe": 0.11,
+        "var95": -0.0219,
+        "mdd": -0.055999999999999994
+      },
+      "puntosDetalle": {
+        "ir": 0,
+        "exc": 0,
+        "sharpe": 4.633205,
+        "var95": 2.415254,
+        "mdd": 8.552515
+      },
+      "miembros": [
+        {
+          "nombre": "Nicolas Valdivieso",
+          "linkedin": "https://www.linkedin.com/in/nicol%C3%A1s-valdivieso-jara-462261234?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+        },
+        {
+          "nombre": "Max Turner",
+          "linkedin": "https://www.linkedin.com/in/max-turner-bezanilla-a07161380"
+        },
+        {
+          "nombre": "Cristobal Matte",
+          "linkedin": ""
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 15.6,
+          "posicion": 58,
+          "ret": 0.0189
+        }
+      ]
+    },
+    {
+      "id": "jose",
+      "nombre": "Jose",
+      "posicion": 59,
+      "puntos": 11.21,
+      "retRel": -0.0301,
+      "delta": 0,
+      "metricas": {
+        "ir": -0.39,
+        "exc": -0.0301,
+        "sharpe": 0.07,
+        "var95": -0.0208,
+        "mdd": -0.09390000000000001
+      },
+      "puntosDetalle": {
+        "ir": 0,
+        "exc": 0,
+        "sharpe": 4.555985,
+        "var95": 3.114407,
+        "mdd": 3.534863
+      },
+      "miembros": [
+        {
+          "nombre": "José Toledo",
+          "linkedin": ""
+        },
+        {
+          "nombre": "Sebastián López",
+          "linkedin": "https://www.linkedin.com/in/sebastián-lópez-a3811737a/?skipRedirect=true"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 11.21,
+          "posicion": 59,
+          "ret": 0.0147
+        }
+      ]
+    },
+    {
+      "id": "sharpe-fox",
+      "nombre": "Sharpe Fox",
+      "posicion": 60,
+      "puntos": 10.5,
+      "retRel": 0.0584,
+      "delta": 0,
+      "metricas": {
+        "ir": -2.54,
+        "exc": 0.0584,
+        "sharpe": -2.29,
+        "var95": -0.0196,
+        "mdd": -0.1206
+      },
+      "puntosDetalle": {
+        "ir": 0,
+        "exc": 6.621884,
+        "sharpe": 0,
+        "var95": 3.877119,
+        "mdd": 0
+      },
+      "miembros": [
+        {
+          "nombre": "Laura Beatriz Fuentes Montes",
+          "linkedin": "https://www.linkedin.com/in/andres-guiñez-62bba1326"
+        },
+        {
+          "nombre": "Laura Beatriz Fuentes Montes",
+          "linkedin": "https://linkedin.com/in/laura-beatriz-fuentes-montes-084591337"
+        }
+      ],
+      "historial": [
+        {
+          "semana": 1,
+          "puntos": 10.5,
+          "posicion": 60,
+          "ret": 0.0242
+        }
+      ]
+    }
+  ]
+}

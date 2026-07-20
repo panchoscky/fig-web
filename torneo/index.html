@@ -358,7 +358,7 @@ footer a:hover{color:var(--gold)}
 <header class="hero">
   <div class="wrap">
     <div class="kicker reveal"><span class="scr" data-text="Torneo Portafolio 2026 · FIG">Torneo Portafolio 2026 · FIG</span></div>
-    <h1 class="reveal d1">63 equipos. Un benchmark. <em>Cada viernes, la verdad.</em></h1>
+    <h1 class="reveal d1"><span id="heroEquipos">63</span> equipos. Un benchmark. <em>Cada viernes, la verdad.</em></h1>
     <p class="reveal d2">Carteras simuladas de USD 10 millones en ETFs de iShares/BlackRock, medidas contra el iShares MSCI ACWI con métricas extraídas de Bloomberg PORT. Este es el ranking oficial, acumulado desde el inicio.</p>
     <div class="hero__chips reveal d3">
       <span class="chip-live"><span class="live-dot"></span><span id="chipSemana">SEMANA — DE 25</span></span>
@@ -672,6 +672,7 @@ function renderAll(){
   $("#chipSemana").textContent="SEMANA "+wk+" DE 25";
   $("#chipCorte").textContent=DATA.corte||"—";
   $("#chipEquipos").textContent=eq.length;
+  $("#heroEquipos").textContent=eq.length;
   /* podio */
   var p=$("#podioGrid"),ord=[eq[1],eq[0],eq[2]],cls=["pd--2","pd--1","pd--3"],med=["PLATA · 2°","ORO · 1°","BRONCE · 3°"];
   p.innerHTML=ord.map(function(t,i){

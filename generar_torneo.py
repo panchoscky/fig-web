@@ -43,7 +43,7 @@ SALIDA = RAIZ / "datos" / "torneo.json"
 ALIAS = {
     "nombre":   ["equipo", "nombre", "team", "nombre_equipo"],
     "posicion": ["posicion", "pos", "rank", "ranking", "lugar"],
-    "puntos":   ["puntos", "score", "total", "puntaje", "puntos_totales"],
+    "puntos":   ["puntos", "score", "total", "puntaje", "puntos_totales", "puntaje_total"],
     "retRel":   ["ret_rel", "retrel", "retorno_relativo", "ret_relativo", "exceso_acum"],
     "ir":       ["ir", "information_ratio", "info_ratio"],
     "exc":      ["exc", "exceso", "ret_exceso", "excess", "exceso_anual"],
@@ -55,22 +55,43 @@ ALIAS = {
     "pts_sharpe": ["pts_sharpe", "puntos_sharpe", "p_sharpe"],
     "pts_var95":  ["pts_var", "pts_var95", "puntos_var", "p_var"],
     "pts_mdd":    ["pts_mdd", "puntos_mdd", "p_mdd"],
-    "ret":        ["ret_acum", "retorno_acum", "ret_total", "retorno_acumulado"],
+    "ret":        ["ret_acum", "retorno_acum", "ret_total", "retorno_acumulado", "retorno"],
 }
 
-# columnas del Excel de inscripciones
+# columnas del Excel de inscripciones (formato largo: una fila por integrante)
 ALIAS_INSC = {
     "equipo":   ["equipo", "nombre_equipo", "team"],
     "nombre":   ["nombre", "integrante", "nombre_completo", "participante"],
     "linkedin": ["linkedin", "url_linkedin", "perfil_linkedin", "in"],
 }
 
+# columnas de la hoja "Tabla" / "puntos" del Excel oficial: métricas y puntaje
+# por métrica, más completas que ranking_ordenado (que solo trae el total).
+ALIAS_TABLA = {
+    "nombre": ["equipo"],
+    "ir": ["ir"],
+    "exc": ["ret_exceso", "ret_exceso_%", "exceso"],
+    "sharpe": ["sharpe"],
+    "var95": ["var_95", "var_95_%", "var95"],
+    "mdd": ["mdd", "mdd_%"],
+}
+ALIAS_PUNTOS = {
+    "nombre": ["equipo"],
+    "pts_ir": ["pts_ir"],
+    "pts_exc": ["pts_retexc", "pts_exc"],
+    "pts_sharpe": ["pts_sharpe"],
+    "pts_var95": ["pts_var"],
+    "pts_mdd": ["pts_mdd"],
+}
+
 
 def normalizar(texto):
-    """minúsculas, sin tildes, sin espacios: para comparar encabezados."""
+    """minúsculas, sin tildes, sin espacios ni símbolos: para comparar encabezados."""
     t = unicodedata.normalize("NFD", str(texto or ""))
     t = "".join(c for c in t if unicodedata.category(c) != "Mn")
-    return re.sub(r"[\s\.\-]+", "_", t.strip().lower())
+    t = re.sub(r"[\s\.\-]+", "_", t.strip().lower())
+    t = re.sub(r"[^a-z0-9_]", "", t)
+    return re.sub(r"_+", "_", t).strip("_")
 
 
 def slug(nombre):
@@ -91,7 +112,7 @@ def mapear_columnas(encabezados, alias):
     return mapa
 
 
-def leer_hoja(ruta, nombre_hoja=None):
+def leer_hoja(ruta, nombre_hoja=None, opcional=False):
     try:
         from openpyxl import load_workbook
     except ImportError:
@@ -101,6 +122,9 @@ def leer_hoja(ruta, nombre_hoja=None):
         hojas = {normalizar(h): h for h in wb.sheetnames}
         real = hojas.get(normalizar(nombre_hoja))
         if not real:
+            if opcional:
+                wb.close()
+                return None
             sys.exit(f"No existe la hoja '{nombre_hoja}' en {ruta}. Hojas: {wb.sheetnames}")
         ws = wb[real]
     else:
@@ -108,6 +132,21 @@ def leer_hoja(ruta, nombre_hoja=None):
     filas = [[c for c in fila] for fila in ws.iter_rows(values_only=True)]
     wb.close()
     return [f for f in filas if any(v is not None and str(v).strip() for v in f)]
+
+
+def leer_hoja_con_encabezado(ruta, nombre_hoja, alias, opcional=True):
+    """Como leer_hoja, pero busca la fila de encabezado (puede no ser la 1a,
+    ej. hojas con título arriba) buscando la primera fila que reconozca la
+    columna 'nombre' del alias dado. Devuelve (filas_de_datos, mapa) o
+    (None, None) si la hoja no existe o no se reconoce el encabezado."""
+    filas = leer_hoja(ruta, nombre_hoja, opcional=opcional)
+    if not filas:
+        return None, None
+    for i, fila in enumerate(filas[:10]):
+        mapa = mapear_columnas(fila, alias)
+        if "nombre" in mapa:
+            return filas[i + 1:], mapa
+    return None, None
 
 
 def num(v):
@@ -119,6 +158,44 @@ def num(v):
         return None
 
 
+def leer_metricas_y_puntos(ruta):
+    """Lee las hojas 'Tabla' (métricas crudas) y 'puntos' (puntaje por
+    métrica) del Excel oficial, más completas que ranking_ordenado (que solo
+    trae el total). Devuelve (metricas_por_slug, puntosDetalle_por_slug)."""
+    metricas, puntos_detalle = {}, {}
+
+    filas, mapa = leer_hoja_con_encabezado(ruta, "Tabla", ALIAS_TABLA)
+    if filas:
+        for fila in filas:
+            def val(k, f=fila, m=mapa):
+                return f[m[k]] if k in m and m[k] < len(f) else None
+            nombre = val("nombre")
+            if not nombre:
+                continue
+            metricas[slug(nombre)] = {
+                "ir": num(val("ir")),
+                "exc": (num(val("exc")) or 0) / 100,
+                "sharpe": num(val("sharpe")),
+                "var95": (num(val("var95")) or 0) / 100,
+                "mdd": (num(val("mdd")) or 0) / 100,
+            }
+
+    filas, mapa = leer_hoja_con_encabezado(ruta, "puntos", ALIAS_PUNTOS)
+    if filas:
+        for fila in filas:
+            def val(k, f=fila, m=mapa):
+                return f[m[k]] if k in m and m[k] < len(f) else None
+            nombre = val("nombre")
+            if not nombre:
+                continue
+            puntos_detalle[slug(nombre)] = {
+                "ir": num(val("pts_ir")) or 0, "exc": num(val("pts_exc")) or 0,
+                "sharpe": num(val("pts_sharpe")) or 0, "var95": num(val("pts_var95")) or 0,
+                "mdd": num(val("pts_mdd")) or 0,
+            }
+    return metricas, puntos_detalle
+
+
 def leer_ranking(ruta):
     filas = leer_hoja(ruta, "ranking_ordenado")
     mapa = mapear_columnas(filas[0], ALIAS)
@@ -128,37 +205,93 @@ def leer_ranking(ruta):
                  f"Encabezados vistos: {filas[0]}\nAjusta ALIAS en generar_torneo.py.")
     avisos = [k for k in ALIAS if k not in mapa]
     if avisos:
-        print(f"  AVISO: columnas no encontradas (quedarán en null): {avisos}")
+        print(f"  AVISO: columnas no encontradas en ranking_ordenado (se completan "
+              f"con Tabla/puntos si existen): {avisos}")
+
+    metricas_extra, puntos_extra = leer_metricas_y_puntos(ruta)
 
     equipos = []
     for fila in filas[1:]:
         def val(k):
             return fila[mapa[k]] if k in mapa and mapa[k] < len(fila) else None
         nombre = val("nombre")
-        if not nombre:
-            continue
+        if not nombre or normalizar(nombre) in ("consultar", "por_consultar"):
+            continue  # fila placeholder del Excel, no es un equipo real
+        eq_slug = slug(nombre)
+        metricas = {k: num(val(k)) for k in ("ir", "exc", "sharpe", "var95", "mdd")}
+        if not any(metricas.values()) and eq_slug in metricas_extra:
+            metricas = metricas_extra[eq_slug]
+        ret_exc = metricas.get("exc")
+        puntos_detalle = {
+            "ir": num(val("pts_ir")) or 0, "exc": num(val("pts_exc")) or 0,
+            "sharpe": num(val("pts_sharpe")) or 0, "var95": num(val("pts_var95")) or 0,
+            "mdd": num(val("pts_mdd")) or 0,
+        }
+        if not any(puntos_detalle.values()) and eq_slug in puntos_extra:
+            puntos_detalle = puntos_extra[eq_slug]
         equipos.append({
-            "id": slug(nombre),
+            "id": eq_slug,
             "nombre": str(nombre).strip(),
             "posicion": int(num(val("posicion")) or 0),
             "puntos": round(num(val("puntos")) or 0.0, 2),
-            "retRel": num(val("retRel")),
+            "retRel": num(val("retRel")) if val("retRel") is not None else ret_exc,
             "delta": 0,  # se calcula después contra la semana anterior
-            "metricas": {k: num(val(k)) for k in ("ir", "exc", "sharpe", "var95", "mdd")},
-            "puntosDetalle": {
-                "ir": num(val("pts_ir")) or 0, "exc": num(val("pts_exc")) or 0,
-                "sharpe": num(val("pts_sharpe")) or 0, "var95": num(val("pts_var95")) or 0,
-                "mdd": num(val("pts_mdd")) or 0,
-            },
+            "metricas": metricas,
+            "puntosDetalle": puntos_detalle,
             "miembros": [],
             "_ret": num(val("ret")),  # retorno acumulado del equipo (para historial)
         })
     return equipos
 
 
+def _normalizar_linkedin(li):
+    li = str(li or "").strip()
+    if li and not li.startswith("http"):
+        li = "https://" + li.lstrip("/")
+    return li
+
+
 def leer_inscripciones(ruta):
-    """equipo (slug) -> [{nombre, linkedin}]"""
+    """equipo (slug) -> [{nombre, linkedin}].
+
+    Soporta dos formatos de Excel de inscripciones:
+    - Largo: una fila por integrante (columnas equipo/nombre/linkedin).
+    - Ancho (el real, "Copia de Inscripciones..."): una fila por equipo con
+      columnas repetidas Líder/Int2/Int3 Nombre + LinkedIn (Carrera, Ingreso
+      y Correo se leen pero NUNCA se guardan en el JSON — solo nombre y
+      LinkedIn, que es lo único aprobado para publicar)."""
     filas = leer_hoja(ruta)
+    encabezados = [normalizar(h) for h in filas[0]]
+
+    # formato ancho: hay una columna "lider_nombre"
+    if "lider_nombre" in encabezados:
+        idx = {h: i for i, h in enumerate(encabezados)}
+        equipo_i = idx.get("equipo")
+        if equipo_i is None:
+            print(f"  AVISO: inscripciones (formato ancho) sin columna 'equipo' "
+                  f"({filas[0]}) — miembros quedarán vacíos.")
+            return {}
+        prefijos = ["lider", "int2", "int3", "int4", "int5"]
+        miembros = {}
+        for fila in filas[1:]:
+            eq = fila[equipo_i] if equipo_i < len(fila) else None
+            if not eq:
+                continue
+            integrantes = []
+            for pre in prefijos:
+                ni, li_i = idx.get(f"{pre}_nombre"), idx.get(f"{pre}_linkedin")
+                if ni is None or ni >= len(fila):
+                    continue
+                nom = fila[ni]
+                if not nom or not str(nom).strip():
+                    continue
+                li = _normalizar_linkedin(fila[li_i]) if li_i is not None and li_i < len(fila) else ""
+                integrantes.append({"nombre": str(nom).strip(), "linkedin": li})
+            if integrantes:
+                miembros[slug(eq)] = integrantes
+        return miembros
+
+    # formato largo
     mapa = mapear_columnas(filas[0], ALIAS_INSC)
     if "equipo" not in mapa or "nombre" not in mapa:
         print(f"  AVISO: inscripciones sin columnas equipo/nombre reconocibles "
@@ -171,9 +304,7 @@ def leer_inscripciones(ruta):
         eq, nom = val("equipo"), val("nombre")
         if not eq or not nom:
             continue
-        li = str(val("linkedin") or "").strip()
-        if li and not li.startswith("http"):
-            li = "https://" + li.lstrip("/")
+        li = _normalizar_linkedin(val("linkedin"))
         miembros.setdefault(slug(eq), []).append({"nombre": str(nom).strip(), "linkedin": li})
     return miembros
 
