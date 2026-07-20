@@ -138,10 +138,21 @@ Resumen de bloqueadores:
 
 ## Reglas duras (no romper)
 
-- **Nunca** tocar Google Drive en modo escritura — es explícitamente
-  solo lectura para cualquier IA en este proyecto (instrucción directa de
-  Francisco). Si hace falta un archivo del Drive, pedírselo a él o dejar
-  instrucciones claras de qué bajar y dónde ponerlo.
+- **Google Drive es de solo lectura por defecto** (instrucción directa de
+  Francisco, actualizada 2026-07-20). Excepción acotada:
+  - Se puede **crear** un archivo/carpeta nuevo en Drive únicamente si
+    Francisco lo pide explícitamente en ese momento y confirma antes de
+    que se ejecute (no crear nada "por si acaso" ni de forma proactiva).
+  - Una vez creado por una IA, ese mismo archivo **sí se puede editar**
+    después sin pedir permiso de nuevo para cada edición.
+  - **Nunca** editar ni borrar un archivo/carpeta que ya existía en el
+    Drive de Francisco antes de esta sesión (o que no fue creado por una
+    IA) — eso sigue siendo estrictamente solo lectura.
+  - Después de crear o editar algo en Drive, **avisarle a Francisco** qué
+    se hizo (qué archivo, dónde, y un resumen del contenido/cambio).
+  - Si hace falta leer un archivo del Drive que no fue creado por una IA,
+    sigue aplicando lo de siempre: pedírselo a él o dejar instrucciones
+    claras de qué bajar y dónde ponerlo.
 - **Nunca** commitear datos personales sensibles más allá de nombre + rol +
   LinkedIn público (eso sí está aprobado para el torneo).
 - Mantener las páginas **sin build step**: HTML/CSS/JS planos, sin npm ni
