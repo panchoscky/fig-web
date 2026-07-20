@@ -107,6 +107,18 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 section{padding:clamp(5rem,10vw,9rem) 0;position:relative}
 .section--dark{background:var(--navy);color:var(--ivory)}
 .section--deep{background:var(--navy-deep);color:var(--ivory)}
+
+/* Tira de fotos reales de eventos deslizándose despacio detrás de las
+   secciones de fondo oscuro (hero, áreas, historia). Puramente decorativa
+   (aria-hidden), se detiene con prefers-reduced-motion. */
+.photo-marquee{position:absolute;inset:0;overflow:hidden;z-index:0;opacity:.13}
+.photo-marquee .pm-track{display:flex;align-items:center;gap:16px;height:100%;width:max-content;animation:pmScroll 90s linear infinite}
+.photo-marquee .pm-track img{height:46%;min-height:170px;width:auto;object-fit:cover;border-radius:2px;filter:grayscale(.3) contrast(1.05) brightness(.85)}
+.photo-marquee::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,11,28,1) 0%,transparent 14%,transparent 86%,rgba(6,11,28,1) 100%)}
+.photo-marquee::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 50%,transparent 25%,rgba(6,11,28,.94) 100%)}
+@keyframes pmScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.photo-marquee .pm-track{animation:none}}
+@media(max-width:640px){.photo-marquee{opacity:.1}}
 .section--light{
   background:
     radial-gradient(1200px 500px at 85% -5%, rgba(212,175,55,.06), transparent 60%),
@@ -1011,6 +1023,7 @@ body.has-ticker{padding-bottom:38px}
 <!-- ============ HERO ============ -->
 <header class="hero" id="inicio" data-rail="Inicio" data-theme="dark">
   <canvas id="bgRidges" aria-hidden="true"></canvas>
+  <div class="photo-marquee" aria-hidden="true"></div>
   <div class="wrap hero__grid">
     <div class="hero__copy">
       <div class="kicker reveal"><span class="scr" data-text="Universidad de Chile · FEN">Universidad de Chile · FEN</span></div>
@@ -1289,6 +1302,7 @@ body.has-ticker{padding-bottom:38px}
 
 <!-- ============ HISTORIA ============ -->
 <section class="section--deep" id="historia" data-rail="Historia" data-theme="dark">
+  <div class="photo-marquee" aria-hidden="true"></div>
   <div class="wrap">
     <div class="sec-head" style="text-align:center;margin-left:auto;margin-right:auto">
       <div class="kicker reveal" style="justify-content:center"><span class="scr" data-text="Nuestra historia">Nuestra historia</span></div>
@@ -2490,6 +2504,43 @@ renderPeople(CLUB_DATA.personas);
 renderEvents(CLUB_DATA.eventos);
 renderHistoria(CLUB_DATA.historia);
 applyLinks();
+
+/* ---------------- Fotos de eventos en movimiento (fondos oscuros) ----------------
+   Tira de fotos reales de fotos/eventos/<carpeta>/1.jpg detectadas solas
+   (mismo patrón de eventos/index.html: probeFotos numeradas) que se
+   desliza despacio detrás de hero/áreas/historia. Lee datos/eventos.json
+   para la lista de carpetas — nada hardcodeado, si se agrega un evento
+   nuevo con fotos, aparece solo. Puramente decorativo. */
+(function(){
+  var hosts=$$(".photo-marquee"); if(!hosts.length)return;
+  function probePortada(carpeta,cb){
+    var exts=["jpg","jpeg","png","webp"],k=0;
+    (function next(){
+      if(k>=exts.length){cb(null);return}
+      var url="fotos/eventos/"+carpeta+"/1."+exts[k++];
+      var im=new Image();
+      im.onload=function(){cb(url)};
+      im.onerror=next;
+      im.src=url;
+    })();
+  }
+  function montar(urls){
+    if(!urls.length)return;
+    var imgs=urls.map(function(u){return '<img src="'+esc(u)+'" alt="" loading="lazy">'}).join("");
+    hosts.forEach(function(h){h.innerHTML='<div class="pm-track">'+imgs+imgs+'</div>'});
+  }
+  fetch("datos/eventos.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(d){
+    var carpetas=((d&&d.eventos)||[]).map(function(e){return e.carpeta}).filter(Boolean);
+    if(!carpetas.length)return;
+    var found=[],pend=carpetas.length;
+    carpetas.forEach(function(c){
+      probePortada(c,function(url){
+        if(url)found.push(url);
+        if(--pend===0)montar(found);
+      });
+    });
+  }).catch(function(){});
+})();
 
 })();
 </script>
