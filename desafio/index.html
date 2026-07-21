@@ -344,8 +344,8 @@ fetch("../datos/preguntas/index.json",{cache:"no-store"})
    CONFIG DE JUEGO
    ========================================================================== */
 var N_DESAFIO=10;        /* preguntas por ronda de desafío */
-var VAL_MAX=100,VAL_MIN=20,DECAY_S=20; /* valor de la pregunta y su caída */
-var PENAL=25;            /* descuento por respuesta mala */
+var VAL_MAX=100,VAL_MIN=20,DECAY_S=14; /* valor de la pregunta y su caída */
+var PENAL=32;            /* descuento por respuesta mala */
 var LS_KEY="figDesafioScores";
 
 /* ---------------- estado de ronda ---------------- */
@@ -380,13 +380,19 @@ function renderRank(){
 
 /* ---------------- armado de rondas ---------------- */
 function armarDesafio(){
-  /* mezcla equilibrada: baraja por tema y toma round-robin */
+  /* mezcla equilibrada por tema, priorizando dificultad 2 y 3 (el desafío
+     debe sentirse exigente) — dificultad 1 solo entra para completar si
+     no alcanzan las preguntas más difíciles de un tema */
+  var pool=BANCO.filter(function(q){return q.dificultad>=2});
+  if(pool.length<N_DESAFIO)pool=BANCO.slice();
   var porTema={};
-  BANCO.forEach(function(q){(porTema[q.tema]=porTema[q.tema]||[]).push(q)});
-  var colas=Object.keys(porTema).map(function(k){return shuffle(porTema[k])});
+  pool.forEach(function(q){(porTema[q.tema]=porTema[q.tema]||[]).push(q)});
+  var colas=Object.keys(porTema).map(function(k){
+    return shuffle(porTema[k]).sort(function(a,b){return b.dificultad-a.dificultad});
+  });
   colas=shuffle(colas);
   var out=[],i=0;
-  while(out.length<Math.min(N_DESAFIO,BANCO.length)){
+  while(out.length<Math.min(N_DESAFIO,pool.length)){
     var cola=colas[i%colas.length];
     if(cola.length)out.push(cola.shift());
     if(colas.every(function(c){return !c.length}))break;
@@ -432,7 +438,7 @@ function mostrarPregunta(){
     /* fase de lectura: solo el enunciado */
     $("#qThink").classList.remove("hidden");
     $("#btnSkip").classList.add("hidden");
-    var lect=Math.max(3,Math.min(8,Math.round(3+q.pregunta.length/60)));
+    var lect=Math.max(2,Math.min(6,Math.round(2+q.pregunta.length/70)));
     $("#qThinkN").textContent=lect;
     thinkT=setInterval(function(){
       lect--;
