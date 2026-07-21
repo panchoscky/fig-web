@@ -26,6 +26,7 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 ├── index.html              ← sitio principal FIG (hero, áreas, torneo resumen, historia, equipo, eventos resumen)
 ├── eventos/index.html      ← bitácora de actividades (torneos, visitas, charlas, comunidad)
 ├── fiw/index.html           ← página de FEN Investment Woman (paleta propia, editable)
+├── valuation/index.html     ← página del área Valuation (paleta estándar; responsables + sección de Torneo del área que se activa con datos/valuation.json)
 ├── torneo/index.html        ← ranking oficial del Torneo Portafolio 2026 (con trayectoria por equipo)
 ├── postula/index.html       ← formulario de postulación al club
 ├── juego/index.html          ← "El Rally del Toro": juego de espera (runner con el toro; vender = asegurar puntaje)
@@ -44,6 +45,7 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 │   ├── cv_procesados.json    ← manifiesto anti-relectura de CV del Drive (fileId+modifiedTime, evita reprocesar los que no cambiaron)
 │   ├── eventos.json           ← lista completa de eventos (bitácora)
 │   ├── fiw.json                ← textos y equipo de FEN Investment Woman
+│   ├── valuation.json           ← textos, responsables y datos del Torneo de Valuation (pegar formUrl del Forms para activar inscripciones)
 │   └── torneo.json.ejemplo      ← ESQUEMA del ranking (ver "Pendiente" abajo — aún no existe torneo.json real)
 ├── fotos/
 │   ├── eventos/<carpeta-evento>/  ← 1.jpg, 2.jpg, 3.jpg… por evento (numeradas, sin saltos)
@@ -71,6 +73,7 @@ explícitamente a Francisco, son la identidad visual de esa área.
 | `eventos/index.html` | ✅ Producción | 9 eventos reales con resúmenes completos en `datos/eventos.json`; filtros por tipo Y año; botón de calendario `fig.ics` (regenerar con `generar_ics.py`); modo proyección `?pantalla=1` (fotos fullscreen para TVs, enlazado en el footer) |
 | `en/index.html` | ✅ Producción | One-pager en inglés para partners (BlackRock, bancos): áreas + torneo con solo datos verificados. Única página del sitio con texto en inglés — es su propósito |
 | `fiw/index.html` | ⚠️ Placeholder | Estructura y datos completos, pero **colores de marca aún no confirmados** por Delia Avilán/FIW — usa un oro rosa provisional. Sin fotos en `fotos/fiw/` todavía |
+| `valuation/index.html` | ✅ Producción (torneo pendiente de datos) | Página del área Valuation (2026-07-21, pedido de Francisco). Paleta estándar navy+oro (no propia). Secciones: hero → qué es Valuation → cómo trabajamos (3 pilares research/valorización/tesis) → **Torneo del área** → responsables → CTA. Los 3 **responsables** (Jhosep García, Benjamín Sáez Molina, Samuel Rodríguez Arnolds) salen de `datos/valuation.json` con foto real detectada sola desde `fotos/directiva/<slug>.jpg`, rol y LinkedIn. **Sección de Torneo lista para activarse**: mientras `torneo.formUrl` esté vacío muestra "Inscripciones — próximamente"; al pegar el link del Google Form en `datos/valuation.json` el botón "Inscríbete →" se activa solo (y aparece "Ver las bases" si se llena `torneo.basesUrl`). Los datos del torneo (formato, fechas) dicen "Por confirmar" hasta que Francisco pase las bases — no se inventó nada. Enlazada desde el desk "VAL · Valuation" de §Áreas en `index.html` |
 | `torneo/index.html` | ✅ Datos reales cargados | `datos/torneo.json` ya existe (60 equipos reales del Excel Oficial FIG + LinkedIn de Copia de Inscripciones — ver nota de continuidad abajo). La página salió del modo DEMO sola. Overlay con gráfico de 3 líneas (retorno equipo/promedio/ACWI — el ACWI queda vacío por ahora, no hay benchmark en el Excel usado). Tarjetas: Feed PNG, **Story PNG**, LinkedIn PNG, HTML y **videos animados** Feed/Story con intro (logo→nombre→colaboradores→ficha). En celular, los botones de tarjetas **comparten directo con el panel nativo del sistema** (`navigator.share`, Instagram queda a un toque) en vez de forzar una descarga; en iPhone la tarjeta Story además intenta abrir Instagram directo en el compositor de Historias (truco de portapapeles + `instagram-stories://`, con fallback automático). Grabación de video a 24fps con progreso visible en el botón. Logos de colaboradores en hero y tarjetas. La línea temporal de §Metodología integra las actividades del club desde `datos/eventos.json` (tags por tipo + descripción al hover, tarea #16 ✅) |
 | Enlaces cruzados | ✅ Conectados | `index.html` ya enlaza a `eventos/`, `fiw/`, `torneo/` y `postula/` (CTAs, footer, `CONFIG.urls` y `datos/club.json`) |
 | `generar_torneo.py` | ✅ Probado con el Excel real | Lee `ranking_ordenado` (+ `Tabla`/`puntos` como respaldo para métricas más completas que trae el Excel oficial) + Excel de inscripciones → escribe `datos/torneo.json`, conserva el `historial` semanal y calcula `delta`. Ya soporta el formato ancho real del Excel de inscripciones (columnas Líder/Int2/Int3 Nombre+LinkedIn) además del formato largo original. Solo copia `nombre` + `linkedin` de cada integrante (nunca correo/carrera/ingreso, regla dura de PII). Modo `--demo` disponible |
@@ -160,12 +163,12 @@ Resumen de bloqueadores:
 - Todo texto de cara al usuario va en **español** (única excepción:
   `en/index.html`, el brief para partners internacionales — ese va en inglés
   a propósito).
-- Las 8 páginas llevan al pie del footer el crédito **"Creado por
+- Las 9 páginas llevan al pie del footer el crédito **"Creado por
   Francisco Valenzuela y Manuel Paz"** (en inglés en `en/index.html`:
   "Made by... and..."), cada nombre enlazado a su LinkedIn real. Al
   agregar una página nueva, copiar ese `<span>` del footer de cualquier
   página existente.
-- Las 8 páginas llevan un **beacon de métricas anónimas** (sin cookies:
+- Las 9 páginas llevan un **beacon de métricas anónimas** (sin cookies:
   página + fecha + origen) que envía con `tipo:"visita"` al mismo
   `config.figEndpoint` compartido, y queda inerte mientras esté vacío.
   Al agregar una página nueva, copiar el snippet del final de cualquier
