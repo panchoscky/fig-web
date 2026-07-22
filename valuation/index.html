@@ -124,6 +124,14 @@ body.cursor-on #cursorRing.grow{width:58px;height:58px;border-color:var(--acc)}
 .hero-fallback{position:absolute;inset:0;
   background:radial-gradient(1000px 600px at 80% -5%,rgba(212,175,55,.14),transparent 60%),
              radial-gradient(800px 560px at -8% 105%,rgba(158,126,30,.2),transparent 62%),var(--navy)}
+.photo-marquee{position:absolute;inset:0;overflow:hidden;z-index:0;opacity:.13}
+.photo-marquee .pm-track{display:flex;align-items:center;gap:16px;height:100%;width:max-content;animation:pmScroll 90s linear infinite}
+.photo-marquee .pm-track img{height:46%;min-height:170px;width:auto;object-fit:cover;border-radius:2px;filter:grayscale(.3) contrast(1.05) brightness(.85)}
+.photo-marquee::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,11,28,1) 0%,transparent 14%,transparent 86%,rgba(6,11,28,1) 100%)}
+.photo-marquee::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 50%,transparent 25%,rgba(6,11,28,.94) 100%)}
+@keyframes pmScroll{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.photo-marquee .pm-track{animation:none}}
+@media(max-width:640px){.photo-marquee{opacity:.1}}
 .hero-rings{position:absolute;top:50%;right:-8%;width:min(52vw,620px);aspect-ratio:1;transform:translateY(-50%);pointer-events:none;opacity:.5}
 .hero-rings i{position:absolute;inset:0;border-radius:50%;border:1px solid var(--acc-faint)}
 .hero-rings i:nth-child(2){inset:12%;border-style:dashed;animation:spin 90s linear infinite}
@@ -284,6 +292,7 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
 <!-- HERO -->
 <header class="hero" id="inicio">
   <div class="hero-fallback"></div>
+  <div class="photo-marquee" aria-hidden="true"></div>
   <div class="hero-rings" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap">
     <div class="kicker reveal"><span class="scr" data-text="Valuation · FIG">Valuation · FIG</span></div>
@@ -617,6 +626,32 @@ $$("a",mmenu).forEach(function(a){a.addEventListener("click",function(){toggleMe
 
 /* marquee: duplicar para loop */
 (function(){var t=$("#marqTrack");if(t)t.innerHTML+=t.innerHTML})();
+
+/* ---------------- Fotos del área en movimiento (fondo oscuro del hero) ----------------
+   Tira de fotos reales de ../fotos/valuation/1.jpg, 2.jpg, 3.jpg… (numeradas,
+   sin saltos, se detectan solas — mismo patrón que fotos/fiw/) deslizándose
+   despacio detrás del hero. Puramente decorativo — si no hay fotos todavía,
+   el hero se ve igual que ahora, sin errores. */
+(function(){
+  var host=$(".photo-marquee");if(!host)return;
+  var exts=["jpg","webp","png","jpeg","JPG"],found=[],n=1;
+  (function tryN(){
+    if(n>40){montar();return}
+    var e=0;
+    (function tryExt(){
+      if(e>=exts.length){montar();return}
+      var img=new Image(),url="../fotos/valuation/"+n+"."+exts[e];
+      img.onload=function(){found.push(url);n++;tryN()};
+      img.onerror=function(){e++;tryExt()};
+      img.src=url;
+    })();
+  })();
+  function montar(){
+    if(!found.length)return;
+    var imgs=found.map(function(u){return '<img src="'+esc(u)+'" alt="" loading="lazy">'}).join("");
+    host.innerHTML='<div class="pm-track">'+imgs+imgs+'</div>';
+  }
+})();
 
 /* ---------------- Arranque ---------------- */
 renderData();
