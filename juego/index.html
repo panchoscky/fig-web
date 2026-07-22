@@ -76,9 +76,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 #btnSell{display:none}
 #btnSell.on{display:inline-flex}
 
-.stage{position:relative;border:1px solid var(--line-d);border-radius:12px;background:linear-gradient(170deg,#0D1531,var(--navy-deep));overflow:hidden}
+.stage{position:relative;border:1px solid var(--line-d);border-radius:12px;background:linear-gradient(170deg,#0D1531,var(--navy-deep));overflow:hidden;min-height:330px;display:flex;align-items:center;justify-content:center}
 #cv{display:block;width:100%;height:auto;touch-action:manipulation}
-.overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;background:rgba(6,11,28,.78);backdrop-filter:blur(4px);padding:24px;transition:opacity .35s var(--ease),visibility .35s}
+.overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:safe center;gap:11px;text-align:center;background:rgba(6,11,28,.78);backdrop-filter:blur(4px);padding:18px 20px;transition:opacity .35s var(--ease),visibility .35s;overflow:auto}
 .overlay.off{opacity:0;visibility:hidden;pointer-events:none}
 .overlay h2{font-family:var(--f-disp);font-weight:600;font-size:clamp(1.4rem,3.4vw,2.1rem)}
 .overlay h2 em{font-style:italic;color:var(--gold)}
@@ -183,7 +183,7 @@ footer a:hover{color:var(--gold)}
       <!-- portada -->
       <div class="overlay" id="ovStart">
         <h2>El Rally <em>del Toro</em></h2>
-        <p>Salta las velas rojas y esquiva las burbujas. Tu portafolio parte en USD 10.000 y crece más rápido mientras más aguantes… pero un golpe te liquida y pierdes <b>todo lo no vendido</b>. A ratos el mercado te pone <b style="color:var(--down)">en corto</b>: el toro corre por el techo y hay que <b>cubrir (↓)</b> las alzas verdes.</p>
+        <p>Salta las velas rojas y esquiva las burbujas; creces mientras aguantas, pero un golpe te liquida y pierdes <b>todo lo no vendido</b>. A ratos te pone <b style="color:var(--down)">en corto</b> (corres por el techo y cubres las alzas) y aparece el raro <b style="color:var(--down)">pozo del SII</b>: si caes, te vas en cana.</p>
         <div class="keys"><b>ESPACIO</b>/<b>TAP</b> saltar &nbsp;·&nbsp; <b>↓</b> cubrir (en corto) &nbsp;·&nbsp; <b class="green">S</b> vender</div>
         <button class="btn btn--gold" id="btnPlay">Entrar al mercado →</button>
       </div>
@@ -205,9 +205,9 @@ footer a:hover{color:var(--gold)}
 
       <!-- crash -->
       <div class="overlay off" id="ovCrash">
-        <h2>Te <em class="red">liquidaste.</em></h2>
+        <h2 id="crashTitle">Te <em class="red">liquidaste.</em></h2>
         <div class="big red" id="crashVal">USD 0</div>
-        <p>Eso tenías en pantalla — y no vendiste. El mercado no espera al que no sabe salir: la ganancia solo es tuya cuando la aseguras.</p>
+        <p id="crashMsg">Eso tenías en pantalla — y no vendiste. El mercado no espera al que no sabe salir: la ganancia solo es tuya cuando la aseguras.</p>
         <button class="btn btn--gold" id="btnAgain2">Volver al mercado →</button>
       </div>
     </div><!-- /stage -->
@@ -263,7 +263,7 @@ var cv=$("#cv"),c=cv.getContext("2d");
 var W=cv.width,H=cv.height,GROUND=H-52,CEIL=74;
 var running=false,over=false,sold=false;
 var valor=10000,mult=1,speed=6,t0=0,elapsed=0,lastSpawn=0;
-var toro={x:96,y:GROUND,vy:0,w:80,h:58,jumping:false};
+var toro={x:96,y:GROUND,vy:0,w:80,h:58,jumping:false,falling:false};
 var obs=[],chartPts=[],chartSeed=GROUND-120;
 var runHist=[],lastSample=0;   /* curva de equity de ESTA corrida (panel lateral) */
 /* evento "posición en corto": el toro corre por el techo y hay que cubrir las alzas.
@@ -347,6 +347,14 @@ function spawn(){
     }
     return;
   }
+  /* hook de prueba (solo con window.__rallyFast/__rallyDebug): fuerza un pozo */
+  if((window.__rallyFast||window.__rallyDebug)&&window.__rallyPoso){window.__rallyPoso=false;obs.push({tipo:"poso",x:W+40,y:GROUND,w:116,h:0});return;}
+  /* pozo del SII (raro): un vacío en el suelo — hay que saltarlo. Si caes,
+     te vas en cana. Solo tras los primeros segundos y de a uno. */
+  if(elapsed>10000&&Math.random()<.055){
+    obs.push({tipo:"poso",x:W+40,y:GROUND,w:102+Math.random()*26,h:0});
+    return;
+  }
   var r=Math.random();
   if(r<.56){ /* grupo de velas rojas (1-3) en el suelo: saltar */
     var n=1+Math.floor(Math.random()*Math.min(3,1+elapsed/25000));
@@ -385,6 +393,24 @@ function drawBurbuja(o){
   c.fillStyle="rgba(247,244,236,.7)";
   c.font="600 9px 'IBM Plex Mono', monospace";c.textAlign="center";
   c.fillText("$",cx,cy+3);c.textAlign="left";
+}
+/* pozo del SII: un vacío en el suelo con las letras SII. Saltarlo o caes en cana. */
+function drawPoso(o){
+  /* borra el suelo sobre el vacío */
+  c.fillStyle="#060B1C";
+  c.fillRect(o.x,GROUND-2,o.w,H-(GROUND-2));
+  /* paredes del pozo */
+  c.strokeStyle="rgba(224,122,95,.55)";c.lineWidth=2;
+  c.beginPath();c.moveTo(o.x,GROUND+2);c.lineTo(o.x,GROUND+34);c.stroke();
+  c.beginPath();c.moveTo(o.x+o.w,GROUND+2);c.lineTo(o.x+o.w,GROUND+34);c.stroke();
+  /* borde de peligro (rayas) en los labios del pozo */
+  c.strokeStyle="rgba(224,122,95,.85)";c.lineWidth=3;
+  c.beginPath();c.moveTo(o.x-6,GROUND+2);c.lineTo(o.x,GROUND+2);c.stroke();
+  c.beginPath();c.moveTo(o.x+o.w,GROUND+2);c.lineTo(o.x+o.w+6,GROUND+2);c.stroke();
+  /* letras SII */
+  c.fillStyle="rgba(224,122,95,.9)";
+  c.font="700 20px 'IBM Plex Mono', monospace";c.textAlign="center";
+  c.fillText("S I I",o.x+o.w/2,GROUND+28);c.textAlign="left";
 }
 /* alza verde colgando del techo (evento de corto): sube el precio → te perjudica */
 function drawAlza(o){
@@ -538,8 +564,17 @@ function toroSiluetaLogo(ctx,dxA,liA,dxB,liB){
   ctx.beginPath();ctx.moveTo(76,-68);ctx.lineTo(84,-66);ctx.lineTo(78,-63.5);ctx.closePath();ctx.fill();
   ctx.beginPath();ctx.arc(88,-56,1.7,0,7);ctx.fill();
 }
+/* ¿el toro está sobre un pozo del SII? (para caer si no saltó) */
+function overPit(){
+  var fl=toro.x+22,fr=toro.x+toro.w-22,i,o;
+  for(i=0;i<obs.length;i++){
+    o=obs[i];
+    if(o.tipo==="poso"&&o.x<fr&&o.x+o.w>fl)return o;
+  }
+  return null;
+}
 function drawToro(){
-  var run=running&&!toro.jumping;
+  var run=running&&!toro.jumping&&!toro.falling;
   var p=elapsed/64;                         /* fase del galope */
   var bob=run?Math.sin(p*2)*1.6:0;          /* rebote del lomo al correr */
   var sh=(mode==="short");
@@ -625,7 +660,7 @@ function syncCtrl(){
 /* ---------------- lógica ---------------- */
 function reset(){
   valor=10000;mult=1;speed=6;elapsed=0;lastSpawn=0;
-  toro.y=GROUND;toro.vy=0;toro.jumping=false;
+  toro.y=GROUND;toro.vy=0;toro.jumping=false;toro.falling=false;
   obs=[];over=false;sold=false;
   runHist=[];lastSample=0;lastSideDraw=0;
   mode="long";phase="run";pendingMode=null;holdSpawn=false;
@@ -648,15 +683,22 @@ function updateHUD(){
 /* una sola acción, distinta según el modo: en largo se salta (↑), en corto
    se cubre (↓). Si tocas el control que NO corresponde al modo, no pasa nada. */
 function act(kind){
-  if(!running||toro.jumping)return;
+  if(!running||toro.jumping||toro.falling)return;
   if(mode==="long"){if(kind!=="up")return;toro.jumping=true;toro.vy=-13.2;}
   else{if(kind!=="down")return;toro.jumping=true;toro.vy=13.2;}
 }
-function crash(){
+function crash(reason){
   running=false;over=true;
   $("#btnSell").classList.remove("on");
   $("#ctrlRow").style.display="none";
   $("#flash").classList.remove("on");
+  if(reason==="sii"){
+    $("#crashTitle").innerHTML='Te fuiste <em class="red">en cana.</em>';
+    $("#crashMsg").textContent="Caíste en el pozo del SII. Un inversionista opera siempre con los máximos estándares de integridad — más aún cuando el capital no es suyo.";
+  }else{
+    $("#crashTitle").innerHTML='Te <em class="red">liquidaste.</em>';
+    $("#crashMsg").textContent="Eso tenías en pantalla — y no vendiste. El mercado no espera al que no sabe salir: la ganancia solo es tuya cuando la aseguras.";
+  }
   $("#crashVal").textContent=fmt(valor);
   $("#ovCrash").classList.remove("off");
   updateSide();
@@ -720,13 +762,21 @@ function loop(now){
     bannerUntil=elapsed+1600;syncCtrl();
   }
 
-  /* física del salto / cubrir (gravedad invertida en corto) */
-  if(toro.jumping){
+  /* física vertical: caída al pozo SII (largo), salto (largo), cubrir (corto) */
+  if(toro.falling){
+    toro.vy+=.66*(dt/16.7);
+    toro.y+=toro.vy*(dt/16.7);
+    if(toro.y>GROUND+48){crash("sii");}
+  }else if(toro.jumping){
     var grav=(mode==="short"?-.62:.62);
     toro.vy+=grav*(dt/16.7);
     toro.y+=toro.vy*(dt/16.7);
-    if(mode==="long"&&toro.y>=GROUND){toro.y=GROUND;toro.vy=0;toro.jumping=false;}
-    else if(mode==="short"&&toro.y<=CEIL){toro.y=CEIL;toro.vy=0;toro.jumping=false;}
+    if(mode==="long"&&toro.y>=GROUND){
+      if(overPit()){toro.jumping=false;toro.falling=true;}   /* aterrizó en el vacío */
+      else{toro.y=GROUND;toro.vy=0;toro.jumping=false;}
+    }else if(mode==="short"&&toro.y<=CEIL){toro.y=CEIL;toro.vy=0;toro.jumping=false;}
+  }else if(mode==="long"&&overPit()){
+    toro.falling=true;toro.vy=2.4;                            /* el pozo llegó bajo las patas */
   }
 
   /* obstáculos (ritmo con meseta) */
@@ -741,6 +791,7 @@ function loop(now){
   var bw=toro.w-18,bh=toro.h-14,bx=toro.x+9,by=(mode==="short")?toro.y+5:toro.y-toro.h+9;
   for(var j=0;j<obs.length;j++){
     var o=obs[j];
+    if(o.tipo==="poso")continue;   /* el pozo se maneja con la caída, no como muro */
     if(bx<o.x+o.w-4&&bx+bw>o.x+4&&by<o.y+o.h-4&&by+bh>o.y+4){crash();break;}
   }
 
@@ -769,6 +820,7 @@ function loop(now){
     var ob=obs[m];
     if(ob.tipo==="vela")drawVela(ob);
     else if(ob.tipo==="alza")drawAlza(ob);
+    else if(ob.tipo==="poso")drawPoso(ob);
     else drawBurbuja(ob);
   }
   drawToro();
@@ -776,9 +828,9 @@ function loop(now){
   updateHUD();
   if(now-lastSideDraw>120){updateSide();lastSideDraw=now;}
 
-  /* espejo de estado SOLO para pruebas automatizadas (window.__rallyFast);
-     inerte en producción — ningún usuario setea ese flag. */
-  if(window.__rallyFast)window.__rallyState={mode:mode,phase:phase,toroY:toro.y,jumping:toro.jumping,obs:obs.map(function(o){return {x:o.x,y:o.y,w:o.w,h:o.h,tipo:o.tipo};}),running:running};
+  /* espejo de estado SOLO para pruebas automatizadas (window.__rallyFast/
+     __rallyDebug); inerte en producción — ningún usuario setea esos flags. */
+  if(window.__rallyFast||window.__rallyDebug)window.__rallyState={mode:mode,phase:phase,toroY:toro.y,jumping:toro.jumping,falling:toro.falling,obs:obs.map(function(o){return {x:o.x,y:o.y,w:o.w,h:o.h,tipo:o.tipo};}),running:running};
 
   if(running)requestAnimationFrame(loop);
 }
