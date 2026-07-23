@@ -2,11 +2,11 @@
   {
     "id": "rv-042",
     "tema": "renta-variable",
-    "ramo": "finanzas-i",
+    "ramo": "finanzas-ii",
     "dificultad": 3,
     "pregunta": "¿Qué característica define a un \"portafolio beta-cero\" construido combinando dos o más activos riesgosos?",
     "alternativas": [
-      "Tiene un beta de mercado igual a cero, por lo que su retorno esperado no está correlacionado con los movimientos del portafolio de mercado",
+      "Tiene un beta de mercado igual a cero, por lo que sus retornos no están correlacionados con los del portafolio de mercado",
       "Tiene una desviación estándar (riesgo total) igual a cero, sin importar su beta",
       "Su retorno esperado siempre es igual a la tasa libre de riesgo, por definición",
       "Solo puede construirse si al menos uno de los activos usados también tiene beta igual a cero"
@@ -18,7 +18,7 @@
   {
     "id": "rv-043",
     "tema": "renta-variable",
-    "ramo": "finanzas-i",
+    "ramo": "finanzas-ii",
     "dificultad": 3,
     "pregunta": "Según el modelo de índice de mercado, ¿cómo se descompone la varianza total del retorno de un activo?",
     "alternativas": [
@@ -34,7 +34,7 @@
   {
     "id": "rif-019",
     "tema": "riesgo-financiero",
-    "ramo": "finanzas-i",
+    "ramo": "finanzas-ii",
     "dificultad": 3,
     "pregunta": "En el modelo de Valoración por Arbitraje (APT) con varios factores de riesgo, ¿qué es un \"portafolio mimético\" (mimicking portfolio) de un factor específico?",
     "alternativas": [

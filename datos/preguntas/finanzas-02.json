@@ -166,7 +166,7 @@
     "dificultad": 1,
     "pregunta": "Según la clasificación de riesgos de una empresa, ¿qué es el riesgo financiero?",
     "alternativas": [
-      "El efecto de pérdida patrimonial directa por decisiones de inversión, financiamiento o administración de recursos",
+      "La pérdida patrimonial por decisiones de inversión, financiamiento o administración de recursos",
       "Los errores de visión de negocio o la mala reputación corporativa",
       "Las pérdidas por fallas tecnológicas o procesos operativos del día a día",
       "El riesgo asociado exclusivamente a decisiones de marketing"
@@ -230,13 +230,13 @@
     "dificultad": 3,
     "pregunta": "El riesgo de contraparte, presente en activos derivados, se relaciona más estrechamente con...",
     "alternativas": [
-      "Una forma de riesgo de crédito, antes de que exista formalmente la obligación de pago",
+      "Una forma de riesgo de crédito, referida a la exposición previa a la liquidación (settlement) del contrato",
       "El riesgo de mercado exclusivamente",
       "El riesgo operacional de la institución financiera",
       "El riesgo sistémico del mercado en su conjunto"
     ],
     "correcta": 0,
-    "explicacion": "El material lo describe como una forma de riesgo de crédito cuando aún no existe la obligación formal; se mitiga con colaterales o garantías.",
+    "explicacion": "El material lo describe como una forma de riesgo de crédito: la contraparte puede incumplir antes de que se liquide el contrato, por lo que se mitiga con colaterales o garantías.",
     "fuente": "Intro a Finanzas · 2020 Otoño - Resumen Riesgo Financiero IVAN ABARCA.pdf"
   },
   {
@@ -244,7 +244,7 @@
     "tema": "riesgo-financiero",
     "ramo": "intro-finanzas",
     "dificultad": 2,
-    "pregunta": "¿Por qué el riesgo de contraparte suele ser mayor en mercados OTC que en mercados organizados?",
+    "pregunta": "¿Por qué el riesgo de contraparte suele ser mayor en mercados OTC (over-the-counter, extrabursátiles) que en mercados organizados?",
     "alternativas": [
       "Porque los mercados organizados cuentan con mecanismos centralizados que reducen la exposición al incumplimiento",
       "Porque en OTC los montos transados son siempre más pequeños",
@@ -295,9 +295,9 @@
     "pregunta": "Según el material, ¿qué transan principalmente los participantes del mercado de capitales?",
     "alternativas": [
       "Riesgo, tiempo y dinero, basados en la confianza (fe pública)",
-      "Únicamente bienes físicos de consumo",
-      "Solo divisas extranjeras",
-      "Exclusivamente acciones de empresas públicas"
+      "Únicamente bienes y servicios de consumo",
+      "Solo deuda de largo plazo emitida por el Estado",
+      "Exclusivamente acciones de empresas que transan en bolsa"
     ],
     "correcta": 0,
     "explicacion": "El mercado de capitales se basa en la confianza y permite endeudarse o ahorrar, transando esencialmente tiempo, riesgo y dinero entre oferentes y demandantes.",

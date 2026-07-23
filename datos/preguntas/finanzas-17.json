@@ -38,7 +38,7 @@
     "dificultad": 3,
     "pregunta": "Si se conocen los precios de dos bonos bullet con distinta tasa cupón pero mismo plazo, ¿cómo se puede sintetizar un bono cupón cero de ese plazo usando una cartera de ambos bonos?",
     "alternativas": [
-      "Construyendo una posición larga en uno de los bonos y corta en el otro, en la proporción que cancele los cupones intermedios, dejando solo el pago final",
+      "Tomando una posición larga en un bono y corta en el otro, en la proporción que cancele los cupones intermedios",
       "Comprando ambos bonos en partes iguales, sin ninguna posición corta ni cálculo de proporciones",
       "Es imposible sintetizar un bono cupón cero a partir de bonos que sí pagan cupones",
       "Vendiendo ambos bonos simultáneamente y esperando a que venzan sin recibir ningún flujo"

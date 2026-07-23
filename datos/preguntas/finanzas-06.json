@@ -22,7 +22,7 @@
     "dificultad": 3,
     "pregunta": "Si la tasa base de capitalización es NOMINAL (no efectiva), ¿qué ocurre con el monto acumulado al aumentar la frecuencia de capitalización?",
     "alternativas": [
-      "Aumenta, porque se generan más períodos de interés sobre interés dentro del mismo horizonte",
+      "Aumenta, porque se generan más períodos de interés sobre interés",
       "Permanece exactamente igual, sin importar la frecuencia",
       "Disminuye porque la tasa se diluye entre más períodos",
       "Solo cambia si la inversión dura más de un año calendario"
@@ -118,7 +118,7 @@
     "dificultad": 2,
     "pregunta": "En el cálculo de una pensión mediante anualidades, si se aumenta el porcentaje de aporte obligatorio del sueldo (por ejemplo, de 10% a 13%) manteniendo el mismo horizonte de ahorro, ¿qué ocurre con el monto acumulado al momento de jubilar?",
     "alternativas": [
-      "Aumenta, porque el monto ahorrado en cada período (la anualidad) es mayor",
+      "Aumenta, porque el monto ahorrado cada período es mayor",
       "Disminuye, porque se descuenta más impuesto sobre el aporte",
       "Se mantiene igual, porque la tasa de rentabilidad no cambia",
       "Depende exclusivamente de la edad de jubilación, no del aporte"

@@ -6,9 +6,9 @@
     "dificultad": 3,
     "pregunta": "Según Jensen & Meckling (1976), ¿es necesario recurrir a los beneficios tributarios de la deuda para determinar una estructura de capital óptima de la empresa?",
     "alternativas": [
-      "No: se puede postular una estructura óptima solo en base a los costos de agencia de la deuda y del patrimonio, sin necesidad de impuestos corporativos",
+      "No: basta con los costos de agencia de la deuda y del patrimonio, sin recurrir a los impuestos corporativos",
       "Sí, siempre: sin beneficios tributarios de la deuda no existe ningún concepto de estructura de capital óptima",
-      "No, porque en el modelo de Jensen y Meckling los costos de agencia son siempre nulos y no afectan la decisión",
+      "No, porque el modelo asume que los costos de agencia de la deuda y del patrimonio se cancelan exactamente entre sí",
       "Sí, pero solo para empresas que cotizan en bolsa"
     ],
     "correcta": 0,

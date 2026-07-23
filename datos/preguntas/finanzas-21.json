@@ -38,10 +38,10 @@
     "dificultad": 3,
     "pregunta": "¿Es correcto esperar que opciones sobre la misma acción, con el mismo período de madurez pero distinto precio de ejercicio, tengan siempre la misma volatilidad implícita?",
     "alternativas": [
-      "En teoría sí, pero en la práctica difiere según el strike, fenómeno conocido como sonrisa de volatilidad y limitación del modelo Black-Scholes",
-      "Sí, siempre tienen exactamente la misma volatilidad implícita sin ninguna excepción en la práctica",
-      "No, nunca pueden tener la misma volatilidad implícita, ni siquiera en teoría",
-      "La volatilidad implícita no depende en ningún caso del precio de ejercicio de la opción"
+      "En teoría sí, pero en la práctica difiere según el strike, fenómeno conocido como sonrisa de volatilidad",
+      "Sí, esa es una de las condiciones necesarias que exige el modelo de Black-Scholes para poder aplicarse",
+      "No, cada precio de ejercicio define un activo subyacente distinto, así que no tiene sentido compararlas",
+      "Depende exclusivamente de si la opción es americana o europea, no del precio de ejercicio"
     ],
     "correcta": 0,
     "explicacion": "Teóricamente, la volatilidad implícita debería ser la misma para opciones del mismo subyacente y vencimiento; en la práctica se observa que varía con el precio de ejercicio, un fenómeno conocido como sonrisa de volatilidad y una limitación reconocida del modelo.",
@@ -118,9 +118,9 @@
     "dificultad": 3,
     "pregunta": "¿Es correcto afirmar que al hacer transacciones con contratos forward siempre existirá riesgo de base?",
     "alternativas": [
-      "No, el riesgo de base surge solo cuando las características del contrato (monto, fecha de vencimiento) no coinciden exactamente con lo que se necesita cubrir",
-      "Sí, el riesgo de base está siempre presente en cualquier transacción con forwards, sin excepción alguna",
-      "No, el riesgo de base nunca puede ocurrir en transacciones con contratos forward, solo en futuros",
+      "No, surge solo cuando el monto o el vencimiento del contrato no coinciden exactamente con lo que se quiere cubrir",
+      "Sí, es una característica intrínseca de todo forward, independiente de cómo se calce el contrato",
+      "No, ese riesgo es exclusivo de los futuros por transarse en bolsa, nunca ocurre con forwards",
       "Sí, pero únicamente en operaciones de cobertura cambiaria, nunca en cobertura de commodities"
     ],
     "correcta": 0,
@@ -148,7 +148,7 @@
     "tema": "riesgo-financiero",
     "ramo": "finanzas-i",
     "dificultad": 3,
-    "pregunta": "¿En qué se diferencian el VaR calculado bajo el estándar de Basilea y el VaR calculado con la metodología RiskMetrics?",
+    "pregunta": "¿En qué se diferencian el Valor en Riesgo (VaR) calculado bajo el estándar de Basilea y el calculado con la metodología RiskMetrics?",
     "alternativas": [
       "Basilea usa 99% de confianza a 10 días (para bancos), mientras RiskMetrics usa 95% a 1 día (para inversiones de corto plazo como fondos mutuos)",
       "Ambos métodos son exactamente idénticos en nivel de confianza y horizonte de tiempo utilizado",

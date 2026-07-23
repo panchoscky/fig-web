@@ -36,7 +36,7 @@
     "tema": "estructura-capital",
     "ramo": "finanzas-ii",
     "dificultad": 3,
-    "pregunta": "Según Modigliani & Miller (1963), ¿por qué el costo de capital (tasa de descuento de los activos) de una empresa disminuye a medida que aumenta su nivel de endeudamiento?",
+    "pregunta": "Según Modigliani & Miller (1963), ¿por qué el costo de capital promedio ponderado (WACC) de una empresa disminuye a medida que aumenta su nivel de endeudamiento?",
     "alternativas": [
       "Porque el escudo tributario actúa como un 'activo' adicional de riesgo casi nulo, reduciendo el riesgo promedio de los activos de la empresa",
       "Porque los accionistas dejan de exigir compensación por el mayor riesgo financiero al aumentar la deuda",

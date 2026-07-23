@@ -6,7 +6,7 @@
     "dificultad": 1,
     "pregunta": "Si el costo financiero de la deuda de una empresa es MAYOR que su ROA, ¿qué indica esto sobre el uso de la deuda?",
     "alternativas": [
-      "Que la empresa está usando la deuda de forma ineficiente, porque los activos financiados no generan suficiente retorno para cubrir su costo",
+      "Que la empresa está usando la deuda de forma ineficiente: sus activos no rinden lo suficiente para cubrir el costo de esa deuda",
       "Que la empresa tiene una excelente política de financiamiento",
       "Que el ROE de la empresa necesariamente será mayor que el ROA",
       "Que la empresa no enfrenta ningún riesgo financiero"
@@ -22,7 +22,7 @@
     "dificultad": 2,
     "pregunta": "¿Qué combinación de señales suele evidenciar problemas de liquidez en una empresa, comparada con su industria?",
     "alternativas": [
-      "Un período promedio de pago superior al de la industria junto con ratios de liquidez que disminuyen en el tiempo",
+      "Un período de pago superior al de la industria junto con ratios de liquidez a la baja",
       "Un período promedio de cobro menor al de la industria",
       "Una rotación de inventarios más rápida que la industria",
       "Un aumento sostenido en la razón corriente de la empresa"
@@ -86,7 +86,7 @@
     "dificultad": 3,
     "pregunta": "Si el ROA de una empresa sube levemente pero su ROE cae de forma más marcada en el mismo período, ¿qué es lo más probable que esté ocurriendo?",
     "alternativas": [
-      "Que el costo financiero de la deuda está aumentando, reduciendo el beneficio para los accionistas pese a la mejora operacional",
+      "Que el costo financiero de la deuda está aumentando más rápido que la mejora operacional",
       "Que la empresa dejó de usar deuda por completo",
       "Que las ventas de la empresa cayeron fuertemente en el período",
       "Que la empresa aumentó su capital social sin cambiar su nivel de deuda"
@@ -102,7 +102,7 @@
     "dificultad": 2,
     "pregunta": "Si la rotación de inventarios de una empresa cae mientras las ventas solo crecen levemente, ¿qué puede indicar esto?",
     "alternativas": [
-      "Que la empresa está acumulando inventarios más rápido de lo que puede vender, reflejando una política poco eficiente",
+      "Que la empresa está acumulando inventarios más rápido de lo que puede vender",
       "Que la empresa está vendiendo su inventario más rápido que antes",
       "Que las ventas están creciendo mucho más rápido que el inventario",
       "Que el costo de venta de la empresa ha disminuido significativamente"
@@ -118,7 +118,7 @@
     "dificultad": 2,
     "pregunta": "Si las cuentas por cobrar de una empresa crecen mucho más rápido que sus ventas totales, esto puede indicar...",
     "alternativas": [
-      "Que la empresa está flexibilizando sus condiciones de crédito a los clientes para impulsar ventas, a costa de su liquidez",
+      "Que la empresa está flexibilizando sus condiciones de crédito a los clientes para impulsar ventas",
       "Que la empresa está cobrando más rápido a sus clientes que antes",
       "Que la empresa redujo su nivel de endeudamiento total",
       "Que el margen bruto de la empresa mejoró considerablemente"
@@ -150,7 +150,7 @@
     "dificultad": 1,
     "pregunta": "Cuando el activo fijo de una empresa aumenta su participación porcentual sobre el total de activos a través del tiempo, esto sugiere que la empresa...",
     "alternativas": [
-      "Está invirtiendo en planta y equipos, cambiando la composición de su balance hacia activos de largo plazo",
+      "Está invirtiendo en planta y equipos, activos de largo plazo",
       "Está reduciendo su inventario sin ninguna razón operacional",
       "Está aumentando exclusivamente su liquidez de corto plazo",
       "Está disminuyendo su capacidad productiva instalada"
@@ -166,7 +166,7 @@
     "dificultad": 2,
     "pregunta": "Si una empresa se financia mayoritariamente con patrimonio (más del 90% del total) y muy poco con deuda, ¿qué efecto tiene esto sobre su gasto en intereses?",
     "alternativas": [
-      "El gasto por intereses representa una proporción muy baja de las ventas, y la cobertura de intereses tiende a ser alta",
+      "El gasto por intereses pesa muy poco sobre las ventas, y la cobertura de intereses tiende a ser alta",
       "El gasto por intereses será necesariamente mayor al de empresas más endeudadas",
       "La cobertura de intereses tenderá a ser baja o incluso negativa",
       "El ROE de la empresa será siempre menor al de empresas más endeudadas"

@@ -38,7 +38,7 @@
     "dificultad": 3,
     "pregunta": "¿Es el Costo Anual Equivalente (CAE) la única herramienta disponible para comparar proyectos de distinta vida útil?",
     "alternativas": [
-      "No, también sirve el acoplamiento de ciclos (replicar proyectos hasta igualar horizontes) o la cadena de reemplazo (replicarlos al infinito)",
+      "No, también sirven el acoplamiento de ciclos o la cadena de reemplazo, que igualan los horizontes comparados",
       "Sí, el CAE es la única herramienta técnicamente aceptada para este tipo de comparación",
       "No, pero las herramientas alternativas solo sirven cuando los proyectos tienen exactamente la misma vida útil",
       "Sí, y además el CAE solo puede aplicarse a decisiones de reemplazo de maquinaria, no a otros proyectos"
@@ -54,7 +54,7 @@
     "dificultad": 3,
     "pregunta": "Al comparar tres alternativas mutuamente excluyentes de distinta vida útil (por ejemplo, reparar un activo versus reemplazarlo por uno nuevo con mayor duración), ¿qué criterio permite compararlas de forma correcta?",
     "alternativas": [
-      "El Costo Anual Equivalente (CAE) de cada alternativa, que expresa el costo total en una cuota anual comparable independiente de la duración de cada opción",
+      "El Costo Anual Equivalente (CAE) de cada alternativa, que expresa su costo en una cuota anual comparable",
       "El VAN total de cada alternativa sin ningún ajuste, comparado directamente entre opciones de distinta duración",
       "Únicamente la inversión inicial requerida por cada alternativa, sin considerar los costos futuros",
       "El promedio simple de los costos de cada año, sin traer ningún flujo a valor presente"
@@ -145,12 +145,12 @@
   },
   {
     "id": "ep-047",
-    "tema": "evaluacion-proyectos",
+    "tema": "estructura-capital",
     "ramo": "intro-finanzas",
     "dificultad": 3,
     "pregunta": "En el modelo de dos períodos con mercado de capitales perfecto, ¿los accionistas más antiguos de una empresa siempre preferirán recibir dividendos en el presente porque eso maximiza su riqueza?",
     "alternativas": [
-      "No, la riqueza de los accionistas no se ve alterada por pagar dividendos ahora o después, solo cambia la distribución entre riqueza interna y externa",
+      "No, la riqueza del accionista no cambia según cuándo se pague el dividendo: solo cambia si debe pedir prestado o prestar para ajustar su consumo",
       "Sí, siempre es preferible recibir dividendos hoy en vez de en el futuro, sin excepción alguna",
       "No, porque en el modelo de dos períodos los accionistas nunca reciben dividendos bajo ninguna circunstancia",
       "Sí, pero solo si la tasa de mercado es mayor a la rentabilidad promedio de los proyectos de la empresa"
@@ -166,7 +166,7 @@
     "dificultad": 2,
     "pregunta": "Al decidir entre dos máquinas de distinta vida útil, costo de mantención y valor de inversión inicial, con las mismas utilidades a repartir, ¿qué criterio permite elegir correctamente entre ellas?",
     "alternativas": [
-      "El Costo Anual Equivalente (CAE) de cada máquina, que traduce todos sus costos a una cuota anual comparable pese a tener distinta vida útil",
+      "El Costo Anual Equivalente (CAE) de cada máquina, que traduce sus costos a una cuota anual comparable",
       "Elegir siempre la máquina con menor costo de inversión inicial, sin importar su vida útil ni mantención",
       "Elegir siempre la máquina con mayor vida útil, sin importar los demás costos asociados",
       "Comparar únicamente los costos de mantención anuales, ignorando la inversión inicial y la vida útil"

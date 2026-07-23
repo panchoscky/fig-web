@@ -22,7 +22,7 @@
     "dificultad": 3,
     "pregunta": "¿Cómo se determina correctamente el momento óptimo de reemplazo de un activo?",
     "alternativas": [
-      "Comparando el efecto marginal de posponer un período más el cambio, contra el costo anual equivalente (CAE) de la nueva opción",
+      "Comparando el costo marginal de posponer el reemplazo un período más, contra el costo anual equivalente (CAE) de reemplazar ahora",
       "Comparando directamente los VAN acumulados de reemplazar en distintos momentos futuros",
       "Reemplazando siempre el activo apenas termine su vida útil contable",
       "Calculando solo la TIR del activo nuevo, sin comparar con el actual"

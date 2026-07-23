@@ -9,7 +9,7 @@
       "No: el escudo tc·B crece, pero el valor sin deuda cae por los mayores impuestos sobre los flujos operacionales, y ese efecto normalmente domina",
       "Sí, siempre, porque el único componente del valor de la empresa que depende de la tasa de impuesto es el escudo tributario de la deuda",
       "No, porque el escudo tributario tc·B en realidad disminuye cuando sube la tasa de impuesto corporativo",
-      "Sí, pero solo para empresas que no tienen ninguna deuda en su estructura de capital"
+      "Sí, pero solo si la empresa no tiene ninguna otra fuente de deducción tributaria además de la deuda"
     ],
     "correcta": 0,
     "explicacion": "El valor total con deuda es Vcon deuda = Vsin deuda + tc·B. Un alza de tc sí aumenta el término tc·B, pero también reduce Vsin deuda, porque esos flujos ya pagan más impuestos. Para la mayoría de las empresas ese segundo efecto domina, por lo que el valor total de la empresa cae pese a que el escudo tributario específico haya subido.",
@@ -24,7 +24,7 @@
     "alternativas": [
       "Sí: puede haber transferencia de riqueza de los bonistas a los accionistas (sustitución de activos), aunque el proyecto destruya valor total",
       "No, nunca: un proyecto con VAN negativo siempre reduce la riqueza de todos los involucrados por igual",
-      "Sí, pero solo si el proyecto se financia exclusivamente con recursos propios de los accionistas",
+      "No, porque los bonistas siempre exigen una tasa que ya anticipa e internaliza el riesgo de sustitución de activos",
       "No, porque los bonistas siempre están protegidos por cláusulas contractuales ante cualquier decisión de inversión"
     ],
     "correcta": 0,

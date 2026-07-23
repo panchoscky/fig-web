@@ -84,7 +84,7 @@
     "tema": "renta-fija",
     "ramo": "finanzas-i",
     "dificultad": 3,
-    "pregunta": "Dos bonos con el mismo valor nominal, misma tasa cupón, mismo plazo y la misma TIR de mercado, pero uno es tipo bullet (amortiza todo el principal al final) y el otro tipo francés (cuotas constantes que amortizan durante toda la vida), ¿por qué tienen precios de mercado distintos?",
+    "pregunta": "Dos bonos con el mismo valor nominal, misma tasa cupón, mismo plazo y la misma TIR de mercado, pero uno es tipo bullet (amortiza todo el principal al final) y el otro tipo francés (cuotas constantes que amortizan durante toda la vida), ¿por qué tienen en general precios de mercado distintos?",
     "alternativas": [
       "Porque el bullet concentra el pago del principal al final y el francés lo reparte en cuotas constantes, generando distinta sensibilidad al descuento",
       "Porque los bonos bullet y franceses nunca pueden tener la misma tasa cupón ni la misma TIR de mercado",
@@ -92,7 +92,7 @@
       "En realidad ambos bonos siempre tienen exactamente el mismo precio de mercado si comparten tasa cupón y TIR"
     ],
     "correcta": 0,
-    "explicacion": "Aunque compartan tasa cupón, plazo y TIR, la distinta estructura temporal de los flujos (concentrados al final en el bullet, repartidos en el francés) genera una duración distinta y por tanto un precio de mercado distinto.",
+    "explicacion": "Aunque compartan tasa cupón, plazo y TIR, la distinta estructura temporal de los flujos (concentrados al final en el bullet, repartidos en el francés) genera una duración distinta y por tanto un precio de mercado distinto — la única excepción es cuando la TIR de mercado coincide exactamente con la tasa cupón, caso en que ambos se valorizan a la par.",
     "fuente": "Finanzas I · Pauta Ayudantía 2 Otoño 2010 (Aldo Bombardiere).pdf"
   },
   {
@@ -102,13 +102,13 @@
     "dificultad": 2,
     "pregunta": "Para decidir si conviene refinanciar un crédito con otro banco que ofrece una tasa nominal similar pero con distinta frecuencia de capitalización, ¿qué se debe comparar entre ambos créditos?",
     "alternativas": [
-      "La tasa anual efectiva (TAE) de cada crédito, calculada a partir de su tasa nominal y frecuencia de capitalización",
+      "La tasa efectiva anual (TEA) de cada crédito, calculada a partir de su tasa nominal y frecuencia de capitalización",
       "Únicamente el monto de la cuota mensual, sin ajustar por la frecuencia de capitalización",
       "El plazo total del crédito en años, sin considerar ninguna tasa de interés",
       "La tasa nominal anual establecida de cada banco, sin ningún ajuste"
     ],
     "correcta": 0,
-    "explicacion": "Al igual que al comparar depósitos, la decisión de refinanciamiento debe basarse en la tasa anual efectiva de cada crédito, que refleja el verdadero costo considerando la frecuencia de capitalización.",
+    "explicacion": "Al igual que al comparar depósitos, la decisión de refinanciamiento debe basarse en la tasa efectiva anual (TEA) de cada crédito, que refleja el verdadero costo considerando la frecuencia de capitalización.",
     "fuente": "Finanzas I · Pauta Ayudantía 2 Otoño 2010 (Aldo Bombardiere).pdf"
   },
   {
@@ -233,7 +233,7 @@
       "El tipo de emisor y su clasificación de riesgo, la tasa cupón, el plazo al vencimiento y las cláusulas especiales (prepago, rescate, convertibilidad)",
       "Únicamente el nombre comercial de la empresa emisora del bono, sin otros factores técnicos",
       "Solo la fecha exacta del calendario en que se emitió el bono, sin otros factores",
-      "El color corporativo del emisor y el número de sucursales que posee en el país"
+      "Únicamente el volumen de acciones transadas por la empresa emisora en el último mes"
     ],
     "correcta": 0,
     "explicacion": "El precio de un bono depende de factores como la clasificación de riesgo del emisor, la tasa cupón ofrecida, el plazo y las cláusulas especiales que favorecen a una de las partes del contrato.",
