@@ -162,7 +162,7 @@ footer a:hover{color:var(--gold)}
   <div class="wrap">
     <div class="kicker">Mientras esperas…</div>
     <h1>Corre. Acumula. Y sobre todo: <em>sabe cuándo salir.</em></h1>
-    <p>Tu portafolio crece mientras el toro corre y el multiplicador sube — pero el mercado se acelera y las velas rojas no perdonan. Puedes <b style="color:var(--up)">VENDER</b> en cualquier momento y asegurar tu lugar en el ranking, o seguir por más y arriesgarte a perderlo todo. Como en los mercados de verdad.</p>
+    <p>Tu portafolio crece mientras el toro corre y el multiplicador sube, pero el mercado se acelera y las velas rojas no perdonan. Puedes <b style="color:var(--up)">VENDER</b> en cualquier momento y asegurar tu lugar en el ranking, o seguir por más y arriesgarte a perderlo todo. Como en los mercados de verdad.</p>
   </div>
 </header>
 
@@ -208,7 +208,7 @@ footer a:hover{color:var(--gold)}
       <div class="overlay off" id="ovCrash">
         <h2 id="crashTitle">Te <em class="red">liquidaste.</em></h2>
         <div class="big red" id="crashVal">USD 0</div>
-        <p id="crashMsg">Eso tenías en pantalla — y no vendiste. El mercado no espera al que no sabe salir: la ganancia solo es tuya cuando la aseguras.</p>
+        <p id="crashMsg">Eso tenías en pantalla, y no vendiste. El mercado no espera al que no sabe salir: la ganancia solo es tuya cuando la aseguras.</p>
         <button class="btn btn--gold" id="btnAgain2">Volver al mercado →</button>
       </div>
     </div><!-- /stage -->
@@ -647,7 +647,7 @@ function updateSide(){
   var el=$("#sideTarget"),pos=$("#sidePos");
   if(!el)return;
   if(!RANK.length){el.className="side-target";el.innerHTML="Sé el primero en <b>vender</b> y fijar una marca.";if(pos)pos.textContent="";return;}
-  if(!t){el.className="side-target lead";el.innerHTML="🏆 <b>Vas primero</b> — y sigues subiendo.";}
+  if(!t){el.className="side-target lead";el.innerHTML="🏆 <b>Vas primero</b>, y sigues subiendo.";}
   else{el.className="side-target";el.innerHTML="Próximo: <b>"+esc(t.n)+"</b><br>faltan <span class=\"need\">"+fmt(t.v-valor)+"</span>";}
   if(pos){var p=1,i;for(i=0;i<RANK.length;i++)if(RANK[i].v>valor)p++;pos.textContent="Vas #"+p+" en vivo";}
 }
@@ -695,10 +695,10 @@ function crash(reason){
   $("#flash").classList.remove("on");
   if(reason==="sii"){
     $("#crashTitle").innerHTML='Te fuiste <em class="red">en cana.</em>';
-    $("#crashMsg").textContent="Caíste en el pozo del SII. Un inversionista opera siempre con los máximos estándares de integridad — más aún cuando el capital no es suyo.";
+    $("#crashMsg").textContent="Caíste en el pozo del SII. Un inversionista opera siempre con los máximos estándares de integridad, más aún cuando el capital no es suyo.";
   }else{
     $("#crashTitle").innerHTML='Te <em class="red">liquidaste.</em>';
-    $("#crashMsg").textContent="Eso tenías en pantalla — y no vendiste. El mercado no espera al que no sabe salir: la ganancia solo es tuya cuando la aseguras.";
+    $("#crashMsg").textContent="Eso tenías en pantalla, y no vendiste. El mercado no espera al que no sabe salir: la ganancia solo es tuya cuando la aseguras.";
   }
   $("#crashVal").textContent=fmt(valor);
   $("#ovCrash").classList.remove("off");
@@ -714,7 +714,7 @@ function sell(){
   var gan=valor-10000;
   $("#sellMsg").textContent=gan>0
     ? "Ganancia asegurada: "+fmt(gan).replace("USD","USD +")+". Deja tu nombre para el ranking:"
-    : "Saliste temprano — sin pérdidas. Deja tu nombre para el ranking:";
+    : "Saliste temprano, sin pérdidas. Deja tu nombre para el ranking:";
   $("#ovSell").classList.remove("off");
   $("#inpName").focus();
 }

@@ -28,7 +28,7 @@
       "Depende únicamente del monto nominal, no del momento en que se recibe"
     ],
     "correcta": 0,
-    "explicacion": "Un peso disponible hoy puede invertirse a una tasa r y crecer, por lo que siempre vale más que el mismo peso recibido en el futuro — esto es independiente de la inflación.",
+    "explicacion": "Un peso disponible hoy puede invertirse a una tasa r y crecer, por lo que siempre vale más que el mismo peso recibido en el futuro, esto es independiente de la inflación.",
     "fuente": "Intro a Finanzas · Guía de Materia Concepto de Valor Actual.pdf"
   },
   {
@@ -172,7 +172,7 @@
       "VP(A+B) depende del orden en que se reciban los flujos"
     ],
     "correcta": 0,
-    "explicacion": "Como todos los valores presentes están expresados en la misma unidad monetaria de hoy, pueden sumarse directamente — esta es la base del criterio de aditividad y del flujo de tesorería descontado.",
+    "explicacion": "Como todos los valores presentes están expresados en la misma unidad monetaria de hoy, pueden sumarse directamente, esta es la base del criterio de aditividad y del flujo de tesorería descontado.",
     "fuente": "Intro a Finanzas · Guía de Materia Concepto de Valor Actual.pdf"
   },
   {
@@ -220,7 +220,7 @@
       "$16.000.000"
     ],
     "correcta": 0,
-    "explicacion": "VP = 20.000.000/(1,04)^5 = 20.000.000/1,2167 ≈ $16.438.540 — hay que descontar cinco períodos completos, no solo dividir una vez por (1+r).",
+    "explicacion": "VP = 20.000.000/(1,04)^5 = 20.000.000/1,2167 ≈ $16.438.540, hay que descontar cinco períodos completos, no solo dividir una vez por (1+r).",
     "fuente": "Intro a Finanzas · Guía de Materia Concepto de Valor Actual.pdf"
   },
   {
@@ -300,7 +300,7 @@
       "La rentabilidad de la empresa después de impuestos"
     ],
     "correcta": 0,
-    "explicacion": "Compara el EBIT (utilidad antes de intereses e impuestos) contra el gasto financiero — mientras más alto, mayor holgura para cubrir la deuda con la operación.",
+    "explicacion": "Compara el EBIT (utilidad antes de intereses e impuestos) contra el gasto financiero, mientras más alto, mayor holgura para cubrir la deuda con la operación.",
     "fuente": "Intro a Finanzas · Ratios Financieros.pdf + Ratios.pdf"
   },
   {

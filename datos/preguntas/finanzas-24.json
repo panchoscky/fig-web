@@ -12,7 +12,7 @@
       "El costo de capital promedio ponderado (WACC) disminuye de forma permanente"
     ],
     "correcta": 0,
-    "explicacion": "En MM 1958 (sin impuestos), más deuda no cambia el riesgo operacional de los activos ni el valor de la empresa: solo traslada más riesgo financiero a los accionistas, quienes exigen mayor retorno para compensarlo — efecto que cancela exactamente el ahorro de usar deuda 'barata'.",
+    "explicacion": "En MM 1958 (sin impuestos), más deuda no cambia el riesgo operacional de los activos ni el valor de la empresa: solo traslada más riesgo financiero a los accionistas, quienes exigen mayor retorno para compensarlo, efecto que cancela exactamente el ahorro de usar deuda 'barata'.",
     "fuente": "Finanzas II · Pauta Solemne González (2018 Verano)"
   },
   {
@@ -28,7 +28,7 @@
       "Se vuelve indeterminado sin conocer la tasa de impuestos"
     ],
     "correcta": 0,
-    "explicacion": "A igual proporción de endeudamiento, una deuda más barata no cambia el riesgo total de la empresa: los bonistas asumen menos riesgo y los accionistas un poco más, pero el riesgo agregado —y por tanto el costo de capital y el valor de la empresa— no varía.",
+    "explicacion": "A igual proporción de endeudamiento, una deuda más barata no cambia el riesgo total de la empresa: los bonistas asumen menos riesgo y los accionistas un poco más, pero el riesgo agregado, y por tanto el costo de capital y el valor de la empresa, no varía.",
     "fuente": "Finanzas II · Pauta Solemne González (2018 Verano)"
   },
   {
@@ -124,7 +124,7 @@
       "Únicamente cuando el proyecto tiene una duración menor a un año"
     ],
     "correcta": 0,
-    "explicacion": "El VPNA separa el valor del proyecto 'puro' (como si se financiara 100% patrimonio) del valor que aporta o resta la forma específica de financiarlo — por eso es especialmente útil cuando hay condiciones no estándar, como un préstamo subsidiado o con comisiones particulares.",
+    "explicacion": "El VPNA separa el valor del proyecto 'puro' (como si se financiara 100% patrimonio) del valor que aporta o resta la forma específica de financiarlo, por eso es especialmente útil cuando hay condiciones no estándar, como un préstamo subsidiado o con comisiones particulares.",
     "fuente": "Finanzas II · Pauta Examen Final González (2019)"
   },
   {
@@ -156,7 +156,7 @@
       "Porque la TIR de un bono se calcula sin usar su precio de mercado"
     ],
     "correcta": 0,
-    "explicacion": "El precio del bono se forma descontando sus cupones y capital a la tasa que el mercado exige. Al calcular la TIR a partir de ese mismo precio, se recupera exactamente la tasa exigida — por eso, a diferencia de un proyecto de inversión, en un bono 'tasa ofrecida' y 'tasa exigida' son la misma cosa.",
+    "explicacion": "El precio del bono se forma descontando sus cupones y capital a la tasa que el mercado exige. Al calcular la TIR a partir de ese mismo precio, se recupera exactamente la tasa exigida, por eso, a diferencia de un proyecto de inversión, en un bono 'tasa ofrecida' y 'tasa exigida' son la misma cosa.",
     "fuente": "Finanzas II · Pauta Solemne González (2019 Primavera)"
   }
 ]

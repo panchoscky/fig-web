@@ -12,7 +12,7 @@
       "Solo el tamaño se relaciona con el endeudamiento; la tangibilidad no tiene ningún efecto documentado"
     ],
     "correcta": 0,
-    "explicacion": "A diferencia de los escudos tributarios no ligados a deuda, la unicidad y la volatilidad (negativamente relacionados), la evidencia muestra que activos tangibles —que sirven de garantía y facilitan el acceso a crédito— y el mayor tamaño de la empresa —asociado a menor riesgo de quiebra y más diversificación— se relacionan positivamente con el nivel de endeudamiento.",
+    "explicacion": "A diferencia de los escudos tributarios no ligados a deuda, la unicidad y la volatilidad (negativamente relacionados), la evidencia muestra que activos tangibles, que sirven de garantía y facilitan el acceso a crédito, y el mayor tamaño de la empresa, asociado a menor riesgo de quiebra y más diversificación, se relacionan positivamente con el nivel de endeudamiento.",
     "fuente": "Finanzas II · Pauta Examen Final González (2019)"
   },
   {
@@ -92,7 +92,7 @@
       "Sí, pero solo en mercados con opciones europeas, nunca con opciones americanas"
     ],
     "correcta": 0,
-    "explicacion": "Tanto el principio de aditividad del valor (el valor de un portafolio es la suma de sus partes) como la valoración neutral al riesgo (descontar flujos esperados bajo probabilidades ajustadas por riesgo a la tasa libre de riesgo) son consecuencias del supuesto de ausencia de arbitraje, pero se derivan de forma independiente entre sí — uno no implica al otro.",
+    "explicacion": "Tanto el principio de aditividad del valor (el valor de un portafolio es la suma de sus partes) como la valoración neutral al riesgo (descontar flujos esperados bajo probabilidades ajustadas por riesgo a la tasa libre de riesgo) son consecuencias del supuesto de ausencia de arbitraje, pero se derivan de forma independiente entre sí, uno no implica al otro.",
     "fuente": "Finanzas II · Pauta Solemne 1 Rodríguez (2013 Primavera)"
   }
 ]
