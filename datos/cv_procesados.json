@@ -33,8 +33,12 @@
       "modifiedTime": "2026-07-23T16:14:39.972Z",
       "procesadoEl": "2026-07-24",
       "persona": "María Gabriela Domínguez Escalona",
-      "camposExtraidos": [],
-      "notas": "PENDIENTE — CV leído pero NO aplicado a ningún archivo del repo todavía. Gabriela se autodescribe en su CV como 'Fundadora – Fen Investment Group Women', el mismo rol que ya tiene Delia Avilán en personas.directiva de club.json y en fiw.json (única fundadora listada ahí hoy). Es el mismo tipo de conflicto que hubo entre los CV de Jhosep García y Samuel Rodríguez Arnolds por el liderazgo de Valuation — ese caso se resolvió porque Francisco lo aclaró directamente en el chat, no adivinando desde los CV. Se le preguntó a Francisco cómo resolverlo (¿co-fundadoras?, ¿roles distintos?, ¿dato desactualizado en algún lado?) antes de tocar personas.directiva o fiw.json. Contenido real del CV, por si sirve una vez se resuelva: estudiante de Contador Auditor FEN (Cuadro de Honor 2023-2025), ayudante de investigación Proyecto Fondecyt (Prof. Harold Contreras, scripts Python para datos CMF), ayudante de cátedra de varios ramos de finanzas/contabilidad, tutora Nexo de Apoyo Académico, experiencia previa en YFU Chile y TimeShop.cl. El CV contiene teléfono, correo personal y referencias con teléfono que NO se copiaron a ningún archivo del repo."
+      "camposExtraidos": [
+        "personas.directiva[] (agregada, ver nota)",
+        "personas.directiva[].perfil (bio + hitos, Delia Avilán)",
+        "fiw.json equipo[] (agregada + ajuste de Delia Avilán)"
+      ],
+      "notas": "RESUELTO (2026-07-24): su CV se autodescribe como 'Fundadora – Fen Investment Group Women', el mismo rol que ya tenía Delia Avilán en personas.directiva y fiw.json (única fundadora listada ahí hasta entonces) — mismo tipo de conflicto que hubo entre los CV de Jhosep García y Samuel Rodríguez Arnolds por el liderazgo de Valuation. Se le preguntó a Francisco directamente (AskUserQuestion) y confirmó que Delia y Gabriela son co-fundadoras de FIW. Se agregó Gabriela a personas.directiva (rol 'Fundadora · FEN Investment Woman', perfil con bio/hitos de su CV) y a fiw.json, y se ajustó el detalle/perfil de Delia para reflejar la co-fundación. La URL de LinkedIn de su CV quedó truncada en la extracción de texto ('https://www.linkedin.co...') — no se completó adivinando, así que no se agregó el campo linkedin. Hitos usados: ayudante de investigación Proyecto Fondecyt (Prof. Harold Contreras, scripts Python para datos CMF), ayudante de cátedra de varios ramos de finanzas/contabilidad, Cuadro de Honor FEN 2023-2025. El CV contiene teléfono, correo personal y referencias con teléfono que NO se copiaron a ningún archivo del repo."
     },
     {
       "archivo": "ManuelPaz.cv.pdf",
