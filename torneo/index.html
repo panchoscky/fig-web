@@ -697,7 +697,7 @@ function renderLb(eq,q){
   if(!list.length){body.innerHTML='<div class="lb-empty">SIN RESULTADOS PARA "'+esc(q.toUpperCase())+'"</div>';return;}
   var max=Math.max.apply(null,eq.map(function(t){return t.puntos}))||100;
   body.innerHTML=list.map(function(t){
-    var d=t.delta,dl=d>0?'<span class="lb-delta up">▲'+d+'</span>':d<0?'<span class="lb-delta down">▼'+(-d)+'</span>':'<span class="lb-delta eq">—</span>';
+    var d=t.delta,dl=d>0?'<span class="lb-delta up">▲'+d+'</span>':d<0?'<span class="lb-delta down">▼'+(-d)+'</span>':'';
     var mem=(t.miembros&&t.miembros.length)?t.miembros.length+" integrantes":"";
     return '<button class="lb-row'+(t.posicion<=3?" top3":"")+'" data-tm="'+esc(t.id)+'">'
       +'<span class="lb-pos">'+t.posicion+' '+dl+'</span>'
@@ -985,6 +985,20 @@ function drawRetChart(c,S,x,y,w,h,prog){
     }
   }
 }
+/* Reemplaza el gráfico de retorno cuando aún no hay 2+ semanas de historial
+   (recién arrancó el torneo) — mismo mensaje honesto que usa el overlay,
+   en vez de dejar un hueco vacío en la tarjeta/video */
+function chartPlaceholder(c,x,y,w,h){
+  c.save();
+  c.strokeStyle="rgba(212,175,55,.25)";c.lineWidth=1;
+  c.strokeRect(x,y,w,h);
+  c.fillStyle="rgba(247,244,236,.45)";
+  c.font="500 18px 'IBM Plex Mono', monospace";
+  c.textAlign="center";
+  c.fillText("TRAYECTORIA DISPONIBLE DESDE LA SEMANA 2",x+w/2,y+h/2);
+  c.textAlign="left";
+  c.restore();
+}
 function drawLegend(c,S,x,y){
   var items=[["#D4AF37",0,"EQUIPO"]];
   if(S.avg.some(function(v){return v!=null}))items.push(["rgba(247,244,236,.55)",1,"PROMEDIO EQUIPOS"]);
@@ -1111,6 +1125,8 @@ function drawFeed(c,t,chartProg,alpha){
     c.fillText(S._lab,64,588);
     drawRetChart(c,S,64,612,W-128,256,chartProg);
     drawLegend(c,S,64,910);
+  }else{
+    chartPlaceholder(c,64,588,W-128,322);
   }
   metGrid(c,t,64,952,W-128,2);
   collabRow(c,64,1168);
@@ -1148,6 +1164,8 @@ function drawStory(c,t,chartProg,alpha){
     c.fillText(S._lab,76,796);
     drawRetChart(c,S,76,824,W-152,400,chartProg);
     drawLegend(c,S,76,1268);
+  }else{
+    chartPlaceholder(c,76,796,W-152,472);
   }
   metGrid(c,t,76,1330,W-152,1,["ir","exc","sharpe"]);
   collabRow(c,76,1690);
@@ -1219,6 +1237,8 @@ function drawLi(c,t,chartProg,alpha){
     c.fillText(S._lab+" · "+t.puntos.toFixed(2)+" PTS",492,70);
     drawRetChart(c,S,492,92,W-56-492,300,chartProg);
     drawLegend(c,S,492,432);
+  }else{
+    chartPlaceholder(c,492,70,W-56-492,362);
   }
   /* métricas compactas 2×2 */
   var keys=["ir","exc","sharpe","var95"],cw=(W-56-492-36)/2;
@@ -1447,7 +1467,8 @@ function descargarHtml(t){
       +'<div class="pos">#'+t.posicion+'</div><div class="nm">'+esc(t.nombre)+'</div>'
       +(mem?'<div class="mem"><b>EQUIPO</b> · '+mem+'</div>':"")
       +(S?'<div class="ch"><div class="cl">RETORNO ACUMULADO · '+S.weeks.length+' SEMANAS</div>'+retChartSVG(S)
-         +'<div class="lgd"><span class="a"><i></i>EQUIPO</span><span class="b"><i></i>PROMEDIO EQUIPOS</span><span class="c"><i></i>MSCI ACWI</span></div></div>':"")
+         +'<div class="lgd"><span class="a"><i></i>EQUIPO</span><span class="b"><i></i>PROMEDIO EQUIPOS</span><span class="c"><i></i>MSCI ACWI</span></div></div>'
+        :'<div class="ch"><div class="cl">TRAYECTORIA DISPONIBLE DESDE LA SEMANA 2</div></div>')
       +rows
       +'<div class="cb"><span>COLABORAN</span>'+(logoIt?'<img class="sq" src="'+logoIt+'" alt="Itaú">':"")+(logoBr?'<img src="'+logoBr+'" alt="BlackRock">':"")+'</div>'
       +'<div class="ft"><span><b>ig @fen.investment.group</b></span><span>#TorneoPortafolio2026</span></div>'
