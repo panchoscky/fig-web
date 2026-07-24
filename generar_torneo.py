@@ -309,6 +309,91 @@ def leer_inscripciones(ruta):
     return miembros
 
 
+def leer_retornos_por_corte(ruta):
+    """Lee la hoja 'Retornos por corte' del Excel oficial (una fila por
+    semana/fecha, una columna por equipo, con el retorno since-inception
+    reportado ese corte). Devuelve {fecha_iso: {slug_equipo: ret}}."""
+    filas = leer_hoja(ruta, "Retornos por corte", opcional=True)
+    if not filas:
+        return {}
+    encabezado = filas[0]
+    columnas = [slug(h) for h in encabezado[1:]]
+    out = {}
+    for fila in filas[1:]:
+        fecha = fila[0]
+        fecha_iso = fecha.date().isoformat() if hasattr(fecha, "date") else str(fecha).strip()
+        vals = {}
+        for i, col_slug in enumerate(columnas, start=1):
+            if i < len(fila):
+                vals[col_slug] = num(fila[i])
+        out[fecha_iso] = vals
+    return out
+
+
+FECHA_EN_NOMBRE = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
+T0_TORNEO = None  # se fija en procesar_multiples() con la fecha real de inicio
+
+
+def semana_de_fecha(fecha_iso, t0_iso="2026-05-11"):
+    """misma fórmula que semanaHoy() en torneo/index.html: floor((fecha - inicio)/7d) + 1"""
+    import datetime
+    d = datetime.date.fromisoformat(fecha_iso)
+    t0 = datetime.date.fromisoformat(t0_iso)
+    return max(1, (d - t0).days // 7 + 1)
+
+
+MESES = ["", "ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"]
+
+
+def corte_legible(fecha_iso):
+    import datetime
+    d = datetime.date.fromisoformat(fecha_iso)
+    return f"{d.day:02d} · {MESES[d.month]} · {d.year}"
+
+
+def procesar_multiples(rutas, ruta_inscripciones):
+    """Reconstruye el historial completo (todas las semanas) a partir de
+    varios cortes semanales del Excel oficial. Cada archivo aporta el
+    snapshot (posición/puntos/métricas) de su propia fecha; el retorno
+    since-inception de cada semana sale de la hoja 'Retornos por corte'
+    del corte MÁS RECIENTE (ya trae la serie completa hasta esa fecha)."""
+    snapshots = []  # (fecha_iso, ruta, equipos_de_esa_semana)
+    for ruta in rutas:
+        m = FECHA_EN_NOMBRE.search(Path(ruta).stem)
+        if not m:
+            sys.exit(f"No pude leer la fecha del nombre de archivo: {ruta} "
+                     f"(se espera algo como Excel_Oficial_FIG_PORT_2026_2026-06-19.xlsx)")
+        snapshots.append((m.group(0), ruta, leer_ranking(ruta)))
+    snapshots.sort(key=lambda s: s[0])
+
+    ultima_fecha, ultima_ruta, ultimos_equipos = snapshots[-1]
+    retornos = leer_retornos_por_corte(ultima_ruta)
+
+    insc = leer_inscripciones(ruta_inscripciones) if ruta_inscripciones else {}
+
+    historial_por_id = {}
+    for fecha_iso, _ruta, equipos_semana in snapshots:
+        semana = semana_de_fecha(fecha_iso)
+        rets_semana = retornos.get(fecha_iso, {})
+        for eq in equipos_semana:
+            hist = historial_por_id.setdefault(eq["id"], [])
+            ret = rets_semana.get(eq["id"], eq.pop("_ret", None))
+            hist.append({"semana": semana, "puntos": eq["puntos"], "posicion": eq["posicion"], "ret": ret})
+
+    equipos_final = []
+    for eq in ultimos_equipos:
+        eq.pop("_ret", None)
+        hist = sorted(historial_por_id.get(eq["id"], []), key=lambda h: h["semana"])
+        eq["historial"] = hist
+        if len(hist) >= 2:
+            eq["delta"] = hist[-2]["posicion"] - eq["posicion"]
+        eq["miembros"] = insc.get(eq["id"], [])
+        equipos_final.append(eq)
+
+    semana_actual = semana_de_fecha(ultima_fecha)
+    return {"semana": semana_actual, "corte": corte_legible(ultima_fecha), "acwi": [], "equipos": equipos_final}
+
+
 def cargar_anterior():
     if SALIDA.exists():
         try:
@@ -369,6 +454,9 @@ def demo():
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[1])
     ap.add_argument("--excel", help="Excel oficial con hoja ranking_ordenado")
+    ap.add_argument("--excels", help="varios excels semanales separados por coma (nombre debe traer "
+                     "la fecha AAAA-MM-DD) para reconstruir el historial completo desde la hoja "
+                     "'Retornos por corte' del corte más reciente — no requiere --semana ni --corte")
     ap.add_argument("--inscripciones", help="Excel de inscripciones (columna LinkedIn)")
     ap.add_argument("--semana", type=int, help="número de semana del corte (1-25)")
     ap.add_argument("--corte", help='fecha del corte, ej: "03 · JUL · 2026"')
@@ -380,6 +468,9 @@ def main():
     salida = Path(args.salida)
     if args.demo:
         datos = demo()
+    elif args.excels:
+        rutas = [r.strip() for r in args.excels.split(",") if r.strip()]
+        datos = procesar_multiples(rutas, args.inscripciones)
     else:
         if not (args.excel and args.semana and args.corte):
             ap.error("--excel, --semana y --corte son obligatorios (o usa --demo)")
