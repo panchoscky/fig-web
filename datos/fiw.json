@@ -11,8 +11,9 @@
     {"num":"03 · RED","titulo":"Una red que acompaña","texto":"Comunidad y networking entre estudiantes, egresadas y profesionales de las finanzas."}
   ],
   "equipo": [
-    {"iniciales":"DA","nombre":"Delia Avilán","rol":"Fundadora · FEN Investment Woman","detalle":"Co-fundadora de FIG, junto a Gabriela Domínguez."},
-    {"iniciales":"GD","nombre":"Gabriela Domínguez","rol":"Fundadora · FEN Investment Woman","detalle":"Co-fundadora, junto a Delia Avilán. Estudiante de Contador Auditor, FEN."},
+    {"iniciales":"DA","nombre":"Delia Avilán","rol":"Fundadora · FEN Investment Woman","detalle":"Co-fundadora de FIG, junto a Gabriela Domínguez y Victoria Espinoza."},
+    {"iniciales":"GD","nombre":"Gabriela Domínguez","rol":"Fundadora · FEN Investment Woman","detalle":"Co-fundadora, junto a Delia Avilán y Victoria Espinoza. Estudiante de Contador Auditor, FEN."},
+    {"iniciales":"VE","nombre":"Victoria Espinoza","rol":"Fundadora · FEN Investment Woman","detalle":"Co-fundadora, junto a Delia Avilán y Gabriela Domínguez. Economista, candidata a Magíster en Finanzas."},
     {"iniciales":"+","nombre":"Súmate al equipo","rol":"","detalle":"Los perfiles del equipo FIW se cargan desde este archivo.","mas":true}
   ]
 }
