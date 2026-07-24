@@ -12,16 +12,18 @@
   ],
   "torneo": {
     "activo": true,
-    "titulo": "Torneo de Valuation",
-    "bajada": "El área está organizando su torneo de valorización de compañías. Pronto publicaremos las bases completas — mientras tanto, deja tu inscripción.",
+    "titulo": "Valuation Challenge 2026",
+    "bajada": "Junto a Itaú (Corporate & Investment Banking) y BDO (Deal Advisory), FIG te invita a vivir la experiencia real del mundo corporativo financiero: analizar un caso real de M&A, construir una tesis de inversión sólida y defenderla ante un comité de ejecutivos del mercado. No buscamos solo el número correcto, sino criterio, rigor y capacidad de argumentar como un profesional.",
     "estado": "Inscripciones abiertas",
-    "formUrl": "",
+    "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSccimTdCHN5kb7Jmhoinw2nGWsoPtYvM2JYGdrUrg-ksy6VDg/viewform?pli=1",
     "basesUrl": "",
     "datos": [
-      {"k": "Formato", "v": "Por confirmar"},
-      {"k": "Fechas", "v": "Por confirmar"},
-      {"k": "Quiénes pueden participar", "v": "Comunidad FEN · Universidad de Chile"},
-      {"k": "Organiza", "v": "Área Valuation · FIG"}
+      {"k": "Formato", "v": "Análisis de un caso real de M&A, tesis de inversión y defensa ante un comité de ejecutivos"},
+      {"k": "Equipos", "v": "De 2 a 3 estudiantes regulares FEN, desde 2° año en adelante"},
+      {"k": "Inscripciones", "v": "18 al 26 de julio"},
+      {"k": "Competencia", "v": "3 al 31 de agosto"},
+      {"k": "Premios", "v": "1° lugar: práctica en Itaú + premio tecnológico · 2° lugar: práctica en BDO"},
+      {"k": "Organiza", "v": "Área Valuation · FIG, junto a Itaú y BDO"}
     ]
   },
   "responsables": [
