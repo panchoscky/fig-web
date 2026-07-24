@@ -9,7 +9,7 @@
       "El indicador puede ser adecuado según el negocio, pero debe compararse contra empresas comparables de la industria antes de concluir problemas de liquidez",
       "Se puede concluir de inmediato que la empresa está en quiebra técnica sin más análisis",
       "El indicador siempre es irrelevante para cualquier tipo de empresa, sea de servicios o industrial",
-      "Una razón corriente baja siempre indica que la empresa tiene exceso de efectivo ocioso"
+      "Una razón corriente baja siempre significa que la empresa administra mal sus cuentas por cobrar"
     ],
     "correcta": 0,
     "explicacion": "Los ratios de liquidez deben interpretarse en el contexto del tipo de negocio; una empresa de servicios puede operar con razón corriente más baja sin que esto implique necesariamente un problema, pero conviene contrastar con comparables de la industria.",

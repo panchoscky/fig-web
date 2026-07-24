@@ -180,7 +180,7 @@
     "tema": "derivados-futuros",
     "ramo": "finanzas-i",
     "dificultad": 2,
-    "pregunta": "¿Qué similitud tienen la función de pago de una posición larga en un contrato de futuros y una posición larga en una opción de compra (call)?",
+    "pregunta": "¿Tienen la misma función de pago una posición larga en futuros y una posición larga en una opción de compra (call)?",
     "alternativas": [
       "Ninguna en su forma: el futuro tiene pago lineal en el precio del subyacente, mientras la call es no lineal (con quiebre en el precio de ejercicio)",
       "Ambas tienen exactamente la misma función de pago lineal en el precio del activo subyacente",

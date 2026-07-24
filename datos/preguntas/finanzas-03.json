@@ -89,7 +89,7 @@
       "No sirve para evaluar y comparar proyectos que son excluyentes entre sí",
       "Solo puede calcularse para proyectos con flujos únicamente positivos",
       "Siempre entrega el mismo resultado numérico que el VAN",
-      "No puede calcularse si el proyecto dura más de cinco años"
+      "Es idéntica a la tasa de rendimiento contable del proyecto"
     ],
     "correcta": 0,
     "explicacion": "Además de comportarse mal cuando hay flujos negativos intermedios, la TIR no es un buen criterio para comparar proyectos mutuamente excluyentes.",
@@ -164,7 +164,7 @@
     "tema": "renta-variable",
     "ramo": "intro-finanzas",
     "dificultad": 1,
-    "pregunta": "En el modelo CAPM, ¿qué representa el coeficiente Beta (β) de un activo?",
+    "pregunta": "En el modelo CAPM (Capital Asset Pricing Model), ¿qué representa el coeficiente Beta (β) de un activo?",
     "alternativas": [
       "El riesgo sistemático del activo, es decir, su sensibilidad a los movimientos del mercado",
       "El riesgo total del activo, incluyendo la parte diversificable",

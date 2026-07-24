@@ -22,13 +22,13 @@
     "dificultad": 2,
     "pregunta": "En el sistema de pensiones, ¿qué mide la \"tasa de reemplazo\"?",
     "alternativas": [
-      "La proporción entre la pensión mensual que recibirá una persona y su sueldo (primer sueldo o último sueldo)",
+      "La proporción entre la pensión mensual que recibirá una persona y su último sueldo (o el promedio de sus últimos años cotizados)",
       "La tasa de rentabilidad promedio que obtuvo el multifondo durante toda la vida laboral del cotizante",
       "El porcentaje del sueldo que se cotiza obligatoriamente cada mes en la AFP",
       "La tasa de interés que cobra la AFP por administrar los fondos de pensión"
     ],
     "correcta": 0,
-    "explicacion": "La tasa de reemplazo compara la pensión mensual obtenida (en renta vitalicia o retiro programado) contra el sueldo del cotizante, ya sea el primer sueldo o el último, como medida de suficiencia previsional.",
+    "explicacion": "La tasa de reemplazo compara la pensión mensual obtenida (en renta vitalicia o retiro programado) contra el último sueldo del cotizante (o el promedio de sus últimos años cotizados), como medida de suficiencia previsional.",
     "fuente": "Intro a Finanzas · Pauta Control 1 Ejercicios (Nicolás Martínez).pdf"
   },
   {
@@ -230,13 +230,13 @@
     "dificultad": 2,
     "pregunta": "Para decidir en qué banco conviene depositar dinero cuando cada uno ofrece una tasa nominal distinta con distinta frecuencia de capitalización, ¿qué se debe comparar?",
     "alternativas": [
-      "La tasa anual efectiva (EAY) de cada oferta, que captura el efecto real de la frecuencia de capitalización",
+      "La tasa efectiva anual (TEA) de cada oferta, que captura el efecto real de la frecuencia de capitalización",
       "Únicamente la tasa nominal anual establecida por cada banco, sin ajustar por capitalización",
       "El número de períodos de capitalización al año, sin considerar la tasa nominal",
       "El monto mínimo de depósito exigido por cada institución bancaria"
     ],
     "correcta": 0,
-    "explicacion": "Dos tasas nominales iguales pueden rendir montos distintos según la frecuencia de capitalización; la tasa anual efectiva (EAY) permite comparar correctamente el rendimiento real de cada alternativa.",
+    "explicacion": "Dos tasas nominales iguales pueden rendir montos distintos según la frecuencia de capitalización; la tasa efectiva anual (TEA) permite comparar correctamente el rendimiento real de cada alternativa.",
     "fuente": "Finanzas I · Pauta Ayudantía 1 2009 (José Luis Ruiz).pdf"
   },
   {

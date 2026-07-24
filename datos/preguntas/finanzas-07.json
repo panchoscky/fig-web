@@ -92,7 +92,7 @@
       "Porque mide exclusivamente el precio de mercado de las acciones"
     ],
     "correcta": 0,
-    "explicacion": "El ROA aísla el desempeño operacional puro de los activos, sin contaminarlo con el efecto de si la empresa se financia con deuda o patrimonio.",
+    "explicacion": "En este material, el ROA se calcula con utilidad operacional (no utilidad neta), por lo que aísla el desempeño puro de los activos sin el efecto del financiamiento — en otros textos, ROA y BEP se distinguen porque el ROA sí usa la utilidad neta.",
     "fuente": "Intro a Finanzas · Analisis Financiero LAN.pdf"
   },
   {
@@ -214,7 +214,7 @@
     "dificultad": 3,
     "pregunta": "¿Qué pasó con la Razón de Cobertura de Intereses de LAN entre 2011 y 2012, y qué la explica principalmente?",
     "alternativas": [
-      "Cayó de 3,7 a 1,3, explicado por la caída del EBIT junto a un aumento del 105% en los gastos financieros por la mayor deuda de la fusión",
+      "Cayó de 3,7 a 1,3, explicado por la caída del EBIT junto a un fuerte aumento de los gastos financieros por la mayor deuda de la fusión",
       "Subió de 1,3 a 3,7 gracias a la reducción de deuda lograda tras la fusión",
       "Se mantuvo estable en 3,7 durante todo el período analizado",
       "Cayó a cero porque la empresa dejó de pagar intereses por completo"

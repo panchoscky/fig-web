@@ -6,7 +6,7 @@
     "dificultad": 1,
     "pregunta": "¿Qué representa el Valor Actual (VA) de un activo?",
     "alternativas": [
-      "El valor presente de los flujos de efectivo futuros que genera, descontados a una tasa de costo de oportunidad",
+      "El valor presente de sus flujos futuros, descontados al costo de oportunidad",
       "El precio de compra original que se pagó por el activo",
       "El total de flujos futuros del activo, sin descontar",
       "El valor contable registrado en los libros de la empresa"
@@ -132,7 +132,7 @@
     "tema": "matematica-financiera",
     "ramo": "intro-finanzas",
     "dificultad": 2,
-    "pregunta": "Si la tasa de interés anual es 12% capitalizable mensualmente (m=12), ¿cuál es la tasa mensual equivalente aproximada?",
+    "pregunta": "Si la tasa de interés anual es 12% capitalizable mensualmente (m=12), ¿cuál es la tasa nominal mensual?",
     "alternativas": [
       "1%",
       "12%",
@@ -228,7 +228,7 @@
     "tema": "analisis-financiero",
     "ramo": "intro-finanzas",
     "dificultad": 1,
-    "pregunta": "¿Qué mide el ROI (Rentabilidad sobre Activos)?",
+    "pregunta": "¿Qué mide el ROA (Rentabilidad sobre Activos)?",
     "alternativas": [
       "La eficiencia de la empresa en generar utilidad operacional a partir de sus activos totales",
       "El precio de mercado de las acciones respecto a su utilidad",
@@ -236,7 +236,7 @@
       "La velocidad con que la empresa cobra a sus clientes"
     ],
     "correcta": 0,
-    "explicacion": "ROI = EBIT/Activos totales promedio: mide qué tan bien la administración usa los activos para generar resultados operacionales, sin considerar cómo se financian.",
+    "explicacion": "ROA = EBIT/Activos totales promedio: mide qué tan bien la administración usa los activos para generar resultados operacionales, sin considerar cómo se financian.",
     "fuente": "Intro a Finanzas · Ratios Financieros.pdf + Ratios.pdf"
   },
   {
@@ -244,7 +244,7 @@
     "tema": "analisis-financiero",
     "ramo": "intro-finanzas",
     "dificultad": 1,
-    "pregunta": "El ROE se calcula como (Utilidad neta − Dividendos preferentes) / Patrimonio promedio accionistas comunes. ¿Qué mide?",
+    "pregunta": "El ROE (Rentabilidad sobre el Patrimonio) se calcula como (Utilidad neta − Dividendos preferentes) / Patrimonio promedio accionistas comunes. ¿Qué mide?",
     "alternativas": [
       "La rentabilidad que obtienen los accionistas comunes sobre su inversión en la empresa",
       "La rentabilidad total de todos los activos de la empresa",
@@ -292,7 +292,7 @@
     "tema": "analisis-financiero",
     "ramo": "intro-finanzas",
     "dificultad": 1,
-    "pregunta": "¿Qué mide la Razón de Cobertura de Intereses (EBIT / Gasto de intereses)?",
+    "pregunta": "¿Qué mide la Razón de Cobertura de Intereses (EBIT, utilidad antes de intereses e impuestos / Gasto de intereses)?",
     "alternativas": [
       "La capacidad de la empresa para pagar sus gastos financieros con las utilidades operacionales generadas",
       "El total de deuda que la empresa podría solicitar en el futuro",
@@ -358,7 +358,7 @@
     "dificultad": 3,
     "pregunta": "Según el material, ¿cuáles son dos causas típicas de un ROI bajo por activos administrados ineficientemente?",
     "alternativas": [
-      "Alto stock de inventarios (baja rotación) y plazos de crédito altos (cobranza lenta)",
+      "Baja rotación de inventario y cobranza lenta",
       "Alta rotación de activos y bajo período de cobranza",
       "Exceso de liquidez y bajo nivel de endeudamiento",
       "Alta utilidad neta y bajo patrimonio"
@@ -406,7 +406,7 @@
     "dificultad": 3,
     "pregunta": "El Ciclo Financiero Neto suma los días de rotación de disponible, inventario y cuentas por cobrar, y resta los días de cuentas por pagar. ¿Qué representa un ciclo más corto?",
     "alternativas": [
-      "Que la empresa necesita financiar con capital propio o deuda un período más breve de su operación",
+      "Que la empresa necesita financiar un período más corto de su operación",
       "Que la empresa tiene mayor endeudamiento de largo plazo",
       "Que el margen de utilidad de la empresa es más alto",
       "Que la empresa paga menos impuestos por sus ventas"
