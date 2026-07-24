@@ -1,8 +1,41 @@
 {
   "_leeme": "Manifiesto anti-relectura de CVs del Drive (carpeta CV). Antes de leer un CV con read_file_content, comparar su modifiedTime actual (get_file_metadata o search_files) contra el valor registrado aquí para el mismo fileId. Si coincide, NO volver a leerlo ni a reprocesarlo: ya está reflejado en datos/club.json. Si no coincide (o el fileId es nuevo), leerlo, actualizar club.json según haga falta, y actualizar esta entrada con el modifiedTime nuevo y la fecha de hoy. Esto evita releer los mismos PDFs sesión tras sesión a medida que más cofundadores suban o actualicen su CV.",
   "carpetaDriveId": "13mRDy9Yf6gqdy8S5bzLRQxuNNakAK8dm",
-  "actualizado": "2026-07-19",
+  "actualizado": "2026-07-24",
   "procesados": [
+    {
+      "archivo": "CV_Agustin_Arriagada.pdf",
+      "fileId": "16QNjiVa5SxFxbM140eXIUsVjtfFyA-c5",
+      "modifiedTime": "2026-07-23T19:19:01Z",
+      "procesadoEl": "2026-07-24",
+      "persona": "Agustín Arriagada",
+      "camposExtraidos": [
+        "personas.directiva[].linkedin",
+        "personas.directiva[].perfil (bio + hitos)"
+      ],
+      "notas": "Sin tarjeta de industria: su experiencia es toda interna a la FEN/FIG (Monitor Lab. Bloomberg, Co-fundador), sin práctica externa en una empresa — mismo criterio de exclusión usado con Benjamín Disi. Hitos usados: monitor del Lab. Bloomberg-Itaú FEN (capacitó a 65+ equipos del Torneo Portafolio 2026), desarrollador del sistema automatizado de reportes de FIG (Bloomberg+Python+Claude API), Diplomado en Gestión de Inversiones y Trading (PUC), certificación Bloomberg Market Concepts. El CV contiene teléfono y correo personal que NO se copiaron al repo (regla dura de CLAUDE.md)."
+    },
+    {
+      "archivo": "CV Juan José Limari.pdf",
+      "fileId": "1HwOjpvuSWpUx6FyYCBXKEDtBGBVxKzQ4",
+      "modifiedTime": "2026-07-23T16:20:15Z",
+      "procesadoEl": "2026-07-24",
+      "persona": "Juan José Limari",
+      "camposExtraidos": [
+        "personas.directiva[].perfil (bio + hitos)",
+        "personas.industria (card Itaú · Mesa de dinero, Liquidez y FTP)"
+      ],
+      "notas": "El texto extraído del CV NO incluye una URL de LinkedIn (a diferencia de los otros CV recientes que sí la traen en el encabezado) — no se agregó el campo linkedin ni en personas.directiva ni en la tarjeta de industria para no inventarlo; el código de renderIndustria() degrada bien sin linkedin (nombre sin enlace). Práctica extracurricular en la mesa de dinero de Banco Itaú Chile (Liquidez y Funds Transfer Pricing), elegida para la tarjeta de industria por ser su única práctica externa en finanzas. Hitos usados: 1er lugar Trading Challenge Itaú-FEN 2025, ayudante coordinador de Introducción a las Finanzas. El CV contiene teléfono y correo personal que NO se copiaron al repo (regla dura de CLAUDE.md)."
+    },
+    {
+      "archivo": "CV_Gabriela_Dominguez.pdf",
+      "fileId": "1MIDedDrywKZezmTkpwEmKndHG0_Zwejw",
+      "modifiedTime": "2026-07-23T16:14:39.972Z",
+      "procesadoEl": "2026-07-24",
+      "persona": "María Gabriela Domínguez Escalona",
+      "camposExtraidos": [],
+      "notas": "PENDIENTE — CV leído pero NO aplicado a ningún archivo del repo todavía. Gabriela se autodescribe en su CV como 'Fundadora – Fen Investment Group Women', el mismo rol que ya tiene Delia Avilán en personas.directiva de club.json y en fiw.json (única fundadora listada ahí hoy). Es el mismo tipo de conflicto que hubo entre los CV de Jhosep García y Samuel Rodríguez Arnolds por el liderazgo de Valuation — ese caso se resolvió porque Francisco lo aclaró directamente en el chat, no adivinando desde los CV. Se le preguntó a Francisco cómo resolverlo (¿co-fundadoras?, ¿roles distintos?, ¿dato desactualizado en algún lado?) antes de tocar personas.directiva o fiw.json. Contenido real del CV, por si sirve una vez se resuelva: estudiante de Contador Auditor FEN (Cuadro de Honor 2023-2025), ayudante de investigación Proyecto Fondecyt (Prof. Harold Contreras, scripts Python para datos CMF), ayudante de cátedra de varios ramos de finanzas/contabilidad, tutora Nexo de Apoyo Académico, experiencia previa en YFU Chile y TimeShop.cl. El CV contiene teléfono, correo personal y referencias con teléfono que NO se copiaron a ningún archivo del repo."
+    },
     {
       "archivo": "ManuelPaz.cv.pdf",
       "fileId": "16w28rCiqqHD6z895Cu95F7m0N2oPPv3P",
