@@ -92,7 +92,7 @@
       "Porque mide exclusivamente el precio de mercado de las acciones"
     ],
     "correcta": 0,
-    "explicacion": "En este material, el ROA se calcula con utilidad operacional (no utilidad neta), por lo que aísla el desempeño puro de los activos sin el efecto del financiamiento — en otros textos, ROA y BEP se distinguen porque el ROA sí usa la utilidad neta.",
+    "explicacion": "En este material, el ROA se calcula con utilidad operacional (no utilidad neta), por lo que aísla el desempeño puro de los activos sin el efecto del financiamiento, en otros textos, ROA y BEP se distinguen porque el ROA sí usa la utilidad neta.",
     "fuente": "Intro a Finanzas · Analisis Financiero LAN.pdf"
   },
   {
@@ -172,7 +172,7 @@
       "Ni las ventas ni la rentabilidad se vieron afectadas por la fusión"
     ],
     "correcta": 0,
-    "explicacion": "Las ventas de LAN subieron de US$5.585 a US$9.722 millones, pero el ROA cayó de 3,6% a 0,2% — un ejemplo real de que más ventas no garantizan mejores resultados.",
+    "explicacion": "Las ventas de LAN subieron de US$5.585 a US$9.722 millones, pero el ROA cayó de 3,6% a 0,2%, un ejemplo real de que más ventas no garantizan mejores resultados.",
     "fuente": "Intro a Finanzas · Analisis Financiero LAN.pdf"
   },
   {

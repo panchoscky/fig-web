@@ -12,7 +12,7 @@
       "Solo puede construirse si al menos uno de los activos usados también tiene beta igual a cero"
     ],
     "correcta": 0,
-    "explicacion": "Un portafolio beta-cero se arma ponderando activos riesgosos (incluso con pesos negativos, es decir venta corta) de forma que el beta ponderado del conjunto sea cero. No tiene por qué tener retorno igual a la tasa libre de riesgo ni riesgo total nulo — solo su exposición al riesgo de mercado (beta) es nula.",
+    "explicacion": "Un portafolio beta-cero se arma ponderando activos riesgosos (incluso con pesos negativos, es decir venta corta) de forma que el beta ponderado del conjunto sea cero. No tiene por qué tener retorno igual a la tasa libre de riesgo ni riesgo total nulo, solo su exposición al riesgo de mercado (beta) es nula.",
     "fuente": "Finanzas II · Ayudantía CAPM, Modelo Índice y APT (Jorge Gregoire)"
   },
   {
@@ -44,7 +44,7 @@
       "Un portafolio que tiene el mismo retorno esperado que el activo libre de riesgo, sin exposición a ningún factor"
     ],
     "correcta": 0,
-    "explicacion": "Un portafolio mimético se arma resolviendo los pesos de los activos disponibles de forma que su exposición sea 1 al factor que se quiere aislar y 0 a los demás factores del modelo APT — así su retorno esperado permite estimar el premio por riesgo asociado a ese factor en particular.",
+    "explicacion": "Un portafolio mimético se arma resolviendo los pesos de los activos disponibles de forma que su exposición sea 1 al factor que se quiere aislar y 0 a los demás factores del modelo APT, así su retorno esperado permite estimar el premio por riesgo asociado a ese factor en particular.",
     "fuente": "Finanzas II · Ayudantía CAPM, Modelo Índice y APT (Jorge Gregoire)"
   }
 ]

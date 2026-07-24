@@ -1,9 +1,9 @@
 {
   "_como_editar": "Textos y datos del área Valuation. La página valuation/index.html trae estos mismos valores embebidos y los sobreescribe con este archivo. Para el TORNEO: cuando tengas el link del Google Form pégalo en torneo.formUrl y el botón 'Inscríbete' se activa solo; mientras esté vacío la página muestra 'Inscripciones — próximamente'. Las bases van en torneo.basesUrl (PDF o enlace). Los campos de torneo.datos con 'Por confirmar' se rellenan cuando tengas la info. Fotos de los responsables: fotos/directiva/<slug>.jpg (ya existen).",
-  "bajada": "El área de FIG donde se estudia el valor real de una compañía — más allá de su precio.",
+  "bajada": "El área de FIG donde se estudia el valor real de una compañía, más allá de su precio.",
   "resumen": [
     "Valuation es el área de FEN Investment Group dedicada al research fundamental: entender un negocio, valorizarlo con las metodologías que se usan en la industria y transformar ese análisis en una tesis de inversión defendible.",
-    "Aquí los miembros aprenden a leer estados financieros, a construir modelos DCF y de múltiplos comparables, y a sostener una recomendación de compra o venta con argumentos y números sobre la mesa — no con intuición."
+    "Aquí los miembros aprenden a leer estados financieros, a construir modelos DCF y de múltiplos comparables, y a sostener una recomendación de compra o venta con argumentos y números sobre la mesa, no con intuición."
   ],
   "pilares": [
     {"num": "01 · RESEARCH", "titulo": "Analizar la compañía a fondo", "texto": "Estudio de estados financieros, industria y ventaja competitiva para entender el negocio que hay detrás de la acción."},

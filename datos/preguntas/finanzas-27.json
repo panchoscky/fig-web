@@ -28,7 +28,7 @@
       "No, porque los bonistas siempre están protegidos por cláusulas contractuales ante cualquier decisión de inversión"
     ],
     "correcta": 0,
-    "explicacion": "Al financiar un proyecto riesgoso con deuda de igual prioridad, se diluye la deuda existente (aumenta su riesgo de no pago), lo que traspasa valor desde los bonistas hacia los accionistas. Ese traspaso puede superar la pérdida de valor del proyecto, aumentando la riqueza accionaria pese a que el VAN del proyecto sea negativo — el clásico problema de sustitución de activos.",
+    "explicacion": "Al financiar un proyecto riesgoso con deuda de igual prioridad, se diluye la deuda existente (aumenta su riesgo de no pago), lo que traspasa valor desde los bonistas hacia los accionistas. Ese traspaso puede superar la pérdida de valor del proyecto, aumentando la riqueza accionaria pese a que el VAN del proyecto sea negativo, el clásico problema de sustitución de activos.",
     "fuente": "Finanzas II · Pauta Examen González (2017 Otoño)"
   },
   {
@@ -60,7 +60,7 @@
       "El valor de la empresa sube pero la riqueza de los accionistas originales baja"
     ],
     "correcta": 0,
-    "explicacion": "Con impuestos, parte del valor de la empresa viene del escudo tributario tc·B. Al recomprar deuda y reducir B, ese escudo se reduce, cayendo el valor total de la empresa, el precio de la acción y —a diferencia del caso sin impuestos— la riqueza de los accionistas originales.",
+    "explicacion": "Con impuestos, parte del valor de la empresa viene del escudo tributario tc·B. Al recomprar deuda y reducir B, ese escudo se reduce, cayendo el valor total de la empresa, el precio de la acción y, a diferencia del caso sin impuestos, la riqueza de los accionistas originales.",
     "fuente": "Finanzas II · Pauta Solemne González (2017 Otoño / 2016 Verano)"
   },
   {

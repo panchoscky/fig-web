@@ -28,7 +28,7 @@
       "A que el emisor no pague el cupón exactamente en la fecha pactada"
     ],
     "correcta": 0,
-    "explicacion": "El riesgo de tasa de interés surge de que la tasa de descuento del mercado cambie, moviendo el precio del bono en sentido inverso — no tiene relación con la tasa cupón, que es fija.",
+    "explicacion": "El riesgo de tasa de interés surge de que la tasa de descuento del mercado cambie, moviendo el precio del bono en sentido inverso, no tiene relación con la tasa cupón, que es fija.",
     "fuente": "Intro a Finanzas · Pauta Solemne Finanzas Hansen Primavera 2014.pdf"
   },
   {
@@ -60,7 +60,7 @@
       "Sí, pero esta explicación solo aplica a los bonos emitidos por gobiernos"
     ],
     "correcta": 0,
-    "explicacion": "Existen al menos tres teorías que explican la forma de la curva de tasas: preferencias por liquidez, expectativas, y segmentación de mercado — el premio por liquidez es solo una de ellas.",
+    "explicacion": "Existen al menos tres teorías que explican la forma de la curva de tasas: preferencias por liquidez, expectativas, y segmentación de mercado, el premio por liquidez es solo una de ellas.",
     "fuente": "Intro a Finanzas · Pauta Solemne Finanzas Hansen Primavera 2014.pdf"
   },
   {

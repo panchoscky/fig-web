@@ -44,7 +44,7 @@
       "Ningún efecto: la política de dividendos no puede alterar el valor relativo de deuda y patrimonio"
     ],
     "correcta": 0,
-    "explicacion": "Al desviar hacia dividendos flujos que antes respaldaban el pago de la deuda, se reduce la probabilidad de pago íntegro a los bonistas (cae el valor de mercado de la deuda) y sube el valor percibido del patrimonio — una transferencia de riqueza desde bonistas hacia accionistas, similar en espíritu al problema de sustitución de activos.",
+    "explicacion": "Al desviar hacia dividendos flujos que antes respaldaban el pago de la deuda, se reduce la probabilidad de pago íntegro a los bonistas (cae el valor de mercado de la deuda) y sube el valor percibido del patrimonio, una transferencia de riqueza desde bonistas hacia accionistas, similar en espíritu al problema de sustitución de activos.",
     "fuente": "Finanzas II · Pauta Solemne González (2013 Otoño)"
   },
   {
@@ -60,7 +60,7 @@
       "No importa qué flujos se usen, siempre que la tasa de descuento sea la correcta"
     ],
     "correcta": 0,
-    "explicacion": "El WACC ya incorpora el ahorro tributario de la deuda a través del término kb(1-tc). Si además se restan intereses del flujo de caja, el escudo tributario se estaría contando dos veces, sobreestimando el valor del proyecto — los flujos deben ser 'flujos de los activos', libres de cualquier efecto del financiamiento.",
+    "explicacion": "El WACC ya incorpora el ahorro tributario de la deuda a través del término kb(1-tc). Si además se restan intereses del flujo de caja, el escudo tributario se estaría contando dos veces, sobreestimando el valor del proyecto, los flujos deben ser 'flujos de los activos', libres de cualquier efecto del financiamiento.",
     "fuente": "Finanzas II · Pauta Examen Final González (2014 Otoño)"
   },
   {

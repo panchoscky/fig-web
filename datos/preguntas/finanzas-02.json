@@ -44,7 +44,7 @@
       "El bono no puede transarse bajo esas condiciones"
     ],
     "correcta": 0,
-    "explicacion": "Cuando Kd < Kb, el bono paga menos que lo que el mercado exige por ese riesgo, por lo que los inversionistas solo lo compran con un descuento — se transa bajo la par.",
+    "explicacion": "Cuando Kd < Kb, el bono paga menos que lo que el mercado exige por ese riesgo, por lo que los inversionistas solo lo compran con un descuento, se transa bajo la par.",
     "fuente": "Intro a Finanzas · 2020 Otoño - Resumen Instrumentos financieros de renta fija IVAN ABARCA.pdf"
   },
   {
@@ -156,7 +156,7 @@
       "No existe una relación directa entre ambas tasas"
     ],
     "correcta": 0,
-    "explicacion": "Cuando el cupón que paga el bono es más atractivo que la tasa que exige el mercado, los inversionistas pagan más del valor nominal por acceder a ese flujo — de ahí \"sobre la par\".",
+    "explicacion": "Cuando el cupón que paga el bono es más atractivo que la tasa que exige el mercado, los inversionistas pagan más del valor nominal por acceder a ese flujo, de ahí \"sobre la par\".",
     "fuente": "Intro a Finanzas · 2020 Otoño - Resumen Instrumentos financieros de renta fija IVAN ABARCA.pdf"
   },
   {
@@ -316,7 +316,7 @@
       "El Banco Mundial"
     ],
     "correcta": 0,
-    "explicacion": "El BIS se creó como organismo de cooperación entre bancos centrales, con objetivos de supervisión y estándares regulatorios — antecesor de instituciones reguladoras modernas.",
+    "explicacion": "El BIS se creó como organismo de cooperación entre bancos centrales, con objetivos de supervisión y estándares regulatorios, antecesor de instituciones reguladoras modernas.",
     "fuente": "Intro a Finanzas · 2020 Otoño - Resumen Riesgo Financiero IVAN ABARCA.pdf"
   }
 ]

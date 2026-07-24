@@ -92,7 +92,7 @@
       "En realidad ambos bonos siempre tienen exactamente el mismo precio de mercado si comparten tasa cupón y TIR"
     ],
     "correcta": 0,
-    "explicacion": "Aunque compartan tasa cupón, plazo y TIR, la distinta estructura temporal de los flujos (concentrados al final en el bullet, repartidos en el francés) genera una duración distinta y por tanto un precio de mercado distinto — la única excepción es cuando la TIR de mercado coincide exactamente con la tasa cupón, caso en que ambos se valorizan a la par.",
+    "explicacion": "Aunque compartan tasa cupón, plazo y TIR, la distinta estructura temporal de los flujos (concentrados al final en el bullet, repartidos en el francés) genera una duración distinta y por tanto un precio de mercado distinto, la única excepción es cuando la TIR de mercado coincide exactamente con la tasa cupón, caso en que ambos se valorizan a la par.",
     "fuente": "Finanzas I · Pauta Ayudantía 2 Otoño 2010 (Aldo Bombardiere).pdf"
   },
   {

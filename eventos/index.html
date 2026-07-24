@@ -265,7 +265,7 @@ footer a:hover{color:var(--gold)}
 <header class="hero">
   <div class="wrap">
     <div class="kicker reveal"><span class="scr" data-text="Bitácora FIG">Bitácora FIG</span></div>
-    <h1 class="reveal d1">Lo que ya pasó — <em>y lo que viene.</em></h1>
+    <h1 class="reveal d1">Lo que ya pasó, <em>y lo que viene.</em></h1>
     <p class="reveal d2">Torneos, visitas a la industria, charlas y comunidad: el registro vivo de todo lo que FEN Investment Group ha construido, evento a evento.</p>
     <div class="hero__meta reveal d3">
       <span><b id="statTotal">0</b> actividades</span>
@@ -410,7 +410,7 @@ function renderGrid(){
     return (currentFilter==="todos"||e.tipo===currentFilter)
         && (currentYear==="todos"||(e.fecha||"").slice(0,4)===currentYear);
   });
-  if(!list.length){g.innerHTML='<div class="ev-empty">Aún no hay eventos en esta categoría — pronto habrá novedades.</div>';return;}
+  if(!list.length){g.innerHTML='<div class="ev-empty">Aún no hay eventos en esta categoría, pronto habrá novedades.</div>';return;}
   var html="";
   list.forEach(function(e,i){
     var yr=(e.fecha||"").slice(0,4);
@@ -589,7 +589,7 @@ fetch("../datos/eventos.json",{cache:"no-store"})
           el.classList.add("on");
           document.body.classList.add("locked");
           if(!cola.length){
-            $("#ptTitle").textContent="Aún no hay fotos — sube imágenes a fotos/eventos/ y vuelve a abrir";
+            $("#ptTitle").textContent="Aún no hay fotos, sube imágenes a fotos/eventos/ y vuelve a abrir";
             imgs[0].style.backgroundImage="linear-gradient(140deg,#0F1934,#060B1C)";
             imgs[0].classList.add("show");
             return;

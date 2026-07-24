@@ -12,7 +12,7 @@
       "Como el valor contable de los activos menos el valor contable de los pasivos"
     ],
     "correcta": 0,
-    "explicacion": "MM (1961) extiende su resultado a varios períodos: el valor de la empresa es el VP de los flujos que generan los activos que ya posee, más el VP de los flujos de los proyectos futuros que decida emprender — la política de dividendos sigue sin afectar ese valor.",
+    "explicacion": "MM (1961) extiende su resultado a varios períodos: el valor de la empresa es el VP de los flujos que generan los activos que ya posee, más el VP de los flujos de los proyectos futuros que decida emprender, la política de dividendos sigue sin afectar ese valor.",
     "fuente": "Finanzas II · Pauta Examen González (2018 Verano)"
   },
   {
@@ -108,7 +108,7 @@
       "Elimina por completo el problema de asimetría de información entre gerentes e inversionistas"
     ],
     "correcta": 0,
-    "explicacion": "Con poca holgura financiera, financiar un buen proyecto puede requerir emitir acciones que el mercado interprete como señal negativa (asimetría de información) y subvalore, llevando a la empresa a rechazar proyectos con VAN positivo antes que emitir en esas condiciones — el problema de subinversión central de Myers-Majluf.",
+    "explicacion": "Con poca holgura financiera, financiar un buen proyecto puede requerir emitir acciones que el mercado interprete como señal negativa (asimetría de información) y subvalore, llevando a la empresa a rechazar proyectos con VAN positivo antes que emitir en esas condiciones, el problema de subinversión central de Myers-Majluf.",
     "fuente": "Finanzas II · Pauta Examen N1 (2016)"
   }
 ]

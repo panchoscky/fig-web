@@ -133,7 +133,7 @@
       <div class="prow">
         <span class="ptag ph">Fotos</span>
         <div class="pbody">
-          <p>Esta página <b style="color:var(--ivory)">no usa fotos propias</b> — es texto, tarjetas y gráficos. Las fotos de eventos se ven en <code>eventos/index.html</code>.</p>
+          <p>Esta página <b style="color:var(--ivory)">no usa fotos propias</b>, es texto, tarjetas y gráficos. Las fotos de eventos se ven en <code>eventos/index.html</code>.</p>
         </div>
       </div>
       <div class="warn">Los enlaces de Instagram/LinkedIn/Torneo salen de <code>config.urls</code> dentro del mismo <code>club.json</code>.</div>
@@ -165,7 +165,7 @@
           <p style="margin-top:8px">Ej: el evento con <code>"carpeta": "torneo-portafolio-2026"</code> busca sus fotos en <code>fotos/eventos/torneo-portafolio-2026/</code>.</p>
         </div>
       </div>
-      <div class="warn">La foto <code>1.jpg</code> es la portada de la tarjeta y el fondo del detalle — ponla primero.</div>
+      <div class="warn">La foto <code>1.jpg</code> es la portada de la tarjeta y el fondo del detalle, ponla primero.</div>
     </div>
 
     <!-- FIW -->
@@ -192,7 +192,7 @@
           <p style="margin-top:8px">Se usan como fondo del hero (slideshow) y como galería mosaico.</p>
         </div>
       </div>
-      <div class="warn">Colores de marca (oro rosa) y logo aún provisionales — variables <code>--acc*</code> al inicio del CSS. No tocar sin aprobación de Delia.</div>
+      <div class="warn">Colores de marca (oro rosa) y logo aún provisionales, variables <code>--acc*</code> al inicio del CSS. No tocar sin aprobación de Delia.</div>
     </div>
 
     <!-- TORNEO -->
@@ -201,7 +201,7 @@
       <div class="prow">
         <span class="ptag">Texto</span>
         <div class="pbody">
-          <p>El ranking <b style="color:var(--ivory)">no se edita a mano</b> — sale del pipeline semanal:</p>
+          <p>El ranking <b style="color:var(--ivory)">no se edita a mano</b>, sale del pipeline semanal:</p>
           <code>python3 generar_torneo.py --excel …</code>
           <p style="margin-top:8px">que escribe <code>datos/torneo.json</code> (equipos, puntos, métricas, historial).</p>
         </div>
@@ -209,7 +209,7 @@
       <div class="prow">
         <span class="ptag ph">Fotos</span>
         <div class="pbody">
-          <p>Esta página <b style="color:var(--ivory)">no usa fotos</b> — todo son gráficos generados desde los datos.</p>
+          <p>Esta página <b style="color:var(--ivory)">no usa fotos</b>, todo son gráficos generados desde los datos.</p>
         </div>
       </div>
       <div class="warn">Mientras no exista <code>datos/torneo.json</code>, la página muestra 8 equipos de ejemplo con el banner "MODO DEMOSTRACIÓN".</div>
@@ -223,7 +223,7 @@
         <div class="pbody">
           <p>Los campos del formulario están escritos directo en el HTML (cambian poco). El destino de los envíos se configura en:</p>
           <code>datos/club.json → config.figEndpoint</code>
-          <p style="margin-top:8px">Ese mismo <code>figEndpoint</code> es <b style="color:var(--ivory)">un solo Apps Script compartido</b> por todo el sitio: postulaciones, ranking del Rally del Toro y métricas de visitas. Solo hay que crear uno — código completo y pasos de despliegue en <code>HOJA_DE_RUTA_FIG.md</code>.</p>
+          <p style="margin-top:8px">Ese mismo <code>figEndpoint</code> es <b style="color:var(--ivory)">un solo Apps Script compartido</b> por todo el sitio: postulaciones, ranking del Rally del Toro y métricas de visitas. Solo hay que crear uno, código completo y pasos de despliegue en <code>HOJA_DE_RUTA_FIG.md</code>.</p>
         </div>
       </div>
       <div class="prow">
@@ -252,7 +252,7 @@
           <p style="margin-top:8px">Para reemplazar uno, sube el nuevo archivo con el <b style="color:var(--ivory)">mismo nombre</b> y listo.</p>
         </div>
       </div>
-      <div class="warn">Falta el logo propio de FIG Woman (no está en el Drive) — hoy usa <code>fig-blanco.png</code> como reemplazo temporal.</div>
+      <div class="warn">Falta el logo propio de FIG Woman (no está en el Drive), hoy usa <code>fig-blanco.png</code> como reemplazo temporal.</div>
     </div>
 
   </div>
@@ -260,12 +260,12 @@
   <!-- ================= NOMENCLATURA DE FOTOS ================= -->
   <div class="naming">
     <b>Regla única para nombrar fotos</b>
-    <p>En cualquier carpeta de <code>fotos/</code>: numerar <code>1.jpg</code>, <code>2.jpg</code>, <code>3.jpg</code>… <b style="color:var(--ivory)">sin saltos</b> (no dejes huecos como 1, 2, 4). La página prueba número tras número hasta que uno no existe, y ahí se detiene — un salto corta la galería antes de tiempo. Formatos aceptados: <code>.jpg</code> o <code>.jpeg</code>.</p>
+    <p>En cualquier carpeta de <code>fotos/</code>: numerar <code>1.jpg</code>, <code>2.jpg</code>, <code>3.jpg</code>… <b style="color:var(--ivory)">sin saltos</b> (no dejes huecos como 1, 2, 4). La página prueba número tras número hasta que uno no existe, y ahí se detiene, un salto corta la galería antes de tiempo. Formatos aceptados: <code>.jpg</code> o <code>.jpeg</code>.</p>
   </div>
 
   <div class="naming" style="margin-top:16px">
     <b>Antes de subir una foto: comprímela</b>
-    <p>Una foto de celular sin comprimir pesa 3-8 MB. Una galería de 10 fotos así son 30-80 MB — inutilizable con datos móviles. Antes de subir a <code>fotos/</code>, redimensiona a <b style="color:var(--ivory)">máximo 1600-2000px</b> de lado largo y guarda como JPG calidad <b style="color:var(--ivory)">75-80%</b>. Con eso cada foto queda en 150-400 KB, imperceptible para el ojo en pantalla. En el celular: cualquier app de "reducir tamaño" o "comprimir imagen" sirve; en computador, la herramienta de recorte/exportar de Fotos (Mac) o Paint/Photos (Windows) también permite bajar la calidad al guardar.</p>
+    <p>Una foto de celular sin comprimir pesa 3-8 MB. Una galería de 10 fotos así son 30-80 MB, inutilizable con datos móviles. Antes de subir a <code>fotos/</code>, redimensiona a <b style="color:var(--ivory)">máximo 1600-2000px</b> de lado largo y guarda como JPG calidad <b style="color:var(--ivory)">75-80%</b>. Con eso cada foto queda en 150-400 KB, imperceptible para el ojo en pantalla. En el celular: cualquier app de "reducir tamaño" o "comprimir imagen" sirve; en computador, la herramienta de recorte/exportar de Fotos (Mac) o Paint/Photos (Windows) también permite bajar la calidad al guardar.</p>
   </div>
 
   <!-- ================= REFERENCIA RÁPIDA ================= -->

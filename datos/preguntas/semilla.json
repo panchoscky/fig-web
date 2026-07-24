@@ -12,7 +12,7 @@
       "El retorno esperado de la acción el próximo año"
     ],
     "correcta": 0,
-    "explicacion": "El P/E divide el precio de la acción por la utilidad por acción (EPS): indica cuántos años de utilidades 'pagas' al precio actual. Un P/E alto suele reflejar expectativas de crecimiento — no una promesa de retorno.",
+    "explicacion": "El P/E divide el precio de la acción por la utilidad por acción (EPS): indica cuántos años de utilidades 'pagas' al precio actual. Un P/E alto suele reflejar expectativas de crecimiento, no una promesa de retorno.",
     "fuente": "semilla-demo"
   },
   {
@@ -28,7 +28,7 @@
       "La carga tributaria de las ganancias"
     ],
     "correcta": 0,
-    "explicacion": "Combinando activos poco correlacionados se diluye el riesgo específico de cada empresa. El riesgo sistemático — el del mercado completo — no se elimina diversificando; ese se gestiona con asignación de activos y cobertura.",
+    "explicacion": "Combinando activos poco correlacionados se diluye el riesgo específico de cada empresa. El riesgo sistemático, el del mercado completo, no se elimina diversificando; ese se gestiona con asignación de activos y cobertura.",
     "fuente": "semilla-demo"
   },
   {
@@ -172,7 +172,7 @@
       "La quiebra masiva de bancos hipotecarios"
     ],
     "correcta": 0,
-    "explicacion": "A fines de los 90 bastaba un '.com' para levantar capital; muchas empresas cotizaban a múltiplos absurdos sin generar caja. El Nasdaq cayó cerca de un 78% desde su peak — recordatorio de que el precio necesita utilidades detrás.",
+    "explicacion": "A fines de los 90 bastaba un '.com' para levantar capital; muchas empresas cotizaban a múltiplos absurdos sin generar caja. El Nasdaq cayó cerca de un 78% desde su peak, recordatorio de que el precio necesita utilidades detrás.",
     "fuente": "semilla-demo"
   },
   {
