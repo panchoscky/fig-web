@@ -4,6 +4,19 @@
   "actualizado": "2026-07-24",
   "procesados": [
     {
+      "archivo": "Profile (12).pdf",
+      "fileId": "17u1UnvWDFeLjOpeTV3U0HrZCj2P3Gj0X",
+      "modifiedTime": "2026-07-24T03:40:42Z",
+      "procesadoEl": "2026-07-24",
+      "persona": "Victoria Espinoza",
+      "camposExtraidos": [
+        "personas.directiva[] (agregada, rol Fundadora · FEN Investment Woman)",
+        "personas.industria (card CMF · División de Análisis de Administradoras de Fondos)",
+        "fiw.json equipo[] (agregada + ajuste de Delia Avilán y Gabriela Domínguez)"
+      ],
+      "notas": "RESUELTO (2026-07-24): Victoria se autodescribe en su CV como 'Co-Founder of FEN Investment Group Women' — el mismo rol que Delia Avilán y Gabriela Domínguez, confirmadas horas antes como co-fundadoras. Se le preguntó a Francisco directamente (AskUserQuestion) y confirmó que Victoria es la tercera co-fundadora de FIW. Se agregó a personas.directiva, a personas.industria (práctica en la CMF) y a fiw.json, y se ajustaron los detalle/perfil de Delia y Gabriela para nombrar a las tres. Hitos usados: Economista, candidata a Magíster en Finanzas U. de Chile (2025-2026), ayudante de cátedra desde 2022 en Introducción a las Finanzas/Finanzas I/Teoría de Finanzas/Negociación (Head TA de Introducción a Finanzas primavera 2025), práctica en la CMF — División de Análisis de Administradoras de Fondos, apoyó la creación de un portal comparador de fondos y el Informe de Costos de Inversión en Fondos Mutuos 2023. LinkedIn real (viene en el propio CV): https://www.linkedin.com/in/victoria-espinoza-aguilera. Foto real guardada en fotos/directiva/victoria-espinoza.jpg. El CV contiene correo personal que NO se copió a ningún archivo del repo."
+    },
+    {
       "archivo": "CV_Agustin_Arriagada.pdf",
       "fileId": "16QNjiVa5SxFxbM140eXIUsVjtfFyA-c5",
       "modifiedTime": "2026-07-23T19:19:01Z",
