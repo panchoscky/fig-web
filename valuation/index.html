@@ -73,6 +73,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .btn--navy:hover{transform:translateY(-2px);box-shadow:0 18px 40px -14px rgba(10,17,40,.6)}
 .btn.is-off{background:transparent;border:1px dashed var(--acc-dim);color:rgba(249,246,239,.5);cursor:default;pointer-events:none}
 .section--light .btn.is-off{color:var(--ink-soft)}
+/* sobre fondo claro el fantasma quedaba color marfil sobre marfil (invisible) */
+.section--light .btn--ghost{color:var(--ink);border-color:var(--line-l)}
+.section--light .btn--ghost:hover{border-color:var(--acc-deep);color:var(--acc-deep)}
 .btn .arr{transition:transform .35s var(--ease)}
 .btn:hover .arr{transform:translateX(4px)}
 
@@ -512,7 +515,9 @@ function renderTorneo(){
   }
   $("#tvCtas").innerHTML=ctas;
   $("#tvCardTexto").textContent=t.formUrl
-    ? "Completa el formulario de inscripción y te avisamos con las bases y las fechas apenas estén listas."
+    ? (t.basesUrl
+        ? "Revisa las bases del desafío y completa el formulario de inscripción. Cualquier duda, escríbenos por Instagram."
+        : "Completa el formulario de inscripción y te avisamos con las bases y las fechas apenas estén listas.")
     : "El formulario de inscripción se habilitará muy pronto. Sigue a FIG en Instagram para enterarte primero.";
   observeReveals(sec);
 }
