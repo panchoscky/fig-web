@@ -8,7 +8,7 @@ X-WR-CALDESC:Actividades de FEN Investment Group — torneos\, visitas\, charlas
 X-WR-TIMEZONE:America/Santiago
 BEGIN:VEVENT
 UID:torneo-portafolio-2026@feninvestmentgroup
-DTSTAMP:20260714T042901Z
+DTSTAMP:20260726T185133Z
 DTSTART;VALUE=DATE:20260511
 DTEND;VALUE=DATE:20260512
 SUMMARY:Torneo Portafolio 2026
@@ -21,7 +21,7 @@ CATEGORIES:TORNEO
 END:VEVENT
 BEGIN:VEVENT
 UID:clase-edv-2026@feninvestmentgroup
-DTSTAMP:20260714T042901Z
+DTSTAMP:20260726T185133Z
 DTSTART;VALUE=DATE:20260623
 DTEND;VALUE=DATE:20260624
 SUMMARY:Clase EDV — Colegios
@@ -34,7 +34,7 @@ CATEGORIES:CHARLA
 END:VEVENT
 BEGIN:VEVENT
 UID:visita-santander-2026@feninvestmentgroup
-DTSTAMP:20260714T042901Z
+DTSTAMP:20260726T185133Z
 DTSTART;VALUE=DATE:20260622
 DTEND;VALUE=DATE:20260623
 SUMMARY:Visita a Santander
@@ -46,19 +46,20 @@ CATEGORIES:VISITA
 END:VEVENT
 BEGIN:VEVENT
 UID:visita-moneda-2026@feninvestmentgroup
-DTSTAMP:20260714T042901Z
+DTSTAMP:20260726T185133Z
 DTSTART;VALUE=DATE:20260619
 DTEND;VALUE=DATE:20260620
-SUMMARY:Visita a La Moneda
-LOCATION:Palacio de La Moneda
-DESCRIPTION:Visita institucional al Palacio de La Moneda. Exposición sobr
- e política fiscal y monetaria\, con énfasis en la gestión económica d
- el Estado y sus implicaciones para los mercados.\nFecha: JUN · 2026
+SUMMARY:Visita a Moneda Patria
+LOCATION:Moneda Patria Investments
+DESCRIPTION:Visita institucional a Moneda Patria Investments\, una de las 
+ gestoras de activos más relevantes de América Latina. Una mirada de pri
+ mera fuente al trabajo de una administradora de fondos y a cómo se toman
+  las decisiones de inversión en la industria.\nFecha: JUN · 2026
 CATEGORIES:VISITA
 END:VEVENT
 BEGIN:VEVENT
 UID:fiw-mayo-2026@feninvestmentgroup
-DTSTAMP:20260714T042901Z
+DTSTAMP:20260726T185133Z
 DTSTART;VALUE=DATE:20260527
 DTEND;VALUE=DATE:20260528
 SUMMARY:Encuentro FEN Investment Woman
@@ -71,7 +72,7 @@ CATEGORIES:COMUNIDAD
 END:VEVENT
 BEGIN:VEVENT
 UID:charla-analisis-tecnico-2025@feninvestmentgroup
-DTSTAMP:20260714T042901Z
+DTSTAMP:20260726T185133Z
 DTSTART;VALUE=DATE:20251030
 DTEND;VALUE=DATE:20251031
 SUMMARY:Charla de Análisis Técnico
@@ -83,7 +84,7 @@ CATEGORIES:CHARLA
 END:VEVENT
 BEGIN:VEVENT
 UID:torneo-primavera-2025@feninvestmentgroup
-DTSTAMP:20260714T042901Z
+DTSTAMP:20260726T185133Z
 DTSTART;VALUE=DATE:20250911
 DTEND;VALUE=DATE:20250912
 SUMMARY:Torneo — Primavera 2025
@@ -95,7 +96,7 @@ CATEGORIES:TORNEO
 END:VEVENT
 BEGIN:VEVENT
 UID:charla-colegios-lab-2025@feninvestmentgroup
-DTSTAMP:20260714T042901Z
+DTSTAMP:20260726T185133Z
 DTSTART;VALUE=DATE:20250819
 DTEND;VALUE=DATE:20250820
 SUMMARY:Charla educativa — Colegios en el laboratorio
@@ -107,7 +108,7 @@ CATEGORIES:CHARLA
 END:VEVENT
 BEGIN:VEVENT
 UID:lanzamiento-club-2025@feninvestmentgroup
-DTSTAMP:20260714T042901Z
+DTSTAMP:20260726T185133Z
 DTSTART;VALUE=DATE:20250908
 DTEND;VALUE=DATE:20250909
 SUMMARY:Lanzamiento de FEN Investment Group
