@@ -802,7 +802,10 @@ body.on-light .rail-node .rn-lab{color:#A8871C;text-shadow:none}
   .pv-card{grid-template-columns:1fr;max-height:82vh;overflow:auto}
   .pv-corner{display:none}
   .pv-body{max-height:none;overflow:visible}
-  .pv-media{min-height:250px;border-right:0;border-bottom:1px solid rgba(212,175,55,.18)}
+  /* en una franja ancha y baja, "center top" recortaba a la altura del pelo:
+     se baja el encuadre para que quede la cara y se le da algo más de alto */
+  .pv-media{min-height:340px;border-right:0;border-bottom:1px solid rgba(212,175,55,.18)}
+  .pv-img{object-position:center 26%}
   .pv-shell{align-items:flex-start;padding-top:52px}
   .pv-x{position:fixed;top:10px;right:10px}
   .pv-arrow{top:auto;bottom:12px;transform:none;position:fixed}
@@ -1179,9 +1182,12 @@ body.has-ticker{padding-bottom:38px}
         <button class="desk-item" role="tab" aria-selected="false" data-desk="1">
           <span class="di-code">TRD</span><span class="di-name">Trading</span><span class="di-arrow">→</span>
         </button>
-        <button class="desk-item" role="tab" aria-selected="false" data-desk="2">
+        <!-- Valuation es el único desk con página propia: se entra directo al
+             tocarlo (los otros tres solo abren su panel). -->
+        <a class="desk-item" role="tab" aria-selected="false" data-desk="2"
+           href="valuation/index.html" aria-label="Valuation — ir a la página del área">
           <span class="di-code">VAL</span><span class="di-name">Valuation</span><span class="di-arrow">→</span>
-        </button>
+        </a>
         <button class="desk-item" role="tab" aria-selected="false" data-desk="3">
           <span class="di-code">FIW</span><span class="di-name">FEN Investment Woman</span><span class="di-arrow">→</span>
         </button>
