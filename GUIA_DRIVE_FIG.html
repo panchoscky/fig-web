@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo trabajar en el Drive de FIG — Guía del equipo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#060B1C; --navy:#0A1128; --panel:#0F1934; --panel-2:#152350;
+    --gold:#D4AF37; --gold-light:#EBD388; --gold-deep:#9E7E1E;
+    --gold-dim:rgba(212,175,55,.30); --gold-faint:rgba(212,175,55,.10);
+    --ivory:#F7F4EC; --muted:rgba(247,244,236,.62); --faint:rgba(247,244,236,.42);
+    --up:#5FC08B; --line:rgba(212,175,55,.16);
+    --serif:"Playfair Display",Georgia,serif;
+    --sans:"Inter",-apple-system,"Segoe UI",sans-serif;
+    --mono:"IBM Plex Mono","SF Mono",ui-monospace,Menlo,monospace;
+  }
+  /* Guía interna del equipo — mismo sistema visual del sitio FIG (navy+oro).
+     No forma parte del sitio público: se abre local con doble clic. */
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{background:var(--navy);color:var(--ivory);font-family:var(--sans);line-height:1.6;font-size:15.5px}
+  ::selection{background:var(--gold);color:var(--navy)}
+  a{color:var(--gold);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code{font-family:var(--mono)}
+
+  .top{padding:52px 28px 40px;max-width:1180px;margin:0 auto}
+  .kicker{font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:14px}
+  .kicker::before{content:"";width:34px;height:1px;background:var(--gold);opacity:.7}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem,4.2vw,2.7rem);margin:16px 0 10px;text-wrap:balance}
+  h1 em{font-style:italic;color:var(--gold)}
+  .lead{color:var(--muted);max-width:70ch;font-size:1.02rem}
+  .lead b{color:var(--ivory)}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px 90px}
+
+  /* -------- flujo general -------- */
+  .flow{display:flex;align-items:stretch;gap:0;margin:40px 0 20px;overflow-x:auto;padding-bottom:6px}
+  .flow-step{flex:1;min-width:220px;border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:20px 22px;position:relative}
+  .flow-step b{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .flow-step p{font-size:.86rem;color:var(--muted);line-height:1.55}
+  .flow-arrow{flex:none;width:44px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.3rem;opacity:.6}
+  .flow-note{font-size:.82rem;color:var(--faint);margin-top:10px}
+
+  .sec-head{margin:64px 0 26px}
+  .sec-head .kicker{margin-bottom:10px}
+  h2{font-family:var(--serif);font-weight:600;font-size:1.6rem}
+  .sec-lead{color:var(--muted);max-width:76ch;margin-top:8px;font-size:.94rem}
+
+  /* -------- árbol de carpetas -------- */
+  .tree{border:1px solid var(--line);border-radius:12px;background:linear-gradient(165deg,var(--panel),rgba(10,17,40,.9));overflow:hidden}
+  .tnode{display:flex;gap:16px;align-items:flex-start;padding:18px 22px;border-bottom:1px solid var(--line)}
+  .tnode:last-child{border-bottom:none}
+  .tnode.sub{padding-left:52px;background:rgba(212,175,55,.025)}
+  .tnode.evt{padding-left:52px;background:rgba(212,175,55,.05);border-left:2px dashed var(--gold-dim)}
+  .ticon{flex:none;width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:.62rem;font-weight:600;background:var(--gold-faint);border:1px solid var(--gold-dim);color:var(--gold)}
+  .ticon.file{background:rgba(247,244,236,.05);border-color:var(--line);color:var(--faint)}
+  .tbody{flex:1;min-width:0}
+  .tname{font-family:var(--mono);font-size:.86rem;color:var(--ivory);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .tdesc{font-size:.82rem;color:var(--muted);margin-top:4px}
+  .tbadge{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:100px;
+    border:1px solid var(--gold-dim);color:var(--gold-light);background:var(--gold-faint);white-space:nowrap}
+  .tbadge.restrict{border-color:rgba(232,180,130,.4);color:#E8B482;background:rgba(232,180,130,.08)}
+
+  /* -------- pasos para crear un evento -------- */
+  .steps{display:grid;gap:16px;margin-top:24px}
+  .step{display:flex;gap:20px;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:22px 26px}
+  .step-n{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--gold-dim);background:var(--gold-faint);
+    display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:600;font-size:1.15rem;color:var(--gold)}
+  .step-body h3{font-family:var(--serif);font-weight:600;font-size:1.08rem;margin-bottom:6px}
+  .step-body p{font-size:.88rem;color:var(--muted)}
+  .step-body code{display:inline-block;font-size:.78rem;color:var(--ivory);background:rgba(247,244,236,.06);border:1px solid var(--line);border-radius:5px;padding:2px 8px;margin:3px 4px 3px 0}
+  .pill-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .pill{font-family:var(--mono);font-size:.7rem;color:var(--gold-light);background:rgba(212,175,55,.08);border:1px solid var(--gold-dim);border-radius:100px;padding:3px 12px}
+  .example{margin-top:12px;border:1px dashed var(--gold-dim);border-radius:8px;padding:12px 16px;font-family:var(--mono);font-size:.78rem;color:var(--muted);background:rgba(212,175,55,.03)}
+  .example b{color:var(--gold-light)}
+
+  /* -------- reglas de fotos -------- */
+  .naming{border:1px dashed var(--gold-dim);border-radius:10px;padding:20px 24px;margin-top:20px;background:rgba(212,175,55,.04)}
+  .naming b{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px}
+  .naming p{font-size:.86rem;color:var(--muted)}
+
+  /* -------- tabla de referencia -------- */
+  table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:640px}
+  th{text-align:left;padding:14px 18px;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--line);background:var(--panel)}
+  td{padding:12px 18px;border-bottom:1px solid var(--line)}
+  tbody tr:last-child td{border-bottom:none}
+  td.mono{font-family:var(--mono);color:var(--muted)}
+
+  /* -------- reglas duras -------- */
+  .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:20px}
+  .rule{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:18px 20px;display:flex;gap:14px}
+  .rule .ricon{flex:none;font-size:1.1rem;color:var(--gold);line-height:1.4}
+  .rule p{font-size:.85rem;color:var(--muted)}
+  .rule b{color:var(--ivory)}
+
+  footer{border-top:1px solid var(--line);padding:28px 0;margin-top:70px;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--faint)}
+
+  @media (max-width:640px){
+    .flow{flex-direction:column}
+    .flow-arrow{width:100%;height:28px;transform:rotate(90deg)}
+    .step{flex-direction:column}
+    .tnode.sub,.tnode.evt{padding-left:26px}
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="kicker">Guía de referencia · FIG</div>
+  <h1>Cómo trabajar y subir <em>información al Drive</em> de FIG.</h1>
+  <p class="lead">La carpeta <b>"FIG Web — Contenido editable"</b> del Drive es la fuente de verdad del sitio. Ustedes editan ahí (Sheets y fotos); nadie toca código directamente. Cuando hay cambios, se le pide a quien esté trabajando con Claude Code que los revise, y la página se actualiza sola.</p>
+</div>
+
+<div class="wrap">
+
+  <!-- ================= FLUJO GENERAL ================= -->
+  <div class="flow">
+    <div class="flow-step">
+      <b>1 · Editan en Drive</b>
+      <p>Completan los campos en la Sheet correspondiente, o suben fotos numeradas a la carpeta del evento o área.</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <b>2 · Avisan</b>
+      <p>Le dicen a quien esté trabajando con Claude Code que hay contenido nuevo para revisar y publicar.</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <b>3 · Se publica solo</b>
+      <p>Claude revisa el Drive, muestra un resumen de qué cambió, espera confirmación y la página se actualiza — sin tocar código.</p>
+    </div>
+  </div>
+  <p class="flow-note">Los datos personales (correos, teléfonos) <b style="color:var(--ivory)">nunca</b> se suben al código público del sitio — solo nombre, rol y LinkedIn cuando corresponda.</p>
+
+  <!-- ================= ÁRBOL DE CARPETAS ================= -->
+  <div class="sec-head">
+    <div class="kicker">La carpeta del Drive</div>
+    <h2>"FIG Web — Contenido editable"</h2>
+    <p class="sec-lead">Todo lo que se ve en la página sale de aquí. Cada subcarpeta tiene un LEEME o una fila que explica qué editar; si tienen dudas de dónde va algo, revisen la Sheet <code>LEEME</code> en la raíz de esta carpeta.</p>
+  </div>
+
+  <div class="tree">
+    <div class="tnode">
+      <div class="ticon file">≡</div>
+      <div class="tbody">
+        <div class="tname">LEEME<span class="tbadge">Sheet de referencia</span></div>
+        <div class="tdesc">Explica qué edita cada archivo y quién puede tocarlo — el resumen de esta misma guía, siempre actualizado.</div>
+      </div>
+    </div>
+
+    <div class="tnode">
+      <div class="ticon">01</div>
+      <div class="tbody">
+        <div class="tname">00_MAESTRO/<span class="tbadge restrict">Acceso restringido</span></div>
+        <div class="tdesc">Configuración estructural del sitio (URLs, endpoints). No es contenido del día a día.</div>
+      </div>
+    </div>
+    <div class="tnode sub">
+      <div class="ticon file">≡</div>
+      <div class="tbody"><div class="tname">Excel_Maestro_FIG</div>
+        <div class="tdesc">URLs y config manual. Solo se toca para cambios estructurales, no para agregar contenido normal.</div></div>
+    </div>
+
+    <div class="tnode">
+      <div class="ticon">02</div>
+      <div class="tbody">
+        <div class="tname">01_Nosotros/<span class="tbadge">Equipo</span></div>
+        <div class="tdesc">Directiva del club, dónde ha trabajado el equipo, y los logos de esas empresas.</div>
+      </div>
+    </div>
+    <div class="tnode sub"><div class="ticon file">≡</div><div class="tbody"><div class="tname">Directiva</div><div class="tdesc">Nombre, iniciales, rol, LinkedIn, bio y "hitos" (separados por <code>|</code>) de cada director. Se ven en el Expediente al hacer clic en su tarjeta.</div></div></div>
+    <div class="tnode sub"><div class="ticon file">≡</div><div class="tbody"><div class="tname">Industria</div><div class="tdesc">Empresas donde el equipo ha hecho práctica, para "FIG en la industria".</div></div></div>
+    <div class="tnode sub"><div class="ticon">▸</div><div class="tbody"><div class="tname">Logos empresas/</div><div class="tdesc">Logo de cada empresa que aparece en "FIG en la industria" (PNG, fondo transparente si es posible).</div></div></div>
+
+    <div class="tnode">
+      <div class="ticon">03</div>
+      <div class="tbody"><div class="tname">02_Areas/<span class="tbadge">Equipo</span></div>
+        <div class="tdesc">Las 4 áreas del club: Portafolio, Trading, Valuation y FEN Investment Woman.</div></div>
+    </div>
+    <div class="tnode sub"><div class="ticon file">≡</div><div class="tbody"><div class="tname">Areas</div><div class="tdesc">Título, texto y datos de cada una de las 4 áreas mostradas en §Áreas del sitio principal.</div></div></div>
+
+    <div class="tnode">
+      <div class="ticon">04</div>
+      <div class="tbody"><div class="tname">03_Historia/<span class="tbadge">Equipo</span></div>
+        <div class="tdesc">La línea de tiempo con los capítulos de la historia del club.</div></div>
+    </div>
+    <div class="tnode sub"><div class="ticon file">≡</div><div class="tbody"><div class="tname">Historia</div><div class="tdesc">Un capítulo por fila: título y texto. Se muestran en orden en §Historia.</div></div></div>
+
+    <div class="tnode">
+      <div class="ticon">05</div>
+      <div class="tbody"><div class="tname">04_Eventos/<span class="tbadge">Equipo</span></div>
+        <div class="tdesc">La bitácora de actividades del club. Ver la sección siguiente para el paso a paso completo.</div></div>
+    </div>
+    <div class="tnode sub"><div class="ticon file">≡</div><div class="tbody"><div class="tname">Registro_Eventos</div><div class="tdesc">La tabla maestra: una fila resumen por cada evento que existe.</div></div></div>
+    <div class="tnode evt"><div class="ticon">▸</div><div class="tbody"><div class="tname">&lt;nombre-evento-año&gt;/ <span class="tbadge">Equipo que organizó</span></div>
+      <div class="tdesc">Una carpeta por evento, con su Sheet <code>Resumen</code> y sus fotos numeradas juntas.</div></div></div>
+
+    <div class="tnode">
+      <div class="ticon">06</div>
+      <div class="tbody"><div class="tname">05_FIG_Woman/<span class="tbadge">Equipo FIW</span></div>
+        <div class="tdesc">Textos y equipo del área FEN Investment Woman.</div></div>
+    </div>
+    <div class="tnode sub"><div class="ticon file">≡</div><div class="tbody"><div class="tname">FIW</div><div class="tdesc">Bajada, resumen, pilares y las integrantes del equipo FIW.</div></div></div>
+
+    <div class="tnode">
+      <div class="ticon">07</div>
+      <div class="tbody"><div class="tname">06_Valuation/<span class="tbadge">Equipo Valuation</span></div>
+        <div class="tdesc">Textos del área y todo el Torneo de Valuation, incluido el link de inscripción.</div></div>
+    </div>
+    <div class="tnode sub"><div class="ticon file">≡</div><div class="tbody"><div class="tname">Valuation</div><div class="tdesc">Bajada, pilares, responsables, y los datos del torneo del área — incluido dónde pegar el link del Google Form y el de las bases cuando existan.</div></div></div>
+    <div class="tnode sub"><div class="ticon">▸</div><div class="tbody"><div class="tname">Fotos/</div><div class="tdesc">Fotos numeradas para la tira del hero de la página de Valuation.</div></div></div>
+  </div>
+
+  <!-- ================= CÓMO CREAR UN EVENTO ================= -->
+  <div class="sec-head">
+    <div class="kicker">Paso a paso</div>
+    <h2>Cómo crear un evento nuevo</h2>
+    <p class="sec-lead">Aplica a torneos, visitas, charlas o actividades de comunidad. Todo pasa dentro de <code>04_Eventos/</code>.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body">
+        <h3>Crear la carpeta del evento</h3>
+        <p>Dentro de <code>04_Eventos/</code>, crear una carpeta nueva con el nombre en minúsculas, sin tildes ni espacios, separado por guiones: <code>nombre-evento-año</code>.</p>
+        <div class="example">Ejemplo real ya usado: <b>visita-santander-2026</b>, <b>charla-analisis-tecnico-2025</b>, <b>torneo-portafolio-2026</b></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body">
+        <h3>Llenar la Sheet "Resumen" dentro de esa carpeta</h3>
+        <p>Duplicar la Sheet <code>Resumen</code> de un evento anterior (o crear una con los mismos campos) y completar:</p>
+        <div class="pill-row">
+          <span class="pill">Título</span><span class="pill">Fecha</span><span class="pill">Tipo</span>
+          <span class="pill">Lugar</span><span class="pill">Resumen</span>
+        </div>
+        <p style="margin-top:10px">El campo <b style="color:var(--ivory)">Tipo</b> debe ser uno de estos cuatro (controla el filtro y el color de la etiqueta en la página):</p>
+        <div class="pill-row">
+          <span class="pill">torneo</span><span class="pill">visita</span><span class="pill">charla</span><span class="pill">comunidad</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body">
+        <h3>Subir las fotos a la misma carpeta</h3>
+        <p>Directo en la carpeta del evento (junto a la Sheet Resumen), numeradas <code>1.jpg</code>, <code>2.jpg</code>, <code>3.jpg</code>… sin saltos. La Sheet Resumen tiene una tabla abajo para marcar cuál es la portada — normalmente <code>1.jpg</code>.</p>
+        <p style="margin-top:8px">Antes de subir, comprimirlas — ver la caja de reglas de fotos más abajo.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">4</div>
+      <div class="step-body">
+        <h3>Agregar la fila en Registro_Eventos</h3>
+        <p>En <code>04_Eventos/Registro_Eventos</code> (la tabla maestra), agregar una fila nueva con los mismos datos del evento, más:</p>
+        <div class="pill-row">
+          <span class="pill">En curso (SI/NO)</span><span class="pill">Destacado (SI/NO)</span>
+          <span class="pill">Carpeta</span><span class="pill">Foto portada</span>
+        </div>
+        <p style="margin-top:10px"><b style="color:var(--ivory)">Carpeta</b> debe ser exactamente el mismo nombre que la carpeta creada en el paso 1 — así la página encuentra las fotos.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-n">5</div>
+      <div class="step-body">
+        <h3>Avisar para publicar</h3>
+        <p>Le avisan a quien esté trabajando con Claude Code que hay un evento nuevo. Claude revisa el Drive, confirma que todo calza y publica — la bitácora de eventos y el resumen en la página principal se actualizan solos, sin tocar código.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= REGLAS DE FOTOS ================= -->
+  <div class="sec-head" style="margin-top:56px">
+    <div class="kicker">Fotos</div>
+    <h2>Reglas para cualquier carpeta de fotos</h2>
+  </div>
+
+  <div class="naming">
+    <b>Numeración sin saltos</b>
+    <p>En cualquier carpeta de fotos del Drive: numerar <code>1.jpg</code>, <code>2.jpg</code>, <code>3.jpg</code>… <b style="color:var(--ivory)">sin dejar huecos</b> (no saltar de 1, 2 a 4). La página prueba número tras número hasta que uno no existe, y ahí se detiene — un salto corta la galería antes de tiempo. Formatos aceptados: <code>.jpg</code> o <code>.jpeg</code>.</p>
+  </div>
+
+  <div class="naming" style="margin-top:16px">
+    <b>Comprimir antes de subir</b>
+    <p>Una foto de celular sin comprimir pesa 3-8 MB; una galería de 10 fotos así son 30-80 MB, inútil con datos móviles. Antes de subir, redimensionar a <b style="color:var(--ivory)">máximo 1600-2000px</b> de lado largo y guardar como JPG calidad <b style="color:var(--ivory)">75-80%</b>. Con eso cada foto queda en 150-400 KB, sin pérdida visible en pantalla. En el celular sirve cualquier app de "reducir tamaño" o "comprimir imagen"; en computador, exportar con calidad reducida desde Fotos, Paint o cualquier editor.</p>
+  </div>
+
+  <!-- ================= REFERENCIA RÁPIDA ================= -->
+  <div class="sec-head">
+    <div class="kicker">Referencia rápida</div>
+    <h2>Quién edita qué</h2>
+  </div>
+  <div style="overflow-x:auto;border:1px solid var(--line);border-radius:10px">
+    <table>
+      <thead>
+        <tr><th>Carpeta / archivo</th><th>Qué edita</th><th>Quién puede editar</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono">00_MAESTRO/Excel_Maestro_FIG</td><td>URLs y configuración estructural del sitio</td><td>Acceso restringido</td></tr>
+        <tr><td class="mono">01_Nosotros/Directiva</td><td>Bios, hitos y LinkedIn de la directiva</td><td>Equipo</td></tr>
+        <tr><td class="mono">01_Nosotros/Industria</td><td>Empresas donde ha practicado el equipo</td><td>Equipo</td></tr>
+        <tr><td class="mono">02_Areas/Areas</td><td>Las 4 áreas del club</td><td>Equipo</td></tr>
+        <tr><td class="mono">03_Historia/Historia</td><td>Línea de tiempo de la historia de FIG</td><td>Equipo</td></tr>
+        <tr><td class="mono">04_Eventos/Registro_Eventos</td><td>Tabla maestra de todos los eventos</td><td>Equipo</td></tr>
+        <tr><td class="mono">04_Eventos/&lt;evento&gt;/Resumen</td><td>Resumen + fotos de ese evento</td><td>Quien organizó el evento</td></tr>
+        <tr><td class="mono">05_FIG_Woman/FIW</td><td>Textos y equipo de FIG Woman</td><td>Equipo FIW</td></tr>
+        <tr><td class="mono">06_Valuation/Valuation</td><td>Textos, responsables y torneo del área</td><td>Equipo Valuation</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ================= REGLAS DURAS ================= -->
+  <div class="sec-head">
+    <div class="kicker">Antes de subir algo</div>
+    <h2>Reglas que no se rompen</h2>
+  </div>
+  <div class="rules">
+    <div class="rule"><span class="ricon">🔒</span><p><b>Nunca</b> correos, teléfonos ni datos personales de asistentes en las Sheets de eventos — solo lo que va a salir público.</p></div>
+    <div class="rule"><span class="ricon">✍️</span><p>Solo se edita <b>dentro</b> de "FIG Web — Contenido editable". El resto del Drive del club es de referencia, no alimenta la página.</p></div>
+    <div class="rule"><span class="ricon">🗂️</span><p>Si ven un archivo duplicado (dos LEEME, dos Resumen), es porque Claude tuvo que crear una versión nueva para corregir algo — borren la vieja ustedes mismos.</p></div>
+    <div class="rule"><span class="ricon">🔗</span><p>El nombre de la <b>Carpeta</b> en Registro_Eventos debe calzar exacto con el nombre real de la carpeta de fotos — si no calza, la página no encuentra las fotos.</p></div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap" style="max-width:1180px;margin:0 auto;padding:0 28px">FEN INVESTMENT GROUP · GUÍA DEL DRIVE · GENERADA A PARTIR DE LA CARPETA REAL "FIG WEB — CONTENIDO EDITABLE" Y SU LEEME</div>
+</footer>
+
+</body>
+</html>
