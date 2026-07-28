@@ -39,6 +39,8 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 ├── validar_preguntas.py     ← barrera de calidad del banco de preguntas del Desafío FIG
 ├── HOJA_DE_RUTA_FIG.md      ← LISTA MAESTRA: backlog priorizado + protocolo de continuidad
 ├── MAPA_CONTENIDO_FIG.html  ← guía visual para Francisco: dónde subir fotos y editar texto de cada página (abrir con doble clic)
+├── GUIA_DRIVE_FIG.html       ← guía para el equipo: estructura de la carpeta del Drive, dónde van las fotos, pasos para crear un evento (abrir con doble clic)
+├── GUIA_DRIVE_FIG.jpg         ← infografía resumen de la guía anterior (para compartir rápido, ej. WhatsApp)
 ├── logos/                   ← logos oficiales bajados del Drive (FIG oro/blanco/navy, Itaú, BlackRock)
 │   └── industria/            ← logos de empresas para "FIG en la industria" (ver LEEME.txt de la carpeta)
 ├── datos/
