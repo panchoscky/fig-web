@@ -55,12 +55,6 @@ body{font-family:var(--f-body);color:var(--ivory);position:relative;
 #glow{position:absolute;width:1700px;height:1700px;left:50%;top:50%;
   margin:-850px 0 0 -850px;
   background:radial-gradient(circle,rgba(212,175,55,.15),transparent 62%)}
-#grid{position:absolute;inset:-120px;opacity:.15;
-  background-image:linear-gradient(rgba(212,175,55,.20) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(212,175,55,.20) 1px,transparent 1px);
-  background-size:104px 104px}
-#mkt{position:absolute;left:0;bottom:0;width:100%;height:48%;opacity:.26}
-#mkt path{fill:none;stroke:var(--gold);stroke-width:2.5;stroke-linejoin:round}
 #dust{position:absolute;inset:0}
 #dust i{position:absolute;width:5px;height:5px;border-radius:50%;
   background:var(--gold);opacity:.30}
@@ -198,8 +192,6 @@ body{font-family:var(--f-body);color:var(--ivory);position:relative;
 
 <div id="bg">
   <div id="glow"></div>
-  <div id="grid"></div>
-  <svg id="mkt" viewBox="0 0 1920 520" preserveAspectRatio="none"><path d=""/></svg>
   <div id="dust"></div>
   <div id="vig"></div>
 </div>
@@ -507,23 +499,13 @@ function construir(){
   DUST=[].slice.call(dust.children).map(function(el,i){
     return {el:el, x:(i*137)%1920, y:(i*271)%1080, sp:.4+((i*53)%100)/240, am:20+(i%7)*14};
   });
-
-  /* línea de mercado del fondo */
-  var p="M0,400",x=0,y=400;
-  while(x<1960){x+=42;y+=Math.sin(x/110)*26+(((x*37)%100)/100-.44)*30;
-    y=Math.max(70,Math.min(470,y));p+=" L"+x+","+y.toFixed(0);}
-  var mp=$("#mkt path"); mp.setAttribute("d",p);
-  MKT_LEN=mp.getTotalLength?mp.getTotalLength():5200;
-  mp.style.strokeDasharray=MKT_LEN;
 }
-var DUST=[], MKT_LEN=5200;
+var DUST=[];
 
 /* ================= dibujo de un instante ================= */
 function seek(t){
   /* --- fondo --- */
-  $("#grid").style.transform="translate("+((t/70)%104).toFixed(2)+"px,"+((t/120)%104).toFixed(2)+"px)";
   $("#glow").style.opacity=(0.72+0.28*Math.sin(t/2600)).toFixed(3);
-  $("#mkt path").style.strokeDashoffset=(MKT_LEN*(1-eo(sg(t,300,9000)))).toFixed(1);
   DUST.forEach(function(d){
     var yy=d.y-((t/1000)*d.sp*30)%1180;
     if(yy<-20) yy+=1180;
