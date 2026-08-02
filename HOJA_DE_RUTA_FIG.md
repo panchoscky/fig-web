@@ -10,7 +10,15 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-07-19** (sesión: tira de fotos reales de
+Última actualización: **2026-08-02** (sesión: corrección de datos
+desactualizados — "63 equipos"/"USD 630M" pasó a 59 equipos/USD 590M en
+`index.html`, `datos/club.json`, `eventos/index.html`, `datos/eventos.json`,
+`torneo/index.html` y `en/index.html`; se eliminó el cursor circular
+personalizado que seguía al mouse en las 5 páginas que lo tenían; el rol
+de David González Cañón se corrigió de "Director · Valuation" a
+"Fundador · Valuation". No se agregó FIG Woman en esta pasada).
+
+Actualización previa: **2026-07-19** (sesión: tira de fotos reales de
 eventos deslizándose detrás del hero y de §Historia; antes fotos reales
 en las miniaturas de §Nosotros + "FIG en la industria" agrupada por
 empresa con logo y tooltip de quiénes han pasado por ahí, compartir
@@ -33,7 +41,7 @@ Estas reglas hacen que el trabajo de cualquier modelo se vea igual:
    eventos, ranking, textos) vive en `datos/*.json`. Las páginas traen datos
    demo embebidos como respaldo y los sobreescriben con `fetch()` del JSON.
 3. **Sistema de diseño compartido:** navy `#0A1128` + oro `#D4AF37`,
-   Playfair Display + Inter + IBM Plex Mono, cursor crosshair, reveals
+   Playfair Display + Inter + IBM Plex Mono, reveals
    on-scroll, `prefers-reduced-motion` respetado. Al crear una página nueva,
    copia la base de `torneo/index.html` o `postula/index.html`.
    Excepción: `fiw/index.html` tiene paleta propia (variables `--acc*`) — NO

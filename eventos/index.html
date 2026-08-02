@@ -61,11 +61,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .btn:hover .arr{transform:translateX(4px)}
 
 /* Cursor */
-#cursorDot,#cursorRing{position:fixed;top:0;left:0;pointer-events:none;z-index:2400;border-radius:50%;opacity:0;transition:opacity .3s;will-change:transform}
-#cursorDot{width:6px;height:6px;background:var(--gold)}
-#cursorRing{width:36px;height:36px;border:1px solid rgba(212,175,55,.55);transition:opacity .3s,width .3s var(--ease),height .3s var(--ease),border-color .3s}
-body.cursor-on #cursorDot,body.cursor-on #cursorRing{opacity:1}
-body.cursor-on #cursorRing.grow{width:58px;height:58px;border-color:var(--gold)}
 #scrollbar{position:fixed;top:0;left:0;height:2.5px;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-light));z-index:1002}
 
 /* Preloader ligero */
@@ -235,8 +230,6 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 
-<div id="cursorDot" aria-hidden="true"></div>
-<div id="cursorRing" aria-hidden="true"></div>
 <div id="scrollbar"></div>
 <div id="preloader"><div class="in-lock"><img class="in-logo" src="../logos/fig-oro.png" alt=""><div class="in-text"><b>FEN Investment Group</b><span>Eventos</span></div></div></div>
 
@@ -351,7 +344,7 @@ function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){retur
 var TIPOS={torneo:"Torneo",visita:"Visita",charla:"Charla · Capacitación",comunidad:"Comunidad"};
 var DATA={eventos:[
   {id:"torneo-portafolio-2026",titulo:"Torneo Portafolio 2026",fecha:"2026-05-11",fechaTexto:"MAY — NOV · 2026",tipo:"torneo",lugar:"Bloomberg Lab · FEN",live:true,destacado:true,
-   resumen:"63 equipos gestionan carteras simuladas de USD 10 millones en ETFs de iShares/BlackRock, medidas contra el MSCI ACWI con métricas de Bloomberg. Ranking semanal cada viernes y final ante jurado el 9 de noviembre.",
+   resumen:"59 equipos gestionan carteras simuladas de USD 10 millones en ETFs de iShares/BlackRock, medidas contra el MSCI ACWI con métricas de Bloomberg. Ranking semanal cada viernes y final ante jurado el 9 de noviembre.",
    participantes:[],carpeta:"torneo-portafolio-2026"},
   {id:"clase-edv-2026",titulo:"Clase EDV — Colegios",fecha:"2026-06-23",fechaTexto:"23 · JUN · 2026",tipo:"charla",lugar:"FEN · Universidad de Chile",
    resumen:"Educación financiera para estudiantes de educación media. Introducción a conceptos de inversiones, análisis de mercados y construcción de portafolio con ejercicios prácticos en el Bloomberg Lab.",
@@ -660,23 +653,6 @@ function toggleMenu(f){
 }
 burger.addEventListener("click",function(){toggleMenu()});
 $$("a",mmenu).forEach(function(a){a.addEventListener("click",function(){toggleMenu(false)})});
-
-(function(){
-  if(!FINE||RM)return;
-  var dot=$("#cursorDot"),ring=$("#cursorRing"),x=0,y=0,rx=0,ry=0,on=false;
-  document.addEventListener("mousemove",function(e){
-    x=e.clientX;y=e.clientY;
-    if(!on){on=true;document.body.classList.add("cursor-on");}
-    dot.style.transform="translate("+x+"px,"+y+"px) translate(-50%,-50%)";
-  },{passive:true});
-  document.addEventListener("mouseleave",function(){document.body.classList.remove("cursor-on");on=false});
-  document.addEventListener("mouseover",function(e){
-    ring.classList.toggle("grow",!!(e.target.closest&&e.target.closest("a,button")));
-  });
-  (function loop(){rx+=(x-rx)*.16;ry+=(y-ry)*.16;
-    ring.style.transform="translate("+rx+"px,"+ry+"px) translate(-50%,-50%)";
-    requestAnimationFrame(loop);})();
-})();
 
 function openFromHash(){
   var h=location.hash.slice(1);
