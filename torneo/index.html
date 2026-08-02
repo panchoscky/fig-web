@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Torneo Portafolio 2026 — Ranking Oficial · FIG</title>
-<meta name="description" content="Ranking oficial del Torneo Portafolio 2026 de FEN Investment Group: 63 equipos, USD 10M simulados por cartera, métricas Bloomberg PORT.">
+<meta name="description" content="Ranking oficial del Torneo Portafolio 2026 de FEN Investment Group: 59 equipos, USD 10M simulados por cartera, métricas Bloomberg PORT.">
 <meta name="theme-color" content="#0A1128">
 <meta property="og:title" content="Torneo Portafolio 2026 — FIG">
-<meta property="og:description" content="Ranking oficial del Torneo Portafolio 2026: 63 equipos gestionan carteras de USD 10M en ETFs, medidas contra MSCI ACWI con métricas Bloomberg.">
+<meta property="og:description" content="Ranking oficial del Torneo Portafolio 2026: 59 equipos gestionan carteras de USD 10M en ETFs, medidas contra MSCI ACWI con métricas Bloomberg.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Torneo Portafolio 2026 — FIG">
-<meta name="twitter:description" content="Ranking oficial del Torneo Portafolio 2026: 63 equipos gestionan carteras de USD 10M en ETFs.">
+<meta name="twitter:description" content="Ranking oficial del Torneo Portafolio 2026: 59 equipos gestionan carteras de USD 10M en ETFs.">
 <meta name="twitter:image" content="/og-image.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230A1128'/%3E%3Ccircle cx='50' cy='50' r='34' fill='%23D4AF37'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,11 +68,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .btn:hover .arr{transform:translateX(4px)}
 .btn[disabled]{opacity:.45;pointer-events:none}
 
-#cursorDot,#cursorRing{position:fixed;top:0;left:0;pointer-events:none;z-index:2400;border-radius:50%;opacity:0;transition:opacity .3s;will-change:transform}
-#cursorDot{width:6px;height:6px;background:var(--gold)}
-#cursorRing{width:36px;height:36px;border:1px solid rgba(212,175,55,.55);transition:opacity .3s,width .3s var(--ease),height .3s var(--ease),border-color .3s}
-body.cursor-on #cursorDot,body.cursor-on #cursorRing{opacity:1}
-body.cursor-on #cursorRing.grow{width:58px;height:58px;border-color:var(--gold)}
 #scrollbar{position:fixed;top:0;left:0;height:2.5px;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-light));z-index:1002}
 #preloader{position:fixed;inset:0;background:var(--navy-deep);z-index:2600;display:flex;align-items:center;justify-content:center;transition:opacity .6s var(--ease),visibility .6s}
 #preloader.done{opacity:0;visibility:hidden}
@@ -328,8 +323,6 @@ footer a:hover{color:var(--gold)}
 </head>
 <body>
 
-<div id="cursorDot" aria-hidden="true"></div>
-<div id="cursorRing" aria-hidden="true"></div>
 <div id="scrollbar"></div>
 <div id="preloader"><div class="in-lock"><img class="in-logo" src="../logos/fig-oro.png" alt=""><div class="in-text"><b>FEN Investment Group</b><span>Torneo Portafolio 2026</span></div></div></div>
 
@@ -358,7 +351,7 @@ footer a:hover{color:var(--gold)}
 <header class="hero">
   <div class="wrap">
     <div class="kicker reveal"><span class="scr" data-text="Torneo Portafolio 2026 · FIG">Torneo Portafolio 2026 · FIG</span></div>
-    <h1 class="reveal d1"><span id="heroEquipos">63</span> equipos. Un benchmark. <em>Cada viernes, la verdad.</em></h1>
+    <h1 class="reveal d1"><span id="heroEquipos">59</span> equipos. Un benchmark. <em>Cada viernes, la verdad.</em></h1>
     <p class="reveal d2">Carteras simuladas de USD 10 millones en ETFs de iShares/BlackRock, medidas contra el iShares MSCI ACWI con métricas extraídas de Bloomberg PORT. Este es el ranking oficial, acumulado desde el inicio.</p>
     <div class="hero__chips reveal d3">
       <span class="chip-live"><span class="live-dot"></span><span id="chipSemana">SEMANA — DE 25</span></span>
@@ -1557,23 +1550,6 @@ function toggleMenu(f){
 }
 burger.addEventListener("click",function(){toggleMenu()});
 $$("a",mmenu).forEach(function(a){a.addEventListener("click",function(){toggleMenu(false)})});
-
-(function(){
-  if(!FINE||RM)return;
-  var dot=$("#cursorDot"),ring=$("#cursorRing"),x=0,y=0,rx=0,ry=0,on=false;
-  document.addEventListener("mousemove",function(e){
-    x=e.clientX;y=e.clientY;
-    if(!on){on=true;document.body.classList.add("cursor-on");}
-    dot.style.transform="translate("+x+"px,"+y+"px) translate(-50%,-50%)";
-  },{passive:true});
-  document.addEventListener("mouseleave",function(){document.body.classList.remove("cursor-on");on=false});
-  document.addEventListener("mouseover",function(e){
-    ring.classList.toggle("grow",!!(e.target.closest&&e.target.closest("a,button,input")));
-  });
-  (function loop(){rx+=(x-rx)*.16;ry+=(y-ry)*.16;
-    ring.style.transform="translate("+rx+"px,"+ry+"px) translate(-50%,-50%)";
-    requestAnimationFrame(loop);})();
-})();
 
 function openFromHash(){
   var h=location.hash.slice(1);

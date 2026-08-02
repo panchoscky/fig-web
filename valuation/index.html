@@ -80,11 +80,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .btn:hover .arr{transform:translateX(4px)}
 
 /* Cursor / barra */
-#cursorDot,#cursorRing{position:fixed;top:0;left:0;pointer-events:none;z-index:2400;border-radius:50%;opacity:0;transition:opacity .3s;will-change:transform}
-#cursorDot{width:6px;height:6px;background:var(--acc)}
-#cursorRing{width:36px;height:36px;border:1px solid rgba(212,175,55,.6);transition:opacity .3s,width .3s var(--ease),height .3s var(--ease),border-color .3s}
-body.cursor-on #cursorDot,body.cursor-on #cursorRing{opacity:1}
-body.cursor-on #cursorRing.grow{width:58px;height:58px;border-color:var(--acc)}
 #scrollbar{position:fixed;top:0;left:0;height:2.5px;width:0;background:linear-gradient(90deg,var(--acc-deep),var(--acc),var(--acc-light));z-index:1002}
 
 /* Preloader */
@@ -262,8 +257,6 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
 </head>
 <body>
 
-<div id="cursorDot" aria-hidden="true"></div>
-<div id="cursorRing" aria-hidden="true"></div>
 <div id="scrollbar"></div>
 <div id="preloader"><div class="in-lock"><img class="in-logo" src="../logos/fig-oro.png" alt=""><div class="in-text"><b>Valuation</b><span>FEN Investment Group</span></div></div></div>
 
@@ -611,23 +604,6 @@ function toggleMenu(f){
 }
 burger.addEventListener("click",function(){toggleMenu()});
 $$("a",mmenu).forEach(function(a){a.addEventListener("click",function(){toggleMenu(false)})});
-
-(function(){
-  if(!FINE||RM)return;
-  var dot=$("#cursorDot"),ring=$("#cursorRing"),x=0,y=0,rx=0,ry=0,on=false;
-  document.addEventListener("mousemove",function(e){
-    x=e.clientX;y=e.clientY;
-    if(!on){on=true;document.body.classList.add("cursor-on");}
-    dot.style.transform="translate("+x+"px,"+y+"px) translate(-50%,-50%)";
-  },{passive:true});
-  document.addEventListener("mouseleave",function(){document.body.classList.remove("cursor-on");on=false});
-  document.addEventListener("mouseover",function(e){
-    ring.classList.toggle("grow",!!(e.target.closest&&e.target.closest("a,button")));
-  });
-  (function loop(){rx+=(x-rx)*.16;ry+=(y-ry)*.16;
-    ring.style.transform="translate("+rx+"px,"+ry+"px) translate(-50%,-50%)";
-    requestAnimationFrame(loop);})();
-})();
 
 /* marquee: duplicar para loop */
 (function(){var t=$("#marqTrack");if(t)t.innerHTML+=t.innerHTML})();
