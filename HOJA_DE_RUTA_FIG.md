@@ -14,16 +14,22 @@
 de nuevo — 9 enlaces vueltos a envolver en `FIW_TEMP_OCULTO` en `index.html`,
 `postula/index.html`, `eventos/index.html` y `404.html`; David González
 Cañón pierde el distintivo de área y queda solo como "Fundador"; el eje
-horizontal de hitos del torneo en la principal se reemplaza por una línea
-de tiempo nueva que combina `datos/linea_tiempo.json` (hitos del torneo,
-archivo nuevo) con `datos/eventos.json` (actividades del club), con hover
-para ver resumen y clic para ir directo al detalle — misma línea de
-tiempo agregada también en `eventos/index.html`, con un filtro nuevo
+horizontal de hitos del torneo en la principal se reconstruye manteniendo
+el formato horizontal con scroll y el marcador "HOY" que avanza solo con
+el tiempo (pedido explícito de Francisco tras una primera versión vertical
+que no era lo que quería), ahora integrando también las actividades del
+club: combina `datos/linea_tiempo.json` (hitos del torneo, archivo nuevo)
+con `datos/eventos.json`, con hover/tap para ver el resumen en una tarjeta
+flotante y clic para ir directo al detalle — misma línea de tiempo
+agregada también en `eventos/index.html`, con un filtro nuevo
 Pasados/Próximos y un chip PRÓXIMO en las tarjetas, replicado también en
 la sección Actividades de `valuation/index.html`; se creó el archivo
 `Linea_Tiempo_Hitos_Torneo` en el Drive, dentro de `00_MAESTRO`, para que
 el equipo edite los hitos del torneo — los eventos del club siguen
-editándose solo en `Registro_Eventos`, se integran solos).
+editándose solo en `Registro_Eventos`, se integran solos. Bug detectado y
+corregido antes de mergear: el marcador "HOY" usaba `position:fixed` y
+"flotaba" fuera de la tarjeta cuando el eje tenía scroll horizontal —
+se corrigió a `position:absolute` para que se recorte junto con el eje).
 
 Actualización previa (sesión 1): `valuation/index.html` gana
 una sección "Actividades" con los eventos ya realizados por el área,
