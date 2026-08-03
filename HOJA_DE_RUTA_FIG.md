@@ -10,7 +10,22 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-03** (sesión: `valuation/index.html` gana
+Última actualización: **2026-08-03** (sesión 2: FIG Woman se deshabilita
+de nuevo — 9 enlaces vueltos a envolver en `FIW_TEMP_OCULTO` en `index.html`,
+`postula/index.html`, `eventos/index.html` y `404.html`; David González
+Cañón pierde el distintivo de área y queda solo como "Fundador"; el eje
+horizontal de hitos del torneo en la principal se reemplaza por una línea
+de tiempo nueva que combina `datos/linea_tiempo.json` (hitos del torneo,
+archivo nuevo) con `datos/eventos.json` (actividades del club), con hover
+para ver resumen y clic para ir directo al detalle — misma línea de
+tiempo agregada también en `eventos/index.html`, con un filtro nuevo
+Pasados/Próximos y un chip PRÓXIMO en las tarjetas, replicado también en
+la sección Actividades de `valuation/index.html`; se creó el archivo
+`Linea_Tiempo_Hitos_Torneo` en el Drive, dentro de `00_MAESTRO`, para que
+el equipo edite los hitos del torneo — los eventos del club siguen
+editándose solo en `Registro_Eventos`, se integran solos).
+
+Actualización previa (sesión 1): `valuation/index.html` gana
 una sección "Actividades" con los eventos ya realizados por el área,
 mismo estilo de tarjeta que `eventos/index.html`. Se agregó el campo
 opcional `area` a `datos/eventos.json` — un evento con `area:"valuation"`
@@ -18,7 +33,7 @@ aparece en ambas páginas, no reemplaza uno por el otro. Hoy ningún evento
 existente tiene esa etiqueta, así que la sección queda oculta hasta el
 próximo evento real del área; verificado con datos simulados vía
 Playwright que la sección/el enlace de nav aparecen solos cuando sí hay
-uno).
+uno.
 
 Actualización previa: **2026-08-02** (sesión: corrección de datos
 desactualizados — "63 equipos"/"USD 630M" pasó a 59 equipos/USD 590M en
