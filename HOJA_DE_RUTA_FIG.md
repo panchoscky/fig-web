@@ -10,7 +10,17 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-02** (sesión: corrección de datos
+Última actualización: **2026-08-03** (sesión: `valuation/index.html` gana
+una sección "Actividades" con los eventos ya realizados por el área,
+mismo estilo de tarjeta que `eventos/index.html`. Se agregó el campo
+opcional `area` a `datos/eventos.json` — un evento con `area:"valuation"`
+aparece en ambas páginas, no reemplaza uno por el otro. Hoy ningún evento
+existente tiene esa etiqueta, así que la sección queda oculta hasta el
+próximo evento real del área; verificado con datos simulados vía
+Playwright que la sección/el enlace de nav aparecen solos cuando sí hay
+uno).
+
+Actualización previa: **2026-08-02** (sesión: corrección de datos
 desactualizados — "63 equipos"/"USD 630M" pasó a 59 equipos/USD 590M en
 `index.html`, `datos/club.json`, `eventos/index.html`, `datos/eventos.json`,
 `torneo/index.html` y `en/index.html`; se eliminó el cursor circular
