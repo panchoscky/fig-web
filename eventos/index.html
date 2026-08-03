@@ -113,13 +113,42 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hero__meta{margin-top:30px;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(247,244,236,.55);display:flex;gap:22px;flex-wrap:wrap}
 .hero__meta b{color:var(--gold);font-weight:600}
 
+/* Línea de tiempo: hitos del torneo + actividades FIG */
+.tl-section{padding:clamp(1.5rem,3vw,2.5rem) 0 0}
+.fig-timeline{border:1px solid var(--line-d);background:var(--navy-panel);border-radius:12px;padding:clamp(1.8rem,4vw,2.6rem)}
+.fig-tl-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.fig-timeline h3{font-family:var(--f-disp);font-weight:600;font-size:clamp(1.4rem,2.6vw,1.9rem);color:var(--ivory);margin:0 0 10px}
+.met-tl{list-style:none;margin:6px 0 0;padding:0 8px 0 0;position:relative;max-height:640px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(212,175,55,.4) transparent}
+.met-tl::-webkit-scrollbar{width:5px}
+.met-tl::-webkit-scrollbar-thumb{background:rgba(212,175,55,.35);border-radius:4px}
+.met-tl::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:rgba(212,175,55,.25)}
+.met-tl li{position:relative;padding:0 0 20px 30px;font-size:.86rem;color:rgba(247,244,236,.72);line-height:1.55;cursor:pointer;transition:padding-left .3s var(--ease)}
+.met-tl li:last-child{padding-bottom:0}
+.met-tl li:hover,.met-tl li:focus-visible{padding-left:36px}
+.met-tl li::before{content:"";position:absolute;left:2px;top:.42em;width:9px;height:9px;border-radius:50%;background:var(--navy-panel);border:2px solid var(--gold-deep);box-sizing:border-box;transition:transform .3s var(--ease)}
+.met-tl li:hover::before,.met-tl li:focus-visible::before{transform:scale(1.35)}
+.met-tl b{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-family:var(--f-mono);font-weight:600;font-size:.64rem;letter-spacing:.1em;color:var(--ivory);margin-bottom:3px}
+.met-tl .chip{font-family:var(--f-mono);font-size:.52rem;font-weight:500;letter-spacing:.18em;color:var(--navy);background:var(--gold);border-radius:100px;padding:2px 9px}
+.met-tl li.tl-past{opacity:.5}
+.met-tl li.tl-past::before{background:var(--gold-deep)}
+.met-tl li.tl-next::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,175,55,.22)}
+.met-tl .tag{font-family:var(--f-mono);font-size:.5rem;font-weight:500;letter-spacing:.16em;color:var(--gold-light);border:1px solid rgba(212,175,55,.4);border-radius:100px;padding:1px 8px}
+.met-tl li.tl-ev::before{border-radius:2px}
+.met-tl li .tl-tip{display:block;max-height:0;overflow:hidden;opacity:0;font-size:.78rem;color:rgba(247,244,236,.65);line-height:1.6;border-left:2px solid rgba(212,175,55,.3);padding-left:10px;margin-top:0;transition:max-height .5s var(--ease),opacity .4s,margin-top .4s}
+.met-tl li:hover .tl-tip,.met-tl li:focus .tl-tip,.met-tl li:focus-within .tl-tip{max-height:180px;opacity:1;margin-top:7px}
+.tl-hint{font-family:var(--f-mono);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,244,236,.5);margin:0 0 18px!important}
+@media (prefers-reduced-motion:no-preference){
+  .met-tl li.tl-next::before{animation:tlpulse 2.4s ease-in-out infinite}
+  @keyframes tlpulse{0%,100%{box-shadow:0 0 0 4px rgba(212,175,55,.22)}50%{box-shadow:0 0 0 8px rgba(212,175,55,.1)}}
+}
+
 /* Filtros */
-.filters{padding:0 0 clamp(1rem,2vw,1.5rem);position:relative;z-index:3}
-.pill-row{display:flex;gap:12px;flex-wrap:wrap}
+.filters{padding:clamp(1.5rem,3vw,2.5rem) 0 clamp(1rem,2vw,1.5rem);position:relative;z-index:3}
+.pill-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}
 .pill{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;padding:11px 22px;border:1px solid rgba(247,244,236,.22);border-radius:100px;color:rgba(247,244,236,.66);transition:all .35s var(--ease)}
 .pill:hover{border-color:var(--gold);color:var(--gold)}
 .pill.active{background:var(--gold);border-color:var(--gold);color:var(--navy)}
-#yearRow{margin-top:10px}
+#yearRow{margin-top:10px;margin-bottom:0}
 #yearRow .pill{font-size:.6rem;padding:8px 18px}
 #yearRow:empty{display:none}
 
@@ -160,6 +189,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .ev-date{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600}
 .ev-type{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(247,244,236,.65);border:1px solid rgba(247,244,236,.2);border-radius:100px;padding:4px 11px}
 .ev-live{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.2em;color:#5FC08B}
+.ev-proximo{color:var(--gold);border-color:var(--gold-dim)}
 .live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#5FC08B;animation:pulse 1.9s ease-out infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(95,192,139,.55)}70%{box-shadow:0 0 0 9px rgba(95,192,139,0)}100%{box-shadow:0 0 0 0 rgba(95,192,139,0)}}
 .ev-card h3{font-family:var(--f-disp);font-weight:600;font-size:clamp(1.4rem,2.4vw,1.9rem);line-height:1.2}
@@ -242,7 +272,7 @@ footer a:hover{color:var(--gold)}
     <ul class="nav__links">
       <li><a href="../index.html">Inicio</a></li>
       <li><a href="#" class="active">Eventos</a></li>
-      <li><a href="../fiw/index.html">FEN Investment Woman</a></li>
+      <!-- FIW_TEMP_OCULTO <li><a href="../fiw/index.html">FEN Investment Woman</a></li> -->
     </ul>
     <a href="https://feninvestmentgroup.com/torneoportafolio2026/" class="btn btn--gold btn--nav">Torneo 2026</a>
     <button class="nav__burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><i></i><i></i><i></i></button>
@@ -251,7 +281,7 @@ footer a:hover{color:var(--gold)}
 <div class="m-menu" id="mmenu">
   <a href="../index.html">Inicio</a>
   <a href="#" >Eventos</a>
-  <a href="../fiw/index.html">FEN Investment Woman</a>
+  <!-- FIW_TEMP_OCULTO <a href="../fiw/index.html">FEN Investment Woman</a> -->
   <a href="https://feninvestmentgroup.com/torneoportafolio2026/">Torneo 2026</a>
 </div>
 
@@ -268,6 +298,21 @@ footer a:hover{color:var(--gold)}
   </div>
 </header>
 
+<!-- Línea de tiempo: hitos del torneo + actividades FIG, integrada desde
+     ../datos/linea_tiempo.json + ../datos/eventos.json (versión destacada en index.html) -->
+<section class="tl-section">
+  <div class="wrap">
+    <div class="fig-timeline reveal" id="figTlWrap">
+      <div class="fig-tl-head">
+        <span class="mono-tag" id="tlWeek">Torneo en curso</span>
+      </div>
+      <h3>El torneo y la vida del club</h3>
+      <p class="tl-hint">Hitos del torneo + actividades FIG · pasa el cursor (o toca) una fila para ver su resumen · haz clic para ir directo</p>
+      <ul class="met-tl" id="figTl"><!-- se arma con ../datos/linea_tiempo.json + ../datos/eventos.json --></ul>
+    </div>
+  </div>
+</section>
+
 <div class="filters">
   <div class="wrap">
     <div class="pill-row reveal" id="filterRow">
@@ -276,6 +321,11 @@ footer a:hover{color:var(--gold)}
       <button class="pill" data-f="visita">Visitas</button>
       <button class="pill" data-f="charla">Charlas</button>
       <button class="pill" data-f="comunidad">Comunidad</button>
+    </div>
+    <div class="pill-row reveal" id="whenRow">
+      <button class="pill active" data-w="todos">Todos</button>
+      <button class="pill" data-w="pasados">Pasados</button>
+      <button class="pill" data-w="proximos">Próximos</button>
     </div>
     <div class="pill-row reveal" id="yearRow"><!-- años, se generan desde los datos --></div>
   </div>
@@ -395,13 +445,15 @@ function probeFotos(carpeta,max,cb){
 }
 
 /* ---------------- Render de la grilla ---------------- */
-var currentFilter="todos",currentYear="todos";
+var currentFilter="todos",currentYear="todos",currentWhen="todos";
+function esPasado(e){return !e.live&&Date.parse((e.fecha||"")+"T23:59:59-03:00")<Date.now()}
 function renderGrid(){
   var g=$("#evGrid");
   var evs=DATA.eventos.slice().sort(function(a,b){return b.fecha<a.fecha?-1:1});
   var list=evs.filter(function(e){
     return (currentFilter==="todos"||e.tipo===currentFilter)
-        && (currentYear==="todos"||(e.fecha||"").slice(0,4)===currentYear);
+        && (currentYear==="todos"||(e.fecha||"").slice(0,4)===currentYear)
+        && (currentWhen==="todos"||(currentWhen==="pasados"?esPasado(e):!esPasado(e)));
   });
   if(!list.length){g.innerHTML='<div class="ev-empty">Aún no hay eventos en esta categoría, pronto habrá novedades.</div>';return;}
   var html="";
@@ -415,7 +467,7 @@ function renderGrid(){
         +   '<div class="ev-top">'
         +     '<span class="ev-date">'+esc(e.fechaTexto||e.fecha)+'</span>'
         +     '<span class="ev-type">'+esc(TIPOS[e.tipo]||e.tipo)+'</span>'
-        +     (e.live?'<span class="ev-live"><span class="live-dot"></span>EN CURSO</span>':"")
+        +     (e.live?'<span class="ev-live"><span class="live-dot"></span>EN CURSO</span>':(!esPasado(e)?'<span class="ev-type ev-proximo">PRÓXIMO</span>':""))
         +   '</div>'
         +   '<h3>'+esc(e.titulo)+'</h3>'
         +   '<p class="ev-res">'+esc((e.resumen||"").replace(/\[Resumen por completar\]/,"").trim()||"Resumen por completar.")+'</p>'
@@ -451,6 +503,13 @@ $$("#filterRow .pill").forEach(function(p){
   p.addEventListener("click",function(){
     currentFilter=p.getAttribute("data-f");
     $$("#filterRow .pill").forEach(function(x){x.classList.toggle("active",x===p)});
+    renderGrid();
+  });
+});
+$$("#whenRow .pill").forEach(function(p){
+  p.addEventListener("click",function(){
+    currentWhen=p.getAttribute("data-w");
+    $$("#whenRow .pill").forEach(function(x){x.classList.toggle("active",x===p)});
     renderGrid();
   });
 });
@@ -535,6 +594,81 @@ function closeEvento(){
 $("#ovClose").addEventListener("click",closeEvento);
 ov.addEventListener("click",function(e){if(e.target===ov||e.target.classList.contains("ov-scroll"))closeEvento()});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&ov.classList.contains("open"))closeEvento()});
+
+/* ---------------- Línea de tiempo: hitos del torneo + actividades FIG ----------------
+   Fuente: ../datos/linea_tiempo.json (hitos estructurales del torneo) + ../datos/eventos.json
+   (actividades reales del club, integradas y ordenadas junto a los hitos). Pasar el
+   cursor (o tocar) una fila muestra su resumen; clic navega directo: un hito de
+   torneo va a torneo/index.html#metodologia, una actividad abre su detalle acá mismo
+   (reusa openEvento, sin recargar la página). Versión destacada (mismo motor) en
+   la página principal. */
+function fmtFechaTl(iso){
+  var d=new Date(iso);
+  var meses=["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"];
+  return d.getDate()+" · "+meses[d.getMonth()]+" · "+d.getFullYear();
+}
+function initFigTimeline(sel,opts){
+  var tl=$(sel); if(!tl)return;
+  opts=opts||{};
+  var torneoHref=opts.torneoHref||"../torneo/index.html#metodologia";
+  function fila(it){
+    var el=document.createElement("li");
+    el.tabIndex=0; el.setAttribute("role","link");
+    if(it.cls)el.className=it.cls;
+    if(it.iso)el.setAttribute("data-when",it.iso);
+    var b=document.createElement("b");
+    b.appendChild(document.createTextNode((it.textoFecha||fmtFechaTl(it.iso))+" "));
+    if(it.tag){var t=document.createElement("span");t.className="tag";t.textContent=it.tag;b.appendChild(t);}
+    el.appendChild(b);
+    el.appendChild(document.createTextNode(it.titulo||""));
+    if(it.resumen){var tip=document.createElement("span");tip.className="tl-tip";tip.textContent=it.resumen;el.appendChild(tip);}
+    function ir(){
+      if(it.destino&&it.destino.evento){
+        if(opts.onEvento)opts.onEvento(it.destino.evento);
+      }else{location.href=torneoHref;}
+    }
+    el.addEventListener("click",ir);
+    el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();ir();}});
+    return el;
+  }
+  Promise.all([
+    fetch("../datos/linea_tiempo.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).catch(function(){return null}),
+    fetch("../datos/eventos.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).catch(function(){return null})
+  ]).then(function(res){
+    var hitos=(res[0]&&res[0].hitos)||[];
+    var eventos=(res[1]&&res[1].eventos)||[];
+    if(opts.onHitos)opts.onHitos(hitos);
+    var items=[];
+    var minTs=Infinity;
+    hitos.forEach(function(h){if(h.cuando){var t=Date.parse(h.cuando);if(t<minTs)minTs=t;}});
+    hitos.forEach(function(h){
+      if(h.recurrente){items.push({ts:minTs+1,iso:null,textoFecha:h.textoFecha,titulo:h.titulo,resumen:h.resumen,tag:null,cls:"tl-rec",destino:{}});return;}
+      if(!h.cuando)return;
+      items.push({ts:Date.parse(h.cuando),iso:h.cuando,titulo:h.titulo,resumen:h.resumen,tag:null,cls:"",destino:{}});
+    });
+    eventos.forEach(function(e){
+      if(!e||!e.fecha||e.id==="torneo-portafolio-2026")return;
+      var iso=e.fecha+"T12:00:00-03:00";
+      items.push({ts:Date.parse(iso),iso:iso,titulo:e.titulo,resumen:(e.resumen||"")+(e.lugar?" — "+e.lugar:""),tag:String(e.tipo||"evento").toUpperCase(),cls:"tl-ev",destino:{evento:e.id}});
+    });
+    items.sort(function(a,b){return a.ts-b.ts});
+    tl.innerHTML="";
+    var now=Date.now(),next=null;
+    items.forEach(function(it){
+      var el=fila(it);
+      if(it.iso){
+        if(Date.parse(it.iso)<=now)el.classList.add("tl-past");
+        else if(!next)next=el;
+      }
+      tl.appendChild(el);
+    });
+    if(next){
+      next.classList.add("tl-next");
+      var chip=document.createElement("span");chip.className="chip";chip.textContent="PRÓXIMO";
+      next.querySelector("b").appendChild(chip);
+    }
+  });
+}
 
 /* ---------------- Override desde JSON ---------------- */
 fetch("../datos/eventos.json",{cache:"no-store"})
@@ -663,6 +797,15 @@ function openFromHash(){
 buildYearRow();
 renderGrid();
 observeReveals(document);
+initFigTimeline("#figTl",{onEvento:openEvento,onHitos:function(hitos){
+  var inicio=null;
+  hitos.forEach(function(h){if(h.cuando&&(!inicio||Date.parse(h.cuando)<inicio))inicio=Date.parse(h.cuando);});
+  var tag=$("#tlWeek"); if(!tag||!inicio)return;
+  var now=Date.now(),wk=Math.floor((now-inicio)/(7*864e5))+1;
+  if(now<inicio)tag.textContent="Torneo Portafolio 2026";
+  else if(wk>25)tag.textContent="Torneo finalizado · ranking oficial publicado";
+  else tag.textContent="Semana "+wk+" de 25 · torneo en curso";
+}});
 (function(){
   var pre=$("#preloader"),seen=false;
   try{seen=!!sessionStorage.getItem("figIntro:eventos")}catch(e){}
