@@ -10,7 +10,21 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-05** (conteo de directores corregido de
+Última actualización: **2026-08-05** (sesión 3: se arregló el botón
+"Descargar las bases" de la portada, que apuntaba a `#` desde siempre —
+`contacto` SIGUE pendiente porque nadie ha definido correo ni formulario;
+**tarea #18 del backlog ✅ hecha** — badges automáticos en el ranking del
+torneo derivados de las métricas que `torneo.json` ya trae; y se agregó
+`datos/mercado.json`, el calendario de mercado (RPM/IPoM del Banco Central
++ FOMC de la Fed) integrado como TERCERA fuente de la línea de tiempo, en
+azul y con clic a la fuente oficial. Las fechas se verificaron contra
+bcentral.cl y federalreserve.gov el 2026-08-05; hay que revisarlas en enero
+2027 cuando se publiquen los calendarios del año siguiente. Se decidió NO
+usar una API de calendario económico: estas fechas se publican con un año
+de anticipación, así que una API solo agregaría una llave secreta y un
+punto de falla silencioso a cambio de datos ya conocidos).
+
+Actualización previa (2026-08-05, sesión 2): conteo de directores corregido de
 18 a 15 —el real, ya correcto en `datos/club.json`— en 6 lugares de
 `index.html` que seguían diciendo 18; se eliminó además el tile "+N
 Directiva completa" en las 3 copias del dato, obsoleto ahora que los 15
@@ -215,7 +229,7 @@ que la divida y pida confirmación a Francisco en las decisiones de diseño.
 | 2 | **Primer torneo.json real** | Sonnet | ✅ **RESUELTO (2026-07-20)** — corrido con el Excel Oficial FIG (snapshot no-final, Francisco pidió usarlo para probar el flujo) + Copia de Inscripciones. `generar_torneo.py` ya soporta el formato ancho real de inscripciones y cruza métricas desde las hojas `Tabla`/`puntos` cuando `ranking_ordenado` no las trae — ver changelog 2026-07-20 arriba para el detalle técnico completo. **Pendiente:** volver a correr el mismo comando cuando Francisco tenga el corte más reciente del Excel (`python3 generar_torneo.py --excel <ranking.xlsx> --inscripciones <insc.xlsx> --semana N --corte "DD · MMM · 2026"`) |
 | 3 | **Confirmar colores FIW** con Delia | Haiku | Editar solo las 4 variables `--acc*` al inicio del `<style>` de `fiw/index.html` |
 | 3b | **Logo oficial de FIW** | Haiku | No existe en el Drive (carpeta FIG WOMEN solo tiene fotos). Pedirlo a Delia; guardarlo en `logos/fiw.png` y reemplazar `fig-blanco.png` en nav+intro de `fiw/index.html` |
-| 4 | **URL de las Bases + contacto** en `CONFIG.urls` (`bases`, `contacto`) | Haiku | La de bases probablemente es `https://mpazq-afk.github.io/torneoportafolio2026/documentos/Bases_finales_torneo_portafolio_2026.pdf` (ya usada en torneo/index.html) — confirmar con Francisco y poner en index.html + club.json |
+| 4 | **URL de las Bases + contacto** en `CONFIG.urls` (`bases`, `contacto`) | Haiku | ⚠️ **PARCIAL (2026-08-05)**: `bases` ✅ resuelto (se pegó el PDF que ya usaba `torneo/index.html`, el botón de la portada ya funciona). `contacto` ❌ sigue en `#` — falta que Francisco defina si es un correo (¿`inv.group@fen.uchile.cl`, la cuenta institucional que aparece en el Drive?) o un formulario. Detalle original: La de bases probablemente es `https://mpazq-afk.github.io/torneoportafolio2026/documentos/Bases_finales_torneo_portafolio_2026.pdf` (ya usada en torneo/index.html) — confirmar con Francisco y poner en index.html + club.json |
 | 5 | **Mapear y curar fotos desde el Drive** | Sonnet | ✅ Hecho (2026-07-12) para 7 de 9 eventos — ver detalle abajo. Faltan `torneo-portafolio-2026` y `charla-analisis-tecnico-2025` (sin carpeta de fotos en el Drive, preguntar a Francisco) |
 | 5b | **Compresión automática de fotos** | ✅ Hecho (Fable, 2026-07-12) | `optimizar_fotos.py`: redimensiona a máx 2000px + JPG calidad 78, idempotente. Correr siempre después de agregar fotos nuevas (a mano o vía tarea #5). Opcional: hook de pre-commit local, instrucciones al final del script |
 
@@ -432,7 +446,7 @@ después si se pide). Ninguna de las 6 se ha empezado a implementar.
 
 | # | Tarea | Modelo | Detalle |
 |---|---|---|---|
-| 18 | **Badges automáticos en el ranking del torneo** | Sonnet | Distinciones calculadas a partir de métricas que `torneo.json` ya trae por equipo: "Mejor Sharpe", "Menor Drawdown", "Remontada de la semana" (mayor `delta` positivo). Sin tocar el scoring ni pedir datos nuevos — se derivan en el propio `torneo/index.html` al renderizar. Funciona incluso con los datos DEMO actuales, útil para probarlo antes de que exista el `torneo.json` real (P0-2) |
+| 18 | **Badges automáticos en el ranking del torneo** | Sonnet | ✅ **HECHO (2026-08-05)** — `calcBadges()` en `torneo/index.html`: 4 distinciones ("Cazador de alfa" = mayor IR, "Mejor Sharpe", "Gestor de riesgo" = menor drawdown, "Remontada +N" = mayor delta positivo), calculadas sobre la lista completa (no la filtrada por el buscador) y con guarda para no premiar IR/Sharpe negativos. Detalle original: Distinciones calculadas a partir de métricas que `torneo.json` ya trae por equipo: "Mejor Sharpe", "Menor Drawdown", "Remontada de la semana" (mayor `delta` positivo). Sin tocar el scoring ni pedir datos nuevos — se derivan en el propio `torneo/index.html` al renderizar. Funciona incluso con los datos DEMO actuales, útil para probarlo antes de que exista el `torneo.json` real (P0-2) |
 | 19 | **Modo TV/kiosko para el torneo** (`torneo/index.html?tv=1`) | Sonnet (pulir transiciones: Fable) | Parámetro de URL que activa una vista a pantalla completa sin nav/footer, rotando automáticamente podio → tabla completa → countdown al próximo hito (reutiliza `HITOS` y el countdown que ya existe en `#metodologia`). Pensado para proyectar en el Bloomberg Lab los viernes de publicación del ranking |
 | 20 | **Botón "Agregar a calendario" (.ics) por evento** | Sonnet | Parcialmente cubierto (2026-07-14): ya existe el calendario COMPLETO descargable/suscribible (`generar_ics.py` → `eventos/fig.ics`, botón en la página). Queda pendiente solo la variante POR EVENTO individual (un .ics de un solo VEVENT generado en el navegador desde el overlay del evento) — tiene más sentido cuando existan eventos futuros (tarea #17) |
 | 21 | **Comparador de equipos en el torneo** | Sonnet | Seleccionar 2 equipos de `torneo.json` y verlos lado a lado, métrica por métrica (retorno, Sharpe, MDD, posición, delta). Toda la data ya está en el JSON que consume `torneo/index.html`; es una vista nueva sobre datos existentes, sin backend nuevo |
