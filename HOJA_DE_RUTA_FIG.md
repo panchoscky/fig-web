@@ -10,7 +10,13 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-03** (sesión 2: FIG Woman se deshabilita
+Última actualización: **2026-08-05** (foto de Francisco Valenzuela
+actualizada desde `CV/Fotos` del Drive — recorte cuadrado 800×800 igual
+al resto del equipo, reemplaza `fotos/directiva/francisco-valenzuela.jpg`;
+la línea de tiempo horizontal ahora arranca centrada en el punto HOY por
+defecto en vez del extremo izquierdo, en `index.html` y `eventos/index.html`).
+
+Actualización previa (sesión 2, 2026-08-03): FIG Woman se deshabilita
 de nuevo — 9 enlaces vueltos a envolver en `FIW_TEMP_OCULTO` en `index.html`,
 `postula/index.html`, `eventos/index.html` y `404.html`; David González
 Cañón pierde el distintivo de área y queda solo como "Fundador"; el eje
