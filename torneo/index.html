@@ -174,6 +174,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .lb-delta.up{color:var(--up)}.lb-delta.down{color:var(--down)}.lb-delta.eq{color:rgba(247,244,236,.3)}
 .lb-name{font-family:var(--f-disp);font-weight:600;font-size:1.08rem;line-height:1.25}
 .lb-mem{display:block;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,244,236,.4);margin-top:3px}
+/* Distinciones automáticas, derivadas de las métricas que ya trae torneo.json */
+.lb-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.lb-badge{font-family:var(--f-mono);font-size:.5rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);background:var(--gold);border-radius:100px;padding:2px 9px;white-space:nowrap}
+.lb-badge--ghost{background:transparent;color:var(--gold-light);border:1px solid rgba(212,175,55,.45)}
+.lb-badge--up{background:#5FC08B;color:var(--navy-deep)}
 .lb-barwrap{height:7px;background:rgba(247,244,236,.08);border-radius:100px;overflow:hidden}
 .lb-bar{height:100%;width:0;border-radius:100px;background:linear-gradient(90deg,var(--gold-deep),var(--gold) 70%,var(--gold-light));transition:width 1.1s var(--ease)}
 .lb-pts{font-family:var(--f-mono);font-weight:600;font-size:1rem;color:var(--gold);text-align:right}
@@ -683,8 +688,35 @@ function renderAll(){
   renderLb(eq,"");
   $("#lbSearch").oninput=function(){renderLb(eq,this.value.trim().toLowerCase())};
 }
+/* ---------------- Distinciones automáticas ----------------
+   Se derivan de las métricas que torneo.json ya trae por equipo — no tocan el
+   scoring oficial ni piden datos nuevos. Solo se otorgan cuando el valor es
+   realmente meritorio (un IR o un Sharpe negativo no se premia aunque sea el
+   "mejor" de la tabla; ahí simplemente no se muestra el badge).
+   Ojo: mdd y var95 son NEGATIVOS, así que el mejor es el MÁXIMO (el más
+   cercano a cero), no el mínimo. */
+function calcBadges(eq){
+  var out={};
+  function poner(id,txt,cls){ (out[id]=out[id]||[]).push({t:txt,c:cls||""}); }
+  function mejor(campo,fuente){
+    var best=null;
+    eq.forEach(function(t){
+      var v=fuente==="delta"?t.delta:(t.metricas||{})[campo];
+      if(v==null||isNaN(v))return;
+      if(!best||v>best.v)best={v:v,id:t.id};
+    });
+    return best;
+  }
+  var ir=mejor("ir");        if(ir&&ir.v>0) poner(ir.id,"Cazador de alfa","lb-badge--ghost");
+  var sh=mejor("sharpe");    if(sh&&sh.v>0) poner(sh.id,"Mejor Sharpe");
+  var dd=mejor("mdd");       if(dd)         poner(dd.id,"Gestor de riesgo","lb-badge--ghost");
+  var dt=mejor(null,"delta");if(dt&&dt.v>0) poner(dt.id,"Remontada +"+dt.v,"lb-badge--up");
+  return out;
+}
+
 function renderLb(eq,q){
   var body=$("#lbBody");
+  var badges=calcBadges(eq);
   var list=q?eq.filter(function(t){return t.nombre.toLowerCase().indexOf(q)>-1
     ||(t.miembros||[]).some(function(m){return (m.nombre||"").toLowerCase().indexOf(q)>-1})}):eq;
   if(!list.length){body.innerHTML='<div class="lb-empty">SIN RESULTADOS PARA "'+esc(q.toUpperCase())+'"</div>';return;}
@@ -692,9 +724,13 @@ function renderLb(eq,q){
   body.innerHTML=list.map(function(t){
     var d=t.delta,dl=d>0?'<span class="lb-delta up">▲'+d+'</span>':d<0?'<span class="lb-delta down">▼'+(-d)+'</span>':'';
     var mem=(t.miembros&&t.miembros.length)?t.miembros.length+" integrantes":"";
+    var bd=badges[t.id]||[];
+    var bdHtml=bd.length?'<span class="lb-badges">'+bd.map(function(b){
+      return '<span class="lb-badge '+b.c+'">'+esc(b.t)+'</span>';
+    }).join("")+'</span>':"";
     return '<button class="lb-row'+(t.posicion<=3?" top3":"")+'" data-tm="'+esc(t.id)+'">'
       +'<span class="lb-pos">'+t.posicion+' '+dl+'</span>'
-      +'<span><span class="lb-name">'+esc(t.nombre)+'</span>'+(mem?'<span class="lb-mem">'+esc(mem)+'</span>':"")+'</span>'
+      +'<span><span class="lb-name">'+esc(t.nombre)+'</span>'+(mem?'<span class="lb-mem">'+esc(mem)+'</span>':"")+bdHtml+'</span>'
       +'<span><div class="lb-pts">'+t.puntos.toFixed(2)+'</div><div class="lb-barwrap"><div class="lb-bar" data-w="'+(t.puntos/max*100)+'"></div></div></span>'
       +'<span class="lb-rel '+(t.retRel>=0?"up":"down")+'">'+esc(pct(t.retRel))+'</span>'
       +'<span class="lb-go">VER →</span>'
