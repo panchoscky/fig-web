@@ -10,7 +10,18 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-05** (sesión 4: **tarea #21 ✅ hecha** —
+Última actualización: **2026-08-05** (sesión 5: **corte semanal al
+31-jul-2026 cargado** — semana 12, 59 equipos, historial ahora de 8 semanas
+(5 a 12). El Excel lo dejó el equipo de Portafolio en una carpeta NUEVA del
+Drive: `02_Areas/PORTAFOLIO/Tablas semanales torneo/`, donde están los 8
+cortes semanales. Se corrió `generar_torneo.py --excel ... --semana 12
+--corte "31 · JUL · 2026"` SIN `--inscripciones` a propósito: así el script
+conserva los integrantes del JSON anterior y no reintroduce el bug de
+duplicados corregido a mano en Beta capital, Nova Praxis, CCQ y Sharpe Fox
+(verificado que los 4 quedaron intactos). Movimiento destacado de la semana:
+CLB saltó de 26° a 4° (+22)).
+
+Actualización previa (sesión 4: **tarea #21 ✅ hecha** —
 comparador de equipos en `torneo/index.html`, dos equipos lado a lado
 métrica a métrica con las trayectorias superpuestas, entrando desde el
 botón junto al buscador o desde la ficha de un equipo. Vista nueva sobre
