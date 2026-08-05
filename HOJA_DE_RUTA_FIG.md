@@ -10,7 +10,13 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-05** (sesión 3: se arregló el botón
+Última actualización: **2026-08-05** (sesión 4: **tarea #21 ✅ hecha** —
+comparador de equipos en `torneo/index.html`, dos equipos lado a lado
+métrica a métrica con las trayectorias superpuestas, entrando desde el
+botón junto al buscador o desde la ficha de un equipo. Vista nueva sobre
+datos que ya existían, sin tocar el scoring).
+
+Actualización previa (sesión 3): se arregló el botón
 "Descargar las bases" de la portada, que apuntaba a `#` desde siempre —
 `contacto` SIGUE pendiente porque nadie ha definido correo ni formulario;
 **tarea #18 del backlog ✅ hecha** — badges automáticos en el ranking del
@@ -449,7 +455,7 @@ después si se pide). Ninguna de las 6 se ha empezado a implementar.
 | 18 | **Badges automáticos en el ranking del torneo** | Sonnet | ✅ **HECHO (2026-08-05)** — `calcBadges()` en `torneo/index.html`: 4 distinciones ("Cazador de alfa" = mayor IR, "Mejor Sharpe", "Gestor de riesgo" = menor drawdown, "Remontada +N" = mayor delta positivo), calculadas sobre la lista completa (no la filtrada por el buscador) y con guarda para no premiar IR/Sharpe negativos. Detalle original: Distinciones calculadas a partir de métricas que `torneo.json` ya trae por equipo: "Mejor Sharpe", "Menor Drawdown", "Remontada de la semana" (mayor `delta` positivo). Sin tocar el scoring ni pedir datos nuevos — se derivan en el propio `torneo/index.html` al renderizar. Funciona incluso con los datos DEMO actuales, útil para probarlo antes de que exista el `torneo.json` real (P0-2) |
 | 19 | **Modo TV/kiosko para el torneo** (`torneo/index.html?tv=1`) | Sonnet (pulir transiciones: Fable) | Parámetro de URL que activa una vista a pantalla completa sin nav/footer, rotando automáticamente podio → tabla completa → countdown al próximo hito (reutiliza `HITOS` y el countdown que ya existe en `#metodologia`). Pensado para proyectar en el Bloomberg Lab los viernes de publicación del ranking |
 | 20 | **Botón "Agregar a calendario" (.ics) por evento** | Sonnet | Parcialmente cubierto (2026-07-14): ya existe el calendario COMPLETO descargable/suscribible (`generar_ics.py` → `eventos/fig.ics`, botón en la página). Queda pendiente solo la variante POR EVENTO individual (un .ics de un solo VEVENT generado en el navegador desde el overlay del evento) — tiene más sentido cuando existan eventos futuros (tarea #17) |
-| 21 | **Comparador de equipos en el torneo** | Sonnet | Seleccionar 2 equipos de `torneo.json` y verlos lado a lado, métrica por métrica (retorno, Sharpe, MDD, posición, delta). Toda la data ya está en el JSON que consume `torneo/index.html`; es una vista nueva sobre datos existentes, sin backend nuevo |
+| 21 | **Comparador de equipos en el torneo** | Sonnet | ✅ **HECHO (2026-08-05)** — overlay `#cmpOverlay` con dos selects, comparación de posición + puntos + retorno relativo + las 5 métricas (valor y puntos aportados) con ▲ al ganador de cada fila, y gráfico de las dos trayectorias superpuestas. Entra desde "⇄ Comparar equipos" (junto al buscador) o desde "⇄ Comparar con otro equipo" en la ficha de un equipo. Detalle original: Seleccionar 2 equipos de `torneo.json` y verlos lado a lado, métrica por métrica (retorno, Sharpe, MDD, posición, delta). Toda la data ya está en el JSON que consume `torneo/index.html`; es una vista nueva sobre datos existentes, sin backend nuevo |
 | 22 | **PWA ligera para el torneo** | Sonnet | `manifest.json` + service worker mínimo (cache de assets estáticos) para que `torneo/index.html` se pueda "instalar" en el celular y cargue rápido los viernes de publicación, cuando hay más tráfico. No requiere backend ni cambia el fetch de `torneo.json` (siempre debe pedirse fresco, no cachear el JSON del ranking) |
 | 23 | **Sección "Referentes" en FIW** | Sonnet | Tarjetas de entrevistas breves a mujeres de la industria (foto + cita + cargo), mismo patrón JSON que el resto del sitio (`datos/fiw.json`). Da contenido real al área mientras se resuelven los colores oficiales con Delia (P0-3) — el contenido no depende de esa decisión, solo el estilo visual sí. Requiere que Francisco/Delia consigan las entrevistas o testimonios primero, no inventar citas |
 
