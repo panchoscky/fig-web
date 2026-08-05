@@ -10,11 +10,23 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-05** (foto de Francisco Valenzuela
-actualizada desde `CV/Fotos` del Drive — recorte cuadrado 800×800 igual
-al resto del equipo, reemplaza `fotos/directiva/francisco-valenzuela.jpg`;
-la línea de tiempo horizontal ahora arranca centrada en el punto HOY por
-defecto en vez del extremo izquierdo, en `index.html` y `eventos/index.html`).
+Última actualización: **2026-08-05** (conteo de directores corregido de
+18 a 15 —el real, ya correcto en `datos/club.json`— en 6 lugares de
+`index.html` que seguían diciendo 18; se eliminó además el tile "+N
+Directiva completa" en las 3 copias del dato, obsoleto ahora que los 15
+perfiles reales ya están todos cargados; se creó la carpeta y el Sheet
+`Resumen` en el Drive para el evento nuevo "Visita a Itaú — Ganadores
+Torneo de Trading" — `04_Eventos/visita-itau-trading-2026/`, listo para
+que el equipo suba fotos y escriba el resumen; falta que alguien del
+equipo agregue la fila en `Registro_Eventos`, Claude no puede editar ese
+archivo existente).
+
+Actualización previa (2026-08-05, sesión anterior): foto de Francisco
+Valenzuela actualizada desde `CV/Fotos` del Drive — recorte cuadrado
+800×800 igual al resto del equipo, reemplaza
+`fotos/directiva/francisco-valenzuela.jpg`; la línea de tiempo horizontal
+ahora arranca centrada en el punto HOY por defecto en vez del extremo
+izquierdo, en `index.html` y `eventos/index.html`.
 
 Actualización previa (sesión 2, 2026-08-03): FIG Woman se deshabilita
 de nuevo — 9 enlaces vueltos a envolver en `FIW_TEMP_OCULTO` en `index.html`,
