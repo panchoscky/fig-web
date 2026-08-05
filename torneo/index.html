@@ -194,6 +194,39 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   .cmp-r--head span{font-size:.78rem}
   .cmp-r--head .lb-badges{display:none}
 }
+/* Replay del ranking (carrera de barras semana a semana).
+   Las filas se posicionan en absoluto y se mueven con transform:translateY,
+   que es lo único que el navegador anima sin recalcular layout — por eso la
+   carrera queda fluida con 59 equipos en pantalla. El orden de cada semana
+   sale de la POSICIÓN guardada en el historial, no de ordenar por puntos:
+   en las semanas 5, 6 y 8 hay un empate exacto de puntos entre dos equipos
+   y el orden oficial del Excel no coincide con el de un sort descendente. */
+.rp-ctrl{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:22px}
+.rp-play{width:52px;height:52px;flex:none;border-radius:50%;border:1px solid var(--gold-dim);color:var(--gold);font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:background .3s,border-color .3s}
+.rp-play:hover{background:rgba(212,175,55,.12);border-color:var(--gold)}
+.rp-slider{flex:1;min-width:180px;display:flex;align-items:center;gap:12px}
+.rp-slider input{flex:1;min-width:0;-webkit-appearance:none;appearance:none;height:4px;border-radius:100px;background:rgba(247,244,236,.14);outline:none}
+.rp-slider input::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--gold);cursor:pointer}
+.rp-slider input::-moz-range-thumb{width:16px;height:16px;border:none;border-radius:50%;background:var(--gold);cursor:pointer}
+.rp-wk{font-family:var(--f-mono);font-weight:600;font-size:.78rem;letter-spacing:.14em;color:var(--gold);white-space:nowrap}
+.rp-track{position:relative;overflow:hidden;border:1px solid rgba(212,175,55,.14);border-radius:10px;padding:12px;background:rgba(15,25,52,.4)}
+.rp-row{position:absolute;left:12px;right:12px;top:12px;height:34px;display:grid;grid-template-columns:38px minmax(0,1fr) 74px;gap:10px;align-items:center;opacity:0;transition:transform .85s var(--ease),opacity .5s}
+.rp-row.on{opacity:1}
+.rp-pos{font-family:var(--f-mono);font-weight:600;font-size:.82rem;color:rgba(247,244,236,.55);text-align:right}
+.rp-row.top3 .rp-pos{color:var(--gold)}
+.rp-barbox{position:relative;height:22px;border-radius:6px;background:rgba(247,244,236,.06);overflow:hidden}
+.rp-bar{position:absolute;inset:0 auto 0 0;width:0;border-radius:6px;background:linear-gradient(90deg,var(--gold-deep),var(--gold) 78%,var(--gold-light));opacity:.42;transition:width .85s var(--ease)}
+.rp-row.top3 .rp-bar{opacity:.72}
+.rp-nm{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-family:var(--f-disp);font-weight:600;font-size:.86rem;color:var(--ivory);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 22px)}
+.rp-pts{font-family:var(--f-mono);font-weight:600;font-size:.8rem;color:var(--gold);text-align:right}
+.rp-foot{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px}
+@media (max-width:640px){
+  .rp-row{grid-template-columns:28px minmax(0,1fr) 56px;gap:7px;left:8px;right:8px}
+  .rp-track{padding:8px}
+  .rp-nm{font-size:.74rem;left:9px}
+  .rp-pts{font-size:.7rem}
+}
+@media (prefers-reduced-motion:reduce){.rp-row,.rp-bar{transition:none}}
 .lb-search input{width:100%;background:rgba(15,25,52,.7);border:1px solid var(--line-d);border-radius:100px;padding:13px 20px 13px 46px;color:var(--ivory);font-family:var(--f-mono);font-size:.8rem;letter-spacing:.06em;transition:border-color .3s}
 .lb-search input:focus{outline:none;border-color:var(--gold)}
 .lb-search input::placeholder{color:rgba(247,244,236,.35)}
@@ -225,12 +258,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .lb-note{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(247,244,236,.4);margin-top:16px;line-height:1.9}
 
 /* Overlay de equipo */
-#tmOverlay,#cmpOverlay{position:fixed;inset:0;z-index:1500;opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s}
-#tmOverlay.open,#cmpOverlay.open{opacity:1;visibility:visible}
+#tmOverlay,#cmpOverlay,#rpOverlay{position:fixed;inset:0;z-index:1500;opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s}
+#tmOverlay.open,#cmpOverlay.open,#rpOverlay.open{opacity:1;visibility:visible}
 .ov-veil{position:absolute;inset:0;background:rgba(6,11,28,.88);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .ov-scroll{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;justify-content:center;padding:clamp(4.5rem,9vh,6.5rem) 24px 60px}
 .ov-panel{position:relative;max-width:860px;width:100%;height:max-content;background:linear-gradient(165deg,var(--navy-panel),rgba(10,17,40,.97));border:1px solid var(--line-d);border-radius:14px;padding:clamp(2rem,4.5vw,3.2rem);transform:translateY(26px);transition:transform .55s var(--ease);overflow:hidden}
-#tmOverlay.open .ov-panel,#cmpOverlay.open .ov-panel{transform:none}
+#tmOverlay.open .ov-panel,#cmpOverlay.open .ov-panel,#rpOverlay.open .ov-panel{transform:none}
 .ov-panel::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.6}
 .ov-close{position:absolute;top:18px;right:18px;width:44px;height:44px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:var(--gold);transition:all .3s var(--ease);z-index:3}
 .ov-close:hover{background:var(--gold);color:var(--navy);transform:rotate(90deg)}
@@ -427,6 +460,7 @@ footer a:hover{color:var(--gold)}
       </div>
       <div class="lb-tools">
         <div class="lb-search"><input type="search" id="lbSearch" placeholder="Buscar tu equipo…" aria-label="Buscar equipo"></div>
+        <button class="btn--cmp" id="btnRp">▶ Replay del ranking</button>
         <button class="btn--cmp" id="btnCmp">⇄ Comparar equipos</button>
       </div>
     </div>
@@ -437,6 +471,28 @@ footer a:hover{color:var(--gold)}
     <div class="lb-note">SCORING: PERCENTIL CONTINUO SOBRE 5 MÉTRICAS BLOOMBERG PORT · REGLAS DE PISO: IR, EXCESO O SHARPE NEGATIVOS → 0 PTS EN ESA MÉTRICA · RANKING INFORMATIVO, EL OFICIAL ES EL DEL CIERRE 02 · NOV · 2026</div>
   </div>
 </section>
+
+<!-- Replay del ranking -->
+<div id="rpOverlay" role="dialog" aria-modal="true" aria-label="Replay del ranking">
+  <div class="ov-veil"></div>
+  <div class="ov-scroll">
+    <div class="ov-panel">
+      <button class="ov-close" id="rpClose" aria-label="Cerrar">✕</button>
+      <div class="kicker" style="margin-bottom:10px"><span>Replay</span></div>
+      <h2 style="font-family:var(--f-disp);font-weight:600;font-size:clamp(1.5rem,3vw,2rem);margin-bottom:22px">El torneo, <em style="font-style:italic;color:var(--gold)">semana a semana</em>.</h2>
+      <div class="rp-ctrl">
+        <button class="rp-play" id="rpPlay" aria-label="Reproducir">▶</button>
+        <div class="rp-slider">
+          <input type="range" id="rpRange" min="0" max="0" step="1" value="0" aria-label="Semana del replay">
+          <span class="rp-wk" id="rpWk">S—</span>
+        </div>
+      </div>
+      <div class="rp-track" id="rpTrack"></div>
+      <div class="rp-foot" id="rpFoot"></div>
+      <div class="cmp-note" style="margin-top:14px">ORDEN OFICIAL DE CADA CORTE SEGÚN EL HISTORIAL DE datos/torneo.json · EL LARGO DE LA BARRA ES EL SCORE / 100 DE ESA SEMANA · SE MUESTRA EL TOP 12</div>
+    </div>
+  </div>
+</div>
 
 <!-- Comparador de equipos -->
 <div id="cmpOverlay" role="dialog" aria-modal="true" aria-label="Comparador de equipos">
@@ -744,6 +800,10 @@ function renderAll(){
   $$(".pd",p).forEach(function(b){b.addEventListener("click",function(){openTeam(b.getAttribute("data-tm"))})});
   renderLb(eq,"");
   $("#lbSearch").oninput=function(){renderLb(eq,this.value.trim().toLowerCase())};
+  /* el replay necesita al menos dos cortes publicados; con uno solo no hay carrera */
+  var semanas=[];
+  eq.forEach(function(t){(t.historial||[]).forEach(function(h){if(semanas.indexOf(h.semana)<0)semanas.push(h.semana)})});
+  $("#btnRp").hidden=semanas.length<2;
 }
 /* ---------------- Distinciones automáticas ----------------
    Se derivan de las métricas que torneo.json ya trae por equipo — no tocan el
@@ -919,6 +979,133 @@ function renderSpark(t){
        +'<div class="spark-note">SCORE ACUMULADO / 100 · POR SEMANA PUBLICADA</div>')
     +'</div>';
 }
+
+/* ---------------- Replay del ranking ----------------
+   Carrera de barras semana a semana con el historial que torneo.json YA trae.
+   No calcula nada nuevo: cada semana usa la POSICIÓN oficial guardada en el
+   historial de cada equipo (no un sort por puntos), porque en las semanas
+   5, 6 y 8 hay un empate exacto de puntos entre dos equipos y el orden del
+   Excel no coincide con el de un orden descendente — el guardado manda.
+   Los puntos solo definen el largo de la barra. */
+var ovR=$("#rpOverlay");
+var RP=null, RPEL=null, RP_I=0, RP_TIMER=null;
+var RP_TOP=12, RP_H=42;
+var RP_RM=!!(window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches);
+
+function rpSemanas(){
+  var wk=[];
+  DATA.equipos.forEach(function(t){
+    (t.historial||[]).forEach(function(h){if(wk.indexOf(h.semana)<0)wk.push(h.semana)});
+  });
+  wk.sort(function(a,b){return a-b});
+  return wk.map(function(s){
+    var filas=[];
+    DATA.equipos.forEach(function(t){
+      var h=(t.historial||[]).filter(function(x){return x.semana===s})[0];
+      if(h&&h.posicion!=null)filas.push({id:t.id,nombre:t.nombre,pos:h.posicion,pts:h.puntos||0});
+    });
+    filas.sort(function(a,b){return a.pos-b.pos});
+    return {semana:s,filas:filas};
+  });
+}
+
+function rpMontar(){
+  if(RP)return true;
+  RP=rpSemanas().filter(function(w){return w.filas.length});
+  if(RP.length<2){RP=null;return false}
+  var track=$("#rpTrack");
+  track.style.height=(RP_TOP*RP_H-8+24)+"px";
+  RPEL={};
+  var html="";
+  DATA.equipos.forEach(function(t){
+    html+='<div class="rp-row" data-id="'+esc(t.id)+'">'
+      +'<span class="rp-pos"></span>'
+      +'<span class="rp-barbox"><span class="rp-bar"></span><span class="rp-nm">'+esc(t.nombre)+'</span></span>'
+      +'<span class="rp-pts"></span></div>';
+  });
+  track.innerHTML=html;
+  Array.prototype.forEach.call(track.querySelectorAll(".rp-row"),function(el){
+    RPEL[el.getAttribute("data-id")]=el;
+  });
+  var r=$("#rpRange");
+  r.max=RP.length-1; r.value=0;
+  return true;
+}
+
+function rpPintar(i){
+  var W=RP[i]; if(!W)return;
+  var maxPts=1;
+  W.filas.forEach(function(f){if(f.pts>maxPts)maxPts=f.pts});
+  var vistos={};
+  W.filas.forEach(function(f,idx){
+    var el=RPEL[f.id]; if(!el)return;
+    vistos[f.id]=1;
+    var dentro=idx<RP_TOP;
+    /* los que quedan fuera del top se estacionan justo bajo el borde visible,
+       así entran y salen deslizándose en vez de aparecer de la nada */
+    el.style.transform="translateY("+(Math.min(idx,RP_TOP)*RP_H)+"px)";
+    if(dentro)el.classList.add("on"); else el.classList.remove("on");
+    if(f.pos<=3)el.classList.add("top3"); else el.classList.remove("top3");
+    el.querySelector(".rp-pos").textContent=f.pos+"°";
+    el.querySelector(".rp-pts").textContent=f.pts.toFixed(1);
+    el.querySelector(".rp-bar").style.width=Math.max(2,f.pts/maxPts*100)+"%";
+  });
+  Object.keys(RPEL).forEach(function(id){if(!vistos[id])RPEL[id].classList.remove("on")});
+
+  $("#rpWk").textContent="SEMANA "+W.semana;
+  $("#rpRange").value=i;
+
+  var pie='<span class="mono-tag">LÍDER · '+esc(W.filas[0].nombre)+'</span>';
+  var P=RP[i-1];
+  if(P){
+    var antes={};
+    P.filas.forEach(function(f){antes[f.id]=f.pos});
+    var mejor=null;
+    W.filas.forEach(function(f){
+      if(antes[f.id]==null)return;
+      var d=antes[f.id]-f.pos;
+      if(d>0&&(!mejor||d>mejor.d))mejor={d:d,f:f};
+    });
+    if(mejor)pie+='<span class="mono-tag" style="color:var(--up);border-color:rgba(95,192,139,.35)">▲ '+esc(mejor.f.nombre)+' SUBE '+mejor.d+'</span>';
+  }
+  pie+='<span class="mono-tag">'+W.filas.length+' EQUIPOS</span>';
+  $("#rpFoot").innerHTML=pie;
+  RP_I=i;
+}
+
+function rpPausa(){
+  if(RP_TIMER){clearInterval(RP_TIMER);RP_TIMER=null}
+  $("#rpPlay").textContent="▶";
+  $("#rpPlay").setAttribute("aria-label","Reproducir");
+}
+function rpPlay(){
+  if(!RP)return;
+  if(RP_I>=RP.length-1)rpPintar(0);
+  rpPausa();
+  RP_TIMER=setInterval(function(){
+    if(RP_I>=RP.length-1){rpPausa();return}
+    rpPintar(RP_I+1);
+  },1500);
+  $("#rpPlay").textContent="❚❚";
+  $("#rpPlay").setAttribute("aria-label","Pausar");
+}
+
+function openRp(){
+  if(!DATA.equipos||!DATA.equipos.length)return;
+  if(!rpMontar())return;
+  rpPausa();
+  rpPintar(0);
+  ovR.classList.add("open"); document.body.classList.add("locked");
+  /* con reduced-motion no arranca solo: se recorre con el deslizador */
+  if(!RP_RM)setTimeout(rpPlay,700);
+}
+function closeRp(){rpPausa();ovR.classList.remove("open");document.body.classList.remove("locked")}
+$("#btnRp").addEventListener("click",openRp);
+$("#rpClose").addEventListener("click",closeRp);
+ovR.addEventListener("click",function(e){if(e.target===ovR||e.target.classList.contains("ov-scroll"))closeRp()});
+$("#rpPlay").addEventListener("click",function(){RP_TIMER?rpPausa():rpPlay()});
+$("#rpRange").addEventListener("input",function(){rpPausa();rpPintar(+this.value)});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&ovR.classList.contains("open"))closeRp()});
 
 /* ---------------- Comparador de equipos ----------------
    Vista nueva sobre datos que ya existen en torneo.json: elige dos equipos y

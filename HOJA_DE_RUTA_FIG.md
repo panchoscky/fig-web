@@ -10,7 +10,17 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-05** (sesión 5: **corte semanal al
+Última actualización: **2026-08-05** (sesión 6: **tarea #24 ✅ hecha** —
+replay del ranking en `torneo/index.html`, una carrera de barras que recorre
+las 8 semanas publicadas con play/pausa y deslizador. Ojo con un hallazgo al
+validar el historial: en las semanas 5, 6 y 8 hay un empate exacto de puntos
+entre dos equipos y el orden guardado en el Excel no coincide con el de un
+orden descendente por puntos — las 59 posiciones siguen siendo únicas, así
+que es un desempate del Excel, no un error. Por eso el replay ordena por la
+`posicion` guardada y usa los puntos solo para el largo de la barra; conviene
+mantener ese criterio en cualquier vista futura que recorra el historial).
+
+Actualización previa (sesión 5: **corte semanal al
 31-jul-2026 cargado** — semana 12, 59 equipos, historial ahora de 8 semanas
 (5 a 12). El Excel lo dejó el equipo de Portafolio en una carpeta NUEVA del
 Drive: `02_Areas/PORTAFOLIO/Tablas semanales torneo/`, donde están los 8
@@ -469,6 +479,7 @@ después si se pide). Ninguna de las 6 se ha empezado a implementar.
 | 21 | **Comparador de equipos en el torneo** | Sonnet | ✅ **HECHO (2026-08-05)** — overlay `#cmpOverlay` con dos selects, comparación de posición + puntos + retorno relativo + las 5 métricas (valor y puntos aportados) con ▲ al ganador de cada fila, y gráfico de las dos trayectorias superpuestas. Entra desde "⇄ Comparar equipos" (junto al buscador) o desde "⇄ Comparar con otro equipo" en la ficha de un equipo. Detalle original: Seleccionar 2 equipos de `torneo.json` y verlos lado a lado, métrica por métrica (retorno, Sharpe, MDD, posición, delta). Toda la data ya está en el JSON que consume `torneo/index.html`; es una vista nueva sobre datos existentes, sin backend nuevo |
 | 22 | **PWA ligera para el torneo** | Sonnet | `manifest.json` + service worker mínimo (cache de assets estáticos) para que `torneo/index.html` se pueda "instalar" en el celular y cargue rápido los viernes de publicación, cuando hay más tráfico. No requiere backend ni cambia el fetch de `torneo.json` (siempre debe pedirse fresco, no cachear el JSON del ranking) |
 | 23 | **Sección "Referentes" en FIW** | Sonnet | Tarjetas de entrevistas breves a mujeres de la industria (foto + cita + cargo), mismo patrón JSON que el resto del sitio (`datos/fiw.json`). Da contenido real al área mientras se resuelven los colores oficiales con Delia (P0-3) — el contenido no depende de esa decisión, solo el estilo visual sí. Requiere que Francisco/Delia consigan las entrevistas o testimonios primero, no inventar citas |
+| 24 | **Replay del ranking (carrera de barras)** | Sonnet | ✅ **HECHO (2026-08-05)** — overlay `#rpOverlay` en `torneo/index.html`: recorre las semanas publicadas (hoy 5→12) animando el top 12 con play/pausa y deslizador, y en cada corte muestra al líder y al equipo que más subió respecto de la semana anterior. Vista nueva sobre el `historial` que `torneo.json` ya trae, sin datos ni scoring nuevos. Decisión de implementación: el orden de cada semana sale de la `posicion` GUARDADA, no de ordenar por `puntos` — en las semanas 5, 6 y 8 hay un empate exacto de puntos entre dos equipos (Vantedge/Terra, Bull Market Boys/Indarra, SeriosFc/Fat fingers) y el desempate del Excel no coincide con el de un orden descendente; las 59 posiciones siguen siendo únicas, así que es un artefacto de desempate, no un dato corrupto. El botón se oculta solo si algún día hay menos de dos cortes publicados |
 
 ### P2 — Expansión (ver IDEAS_GRAN_ESCALA_FIG.md antes de empezar)
 
