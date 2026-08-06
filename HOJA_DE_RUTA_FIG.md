@@ -10,7 +10,14 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-05** (sesión 6: **tarea #24 ✅ hecha** —
+Última actualización: **2026-08-06** (sesión 7: **tarea #25 anotada** —
+autocompletar formularios de inscripción con el RUT (si el sistema reconoce
+a la persona, se inscribe directo; si no, pide el resto a mano). Pedido de
+Francisco, queda en el backlog: falta crear la planilla de miembros en el
+Drive y decidir qué formulario la usa primero — el RUT no puede vivir en el
+repo, solo en esa planilla).
+
+Actualización previa (sesión 6: **tarea #24 ✅ hecha** —
 replay del ranking en `torneo/index.html`, una carrera de barras que recorre
 las 8 semanas publicadas con play/pausa y deslizador. Ojo con un hallazgo al
 validar el historial: en las semanas 5, 6 y 8 hay un empate exacto de puntos
@@ -480,6 +487,7 @@ después si se pide). Ninguna de las 6 se ha empezado a implementar.
 | 22 | **PWA ligera para el torneo** | Sonnet | `manifest.json` + service worker mínimo (cache de assets estáticos) para que `torneo/index.html` se pueda "instalar" en el celular y cargue rápido los viernes de publicación, cuando hay más tráfico. No requiere backend ni cambia el fetch de `torneo.json` (siempre debe pedirse fresco, no cachear el JSON del ranking) |
 | 23 | **Sección "Referentes" en FIW** | Sonnet | Tarjetas de entrevistas breves a mujeres de la industria (foto + cita + cargo), mismo patrón JSON que el resto del sitio (`datos/fiw.json`). Da contenido real al área mientras se resuelven los colores oficiales con Delia (P0-3) — el contenido no depende de esa decisión, solo el estilo visual sí. Requiere que Francisco/Delia consigan las entrevistas o testimonios primero, no inventar citas |
 | 24 | **Replay del ranking (carrera de barras)** | Sonnet | ✅ **HECHO (2026-08-05)** — overlay `#rpOverlay` en `torneo/index.html`: recorre las semanas publicadas (hoy 5→12) animando el top 12 con play/pausa y deslizador, y en cada corte muestra al líder y al equipo que más subió respecto de la semana anterior. Vista nueva sobre el `historial` que `torneo.json` ya trae, sin datos ni scoring nuevos. Decisión de implementación: el orden de cada semana sale de la `posicion` GUARDADA, no de ordenar por `puntos` — en las semanas 5, 6 y 8 hay un empate exacto de puntos entre dos equipos (Vantedge/Terra, Bull Market Boys/Indarra, SeriosFc/Fat fingers) y el desempate del Excel no coincide con el de un orden descendente; las 59 posiciones siguen siendo únicas, así que es un artefacto de desempate, no un dato corrupto. El botón se oculta solo si algún día hay menos de dos cortes publicados |
+| 25 | **Autocompletar formularios de inscripción con el RUT** | Sonnet (revisar privacidad: Opus) | Pedido de Francisco (2026-08-06): en el formulario de inscripción a una actividad, la persona ingresa su RUT; si el sistema lo reconoce (ya es miembro de FIG), se inscribe directo con sus datos precargados; si no lo reconoce, pide el resto de la información a mano. Arquitectura propuesta: el mismo `config.figEndpoint` (Apps Script compartido) gana un `tipo:"buscar_rut"` que consulta una planilla de miembros y responde solo "existe sí/no + datos" (nunca la lista completa, para que no se pueda enumerar RUTs válidos probando al voleo). **Bloqueador**: hoy no existe esa planilla de miembros con RUT — hay que crearla primero en el Drive, y el RUT es un dato más sensible que el nombre+rol+LinkedIn que el proyecto tiene aprobado para commitear, así que solo puede vivir en la planilla del Drive, jamás en el repo ni en un JSON público. Requiere que Francisco decida qué formulario lo usa primero y arme la planilla de miembros |
 
 ### P2 — Expansión (ver IDEAS_GRAN_ESCALA_FIG.md antes de empezar)
 
