@@ -10,7 +10,25 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-06** (sesión 7: **tarea #25 anotada** —
+Última actualización: **2026-08-07** (sesión 8: **corte semanal al
+07-ago-2026 cargado** — semana 13, 59 equipos, historial ahora de 9 semanas
+(5 a 13). El Excel lo dejó Manuel en la misma carpeta del Drive
+(`02_Areas/PORTAFOLIO/Tablas semanales torneo/`), sin fecha en el nombre del
+archivo esta vez — la semana se calculó con la misma fórmula que usa la
+página (`semanaHoy()`, desde el inicio del torneo el 11 de mayo). El
+conector de Drive de este entorno no pudo descargar el binario del Excel
+directo (la descarga en base64 se corrompía al manipularla), así que se
+reconstruyó un `.xlsx` equivalente con `openpyxl` a partir del texto plano
+que sí entrega `read_file_content` (mismas 4 hojas que `generar_torneo.py`
+espera: `Tabla`, `puntos`, `ranking_ordenado`, `Retornos por corte`) — mismo
+truco que en el corte anterior. Corrido sin `--inscripciones`, así que los
+integrantes de los 4 equipos corregidos a mano (Beta capital, Nova Praxis,
+CCQ, Sharpe Fox) quedaron intactos (verificado). Validado: 59 posiciones
+únicas, deltas suman 0, historial de 9 semanas en los 59 equipos, retorno de
+la semana 13 de cada equipo coincide con la hoja "Retornos por corte" del
+Excel. Movimiento destacado: Los Default subió 11 puestos esta semana).
+
+Actualización previa (sesión 7: **tarea #25 anotada** —
 autocompletar formularios de inscripción con el RUT (si el sistema reconoce
 a la persona, se inscribe directo; si no, pide el resto a mano). Pedido de
 Francisco, queda en el backlog: falta crear la planilla de miembros en el
