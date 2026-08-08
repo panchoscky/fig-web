@@ -145,16 +145,41 @@ footer a:hover{color:var(--gold)}
   .rank-row .fecha{display:none}
 }
 </style>
+<script>
+  if (window.location.pathname.endsWith('/index.html')) {
+    const cleanPath = window.location.pathname.replace(/\/index\.html$/, '/') + window.location.search + window.location.hash;
+    window.history.replaceState(null, '', cleanPath);
+  }
+</script>
+
+<script>
+  // Prevenir que el # aparezca en la URL al hacer clic en enlaces internos
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function (e) {
+        var targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        var targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+          // Mantiene la URL limpia sin el #
+          window.history.pushState(null, null, window.location.pathname + window.location.search);
+        }
+      });
+    });
+  });
+</script>
 </head>
 <body>
 
 <nav class="nav">
   <div class="wrap">
-    <a href="../index.html" class="brand" aria-label="FEN Investment Group — Inicio">
+    <a href="../" class="brand" aria-label="FEN Investment Group — Inicio">
       <img class="brand-logo" src="../logos/fig-oro.png" alt="FIG">
       <div><div class="brand-name">El Rally del Toro</div><span class="brand-sub">Sala de espera · FIG</span></div>
     </a>
-    <a href="../index.html" class="back">← Volver a FIG</a>
+    <a href="../" class="back">← Volver a FIG</a>
   </div>
 </nav>
 
@@ -246,7 +271,7 @@ footer a:hover{color:var(--gold)}
   <div class="wrap">
     <span>© 2026 FEN Investment Group · El Rally del Toro</span>
     <span>Creado por <a href="https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/" target="_blank" rel="noopener">Francisco Valenzuela</a> y <a href="https://www.linkedin.com/in/mpazq" target="_blank" rel="noopener">Manuel Paz</a></span>
-    <a href="../desafio/index.html">¿Prefieres pensar? Desafío FIG →</a>
+    <a href="../desafio/">¿Prefieres pensar? Desafío FIG →</a>
   </div>
 </footer>
 
