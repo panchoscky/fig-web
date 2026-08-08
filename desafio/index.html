@@ -62,8 +62,11 @@ main{padding:clamp(7.5rem,13vh,9.5rem) 0 5rem;min-height:100vh;
   background:radial-gradient(1100px 520px at 85% -10%,rgba(212,175,55,.1),transparent 60%),var(--navy)}
 .screen{display:none}
 .screen.on{display:block}
-h1{font-family:var(--f-disp);font-weight:600;font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.1;margin:16px 0 12px}
-h1 em{font-style:italic;color:var(--gold)}
+/* h2 comparte el estilo de h1: el título del modo estudio es una pantalla
+   alterna, no el título del documento, así que va como h2 para no dejar dos
+   h1 en la misma página (auditoría 2026-08-08). */
+h1,h2{font-family:var(--f-disp);font-weight:600;font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.1;margin:16px 0 12px}
+h1 em,h2 em{font-style:italic;color:var(--gold)}
 .lead{color:rgba(247,244,236,.75);max-width:60ch;font-size:.98rem}
 
 /* home */
@@ -152,16 +155,41 @@ footer a{color:rgba(247,244,236,.65)}
 footer a:hover{color:var(--gold)}
 @media (max-width:680px){.rank-row{grid-template-columns:40px 1fr 90px;padding:12px 14px}.rank-row .ar{display:none}}
 </style>
+<script>
+  if (window.location.pathname.endsWith('/index.html')) {
+    const cleanPath = window.location.pathname.replace(/\/index\.html$/, '/') + window.location.search + window.location.hash;
+    window.history.replaceState(null, '', cleanPath);
+  }
+</script>
+
+<script>
+  // Prevenir que el # aparezca en la URL al hacer clic en enlaces internos
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function (e) {
+        var targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        var targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+          // Mantiene la URL limpia sin el #
+          window.history.pushState(null, null, window.location.pathname + window.location.search);
+        }
+      });
+    });
+  });
+</script>
 </head>
 <body>
 
 <nav class="nav">
   <div class="wrap">
-    <a href="../index.html" class="brand" aria-label="FEN Investment Group — Inicio">
+    <a href="../" class="brand" aria-label="FEN Investment Group — Inicio">
       <img class="brand-logo" src="../logos/fig-oro.png" alt="FIG">
       <div><div class="brand-name">Desafío FIG</div><span class="brand-sub">Trivia de finanzas</span></div>
     </a>
-    <a href="../index.html" class="back">← Volver a FIG</a>
+    <a href="../" class="back">← Volver a FIG</a>
   </div>
 </nav>
 
@@ -206,7 +234,7 @@ footer a:hover{color:var(--gold)}
     <!-- ============ SELECTOR ESTUDIO ============ -->
     <section class="screen" id="scrPick">
       <div class="kicker">Modo estudio</div>
-      <h1 id="pickTitle">Elige un tema</h1>
+      <h2 id="pickTitle">Elige un tema</h2>
       <p class="lead">Sin reloj y con la explicación al instante después de cada respuesta.</p>
       <div class="picks" id="pickList"></div>
       <div style="margin-top:30px"><button class="btn btn--ghost" id="btnPickBack">← Volver</button></div>
@@ -257,7 +285,7 @@ footer a:hover{color:var(--gold)}
   <div class="wrap">
     <span>© 2026 FEN Investment Group · Desafío FIG</span>
     <span>Creado por <a href="https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/" target="_blank" rel="noopener">Francisco Valenzuela</a> y <a href="https://www.linkedin.com/in/mpazq" target="_blank" rel="noopener">Manuel Paz</a></span>
-    <a href="../juego/index.html">¿Prefieres correr? El Rally del Toro →</a>
+    <a href="../juego/">¿Prefieres correr? El Rally del Toro →</a>
   </div>
 </footer>
 

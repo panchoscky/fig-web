@@ -10,7 +10,31 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-07** (sesión 8: **corte semanal al
+Última actualización: **2026-08-08** (sesión 9: tarjetas y videos del torneo,
+vista nueva del replay y auditoría del sitio.
+**(1) Sincronización con el repo de Manuel**: por primera vez se pudo clonar
+`mpazq-afk/mpazq-afk.github.io` desde la sesión (es público y el proxy de git
+lo alcanza; los intentos anteriores fallaban por otra vía). Traía trabajo que
+NO teníamos y que una copia ciega habría borrado: el arreglo de duplicados de
+integrantes en `generar_torneo.py` y las URLs limpias (sin `/index.html` ni
+`#`) en `juego/` y `desafio/`. Se trajeron los 3 archivos y se verificó que
+`generar_torneo.py` produce exactamente el mismo `torneo.json`. **Efecto
+secundario útil: el bug de integrantes duplicados está arreglado en el
+origen, así que ya no hace falta omitir `--inscripciones` al cargar un corte.**
+**(2) Tarjetas/videos**: se quitó el hashtag blanco del pie, se agregaron las
+distinciones (Cazador de alfa, etc.), versión de podio para los 3 primeros y
+bitrate por formato (~45% menos peso, verificado por PSNR contra el canvas).
+**(3) Replay**: pestaña nueva "Evolución por métrica" con los 59 equipos a la
+vez. Ojo: solo se pueden graficar POSICIÓN, RETORNO y PUNTOS porque son lo
+único que el historial guarda por semana — las 5 métricas Bloomberg existen
+solo para el corte actual, aunque los Excels semanales sí las traen.
+**(4) Auditoría**: sin errores de JS en las 11 páginas; los 404 de consola son
+el sondeo de fotos por diseño (carpetas vacías) y el logo de CMF que falta;
+se corrigió el doble `<h1>` de `desafio/`. Pendientes de datos sin cambios:
+`urls.contacto` sigue en `#`, `acwi` sigue vacío y "Equipo rocket" sigue sin
+integrantes).
+
+Actualización previa (sesión 8: **corte semanal al
 07-ago-2026 cargado** — semana 13, 59 equipos, historial ahora de 9 semanas
 (5 a 13). El Excel lo dejó Manuel en la misma carpeta del Drive
 (`02_Areas/PORTAFOLIO/Tablas semanales torneo/`), sin fecha en el nombre del
