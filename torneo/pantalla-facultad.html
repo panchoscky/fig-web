@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920">
+<title>Torneo Portafolio 2026 — Video semanal para la facultad</title>
+<meta name="description" content="Video semanal del Top 5 del Torneo Portafolio 2026 de FEN Investment Group, para enviar a las pantallas de la facultad.">
+
+<!--
+  VIDEO SEMANAL PARA LA FACULTAD (1920x1080, fondo claro).
+
+  Recrea la propuesta de diseño que se aprobó (Propuesta_Video_FIG.mp4:
+  fondo blanco, azul #0052FF, tarjeta por equipo con integrantes y mini
+  gráfico), pero como página que SE ALIMENTA SOLA de datos/torneo.json —
+  la propuesta original era un video grabado una sola vez con datos de la
+  semana 11; esta versión se recalcula cada semana sin tocar código, igual
+  que torneo/pantalla.html (la pantalla navy/oro que ya usa el Bloomberg
+  Lab). Mismo motor, paleta distinta.
+
+  La animación es DETERMINÍSTICA: todo es función de un único reloj `t`
+  (ver seek()), sin transiciones CSS — así se graba fotograma a fotograma
+  a 60 fps sin perder cuadros (ver scratchpad/grabar_pantalla_facultad.py).
+
+  Ganchos para grabar:
+    window.__ready   -> true cuando ya cargaron datos y logos
+    window.__total   -> duración del ciclo en ms
+    window.__manual()-> congela el reloj propio
+    window.__seek(ms)-> dibuja ese instante exacto
+
+  Nota honesta (2026-08-11): la propuesta original rotulaba el retorno de
+  cada equipo "RETORNO VS ACWI", pero datos/torneo.json no trae el
+  benchmark ACWI cargado todavía (acwi:[] — ver CLAUDE.md). Mostrar una
+  comparación contra un benchmark vacío sería inventar un dato, así que
+  aquí dice "RETORNO ACUMULADO" hasta que exista ese dato real.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="../logos/fig-oro.png">
+
+<style>
+:root{
+  --blue:#0052FF; --blue-d:#0041CC; --navy:#04182D; --ink:#0A1128;
+  --dim:rgba(10,17,40,.52); --line:rgba(10,17,40,.10);
+  --up:#12A177; --down:#D9553E; --card:#FFFFFF;
+  --f-disp:"Playfair Display",Georgia,serif;
+  --f-body:"Inter",-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono","SF Mono",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden}
+body{font-family:var(--f-body);color:var(--ink);position:relative;
+  -webkit-font-smoothing:antialiased;background:#fff}
+
+/* fondo: blanco con un glow celeste muy tenue, como la propuesta */
+#bg{position:absolute;inset:0;background:
+  radial-gradient(1100px 700px at 50% 38%,rgba(0,82,255,.06),transparent 68%),
+  linear-gradient(180deg,#FBFCFF,#FFFFFF 60%)}
+
+.sc{position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;opacity:0;visibility:hidden;
+  will-change:opacity,transform}
+
+/* ---------------- s1: intro ---------------- */
+#s1 .lock{display:flex;align-items:center;gap:30px}
+#s1 .logo{width:150px;height:150px;object-fit:contain}
+#s1 .mask{overflow:hidden;white-space:nowrap;width:0}
+#s1 .mask h1{font-family:var(--f-disp);font-weight:600;font-size:96px;color:var(--ink)}
+#s1 .sub{margin-top:36px}
+#s1 .sub span{font-family:var(--f-mono);font-size:26px;letter-spacing:.5em;
+  color:var(--blue);text-transform:uppercase}
+
+/* ---------------- s2: colaboradores ---------------- */
+#s2 .kick{font-family:var(--f-mono);font-size:22px;letter-spacing:.42em;
+  color:var(--dim);text-transform:uppercase;margin-bottom:56px}
+#s2 .row{display:flex;align-items:center;gap:96px;background:var(--card);
+  border:1px solid var(--line);border-radius:22px;padding:44px 76px;
+  box-shadow:0 30px 70px rgba(10,17,40,.08)}
+#s2 .slot{height:74px;display:flex;align-items:center}
+#s2 .slot img{max-height:100%;max-width:280px;object-fit:contain}
+
+/* ---------------- encabezado persistente (desde la lista en adelante) --- */
+#head{position:absolute;top:118px;left:0;right:0;display:flex;flex-direction:column;
+  align-items:center;opacity:0;visibility:hidden}
+#head .lock{display:flex;align-items:center;gap:22px}
+#head .logo{width:64px;height:64px;object-fit:contain}
+#head h2{font-family:var(--f-disp);font-weight:600;font-size:56px;color:var(--ink)}
+#head h2 em{font-style:italic;color:var(--blue)}
+#head .kick{margin-top:12px;font-family:var(--f-mono);font-size:19px;
+  letter-spacing:.42em;color:var(--dim);text-transform:uppercase}
+
+/* ---------------- lista top 5 ---------------- */
+#listPanel{position:absolute;top:322px;left:50%;width:1180px;margin-left:-590px;
+  opacity:0;visibility:hidden}
+#listPanel .row{display:flex;align-items:center;gap:34px;background:var(--card);
+  border:1px solid var(--line);border-radius:16px;padding:26px 40px;margin-bottom:16px;
+  box-shadow:0 14px 30px rgba(10,17,40,.05);
+  opacity:0;transform:translateY(22px)}
+#listPanel .pos{font-family:var(--f-disp);font-weight:700;font-size:34px;color:var(--blue);width:52px}
+#listPanel .nm{font-family:var(--f-body);font-weight:600;font-size:30px;flex:1}
+#listPanel .st{text-align:right}
+#listPanel .pt{font-family:var(--f-mono);font-weight:600;font-size:28px}
+#listPanel .rt{font-family:var(--f-mono);font-size:18px;margin-top:3px}
+#listPanel .rt.up{color:var(--up)} #listPanel .rt.down{color:var(--down)}
+
+/* ---------------- tarjeta de equipo ---------------- */
+#cardPanel{position:absolute;top:300px;left:50%;width:1540px;margin-left:-770px;
+  background:var(--card);border:1px solid var(--line);border-radius:26px;
+  padding:58px 64px;box-shadow:0 40px 90px rgba(10,17,40,.10);
+  opacity:0;visibility:hidden}
+#cardPanel .logos{display:flex;align-items:center;gap:30px;height:48px;margin-bottom:34px}
+#cardPanel .logos img{max-height:100%;object-fit:contain}
+#cardPanel .logos img.bull{max-height:44px}
+#cardPanel .logos img.blk{max-height:32px}
+#cardPanel .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:46px}
+#cardPanel .who .pos{font-family:var(--f-disp);font-weight:700;font-size:52px;color:var(--blue)}
+#cardPanel .who .nm{font-family:var(--f-disp);font-weight:700;font-size:52px;color:var(--ink);margin-left:14px}
+#cardPanel .who .sub{margin-top:10px;font-family:var(--f-mono);font-size:20px;color:var(--dim)}
+#cardPanel .stats{display:flex;gap:20px}
+#cardPanel .stat{background:#F4F7FF;border:1px solid var(--line);border-radius:14px;
+  padding:16px 26px;text-align:right;min-width:190px}
+#cardPanel .stat .lb{font-family:var(--f-mono);font-size:14px;letter-spacing:.14em;
+  color:var(--dim);text-transform:uppercase}
+#cardPanel .stat .vl{font-family:var(--f-mono);font-weight:600;font-size:30px;margin-top:6px}
+#cardPanel .stat .vl.up{color:var(--up)} #cardPanel .stat .vl.down{color:var(--down)}
+#cardPanel .body{display:flex;gap:28px;align-items:stretch}
+#cardPanel .mem{flex:1.15;display:flex;flex-wrap:wrap;gap:18px;align-content:flex-start}
+#cardPanel .mem .chip{background:#F8F9FD;border:1px solid var(--line);border-radius:14px;
+  padding:20px 22px;display:flex;align-items:center;gap:16px;flex:1 1 46%;min-width:280px}
+#cardPanel .mem .av{width:56px;height:56px;border-radius:50%;background:var(--blue);
+  color:#fff;font-family:var(--f-mono);font-weight:600;font-size:20px;
+  display:flex;align-items:center;justify-content:center;flex:none}
+#cardPanel .mem .role{font-family:var(--f-mono);font-size:13px;letter-spacing:.14em;
+  color:var(--dim);text-transform:uppercase}
+#cardPanel .mem .nm2{font-family:var(--f-body);font-weight:600;font-size:20px;margin-top:2px}
+#cardPanel .chart{flex:1;background:#F8F9FD;border:1px solid var(--line);border-radius:14px;
+  padding:22px 26px;display:flex;flex-direction:column}
+#cardPanel .chart .hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+#cardPanel .chart .hd b{font-family:var(--f-mono);font-size:14px;letter-spacing:.1em;
+  color:var(--dim);text-transform:uppercase;font-weight:500}
+#cardPanel .chart .badge{font-family:var(--f-mono);font-weight:600;font-size:14px;
+  padding:4px 12px;border-radius:100px}
+#cardPanel .chart .badge.up{color:var(--up);background:rgba(18,161,119,.10)}
+#cardPanel .chart .badge.down{color:var(--down);background:rgba(217,85,62,.10)}
+#cardPanel .chart svg{flex:1;width:100%;height:100%}
+
+/* pie con marca, siempre visible desde la lista en adelante */
+#foot{position:absolute;bottom:64px;left:0;right:0;display:flex;justify-content:center;
+  align-items:center;gap:16px;opacity:0;visibility:hidden}
+#foot img{height:34px;object-fit:contain}
+#foot span{font-family:var(--f-mono);font-size:20px;letter-spacing:.16em;color:var(--dim)}
+</style>
+</head>
+<body>
+
+<div id="bg"></div>
+
+<div class="sc" id="s1">
+  <div class="lock">
+    <img class="logo" src="../logos/fig-navy.png" alt="">
+    <div class="mask"><h1>FEN Investment Group</h1></div>
+  </div>
+  <div class="sub"><span>Torneo Portafolio 2026</span></div>
+</div>
+
+<div class="sc" id="s2">
+  <div class="kick">En alianza con</div>
+  <div class="row">
+    <div class="slot"><img src="../logos/fen.png" alt="FEN UChile"></div>
+    <div class="slot"><img src="../logos/itau.png" alt="Itaú"></div>
+    <div class="slot"><img src="../logos/blackrock.png" alt="BlackRock"></div>
+  </div>
+</div>
+
+<div id="head">
+  <div class="lock">
+    <img class="logo" src="../logos/fig-navy.png" alt="">
+    <h2>Torneo <em>Portafolio</em> 2026</h2>
+  </div>
+  <div class="kick" id="headKick">Ranking Top 5</div>
+</div>
+
+<div id="listPanel"></div>
+<div id="cardPanel"></div>
+
+<div id="foot">
+  <img src="../logos/fig-navy.png" alt="">
+  <span>@fen.investment.group</span>
+</div>
+
+<script>
+/* ================= utilidades de tiempo (mismo patrón que pantalla.html) === */
+var cl  = function(x){return x<0?0:x>1?1:x};
+var eo  = function(p){return 1-Math.pow(1-p,3)};
+var sg  = function(t,ini,dur){return cl((t-ini)/dur)};
+var lp  = function(a,b,p){return a+(b-a)*p};
+var $   = function(s,r){return (r||document).querySelector(s)};
+function alpha(t,r,fade){
+  fade=fade||FADE;
+  return Math.min(sg(t,r[0],fade), 1-sg(t,r[1]-fade,fade));
+}
+
+/* ---- línea de tiempo (ms) ---- */
+var S1=[0,4000], S2=[4000,8200];
+var HEAD_IN=8200, HEAD_FADE=520;
+var LIST_FIRST=[8900,11300];              /* la lista sola, antes del primer equipo */
+var N_CARDS=5, CARD_DUR=5400, CARD_START=11300;
+var CARD_RANGES=[];
+for(var i=0;i<N_CARDS;i++)CARD_RANGES.push([CARD_START+i*CARD_DUR,CARD_START+(i+1)*CARD_DUR]);
+var LIST_LAST=[CARD_RANGES[N_CARDS-1][1], CARD_RANGES[N_CARDS-1][1]+3000];
+var TOTAL=LIST_LAST[1]+1200, FADE=560;
+window.__total=TOTAL;
+
+/* ================= datos ================= */
+var D=null, EQ=[];
+function normaliza(n){
+  var MIN={de:1,del:1,la:1,las:1,los:1,y:1,e:1};
+  return String(n||"").trim().split(/\s+/).map(function(p,i){
+    var b=p.toLowerCase();
+    if(i>0&&MIN[b]) return b;
+    if(p===p.toUpperCase()&&p.length<=3) return p;
+    return b.charAt(0).toUpperCase()+b.slice(1);
+  }).join(" ");
+}
+function iniciales(n){
+  var p=n.trim().split(/\s+/);
+  return ((p[0]||"")[0]||"")+((p[1]||"")[0]||"");
+}
+function pct(v,d){
+  if(v==null)return "—";
+  return (v>=0?"+":"")+(v*100).toFixed(d==null?2:d)+"%";
+}
+
+fetch("../datos/torneo.json",{cache:"no-store"})
+  .then(function(r){return r.json()})
+  .then(function(d){ D=d; preparar(); construirLista(); arrancar(); })
+  .catch(function(){ document.title="ERROR — no se pudo cargar torneo.json"; });
+
+function preparar(){
+  EQ = D.equipos.slice().sort(function(a,b){return a.posicion-b.posicion}).slice(0,N_CARDS)
+    .map(function(e){
+      var vistos={}, mem=[];
+      (e.miembros||[]).forEach(function(m){
+        var n=normaliza(m.nombre); if(!n) return;
+        var k=n.toLowerCase(); if(vistos[k])return; vistos[k]=1;
+        mem.push(n);
+      });
+      var serie=(e.historial||[]).map(function(h){return {s:h.semana,v:h.ret}})
+                                  .filter(function(h){return h.v!=null});
+      var ultimaVar=null;
+      if(serie.length>=2) ultimaVar=serie[serie.length-1].v-serie[serie.length-2].v;
+      return {
+        pos:e.posicion, nombre:e.nombre, puntos:e.puntos, ret:e.retRel,
+        mem:mem, serie:serie, ultimaVar:ultimaVar
+      };
+    });
+  $("#headKick").textContent="Ranking Top "+N_CARDS+" · Semana "+(D.semana||"—");
+}
+
+/* ---------------- lista ---------------- */
+function construirLista(){
+  $("#listPanel").innerHTML = EQ.map(function(t){
+    var up=t.ret>=0;
+    return '<div class="row" data-pos="'+t.pos+'">'
+      +'<div class="pos">'+t.pos+'</div>'
+      +'<div class="nm">'+esc(t.nombre)+'</div>'
+      +'<div class="st"><div class="pt">'+t.puntos.toFixed(2)+'</div>'
+      +'<div class="rt '+(up?"up":"down")+'">'+pct(t.ret,2)+'</div></div>'
+      +'</div>';
+  }).join("");
+}
+
+/* ---------------- tarjeta de un equipo ---------------- */
+function chartSVG(t){
+  var S=t.serie; if(S.length<2) return "";
+  var vals=S.map(function(x){return x.v});
+  var lo=Math.min.apply(null,vals), hi=Math.max.apply(null,vals);
+  var pad=(hi-lo)*0.22||0.01; lo-=pad; hi+=pad;
+  var W=520,H=190,PL=6,PR=6,PT=10,PB=26;
+  var X=function(k){return PL+k*(W-PL-PR)/(S.length-1)};
+  var Y=function(v){return H-PB-(v-lo)/(hi-lo)*(H-PT-PB)};
+  var pl=S.map(function(x,k){return X(k)+","+Y(x.v)}).join(" ");
+  var area="M"+X(0)+","+(H-PB)+" L"+S.map(function(x,k){return X(k)+","+Y(x.v)}).join(" L")
+    +" L"+X(S.length-1)+","+(H-PB)+" Z";
+  var ult=S[S.length-1],ux=X(S.length-1),uy=Y(ult.v);
+  return '<svg viewBox="0 0 '+W+' '+H+'">'
+    +'<defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">'
+    +'<stop offset="0%" stop-color="#12A177" stop-opacity=".24"/>'
+    +'<stop offset="100%" stop-color="#12A177" stop-opacity="0"/></linearGradient></defs>'
+    +'<path d="'+area+'" fill="url(#cg)"/>'
+    +'<polyline points="'+pl+'" fill="none" stroke="#12A177" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>'
+    +'<circle cx="'+ux+'" cy="'+uy+'" r="5.5" fill="#12A177"/>'
+    +'<text x="'+PL+'" y="'+(H-6)+'" font-family="IBM Plex Mono,monospace" font-size="12" fill="rgba(10,17,40,.4)">S'+S[0].s+'</text>'
+    +'<text x="'+(W-PR)+'" y="'+(H-6)+'" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="12" fill="rgba(10,17,40,.4)">S'+S[S.length-1].s+'</text>'
+    +'</svg>';
+}
+function esc(s){return String(s||"").replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+})}
+function pintarTarjeta(t){
+  var up=t.ret>=0, vup=t.ultimaVar==null?true:t.ultimaVar>=0;
+  var memHtml=t.mem.map(function(n,i){
+    return '<div class="chip"><div class="av">'+esc(iniciales(n))+'</div><div>'
+      +'<div class="role">'+(i===0?"Líder":"Integrante")+'</div>'
+      +'<div class="nm2">'+esc(n)+'</div></div></div>';
+  }).join("");
+  var badge=t.ultimaVar==null?"":
+    '<span class="badge '+(vup?"up":"down")+'">'+pct(t.ultimaVar,2)+' esta semana</span>';
+  $("#cardPanel").innerHTML =
+    '<div class="logos">'
+      +'<img class="bull" src="../logos/fig-navy.png" alt="">'
+      +'<img src="../logos/fen.png" alt="FEN UChile">'
+      +'<img src="../logos/itau.png" alt="Itaú">'
+      +'<img class="blk" src="../logos/blackrock.png" alt="BlackRock">'
+    +'</div>'
+    +'<div class="top">'
+      +'<div class="who"><div><span class="pos">#'+t.pos+'</span><span class="nm">'+esc(t.nombre)+'</span></div>'
+      +'<div class="sub">Semana '+(D.semana||"—")+' · '+t.mem.length+' integrante'+(t.mem.length===1?"":"s")+'</div></div>'
+      +'<div class="stats">'
+        +'<div class="stat"><div class="lb">Puntaje</div><div class="vl">'+t.puntos.toFixed(2)+'</div></div>'
+        +'<div class="stat"><div class="lb">Retorno acumulado</div><div class="vl '+(up?"up":"down")+'">'+pct(t.ret,2)+'</div></div>'
+      +'</div>'
+    +'</div>'
+    +'<div class="body">'
+      +'<div class="mem">'+memHtml+'</div>'
+      +'<div class="chart"><div class="hd"><b>Evolución del retorno</b>'+badge+'</div>'+chartSVG(t)+'</div>'
+    +'</div>';
+}
+
+/* ================= dibujo de un instante ================= */
+var cardPintado=-1;
+function seek(t){
+  /* s1 / s2 */
+  var a1=alpha(t,S1), a2=alpha(t,S2);
+  $("#s1").style.opacity=a1; $("#s1").style.visibility=a1>.002?"visible":"hidden";
+  $("#s2").style.opacity=a2; $("#s2").style.visibility=a2>.002?"visible":"hidden";
+  var p1=eo(sg(t,S1[0]+300,900));
+  $("#s1 .mask").style.width=(p1*1010)+"px";
+  $("#s1 .logo").style.transform="scale("+lp(.5,1,eo(sg(t,S1[0],700))).toFixed(3)+")";
+  $("#s1 .sub").style.opacity=eo(sg(t,S1[0]+1300,700));
+  var p2=eo(sg(t,S2[0]+300,700));
+  $("#s2 .row").style.opacity=p2; $("#s2 .row").style.transform="translateY("+lp(18,0,p2)+"px)";
+
+  /* encabezado + pie: visibles desde HEAD_IN hasta el final */
+  var aHead=Math.min(sg(t,HEAD_IN,HEAD_FADE),1-sg(t,TOTAL-HEAD_FADE,HEAD_FADE));
+  $("#head").style.opacity=aHead; $("#head").style.visibility=aHead>.002?"visible":"hidden";
+  $("#foot").style.opacity=aHead*.9; $("#foot").style.visibility=aHead>.002?"visible":"hidden";
+
+  /* lista: visible en su primer tramo solo, y en el tramo final solo */
+  var aList=Math.max(alpha(t,LIST_FIRST,420), alpha(t,LIST_LAST,420));
+  var lp_=$("#listPanel");
+  lp_.style.opacity=aList; lp_.style.visibility=aList>.002?"visible":"hidden";
+  var rows=lp_.querySelectorAll(".row");
+  for(var i=0;i<rows.length;i++){
+    var rr=eo(sg(t,LIST_FIRST[0]+260+i*150,520));
+    rows[i].style.opacity=rr; rows[i].style.transform="translateY("+lp(22,0,rr)+"px)";
+  }
+
+  /* tarjetas: una a la vez */
+  var idx=-1, aCard=0;
+  for(var k=0;k<CARD_RANGES.length;k++){
+    var a=alpha(t,CARD_RANGES[k],420);
+    if(a>aCard){aCard=a;idx=k;}
+  }
+  var cp=$("#cardPanel");
+  if(idx>=0&&idx!==cardPintado){ pintarTarjeta(EQ[idx]); cardPintado=idx; }
+  if(idx<0)cardPintado=-1;
+  cp.style.opacity=aCard; cp.style.visibility=aCard>.002?"visible":"hidden";
+  cp.style.transform="translateY("+lp(16,0,aCard)+"px)";
+}
+
+/* ================= reloj ================= */
+var manual=false, t0=null;
+window.__manual=function(){manual=true};
+window.__seek=function(ms){seek(ms)};
+
+function arrancar(){
+  window.__ready=true;
+  requestAnimationFrame(function bucle(now){
+    if(t0===null) t0=now;
+    if(!manual) seek((now-t0)%TOTAL);
+    requestAnimationFrame(bucle);
+  });
+}
+</script>
+</body>
+</html>

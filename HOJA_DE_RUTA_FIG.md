@@ -10,7 +10,33 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-08** (sesión 9: tarjetas y videos del torneo,
+Última actualización: **2026-08-11** (sesión 10: **video semanal para la
+facultad implementado** — `torneo/pantalla-facultad.html`. Francisco
+recordó una propuesta de diseño hecha en una sesión anterior
+(`Propuesta_Video_FIG.mp4`, fondo blanco + azul, nunca subida al repo ni
+implementada) y pidió recrearla con datos actualizados, 60 fps y alta
+definición. Como el video original no estaba en el repo ni en el scratchpad
+de esta sesión (los contenedores no persisten entre sesiones), Francisco lo
+volvió a subir; se inspeccionó con PyAV porque el Chromium y el ffmpeg de
+este entorno no decodifican H.264 (solo VP8/VP9). Con los fotogramas
+extraídos se reconstruyó el diseño exacto (colores muestreados con Python:
+azul `#0052FF`, verde `#12A177`) reutilizando los 4 assets que YA estaban en
+`logos/` (fig-navy, fen, itau, blackrock — no hizo falta pedir nada nuevo) y
+el mismo motor determinístico de `torneo/pantalla.html` (`seek(t)` único),
+así que **esta versión se alimenta sola de `datos/torneo.json`** en vez de
+ser un video fijo como la propuesta original. Cambio deliberado: la
+propuesta rotulaba "RETORNO VS ACWI" pero ese benchmark no existe cargado
+(`acwi:[]`) — se cambió a "RETORNO ACUMULADO" para no mostrar una
+comparación inventada. Grabado con `scratchpad/grabar_pantalla_facultad.py`
+a 60fps/1920×1080/H.264 vía PyAV (instalado en la sesión: `pip install av`,
+trae su propio ffmpeg completo, a diferencia del que ya tiene el entorno).
+**Incidente durante la grabación**: por una mala lectura de un `Exit code 1`
+de background se lanzaron por error DOS grabaciones en paralelo escribiendo
+al mismo archivo de salida — se detectó a tiempo (antes de entregar nada),
+se mataron ambos procesos, se borró el archivo parcial y se relanzó una sola
+grabación limpia; el video que se entregó no tiene ese problema).
+
+Actualización previa (sesión 9: tarjetas y videos del torneo,
 vista nueva del replay y auditoría del sitio.
 **(1) Sincronización con el repo de Manuel**: por primera vez se pudo clonar
 `mpazq-afk/mpazq-afk.github.io` desde la sesión (es público y el proxy de git
