@@ -10,7 +10,33 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-08** (sesión 9: tarjetas y videos del torneo,
+Última actualización: **2026-08-11** (sesión 10: **video semanal para la
+facultad implementado** — `torneo/pantalla-facultad.html`. Francisco
+recordó una propuesta de diseño hecha en una sesión anterior
+(`Propuesta_Video_FIG.mp4`, fondo blanco + azul, nunca subida al repo ni
+implementada) y pidió recrearla con datos actualizados, 60 fps y alta
+definición. Como el video original no estaba en el repo ni en el scratchpad
+de esta sesión (los contenedores no persisten entre sesiones), Francisco lo
+volvió a subir; se inspeccionó con PyAV porque el Chromium y el ffmpeg de
+este entorno no decodifican H.264 (solo VP8/VP9). Con los fotogramas
+extraídos se reconstruyó el diseño exacto (colores muestreados con Python:
+azul `#0052FF`, verde `#12A177`) reutilizando los 4 assets que YA estaban en
+`logos/` (fig-navy, fen, itau, blackrock — no hizo falta pedir nada nuevo) y
+el mismo motor determinístico de `torneo/pantalla.html` (`seek(t)` único),
+así que **esta versión se alimenta sola de `datos/torneo.json`** en vez de
+ser un video fijo como la propuesta original. Cambio deliberado: la
+propuesta rotulaba "RETORNO VS ACWI" pero ese benchmark no existe cargado
+(`acwi:[]`) — se cambió a "RETORNO ACUMULADO" para no mostrar una
+comparación inventada. Grabado con `scratchpad/grabar_pantalla_facultad.py`
+a 60fps/1920×1080/H.264 vía PyAV (instalado en la sesión: `pip install av`,
+trae su propio ffmpeg completo, a diferencia del que ya tiene el entorno).
+**Incidente durante la grabación**: por una mala lectura de un `Exit code 1`
+de background se lanzaron por error DOS grabaciones en paralelo escribiendo
+al mismo archivo de salida — se detectó a tiempo (antes de entregar nada),
+se mataron ambos procesos, se borró el archivo parcial y se relanzó una sola
+grabación limpia; el video que se entregó no tiene ese problema).
+
+Actualización previa (sesión 9: tarjetas y videos del torneo,
 vista nueva del replay y auditoría del sitio.
 **(1) Sincronización con el repo de Manuel**: por primera vez se pudo clonar
 `mpazq-afk/mpazq-afk.github.io` desde la sesión (es público y el proxy de git
@@ -358,6 +384,7 @@ salas del laboratorio). 2-3 fotos por evento en general; solo 1 para
 | 10 | **Archivo semanal del ranking** | Sonnet | `generar_torneo.py` ya guarda historial dentro de torneo.json; opcional: volcar snapshot `datos/torneo/semana-N.json` para auditoría/disputas |
 | 16 | **Mejorar el calendario/línea temporal de `torneo/index.html`** | Sonnet (pulir interacción/hover: Fable) | ✅ Hecho (2026-07-14, Fable) — la tarjeta "01 · Calendario" de §Metodología ahora se titula "El torneo y la vida del club": `cargarEventosTl()` lee `datos/eventos.json` y ordena las actividades del club (charlas, visitas, comunidad) cronológicamente entre los hitos del torneo, cada una con tag de tipo (CHARLA/VISITA/…) y un desplegable al hover/focus (`.tl-tip`) con su `resumen` + `lugar` — cero datos inventados, todo sale del JSON tal cual. El evento `torneo-portafolio-2026` se omite (este calendario ya ES su detalle). `initMetTl()` pasó a `classList` para marcar pasado/próximo sin pisar clases; la lista scrollea (max-height 600px) si crece; accesible por teclado (`tabindex=0`, `:focus-within`). Si el fetch falla, la línea queda solo con los hitos del torneo, como antes. Verificado con Playwright: 14 items en orden, chip PRÓXIMO en 3 AGO, tip desplegado al hover. Con inline hook `window.__eventosFIG` para las demos autocontenidas |
 | 17 | **Eventos futuros en `eventos/index.html` con resumen + form de inscripción** | Sonnet (diseño de la tarjeta "próximo evento": Fable) | Pedido de Francisco (2026-07-12): la página de eventos (bitácora) hoy solo muestra actividades pasadas — falta que los eventos FUTUROS también se vean ahí, distinguidos visualmente (ej. sección "Próximamente" o badge, similar al `live:true`/`destacado:true` que ya existe en el esquema de `datos/eventos.json`), y que al abrir el detalle de un evento futuro se vea su resumen (`resumen` ya existe en el esquema) MÁS un formulario/enlace de inscripción. Falta definir: (a) si la inscripción reusa el patrón de `postula/index.html` (Apps Script `doPost` a una planilla) o es un form nuevo por evento, (b) cómo se marca un evento como "futuro" en el JSON (¿comparar `fecha` contra hoy, o un campo explícito tipo `estado:"proximo"`?) — no asumir, confirmar con Francisco antes de diseñar el schema nuevo. Hoy los 9 eventos de `datos/eventos.json` son todos pasados, así que esto se probará recién cuando exista al menos un evento futuro real |
+| 26 | **Vista "rentabilidad semana a semana" en el video de la facultad** | Sonnet | Idea guardada, NO implementada (2026-08-15, pedido de Francisco: "guarda la idea del gráfico C por si la usamos en el futuro"). El gráfico de `torneo/pantalla-facultad.html` hoy muestra el retorno ACUMULADO del equipo contra el promedio acumulado de los 59 (variante B, elegida por Francisco). La variante C que se descartó por ahora dibuja, en vez de eso, **barras de la variación de cada semana por separado** (verde si ganó, roja si perdió) contra una línea punteada con el promedio semanal del torneo. Se calcula con el mismo dato, sin pedir nada nuevo: es el delta entre semanas consecutivas de `historial[].ret` (`S[i].v - S[i-1].v`), y su promedio equivalente. Ojo: la primera semana del historial no tiene anterior, así que la serie de barras arranca en la segunda (hoy S6, no S5). Ventaja: muestra bien la volatilidad y quién tuvo la mejor semana. Desventaja (por la que se descartó): pierde la lectura de "quién va ganando el torneo", que es justo lo que el video quiere comunicar. Buen candidato si algún día se hace un video aparte del tipo "la semana en el torneo". El prototipo funcionando de las 3 variantes quedó en `scratchpad/preview_graficos.html` (efímero — se puede regenerar, la lógica está descrita acá). |
 
 #### Código del Apps Script COMPARTIDO del sitio (config.figEndpoint)
 
