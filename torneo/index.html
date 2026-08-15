@@ -522,11 +522,7 @@ footer a:hover{color:var(--gold)}
         <div class="rp-pick">
           <label>
             <span>Métrica</span>
-            <select id="rpMetrica" aria-label="Métrica a graficar">
-              <option value="posicion">Posición en la tabla</option>
-              <option value="ret">Retorno acumulado</option>
-              <option value="puntos">Puntos / 100</option>
-            </select>
+            <select id="rpMetrica" aria-label="Métrica a graficar"></select>
           </label>
           <label>
             <span>Destacar equipo</span>
@@ -535,7 +531,7 @@ footer a:hover{color:var(--gold)}
         </div>
         <div class="rp-chart" id="rpChart"></div>
         <div class="rp-foot" id="rpFootM"></div>
-        <div class="cmp-note" style="margin-top:14px">LOS 59 EQUIPOS, SEMANA A SEMANA · EN ORO LOS 5 PRIMEROS DEL ÚLTIMO CORTE · ELIGE UN EQUIPO PARA SEGUIRLO ENTRE TODOS.<br>SOLO SE GRAFICAN LAS TRES SERIES QUE EL HISTORIAL GUARDA POR SEMANA (POSICIÓN, RETORNO Y PUNTOS): IR, SHARPE, VaR Y DRAWDOWN HOY SOLO EXISTEN PARA EL CORTE MÁS RECIENTE.</div>
+        <div class="cmp-note" style="margin-top:14px">LOS 59 EQUIPOS, SEMANA A SEMANA · EN ORO LOS 5 PRIMEROS DEL ÚLTIMO CORTE · ELIGE UN EQUIPO PARA SEGUIRLO ENTRE TODOS.<span id="rpNota"><br>LAS 5 MÉTRICAS DE BLOOMBERG SE EMPEZARON A GUARDAR POR SEMANA EN EL CORTE DEL 7-AGO-2026: APARECERÁN EN ESTE SELECTOR EN CUANTO HAYA DOS CORTES CON EL DATO, O AL RECARGAR LOS EXCELS ANTERIORES CON generar_torneo.py --excels.</span></div>
       </div>
     </div>
   </div>
@@ -1150,8 +1146,32 @@ function rpPlay(){
 var RP_METS={
   posicion:{lab:"POSICIÓN EN LA TABLA",inv:true, fmt:function(v){return v+"°"}},
   ret:     {lab:"RETORNO ACUMULADO",   inv:false,fmt:function(v){return pct(v,1)}},
-  puntos:  {lab:"PUNTOS / 100",        inv:false,fmt:function(v){return v.toFixed(1)}}
+  puntos:  {lab:"PUNTOS / 100",        inv:false,fmt:function(v){return v.toFixed(1)}},
+  /* Las 5 de Bloomberg PORT: se guardan por semana desde el corte del
+     2026-08-08. Aparecen en el selector solas, en cuanto haya dos cortes con
+     el dato — ver rpMetsDisponibles(). */
+  ir:      {lab:MLAB.ir,     inv:false,fmt:function(v){return fmtM("ir",v)}},
+  exc:     {lab:MLAB.exc,    inv:false,fmt:function(v){return fmtM("exc",v)}},
+  sharpe:  {lab:MLAB.sharpe, inv:false,fmt:function(v){return fmtM("sharpe",v)}},
+  var95:   {lab:MLAB.var95,  inv:false,fmt:function(v){return fmtM("var95",v)}},
+  mdd:     {lab:MLAB.mdd,    inv:false,fmt:function(v){return fmtM("mdd",v)}}
 };
+/* Solo se ofrecen las métricas que tengan al menos dos semanas con dato: las
+   5 de Bloomberg empezaron a guardarse en el historial recién en el corte del
+   7-ago-2026, así que hasta que se recarguen los Excels anteriores el selector
+   muestra únicamente posición, retorno y puntos. En cuanto exista el segundo
+   corte con métricas, aparecen las ocho sin tocar código. */
+function rpMetsDisponibles(){
+  var eq=DATA.equipos||[],out=[];
+  Object.keys(RP_METS).forEach(function(k){
+    var semanas={};
+    eq.forEach(function(t){(t.historial||[]).forEach(function(h){
+      if(h[k]!=null)semanas[h.semana]=1;
+    })});
+    if(Object.keys(semanas).length>=2)out.push(k);
+  });
+  return out;
+}
 function rpSerie(t,k){
   return (t.historial||[]).map(function(h){
     return {s:h.semana,v:h[k]==null?null:h[k]};
@@ -1159,8 +1179,14 @@ function rpSerie(t,k){
 }
 function rpChartSVG(k,focoId){
   var M=RP_METS[k],eq=DATA.equipos||[];
+  /* El eje abarca SOLO las semanas que tienen dato de ESTA métrica, no todo el
+     historial: las 5 de Bloomberg se empezaron a guardar en el corte del
+     7-ago-2026, así que sobre un eje de S5→S14 quedaban aplastadas contra el
+     borde derecho y el 90% del gráfico salía vacío. Posición, retorno y puntos
+     tienen las 10 semanas, así que para ellas esto no cambia nada. */
   var semanas=[];
   eq.forEach(function(t){(t.historial||[]).forEach(function(h){
+    if(h[k]==null)return;
     if(semanas.indexOf(h.semana)<0)semanas.push(h.semana);
   })});
   semanas.sort(function(a,b){return a-b});
@@ -1257,6 +1283,36 @@ function rpRenderMetrica(){
     pie+='<span class="mono-tag">'+(DATA.equipos||[]).length+' EQUIPOS</span>';
   }
   $("#rpFootM").innerHTML=pie;
+  /* Cobertura real de la métrica elegida: las 5 de Bloomberg arrancan en el
+     corte del 7-ago-2026, así que su gráfico abarca menos semanas que el de
+     posición/retorno/puntos. Decirlo evita que parezca un dato faltante. */
+  var nota=$("#rpNota");
+  if(nota){
+    var sem={};
+    (DATA.equipos||[]).forEach(function(t){(t.historial||[]).forEach(function(h){
+      if(h[k]!=null)sem[h.semana]=1;
+    })});
+    var tot={};
+    (DATA.equipos||[]).forEach(function(t){(t.historial||[]).forEach(function(h){tot[h.semana]=1})});
+    var n=Object.keys(sem).length, N=Object.keys(tot).length;
+    if(n>0&&n<N){
+      var ss=Object.keys(sem).map(Number).sort(function(a,b){return a-b});
+      nota.hidden=false;
+      nota.innerHTML='<br>'+esc(M.lab)+' SOLO EXISTE DESDE LA SEMANA '+ss[0]
+        +' (SE EMPEZÓ A GUARDAR POR CORTE EL 7-AGO-2026): SE GRAFICAN '+n+' DE '+N
+        +' SEMANAS. PARA COMPLETARLA HAY QUE RECARGAR LOS EXCELS ANTERIORES CON generar_torneo.py --excels.';
+    }else nota.hidden=true;
+  }
+}
+function rpLlenarMetricas(){
+  var sel=$("#rpMetrica"),antes=sel.value,ks=rpMetsDisponibles();
+  sel.innerHTML=ks.map(function(k){
+    return '<option value="'+k+'">'+esc(RP_METS[k].lab)+'</option>';
+  }).join("");
+  if(ks.indexOf(antes)>-1)sel.value=antes;
+  /* la nota al pie deja de mentir en cuanto existan las 8 series */
+  var nota=$("#rpNota");
+  if(nota)nota.hidden=ks.length>=Object.keys(RP_METS).length;
 }
 function rpLlenarFoco(){
   var eq=(DATA.equipos||[]).slice().sort(function(a,b){return a.posicion-b.posicion});
@@ -1280,6 +1336,7 @@ $("#rpFoco").addEventListener("change",rpRenderMetrica);
 function openRp(){
   if(!DATA.equipos||!DATA.equipos.length)return;
   if(!rpMontar())return;
+  rpLlenarMetricas();
   rpLlenarFoco();
   rpModo(false);
   rpPausa();
