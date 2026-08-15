@@ -30,8 +30,15 @@
   Nota honesta (2026-08-11): la propuesta original rotulaba el retorno de
   cada equipo "RETORNO VS ACWI", pero datos/torneo.json no trae el
   benchmark ACWI cargado todavía (acwi:[] — ver CLAUDE.md). Mostrar una
-  comparación contra un benchmark vacío sería inventar un dato, así que
-  aquí dice "RETORNO ACUMULADO" hasta que exista ese dato real.
+  comparación contra un benchmark vacío sería inventar un dato.
+
+  Dos retornos distintos, ojo con no confundirlos (2026-08-15):
+    · `retRel`  -> retorno RELATIVO (exceso). Es el del recuadro de arriba
+                   de la tarjeta. El resto del sitio lo rotula "RET. RELATIVO"
+                   (ver torneo/index.html), así que acá dice lo mismo: hasta
+                   hoy decía "Retorno acumulado", que es otra cifra.
+    · `historial[].ret` -> retorno ACUMULADO desde el inicio del torneo. Es el
+                   que dibuja el gráfico, contra el promedio de los 59 equipos.
 -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,7 +50,7 @@
 :root{
   --blue:#0052FF; --blue-d:#0041CC; --navy:#04182D; --ink:#0A1128;
   --dim:rgba(10,17,40,.52); --line:rgba(10,17,40,.10);
-  --up:#12A177; --down:#D9553E; --card:#FFFFFF;
+  --up:#12A177; --down:#D9553E; --card:#FFFFFF; --avg:#8A93A6;
   --f-disp:"Playfair Display",Georgia,serif;
   --f-body:"Inter",-apple-system,"Segoe UI",sans-serif;
   --f-mono:"IBM Plex Mono","SF Mono",monospace;
@@ -74,11 +81,13 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 /* ---------------- s2: colaboradores ---------------- */
 #s2 .kick{font-family:var(--f-mono);font-size:22px;letter-spacing:.42em;
   color:var(--dim);text-transform:uppercase;margin-bottom:56px}
-#s2 .row{display:flex;align-items:center;gap:96px;background:var(--card);
-  border:1px solid var(--line);border-radius:22px;padding:44px 76px;
+/* Logos de colaboradores más grandes (2026-08-15, pedido de Francisco): se
+   proyecta en una TV grande y a 74px se leían chicos. */
+#s2 .row{display:flex;align-items:center;gap:110px;background:var(--card);
+  border:1px solid var(--line);border-radius:22px;padding:56px 92px;
   box-shadow:0 30px 70px rgba(10,17,40,.08)}
-#s2 .slot{height:74px;display:flex;align-items:center}
-#s2 .slot img{max-height:100%;max-width:280px;object-fit:contain}
+#s2 .slot{height:112px;display:flex;align-items:center}
+#s2 .slot img{max-height:100%;max-width:400px;object-fit:contain}
 
 /* ---------------- encabezado persistente (desde la lista en adelante) --- */
 #head{position:absolute;top:118px;left:0;right:0;display:flex;flex-direction:column;
@@ -109,10 +118,12 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
   background:var(--card);border:1px solid var(--line);border-radius:26px;
   padding:58px 64px;box-shadow:0 40px 90px rgba(10,17,40,.10);
   opacity:0;visibility:hidden}
-#cardPanel .logos{display:flex;align-items:center;gap:30px;height:48px;margin-bottom:34px}
+/* Misma subida de tamaño que en s2: la fila de logos de cada tarjeta pasa de
+   48px a 68px de alto (2026-08-15, pedido de Francisco). */
+#cardPanel .logos{display:flex;align-items:center;gap:40px;height:68px;margin-bottom:34px}
 #cardPanel .logos img{max-height:100%;object-fit:contain}
-#cardPanel .logos img.bull{max-height:44px}
-#cardPanel .logos img.blk{max-height:32px}
+#cardPanel .logos img.bull{max-height:62px}
+#cardPanel .logos img.blk{max-height:46px}
 #cardPanel .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:46px}
 #cardPanel .who .pos{font-family:var(--f-disp);font-weight:700;font-size:52px;color:var(--blue)}
 #cardPanel .who .nm{font-family:var(--f-disp);font-weight:700;font-size:52px;color:var(--ink);margin-left:14px}
@@ -143,6 +154,14 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
   padding:4px 12px;border-radius:100px}
 #cardPanel .chart .badge.up{color:var(--up);background:rgba(18,161,119,.10)}
 #cardPanel .chart .badge.down{color:var(--down);background:rgba(217,85,62,.10)}
+/* Leyenda: sin ella las dos líneas no se distinguen (2026-08-15, pedido de
+   Francisco: "que se entienda qué línea es cuál"). */
+#cardPanel .chart .lg{display:flex;gap:26px;flex-wrap:wrap;margin:2px 0 4px;
+  font-family:var(--f-mono);font-size:15px;color:var(--dim)}
+#cardPanel .chart .lg i{display:inline-block;width:28px;vertical-align:middle;margin-right:9px}
+#cardPanel .chart .lg .team i{height:4px;border-radius:2px;background:var(--up)}
+#cardPanel .chart .lg .avg i{height:0;border-top:3px dashed var(--avg)}
+#cardPanel .chart .lg b{color:var(--ink);font-weight:600;margin-left:5px}
 #cardPanel .chart svg{flex:1;width:100%;height:100%}
 
 /* pie con marca, siempre visible desde la lista en adelante */
@@ -213,7 +232,7 @@ var TOTAL=LIST_LAST[1]+1200, FADE=560;
 window.__total=TOTAL;
 
 /* ================= datos ================= */
-var D=null, EQ=[];
+var D=null, EQ=[], PROM={};
 function normaliza(n){
   var MIN={de:1,del:1,la:1,las:1,los:1,y:1,e:1};
   return String(n||"").trim().split(/\s+/).map(function(p,i){
@@ -237,7 +256,27 @@ fetch("../datos/torneo.json",{cache:"no-store"})
   .then(function(d){ D=d; preparar(); construirLista(); arrancar(); })
   .catch(function(){ document.title="ERROR — no se pudo cargar torneo.json"; });
 
+/* Promedio ACUMULADO del torneo, semana a semana, sobre TODOS los equipos
+   (no solo el Top 5): es la línea de referencia contra la que se lee cada
+   equipo. Se calcula acá, en vivo, desde el mismo torneo.json — igual que el
+   promedio de pantalla.html — así no hay ningún dato que mantener a mano. */
+function promediosTorneo(){
+  var acc={},out={};
+  (D.equipos||[]).forEach(function(t){
+    (t.historial||[]).forEach(function(h){
+      if(h.ret==null)return;
+      (acc[h.semana]=acc[h.semana]||[]).push(h.ret);
+    });
+  });
+  Object.keys(acc).forEach(function(s){
+    var v=acc[s];
+    out[s]=v.reduce(function(a,b){return a+b},0)/v.length;
+  });
+  return out;
+}
+
 function preparar(){
+  PROM = promediosTorneo();
   EQ = D.equipos.slice().sort(function(a,b){return a.posicion-b.posicion}).slice(0,N_CARDS)
     .map(function(e){
       var vistos={}, mem=[];
@@ -272,32 +311,73 @@ function construirLista(){
 }
 
 /* ---------------- tarjeta de un equipo ---------------- */
+/* Gráfico del equipo CONTRA el promedio acumulado del torneo (2026-08-15,
+   variante B elegida por Francisco). Dos líneas: la del equipo (verde, sólida)
+   y la del promedio de los 59 equipos (gris, punteada), con la banda entre
+   ambas teñida de verde cuando el equipo va por sobre el promedio y de rojo
+   cuando va por debajo. El eje se escala con AMBAS series para que ninguna
+   quede cortada. La leyenda que identifica cada línea va en el HTML de la
+   tarjeta (ver pintarTarjeta), no acá. */
 function chartSVG(t){
   var S=t.serie; if(S.length<2) return "";
+  var P=S.map(function(x){return {s:x.s, v:PROM[x.s]}})
+         .filter(function(x){return x.v!=null});
+  var hayProm = P.length===S.length;
   var vals=S.map(function(x){return x.v});
+  if(hayProm) vals=vals.concat(P.map(function(x){return x.v}));
   var lo=Math.min.apply(null,vals), hi=Math.max.apply(null,vals);
   var pad=(hi-lo)*0.22||0.01; lo-=pad; hi+=pad;
   var W=520,H=190,PL=6,PR=6,PT=10,PB=26;
   var X=function(k){return PL+k*(W-PL-PR)/(S.length-1)};
   var Y=function(v){return H-PB-(v-lo)/(hi-lo)*(H-PT-PB)};
   var pl=S.map(function(x,k){return X(k)+","+Y(x.v)}).join(" ");
-  var area="M"+X(0)+","+(H-PB)+" L"+S.map(function(x,k){return X(k)+","+Y(x.v)}).join(" L")
-    +" L"+X(S.length-1)+","+(H-PB)+" Z";
   var ult=S[S.length-1],ux=X(S.length-1),uy=Y(ult.v);
-  return '<svg viewBox="0 0 '+W+' '+H+'">'
-    +'<defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">'
-    +'<stop offset="0%" stop-color="#12A177" stop-opacity=".24"/>'
-    +'<stop offset="100%" stop-color="#12A177" stop-opacity="0"/></linearGradient></defs>'
-    +'<path d="'+area+'" fill="url(#cg)"/>'
-    +'<polyline points="'+pl+'" fill="none" stroke="#12A177" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>'
+  var o='<svg viewBox="0 0 '+W+' '+H+'">';
+
+  if(hayProm){
+    /* banda entre las dos series: verde si el equipo cierra por sobre el
+       promedio, roja si cierra por debajo */
+    var arriba = ult.v >= P[P.length-1].v;
+    var band="M"+S.map(function(x,k){return X(k)+","+Y(x.v)}).join(" L")
+      +" L"+P.slice().reverse().map(function(x,k){return X(P.length-1-k)+","+Y(x.v)}).join(" L")+" Z";
+    o+='<path d="'+band+'" fill="'+(arriba?"#12A177":"#D9553E")+'" fill-opacity=".13"/>';
+  }else{
+    /* sin promedio disponible: se mantiene el área bajo la curva de antes */
+    var area="M"+X(0)+","+(H-PB)+" L"+S.map(function(x,k){return X(k)+","+Y(x.v)}).join(" L")
+      +" L"+X(S.length-1)+","+(H-PB)+" Z";
+    o+='<defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">'
+      +'<stop offset="0%" stop-color="#12A177" stop-opacity=".24"/>'
+      +'<stop offset="100%" stop-color="#12A177" stop-opacity="0"/></linearGradient></defs>'
+      +'<path d="'+area+'" fill="url(#cg)"/>';
+  }
+
+  o+='<text x="'+PL+'" y="'+(H-6)+'" font-family="IBM Plex Mono,monospace" font-size="12" fill="rgba(10,17,40,.4)">S'+S[0].s+'</text>'
+    +'<text x="'+(W-PR)+'" y="'+(H-6)+'" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="12" fill="rgba(10,17,40,.4)">S'+S[S.length-1].s+'</text>';
+
+  if(hayProm){
+    var pp=P.map(function(x,k){return X(k)+","+Y(x.v)}).join(" ");
+    o+='<polyline points="'+pp+'" fill="none" stroke="#8A93A6" stroke-width="2.4" stroke-dasharray="7 6" stroke-linecap="round"/>'
+      +'<circle cx="'+X(P.length-1)+'" cy="'+Y(P[P.length-1].v)+'" r="4.2" fill="#8A93A6"/>';
+  }
+  o+='<polyline points="'+pl+'" fill="none" stroke="#12A177" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>'
     +'<circle cx="'+ux+'" cy="'+uy+'" r="5.5" fill="#12A177"/>'
-    +'<text x="'+PL+'" y="'+(H-6)+'" font-family="IBM Plex Mono,monospace" font-size="12" fill="rgba(10,17,40,.4)">S'+S[0].s+'</text>'
-    +'<text x="'+(W-PR)+'" y="'+(H-6)+'" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="12" fill="rgba(10,17,40,.4)">S'+S[S.length-1].s+'</text>'
     +'</svg>';
+  return o;
 }
 function esc(s){return String(s||"").replace(/[&<>"']/g,function(c){
   return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
 })}
+/* Leyenda del gráfico: nombra cada línea y le pone su valor al cierre, para
+   que no haya que adivinar cuál es cuál. Si por alguna razón no hay promedio
+   para esas semanas, solo se rotula la línea del equipo. */
+function leyenda(t){
+  var S=t.serie; if(!S||S.length<2) return "";
+  var ultProm=PROM[S[S.length-1].s];
+  var o='<div class="lg"><span class="team"><i></i>Este equipo<b>'+pct(S[S.length-1].v,2)+'</b></span>';
+  if(ultProm!=null)
+    o+='<span class="avg"><i></i>Promedio del torneo<b>'+pct(ultProm,2)+'</b></span>';
+  return o+'</div>';
+}
 function pintarTarjeta(t){
   var up=t.ret>=0, vup=t.ultimaVar==null?true:t.ultimaVar>=0;
   var memHtml=t.mem.map(function(n,i){
@@ -319,12 +399,13 @@ function pintarTarjeta(t){
       +'<div class="sub">Semana '+(D.semana||"—")+' · '+t.mem.length+' integrante'+(t.mem.length===1?"":"s")+'</div></div>'
       +'<div class="stats">'
         +'<div class="stat"><div class="lb">Puntaje</div><div class="vl">'+t.puntos.toFixed(2)+'</div></div>'
-        +'<div class="stat"><div class="lb">Retorno acumulado</div><div class="vl '+(up?"up":"down")+'">'+pct(t.ret,2)+'</div></div>'
+        +'<div class="stat"><div class="lb">Retorno relativo</div><div class="vl '+(up?"up":"down")+'">'+pct(t.ret,2)+'</div></div>'
       +'</div>'
     +'</div>'
     +'<div class="body">'
       +'<div class="mem">'+memHtml+'</div>'
-      +'<div class="chart"><div class="hd"><b>Evolución del retorno</b>'+badge+'</div>'+chartSVG(t)+'</div>'
+      +'<div class="chart"><div class="hd"><b>Retorno acumulado</b>'+badge+'</div>'
+        +leyenda(t)+chartSVG(t)+'</div>'
     +'</div>';
 }
 
