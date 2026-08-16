@@ -192,6 +192,11 @@ button{cursor:pointer;border:none;background:none}
   font-family:var(--f-mono);font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;
   color:rgba(247,244,236,.34)}
 .nivel__scroll{overflow-x:auto;overflow-y:hidden;padding-bottom:4px}
+/* Si la fila no cabe, un degradado en el borde avisa que sigue hacia el lado.
+   Sin esta pista, en un telefono parece que el desk tiene menos gente. */
+.nivel__scroll{-webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 34px),transparent 100%);
+  mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 34px),transparent 100%)}
+.nivel__scroll:not(.desborda){-webkit-mask-image:none;mask-image:none}
 .fila{display:flex;gap:18px;position:relative;padding-top:28px;
   width:max-content;margin:0 auto}
 .fila::before{content:"";position:absolute;top:0;left:85px;right:85px;height:1px;
@@ -242,13 +247,13 @@ button{cursor:pointer;border:none;background:none}
 .card:hover{transform:translateY(-3px);border-color:var(--ac,var(--gold));background:rgba(21,35,80,.66)}
 .card::after{content:"";position:absolute;left:0;top:13px;bottom:13px;width:2px;
   border-radius:2px;background:var(--ac,var(--gold));opacity:.75}
-.card__b{min-width:0;flex:1}
-.card__n{font-weight:600;font-size:.95rem;line-height:1.25;
+.card__b{min-width:0;flex:1;display:block}
+.card__n{display:block;font-weight:600;font-size:.95rem;line-height:1.25;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.card__r{font-size:.78rem;color:rgba(247,244,236,.58);margin-top:2px;
+.card__r{display:block;font-size:.78rem;color:rgba(247,244,236,.58);margin-top:3px;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.card__t{font-family:var(--f-mono);font-size:.61rem;letter-spacing:.14em;
-  color:var(--ac,var(--gold));margin-top:5px}
+.card__t{display:block;font-family:var(--f-mono);font-size:.61rem;letter-spacing:.14em;
+  color:var(--ac,var(--gold));margin-top:6px}
 .av{border-radius:50%;flex:none;object-fit:cover;width:54px;height:54px;
   border:1px solid var(--gold-dim);background:var(--navy-panel)}
 .av--mono{display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);
@@ -306,6 +311,32 @@ button{cursor:pointer;border:none;background:none}
 .demo-bar b{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.2em;
   text-transform:uppercase;color:var(--down)}
 .demo-bar a{color:var(--gold);text-decoration:underline;margin-left:auto}
+
+/* ---------- Telefono ----------
+   La mesa gana todo el ancho de la pantalla: a 390px cada pixel cuenta, y el
+   padding del .wrap le quitaba 56 (un 14% del diametro). */
+@media(max-width:640px){
+  .mesa-holder{width:100vw;margin-left:calc(50% - 50vw)}
+  .mesa-zona{padding-bottom:8px;margin-top:-6px}
+  .mesa-pie{padding:0 20px;line-height:1.7;letter-spacing:.1em}
+  .arco-t{font-size:19px;letter-spacing:.24em}
+  .centro-s{font-size:13px;letter-spacing:.24em}
+  .silla .nm{font-size:15px}
+  .silla .cg{font-size:12px}
+  .top{padding-top:104px}
+  .top p{font-size:.95rem}
+  .term{margin-top:20px;padding:12px 16px}
+  .area{padding:132px 0 48px}
+  .volver{top:82px}
+  .p{width:150px}
+  .p--lider{width:186px}
+  .fila{gap:12px}
+  .fila::before{left:75px;right:75px}
+  .grid{grid-template-columns:1fr}
+  .sheet__hd{gap:16px;padding:20px}
+  .sheet__hd .av{width:76px;height:76px}
+  .sec{padding:0 20px 20px}
+}
 
 /* ---------- Footer ---------- */
 footer{background:var(--navy-deep);border-top:1px solid var(--line-d);padding:56px 0 26px}
@@ -581,9 +612,24 @@ function montarAvatares(raiz){
    del nombre y del rótulo que cuelgan de cada asiento. Si se toca R_SILLA hay
    que recalcular R_ARCO, o el texto se mete dentro del arco — que es
    exactamente lo que pasaba antes. */
-var CX=500, CY=500, R_SILLA=340, R_MESA=192, GAP=11;
-var R_LIDER=41, R_SILLA_R=33, ALTO_TEXTO=32;                 /* nombre + "DIRIGE" bajo el asiento */
-var R_ARCO=478, GROSOR_ARCO=34;                /* borde interno: 444 */
+var CX=500, CY=500, GAP=11;
+var R_SILLA, R_MESA, R_LIDER, R_SILLA_R, R_ARCO, GROSOR_ARCO, COMPACTO;
+/* En un telefono el SVG se escala a ~0.37, asi que un nombre de 10px del
+   viewBox queda en 4px reales: ilegible. La respuesta no es achicar todo por
+   igual sino cambiar QUE se muestra — en pantalla chica los asientos son mas
+   grandes, sin nombre debajo, y quien es cada uno se sabe tocandolo (que es
+   justo lo que uno quiere hacer en un telefono). */
+function medirMesa(){
+  COMPACTO = window.innerWidth < 640;
+  if(COMPACTO){
+    R_MESA=196; R_SILLA=330; R_LIDER=56; R_SILLA_R=50;
+    R_ARCO=478; GROSOR_ARCO=54;
+  }else{
+    R_MESA=192; R_SILLA=340; R_LIDER=41; R_SILLA_R=33;
+    R_ARCO=478; GROSOR_ARCO=34;
+  }
+}
+medirMesa();
 function pol(r,g){var a=(g-90)*Math.PI/180;return {x:CX+r*Math.cos(a), y:CY+r*Math.sin(a)}}
 function arcoPath(r0,r1,g0,g1){
   var a=pol(r1,g0), b=pol(r1,g1), c=pol(r0,g1), d=pol(r0,g0);
@@ -597,7 +643,12 @@ function arcoPath(r0,r1,g0,g1){
    miembros sin cargo no van a la mesa a propósito — con 200 personas el
    círculo sería una nube de puntos. A ellos se llega escribiendo. */
 function sentados(codigo){
-  return LISTA.filter(function(m){return m.area===codigo&&nivel(m)<=1})
+  /* Se sientan en el arco el lider del desk y su direccion. Quien esta en la
+     cabecera (presidencia y cofundadores) NO se repite aca aunque tenga area:
+     ya esta sentado en el centro, y duplicarlo generaba dos clipPath con el
+     mismo id, lo que dejaba su retrato en blanco. */
+  return LISTA.filter(function(m){
+    return m.area===codigo&&(nivel(m)===1||!!m.lidera)})
     .sort(function(a,b){return nivel(a)-nivel(b)||a.nombre.localeCompare(b.nombre)});
 }
 function cabecera(){
@@ -625,7 +676,7 @@ function geometria(){
   return out;
 }
 function sillaSVG(m,x,y,r,col,retraso,etiqueta,apaga,marca){
-  var fs=r>=34?13:(r>=28?12:11);
+  var fs=COMPACTO?(r>=50?19:17):(r>=34?13:(r>=28?12:11));
   return '<g class="silla'+(apaga?" apagada":"")+(marca?" marcada":"")+'" '
     +'data-open="'+esc(m.id)+'" data-id="'+esc(m.id)+'" tabindex="0" role="button" '
     +'style="animation-delay:'+retraso+'ms" '
@@ -638,8 +689,10 @@ function sillaSVG(m,x,y,r,col,retraso,etiqueta,apaga,marca){
     +'preserveAspectRatio="xMidYMid slice" href=""/>'
     +'<text class="tk" x="'+x.toFixed(1)+'" y="'+(y+fs*0.35).toFixed(1)+'" fill="'+col
     +'" style="font-size:'+fs+'px">'+esc(m.ticker)+'</text>'
-    +'<text class="nm" x="'+x.toFixed(1)+'" y="'+(y+r+16).toFixed(1)+'">'+esc(nomCorto(m))+'</text>'
-    +(etiqueta?'<text class="cg" x="'+x.toFixed(1)+'" y="'+(y+r+28).toFixed(1)+'">'+esc(etiqueta)+'</text>':"")
+    +(COMPACTO?"":'<text class="nm" x="'+x.toFixed(1)+'" y="'+(y+r+16).toFixed(1)+'">'
+      +esc(nomCorto(m))+'</text>'
+      +(etiqueta?'<text class="cg" x="'+x.toFixed(1)+'" y="'+(y+r+28).toFixed(1)+'">'
+      +esc(etiqueta)+'</text>':""))
     +'</g>';
 }
 function dibujarMesa(){
@@ -672,11 +725,18 @@ function dibujarMesa(){
     var abajo=a.medio>90&&a.medio<270, r=R_ARCO-GROSOR_ARCO/2;
     var p0=abajo?a.g1:a.g0, p1=abajo?a.g0:a.g1;
     var A=pol(r,p0), B=pol(r,p1);
+    /* Si el nombre completo no cabe en el arco se escribe solo el codigo. Un
+       desk chico tiene un arco chico, y "VAL · VALUATION" se salia por el
+       borde. Se estima el ancho en vez de suponerlo: la mono ocupa ~0.6em por
+       caracter mas el 0.3em de letter-spacing. */
+    var largoArco=Math.abs(a.g1-a.g0)*Math.PI/180*r;
+    var fs=COMPACTO?19:12.5;
+    var completo=a.codigo+" · "+nomArea(a.codigo).toUpperCase();
+    var rotulo=(completo.length*fs*0.9 < largoArco*0.92) ? completo : a.codigo;
     s+='<path id="lbl'+a.codigo+'" fill="none" d="M'+A.x.toFixed(1)+' '+A.y.toFixed(1)
       +'A'+r+' '+r+' 0 0 '+(abajo?0:1)+' '+B.x.toFixed(1)+' '+B.y.toFixed(1)+'"/>'
       +'<text class="arco-t" fill="'+col+'"><textPath href="#lbl'+a.codigo+'" '
-      +'startOffset="50%" text-anchor="middle">'
-      +esc(a.codigo+" · "+nomArea(a.codigo).toUpperCase())+'</textPath></text></g>';
+      +'startOffset="50%" text-anchor="middle">'+esc(rotulo)+'</textPath></text></g>';
   });
 
   /* Los asientos del anillo, uno por directivo. */
@@ -783,6 +843,9 @@ function mostrarArea(codigo,capa){
   zona.style.setProperty("--tint",col+"3A");
   $("#areaBody").innerHTML=h;
   montarAvatares($("#areaBody"));
+  $$(".nivel__scroll",$("#areaBody")).forEach(function(el){
+    el.classList.toggle("desborda", el.scrollWidth>el.clientWidth+2);
+  });
   zona.classList.add("on");
   zona.setAttribute("aria-hidden","false");
   document.body.style.overflow="hidden";
@@ -807,6 +870,15 @@ function salir(){
   $("#pie").style.opacity="";
 }
 $("#volver").addEventListener("click",salir);
+/* Girar el telefono cambia de geometria compacta a normal y viceversa. */
+var reMesa=null;
+window.addEventListener("resize",function(){
+  clearTimeout(reMesa);
+  reMesa=setTimeout(function(){
+    var antes=COMPACTO; medirMesa();
+    if(antes!==COMPACTO&&LISTA.length)dibujarMesa();
+  },180);
+});
 
 /* ============================ TERMINAL ============================
    Entiende nombres, tickers, códigos de desk, generaciones y ALUMNI. Ignora
