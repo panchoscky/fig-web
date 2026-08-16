@@ -10,7 +10,28 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-11** (sesión 10: **video semanal para la
+Última actualización: **2026-08-16** (sesión 11: **historial de métricas
+completado**. Las 5 métricas de Bloomberg solo existían en las semanas 13-14 del
+`historial`, así que el gráfico "Evolución por métrica" del replay graficaba
+2 de 10 semanas al elegir Sharpe, IR, exceso, VaR o MDD. Se recargaron los 8
+Excels oficiales de las semanas 5 a 12 (estaban en la máquina de Francisco,
+en `torneo-bloomberg-oficial/salidas/`) y se fusionaron **2360 métricas**
+(59 equipos × 8 semanas × 5) al historial. Las 8 series cubren ahora las 10
+semanas y el selector las ofrece todas sin que se tocara la lógica de la
+página. **Hallazgo importante que cambió el enfoque:** la instrucción que
+estaba escrita ("volver a correr `generar_torneo.py --excels`") era
+peligrosa — `procesar_multiples()` hace `eq["miembros"] = insc.get(...)` sin
+conservar lo previo, así que sin `--inscripciones` habría dejado a los 59
+equipos SIN integrantes y con `--inscripciones` habría pisado las
+correcciones a mano de 4 equipos, además de recalcular `acwi`, `delta`,
+`retRel` y las posiciones que ya estaban bien. Se escribió en cambio
+`completar_metricas_historial.py`, un injerto quirúrgico que solo agrega
+claves ausentes, nunca pisa un valor existente, verifica al final que no
+haya cambiado nada más (y aborta sin escribir si lo hubo) y es idempotente.
+De paso se corrigió la nota al pie del gráfico, que recomendaba justamente
+el comando peligroso).
+
+Actualización previa (sesión 10: **video semanal para la
 facultad implementado** — `torneo/pantalla-facultad.html`. Francisco
 recordó una propuesta de diseño hecha en una sesión anterior
 (`Propuesta_Video_FIG.mp4`, fondo blanco + azul, nunca subida al repo ni
