@@ -1156,11 +1156,12 @@ var RP_METS={
   var95:   {lab:MLAB.var95,  inv:false,fmt:function(v){return fmtM("var95",v)}},
   mdd:     {lab:MLAB.mdd,    inv:false,fmt:function(v){return fmtM("mdd",v)}}
 };
-/* Solo se ofrecen las métricas que tengan al menos dos semanas con dato: las
-   5 de Bloomberg empezaron a guardarse en el historial recién en el corte del
-   7-ago-2026, así que hasta que se recarguen los Excels anteriores el selector
-   muestra únicamente posición, retorno y puntos. En cuanto exista el segundo
-   corte con métricas, aparecen las ocho sin tocar código. */
+/* Solo se ofrecen las métricas que tengan al menos dos semanas con dato. Las 5
+   de Bloomberg empezaron a guardarse en el historial recién en el corte del
+   7-ago-2026, así que durante un tiempo el selector mostró únicamente posición,
+   retorno y puntos. El 2026-08-16 se recargaron los Excels de las semanas 5 a
+   12 y las ocho series quedaron completas — este chequeo se mantiene porque es
+   el que hace aparecer solas las métricas nuevas que se agreguen a futuro. */
 function rpMetsDisponibles(){
   var eq=DATA.equipos||[],out=[];
   Object.keys(RP_METS).forEach(function(k){
@@ -1283,9 +1284,11 @@ function rpRenderMetrica(){
     pie+='<span class="mono-tag">'+(DATA.equipos||[]).length+' EQUIPOS</span>';
   }
   $("#rpFootM").innerHTML=pie;
-  /* Cobertura real de la métrica elegida: las 5 de Bloomberg arrancan en el
-     corte del 7-ago-2026, así que su gráfico abarca menos semanas que el de
-     posición/retorno/puntos. Decirlo evita que parezca un dato faltante. */
+  /* Cobertura real de la métrica elegida. Hoy las ocho series cubren las 10
+     semanas publicadas (los Excels 5-12 se recargaron el 2026-08-16), así que
+     esta nota queda oculta; se mantiene por si una métrica futura vuelve a
+     tener menos semanas que el resto — decirlo evita que parezca un dato
+     faltante. */
   var nota=$("#rpNota");
   if(nota){
     var sem={};
@@ -1299,8 +1302,9 @@ function rpRenderMetrica(){
       var ss=Object.keys(sem).map(Number).sort(function(a,b){return a-b});
       nota.hidden=false;
       nota.innerHTML='<br>'+esc(M.lab)+' SOLO EXISTE DESDE LA SEMANA '+ss[0]
-        +' (SE EMPEZÓ A GUARDAR POR CORTE EL 7-AGO-2026): SE GRAFICAN '+n+' DE '+N
-        +' SEMANAS. PARA COMPLETARLA HAY QUE RECARGAR LOS EXCELS ANTERIORES CON generar_torneo.py --excels.';
+        +': SE GRAFICAN '+n+' DE '+N+' SEMANAS. PARA COMPLETARLA HAY QUE LEER LOS '
+        +'EXCELS DE LAS SEMANAS QUE FALTAN Y FUSIONAR LA MÉTRICA EN EL HISTORIAL '
+        +'(VER completar_metricas_historial.py — NO REGENERAR EL JSON COMPLETO).';
     }else nota.hidden=true;
   }
 }

@@ -1,0 +1,43 @@
+FOTOS DE MIEMBROS
+=================
+
+Acá van los retratos de los miembros del club que NO son de la directiva
+(la directiva sigue teniendo las suyas en ../directiva/).
+
+CÓMO SE NOMBRA CADA ARCHIVO
+---------------------------
+Con el "id" del miembro, que es su nombre en minúsculas, sin tildes y con
+guiones:
+
+    Camila Pérez Soto   ->  camila-perez-soto.jpg
+    José Luis Fariñas   ->  jose-luis-farinas.jpg
+
+Si no estás seguro del id exacto, míralo en datos/miembros.json: cada
+miembro tiene su campo "id" escrito tal cual hay que nombrar el archivo.
+
+FORMATO
+-------
+- Cuadrada, idealmente 800x800, centrada en la cara.
+- .jpg o .png (la página prueba las dos, no hace falta avisar cuál es).
+- Después de agregar fotos, correr:  python3 optimizar_fotos.py
+  (redimensiona y comprime; es idempotente, se puede correr las veces que sea)
+
+QUÉ PASA SI NO HAY FOTO
+-----------------------
+Nada se rompe. La página busca la foto sola y, si no existe, muestra un
+monograma dorado con el ticker de la persona (ej. "FVA"). Se puede ir
+llenando de a poco.
+
+DÓNDE BUSCA LA PÁGINA, EN ORDEN
+-------------------------------
+    1. fotos/miembros/<id>.jpg|.png     <- esta carpeta
+    2. fotos/directiva/<id>.jpg|.png    <- las 15 que ya existen
+
+O sea que a un miembro de la directiva NO hay que copiarle la foto acá: ya
+la encuentra en su carpeta de siempre.
+
+PERMISO
+-------
+Subir solo fotos que la persona haya autorizado a publicar. El sitio es
+público. Si alguien no autorizó su foto, se quita la palabra "foto" de su
+columna "muestra" en la planilla y la página deja de buscarla.

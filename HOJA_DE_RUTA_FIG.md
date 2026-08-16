@@ -10,7 +10,56 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-11** (sesión 10: **video semanal para la
+Última actualización: **2026-08-16** (sesión 11: **historial de métricas
+completado + arranca la sección de Miembros (tarea #27)**.
+
+**(2) Sección de Miembros — Fase 1: la capa de datos.** Pedido de Francisco:
+un apartado con la directiva, el organigrama del club y de las áreas, un
+buscador por nombre, y una ficha por persona con foto, LinkedIn, resultados
+de torneo, actividades y lo que cada miembro pida incorporar. La base
+consolidada de miembros **todavía no existe**, así que se construye la
+infraestructura primero y se siembra con las 15 personas que ya están en
+`club.json` — la página se puede escribir y probar entera antes de que
+llegue el primer Excel. Se agregó `generar_miembros.py` (funde 4 fuentes sin
+duplicar ninguna), `datos/miembros.json` (semilla de 15),
+`PLANILLA_MIEMBROS_FIG.md` (las columnas que Francisco tiene que armar en el
+Drive) y `fotos/miembros/LEEME.txt`. Tres hallazgos que cambiaron el diseño:
+**(a)** las `iniciales` de 2 letras de `club.json` ya colisionan hoy
+(Benjamín Sáez Molina y Benjamín Solís son ambos "BS"), así que el
+identificador pasó a un ticker de 3 letras único, que además es el ancla de
+la URL de cada ficha y por lo tanto el link que cada persona comparte en
+LinkedIn; **(b)** el calce con el torneo no puede ser literal — el Excel de
+inscripciones trae el nombre civil completo ("Jhosep Gabriel García Suarez")
+y `club.json` la forma corta ("Jhosep García") —, así que se agregó un calce
+por subconjunto de tokens con guarda contra falsos positivos por apellido
+común; **(c)** `participantes` está vacío en los 10 eventos, así que las
+fichas no van a mostrar actividades hasta que el club complete ese campo (el
+cruce ya está escrito y funcionando). Decisión de privacidad tomada por
+Francisco en esta sesión: **no se alojan PDFs de CV en el repo** — la ficha
+del miembro ES su CV público, porque el sitio es público e indexable y un CV
+típico trae RUT, teléfono y dirección.
+
+**(1) Historial de métricas.** Las 5 métricas de Bloomberg solo existían en las semanas 13-14 del
+`historial`, así que el gráfico "Evolución por métrica" del replay graficaba
+2 de 10 semanas al elegir Sharpe, IR, exceso, VaR o MDD. Se recargaron los 8
+Excels oficiales de las semanas 5 a 12 (estaban en la máquina de Francisco,
+en `torneo-bloomberg-oficial/salidas/`) y se fusionaron **2360 métricas**
+(59 equipos × 8 semanas × 5) al historial. Las 8 series cubren ahora las 10
+semanas y el selector las ofrece todas sin que se tocara la lógica de la
+página. **Hallazgo importante que cambió el enfoque:** la instrucción que
+estaba escrita ("volver a correr `generar_torneo.py --excels`") era
+peligrosa — `procesar_multiples()` hace `eq["miembros"] = insc.get(...)` sin
+conservar lo previo, así que sin `--inscripciones` habría dejado a los 59
+equipos SIN integrantes y con `--inscripciones` habría pisado las
+correcciones a mano de 4 equipos, además de recalcular `acwi`, `delta`,
+`retRel` y las posiciones que ya estaban bien. Se escribió en cambio
+`completar_metricas_historial.py`, un injerto quirúrgico que solo agrega
+claves ausentes, nunca pisa un valor existente, verifica al final que no
+haya cambiado nada más (y aborta sin escribir si lo hubo) y es idempotente.
+De paso se corrigió la nota al pie del gráfico, que recomendaba justamente
+el comando peligroso).
+
+Actualización previa (sesión 10: **video semanal para la
 facultad implementado** — `torneo/pantalla-facultad.html`. Francisco
 recordó una propuesta de diseño hecha en una sesión anterior
 (`Propuesta_Video_FIG.mp4`, fondo blanco + azul, nunca subida al repo ni
@@ -557,6 +606,12 @@ después si se pide). Ninguna de las 6 se ha empezado a implementar.
 | 23 | **Sección "Referentes" en FIW** | Sonnet | Tarjetas de entrevistas breves a mujeres de la industria (foto + cita + cargo), mismo patrón JSON que el resto del sitio (`datos/fiw.json`). Da contenido real al área mientras se resuelven los colores oficiales con Delia (P0-3) — el contenido no depende de esa decisión, solo el estilo visual sí. Requiere que Francisco/Delia consigan las entrevistas o testimonios primero, no inventar citas |
 | 24 | **Replay del ranking (carrera de barras)** | Sonnet | ✅ **HECHO (2026-08-05)** — overlay `#rpOverlay` en `torneo/index.html`: recorre las semanas publicadas (hoy 5→12) animando el top 12 con play/pausa y deslizador, y en cada corte muestra al líder y al equipo que más subió respecto de la semana anterior. Vista nueva sobre el `historial` que `torneo.json` ya trae, sin datos ni scoring nuevos. Decisión de implementación: el orden de cada semana sale de la `posicion` GUARDADA, no de ordenar por `puntos` — en las semanas 5, 6 y 8 hay un empate exacto de puntos entre dos equipos (Vantedge/Terra, Bull Market Boys/Indarra, SeriosFc/Fat fingers) y el desempate del Excel no coincide con el de un orden descendente; las 59 posiciones siguen siendo únicas, así que es un artefacto de desempate, no un dato corrupto. El botón se oculta solo si algún día hay menos de dos cortes publicados |
 | 25 | **Autocompletar formularios de inscripción con el RUT** | Sonnet (revisar privacidad: Opus) | Pedido de Francisco (2026-08-06): en el formulario de inscripción a una actividad, la persona ingresa su RUT; si el sistema lo reconoce (ya es miembro de FIG), se inscribe directo con sus datos precargados; si no lo reconoce, pide el resto de la información a mano. Arquitectura propuesta: el mismo `config.figEndpoint` (Apps Script compartido) gana un `tipo:"buscar_rut"` que consulta una planilla de miembros y responde solo "existe sí/no + datos" (nunca la lista completa, para que no se pueda enumerar RUTs válidos probando al voleo). **Bloqueador**: hoy no existe esa planilla de miembros con RUT — hay que crearla primero en el Drive, y el RUT es un dato más sensible que el nombre+rol+LinkedIn que el proyecto tiene aprobado para commitear, así que solo puede vivir en la planilla del Drive, jamás en el repo ni en un JSON público. Requiere que Francisco decida qué formulario lo usa primero y arme la planilla de miembros |
+
+### P1.7 — Sección de Miembros (pedido de Francisco, 2026-08-16)
+
+| # | Tarea | Modelo | Detalle |
+|---|---|---|---|
+| 27 | **Sección de Miembros del club** | Opus / Fable (diseño nuevo) | Pedido de Francisco: directiva + organigrama del club y de las áreas + buscador por nombre + ficha por persona (foto, LinkedIn, resultados de torneo, actividades, y lo que el miembro pida incorporar). Pidió explícitamente que **navegar el apartado sea una experiencia**, no un directorio: "innova, arriésgate". **Fases 1 a 4 ✅ hechas (2026-08-16)** — (1) capa de datos: `generar_miembros.py` + `datos/miembros.json` (semilla de 15 desde `club.json`) + `PLANILLA_MIEMBROS_FIG.md` + `fotos/miembros/`. (2) `miembros/index.html` con el buscador **Terminal FIG** (línea de comando monoespaciada: nombre, ticker `BSM`, desk `PRT`, generación `2025` o `ALUMNI`; `/` enfoca, ↑↓ recorre, Enter abre, tolerante a tildes). (3) La **ficha** con deep link propio (`miembros/#BSM`, responde a `hashchange` y funciona en frío), bio, hitos, resultado de torneo con la curva real del equipo desde `torneo.json`, actividades, el bloque libre "Su aporte", ←/→ y botón de copiar enlace; si falta un dato la ficha lo dice en vez de quedar a medias. (4) **Las dos versiones del organigrama, ambas construidas** para que Francisco elija viéndolas: **"La Mesa"** (planta de la mesa de operaciones en SVG, núcleo + 4 desks con asientos, navegación por zoom animando el `viewBox` con rAF — club → desk → persona en un gesto continuo; respeta `prefers-reduced-motion`) y **"Jerarquía"** (árbol sobrio, conectores con pseudo-elementos en vez de SVG o medición en JS, y `@media print` lista para A3). (5) ✅ **Tarjeta descargable** — PNG 1080×1350 generado en el navegador con ticker, foto, resultado de torneo, el QR a su ficha y la URL escrita; en celular abre el panel nativo. El QR lo genera un encoder propio de ~120 líneas (sin build step no se puede cargar una librería, y un CDN sería un punto de falla y un tercero mirando a quien abre la tarjeta): modo byte, corrección L, versiones 1-5, un solo bloque para evitar el intercalado. Verificado con un decodificador que revierte el proceso completo (6 casos, incluido UTF-8) y con el Reed-Solomon contrastado contra el vector de referencia de la especificación más síndromes nulos en 200 bloques. **Decisiones de Francisco (2026-08-16)**: MESA queda por defecto, y **la vista Jerarquía se rehízo entera** porque no comunicaba nada — ver la nueva ESTRUCTURA en la fila de `miembros/index.html` del `CLAUDE.md`. **Modo demostración**: `generar_miembros.py --demo` escribe `datos/miembros.demo.json`, que la página carga solo con `?demo=1` y con un aviso permanente en pantalla. Mezcla personas reales con **cargos supuestos** (los que pidió Francisco para ver el diseño: él en Portafolio, Agustín en dirección técnica, Samuel en Valuation, Delia en FIG Woman) y **18 personas que no existen**, cada una marcada con `demo:true` y con un distintivo FICTICIO en su nodo y su tarjeta. Nada de eso entra jamás a `miembros.json`. **Borrar `miembros.demo.json` cuando la base real esté cargada.** **Sin verificar en navegador**: en la sesión donde se escribió, la extensión de Chrome no estaba conectada, así que la página se validó por sintaxis (`node --check`) y cruzando campo por campo lo que lee el JS contra `miembros.json` — pero nadie la ha visto renderizada todavía. **Ideas guardadas para una segunda pasada, cuando la base tenga volumen** (con 15 personas se ven pobres, con 80 se ven bien): los asientos que laten verde cuando el equipo de esa persona subió posiciones en el corte de la semana; el **linaje de asientos** ("quién ocupó este puesto antes que tú"), que de paso resuelve la tarea #13 de alumni; y la **constelación de colaboración**, un grafo de quién compartió equipo de torneo o actividad con quién, derivado solo de `torneo.json` + `eventos.json`. **Bloqueadores reales**: la base consolidada de miembros no existe (usar `--csv-candidatos` para arrancar con los 145 inscritos del torneo en vez de una hoja en blanco) y `participantes` está vacío en los 10 eventos |
 
 ### P2 — Expansión (ver IDEAS_GRAN_ESCALA_FIG.md antes de empezar)
 
