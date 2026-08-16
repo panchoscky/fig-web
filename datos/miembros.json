@@ -1,0 +1,527 @@
+{
+  "actualizado": "2026-08-16",
+  "config": {
+    "areas": [
+      {
+        "codigo": "PRT",
+        "nombre": "Portafolio",
+        "resumen": "Construcción y gestión de carteras con disciplina de benchmark. Dirige el Torneo Portafolio."
+      },
+      {
+        "codigo": "TRD",
+        "nombre": "Trading",
+        "resumen": "Ejecución, análisis técnico y operación en el Laboratorio Bloomberg."
+      },
+      {
+        "codigo": "VAL",
+        "nombre": "Valuation",
+        "pagina": "valuation/index.html",
+        "resumen": "Research y valorización de compañías reales con metodologías de la industria."
+      },
+      {
+        "codigo": "FIW",
+        "nombre": "FEN Investment Woman",
+        "pagina": "fiw/index.html",
+        "resumen": "Comunidad de mujeres de FIG: mentoría, referentes y actividades propias."
+      }
+    ],
+    "jerarquia": [
+      "Presidente",
+      "Vicepresidente",
+      "Fundador",
+      "Director",
+      "Coordinador",
+      "Miembro",
+      "Alumni"
+    ],
+    "nota": "Generado por generar_miembros.py. No editar a mano: los cambios se pierden al regenerar. La directiva se edita en club.json; el resto, en el Excel de miembros del Drive."
+  },
+  "miembros": [
+    {
+      "id": "benjamin-saez-molina",
+      "nombre": "Benjamín Sáez Molina",
+      "rol": "Presidente",
+      "rolCompleto": "Presidente",
+      "area": "PRT",
+      "detalle": "Co-fundador · Área Portafolio.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/benjamin-saez-molina/",
+      "perfil": {
+        "bio": "Presidente y co-fundador de FEN Investment Group. Lidera el área Portafolio y la dirección estratégica del club, desde donde se articulan el Torneo Portafolio y las alianzas con la industria. Realizó su práctica profesional en Wealth Management en Itaú.",
+        "hitos": [
+          "Presidente de FEN Investment Group",
+          "Co-fundador · Área Portafolio",
+          "Práctica en Wealth Management · Itaú"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "BSM"
+    },
+    {
+      "id": "jhosep-garcia",
+      "nombre": "Jhosep García",
+      "rol": "Vicepresidente",
+      "rolCompleto": "Vicepresidente",
+      "area": "VAL",
+      "detalle": "Co-fundador · Área Valuation, junto a Samuel Rodríguez Arnolds.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://linkedin.com/in/jhosep-garcia",
+      "perfil": {
+        "bio": "Vicepresidente y co-fundador de FEN Investment Group. Encabeza junto a Samuel Rodríguez Arnolds el área Valuation, donde los miembros analizan y valorizan compañías reales aplicando las metodologías que se usan en la industria financiera.",
+        "hitos": [
+          "Vicepresidente de FEN Investment Group",
+          "Co-encargado · Área Valuation"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "JGA",
+      "torneo": {
+        "equipo": "DCF Supremacy",
+        "equipoId": "dcf-supremacy",
+        "posicion": 9,
+        "puntos": 72.36,
+        "retRel": 0.0403,
+        "semana": 14,
+        "corte": "14 · AGO · 2026"
+      }
+    },
+    {
+      "id": "delia-avilan",
+      "nombre": "Delia Avilán",
+      "rol": "Fundador",
+      "rolCompleto": "Fundadora · FEN Investment Woman",
+      "area": "FIW",
+      "detalle": "Co-fundadora · FEN Investment Woman, junto a Gabriela Domínguez y Victoria Espinoza.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "Co-fundadora de FEN Investment Group. Fundó junto a Gabriela Domínguez y Victoria Espinoza FEN Investment Woman, el área que impulsa la participación de mujeres en el mundo de las inversiones dentro de la FEN.",
+        "hitos": [
+          "Co-fundadora · FEN Investment Woman",
+          "Co-fundadora de FIG"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "DAV"
+    },
+    {
+      "id": "gabriela-dominguez",
+      "nombre": "Gabriela Domínguez",
+      "rol": "Fundador",
+      "rolCompleto": "Fundadora · FEN Investment Woman",
+      "area": "FIW",
+      "detalle": "Co-fundadora · FEN Investment Woman, junto a Delia Avilán y Victoria Espinoza.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "Estudiante de Contador Auditor en la FEN. Cofundó junto a Delia Avilán y Victoria Espinoza FEN Investment Woman, comunidad orientada a facilitar la inserción de mujeres en el mundo financiero. Es ayudante de investigación del Proyecto Fondecyt del profesor Harold Contreras (desarrollo de scripts en Python para el procesamiento de datos financieros de la CMF) y ayudante de cátedra de varios ramos de finanzas y contabilidad de la FEN.",
+        "hitos": [
+          "Co-fundadora · FEN Investment Woman",
+          "Ayudante de investigación · Proyecto Fondecyt (Prof. Harold Contreras)",
+          "Ayudante de cátedra · Análisis y Planificación Financiera, Gestión Financiera Corporativa y otros",
+          "Reconocimiento Cuadro de Honor FEN (2023, 2024 y 2025)"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "GDO"
+    },
+    {
+      "id": "victoria-espinoza",
+      "nombre": "Victoria Espinoza",
+      "rol": "Fundador",
+      "rolCompleto": "Fundadora · FEN Investment Woman",
+      "area": "FIW",
+      "detalle": "Co-fundadora · FEN Investment Woman, junto a Delia Avilán y Gabriela Domínguez.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/victoria-espinoza-aguilera",
+      "perfil": {
+        "bio": "Economista y candidata a Magíster en Finanzas de la Universidad de Chile. Cofundó junto a Delia Avilán y Gabriela Domínguez FEN Investment Woman. Ayudante de cátedra desde 2022 en cursos como Introducción a las Finanzas, Finanzas I, Teoría de Finanzas y Negociación, y realizó su práctica en la Comisión para el Mercado Financiero (CMF), apoyando el desarrollo de un portal comparador de fondos y el Informe de Costos de Inversión en Fondos Mutuos 2023.",
+        "hitos": [
+          "Co-fundadora · FEN Investment Woman",
+          "Magíster en Finanzas (en curso) · U. de Chile",
+          "Práctica · Comisión para el Mercado Financiero (CMF)",
+          "Ayudante de cátedra (Head TA) · Introducción a las Finanzas, FEN"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "VES"
+    },
+    {
+      "id": "david-gonzalez-canon",
+      "nombre": "David González Cañon",
+      "rol": "Fundador",
+      "rolCompleto": "Fundador",
+      "area": null,
+      "detalle": "Práctica en HSBC · ex Banco BICE · Coordinador Lab. Bloomberg FEN.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/davidgonzalezca%C3%B1on/",
+      "perfil": {
+        "bio": "Co-fundador de FEN Investment Group. Realizó su práctica en HSBC apoyando a banqueros de Instituciones Financieras, Sector Público y Grandes Corporativos, y antes se desempeñó como Analista de Riesgo Financiero Junior en Banco BICE. En la FEN ha sido coordinador del Laboratorio Bloomberg y ayudante de cursos.",
+        "hitos": [
+          "Fundador de FIG",
+          "Práctica · HSBC, Large Corporates & Institutional Banking",
+          "Analista de Riesgo Financiero Junior · Banco BICE",
+          "Coordinador del Laboratorio Bloomberg · FEN"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "DGC"
+    },
+    {
+      "id": "agustin-arriagada",
+      "nombre": "Agustín Arriagada",
+      "rol": "Director",
+      "rolCompleto": "Director · Portafolio",
+      "area": "PRT",
+      "detalle": "Co-fundador · Monitor del Lab. Bloomberg FEN.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/agustin-arriagada/",
+      "perfil": {
+        "bio": "Co-fundador de FEN Investment Group y director del área Portafolio. Monitor del Laboratorio de Finanzas Bloomberg de la FEN, donde capacitó a más de 65 equipos del Torneo Portafolio 2026 en el uso de Bloomberg Terminal, y desarrolló el sistema automatizado de reportes semanales de inversión de FIG (Bloomberg Terminal + Python + Claude API) con señales para 6 activos (S&P 500, oro, BTC, EUR/USD, IPSA, USD/CLP).",
+        "hitos": [
+          "Director · Portafolio",
+          "Co-fundador de FIG",
+          "Monitor · Laboratorio de Finanzas Bloomberg, FEN",
+          "Diplomado en Gestión de Inversiones y Trading · PUC",
+          "Certificación Bloomberg Market Concepts (BMC)"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "AAR"
+    },
+    {
+      "id": "benjamin-disi",
+      "nombre": "Benjamín Disi",
+      "rol": "Director",
+      "rolCompleto": "Director · Portafolio",
+      "area": "PRT",
+      "detalle": "Magíster en Finanzas (en curso) · Tutor de Finanzas II y monitor del Lab. Bloomberg Itaú.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/benjam%C3%ADn-disi-hernandez-12b570297",
+      "perfil": {
+        "bio": "Co-fundador y director del área Portafolio. Titulado de Ingeniería Comercial y estudiante del Magíster en Finanzas de la Universidad de Chile. Tutor de Finanzas II y monitor del Laboratorio Bloomberg Itaú de la FEN, lideró el diseño de reglas, criterios de evaluación y metodología de construcción de portafolios del primer torneo de inversión de la facultad.",
+        "hitos": [
+          "Director · Portafolio",
+          "Magíster en Finanzas (en curso) · U. de Chile",
+          "Tutor de Finanzas II y monitor del Lab. Bloomberg Itaú · FEN",
+          "Diseño metodológico del Torneo Portafolio 2026",
+          "Top 10 · Torneo de trading Banco Itaú"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "BDI"
+    },
+    {
+      "id": "benjamin-solis",
+      "nombre": "Benjamín Solís",
+      "rol": "Director",
+      "rolCompleto": "Director · Portafolio",
+      "area": "PRT",
+      "detalle": "Co-fundador · diseñó la arquitectura del Torneo Portafolio.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/benjamin-solis",
+      "perfil": {
+        "bio": "Co-fundador de FEN Investment Group y director del área Portafolio. Diseñó junto al equipo la arquitectura del Torneo Portafolio, con más de 65 equipos y 170 participantes gestionando carteras reales de iShares. Estudiante de Ingeniería Comercial en la Universidad de Chile, con un intercambio internacional en emlyon business school (Francia).",
+        "hitos": [
+          "Director · Portafolio",
+          "Co-fundador de FIG",
+          "Diseño de la arquitectura del Torneo Portafolio",
+          "Intercambio internacional · emlyon business school, Francia"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "BSO"
+    },
+    {
+      "id": "francisco-valenzuela",
+      "nombre": "Francisco Valenzuela",
+      "rol": "Director",
+      "rolCompleto": "Director · Portafolio",
+      "area": "PRT",
+      "detalle": "Co-fundador · Plataforma web y co-creador del Torneo Portafolio 2026.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/",
+      "perfil": {
+        "bio": "Co-fundador de FEN Investment Group y director del área Portafolio, responsable de la plataforma web del club y co-creador del Torneo Portafolio 2026, la competencia insignia de FIG con 59 equipos y USD 10M simulados por cartera. Realizó su práctica profesional en el área de Riesgo de LarraínVial.",
+        "hitos": [
+          "Director · Portafolio",
+          "Co-fundador de FIG",
+          "Co-creador del Torneo Portafolio 2026",
+          "Plataforma web de FIG",
+          "Práctica en Riesgo · LarraínVial"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "FVA"
+    },
+    {
+      "id": "manuel-paz",
+      "nombre": "Manuel Paz",
+      "rol": "Director",
+      "rolCompleto": "Director · Portafolio",
+      "area": "PRT",
+      "detalle": "Co-fundador · Comunicaciones, difusión y creador de la web original.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/mpazq",
+      "perfil": {
+        "bio": "Co-fundador de FEN Investment Group y director del área Portafolio, responsable de comunicaciones y difusión del club. Creador de la web original de FIG, la primera presencia digital del grupo. Fuera del club fundó y escaló una tienda de e-commerce D2C que generó más de $280 millones en ventas, y gestiona activamente un portafolio personal de acciones y criptomonedas.",
+        "hitos": [
+          "Director · Portafolio",
+          "Co-fundador de FIG",
+          "Comunicaciones y difusión de FIG",
+          "Creador de la web original del club",
+          "Fundador de una tienda e-commerce D2C con más de $280M CLP en ventas",
+          "Gestor de un portafolio personal de acciones y criptomonedas"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "MPA"
+    },
+    {
+      "id": "juan-jose-limari",
+      "nombre": "Juan José Limari",
+      "rol": "Director",
+      "rolCompleto": "Director · Trading",
+      "area": "TRD",
+      "detalle": "Co-fundador · Itaú, mesa de dinero.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "Co-fundador de FEN Investment Group y director del área Trading. Realizó una práctica extracurricular en la mesa de dinero del Banco Itaú Chile (Liquidez y Funds Transfer Pricing), donde desarrolló un valorizador automático de renta fija (Z-spread) para futuras emisiones de bonos del banco. Ganó el primer lugar del Trading Challenge Itaú-FEN 2025 y es ayudante coordinador del curso Introducción a las Finanzas de la FEN.",
+        "hitos": [
+          "Director · Trading",
+          "Co-fundador de FIG",
+          "Práctica extracurricular · Mesa de dinero, Banco Itaú Chile",
+          "1er lugar · Trading Challenge Itaú-FEN 2025",
+          "Ayudante coordinador · Introducción a las Finanzas, FEN"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "JJL",
+      "torneo": {
+        "equipo": "VCL Capital",
+        "equipoId": "vcl-capital",
+        "posicion": 26,
+        "puntos": 41.96,
+        "retRel": -0.0594,
+        "semana": 14,
+        "corte": "14 · AGO · 2026"
+      }
+    },
+    {
+      "id": "juan-pablo-diaz-cerda",
+      "nombre": "Juan Pablo Díaz Cerda",
+      "rol": "Director",
+      "rolCompleto": "Director · Trading",
+      "area": "TRD",
+      "detalle": "Co-fundador · práctica en BCI Seguros, Gerencia de Inversiones.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/juan-pablo-d%C3%ADaz-cerda-449133310/",
+      "perfil": {
+        "bio": "Co-fundador de FEN Investment Group y encargado del área Trading. Realizó su práctica en la Gerencia de Inversiones de BCI Seguros, donde gestionó una asignación de USD 150.000 en renta variable. Obtuvo el 2° lugar nacional en el Concurso de Inversiones con Información Privilegiada de Radio Duna y el 2° lugar en el Torneo de Trading Itaú-FEN.",
+        "hitos": [
+          "Director · Trading",
+          "Co-fundador de FIG",
+          "Práctica en Gestión de Cartera Táctica · BCI Seguros",
+          "2° lugar nacional · Concurso de Inversiones, Radio Duna",
+          "2° lugar · Torneo de Trading Itaú-FEN"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "JPD",
+      "torneo": {
+        "equipo": "RiskiSamurai",
+        "equipoId": "riskisamurai",
+        "posicion": 5,
+        "puntos": 76.45,
+        "retRel": 0.086,
+        "semana": 14,
+        "corte": "14 · AGO · 2026"
+      }
+    },
+    {
+      "id": "rafael-aliendre",
+      "nombre": "Rafael Aliendre",
+      "rol": "Director",
+      "rolCompleto": "Director · Trading",
+      "area": "TRD",
+      "detalle": "Co-fundador.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/rafael-aliendre-javier",
+      "perfil": {
+        "bio": "Co-fundador y director del área Trading. Memorista en la Dirección de Estrategia e Inteligencia de Mercado de CODELCO, con prácticas previas en Factoring Capital Express, Moxi SpA y Falabella Financiero.",
+        "hitos": [
+          "Director · Trading",
+          "Memorista · CODELCO, Estrategia e Inteligencia de Mercado",
+          "Prácticas en Factoring Capital Express, Moxi SpA y Falabella Financiero"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "RAL"
+    },
+    {
+      "id": "samuel-rodriguez-arnolds",
+      "nombre": "Samuel Rodríguez Arnolds",
+      "rol": "Director",
+      "rolCompleto": "Director · Valuation",
+      "area": "VAL",
+      "detalle": "Co-fundador · Área Valuation, junto a Jhosep García.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/samuel-rodr%C3%ADguez-arnolds-8b9608241/",
+      "perfil": {
+        "bio": "Co-fundador de FEN Investment Group y encargado, junto a Jhosep García, del área Valuation. Realizó su práctica en Investment Banking en MoonValley Capital.",
+        "hitos": [
+          "Director · Valuation",
+          "Co-encargado · Área Valuation",
+          "Práctica en Investment Banking · MoonValley Capital"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "SRA",
+      "torneo": {
+        "equipo": "DCF Supremacy",
+        "equipoId": "dcf-supremacy",
+        "posicion": 9,
+        "puntos": 72.36,
+        "retRel": 0.0403,
+        "semana": 14,
+        "corte": "14 · AGO · 2026"
+      }
+    }
+  ]
+}
