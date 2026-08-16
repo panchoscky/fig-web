@@ -117,6 +117,39 @@
       "demo": false
     },
     {
+      "id": "david-gonzalez-canon",
+      "nombre": "David González Cañon",
+      "rol": "Fundador",
+      "rolCompleto": "Fundador",
+      "nivel": 0,
+      "lidera": null,
+      "area": null,
+      "detalle": "Práctica en HSBC · ex Banco BICE · Coordinador Lab. Bloomberg FEN.",
+      "generacion": 2025,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/davidgonzalezca%C3%B1on/",
+      "perfil": {
+        "bio": "Co-fundador de FEN Investment Group. Realizó su práctica en HSBC apoyando a banqueros de Instituciones Financieras, Sector Público y Grandes Corporativos, y antes se desempeñó como Analista de Riesgo Financiero Junior en Banco BICE. En la FEN ha sido coordinador del Laboratorio Bloomberg y ayudante de cursos.",
+        "hitos": [
+          "Fundador de FIG",
+          "Práctica · HSBC, Large Corporates & Institutional Banking",
+          "Analista de Riesgo Financiero Junior · Banco BICE",
+          "Coordinador del Laboratorio Bloomberg · FEN"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "DGC",
+      "demo": false
+    },
+    {
       "id": "francisco-valenzuela",
       "nombre": "Francisco Valenzuela",
       "rol": "Director",
@@ -252,39 +285,6 @@
         "semana": 14,
         "corte": "14 · AGO · 2026"
       },
-      "demo": false
-    },
-    {
-      "id": "david-gonzalez-canon",
-      "nombre": "David González Cañon",
-      "rol": "Fundador",
-      "rolCompleto": "Fundador",
-      "nivel": 1,
-      "lidera": null,
-      "area": null,
-      "detalle": "Práctica en HSBC · ex Banco BICE · Coordinador Lab. Bloomberg FEN.",
-      "generacion": 2025,
-      "estado": "activo",
-      "linkedin": "https://www.linkedin.com/in/davidgonzalezca%C3%B1on/",
-      "perfil": {
-        "bio": "Co-fundador de FEN Investment Group. Realizó su práctica en HSBC apoyando a banqueros de Instituciones Financieras, Sector Público y Grandes Corporativos, y antes se desempeñó como Analista de Riesgo Financiero Junior en Banco BICE. En la FEN ha sido coordinador del Laboratorio Bloomberg y ayudante de cursos.",
-        "hitos": [
-          "Fundador de FIG",
-          "Práctica · HSBC, Large Corporates & Institutional Banking",
-          "Analista de Riesgo Financiero Junior · Banco BICE",
-          "Coordinador del Laboratorio Bloomberg · FEN"
-        ]
-      },
-      "extras": [],
-      "muestra": [
-        "actividades",
-        "bio",
-        "extras",
-        "foto",
-        "torneo"
-      ],
-      "fuente": "club.json",
-      "ticker": "DGC",
       "demo": false
     },
     {

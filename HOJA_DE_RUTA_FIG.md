@@ -13,6 +13,18 @@
 Última actualización: **2026-08-16** (sesión 11: **historial de métricas
 completado + arranca la sección de Miembros (tarea #27)**.
 
+**(0) Líder real de Portafolio confirmado.** Francisco confirmó que él es el
+director del área Portafolio — no era adivinable: `club.json` no tenía forma
+de declarar quién dirige un desk, así que `marcar_lideres()` elegía por
+jerarquía/orden alfabético y le había asignado el puesto a Agustín Arriagada
+por error. Se agregó el campo opcional `liderArea` a la entrada de cada
+persona en `club.json → personas.directiva` (hoy solo Francisco lo tiene:
+`"liderArea":"PRT"`); `desde_club_json()` lo traduce a `lidera` solo si
+calza con la propia área de la persona. **No se tocó Trading, Valuation ni
+FIG Woman** — sus líderes siguen siendo el auto-elegido, porque nadie ha
+confirmado todavía quién los dirige de verdad (Valuation en particular sigue
+sin resolverse, ver pregunta 6 de la sección 6).
+
 **(2) Sección de Miembros — Fase 1: la capa de datos.** Pedido de Francisco:
 un apartado con la directiva, el organigrama del club y de las áreas, un
 buscador por nombre, y una ficha por persona con foto, LinkedIn, resultados

@@ -73,6 +73,14 @@ muestra **estructura**; el buscador muestra **personas**.
 La presidencia **no** lidera un desk por el solo hecho de pertenecer a él. Si
 el presidente además dirige un área, hay que marcarlo con `lidera`.
 
+**Si la persona es parte de la directiva** (las 15 de `club.json`, no de esta
+planilla), la columna `lidera` no aplica — se marca con el campo
+`liderArea` directo en su entrada de `club.json → personas.directiva`
+(ej. `"liderArea": "PRT"`). Es el mismo mecanismo, solo que vive en la otra
+fuente de datos. Confirmado el 2026-08-16: Francisco Valenzuela lidera
+Portafolio. Trading, Valuation y FIG Woman siguen sin líder confirmado — no
+se adivina, se pregunta.
+
 ### La columna `muestra` — el consentimiento
 
 Lista, separada por `;`, con lo que la persona autoriza:

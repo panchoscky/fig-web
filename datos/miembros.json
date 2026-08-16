@@ -145,25 +145,24 @@
       "ticker": "DAV"
     },
     {
-      "id": "agustin-arriagada",
-      "nombre": "Agustín Arriagada",
-      "rol": "Director",
-      "rolCompleto": "Director · Portafolio",
+      "id": "david-gonzalez-canon",
+      "nombre": "David González Cañon",
+      "rol": "Fundador",
+      "rolCompleto": "Fundador",
       "nivel": 0,
-      "lidera": "PRT",
-      "area": "PRT",
-      "detalle": "Co-fundador · Monitor del Lab. Bloomberg FEN.",
+      "lidera": null,
+      "area": null,
+      "detalle": "Práctica en HSBC · ex Banco BICE · Coordinador Lab. Bloomberg FEN.",
       "generacion": null,
       "estado": "activo",
-      "linkedin": "https://www.linkedin.com/in/agustin-arriagada/",
+      "linkedin": "https://www.linkedin.com/in/davidgonzalezca%C3%B1on/",
       "perfil": {
-        "bio": "Co-fundador de FEN Investment Group y director del área Portafolio. Monitor del Laboratorio de Finanzas Bloomberg de la FEN, donde capacitó a más de 65 equipos del Torneo Portafolio 2026 en el uso de Bloomberg Terminal, y desarrolló el sistema automatizado de reportes semanales de inversión de FIG (Bloomberg Terminal + Python + Claude API) con señales para 6 activos (S&P 500, oro, BTC, EUR/USD, IPSA, USD/CLP).",
+        "bio": "Co-fundador de FEN Investment Group. Realizó su práctica en HSBC apoyando a banqueros de Instituciones Financieras, Sector Público y Grandes Corporativos, y antes se desempeñó como Analista de Riesgo Financiero Junior en Banco BICE. En la FEN ha sido coordinador del Laboratorio Bloomberg y ayudante de cursos.",
         "hitos": [
-          "Director · Portafolio",
-          "Co-fundador de FIG",
-          "Monitor · Laboratorio de Finanzas Bloomberg, FEN",
-          "Diplomado en Gestión de Inversiones y Trading · PUC",
-          "Certificación Bloomberg Market Concepts (BMC)"
+          "Fundador de FIG",
+          "Práctica · HSBC, Large Corporates & Institutional Banking",
+          "Analista de Riesgo Financiero Junior · Banco BICE",
+          "Coordinador del Laboratorio Bloomberg · FEN"
         ]
       },
       "extras": [],
@@ -175,7 +174,40 @@
         "torneo"
       ],
       "fuente": "club.json",
-      "ticker": "AAR"
+      "ticker": "DGC"
+    },
+    {
+      "id": "francisco-valenzuela",
+      "nombre": "Francisco Valenzuela",
+      "rol": "Director",
+      "rolCompleto": "Director · Portafolio",
+      "nivel": 0,
+      "lidera": "PRT",
+      "area": "PRT",
+      "detalle": "Co-fundador · Plataforma web y co-creador del Torneo Portafolio 2026.",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/",
+      "perfil": {
+        "bio": "Co-fundador de FEN Investment Group y director del área Portafolio, responsable de la plataforma web del club y co-creador del Torneo Portafolio 2026, la competencia insignia de FIG con 59 equipos y USD 10M simulados por cartera. Realizó su práctica profesional en el área de Riesgo de LarraínVial.",
+        "hitos": [
+          "Director · Portafolio",
+          "Co-fundador de FIG",
+          "Co-creador del Torneo Portafolio 2026",
+          "Plataforma web de FIG",
+          "Práctica en Riesgo · LarraínVial"
+        ]
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "extras",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "club.json",
+      "ticker": "FVA"
     },
     {
       "id": "juan-jose-limari",
@@ -324,24 +356,25 @@
       "ticker": "VES"
     },
     {
-      "id": "david-gonzalez-canon",
-      "nombre": "David González Cañon",
-      "rol": "Fundador",
-      "rolCompleto": "Fundador",
+      "id": "agustin-arriagada",
+      "nombre": "Agustín Arriagada",
+      "rol": "Director",
+      "rolCompleto": "Director · Portafolio",
       "nivel": 1,
       "lidera": null,
-      "area": null,
-      "detalle": "Práctica en HSBC · ex Banco BICE · Coordinador Lab. Bloomberg FEN.",
+      "area": "PRT",
+      "detalle": "Co-fundador · Monitor del Lab. Bloomberg FEN.",
       "generacion": null,
       "estado": "activo",
-      "linkedin": "https://www.linkedin.com/in/davidgonzalezca%C3%B1on/",
+      "linkedin": "https://www.linkedin.com/in/agustin-arriagada/",
       "perfil": {
-        "bio": "Co-fundador de FEN Investment Group. Realizó su práctica en HSBC apoyando a banqueros de Instituciones Financieras, Sector Público y Grandes Corporativos, y antes se desempeñó como Analista de Riesgo Financiero Junior en Banco BICE. En la FEN ha sido coordinador del Laboratorio Bloomberg y ayudante de cursos.",
+        "bio": "Co-fundador de FEN Investment Group y director del área Portafolio. Monitor del Laboratorio de Finanzas Bloomberg de la FEN, donde capacitó a más de 65 equipos del Torneo Portafolio 2026 en el uso de Bloomberg Terminal, y desarrolló el sistema automatizado de reportes semanales de inversión de FIG (Bloomberg Terminal + Python + Claude API) con señales para 6 activos (S&P 500, oro, BTC, EUR/USD, IPSA, USD/CLP).",
         "hitos": [
-          "Fundador de FIG",
-          "Práctica · HSBC, Large Corporates & Institutional Banking",
-          "Analista de Riesgo Financiero Junior · Banco BICE",
-          "Coordinador del Laboratorio Bloomberg · FEN"
+          "Director · Portafolio",
+          "Co-fundador de FIG",
+          "Monitor · Laboratorio de Finanzas Bloomberg, FEN",
+          "Diplomado en Gestión de Inversiones y Trading · PUC",
+          "Certificación Bloomberg Market Concepts (BMC)"
         ]
       },
       "extras": [],
@@ -353,7 +386,7 @@
         "torneo"
       ],
       "fuente": "club.json",
-      "ticker": "DGC"
+      "ticker": "AAR"
     },
     {
       "id": "benjamin-disi",
@@ -419,39 +452,6 @@
       ],
       "fuente": "club.json",
       "ticker": "BSO"
-    },
-    {
-      "id": "francisco-valenzuela",
-      "nombre": "Francisco Valenzuela",
-      "rol": "Director",
-      "rolCompleto": "Director · Portafolio",
-      "nivel": 1,
-      "lidera": null,
-      "area": "PRT",
-      "detalle": "Co-fundador · Plataforma web y co-creador del Torneo Portafolio 2026.",
-      "generacion": null,
-      "estado": "activo",
-      "linkedin": "https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/",
-      "perfil": {
-        "bio": "Co-fundador de FEN Investment Group y director del área Portafolio, responsable de la plataforma web del club y co-creador del Torneo Portafolio 2026, la competencia insignia de FIG con 59 equipos y USD 10M simulados por cartera. Realizó su práctica profesional en el área de Riesgo de LarraínVial.",
-        "hitos": [
-          "Director · Portafolio",
-          "Co-fundador de FIG",
-          "Co-creador del Torneo Portafolio 2026",
-          "Plataforma web de FIG",
-          "Práctica en Riesgo · LarraínVial"
-        ]
-      },
-      "extras": [],
-      "muestra": [
-        "actividades",
-        "bio",
-        "extras",
-        "foto",
-        "torneo"
-      ],
-      "fuente": "club.json",
-      "ticker": "FVA"
     },
     {
       "id": "manuel-paz",

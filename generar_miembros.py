@@ -309,14 +309,21 @@ def desde_club_json():
     for p in club.get("personas", {}).get("directiva", []):
         rol = p.get("rol", "")
         detalle = p.get("detalle", "")
+        # `liderArea` es un campo opcional de club.json: quien dirige un desk
+        # de verdad no se puede adivinar por jerarquia/orden alfabetico (eso
+        # fue lo que eligio mal a Agustin Arriagada en vez de a Francisco
+        # Valenzuela como lider de Portafolio). Se declara explicito ahi,
+        # persona por persona, y solo aplica si calza con su propia area.
+        lider_area = p.get("liderArea")
+        area_persona = area_de_texto(rol, detalle)
         fuera.append({
             "id": slug(p["nombre"]),
             "nombre": p["nombre"].strip(),
             "rol": rol_base(rol),
             "rolCompleto": rol,
             "nivel": nivel_de(rol + " " + detalle),
-            "lidera": None,
-            "area": area_de_texto(rol, detalle),
+            "lidera": lider_area if lider_area == area_persona else None,
+            "area": area_persona,
             "detalle": detalle,
             "generacion": None,
             "estado": "activo",
