@@ -235,40 +235,93 @@ button{cursor:pointer;border:none;background:none}
 .mesa-note{font-family:var(--f-mono);font-size:.63rem;letter-spacing:.13em;
   color:rgba(247,244,236,.42);margin-top:12px;text-align:center}
 
-/* ---------- JERARQUÍA ---------- */
-.tree{--tw:1px}
-.tier{margin:0 0 6px;position:relative}
-.tier__lbl{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;
-  color:rgba(247,244,236,.38);padding:14px 0 8px}
+/* ---------- ESTRUCTURA ----------
+   El organigrama por estratos. Se lee de arriba abajo: el núcleo (presidencia,
+   cofundadores y los líderes de cada desk), después el desk que abras con su
+   dirección y su segunda línea. Los miembros sin cargo NO se dibujan: con 200
+   personas el diagrama vuelve a ser ilegible, así que cada desk cierra con una
+   barra "+N miembros" que salta al buscador filtrado. El organigrama muestra
+   estructura; el buscador muestra personas. */
+.org{position:relative}
+.org__svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
+.org__lvl{position:relative;z-index:1;margin:0 0 8px}
+.lvl-lbl{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;
+  color:rgba(247,244,236,.34);text-align:center;padding:16px 0 12px;
+  display:flex;align-items:center;gap:14px;justify-content:center}
+.lvl-lbl::before,.lvl-lbl::after{content:"";height:1px;flex:1;max-width:120px;
+  background:linear-gradient(90deg,transparent,var(--line-d))}
+.lvl-lbl::after{background:linear-gradient(270deg,transparent,var(--line-d))}
 .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;position:relative}
-.node{position:relative;text-align:center;min-width:168px;max-width:210px;padding:14px 14px 13px;
-  border:1px solid var(--line-d);border-radius:12px;background:rgba(15,25,52,.62);
-  transition:.24s var(--ease)}
-.node:hover{transform:translateY(-3px);border-color:var(--gold-dim);background:rgba(21,35,80,.7)}
+.node{position:relative;text-align:center;width:172px;padding:14px 12px 13px;
+  border:1px solid var(--line-d);border-radius:13px;background:rgba(15,25,52,.72);
+  transition:transform .26s var(--ease),border-color .26s,box-shadow .26s,opacity .3s}
+.node:hover{transform:translateY(-4px);border-color:var(--gold-dim);
+  background:rgba(21,35,80,.8);box-shadow:0 14px 34px rgba(0,0,0,.36)}
 .node .av{margin:0 auto 9px;width:52px;height:52px}
-.node__n{font-weight:600;font-size:.9rem;line-height:1.25}
-.node__r{font-size:.74rem;color:rgba(247,244,236,.58);margin-top:2px}
-.node__t{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.16em;color:var(--ac,var(--gold));margin-top:6px}
-.node--top{border-color:var(--gold-dim);background:rgba(212,175,55,.07)}
-/* El conector: una vertical desde la fila de arriba y una horizontal que une
-   a los hermanos. Se dibuja con pseudo-elementos para no depender de SVG ni
-   de medir posiciones en JS (que se rompe al cambiar de ancho la ventana). */
-.tier--child .row::before{content:"";position:absolute;top:-22px;left:12%;right:12%;
-  height:var(--tw);background:var(--gold);opacity:.22}
-.tier--child .node::before{content:"";position:absolute;top:-22px;left:50%;width:var(--tw);height:22px;
-  background:var(--gold);opacity:.22}
-.tier--child{padding-top:22px}
-.branch{margin:26px 0 0;padding:18px 0 0;border-top:1px dashed var(--line-d)}
-.branch__h{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:16px}
-.branch__h b{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.24em;color:var(--ac,var(--gold))}
-.branch__h span{font-family:var(--f-disp);font-size:1.16rem}
-@media print{
-  .nav,.m-menu,.top,.views,.term,footer,.mesa-note{display:none!important}
-  body{background:#fff;color:#111}
-  .node{border-color:#bbb;background:#fff;color:#111}
-  .node__r{color:#555}
-  .panel{padding:0}
+.node__n{font-weight:600;font-size:.88rem;line-height:1.24}
+.node__r{font-size:.72rem;color:rgba(247,244,236,.56);margin-top:3px;line-height:1.3}
+.node__t{font-family:var(--f-mono);font-size:.59rem;letter-spacing:.16em;
+  color:var(--ac,var(--gold));margin-top:7px}
+.node--top{border-color:var(--gold-dim);background:rgba(212,175,55,.08)}
+.node--lider{cursor:pointer}
+.node--lider::after{content:"▾";position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);
+  width:20px;height:20px;line-height:18px;border-radius:50%;font-size:.66rem;
+  background:var(--navy);border:1px solid var(--ac,var(--gold));color:var(--ac,var(--gold));
+  transition:transform .3s var(--ease)}
+.node--lider[aria-expanded="true"]::after{transform:translateX(-50%) rotate(180deg)}
+.node--hit{border-color:var(--gold);animation:late 1.5s var(--ease) 2}
+@keyframes late{0%,100%{box-shadow:0 0 0 0 rgba(212,175,55,.5)}50%{box-shadow:0 0 0 11px rgba(212,175,55,0)}}
+.node--demo .node__n::after{content:"FICTICIO";display:block;font-family:var(--f-mono);
+  font-size:.5rem;letter-spacing:.18em;color:var(--down);opacity:.9;margin-top:3px}
+
+/* El desk desplegado. La altura se anima con grid-template-rows 0fr→1fr, que
+   es lo único que permite transicionar "hasta el alto que necesite" sin
+   medirlo en JS ni fijar un max-height inventado. */
+.desk-open{display:grid;grid-template-rows:0fr;transition:grid-template-rows .46s var(--ease-out),
+  opacity .34s var(--ease);opacity:0;margin-top:34px}
+.desk-open.on{grid-template-rows:1fr;opacity:1}
+.desk-open > div{overflow:hidden;min-height:0}
+.desk-hd{display:flex;align-items:center;gap:13px;justify-content:center;margin-bottom:6px;flex-wrap:wrap}
+.desk-hd b{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.26em;color:var(--ac,var(--gold))}
+.desk-hd span{font-family:var(--f-disp);font-size:1.2rem}
+.cantera{margin:26px auto 0;max-width:520px;display:flex;align-items:center;gap:14px;
+  padding:14px 20px;border:1px dashed var(--line-d);border-radius:13px;width:100%;
+  background:rgba(10,17,40,.5);transition:.24s var(--ease);text-align:left}
+.cantera:hover{border-color:var(--ac,var(--gold));background:rgba(21,35,80,.6)}
+.cantera b{font-family:var(--f-disp);font-size:1.5rem;color:var(--ac,var(--gold));line-height:1}
+.cantera span{font-size:.85rem;color:rgba(247,244,236,.66);line-height:1.35}
+.cantera i{margin-left:auto;font-style:normal;color:var(--ac,var(--gold));font-size:1.1rem}
+.org-note{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.13em;
+  color:rgba(247,244,236,.4);margin-top:26px;text-align:center;line-height:1.9}
+/* Los cables. Se dibujan en SVG (no con pseudo-elementos) porque tienen que
+   curvarse desde un nodo hasta varios hijos; se recalculan con ResizeObserver,
+   que es lo que evita que se desalineen al cambiar el ancho de la ventana. */
+.cable{fill:none;stroke:var(--gold);stroke-width:1.3;opacity:.3;stroke-linecap:round}
+.cable--on{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);
+  animation:tender .62s var(--ease-out) forwards}
+@keyframes tender{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){
+  .cable--on{animation:none;stroke-dashoffset:0}
+  .desk-open{transition:none}
 }
+@media print{
+  .nav,.m-menu,.top,.views,.term,footer,.mesa-note,.org-note,.cantera{display:none!important}
+  body{background:#fff;color:#111}
+  .node{border-color:#bbb;background:#fff;color:#111;break-inside:avoid}
+  .node__r{color:#555}
+  .lvl-lbl{color:#666}
+  .panel{padding:0}
+  .desk-open{grid-template-rows:1fr!important;opacity:1!important}
+  .cable{stroke:#999;opacity:.6}
+}
+
+/* Aviso de modo demostración */
+.demo-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:22px;
+  padding:12px 18px;border:1px solid rgba(224,122,95,.4);border-radius:12px;
+  background:rgba(224,122,95,.08);font-size:.86rem;color:rgba(247,244,236,.82)}
+.demo-bar b{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--down)}
+.demo-bar a{color:var(--gold);text-decoration:underline;margin-left:auto}
 
 /* ---------- Ficha ---------- */
 .ov{position:fixed;inset:0;z-index:80;background:rgba(4,8,20,.86);backdrop-filter:blur(8px);
@@ -386,19 +439,25 @@ footer{background:var(--navy-deep);border-top:1px solid var(--line-d);padding:56
     </div>
 
     <div class="views" role="tablist" aria-label="Cómo ver a los miembros">
-      <button class="view-btn" role="tab" data-view="mesa" aria-selected="false">
+      <button class="view-btn" role="tab" data-view="mesa" aria-selected="true">
         <b>Mesa</b><small>el mapa de los desks</small></button>
       <button class="view-btn" role="tab" data-view="arbol" aria-selected="false">
-        <b>Jerarquía</b><small>quién reporta a quién</small></button>
-      <button class="view-btn" role="tab" data-view="dir" aria-selected="true">
+        <b>Estructura</b><small>quién dirige qué</small></button>
+      <button class="view-btn" role="tab" data-view="dir" aria-selected="false">
         <b>Directorio</b><small>la lista completa</small></button>
+    </div>
+    <div class="demo-bar" id="demoBar" hidden>
+      <b>Modo demostración</b>
+      <span>Estás viendo cargos <strong>supuestos</strong> y personas que <strong>no existen</strong>,
+      para dimensionar el diseño con el club lleno. Nada de esto es oficial.</span>
+      <a href="./">Ver los datos reales →</a>
     </div>
   </div>
 </header>
 
 <main class="panel">
   <div class="wrap">
-    <section class="view" id="vMesa" role="tabpanel" aria-label="La mesa">
+    <section class="view on" id="vMesa" role="tabpanel" aria-label="La mesa">
       <div class="mesa-wrap">
         <div class="mesa-bar">
           <span class="crumb" id="crumb"><b>FIG</b> · la mesa completa</span>
@@ -410,9 +469,9 @@ footer{background:var(--navy-deep);border-top:1px solid var(--line-d);padding:56
       <p class="mesa-note">Toca un desk para entrar · toca un asiento para abrir la ficha</p>
     </section>
 
-    <section class="view" id="vArbol" role="tabpanel" aria-label="Jerarquía"></section>
+    <section class="view" id="vArbol" role="tabpanel" aria-label="Estructura"></section>
 
-    <section class="view on" id="vDir" role="tabpanel" aria-label="Directorio"></section>
+    <section class="view" id="vDir" role="tabpanel" aria-label="Directorio"></section>
   </div>
 </main>
 
@@ -490,12 +549,18 @@ if(burger)burger.addEventListener("click",function(){
   burger.setAttribute("aria-expanded",o?"true":"false");
 });
 
-/* ============================ DATOS ============================ */
-fetch("../datos/miembros.json",{cache:"no-cache"})
+/* ============================ DATOS ============================
+   Con ?demo=1 se carga datos/miembros.demo.json: un archivo APARTE que mezcla
+   personas reales con cargos supuestos y personas que NO existen, para ver el
+   organigrama lleno antes de que la base esté cargada. Nunca se mezclan los dos
+   archivos: lo inventado no puede terminar publicado como si fuera real. */
+var DEMO=/[?&]demo=1/.test(location.search);
+fetch("../datos/miembros"+(DEMO?".demo":"")+".json",{cache:"no-cache"})
   .then(function(r){if(!r.ok)throw new Error("no hay miembros.json");return r.json()})
   .then(function(d){
     DATA=d; LISTA=d.miembros||[];
     (d.config&&d.config.areas||[]).forEach(function(a){AREA[a.codigo]=a});
+    if(d.demo)$("#demoBar").hidden=false;
     arrancar();
   })
   .catch(function(){
@@ -790,44 +855,181 @@ $("#mesa").addEventListener("keydown",function(e){
   else entrarDesk(t.getAttribute("data-desk"));
 });
 
-/* ============================ JERARQUÍA ============================ */
-function nodo(m,cls){
-  return '<button class="node '+(cls||"")+'" data-open="'+esc(m.id)+'" style="--ac:'+ac(m)+'">'
+/* ============================ ESTRUCTURA ============================
+   Tres estratos y un corte. El núcleo siempre visible; el desk que abras se
+   despliega con su dirección y su segunda línea; los miembros sin cargo no se
+   dibujan nunca — cierran con una barra "+N" que salta al buscador. Un solo
+   desk abierto a la vez: sin acordeón la página salta y se pierde el hilo. */
+var ABIERTO=null, RO=null;
+function nivel(m){return m.nivel==null?3:m.nivel}
+function nodo(m,cls,extra){
+  var lider=!!m.lidera;
+  return '<button class="node '+(cls||"")+(m.demo?" node--demo":"")
+    +(lider?" node--lider":"")+'" '
+    +(lider?'data-desk="'+esc(m.lidera)+'" aria-expanded="false" ':'data-open="'+esc(m.id)+'" ')
+    +'data-id="'+esc(m.id)+'" style="--ac:'+ac(m)+'">'
     +avatar(m)
     +'<span class="node__n">'+esc(m.nombre)+'</span>'
     +'<span class="node__r">'+esc(m.rolCompleto||m.rol)+'</span>'
-    +'<span class="node__t">'+esc(m.ticker)+'</span></button>';
+    +'<span class="node__t">'+esc(m.ticker)+(extra||"")+'</span></button>';
 }
 function pintarArbol(){
   var c=$("#vArbol"); if(!c)return;
-  var vis={}; FILTRO.forEach(function(m){vis[m.id]=1});
-  var top=LISTA.filter(function(m){return m.rol==="Presidente"});
-  var vp=LISTA.filter(function(m){return m.rol==="Vicepresidente"});
-  var fund=LISTA.filter(function(m){return m.rol==="Fundador"&&!m.area});
-  var html='<div class="tree">';
-  if(top.length)html+='<div class="tier"><div class="tier__lbl" style="text-align:center">Presidencia</div>'
-    +'<div class="row">'+top.map(function(m){return nodo(m,"node--top")}).join("")+'</div></div>';
-  if(vp.length)html+='<div class="tier tier--child"><div class="row">'
-    +vp.map(function(m){return nodo(m,"node--top")}).join("")+'</div></div>';
-  if(fund.length)html+='<div class="tier tier--child"><div class="row">'
-    +fund.map(function(m){return nodo(m)}).join("")+'</div></div>';
+  var nucleo=LISTA.filter(function(m){return nivel(m)===0});
+  /* Presidencia primero, después los líderes de desk: es el orden en que se
+     lee una mesa directiva, no el alfabético. */
+  var presid=nucleo.filter(function(m){return !m.lidera});
+  var lideres=nucleo.filter(function(m){return !!m.lidera});
 
-  (DATA.config.areas||[]).forEach(function(a){
-    var g=LISTA.filter(function(m){return m.area===a.codigo});
-    if(!g.length)return;
-    html+='<div class="branch" style="--ac:'+AC[a.codigo]+'">'
-      +'<div class="branch__h"><b>'+esc(a.codigo)+'</b><span>'+esc(a.nombre)+'</span></div>'
-      +'<div class="row">'+g.map(function(m){return nodo(m)}).join("")+'</div></div>';
-  });
-  html+='</div>';
+  var html='<div class="org" id="org"><svg class="org__svg" id="orgSvg" aria-hidden="true"></svg>';
+  if(presid.length){
+    html+='<div class="org__lvl"><div class="lvl-lbl">Dirección del club</div>'
+      +'<div class="row" id="rowTop">'
+      +presid.map(function(m){return nodo(m,"node--top")}).join("")+'</div></div>';
+  }
+  if(lideres.length){
+    html+='<div class="org__lvl"><div class="lvl-lbl">Los cuatro desks</div>'
+      +'<div class="row" id="rowDesk">'+lideres.map(function(m){
+        var g=LISTA.filter(function(x){return x.area===m.lidera});
+        return nodo(m,"node--top"," · "+g.length);
+      }).join("")+'</div></div>';
+  }
+  html+='<div class="desk-open" id="deskOpen"><div id="deskBody"></div></div>';
+  html+='<p class="org-note">Toca un desk para abrirlo · el organigrama llega hasta la '
+    +'segunda línea, el resto se encuentra por el buscador</p></div>';
   c.innerHTML=html;
-  /* El filtro no esconde nodos acá: un organigrama con agujeros deja de ser un
-     organigrama. Lo que no calza se atenúa, y así se ve dónde está el que buscas. */
-  $$(".node",c).forEach(function(n){
-    n.style.opacity = vis[n.getAttribute("data-open")] ? "" : ".26";
-  });
   montarAvatares(c);
+  if(ABIERTO)desplegar(ABIERTO,true);
+  atenuar();
+  cables();
+  if(!RO&&window.ResizeObserver){
+    RO=new ResizeObserver(function(){cables()});
+    RO.observe($("#org"));
+  }
 }
+/* El filtro no esconde nodos: un organigrama con agujeros deja de ser un
+   organigrama. Lo que no calza se atenúa. Y si el que buscas está dentro de un
+   desk cerrado, el desk se abre solo y su nodo late — así el buscador y el
+   organigrama dejan de ser dos cosas separadas. */
+function atenuar(){
+  var vis={}; FILTRO.forEach(function(m){vis[m.id]=1});
+  var c=$("#vArbol");
+  $$(".node",c).forEach(function(n){
+    n.style.opacity = vis[n.getAttribute("data-id")] ? "" : ".24";
+  });
+  if(FILTRO.length&&FILTRO.length<LISTA.length){
+    var hit=null;
+    for(var i=0;i<FILTRO.length;i++){if(nivel(FILTRO[i])>0&&FILTRO[i].area){hit=FILTRO[i];break}}
+    if(hit&&ABIERTO!==hit.area)desplegar(hit.area);
+    if(hit){
+      var el=$('.node[data-id="'+hit.id+'"]',c);
+      if(el)el.classList.add("node--hit");
+    }
+  }
+}
+function desplegar(code,silencioso){
+  var caja=$("#deskOpen"), body=$("#deskBody");
+  if(!caja)return;
+  if(ABIERTO===code&&!silencioso){
+    ABIERTO=null; caja.classList.remove("on");
+    $$('.node[data-desk]').forEach(function(b){b.setAttribute("aria-expanded","false")});
+    setTimeout(cables,60);
+    return;
+  }
+  ABIERTO=code;
+  var a=AREA[code]||{codigo:code,nombre:code};
+  var dir=LISTA.filter(function(m){return m.area===code&&nivel(m)===1});
+  var seg=LISTA.filter(function(m){return m.area===code&&nivel(m)===2});
+  var base=LISTA.filter(function(m){return m.area===code&&nivel(m)>=3});
+  var lider=LISTA.filter(function(m){return m.lidera===code})[0];
+  var h='<div class="desk-hd" style="--ac:'+AC[code]+'"><b>'+esc(code)+'</b>'
+    +'<span>'+esc(a.nombre)+'</span>'
+    /* El nodo del líder en el núcleo despliega el desk, así que necesita otra
+       puerta hacia su propia ficha o queda sin forma de abrirse. */
+    +(lider?'<button class="chip" data-open="'+esc(lider.id)+'">Ficha de '
+      +esc(primerNombre(lider.nombre))+' →</button>':"")
+    +'</div>';
+  if(dir.length)h+='<div class="org__lvl"><div class="lvl-lbl">Dirección del desk</div>'
+    +'<div class="row" id="rowDir">'+dir.map(function(m){return nodo(m)}).join("")+'</div></div>';
+  if(seg.length)h+='<div class="org__lvl"><div class="lvl-lbl">Segunda línea</div>'
+    +'<div class="row" id="rowSeg">'+seg.map(function(m){return nodo(m)}).join("")+'</div></div>';
+  if(!dir.length&&!seg.length)
+    h+='<p class="org-note">Este desk todavía no tiene cargos cargados en la planilla.</p>';
+  if(base.length)h+='<button class="cantera" data-cantera="'+esc(code)+'" style="--ac:'+AC[code]+'">'
+    +'<b>+'+base.length+'</b><span>miembros en '+esc(a.nombre)+' sin cargo asignado.<br>'
+    +'Ábrelos en el directorio →</span><i>→</i></button>';
+  body.innerHTML=h;
+  montarAvatares(body);
+  $$('.node[data-desk]').forEach(function(b){
+    b.setAttribute("aria-expanded", b.getAttribute("data-desk")===code?"true":"false");
+  });
+  requestAnimationFrame(function(){caja.classList.add("on")});
+  setTimeout(cables, RM?0:80);
+}
+/* Cables del núcleo hacia el desk abierto. Se miden con getBoundingClientRect
+   contra el contenedor, así que sobreviven a cualquier reflow — por eso hay un
+   ResizeObserver arriba en vez de calcularlos una sola vez. */
+function cables(){
+  var org=$("#org"), svg=$("#orgSvg");
+  if(!org||!svg)return;
+  var R=org.getBoundingClientRect();
+  svg.setAttribute("viewBox","0 0 "+R.width+" "+R.height);
+  var d="";
+  function centroInf(el){var b=el.getBoundingClientRect();
+    return {x:b.left-R.left+b.width/2, y:b.bottom-R.top}}
+  function centroSup(el){var b=el.getBoundingClientRect();
+    return {x:b.left-R.left+b.width/2, y:b.top-R.top}}
+  function curva(a,b){
+    var mid=(a.y+b.y)/2;
+    return "M"+a.x.toFixed(1)+" "+a.y.toFixed(1)
+      +" C"+a.x.toFixed(1)+" "+mid.toFixed(1)+" "+b.x.toFixed(1)+" "+mid.toFixed(1)
+      +" "+b.x.toFixed(1)+" "+b.y.toFixed(1);
+  }
+  var top=$$("#rowTop .node"), desks=$$("#rowDesk .node");
+  if(top.length&&desks.length){
+    var origen=centroInf(top[0]);
+    desks.forEach(function(el){d+='<path class="cable" d="'+curva(origen,centroSup(el))+'"/>'});
+  }
+  if(ABIERTO){
+    var lider=$('#rowDesk .node[data-desk="'+ABIERTO+'"]');
+    var dir=$$("#rowDir .node"), seg=$$("#rowSeg .node");
+    var col=AC[ABIERTO]||"var(--gold)";
+    if(lider&&dir.length){
+      var o=centroInf(lider);
+      dir.forEach(function(el){
+        d+='<path class="cable cable--on" style="stroke:'+col+';--len:400" d="'
+          +curva(o,centroSup(el))+'"/>';
+      });
+    }
+    if(dir.length&&seg.length){
+      /* Cada persona de la segunda línea cuelga del director más cercano en
+         horizontal. No es un dato del JSON (no hay "reporta a" cargado), así
+         que se elige por proximidad: comunica pertenencia sin inventar una
+         línea de reporte que nadie declaró. */
+      seg.forEach(function(el){
+        var p=centroSup(el), mejor=dir[0], dm=Infinity;
+        dir.forEach(function(x){
+          var c=centroInf(x), dd=Math.abs(c.x-p.x);
+          if(dd<dm){dm=dd;mejor=x}
+        });
+        d+='<path class="cable cable--on" style="stroke:'+col+';--len:400" d="'
+          +curva(centroInf(mejor),p)+'"/>';
+      });
+    }
+  }
+  svg.innerHTML=d;
+}
+document.addEventListener("click",function(e){
+  var b=e.target.closest("[data-desk]");
+  if(b&&!e.target.closest("#mesa")){desplegar(b.getAttribute("data-desk"));return}
+  var q=e.target.closest("[data-cantera]");
+  if(q){
+    $("#q").value=q.getAttribute("data-cantera");
+    aplicar(q.getAttribute("data-cantera"));
+    vista("dir");
+    $("#vDir").scrollIntoView({block:"start",behavior:RM?"auto":"smooth"});
+  }
+});
 
 /* ============================ FICHA ============================ */
 var HIST=null;
@@ -855,6 +1057,7 @@ function abrir(id,sinHash){
       +'</div>'
       +'<div class="sheet__acts">'
         +(m.linkedin?'<a class="btn btn--ghost" href="'+esc(m.linkedin)+'" target="_blank" rel="noopener">LinkedIn ↗</a>':"")
+        +'<button class="btn btn--gold" id="ovCard">↓ Su tarjeta</button>'
         +'<button class="btn btn--ghost" id="ovLink">Copiar enlace</button>'
       +'</div>'
     +'</div></div>';
@@ -907,6 +1110,18 @@ function abrir(id,sinHash){
   $("#ovX").addEventListener("click",function(){cerrar()});
   $$("[data-go]",$("#sheet")).forEach(function(b){
     b.addEventListener("click",function(){abrir(b.getAttribute("data-go"))});
+  });
+  var cd=$("#ovCard");
+  if(cd)cd.addEventListener("click",function(){
+    cd.disabled=true; cd.textContent="Generando…";
+    /* Un frame de aire para que el botón alcance a repintarse antes de que el
+       canvas bloquee el hilo: si no, parece que no pasó nada. */
+    requestAnimationFrame(function(){
+      setTimeout(function(){
+        try{tarjeta(m)}catch(err){console.error(err)}
+        cd.disabled=false; cd.textContent="↓ Su tarjeta";
+      },30);
+    });
   });
   var lk=$("#ovLink");
   if(lk)lk.addEventListener("click",function(){
@@ -979,6 +1194,310 @@ function trayectoria(equipoId){
     .then(function(d){if(d){TORNEO=d;dibujar()}}).catch(function(){});
 }
 
+/* ============================ QR ============================
+   Generador propio, en unas 120 líneas. No es capricho: el sitio no puede
+   cargar librerías externas (GitHub Pages sin build step, y una etiqueta a un
+   CDN es un punto de falla y un tercero mirando a quien abre la tarjeta).
+
+   Alcance deliberadamente acotado: modo byte, corrección L, versiones 1 a 5.
+   Eso da hasta 108 bytes — de sobra para una URL como
+   https://feninvestmentgroup.com/miembros/#FVA (44) — y a cambio evita lo más
+   delicado de la especificación: con una sola versión de un bloque no hay que
+   intercalar bloques de corrección. Si algún día la URL no cabe, qrMatriz()
+   devuelve null y la tarjeta se dibuja sin QR, nunca con uno corrupto. */
+var QRV=[null,
+  {size:21,dc:19,ec:7,al:[]},   {size:25,dc:34,ec:10,al:[18]},
+  {size:29,dc:55,ec:15,al:[22]},{size:33,dc:80,ec:20,al:[26]},
+  {size:37,dc:108,ec:26,al:[30]}];
+var GX=new Uint8Array(512), GL=new Uint8Array(256);
+(function(){var x=1;for(var i=0;i<255;i++){GX[i]=x;GL[x]=i;x<<=1;if(x&256)x^=0x11d}
+  for(var j=255;j<512;j++)GX[j]=GX[j-255];})();
+function gmul(a,b){return (a&&b)?GX[GL[a]+GL[b]]:0}
+function rsGen(n){
+  var g=[1];
+  for(var i=0;i<n;i++){
+    var ng=new Array(g.length+1).fill(0);
+    for(var j=0;j<g.length;j++){ng[j]^=gmul(g[j],1);ng[j+1]^=gmul(g[j],GX[i])}
+    g=ng;
+  }
+  return g;
+}
+function rsEC(datos,n){
+  var g=rsGen(n), res=datos.concat(new Array(n).fill(0));
+  for(var i=0;i<datos.length;i++){
+    var f=res[i]; if(!f)continue;
+    for(var j=0;j<g.length;j++)res[i+j]^=gmul(g[j],f);
+  }
+  return res.slice(datos.length);
+}
+function qrMatriz(texto){
+  var bytes=Array.from(new TextEncoder().encode(texto));
+  var v=0;
+  for(var i=1;i<=5;i++){if(bytes.length+2<=QRV[i].dc){v=i;break}}
+  if(!v)return null;                       /* no cabe: mejor sin QR que roto */
+  var C=QRV[v], N=C.size;
+
+  var bits=[];
+  function push(val,len){for(var i=len-1;i>=0;i--)bits.push((val>>i)&1)}
+  push(4,4); push(bytes.length,8);
+  bytes.forEach(function(b){push(b,8)});
+  var cap=C.dc*8;
+  for(var t=0;t<4&&bits.length<cap;t++)bits.push(0);
+  while(bits.length%8)bits.push(0);
+  var dcw=[];
+  for(var i=0;i<bits.length;i+=8){
+    var b=0;for(var j=0;j<8;j++)b=(b<<1)|bits[i+j];
+    dcw.push(b);
+  }
+  var pad=[0xEC,0x11],p=0;
+  while(dcw.length<C.dc)dcw.push(pad[p++%2]);
+  var todo=dcw.concat(rsEC(dcw,C.ec));
+
+  var m=[],res=[];
+  for(var r=0;r<N;r++){m.push(new Array(N).fill(null));res.push(new Array(N).fill(false))}
+  function finder(fr,fc){
+    for(var r=-1;r<=7;r++)for(var c=-1;c<=7;c++){
+      var rr=fr+r,cc=fc+c;
+      if(rr<0||cc<0||rr>=N||cc>=N)continue;
+      var on=(r>=0&&r<=6&&(c===0||c===6))||(c>=0&&c<=6&&(r===0||r===6))
+             ||(r>=2&&r<=4&&c>=2&&c<=4);
+      m[rr][cc]=on?1:0; res[rr][cc]=true;
+    }
+  }
+  finder(0,0); finder(0,N-7); finder(N-7,0);
+  for(var i=8;i<N-8;i++){
+    m[6][i]=(i%2===0)?1:0; res[6][i]=true;
+    m[i][6]=(i%2===0)?1:0; res[i][6]=true;
+  }
+  C.al.forEach(function(a){
+    for(var r=-2;r<=2;r++)for(var c=-2;c<=2;c++){
+      var on=(Math.abs(r)===2||Math.abs(c)===2||(r===0&&c===0));
+      m[a+r][a+c]=on?1:0; res[a+r][a+c]=true;
+    }
+  });
+  m[N-8][8]=1; res[N-8][8]=true;                       /* módulo oscuro fijo */
+  for(var i=0;i<9;i++){
+    if(!res[8][i]){m[8][i]=0;res[8][i]=true}
+    if(!res[i][8]){m[i][8]=0;res[i][8]=true}
+  }
+  for(var i=0;i<8;i++){
+    if(!res[8][N-1-i]){m[8][N-1-i]=0;res[8][N-1-i]=true}
+    if(!res[N-1-i][8]){m[N-1-i][8]=0;res[N-1-i][8]=true}
+  }
+
+  var bi=0, todoBits=[];
+  todo.forEach(function(b){for(var i=7;i>=0;i--)todoBits.push((b>>i)&1)});
+  var arriba=true;
+  for(var col=N-1;col>0;col-=2){
+    if(col===6)col--;                                  /* la columna de timing se salta */
+    for(var k=0;k<N;k++){
+      var row=arriba?N-1-k:k;
+      for(var s=0;s<2;s++){
+        var cc=col-s;
+        if(res[row][cc])continue;
+        m[row][cc]= bi<todoBits.length ? todoBits[bi++] : 0;
+      }
+    }
+    arriba=!arriba;
+  }
+
+  function mascara(i,r,c){
+    switch(i){
+      case 0:return (r+c)%2===0;        case 1:return r%2===0;
+      case 2:return c%3===0;            case 3:return (r+c)%3===0;
+      case 4:return (Math.floor(r/2)+Math.floor(c/3))%2===0;
+      case 5:return (r*c)%2+(r*c)%3===0;
+      case 6:return ((r*c)%2+(r*c)%3)%2===0;
+      default:return ((r+c)%2+(r*c)%3)%2===0;
+    }
+  }
+  function penal(g){
+    var p=0,osc=0;
+    for(var r=0;r<N;r++)for(var c=0;c<N;c++)if(g[r][c])osc++;
+    /* Regla 1: rachas de 5 o más del mismo color, en filas y columnas. */
+    function rachas(get){
+      for(var a=0;a<N;a++){var run=1;
+        for(var b=1;b<N;b++){
+          if(get(a,b)===get(a,b-1))run++;
+          else{if(run>=5)p+=3+(run-5);run=1}
+        }
+        if(run>=5)p+=3+(run-5);
+      }
+    }
+    rachas(function(a,b){return g[a][b]});
+    rachas(function(a,b){return g[b][a]});
+    /* Regla 2: bloques de 2x2 del mismo color. */
+    for(var r=0;r<N-1;r++)for(var c=0;c<N-1;c++){
+      var x=g[r][c];
+      if(x===g[r][c+1]&&x===g[r+1][c]&&x===g[r+1][c+1])p+=3;
+    }
+    /* Regla 4: desbalance entre claros y oscuros. */
+    p+=Math.floor(Math.abs(osc*100/(N*N)-50)/5)*10;
+    return p;
+  }
+
+  var mejor=null,mejorP=Infinity,mejorM=0;
+  for(var mk=0;mk<8;mk++){
+    var g=m.map(function(f){return f.slice()});
+    for(var r=0;r<N;r++)for(var c=0;c<N;c++)
+      if(!res[r][c]&&mascara(mk,r,c))g[r][c]^=1;
+    /* La información de formato depende de la máscara, así que se escribe
+       dentro del bucle: evaluar una máscara sin su formato daría otro puntaje. */
+    var fmt=(1<<3)|mk;                                  /* 01 = corrección L */
+    var d=fmt<<10;
+    for(var i=4;i>=0;i--)if(d&(1<<(i+10)))d^=0x537<<i;
+    var fbits=((fmt<<10)|d)^0x5412;
+    for(var i=0;i<15;i++){
+      var b=(fbits>>i)&1;
+      if(i<6)g[i][8]=b; else if(i<8)g[i+1][8]=b; else g[N-15+i][8]=b;
+      if(i<8)g[8][N-1-i]=b; else g[8][15-i-1]=b;
+    }
+    var pp=penal(g);
+    if(pp<mejorP){mejorP=pp;mejor=g;mejorM=mk}
+  }
+  return mejor;
+}
+
+/* ============================ TARJETA ============================
+   1080x1350 (el formato de feed de Instagram), generada 100% en el navegador
+   como las del torneo: sin servidor, sin subir la foto de nadie a ningún lado.
+   Lleva el QR y ADEMÁS la URL escrita, para que la tarjeta siga sirviendo si
+   alguien la mira impresa o el lector de QR falla. */
+function tarjeta(m){
+  var W=1080,H=1350,cv=document.createElement("canvas");
+  cv.width=W;cv.height=H;
+  var x=cv.getContext("2d");
+  var col=({PRT:"#D4AF37",TRD:"#5FC08B",VAL:"#7BA7DE",FIW:"#E0A3A3"})[m.area]||"#D4AF37";
+
+  x.fillStyle="#0A1128";x.fillRect(0,0,W,H);
+  var g=x.createRadialGradient(W/2,330,20,W/2,330,720);
+  g.addColorStop(0,col+"2E");g.addColorStop(1,"rgba(10,17,40,0)");
+  x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.strokeStyle=col+"44";x.lineWidth=2;x.strokeRect(44,44,W-88,H-88);
+
+  var url=location.origin+location.pathname.replace(/index\.html$/,"")+"#"+m.ticker;
+
+  function texto(t,f,c,cx,cy,al){
+    x.font=f;x.fillStyle=c;x.textAlign=al||"center";x.textBaseline="alphabetic";
+    x.fillText(t,cx,cy);
+  }
+  /* El ticker gigante detrás es la marca de agua de la tarjeta: se lee de
+     lejos y es lo que la vuelve reconocible en un feed. */
+  x.save();x.globalAlpha=.07;
+  texto(m.ticker,"800 380px 'IBM Plex Mono',monospace",col,W/2,H/2+90);
+  x.restore();
+
+  texto("FEN INVESTMENT GROUP","500 23px 'IBM Plex Mono',monospace","#D4AF37CC",W/2,120);
+  x.strokeStyle="#D4AF3755";x.lineWidth=1;
+  x.beginPath();x.moveTo(W/2-150,142);x.lineTo(W/2+150,142);x.stroke();
+
+  function seguir(foto){
+    var cx=W/2,cy=390,R=132;
+    x.save();x.beginPath();x.arc(cx,cy,R,0,7);x.closePath();x.clip();
+    if(foto){
+      var s=Math.max(R*2/foto.width,R*2/foto.height);
+      x.drawImage(foto,cx-foto.width*s/2,cy-foto.height*s/2,foto.width*s,foto.height*s);
+    }else{
+      x.fillStyle="#0F1934";x.fillRect(cx-R,cy-R,R*2,R*2);
+      texto(m.ticker,"600 76px 'IBM Plex Mono',monospace",col,cx,cy+26);
+    }
+    x.restore();
+    x.strokeStyle=col;x.lineWidth=3;x.beginPath();x.arc(cx,cy,R,0,7);x.stroke();
+
+    /* El nombre se parte en dos líneas si no cabe, en vez de encogerse hasta
+       ser ilegible: un nombre largo es lo normal en Chile, no la excepción. */
+    var f="600 62px 'Playfair Display',Georgia,serif";
+    x.font=f;
+    var lineas=[m.nombre];
+    if(x.measureText(m.nombre).width>W-200){
+      var ps=m.nombre.split(" "),mitad=Math.ceil(ps.length/2);
+      lineas=[ps.slice(0,mitad).join(" "),ps.slice(mitad).join(" ")];
+    }
+    var y=610;
+    lineas.forEach(function(l){texto(l,f,"#F7F4EC",W/2,y);y+=68});
+
+    texto((m.rolCompleto||m.rol).toUpperCase(),"500 24px 'IBM Plex Mono',monospace",
+          "#F7F4ECAA",W/2,y+12);
+    y+=54;
+
+    var chips=[m.ticker];
+    if(m.area)chips.push(m.area);
+    if(m.generacion)chips.push("GEN "+m.generacion);
+    x.font="500 22px 'IBM Plex Mono',monospace";
+    var anchos=chips.map(function(c){return x.measureText(c).width+44});
+    var total=anchos.reduce(function(a,b){return a+b},0)+(chips.length-1)*14;
+    var cx0=W/2-total/2;
+    chips.forEach(function(c,i){
+      var w=anchos[i];
+      x.strokeStyle=col+"77";x.lineWidth=1.5;
+      if(x.roundRect){x.beginPath();x.roundRect(cx0,y+18,w,44,22);x.stroke()}
+      else x.strokeRect(cx0,y+18,w,44);
+      texto(c,"500 22px 'IBM Plex Mono',monospace",col,cx0+w/2,y+47);
+      cx0+=w+14;
+    });
+    y+=104;
+
+    if(m.torneo){
+      texto("TORNEO PORTAFOLIO 2026 · "+m.torneo.posicion+"° DE 59",
+            "500 22px 'IBM Plex Mono',monospace","#F7F4EC88",W/2,y+30);
+      texto(m.torneo.equipo,"600 30px 'Playfair Display',serif","#F7F4EC",W/2,y+70);
+      y+=100;
+    }
+
+    /* QR abajo a la izquierda, URL al lado: uno para el teléfono, la otra
+       para el ojo. */
+    var mm=qrMatriz(url), qx=112, qy=H-292, qs=168;
+    if(mm){
+      var n=mm.length, px=qs/n;
+      x.fillStyle="#F7F4EC";x.fillRect(qx-13,qy-13,qs+26,qs+26);
+      x.fillStyle="#0A1128";
+      for(var r=0;r<n;r++)for(var c=0;c<n;c++)
+        if(mm[r][c])x.fillRect(qx+c*px,qy+r*px,Math.ceil(px),Math.ceil(px));
+    }
+    texto("SU FICHA EN","500 20px 'IBM Plex Mono',monospace","#D4AF37AA",qx+qs+42,qy+52,"left");
+    texto(url.replace(/^https?:\/\//,""),"500 21px 'IBM Plex Mono',monospace",
+          "#F7F4ECCC",qx+qs+42,qy+88,"left");
+    texto(m.demo?"TARJETA DE PRUEBA · PERSONA FICTICIA":"Forjando la Élite del Mañana",
+          m.demo?"500 19px 'IBM Plex Mono',monospace":"italic 500 26px 'Playfair Display',serif",
+          m.demo?"#E07A5F":"#D4AF37AA",qx+qs+42,qy+130,"left");
+
+    descargar(cv,m);
+  }
+
+  /* La foto se busca igual que en la página; si no hay, el monograma. Se usa
+     el mismo orden de carpetas para que la tarjeta y la ficha nunca muestren
+     retratos distintos. */
+  var rutas=[];
+  if(!m.muestra||m.muestra.indexOf("foto")>=0)
+    ["miembros","directiva"].forEach(function(d){
+      ["jpg","jpeg","png","webp"].forEach(function(e){rutas.push("../fotos/"+d+"/"+m.id+"."+e)});
+    });
+  (function probar(i){
+    if(i>=rutas.length){seguir(null);return}
+    var img=new Image();
+    img.onload=function(){seguir(img)};
+    img.onerror=function(){probar(i+1)};
+    img.src=rutas[i];
+  })(0);
+}
+function descargar(cv,m){
+  cv.toBlob(function(blob){
+    if(!blob)return;
+    var archivo="FIG-"+m.ticker+"-"+m.id+".png";
+    /* En celular se abre el panel nativo (Instagram a un toque), como ya hacen
+       las tarjetas del torneo; en escritorio, descarga directa. */
+    if(navigator.canShare&&navigator.canShare({files:[new File([blob],archivo,{type:"image/png"})]})){
+      navigator.share({files:[new File([blob],archivo,{type:"image/png"})],
+                       title:m.nombre+" · FIG"}).catch(function(){});
+      return;
+    }
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(blob); a.download=archivo;
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500);
+  },"image/png");
+}
+
 /* ============================ VISTAS ============================ */
 function vista(v){
   $$(".view-btn").forEach(function(b){
@@ -987,13 +1506,13 @@ function vista(v){
   $("#vMesa").classList.toggle("on",v==="mesa");
   $("#vArbol").classList.toggle("on",v==="arbol");
   $("#vDir").classList.toggle("on",v==="dir");
-  try{localStorage.setItem("figMiembrosVista",v)}catch(e){}
+  try{localStorage.setItem("figMiembrosVista2",v)}catch(e){}
 }
 $$(".view-btn").forEach(function(b){
   b.addEventListener("click",function(){vista(b.getAttribute("data-view"))});
 });
 try{
-  var guardada=localStorage.getItem("figMiembrosVista");
+  var guardada=localStorage.getItem("figMiembrosVista2");
   if(guardada)vista(guardada);
 }catch(e){}
 

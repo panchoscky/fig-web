@@ -82,6 +82,29 @@ PISTAS_AREA = {
 JERARQUIA = ["Presidente", "Vicepresidente", "Fundador", "Director",
              "Coordinador", "Miembro", "Alumni"]
 
+# NIVELES — los estratos que dibuja el organigrama.
+#   0  Núcleo: presidencia, cofundadores y los líderes de cada desk. Es la
+#      mesa directiva, siempre visible.
+#   1  Dirección del desk: quienes acompañan al líder dentro de su área.
+#   2  Segunda línea: analistas junior, encargados administrativos.
+#   3  Miembros sin cargo. NO se dibujan en el organigrama a propósito: con
+#      200 personas el diagrama vuelve a ser ilegible. Cada desk cierra con
+#      una barra "+N miembros" que salta al buscador filtrado por ese desk.
+#      El organigrama muestra estructura; el buscador muestra personas.
+NIVEL_NUCLEO, NIVEL_DIR, NIVEL_SEGUNDA, NIVEL_BASE = 0, 1, 2, 3
+NIVEL_NOMBRE = {0: "Núcleo", 1: "Dirección del desk", 2: "Segunda línea", 3: "Miembros"}
+
+# Cómo se deduce el nivel del texto libre del cargo, en orden de prioridad.
+# Se puede sobrescribir con la columna `nivel` de la planilla.
+PISTAS_NIVEL = [
+    (NIVEL_NUCLEO,  ("presidente", "presidenta", "vicepresidente", "vicepresidenta")),
+    (NIVEL_SEGUNDA, ("junior", "analista", "asistente", "ayudante", "administrativo",
+                     "practicante", "aprendiz")),
+    (NIVEL_DIR,     ("director", "directora", "encargado", "encargada", "subdirector",
+                     "subdirectora", "coordinador", "coordinadora", "jefe", "jefa",
+                     "lider", "líder", "fundador", "fundadora")),
+]
+
 # Columnas que el script lee del Excel. Cualquier otra se ignora en silencio:
 # es lo que protege de publicar RUT/correo/teléfono si alguien los agrega.
 # Van en forma normalizada (minúsculas, sin tildes, guion bajo por separador),
@@ -98,6 +121,8 @@ ALIAS_MIEMBROS = {
     "extras":     ["extras", "aporte", "aportes", "personalizado", "lo_que_quiere_mostrar"],
     "muestra":    ["muestra", "consentimiento", "autoriza", "autorizacion"],
     "ticker":     ["ticker", "sigla"],
+    "nivel":      ["nivel", "estrato", "linea"],
+    "lidera":     ["lidera", "lider", "encargado_de", "jefatura"],
 }
 # Lo que cada persona puede autorizar. Sin autorización explícita se asume el
 # mínimo: nombre, rol, área y LinkedIn (lo ya aprobado por el proyecto).
@@ -205,6 +230,70 @@ def orden_jerarquia(rol):
         return len(JERARQUIA)
 
 
+def nivel_de(rol_completo, explicito=None):
+    """En qué estrato del organigrama va esta persona.
+
+    Se lee del texto libre del cargo porque nadie va a llenar una columna
+    'nivel' a mano en una planilla de 150 filas — pero si la llena, manda."""
+    if explicito not in (None, ""):
+        try:
+            return max(0, min(NIVEL_BASE, int(explicito)))
+        except (TypeError, ValueError):
+            pass
+    t = normalizar(rol_completo).replace("_", " ")
+    for nivel, pistas in PISTAS_NIVEL:
+        for p in pistas:
+            if normalizar(p).replace("_", " ") in t:
+                return nivel
+    return NIVEL_BASE
+
+
+def marcar_lideres(miembros):
+    """Elige un líder por desk y lo sube al núcleo.
+
+    El líder es el puente entre las dos lecturas del organigrama: aparece en la
+    mesa directiva Y es la raíz de su desk, así que de él bajan los cables. Si
+    la planilla no lo dice explícito ('lidera'/'líder'/'encargado de'), se toma
+    a la persona de menor nivel y mayor jerarquía del área — con un aviso,
+    porque adivinar quién manda es justo lo que no se debe hacer en silencio."""
+    for codigo in [a["codigo"] for a in AREAS]:
+        del_area = [m for m in miembros if m.get("area") == codigo]
+        if not del_area:
+            continue
+        explicitos = [m for m in del_area if m.get("lidera")]
+        if explicitos:
+            lider = explicitos[0]
+            if len(explicitos) > 1:
+                print(f"  AVISO: {codigo} tiene {len(explicitos)} personas marcadas como "
+                      f"líder; se usa {lider['nombre']}")
+        else:
+            # La presidencia NO lidera un desk por el solo hecho de pertenecer a
+            # él: preside el club. Si el presidente además dirige un área, hay
+            # que decirlo explícito en la planilla.
+            candidatos = [m for m in del_area
+                          if rol_base(m["rolCompleto"]) not in ("Presidente", "Vicepresidente")]
+            if not candidatos:
+                for m in del_area:
+                    m["lidera"] = None
+                continue
+            lider = sorted(candidatos, key=lambda m: (m["nivel"],
+                                                      orden_jerarquia(m["rolCompleto"]),
+                                                      m["nombre"]))[0]
+        for m in del_area:
+            m["lidera"] = codigo if m is lider else None
+        lider["nivel"] = NIVEL_NUCLEO
+
+    # Los cofundadores que no dirigen un desk igual pertenecen al núcleo: el
+    # club es suyo aunque no tengan área. Si quedaran en nivel 1 sin desk no se
+    # dibujarían en ninguna parte del organigrama, que es peor que cualquier
+    # discusión sobre dónde ponerlos.
+    for m in miembros:
+        if not m.get("area") and rol_base(m["rolCompleto"]) in ("Fundador", "Presidente",
+                                                                "Vicepresidente"):
+            m["nivel"] = NIVEL_NUCLEO
+    return miembros
+
+
 def parse_lista(v):
     """Un campo del Excel con varios valores: separados por ';' o por salto."""
     if v is None:
@@ -225,6 +314,8 @@ def desde_club_json():
             "nombre": p["nombre"].strip(),
             "rol": rol_base(rol),
             "rolCompleto": rol,
+            "nivel": nivel_de(rol + " " + detalle),
+            "lidera": None,
             "area": area_de_texto(rol, detalle),
             "detalle": detalle,
             "generacion": None,
@@ -266,6 +357,9 @@ def desde_excel(ruta):
             "nombre": nombre,
             "rol": rol_base(rol),
             "rolCompleto": rol,
+            "nivel": nivel_de(rol, val("nivel")),
+            "lidera": val("area").upper()[:3] if normalizar(val("lidera")) in
+                      ("si", "x", "1", "true", "lidera") else None,
             "area": (val("area").upper()[:3] or area_de_texto(rol)) or None,
             "detalle": "",
             "generacion": int(gen.group(0)) if gen else None,
@@ -418,6 +512,119 @@ def candidatos_sin_ficha(miembros, representados=frozenset()):
     return sorted(fuera.values(), key=lambda x: x[0].lower())
 
 
+# ---------------------------------------------------------------------------
+# MODO DEMO — para ver cómo se verá el organigrama cuando el club esté cargado
+# ---------------------------------------------------------------------------
+# Escribe datos/miembros.demo.json, un archivo APARTE que la página solo carga
+# con ?demo=1. Nada de esto entra jamás a datos/miembros.json: la regla dura
+# del repo es que no se publica nada inventado, y este archivo mezcla personas
+# reales con personas que no existen. Cada ficticia lleva `demo:true`, la
+# página les pinta un distintivo FICTICIO y muestra un aviso permanente.
+#
+# Los cargos de las personas REALES en este archivo tampoco son oficiales: son
+# el supuesto que pidió Francisco el 2026-08-16 para poder ver el diseño
+# (él como líder de Portafolio, Agustín en dirección técnica, Samuel en
+# Valuation, Delia en FIG Woman). No usarlos como fuente de nada.
+
+CARGOS_DEMO = {
+    "francisco-valenzuela":     ("Director · Portafolio", "PRT", 0, True),
+    "agustin-arriagada":        ("Director Técnico · Portafolio", "PRT", 1, False),
+    "manuel-paz":               ("Director de Comunicaciones · Portafolio", "PRT", 1, False),
+    "benjamin-solis":           ("Director de Torneo · Portafolio", "PRT", 1, False),
+    "benjamin-disi":            ("Director Académico · Portafolio", "PRT", 1, False),
+    "samuel-rodriguez-arnolds": ("Encargado · Valuation", "VAL", 0, True),
+    "jhosep-garcia":            ("Vicepresidente", "VAL", 0, False),
+    "delia-avilan":             ("Encargada · FEN Investment Woman", "FIW", 0, True),
+    "gabriela-dominguez":       ("Directora de Comunidad · FIW", "FIW", 1, False),
+    "victoria-espinoza":        ("Directora de Mentorías · FIW", "FIW", 1, False),
+    "rafael-aliendre":          ("Director · Trading", "TRD", 0, True),
+    "juan-jose-limari":         ("Director de Mesa · Trading", "TRD", 1, False),
+    "juan-pablo-diaz-cerda":    ("Director de Research · Trading", "TRD", 1, False),
+}
+# (nombre, cargo, área, nivel). Personas que NO existen.
+FICTICIOS_DEMO = [
+    ("Camila Ossandón Vera",   "Analista Junior · Portafolio",      "PRT", 2),
+    ("Tomás Iriarte Prado",    "Analista Junior · Portafolio",      "PRT", 2),
+    ("Josefa Meneses Lira",    "Coordinadora Administrativa · PRT", "PRT", 2),
+    ("Ignacio Ferrada Soto",   "Analista Junior · Trading",         "TRD", 2),
+    ("Antonia Bulnes Reyes",   "Asistente de Mesa · Trading",       "TRD", 2),
+    ("Martín Zúñiga Alcaíno",  "Analista Junior · Valuation",       "VAL", 2),
+    ("Emilia Cortés Vidal",    "Analista Junior · Valuation",       "VAL", 2),
+    ("Florencia Aguirre Ruiz", "Coordinadora de Mentorías · FIW",   "FIW", 2),
+    ("Isidora Palma Correa",   "Analista Junior · FIW",             "FIW", 2),
+    # Base sin cargo: no se dibujan en el organigrama, alimentan el contador
+    # "+N miembros" de cada desk. Están para probar justamente ese corte.
+    ("Diego Salazar Muñoz",    "Miembro", "PRT", 3),
+    ("Javiera Rojas Peña",     "Miembro", "PRT", 3),
+    ("Nicolás Vergara Toro",   "Miembro", "PRT", 3),
+    ("Catalina Núñez Silva",   "Miembro", "PRT", 3),
+    ("Matías Herrera Lagos",   "Miembro", "TRD", 3),
+    ("Fernanda Castro Díaz",   "Miembro", "TRD", 3),
+    ("Joaquín Pinto Salas",    "Miembro", "VAL", 3),
+    ("Valentina Soto Cáceres", "Miembro", "VAL", 3),
+    ("Amanda Riquelme Ortiz",  "Miembro", "FIW", 3),
+]
+
+
+def demo(miembros):
+    """Devuelve una copia de la lista con los cargos supuestos y las personas
+    ficticias agregadas. No toca la lista original."""
+    import copy
+    out = copy.deepcopy(miembros)
+    for m in out:
+        m["demo"] = False
+        m["lidera"] = None  # se vuelve a decidir con los cargos supuestos
+        if m["id"] in CARGOS_DEMO:
+            rol, area, nivel, lidera = CARGOS_DEMO[m["id"]]
+            m["rolCompleto"] = rol
+            m["rol"] = rol_base(rol)
+            m["area"] = area
+            m["nivel"] = nivel
+            m["lidera"] = area if lidera else None
+        if not m.get("generacion"):
+            m["generacion"] = 2025  # supuesto, solo para ver el chip en la ficha
+    for nombre, rol, area, nivel in FICTICIOS_DEMO:
+        out.append({
+            "id": slug(nombre), "nombre": nombre,
+            "rol": rol_base(rol), "rolCompleto": rol,
+            "nivel": nivel, "lidera": None, "area": area, "detalle": "",
+            "generacion": 2026 if nivel >= 2 else 2025, "estado": "activo",
+            "linkedin": "", "perfil": {"bio": "", "hitos": []}, "extras": [],
+            "muestra": sorted(MUESTRA_POR_DEFECTO), "fuente": "demo",
+            "ticker": "", "demo": True,
+        })
+    return out
+
+
+def ordenar(miembros):
+    """Núcleo primero, después por desk, nivel, jerarquía y nombre."""
+    miembros.sort(key=lambda m: (m.get("nivel", NIVEL_BASE),
+                                 orden_jerarquia(m["rolCompleto"]),
+                                 m.get("area") or "ZZZ", m["nombre"]))
+    return miembros
+
+
+def volcar(miembros, es_demo=False):
+    datos = {
+        "actualizado": date.today().isoformat(),
+        "demo": es_demo,
+        "config": {
+            "areas": AREAS,
+            "jerarquia": JERARQUIA,
+            "niveles": NIVEL_NOMBRE,
+            "nota": ("ARCHIVO DE DEMOSTRACIÓN: mezcla personas reales con cargos "
+                     "SUPUESTOS y personas que NO EXISTEN (`demo:true`). Solo se carga "
+                     "con ?demo=1 y sirve para ver el diseño del organigrama lleno. "
+                     "No usar como fuente de nada." if es_demo else
+                     "Generado por generar_miembros.py. No editar a mano: los cambios "
+                     "se pierden al regenerar. La directiva se edita en club.json; "
+                     "el resto, en el Excel de miembros del Drive."),
+        },
+        "miembros": miembros,
+    }
+    return json.dumps(datos, ensure_ascii=False, indent=2) + "\n"
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -431,6 +638,10 @@ def main():
                          "planilla ya puestas, para abrirlo en Sheets y completarlo. "
                          "Guardarlo FUERA del repo: trae 145 nombres y LinkedIn que "
                          "todavía no han autorizado publicación")
+    ap.add_argument("--demo", action="store_true",
+                    help="escribe TAMBIÉN datos/miembros.demo.json con cargos supuestos "
+                         "y personas ficticias, para ver el organigrama lleno "
+                         "(la página lo carga solo con ?demo=1)")
     args = ap.parse_args()
 
     miembros = desde_club_json()
@@ -456,23 +667,11 @@ def main():
         print(f"  miembros desde el Excel: {len(extra)} ({len(nuevos)} nuevos)")
 
     asignar_tickers(miembros)
-    miembros.sort(key=lambda m: (orden_jerarquia(m["rolCompleto"]),
-                                 m.get("area") or "ZZZ", m["nombre"]))
+    marcar_lideres(miembros)
+    ordenar(miembros)
     con_torneo, con_act, representados = enriquecer(miembros, verbose=args.auditar)
 
-    datos = {
-        "actualizado": date.today().isoformat(),
-        "config": {
-            "areas": AREAS,
-            "jerarquia": JERARQUIA,
-            "nota": "Generado por generar_miembros.py. No editar a mano: los cambios "
-                    "se pierden al regenerar. La directiva se edita en club.json; "
-                    "el resto, en el Excel de miembros del Drive.",
-        },
-        "miembros": miembros,
-    }
-    SALIDA.write_text(json.dumps(datos, ensure_ascii=False, indent=2) + "\n",
-                      encoding="utf-8")
+    SALIDA.write_text(volcar(miembros), encoding="utf-8")
 
     print(f"\n  total: {len(miembros)} miembros")
     print(f"  con resultado de torneo cruzado: {con_torneo}")
@@ -483,6 +682,27 @@ def main():
         por_area[m.get("area") or "sin área"] = por_area.get(m.get("area") or "sin área", 0) + 1
     print(f"  por área: {por_area}")
     print(f"\nESCRITO: {SALIDA}")
+
+    if args.demo:
+        d = demo(miembros)
+        asignar_tickers(d)
+        marcar_lideres(d)
+        ordenar(d)
+        enriquecer(d)
+        ruta = DATOS / "miembros.demo.json"
+        ruta.write_text(volcar(d, es_demo=True), encoding="utf-8")
+        ficticios = sum(1 for m in d if m.get("demo"))
+        print(f"\nESCRITO: {ruta}")
+        print(f"  {len(d)} personas ({ficticios} FICTICIAS, {len(d)-ficticios} reales "
+              f"con cargos supuestos)")
+        for codigo in [a["codigo"] for a in AREAS]:
+            g = [m for m in d if m.get("area") == codigo]
+            lid = next((m["nombre"] for m in g if m.get("lidera")), "—")
+            niveles = {}
+            for m in g:
+                niveles[m["nivel"]] = niveles.get(m["nivel"], 0) + 1
+            print(f"  {codigo}: lidera {lid:26s} niveles {dict(sorted(niveles.items()))}")
+        print("  Verlo en: miembros/index.html?demo=1")
 
     if args.candidatos or args.csv_candidatos:
         cands = candidatos_sin_ficha(miembros, representados)

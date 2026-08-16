@@ -49,6 +49,29 @@ columnas da lo mismo, y las que falten simplemente quedan vacías.
 | `extras` | | **Lo que la persona pidió incorporar.** Texto libre, separado por `;` | `Autor del research de litio; Mentor FIW` |
 | `muestra` | | **Qué autorizó a publicar** (ver abajo) | `foto; torneo; bio` |
 | `ticker` | | Solo si quiere elegir su sigla a mano | `CPS` |
+| `lidera` | | `sí` solo en **una** persona por desk: la que lo dirige | `sí` |
+| `nivel` | | Fuerza el estrato del organigrama (ver abajo). Normalmente se deduce solo del `rol` | `2` |
+
+### Los niveles del organigrama
+
+El organigrama se dibuja por estratos. **No hace falta llenar la columna
+`nivel`**: se deduce del texto del cargo. Solo llénala si el cargo no lo deja
+claro.
+
+| Nivel | Quiénes | Se deduce de palabras como |
+|---|---|---|
+| `0` | **Núcleo**: presidencia, cofundadores y el líder de cada desk | `Presidente`, `Vicepresidente` — o la columna `lidera` |
+| `1` | **Dirección del desk**: quienes acompañan al líder | `Director`, `Encargado`, `Coordinador`, `Jefe` |
+| `2` | **Segunda línea**: analistas junior, administrativos | `Junior`, `Analista`, `Asistente`, `Administrativo` |
+| `3` | **Miembros sin cargo** | cualquier otra cosa, o `Miembro` |
+
+**Los del nivel 3 no se dibujan en el organigrama, y es a propósito.** Con 200
+personas el diagrama vuelve a ser ilegible. Cada desk cierra con una barra
+"+N miembros" que salta al buscador filtrado por ese desk. El organigrama
+muestra **estructura**; el buscador muestra **personas**.
+
+La presidencia **no** lidera un desk por el solo hecho de pertenecer a él. Si
+el presidente además dirige un área, hay que marcarlo con `lidera`.
 
 ### La columna `muestra` — el consentimiento
 
