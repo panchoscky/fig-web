@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Miembros — FEN Investment Group</title>
-<meta name="description" content="La mesa de FEN Investment Group: directiva, organigrama por desk y la ficha de cada miembro del club. Busca a cualquiera por su nombre o su ticker.">
+<meta name="description" content="La mesa de FEN Investment Group: la directiva sentada por desk, la estructura de cada área y la ficha de cada miembro del club.">
 <meta name="theme-color" content="#0A1128">
 <meta property="og:title" content="Miembros — FEN Investment Group">
-<meta property="og:description" content="La mesa de FIG: directiva, organigrama por desk y la ficha de cada miembro.">
+<meta property="og:description" content="La mesa de FIG: la directiva por desk, la estructura de cada área y la ficha de cada miembro.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Miembros — FEN Investment Group">
-<meta name="twitter:description" content="La mesa de FIG: directiva, organigrama por desk y la ficha de cada miembro.">
+<meta name="twitter:description" content="La mesa de FIG: la directiva por desk y la ficha de cada miembro.">
 <meta name="twitter:image" content="/og-image.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230A1128'/%3E%3Ccircle cx='50' cy='50' r='34' fill='%23D4AF37'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,27 +24,19 @@
 /* ============================================================================
    FIG · MIEMBROS — "La mesa"
    ----------------------------------------------------------------------------
-   Concepto: el club no es una nómina, es una mesa de operaciones. Cada persona
-   tiene un ticker de 3 letras (como un instrumento) y se la busca escribiendo,
-   no navegando menús. Tres lecturas del mismo dato:
-     MESA       mapa espacial de los 4 desks, con navegación por zoom
-     JERARQUÍA  el árbol sobrio, para entender quién reporta a quién
-     DIRECTORIO la grilla completa, la que escala a 200 personas
-   Datos: datos/miembros.json (generado por generar_miembros.py) + el historial
-   de datos/torneo.json, que se carga solo si alguien tiene resultado que mostrar.
+   Una sola experiencia, no tres pestañas: una mesa redonda con la directiva
+   sentada por desk. Al elegir un desk, su arco se abre y DEVORA la pantalla, y
+   ahí adentro vive la estructura del área. Los miembros sin cargo no se
+   sientan a la mesa: se encuentran escribiendo en la terminal.
    Identidad: Navy #0A1128 · Oro #D4AF37 · Playfair + Inter + IBM Plex Mono
    ============================================================================ */
-
 :root{
   --navy-deep:#060B1C; --navy:#0A1128; --navy-panel:#0F1934; --navy-soft:#152350;
-  --gold:#D4AF37; --gold-light:#EBD388; --gold-deep:#9E7E1E;
+  --gold:#D4AF37; --gold-light:#EBD388;
   --gold-dim:rgba(212,175,55,.32); --gold-faint:rgba(212,175,55,.11);
-  --ivory:#F7F4EC; --paper:#FBF9F3; --ink:#101828; --ink-soft:#4C5566;
+  --ivory:#F7F4EC;
   --line-d:rgba(212,175,55,.17);
   --up:#5FC08B; --down:#E07A5F;
-  /* Un color por desk. Son los mismos que ya usa el sitio: el oro de la marca,
-     el verde/azul de las series del torneo y el oro rosa propio de FIW. */
-  --a-prt:#D4AF37; --a-trd:#5FC08B; --a-val:#7BA7DE; --a-fiw:#E0A3A3;
   --f-disp:"Playfair Display", Georgia, serif;
   --f-body:"Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
   --f-mono:"IBM Plex Mono", "SF Mono", Consolas, monospace;
@@ -62,20 +54,15 @@ body{background:var(--navy);color:var(--ivory);font-family:var(--f-body);
 ::selection{background:var(--gold);color:var(--navy)}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
-button,input,select{font-family:inherit;color:inherit}
+button,input{font-family:inherit;color:inherit}
 button{cursor:pointer;border:none;background:none}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px;position:relative;z-index:2}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-
-.kicker{font-family:var(--f-mono);font-size:.72rem;font-weight:500;letter-spacing:.42em;
+.kicker{font-family:var(--f-mono);font-size:.7rem;font-weight:500;letter-spacing:.42em;
   text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:14px}
 .kicker::before{content:"";width:34px;height:1px;background:var(--gold);opacity:.7;flex:none}
-.h-sec{font-family:var(--f-disp);font-weight:600;font-size:clamp(2.1rem,4.6vw,3.5rem);
-  line-height:1.1;letter-spacing:-.012em;margin:18px 0 0}
-.h-sec em{font-style:italic;color:var(--gold)}
-.lead{color:rgba(247,244,236,.72);max-width:64ch}
-.mono-tag{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
+.mono-tag{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;
   color:var(--gold);border:1px solid var(--gold-dim);border-radius:999px;padding:5px 12px;
   display:inline-block;white-space:nowrap}
 
@@ -91,254 +78,199 @@ button{cursor:pointer;border:none;background:none}
 .nav__links{list-style:none;display:flex;gap:22px;margin-left:auto;font-size:.9rem}
 .nav__links a{opacity:.82;transition:opacity .2s,color .2s}
 .nav__links a:hover{opacity:1;color:var(--gold)}
-.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--f-mono);font-size:.74rem;
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--f-mono);font-size:.72rem;
   letter-spacing:.16em;text-transform:uppercase;padding:12px 22px;border-radius:999px;
   border:1px solid var(--gold-dim);transition:.22s var(--ease)}
 .btn--gold{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:600}
-.btn--gold:hover{background:var(--gold-light);border-color:var(--gold-light)}
+.btn--gold:hover{background:var(--gold-light)}
 .btn--ghost:hover{background:var(--gold-faint);border-color:var(--gold)}
 .btn--nav{padding:10px 18px}
 .nav__burger{display:none;flex-direction:column;gap:5px;padding:8px;margin-left:auto}
-.nav__burger i{width:22px;height:2px;background:var(--ivory);display:block;transition:.25s}
+.nav__burger i{width:22px;height:2px;background:var(--ivory);display:block}
 .m-menu{position:fixed;inset:70px 0 auto;background:var(--navy-panel);z-index:59;padding:20px 28px 28px;
   display:none;flex-direction:column;gap:14px;border-bottom:1px solid var(--line-d)}
 .m-menu.open{display:flex}
-@media(max-width:980px){
-  .nav__links,.btn--nav{display:none}
-  .nav__burger{display:flex}
-}
+@media(max-width:980px){.nav__links,.btn--nav{display:none}.nav__burger{display:flex}}
 
-/* ---------- Hero compacto ---------- */
-.top{padding:120px 0 34px;position:relative;overflow:hidden}
+/* ---------- Cabecera ---------- */
+.top{padding:118px 0 0;position:relative}
 .top::before{content:"";position:absolute;inset:0;
-  background:radial-gradient(700px 380px at 22% 0%,rgba(212,175,55,.12),transparent 70%);pointer-events:none}
+  background:radial-gradient(760px 400px at 30% 0%,rgba(212,175,55,.11),transparent 72%);
+  pointer-events:none}
+.top h1{font-family:var(--f-disp);font-weight:600;font-size:clamp(2.2rem,5vw,3.6rem);
+  line-height:1.08;letter-spacing:-.014em;margin:16px 0 0}
+.top h1 em{font-style:italic;color:var(--gold)}
+.top p{color:rgba(247,244,236,.66);max-width:56ch;margin-top:14px;font-size:1.02rem}
 
-/* ---------- Terminal FIG ----------
-   El buscador es una línea de comando, no una lupa. Cada miembro tiene un
-   ticker, así que buscar a alguien se parece a pedir un instrumento en la
-   terminal del laboratorio: se escribe y se aprieta Enter. Además de nombres
-   entiende tickers (BSM), desks (PRT), generaciones (2025) y ALUMNI. */
-.term{margin-top:30px;border:1px solid var(--gold-dim);border-radius:14px;
-  background:linear-gradient(180deg,rgba(15,25,52,.9),rgba(6,11,28,.9));
-  box-shadow:0 24px 60px rgba(0,0,0,.34);overflow:hidden}
-.term__bar{display:flex;align-items:center;gap:10px;padding:9px 16px;
-  border-bottom:1px solid var(--line-d);background:rgba(212,175,55,.05)}
-.term__dot{width:9px;height:9px;border-radius:50%;background:var(--gold);opacity:.5;flex:none}
-.term__title{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.24em;
-  text-transform:uppercase;color:rgba(247,244,236,.5)}
-.term__count{margin-left:auto;font-family:var(--f-mono);font-size:.64rem;
-  letter-spacing:.14em;color:var(--gold);opacity:.9}
-.term__line{display:flex;align-items:center;gap:12px;padding:16px 20px}
-.term__prompt{font-family:var(--f-mono);font-size:1.06rem;color:var(--gold);flex:none;user-select:none}
+/* ---------- Terminal ----------
+   El único control de la página. No hay pestañas ni filtros: escribir es la
+   única acción, y lo que escribes decide qué se muestra. */
+.term{margin-top:26px;max-width:620px;display:flex;align-items:center;gap:13px;
+  padding:14px 20px;border:1px solid var(--gold-dim);border-radius:13px;
+  background:linear-gradient(180deg,rgba(15,25,52,.86),rgba(6,11,28,.86));
+  transition:border-color .25s,box-shadow .25s}
+.term:focus-within{border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,175,55,.09)}
+.term__p{font-family:var(--f-mono);font-size:1rem;color:var(--gold);flex:none;user-select:none}
 #q{flex:1;background:none;border:none;outline:none;font-family:var(--f-mono);
-  font-size:1.06rem;letter-spacing:.06em;color:var(--ivory);min-width:0}
-#q::placeholder{color:rgba(247,244,236,.32)}
-.term__caret{width:9px;height:1.15rem;background:var(--gold);flex:none;animation:blink 1.05s steps(1) infinite}
-@keyframes blink{50%{opacity:0}}
-.term__hint{font-family:var(--f-mono);font-size:.63rem;letter-spacing:.12em;
-  color:rgba(247,244,236,.4);flex:none;border:1px solid var(--line-d);
-  border-radius:5px;padding:3px 7px}
-@media(max-width:700px){.term__hint{display:none}}
-.term__chips{display:flex;flex-wrap:wrap;gap:7px;padding:0 20px 15px}
-.chip{font-family:var(--f-mono);font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;
-  border:1px solid var(--line-d);border-radius:999px;padding:5px 11px;
-  color:rgba(247,244,236,.62);transition:.2s var(--ease)}
-.chip:hover,.chip[aria-pressed="true"]{border-color:var(--gold);color:var(--gold);background:var(--gold-faint)}
-
-/* ---------- Conmutador de vistas ---------- */
-.views{display:flex;gap:8px;margin-top:26px;flex-wrap:wrap}
-.view-btn{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
-  border:1px solid var(--line-d);border-radius:999px;padding:10px 20px;
-  color:rgba(247,244,236,.66);transition:.22s var(--ease);display:flex;align-items:center;gap:9px}
-.view-btn b{font-weight:600}
-.view-btn small{font-family:var(--f-body);font-size:.68rem;letter-spacing:0;text-transform:none;
-  opacity:.6;display:none}
-@media(min-width:760px){.view-btn small{display:inline}}
-.view-btn:hover{border-color:var(--gold-dim);color:var(--ivory)}
-.view-btn[aria-selected="true"]{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:600}
-.view-btn[aria-selected="true"] small{opacity:.7}
-
-.panel{padding:34px 0 90px;min-height:60vh}
-.view{display:none}
-.view.on{display:block;animation:fade .38s var(--ease-out)}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-
-/* ---------- DIRECTORIO ---------- */
-.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(252px,1fr))}
-.card{position:relative;text-align:left;width:100%;display:flex;gap:14px;align-items:center;
-  padding:14px;border:1px solid var(--line-d);border-radius:13px;
-  background:linear-gradient(180deg,rgba(15,25,52,.6),rgba(10,17,40,.6));
-  transition:.24s var(--ease)}
-.card:hover{transform:translateY(-3px);border-color:var(--gold-dim);
-  box-shadow:0 16px 38px rgba(0,0,0,.34);background:rgba(21,35,80,.62)}
-.card::after{content:"";position:absolute;left:0;top:14px;bottom:14px;width:2px;
-  border-radius:2px;background:var(--ac,var(--gold));opacity:.75}
-.av{width:56px;height:56px;border-radius:50%;flex:none;object-fit:cover;
-  border:1px solid var(--gold-dim);background:var(--navy-panel)}
-.av--mono{display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);
-  font-size:.82rem;font-weight:600;letter-spacing:.04em;color:var(--ac,var(--gold));
-  border-color:var(--ac,var(--gold-dim));background:rgba(212,175,55,.07)}
-.card__b{min-width:0;flex:1}
-.card__n{font-weight:600;font-size:.97rem;line-height:1.25;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.card__r{font-size:.79rem;color:rgba(247,244,236,.6);line-height:1.35;margin-top:2px;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.card__t{font-family:var(--f-mono);font-size:.63rem;letter-spacing:.14em;
-  color:var(--ac,var(--gold));margin-top:5px;display:flex;align-items:center;gap:7px}
-.card__t i{font-style:normal;opacity:.5}
-.group{margin:0 0 32px}
-.group__h{display:flex;align-items:baseline;gap:14px;margin:0 0 14px;
-  padding-bottom:9px;border-bottom:1px solid var(--line-d)}
-.group__h h3{font-family:var(--f-disp);font-size:1.32rem;font-weight:600}
-.group__h span{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.2em;
-  text-transform:uppercase;color:rgba(247,244,236,.45);margin-left:auto}
-.empty{text-align:center;padding:70px 20px;color:rgba(247,244,236,.5)}
-.empty b{display:block;font-family:var(--f-disp);font-size:1.5rem;color:var(--ivory);margin-bottom:8px}
+  font-size:.98rem;letter-spacing:.04em;color:var(--ivory);min-width:0}
+#q::placeholder{color:rgba(247,244,236,.3)}
+#q::-webkit-search-cancel-button{display:none}
+.term__n{font-family:var(--f-mono);font-size:.63rem;letter-spacing:.14em;color:var(--gold);
+  opacity:.75;flex:none;white-space:nowrap}
 
 /* ---------- LA MESA ----------
-   Planta de una mesa de operaciones: un núcleo con la dirección y cuatro desks
-   alrededor, cada uno con sus asientos. Se navega por zoom (se anima el
-   viewBox del SVG), así que club → desk → persona es un solo gesto continuo. */
-.mesa-wrap{position:relative;border:1px solid var(--line-d);border-radius:16px;overflow:hidden;
-  background:radial-gradient(900px 520px at 50% 44%,rgba(212,175,55,.09),transparent 68%),
-             linear-gradient(180deg,rgba(15,25,52,.55),rgba(6,11,28,.75))}
-#mesa{display:block;width:100%;height:auto;touch-action:manipulation}
-.mesa-bar{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;gap:12px;
-  padding:13px 18px;background:linear-gradient(180deg,rgba(6,11,28,.82),transparent);
-  pointer-events:none;flex-wrap:wrap}
-.mesa-bar > *{pointer-events:auto}
-.crumb{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(247,244,236,.62)}
-.crumb b{color:var(--gold)}
-.mesa-back{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;
-  border:1px solid var(--line-d);border-radius:999px;padding:6px 14px;
-  color:rgba(247,244,236,.7);transition:.2s;margin-left:auto}
-.mesa-back:hover{border-color:var(--gold);color:var(--gold)}
-.mesa-back[hidden]{display:none}
-.d-plate{fill:rgba(15,25,52,.9);stroke:var(--line-d);stroke-width:1.2;transition:.28s var(--ease)}
-.desk-g{cursor:pointer}
-.desk-g:hover .d-plate{stroke:var(--gold-dim);fill:rgba(21,35,80,.92)}
-.d-code{font-family:var(--f-mono);font-size:15px;letter-spacing:.22em;font-weight:600}
-.d-name{font-family:"Playfair Display",serif;font-size:16px;fill:var(--ivory)}
-.d-meta{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.16em;fill:rgba(247,244,236,.42)}
-.seat{cursor:pointer}
-.seat circle{fill:rgba(10,17,40,.95);stroke-width:1.4;transition:.24s var(--ease)}
-.seat:hover circle{fill:rgba(212,175,55,.16)}
-.seat text{font-family:var(--f-mono);font-size:9px;font-weight:600;letter-spacing:.04em;
-  text-anchor:middle;pointer-events:none}
-.seat .s-nom{font-family:var(--f-body);font-size:8.2px;font-weight:500;letter-spacing:0;
-  fill:rgba(247,244,236,.62)}
-.wire{stroke:var(--gold);stroke-width:1;opacity:.2;fill:none}
-.core-ring{fill:none;stroke:var(--gold);stroke-width:1.1;opacity:.5}
-.core-t{font-family:"Playfair Display",serif;font-size:17px;fill:var(--ivory);text-anchor:middle}
-.core-s{font-family:var(--f-mono);font-size:8.5px;letter-spacing:.24em;fill:var(--gold);text-anchor:middle}
-.mesa-note{font-family:var(--f-mono);font-size:.63rem;letter-spacing:.13em;
-  color:rgba(247,244,236,.42);margin-top:12px;text-align:center}
+   Un asiento por directivo, agrupados en arcos por desk. Toda la geometría se
+   calcula en JS desde el número real de personas, así que la mesa se reordena
+   sola cuando el club crezca — no hay una sola coordenada escrita a mano. */
+.mesa-zona{position:relative;padding:0 0 24px;margin-top:-14px}
+.mesa-holder{position:relative;width:min(960px,96vw);margin:0 auto;
+  transition:opacity .4s var(--ease),transform .5s var(--ease),filter .4s var(--ease)}
+.mesa-holder.fuera{opacity:0;transform:scale(.9);pointer-events:none;filter:blur(3px)}
+#mesa{display:block;width:100%;height:auto;overflow:visible}
+.mesa-pie{text-align:center;font-family:var(--f-mono);font-size:.63rem;letter-spacing:.16em;
+  color:rgba(247,244,236,.36);margin-top:2px;transition:opacity .3s}
 
-/* ---------- ESTRUCTURA ----------
-   El organigrama por estratos. Se lee de arriba abajo: el núcleo (presidencia,
-   cofundadores y los líderes de cada desk), después el desk que abras con su
-   dirección y su segunda línea. Los miembros sin cargo NO se dibujan: con 200
-   personas el diagrama vuelve a ser ilegible, así que cada desk cierra con una
-   barra "+N miembros" que salta al buscador filtrado. El organigrama muestra
-   estructura; el buscador muestra personas. */
-.org{position:relative}
-.org__svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
-.org__lvl{position:relative;z-index:1;margin:0 0 8px}
-.lvl-lbl{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;
-  color:rgba(247,244,236,.34);text-align:center;padding:16px 0 12px;
-  display:flex;align-items:center;gap:14px;justify-content:center}
-.lvl-lbl::before,.lvl-lbl::after{content:"";height:1px;flex:1;max-width:120px;
-  background:linear-gradient(90deg,transparent,var(--line-d))}
-.lvl-lbl::after{background:linear-gradient(270deg,transparent,var(--line-d))}
-.row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;position:relative}
-.node{position:relative;text-align:center;width:172px;padding:14px 12px 13px;
-  border:1px solid var(--line-d);border-radius:13px;background:rgba(15,25,52,.72);
-  transition:transform .26s var(--ease),border-color .26s,box-shadow .26s,opacity .3s}
-.node:hover{transform:translateY(-4px);border-color:var(--gold-dim);
-  background:rgba(21,35,80,.8);box-shadow:0 14px 34px rgba(0,0,0,.36)}
-.node .av{margin:0 auto 9px;width:52px;height:52px}
-.node__n{font-weight:600;font-size:.88rem;line-height:1.24}
-.node__r{font-size:.72rem;color:rgba(247,244,236,.56);margin-top:3px;line-height:1.3}
-.node__t{font-family:var(--f-mono);font-size:.59rem;letter-spacing:.16em;
-  color:var(--ac,var(--gold));margin-top:7px}
-.node--top{border-color:var(--gold-dim);background:rgba(212,175,55,.08)}
-.node--lider{cursor:pointer}
-.node--lider::after{content:"▾";position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);
-  width:20px;height:20px;line-height:18px;border-radius:50%;font-size:.66rem;
-  background:var(--navy);border:1px solid var(--ac,var(--gold));color:var(--ac,var(--gold));
-  transition:transform .3s var(--ease)}
-.node--lider[aria-expanded="true"]::after{transform:translateX(-50%) rotate(180deg)}
-.node--hit{border-color:var(--gold);animation:late 1.5s var(--ease) 2}
-@keyframes late{0%,100%{box-shadow:0 0 0 0 rgba(212,175,55,.5)}50%{box-shadow:0 0 0 11px rgba(212,175,55,0)}}
-.node--demo .node__n::after{content:"FICTICIO";display:block;font-family:var(--f-mono);
-  font-size:.5rem;letter-spacing:.18em;color:var(--down);opacity:.9;margin-top:3px}
+/* Cada asiento entra girando desde el centro, escalonado: la mesa se "arma"
+   en vez de aparecer de golpe. */
+.silla{cursor:pointer;transform-box:fill-box;transform-origin:center;
+  animation:sentarse .7s var(--ease-out) backwards}
+@keyframes sentarse{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:none}}
+.silla circle.aro{fill:rgba(10,17,40,.96);stroke-width:1.6;
+  transition:stroke-width .25s,fill .25s}
+.silla:hover circle.aro,.silla:focus-visible circle.aro{stroke-width:3.4;fill:rgba(212,175,55,.13)}
+.silla:hover .tk,.silla:focus-visible .tk{fill:var(--ivory)}
+.silla .tk{font-family:var(--f-mono);font-size:13px;font-weight:600;letter-spacing:.05em;
+  text-anchor:middle;pointer-events:none;transition:fill .25s}
+.silla .nm{font-family:var(--f-body);font-size:10.5px;font-weight:500;text-anchor:middle;
+  fill:rgba(247,244,236,.62);pointer-events:none}
+.silla .cg{font-family:var(--f-mono);font-size:8px;letter-spacing:.1em;text-anchor:middle;
+  fill:rgba(247,244,236,.34);pointer-events:none}
+.silla.apagada{opacity:.15}
+.silla.marcada circle.aro{stroke-width:3.4}
+.arco{cursor:pointer}
+.arco:hover .arco-b{opacity:.42}
+.arco-b{transition:opacity .3s}
+.arco-t{font-family:var(--f-mono);font-size:12.5px;letter-spacing:.3em;font-weight:600;
+  pointer-events:none}
+.centro-t{font-family:var(--f-disp);font-size:27px;fill:var(--ivory);text-anchor:middle}
+.centro-s{font-family:var(--f-mono);font-size:8.5px;letter-spacing:.3em;fill:var(--gold);
+  text-anchor:middle}
+.mesa-linea{fill:none;stroke:var(--gold);opacity:.13}
 
-/* El desk desplegado. La altura se anima con grid-template-rows 0fr→1fr, que
-   es lo único que permite transicionar "hasta el alto que necesite" sin
-   medirlo en JS ni fijar un max-height inventado. */
-.desk-open{display:grid;grid-template-rows:0fr;transition:grid-template-rows .46s var(--ease-out),
-  opacity .34s var(--ease);opacity:0;margin-top:34px}
-.desk-open.on{grid-template-rows:1fr;opacity:1}
-.desk-open > div{overflow:hidden;min-height:0}
-.desk-hd{display:flex;align-items:center;gap:13px;justify-content:center;margin-bottom:6px;flex-wrap:wrap}
-.desk-hd b{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.26em;color:var(--ac,var(--gold))}
-.desk-hd span{font-family:var(--f-disp);font-size:1.2rem}
-.cantera{margin:26px auto 0;max-width:520px;display:flex;align-items:center;gap:14px;
-  padding:14px 20px;border:1px dashed var(--line-d);border-radius:13px;width:100%;
+/* ---------- El área abierta ----------
+   Aparece cuando el arco terminó de tapar la pantalla. El tinte del fondo
+   queda del color del desk, para saber siempre dónde estás parado. */
+.area{position:fixed;inset:0;z-index:50;overflow-y:auto;padding:88px 0 60px;
+  opacity:0;pointer-events:none;transition:opacity .34s var(--ease)}
+.area.on{opacity:1;pointer-events:auto}
+.area::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(900px 620px at 50% 0%,var(--tint,rgba(212,175,55,.16)),transparent 72%),
+             linear-gradient(180deg,var(--navy),var(--navy-deep))}
+.area__hd{text-align:center;margin-bottom:6px}
+.area__hd .cod{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.4em;color:var(--ac)}
+.area__hd h2{font-family:var(--f-disp);font-size:clamp(1.8rem,3.8vw,2.6rem);font-weight:600;margin-top:6px}
+.area__hd p{color:rgba(247,244,236,.6);max-width:58ch;margin:12px auto 0;font-size:.98rem}
+.volver{position:fixed;top:88px;left:50%;transform:translateX(-50%);z-index:52;
+  font-family:var(--f-mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;
+  border:1px solid var(--line-d);border-radius:999px;padding:9px 20px;
+  background:rgba(10,17,40,.88);backdrop-filter:blur(8px);transition:.22s var(--ease)}
+.volver:hover{border-color:var(--ac,var(--gold));color:var(--ac,var(--gold))}
+
+/* El riel del organigrama. Todos los nodos miden lo mismo y llevan la misma
+   separación, así que la horizontal puede ir de 85px a 85px de cada borde y
+   toca exacto el centro del primero y del último. Por eso no se cruza nunca
+   ninguna línea: no hay curvas de un nodo a varios, hay un riel. */
+/* El rotulo va en el flujo, no en position:absolute: antes vivia fuera del
+   contenedor con overflow y el scroll horizontal lo recortaba. El cable que
+   baja del nivel anterior pasa por detras y se interrumpe en el rotulo, que
+   es justo lo que hace legible de donde cuelga cada grupo. */
+.nivel{margin-top:30px;position:relative;padding-top:22px}
+.nivel::before{content:"";position:absolute;top:0;left:50%;width:1px;height:22px;
+  background:var(--ac,var(--gold));opacity:.3}
+.nivel--raiz::before{display:none}
+.nivel__lbl{display:block;text-align:center;margin-bottom:10px;
+  font-family:var(--f-mono);font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(247,244,236,.34)}
+.nivel__scroll{overflow-x:auto;overflow-y:hidden;padding-bottom:4px}
+.fila{display:flex;gap:18px;position:relative;padding-top:28px;
+  width:max-content;margin:0 auto}
+.fila::before{content:"";position:absolute;top:0;left:85px;right:85px;height:1px;
+  background:var(--ac,var(--gold));opacity:.3}
+.fila--uno::before,.fila--raiz::before{display:none}
+.p{width:170px;flex:none;position:relative;text-align:center;padding:16px 12px 14px;
+  border:1px solid var(--line-d);border-radius:14px;background:rgba(15,25,52,.66);
+  transition:transform .26s var(--ease),border-color .26s,box-shadow .26s;
+  animation:subir .55s var(--ease-out) backwards}
+@keyframes subir{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.p::before{content:"";position:absolute;top:-28px;left:50%;width:1px;height:28px;
+  background:var(--ac,var(--gold));opacity:.3}
+.fila--raiz .p::before{display:none}
+.p:hover{transform:translateY(-5px);border-color:var(--ac,var(--gold));
+  box-shadow:0 18px 40px rgba(0,0,0,.4)}
+.p .av{width:62px;height:62px;margin:0 auto 10px}
+.p__n{display:block;font-weight:600;font-size:.9rem;line-height:1.24}
+.p__r{display:block;font-size:.72rem;color:rgba(247,244,236,.56);margin-top:5px;line-height:1.3}
+.p__t{display:block;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.16em;color:var(--ac);margin-top:9px}
+.p--lider{width:214px;border-color:var(--ac);background:rgba(212,175,55,.06)}
+.p--lider .av{width:88px;height:88px}
+.p--lider .p__n{font-size:1.04rem}
+.p--demo .p__n::after{content:"FICTICIO";display:block;font-family:var(--f-mono);
+  font-size:.5rem;letter-spacing:.18em;color:var(--down);margin-top:4px}
+.baja{margin:38px auto 0;max-width:560px;display:flex;align-items:center;gap:16px;
+  padding:16px 22px;border:1px dashed var(--line-d);border-radius:14px;width:100%;
   background:rgba(10,17,40,.5);transition:.24s var(--ease);text-align:left}
-.cantera:hover{border-color:var(--ac,var(--gold));background:rgba(21,35,80,.6)}
-.cantera b{font-family:var(--f-disp);font-size:1.5rem;color:var(--ac,var(--gold));line-height:1}
-.cantera span{font-size:.85rem;color:rgba(247,244,236,.66);line-height:1.35}
-.cantera i{margin-left:auto;font-style:normal;color:var(--ac,var(--gold));font-size:1.1rem}
-.org-note{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.13em;
-  color:rgba(247,244,236,.4);margin-top:26px;text-align:center;line-height:1.9}
-/* Los cables. Se dibujan en SVG (no con pseudo-elementos) porque tienen que
-   curvarse desde un nodo hasta varios hijos; se recalculan con ResizeObserver,
-   que es lo que evita que se desalineen al cambiar el ancho de la ventana. */
-.cable{fill:none;stroke:var(--gold);stroke-width:1.3;opacity:.3;stroke-linecap:round}
-.cable--on{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);
-  animation:tender .62s var(--ease-out) forwards}
-@keyframes tender{to{stroke-dashoffset:0}}
-@media (prefers-reduced-motion:reduce){
-  .cable--on{animation:none;stroke-dashoffset:0}
-  .desk-open{transition:none}
-}
-@media print{
-  .nav,.m-menu,.top,.views,.term,footer,.mesa-note,.org-note,.cantera{display:none!important}
-  body{background:#fff;color:#111}
-  .node{border-color:#bbb;background:#fff;color:#111;break-inside:avoid}
-  .node__r{color:#555}
-  .lvl-lbl{color:#666}
-  .panel{padding:0}
-  .desk-open{grid-template-rows:1fr!important;opacity:1!important}
-  .cable{stroke:#999;opacity:.6}
-}
+.baja:hover{border-color:var(--ac);background:rgba(21,35,80,.6)}
+.baja b{font-family:var(--f-disp);font-size:1.7rem;color:var(--ac);line-height:1}
+.baja span{font-size:.88rem;color:rgba(247,244,236,.66);line-height:1.35}
+.baja i{margin-left:auto;font-style:normal;color:var(--ac);font-size:1.2rem}
+.vacio{text-align:center;color:rgba(247,244,236,.5);padding:50px 20px}
 
-/* Aviso de modo demostración */
-.demo-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:22px;
-  padding:12px 18px;border:1px solid rgba(224,122,95,.4);border-radius:12px;
-  background:rgba(224,122,95,.08);font-size:.86rem;color:rgba(247,244,236,.82)}
-.demo-bar b{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--down)}
-.demo-bar a{color:var(--gold);text-decoration:underline;margin-left:auto}
+/* ---------- Resultados de la terminal ---------- */
+.res{padding:0 0 80px;display:none}
+.res.on{display:block;animation:fade .34s var(--ease-out)}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.res__h{display:flex;align-items:baseline;gap:14px;margin:0 0 18px;padding-bottom:10px;
+  border-bottom:1px solid var(--line-d)}
+.res__h h3{font-family:var(--f-disp);font-size:1.3rem;font-weight:600}
+.res__h span{font-family:var(--f-mono);font-size:.63rem;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(247,244,236,.45);margin-left:auto}
+.grid{display:grid;gap:13px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{position:relative;text-align:left;width:100%;display:flex;gap:14px;align-items:center;
+  padding:13px;border:1px solid var(--line-d);border-radius:13px;
+  background:rgba(15,25,52,.6);transition:transform .24s var(--ease),border-color .24s,background .24s;
+  animation:subir .45s var(--ease-out) backwards}
+.card:hover{transform:translateY(-3px);border-color:var(--ac,var(--gold));background:rgba(21,35,80,.66)}
+.card::after{content:"";position:absolute;left:0;top:13px;bottom:13px;width:2px;
+  border-radius:2px;background:var(--ac,var(--gold));opacity:.75}
+.card__b{min-width:0;flex:1}
+.card__n{font-weight:600;font-size:.95rem;line-height:1.25;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card__r{font-size:.78rem;color:rgba(247,244,236,.58);margin-top:2px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card__t{font-family:var(--f-mono);font-size:.61rem;letter-spacing:.14em;
+  color:var(--ac,var(--gold));margin-top:5px}
+.av{border-radius:50%;flex:none;object-fit:cover;width:54px;height:54px;
+  border:1px solid var(--gold-dim);background:var(--navy-panel)}
+.av--mono{display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);
+  font-size:.8rem;font-weight:600;color:var(--ac,var(--gold));
+  border-color:var(--ac,var(--gold-dim));background:rgba(212,175,55,.07)}
 
 /* ---------- Ficha ---------- */
-.ov{position:fixed;inset:0;z-index:80;background:rgba(4,8,20,.86);backdrop-filter:blur(8px);
+.ov{position:fixed;inset:0;z-index:80;background:rgba(4,8,20,.88);backdrop-filter:blur(9px);
   display:none;align-items:flex-start;justify-content:center;padding:26px 18px;overflow-y:auto}
 .ov.on{display:flex}
 .sheet{width:min(880px,100%);background:linear-gradient(180deg,var(--navy-panel),var(--navy));
   border:1px solid var(--gold-dim);border-radius:18px;overflow:hidden;
-  box-shadow:0 40px 100px rgba(0,0,0,.6);animation:pop .34s var(--ease-out)}
+  box-shadow:0 40px 100px rgba(0,0,0,.62);animation:pop .34s var(--ease-out)}
 @keyframes pop{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
 .sheet__top{display:flex;align-items:center;gap:10px;padding:11px 16px;
   border-bottom:1px solid var(--line-d);background:rgba(212,175,55,.05)}
 .sheet__nav{margin-left:auto;display:flex;gap:6px}
 .ic{width:34px;height:34px;border:1px solid var(--line-d);border-radius:9px;
-  display:flex;align-items:center;justify-content:center;font-size:1rem;transition:.2s}
+  display:flex;align-items:center;justify-content:center;transition:.2s}
 .ic:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-faint)}
 .sheet__hd{display:flex;gap:22px;padding:26px;align-items:flex-start;flex-wrap:wrap}
-.sheet__hd .av{width:104px;height:104px;font-size:1.34rem}
+.sheet__hd .av{width:104px;height:104px;font-size:1.3rem}
 .sheet__id{min-width:200px;flex:1}
 .sheet__id h2{font-family:var(--f-disp);font-size:clamp(1.6rem,3.4vw,2.15rem);
   font-weight:600;line-height:1.12}
@@ -346,7 +278,7 @@ button{cursor:pointer;border:none;background:none}
 .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
 .sheet__acts{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
 .sec{padding:0 26px 24px}
-.sec h3{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;
+.sec h3{font-family:var(--f-mono);font-size:.65rem;letter-spacing:.24em;text-transform:uppercase;
   color:var(--gold);margin-bottom:11px;padding-top:20px;border-top:1px solid var(--line-d)}
 .sec p{color:rgba(247,244,236,.78)}
 .hits{list-style:none;display:flex;flex-direction:column;gap:8px}
@@ -356,7 +288,7 @@ button{cursor:pointer;border:none;background:none}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:10px}
 .stat{border:1px solid var(--line-d);border-radius:11px;padding:12px 14px;background:rgba(10,17,40,.5)}
 .stat b{display:block;font-family:var(--f-disp);font-size:1.5rem;line-height:1;color:var(--gold)}
-.stat span{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
+.stat span{font-family:var(--f-mono);font-size:.57rem;letter-spacing:.16em;text-transform:uppercase;
   color:rgba(247,244,236,.48);display:block;margin-top:6px}
 .spark{margin-top:13px;border:1px solid var(--line-d);border-radius:11px;padding:12px;
   background:rgba(10,17,40,.5)}
@@ -364,22 +296,30 @@ button{cursor:pointer;border:none;background:none}
 .extras{list-style:none;display:flex;flex-direction:column;gap:9px}
 .extras li{border-left:2px solid var(--gold-dim);padding:2px 0 2px 14px;
   color:rgba(247,244,236,.8);font-size:.93rem}
-.miss{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.1em;
+.miss{font-family:var(--f-mono);font-size:.65rem;letter-spacing:.1em;
   color:rgba(247,244,236,.4);line-height:1.7}
+
+/* ---------- Aviso de demostración ---------- */
+.demo-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px;max-width:620px;
+  padding:10px 16px;border:1px solid rgba(224,122,95,.36);border-radius:11px;
+  background:rgba(224,122,95,.07);font-size:.82rem;color:rgba(247,244,236,.78)}
+.demo-bar b{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--down)}
+.demo-bar a{color:var(--gold);text-decoration:underline;margin-left:auto}
 
 /* ---------- Footer ---------- */
 footer{background:var(--navy-deep);border-top:1px solid var(--line-d);padding:56px 0 26px}
 .f-grid{display:grid;gap:34px;grid-template-columns:1.6fr repeat(3,1fr)}
 @media(max-width:900px){.f-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.f-grid{grid-template-columns:1fr}}
-.f-col h4{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;
+.f-col h4{font-family:var(--f-mono);font-size:.65rem;letter-spacing:.24em;text-transform:uppercase;
   color:var(--gold);margin-bottom:13px}
 .f-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
 .f-col a{font-size:.9rem;color:rgba(247,244,236,.68);transition:color .2s}
 .f-col a:hover{color:var(--gold)}
 .f-bottom{margin-top:38px;padding-top:19px;border-top:1px solid var(--line-d);
   display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
-  font-family:var(--f-mono);font-size:.66rem;letter-spacing:.1em;color:rgba(247,244,236,.42)}
+  font-family:var(--f-mono);font-size:.65rem;letter-spacing:.1em;color:rgba(247,244,236,.42)}
 .f-bottom a{color:var(--gold);opacity:.85}
 </style>
 </head>
@@ -407,73 +347,47 @@ footer{background:var(--navy-deep);border-top:1px solid var(--line-d);padding:56
   <a href="../eventos/index.html">Eventos</a>
   <a href="../valuation/index.html">Valuation</a>
   <a href="../torneo/index.html">Torneo</a>
-  <!-- FIW_TEMP_OCULTO <a href="../fiw/index.html">FIG Woman</a> -->
   <a href="../postula/index.html">Postula</a>
 </div>
 
 <header class="top">
   <div class="wrap">
     <div class="kicker">Miembros · FIG</div>
-    <h1 class="h-sec">La mesa <em>completa.</em></h1>
-    <p class="lead" style="margin-top:16px">
-      Cada persona de FIG tiene un ticker de tres letras, como un instrumento en pantalla.
-      Escribe un nombre, un ticker, un desk o una generación — o recorre la mesa y entra por el asiento.
-    </p>
-
-    <!-- Terminal FIG: el buscador como línea de comando -->
-    <div class="term" id="term">
-      <div class="term__bar">
-        <span class="term__dot"></span>
-        <span class="term__title">FIG Terminal · Búsqueda de miembros</span>
-        <span class="term__count" id="qCount">—</span>
-      </div>
-      <label class="sr" for="q">Buscar un miembro por nombre, ticker, desk o generación</label>
-      <div class="term__line">
-        <span class="term__prompt" aria-hidden="true">&gt;</span>
-        <input id="q" type="search" autocomplete="off" spellcheck="false"
-               placeholder="nombre, ticker (BSM), desk (PRT), generación (2025)…">
-        <span class="term__caret" id="caret" aria-hidden="true"></span>
-        <span class="term__hint"><b>/</b> para buscar · <b>↑↓</b> recorrer · <b>Enter</b> abrir</span>
-      </div>
-      <div class="term__chips" id="chips"></div>
-    </div>
-
-    <div class="views" role="tablist" aria-label="Cómo ver a los miembros">
-      <button class="view-btn" role="tab" data-view="mesa" aria-selected="true">
-        <b>Mesa</b><small>el mapa de los desks</small></button>
-      <button class="view-btn" role="tab" data-view="arbol" aria-selected="false">
-        <b>Estructura</b><small>quién dirige qué</small></button>
-      <button class="view-btn" role="tab" data-view="dir" aria-selected="false">
-        <b>Directorio</b><small>la lista completa</small></button>
+    <h1>La mesa <em>de FIG.</em></h1>
+    <p>La directiva sentada por desk. Toca un asiento para abrir su ficha o un desk
+       para entrar en él — y escribe para encontrar a cualquiera del club.</p>
+    <label class="sr" for="q">Buscar por nombre, ticker, desk o generación</label>
+    <div class="term">
+      <span class="term__p" aria-hidden="true">&gt;</span>
+      <input id="q" type="search" autocomplete="off" spellcheck="false"
+             placeholder="nombre, ticker, PRT, 2025…">
+      <span class="term__n" id="qn"></span>
     </div>
     <div class="demo-bar" id="demoBar" hidden>
-      <b>Modo demostración</b>
-      <span>Estás viendo cargos <strong>supuestos</strong> y personas que <strong>no existen</strong>,
-      para dimensionar el diseño con el club lleno. Nada de esto es oficial.</span>
-      <a href="./">Ver los datos reales →</a>
+      <b>Demostración</b>
+      <span>Cargos supuestos y personas que no existen, para ver el diseño con el club lleno.</span>
+      <a href="./">Datos reales →</a>
     </div>
   </div>
 </header>
 
-<main class="panel">
+<main>
+  <section class="mesa-zona">
+    <div class="mesa-holder" id="holder">
+      <svg id="mesa" viewBox="0 0 1000 1000" role="img"
+           aria-label="Mesa de FIG: la directiva sentada por desk"></svg>
+    </div>
+    <p class="mesa-pie" id="pie">Toca un desk para entrar · toca un asiento para su ficha</p>
+  </section>
   <div class="wrap">
-    <section class="view on" id="vMesa" role="tabpanel" aria-label="La mesa">
-      <div class="mesa-wrap">
-        <div class="mesa-bar">
-          <span class="crumb" id="crumb"><b>FIG</b> · la mesa completa</span>
-          <button class="mesa-back" id="mesaBack" hidden>← Volver a la mesa</button>
-        </div>
-        <svg id="mesa" viewBox="0 0 1000 640" role="img"
-             aria-label="Planta de la mesa de operaciones de FIG con sus cuatro desks"></svg>
-      </div>
-      <p class="mesa-note">Toca un desk para entrar · toca un asiento para abrir la ficha</p>
-    </section>
-
-    <section class="view" id="vArbol" role="tabpanel" aria-label="Estructura"></section>
-
-    <section class="view" id="vDir" role="tabpanel" aria-label="Directorio"></section>
+    <section class="res" id="res" aria-live="polite"></section>
   </div>
 </main>
+
+<section class="area" id="area" aria-hidden="true">
+  <button class="volver" id="volver">← Volver a la mesa</button>
+  <div class="wrap" id="areaBody"></div>
+</section>
 
 <div class="ov" id="ov" role="dialog" aria-modal="true" aria-labelledby="ovName">
   <div class="sheet" id="sheet"></div>
@@ -539,10 +453,9 @@ var esc=function(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){
 var RM=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
 
 var DATA={miembros:[],config:{areas:[]}}, TORNEO=null, LISTA=[], FILTRO=[], SEL=-1;
-var AC={PRT:"var(--a-prt)",TRD:"var(--a-trd)",VAL:"var(--a-val)",FIW:"var(--a-fiw)"};
-var AREA={};
+var AC={PRT:"#D4AF37",TRD:"#5FC08B",VAL:"#7BA7DE",FIW:"#E0A3A3"};
+var AREA={}, ABIERTA=null;
 
-/* --- nav móvil --- */
 var burger=$("#burger"),mmenu=$("#mmenu");
 if(burger)burger.addEventListener("click",function(){
   var o=mmenu.classList.toggle("open");
@@ -550,30 +463,23 @@ if(burger)burger.addEventListener("click",function(){
 });
 
 /* ============================ DATOS ============================
-   Con ?demo=1 se carga datos/miembros.demo.json: un archivo APARTE que mezcla
-   personas reales con cargos supuestos y personas que NO existen, para ver el
-   organigrama lleno antes de que la base esté cargada. Nunca se mezclan los dos
-   archivos: lo inventado no puede terminar publicado como si fuera real. */
+   Con ?demo=1 se carga datos/miembros.demo.json: un archivo APARTE con cargos
+   supuestos y personas que no existen, para ver el diseño con el club lleno.
+   Nunca se mezcla con el real: lo inventado no puede terminar publicado. */
 var DEMO=/[?&]demo=1/.test(location.search);
 fetch("../datos/miembros"+(DEMO?".demo":"")+".json",{cache:"no-cache"})
-  .then(function(r){if(!r.ok)throw new Error("no hay miembros.json");return r.json()})
+  .then(function(r){if(!r.ok)throw new Error("falta miembros.json");return r.json()})
   .then(function(d){
     DATA=d; LISTA=d.miembros||[];
     (d.config&&d.config.areas||[]).forEach(function(a){AREA[a.codigo]=a});
     if(d.demo)$("#demoBar").hidden=false;
     arrancar();
   })
-  .catch(function(){
-    $("#vDir").innerHTML='<div class="empty"><b>La base de miembros aún no está publicada.</b>'
-      +'Cuando exista <code>datos/miembros.json</code> esta página se llena sola.</div>';
-    $("#qCount").textContent="0";
-  });
+  .catch(function(){$("#pie").textContent="La base de miembros aún no está publicada."});
 
 function arrancar(){
-  chips(); pintarDir(); pintarArbol(); pintarMesa();
-  FILTRO=LISTA.slice(); aplicar("");
-  /* Enlace directo a una ficha: miembros/#BSM. Es el link que cada persona
-     comparte, así que tiene que funcionar en frío, sin haber tocado nada. */
+  FILTRO=LISTA.slice();
+  dibujarMesa();
   var h=(location.hash||"").replace("#","").toUpperCase();
   if(h){var m=porTicker(h); if(m)abrir(m.id)}
   window.addEventListener("hashchange",function(){
@@ -590,68 +496,327 @@ function porId(id){
   for(var i=0;i<LISTA.length;i++)if(LISTA[i].id===id)return LISTA[i];
   return null;
 }
-function ac(m){return AC[m.area]||"var(--gold)"}
-function nomArea(c){return (AREA[c]&&AREA[c].nombre)||c||"Sin desk"}
+function ac(m){return AC[m.area]||"#D4AF37"}
+function nomArea(c){return (AREA[c]&&AREA[c].nombre)||c||""}
+function nivel(m){return m.nivel==null?3:m.nivel}
+/* "Benjamín S." no sirve si hay dos: en la directiva conviven Benjamín Sáez y
+   Benjamín Solís. Se abrevia solo mientras la abreviatura sea única dentro de
+   la lista; si choca, se escribe el apellido completo. */
+var NOM_CORTO=null;
+function calcularNombresCortos(){
+  NOM_CORTO={};
+  var breve={};
+  LISTA.forEach(function(m){
+    var p=String(m.nombre||"").split(/\s+/);
+    var b=p.length>1?p[0]+" "+p[1].charAt(0)+".":p[0];
+    (breve[b]=breve[b]||[]).push(m);
+  });
+  Object.keys(breve).forEach(function(b){
+    breve[b].forEach(function(m){
+      var p=String(m.nombre||"").split(/\s+/);
+      NOM_CORTO[m.id]= breve[b].length===1 ? b
+        : (p.length>1 ? p[0]+" "+p[1] : p[0]);
+    });
+  });
+}
+function nomCorto(m){
+  if(!NOM_CORTO)calcularNombresCortos();
+  return NOM_CORTO[m.id]||m.nombre;
+}
+function cargoCorto(r){
+  /* "Director Técnico · Portafolio" -> "Director Técnico": en la mesa el desk
+     ya se sabe por el arco donde la persona está sentada. */
+  return String(r||"").split("·")[0].trim();
+}
+function norm(s){
+  return String(s==null?"":s).normalize("NFD")
+    .replace(/[̀-ͯ]/g,"").toLowerCase().trim();
+}
 
-/* Foto: se prueba sola, primero en fotos/miembros/ y luego en fotos/directiva/,
-   así que a un directivo no hay que copiarle la foto dos veces. Si ninguna
-   existe queda el monograma con su ticker, que ya está pintado. */
-function probeFoto(m,el){
-  var rutas=[],exts=["jpg","jpeg","png","webp"],dirs=["miembros","directiva"];
-  if(m.muestra&&m.muestra.indexOf("foto")<0)return;
-  dirs.forEach(function(d){exts.forEach(function(e){rutas.push("../fotos/"+d+"/"+m.id+"."+e)})});
+/* Foto: se prueba sola, primero fotos/miembros/ y luego fotos/directiva/, así
+   que a un directivo no hay que copiarle la foto dos veces. Sin foto queda el
+   monograma con su ticker, que ya está pintado debajo. */
+function rutasFoto(m){
+  if(m.muestra&&m.muestra.indexOf("foto")<0)return [];
+  var out=[];
+  ["miembros","directiva"].forEach(function(d){
+    ["jpg","jpeg","png","webp"].forEach(function(e){out.push("../fotos/"+d+"/"+m.id+"."+e)});
+  });
+  return out;
+}
+/* Se cachea el resultado por persona: cada sondeo prueba hasta 8 rutas en
+   serie, y sin caché eso se repetía en la mesa, en la ficha y otra vez al
+   entrar a un desk — con 60 personas son cientos de peticiones 404. */
+var FOTOS={};
+function probeFoto(m,cb){
+  if(FOTOS.hasOwnProperty(m.id)){cb(FOTOS[m.id]);return}
+  var rutas=rutasFoto(m);
   (function probar(i){
-    if(i>=rutas.length)return;
+    if(i>=rutas.length){FOTOS[m.id]=null;cb(null);return}
     var img=new Image();
-    img.onload=function(){
-      if(!el.isConnected)return;
-      el.outerHTML='<img class="av" src="'+rutas[i]+'" alt="'+esc(m.nombre)+'" loading="lazy">';
-    };
+    img.onload=function(){FOTOS[m.id]=rutas[i];cb(rutas[i])};
     img.onerror=function(){probar(i+1)};
     img.src=rutas[i];
   })(0);
 }
-function avatar(m,cls){
-  return '<span class="av av--mono '+(cls||"")+'" data-av="'+esc(m.id)+'" '
-    +'style="--ac:'+ac(m)+'" aria-hidden="true">'+esc(m.ticker||"")+'</span>';
+function avatar(m){
+  return '<span class="av av--mono" data-av="'+esc(m.id)+'" style="--ac:'+ac(m)
+    +'" aria-hidden="true">'+esc(m.ticker||"")+'</span>';
 }
 function montarAvatares(raiz){
   $$("[data-av]",raiz).forEach(function(el){
-    var m=porId(el.getAttribute("data-av")); if(m)probeFoto(m,el);
-  });
-}
-
-/* ============================ TERMINAL ============================
-   Además de nombres entiende tickers, códigos de desk, generaciones y
-   ALUMNI. El calce es tolerante a tildes porque nadie escribe "Avilán"
-   con tilde cuando va apurado. */
-function norm(s){
-  return String(s==null?"":s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim();
-}
-function chips(){
-  var c=[{t:"TODOS",q:""}];
-  (DATA.config.areas||[]).forEach(function(a){
-    if(LISTA.some(function(m){return m.area===a.codigo}))c.push({t:a.codigo,q:a.codigo});
-  });
-  var gens={};LISTA.forEach(function(m){if(m.generacion)gens[m.generacion]=1});
-  Object.keys(gens).sort().forEach(function(g){c.push({t:g,q:g})});
-  if(LISTA.some(function(m){return m.estado==="alumni"}))c.push({t:"ALUMNI",q:"ALUMNI"});
-  $("#chips").innerHTML=c.map(function(x){
-    return '<button class="chip" data-q="'+esc(x.q)+'" aria-pressed="false">'+esc(x.t)+'</button>';
-  }).join("");
-  $$("#chips .chip").forEach(function(b){
-    b.addEventListener("click",function(){
-      $("#q").value=b.getAttribute("data-q"); aplicar(b.getAttribute("data-q")); $("#q").focus();
+    var m=porId(el.getAttribute("data-av")); if(!m)return;
+    probeFoto(m,function(src){
+      if(src&&el.isConnected)
+        el.outerHTML='<img class="av" src="'+src+'" alt="'+esc(m.nombre)+'" loading="lazy">';
     });
   });
 }
+
+/* ============================ LA MESA ============================
+   Geometría: un anillo de asientos alrededor de un disco central. Los arcos se
+   reparten los 360° en proporción a cuánta gente tiene cada desk, con una
+   separación fija entre ellos. */
+/* Los radios están encadenados a propósito: el anillo de desks arranca DESPUÉS
+   del nombre y del rótulo que cuelgan de cada asiento. Si se toca R_SILLA hay
+   que recalcular R_ARCO, o el texto se mete dentro del arco — que es
+   exactamente lo que pasaba antes. */
+var CX=500, CY=500, R_SILLA=340, R_MESA=192, GAP=11;
+var R_LIDER=41, R_SILLA_R=33, ALTO_TEXTO=32;                 /* nombre + "DIRIGE" bajo el asiento */
+var R_ARCO=478, GROSOR_ARCO=34;                /* borde interno: 444 */
+function pol(r,g){var a=(g-90)*Math.PI/180;return {x:CX+r*Math.cos(a), y:CY+r*Math.sin(a)}}
+function arcoPath(r0,r1,g0,g1){
+  var a=pol(r1,g0), b=pol(r1,g1), c=pol(r0,g1), d=pol(r0,g0);
+  var grande=(g1-g0)>180?1:0;
+  return "M"+a.x.toFixed(1)+" "+a.y.toFixed(1)
+    +"A"+r1.toFixed(1)+" "+r1.toFixed(1)+" 0 "+grande+" 1 "+b.x.toFixed(1)+" "+b.y.toFixed(1)
+    +"L"+c.x.toFixed(1)+" "+c.y.toFixed(1)
+    +"A"+r0.toFixed(1)+" "+r0.toFixed(1)+" 0 "+grande+" 0 "+d.x.toFixed(1)+" "+d.y.toFixed(1)+"Z";
+}
+/* Quiénes se sientan: solo quien tiene cargo de dirección (niveles 0 y 1). Los
+   miembros sin cargo no van a la mesa a propósito — con 200 personas el
+   círculo sería una nube de puntos. A ellos se llega escribiendo. */
+function sentados(codigo){
+  return LISTA.filter(function(m){return m.area===codigo&&nivel(m)<=1})
+    .sort(function(a,b){return nivel(a)-nivel(b)||a.nombre.localeCompare(b.nombre)});
+}
+function cabecera(){
+  return LISTA.filter(function(m){return !m.area&&nivel(m)===0})
+    .concat(LISTA.filter(function(m){return m.area&&nivel(m)===0&&!m.lidera}))
+    .sort(function(a,b){
+      var o={Presidente:0,Vicepresidente:1};
+      return (o[a.rol]==null?2:o[a.rol])-(o[b.rol]==null?2:o[b.rol]);
+    });
+}
+function codigos(){
+  return (DATA.config.areas||[]).map(function(a){return a.codigo})
+    .filter(function(c){return sentados(c).length});
+}
+function geometria(){
+  var cs=codigos(), total=0, cuenta={};
+  cs.forEach(function(c){cuenta[c]=sentados(c).length; total+=cuenta[c]});
+  if(!total)return [];
+  var libre=360-GAP*cs.length, g=-90+GAP/2, out=[];
+  cs.forEach(function(c){
+    var ancho=libre*cuenta[c]/total;
+    out.push({codigo:c, g0:g, g1:g+ancho, medio:g+ancho/2});
+    g+=ancho+GAP;
+  });
+  return out;
+}
+function sillaSVG(m,x,y,r,col,retraso,etiqueta,apaga,marca){
+  var fs=r>=34?13:(r>=28?12:11);
+  return '<g class="silla'+(apaga?" apagada":"")+(marca?" marcada":"")+'" '
+    +'data-open="'+esc(m.id)+'" data-id="'+esc(m.id)+'" tabindex="0" role="button" '
+    +'style="animation-delay:'+retraso+'ms" '
+    +'aria-label="'+esc(m.nombre)+', '+esc(m.rolCompleto||m.rol)+'">'
+    +'<circle class="aro" cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r+'" stroke="'+col+'"/>'
+    +'<clipPath id="cp'+esc(m.id)+'"><circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+(r-3)+'"/></clipPath>'
+    +'<image data-foto="'+esc(m.id)+'" clip-path="url(#cp'+esc(m.id)+')" '
+    +'x="'+(x-r+3).toFixed(1)+'" y="'+(y-r+3).toFixed(1)+'" '
+    +'width="'+((r-3)*2)+'" height="'+((r-3)*2)+'" '
+    +'preserveAspectRatio="xMidYMid slice" href=""/>'
+    +'<text class="tk" x="'+x.toFixed(1)+'" y="'+(y+fs*0.35).toFixed(1)+'" fill="'+col
+    +'" style="font-size:'+fs+'px">'+esc(m.ticker)+'</text>'
+    +'<text class="nm" x="'+x.toFixed(1)+'" y="'+(y+r+16).toFixed(1)+'">'+esc(nomCorto(m))+'</text>'
+    +(etiqueta?'<text class="cg" x="'+x.toFixed(1)+'" y="'+(y+r+28).toFixed(1)+'">'+esc(etiqueta)+'</text>':"")
+    +'</g>';
+}
+function dibujarMesa(){
+  var svg=$("#mesa"); if(!svg)return;
+  var geo=geometria();
+  var vis={}; FILTRO.forEach(function(m){vis[m.id]=1});
+  var filtrando=FILTRO.length<LISTA.length;
+  var s='<defs><radialGradient id="gMesa" cx="50%" cy="50%">'
+    +'<stop offset="52%" stop-color="#0F1934" stop-opacity=".92"/>'
+    +'<stop offset="100%" stop-color="#152350" stop-opacity=".55"/></radialGradient>'
+    +'<radialGradient id="gGlow" cx="50%" cy="50%">'
+    +'<stop offset="0%" stop-color="#D4AF37" stop-opacity=".15"/>'
+    +'<stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/></radialGradient></defs>'
+    +'<circle cx="500" cy="500" r="500" fill="url(#gGlow)"/>'
+    +'<circle class="mesa-linea" cx="500" cy="500" r="'+R_SILLA+'" stroke-width="1"/>'
+    +'<circle cx="500" cy="500" r="'+R_MESA+'" fill="url(#gMesa)" '
+    +'stroke="rgba(212,175,55,.22)" stroke-width="1.2"/>'
+    +'<circle class="mesa-linea" cx="500" cy="500" r="'+(R_MESA-15)+'" stroke-width=".8"/>';
+
+  /* Los arcos: la "madera" de la mesa. Cada uno es un desk. */
+  geo.forEach(function(a){
+    var col=AC[a.codigo]||"#D4AF37";
+    s+='<g class="arco" data-area="'+a.codigo+'" tabindex="0" role="button" '
+      +'aria-label="Entrar al desk '+esc(nomArea(a.codigo))+'">'
+      +'<path class="arco-b" d="'+arcoPath(R_ARCO-GROSOR_ARCO,R_ARCO,a.g0,a.g1)+'" fill="'+col+'" opacity=".18"/>'
+      +'<path d="'+arcoPath(R_ARCO-GROSOR_ARCO,R_ARCO,a.g0,a.g1)+'" fill="none" stroke="'+col
+      +'" stroke-opacity=".45" stroke-width="1"/>';
+    /* La etiqueta sigue la curva del arco. En la mitad de abajo se invierte el
+       sentido del camino, si no el texto sale de cabeza. */
+    var abajo=a.medio>90&&a.medio<270, r=R_ARCO-GROSOR_ARCO/2;
+    var p0=abajo?a.g1:a.g0, p1=abajo?a.g0:a.g1;
+    var A=pol(r,p0), B=pol(r,p1);
+    s+='<path id="lbl'+a.codigo+'" fill="none" d="M'+A.x.toFixed(1)+' '+A.y.toFixed(1)
+      +'A'+r+' '+r+' 0 0 '+(abajo?0:1)+' '+B.x.toFixed(1)+' '+B.y.toFixed(1)+'"/>'
+      +'<text class="arco-t" fill="'+col+'"><textPath href="#lbl'+a.codigo+'" '
+      +'startOffset="50%" text-anchor="middle">'
+      +esc(a.codigo+" · "+nomArea(a.codigo).toUpperCase())+'</textPath></text></g>';
+  });
+
+  /* Los asientos del anillo, uno por directivo. */
+  var n=0;
+  geo.forEach(function(a){
+    var gente=sentados(a.codigo), col=AC[a.codigo]||"#D4AF37";
+    var paso=(a.g1-a.g0)/(gente.length+1);
+    gente.forEach(function(m,i){
+      var p=pol(R_SILLA,a.g0+paso*(i+1));
+      s+=sillaSVG(m,p.x,p.y,m.lidera?R_LIDER:R_SILLA_R,col,n*45,
+                  m.lidera?"DIRIGE":"",filtrando&&!vis[m.id],filtrando&&vis[m.id]);
+      n++;
+    });
+  });
+
+  /* La cabecera va DENTRO de la mesa: la presidencia y los cofundadores no
+     pertenecen a un desk, presiden el conjunto. El toro de la marca queda de
+     fondo, tenue, para que el centro no sea un hueco. */
+  var cab=cabecera();
+  s+='<image href="../logos/fig-oro.png" x="425" y="378" width="150" height="150" '
+    +'opacity=".07" preserveAspectRatio="xMidYMid meet"/>'
+    +'<text class="centro-s" x="500" y="'+(cab.length?452:496)+'">'
+    +(cab.length?"PRESIDENCIA":"FEN INVESTMENT GROUP")+'</text>';
+  if(!cab.length)s+='<text class="centro-t" x="500" y="532">FIG</text>';
+  var anchoCab=Math.min(cab.length,4);
+  cab.slice(0,4).forEach(function(m,i){
+    var x=500+(i-(anchoCab-1)/2)*88, y=516;
+    s+=sillaSVG(m,x,y,32,"#D4AF37",n*45,
+                cargoCorto(m.rolCompleto||m.rol).toUpperCase(),
+                filtrando&&!vis[m.id],filtrando&&vis[m.id]);
+    n++;
+  });
+  svg.innerHTML=s;
+  /* Las fotos se cargan después de pintar: si no existen, el asiento se queda
+     con su monograma y no pasa nada. */
+  $$("[data-foto]",svg).forEach(function(el){
+    var m=porId(el.getAttribute("data-foto")); if(!m)return;
+    probeFoto(m,function(src){
+      if(!src||!el.isConnected)return;
+      el.setAttribute("href",src);
+      /* El ticker era el relleno mientras no hubiera foto. Con retrato encima
+         estorba: queda sobre la cara y no se lee ni él ni ella. */
+      var tk=el.parentNode&&el.parentNode.querySelector(".tk");
+      if(tk)tk.setAttribute("opacity","0");
+    });
+  });
+}
+
+/* ---------- Entrar a un desk: el arco devora la pantalla ----------
+   El arco elegido se abre hasta los 360° mientras su radio exterior crece
+   fuera del lienzo: deja de ser un arco y se vuelve el fondo. Cuando terminó
+   de tapar todo, aparece la estructura del área. */
+function entrar(codigo){
+  if(ABIERTA)return;
+  var geo=geometria(), a=null;
+  geo.forEach(function(x){if(x.codigo===codigo)a=x});
+  if(!a)return;
+  ABIERTA=codigo;
+  var col=AC[codigo]||"#D4AF37", svg=$("#mesa");
+  var capa=document.createElementNS("http://www.w3.org/2000/svg","path");
+  capa.setAttribute("fill",col);
+  svg.appendChild(capa);
+  $("#holder").classList.add("fuera");
+  $("#pie").style.opacity="0";
+
+  var t0=null, dur=RM?1:600;
+  requestAnimationFrame(function paso(t){
+    if(t0===null)t0=t;
+    var p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
+    var g0=a.g0+(-269-a.g0)*e, g1=a.g1+(89-a.g1)*e;
+    var r0=(R_ARCO-GROSOR_ARCO)*(1-e), r1=R_ARCO+(2600-R_ARCO)*e;
+    capa.setAttribute("d",arcoPath(Math.max(0,r0),r1,g0,g1));
+    capa.setAttribute("opacity",(0.18+0.5*e).toFixed(3));
+    if(p<1)requestAnimationFrame(paso); else mostrarArea(codigo,capa);
+  });
+}
+function mostrarArea(codigo,capa){
+  var a=AREA[codigo]||{codigo:codigo,nombre:codigo}, col=AC[codigo]||"#D4AF37";
+  var lider=LISTA.filter(function(m){return m.lidera===codigo})[0];
+  var dir=LISTA.filter(function(m){return m.area===codigo&&nivel(m)===1});
+  var seg=LISTA.filter(function(m){return m.area===codigo&&nivel(m)===2});
+  var base=LISTA.filter(function(m){return m.area===codigo&&nivel(m)>=3});
+
+  var h='<div class="area__hd"><div class="cod">'+esc(codigo)+'</div>'
+    +'<h2>'+esc(a.nombre)+'</h2>'+(a.resumen?'<p>'+esc(a.resumen)+'</p>':"")+'</div>';
+  if(lider)h+='<div class="nivel nivel--raiz"><span class="nivel__lbl">Dirige el desk</span>'
+    +'<div class="nivel__scroll"><div class="fila fila--raiz fila--uno">'
+    +persona(lider,"p--lider",0)+'</div></div></div>';
+  if(dir.length)h+='<div class="nivel"><span class="nivel__lbl">Dirección</span>'
+    +'<div class="nivel__scroll"><div class="fila'+(dir.length===1?" fila--uno":"")+'">'
+    +dir.map(function(m,i){return persona(m,"",i+1)}).join("")+'</div></div></div>';
+  if(seg.length)h+='<div class="nivel"><span class="nivel__lbl">Segunda línea</span>'
+    +'<div class="nivel__scroll"><div class="fila'+(seg.length===1?" fila--uno":"")+'">'
+    +seg.map(function(m,i){return persona(m,"",dir.length+i+1)}).join("")+'</div></div></div>';
+  if(!lider&&!dir.length&&!seg.length)
+    h+='<p class="vacio">Este desk todavía no tiene cargos cargados en la planilla.</p>';
+  if(base.length)h+='<button class="baja" data-baja="'+esc(codigo)+'">'
+    +'<b>+'+base.length+'</b><span>'+(base.length===1?"miembro":"miembros")
+    +' de '+esc(a.nombre)+' sin cargo.<br>'
+    +'Búscalos en la terminal →</span><i>→</i></button>';
+
+  var zona=$("#area");
+  zona.style.setProperty("--ac",col);
+  zona.style.setProperty("--tint",col+"3A");
+  $("#areaBody").innerHTML=h;
+  montarAvatares($("#areaBody"));
+  zona.classList.add("on");
+  zona.setAttribute("aria-hidden","false");
+  document.body.style.overflow="hidden";
+  $("#volver").focus();
+  if(capa)setTimeout(function(){if(capa.parentNode)capa.parentNode.removeChild(capa)},420);
+}
+function persona(m,cls,i){
+  return '<button class="p '+(cls||"")+(m.demo?" p--demo":"")+'" data-open="'+esc(m.id)+'" '
+    +'style="animation-delay:'+(140+i*70)+'ms">'+avatar(m)
+    +'<span class="p__n">'+esc(m.nombre)+'</span>'
+    +'<span class="p__r">'+esc(cargoCorto(m.rolCompleto||m.rol))+'</span>'
+    +'<span class="p__t">'+esc(m.ticker)+'</span></button>';
+}
+function salir(){
+  if(!ABIERTA)return;
+  ABIERTA=null;
+  var zona=$("#area");
+  zona.classList.remove("on");
+  zona.setAttribute("aria-hidden","true");
+  document.body.style.overflow="";
+  $("#holder").classList.remove("fuera");
+  $("#pie").style.opacity="";
+}
+$("#volver").addEventListener("click",salir);
+
+/* ============================ TERMINAL ============================
+   Entiende nombres, tickers, códigos de desk, generaciones y ALUMNI. Ignora
+   tildes porque nadie escribe "Avilán" con tilde cuando va apurado. */
 function coincide(m,q){
   if(!q)return true;
   var n=norm(q);
   if(m.area&&norm(m.area)===n)return true;
   if(String(m.generacion||"")===q.trim())return true;
   if(n==="alumni")return m.estado==="alumni";
-  if(n==="activo"||n==="activos")return m.estado==="activo";
   return norm(m.nombre).indexOf(n)>-1
       || norm(m.ticker).indexOf(n)>-1
       || norm(m.rolCompleto||m.rol).indexOf(n)>-1
@@ -660,539 +825,78 @@ function coincide(m,q){
 function aplicar(q){
   FILTRO=LISTA.filter(function(m){return coincide(m,q)});
   SEL=-1;
-  $("#qCount").textContent=FILTRO.length+" DE "+LISTA.length;
-  $$("#chips .chip").forEach(function(b){
-    b.setAttribute("aria-pressed", norm(b.getAttribute("data-q"))===norm(q)?"true":"false");
-  });
-  pintarDir(); pintarMesa(); pintarArbol();
+  $("#qn").textContent=q?FILTRO.length+" DE "+LISTA.length:"";
+  dibujarMesa();
+  pintarRes(q);
+}
+function pintarRes(q){
+  var c=$("#res");
+  if(!q){c.className="res";c.innerHTML="";return}
+  c.className="res on";
+  if(!FILTRO.length){
+    c.innerHTML='<div class="vacio">Nadie calza con <strong>'+esc(q)+'</strong>. '
+      +'Prueba con un apellido, un ticker o un desk.</div>';
+    return;
+  }
+  c.innerHTML='<div class="res__h"><h3>'+FILTRO.length
+    +(FILTRO.length===1?" persona":" personas")+'</h3><span>Enter abre el primero</span></div>'
+    +'<div class="grid">'+FILTRO.map(function(m,i){
+      return '<button class="card" data-open="'+esc(m.id)+'" '
+        +'style="--ac:'+ac(m)+';animation-delay:'+Math.min(i*35,600)+'ms">'
+        +avatar(m)+'<span class="card__b">'
+        +'<span class="card__n">'+esc(m.nombre)+'</span>'
+        +'<span class="card__r">'+esc(m.rolCompleto||m.rol)+'</span>'
+        +'<span class="card__t">'+esc(m.ticker)+(m.area?" · "+esc(m.area):"")
+        +(m.generacion?" · "+m.generacion:"")+'</span></span></button>';
+    }).join("")+'</div>';
+  montarAvatares(c);
 }
 var qi=$("#q");
 qi.addEventListener("input",function(){aplicar(qi.value)});
 qi.addEventListener("keydown",function(e){
-  if(e.key==="ArrowDown"||e.key==="ArrowUp"){
+  if(e.key==="Enter"){e.preventDefault();var m=FILTRO[SEL>=0?SEL:0];if(m)abrir(m.id)}
+  else if(e.key==="ArrowDown"||e.key==="ArrowUp"){
     e.preventDefault();
     if(!FILTRO.length)return;
     SEL=(SEL+(e.key==="ArrowDown"?1:-1)+FILTRO.length)%FILTRO.length;
-    resaltar();
-  } else if(e.key==="Enter"){
-    e.preventDefault();
-    var m=FILTRO[SEL>=0?SEL:0]; if(m)abrir(m.id);
-  } else if(e.key==="Escape"){qi.value="";aplicar("")}
-});
-function resaltar(){
-  var m=FILTRO[SEL]; if(!m)return;
-  vista("dir");
-  var el=$('[data-open="'+m.id+'"]');
-  if(el){
-    $$(".card").forEach(function(c){c.style.borderColor=""});
-    el.style.borderColor="var(--gold)";
-    el.scrollIntoView({block:"center",behavior:RM?"auto":"smooth"});
+    var el=$$("#res .card")[SEL];
+    if(el){
+      $$("#res .card").forEach(function(x){x.style.borderColor=""});
+      el.style.borderColor="var(--gold)";
+      el.scrollIntoView({block:"center",behavior:RM?"auto":"smooth"});
+    }
   }
-}
-/* "/" enfoca la terminal desde cualquier parte, como en una terminal de verdad */
+  else if(e.key==="Escape"){qi.value="";aplicar("")}
+});
 document.addEventListener("keydown",function(e){
   if(e.key==="/"&&document.activeElement!==qi&&!$("#ov").classList.contains("on")){
-    e.preventDefault(); qi.focus(); qi.select();
+    e.preventDefault();qi.focus();qi.select();
   }
+  if(e.key==="Escape"&&ABIERTA&&!$("#ov").classList.contains("on"))salir();
 });
 
-/* ============================ DIRECTORIO ============================ */
-function tarjeta(m){
-  var sub=m.rolCompleto||m.rol;
-  return '<button class="card" data-open="'+esc(m.id)+'" style="--ac:'+ac(m)+'">'
-    +avatar(m)
-    +'<span class="card__b">'
-      +'<span class="card__n">'+esc(m.nombre)+'</span>'
-      +'<span class="card__r">'+esc(sub)+'</span>'
-      +'<span class="card__t">'+esc(m.ticker)+(m.area?' <i>·</i> '+esc(m.area):"")
-        +(m.generacion?' <i>·</i> '+m.generacion:"")+'</span>'
-    +'</span></button>';
-}
-function pintarDir(){
-  var c=$("#vDir");
-  if(!FILTRO.length){
-    c.innerHTML='<div class="empty"><b>Sin resultados</b>'
-      +'Prueba con un apellido, un ticker (<code>BSM</code>) o un desk (<code>PRT</code>).</div>';
-    return;
-  }
-  /* Agrupado por desk, en el orden en que están las áreas en el JSON, y con
-     los que no tienen desk al final en vez de escondidos. */
-  var orden=(DATA.config.areas||[]).map(function(a){return a.codigo}).concat([null]);
-  var html="";
-  orden.forEach(function(code){
-    var g=FILTRO.filter(function(m){return (m.area||null)===code});
-    if(!g.length)return;
-    html+='<div class="group"><div class="group__h">'
-      +'<h3>'+esc(code?nomArea(code):"Fundadores del club")+'</h3>'
-      +(code?'<span class="mono-tag" style="border-color:'+AC[code]+'55;color:'+AC[code]+'">'+esc(code)+'</span>':"")
-      +'<span>'+g.length+(g.length===1?" persona":" personas")+'</span>'
-      +'</div><div class="grid">'+g.map(tarjeta).join("")+'</div></div>';
-  });
-  c.innerHTML=html;
-  montarAvatares(c);
-}
-
-/* ============================ LA MESA ============================
-   Cada desk es una placa con sus asientos alrededor; el núcleo del centro es
-   la dirección del club. Entrar a un desk NO recarga nada: se anima el
-   viewBox del SVG, que es lo que hace que se sienta un mapa y no pestañas. */
-var ZOOM={x:0,y:0,w:1000,h:640}, DESTINO=null, RAF=null, FOCO=null;
-var DESKS=[
-  {code:"PRT",cx:255,cy:190},{code:"TRD",cx:745,cy:190},
-  {code:"VAL",cx:255,cy:470},{code:"FIW",cx:745,cy:470}
-];
-function pintarMesa(){
-  var svg=$("#mesa"); if(!svg)return;
-  var visibles={}; FILTRO.forEach(function(m){visibles[m.id]=1});
-  var s='<defs><radialGradient id="gCore" cx="50%" cy="50%">'
-    +'<stop offset="0%" stop-color="#D4AF37" stop-opacity=".22"/>'
-    +'<stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/></radialGradient></defs>';
-
-  DESKS.forEach(function(d){
-    s+='<path class="wire" d="M500 330 L'+d.cx+' '+d.cy+'"/>';
-  });
-  s+='<circle cx="500" cy="330" r="112" fill="url(#gCore)"/>'
-    +'<circle class="core-ring" cx="500" cy="330" r="58"/>'
-    +'<circle class="core-ring" cx="500" cy="330" r="70" opacity=".22"/>'
-    +'<text class="core-t" x="500" y="326">FIG</text>'
-    +'<text class="core-s" x="500" y="345">DIRECCIÓN</text>';
-
-  DESKS.forEach(function(d){
-    var gente=LISTA.filter(function(m){return m.area===d.code});
-    var col=AC[d.code];
-    s+='<g class="desk-g" data-desk="'+d.code+'" tabindex="0" role="button" '
-      +'aria-label="Desk '+esc(nomArea(d.code))+', '+gente.length+' personas">'
-      +'<rect class="d-plate" x="'+(d.cx-165)+'" y="'+(d.cy-92)+'" width="330" height="184" rx="16"/>'
-      +'<text class="d-code" x="'+(d.cx-146)+'" y="'+(d.cy-62)+'" fill="'+col+'">'+esc(d.code)+'</text>'
-      +'<text class="d-name" x="'+(d.cx-146)+'" y="'+(d.cy-42)+'">'+esc(nomArea(d.code))+'</text>'
-      +'<text class="d-meta" x="'+(d.cx-146)+'" y="'+(d.cy-26)+'">'
-        +gente.length+(gente.length===1?" PERSONA":" PERSONAS")+'</text>';
-    /* Los asientos van en una retícula dentro de la placa: se leen como
-       puestos de una mesa, no como burbujas flotando. */
-    var porFila=5, r=17;
-    gente.slice(0,15).forEach(function(m,i){
-      var fx=d.cx-146+(i%porFila)*63+r, fy=d.cy+6+Math.floor(i/porFila)*46;
-      var on=!!visibles[m.id];
-      s+='<g class="seat" data-open="'+esc(m.id)+'" tabindex="0" role="button" '
-        +'aria-label="'+esc(m.nombre)+', '+esc(m.rolCompleto||m.rol)+'" '
-        +'opacity="'+(on?1:.22)+'">'
-        +'<circle cx="'+fx+'" cy="'+fy+'" r="'+r+'" stroke="'+col+'" stroke-opacity="'+(on?.8:.3)+'"/>'
-        +'<text x="'+fx+'" y="'+(fy+3.2)+'" fill="'+col+'">'+esc(m.ticker)+'</text>'
-        +'<text class="s-nom" x="'+fx+'" y="'+(fy+r+11)+'">'+esc(primerNombre(m.nombre))+'</text>'
-        +'</g>';
-    });
-    if(gente.length>15){
-      s+='<text class="d-meta" x="'+(d.cx+96)+'" y="'+(d.cy+80)+'" text-anchor="end">'
-        +'+'+(gente.length-15)+' MÁS</text>';
-    }
-    s+='</g>';
-  });
-
-  /* Quien no tiene desk (los fundadores sin área) va en el núcleo, no fuera
-     del dibujo: pertenecen al club aunque no a un desk. */
-  var libres=LISTA.filter(function(m){return !m.area});
-  libres.slice(0,4).forEach(function(m,i){
-    var ang=-Math.PI/2+(i-(Math.min(libres.length,4)-1)/2)*0.52;
-    var fx=500+Math.cos(ang)*92, fy=330+Math.sin(ang)*92;
-    var on=!!visibles[m.id];
-    s+='<g class="seat" data-open="'+esc(m.id)+'" tabindex="0" role="button" '
-      +'aria-label="'+esc(m.nombre)+'" opacity="'+(on?1:.22)+'">'
-      +'<circle cx="'+fx+'" cy="'+fy+'" r="16" stroke="#D4AF37" stroke-opacity="'+(on?.8:.3)+'"/>'
-      +'<text x="'+fx+'" y="'+(fy+3.2)+'" fill="#D4AF37">'+esc(m.ticker)+'</text>'
-      +'<text class="s-nom" x="'+fx+'" y="'+(fy+27)+'">'+esc(primerNombre(m.nombre))+'</text>'
-      +'</g>';
-  });
-  svg.innerHTML=s;
-}
-function primerNombre(n){return String(n||"").split(/\s+/)[0]}
-
-function irA(x,y,w,h,rot){
-  DESTINO={x:x,y:y,w:w,h:h};
-  if(RM){ZOOM=DESTINO;aplicaViewBox();return}
-  if(RAF)cancelAnimationFrame(RAF);
-  var t0=null,ini={x:ZOOM.x,y:ZOOM.y,w:ZOOM.w,h:ZOOM.h},dur=520;
-  (function paso(t){
-    if(t0===null)t0=t;
-    var p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
-    ZOOM={x:ini.x+(DESTINO.x-ini.x)*e, y:ini.y+(DESTINO.y-ini.y)*e,
-          w:ini.w+(DESTINO.w-ini.w)*e, h:ini.h+(DESTINO.h-ini.h)*e};
-    aplicaViewBox();
-    if(p<1)RAF=requestAnimationFrame(paso);
-  })(performance.now());
-}
-function aplicaViewBox(){
-  $("#mesa").setAttribute("viewBox",
-    ZOOM.x.toFixed(1)+" "+ZOOM.y.toFixed(1)+" "+ZOOM.w.toFixed(1)+" "+ZOOM.h.toFixed(1));
-}
-function entrarDesk(code){
-  var d=null;DESKS.forEach(function(x){if(x.code===code)d=x});
-  if(!d)return;
-  FOCO=code;
-  irA(d.cx-210,d.cy-130,420,262);
-  $("#crumb").innerHTML='<b>'+esc(code)+'</b> · '+esc(nomArea(code));
-  $("#mesaBack").hidden=false;
-}
-function salirDesk(){
-  FOCO=null; irA(0,0,1000,640);
-  $("#crumb").innerHTML='<b>FIG</b> · la mesa completa';
-  $("#mesaBack").hidden=true;
-}
-$("#mesaBack").addEventListener("click",salirDesk);
-$("#mesa").addEventListener("click",function(e){
-  var seat=e.target.closest("[data-open]");
-  if(seat){abrir(seat.getAttribute("data-open"));return}
-  var desk=e.target.closest("[data-desk]");
-  if(desk){
-    var c=desk.getAttribute("data-desk");
-    if(FOCO===c)salirDesk(); else entrarDesk(c);
+/* ============================ CLICS ============================ */
+document.addEventListener("click",function(e){
+  var s=e.target.closest("[data-open]");
+  if(s){abrir(s.getAttribute("data-open"));return}
+  var a=e.target.closest("[data-area]");
+  if(a){entrar(a.getAttribute("data-area"));return}
+  var b=e.target.closest("[data-baja]");
+  if(b){
+    var cod=b.getAttribute("data-baja");
+    salir(); qi.value=cod; aplicar(cod);
+    setTimeout(function(){
+      $("#res").scrollIntoView({block:"start",behavior:RM?"auto":"smooth"});
+    },90);
   }
 });
 $("#mesa").addEventListener("keydown",function(e){
   if(e.key!=="Enter"&&e.key!==" ")return;
-  var t=e.target.closest("[data-open],[data-desk]"); if(!t)return;
+  var t=e.target.closest("[data-open],[data-area]"); if(!t)return;
   e.preventDefault();
   if(t.hasAttribute("data-open"))abrir(t.getAttribute("data-open"));
-  else entrarDesk(t.getAttribute("data-desk"));
+  else entrar(t.getAttribute("data-area"));
 });
-
-/* ============================ ESTRUCTURA ============================
-   Tres estratos y un corte. El núcleo siempre visible; el desk que abras se
-   despliega con su dirección y su segunda línea; los miembros sin cargo no se
-   dibujan nunca — cierran con una barra "+N" que salta al buscador. Un solo
-   desk abierto a la vez: sin acordeón la página salta y se pierde el hilo. */
-var ABIERTO=null, RO=null;
-function nivel(m){return m.nivel==null?3:m.nivel}
-function nodo(m,cls,extra){
-  var lider=!!m.lidera;
-  return '<button class="node '+(cls||"")+(m.demo?" node--demo":"")
-    +(lider?" node--lider":"")+'" '
-    +(lider?'data-desk="'+esc(m.lidera)+'" aria-expanded="false" ':'data-open="'+esc(m.id)+'" ')
-    +'data-id="'+esc(m.id)+'" style="--ac:'+ac(m)+'">'
-    +avatar(m)
-    +'<span class="node__n">'+esc(m.nombre)+'</span>'
-    +'<span class="node__r">'+esc(m.rolCompleto||m.rol)+'</span>'
-    +'<span class="node__t">'+esc(m.ticker)+(extra||"")+'</span></button>';
-}
-function pintarArbol(){
-  var c=$("#vArbol"); if(!c)return;
-  var nucleo=LISTA.filter(function(m){return nivel(m)===0});
-  /* Presidencia primero, después los líderes de desk: es el orden en que se
-     lee una mesa directiva, no el alfabético. */
-  var presid=nucleo.filter(function(m){return !m.lidera});
-  var lideres=nucleo.filter(function(m){return !!m.lidera});
-
-  var html='<div class="org" id="org"><svg class="org__svg" id="orgSvg" aria-hidden="true"></svg>';
-  if(presid.length){
-    html+='<div class="org__lvl"><div class="lvl-lbl">Dirección del club</div>'
-      +'<div class="row" id="rowTop">'
-      +presid.map(function(m){return nodo(m,"node--top")}).join("")+'</div></div>';
-  }
-  if(lideres.length){
-    html+='<div class="org__lvl"><div class="lvl-lbl">Los cuatro desks</div>'
-      +'<div class="row" id="rowDesk">'+lideres.map(function(m){
-        var g=LISTA.filter(function(x){return x.area===m.lidera});
-        return nodo(m,"node--top"," · "+g.length);
-      }).join("")+'</div></div>';
-  }
-  html+='<div class="desk-open" id="deskOpen"><div id="deskBody"></div></div>';
-  html+='<p class="org-note">Toca un desk para abrirlo · el organigrama llega hasta la '
-    +'segunda línea, el resto se encuentra por el buscador</p></div>';
-  c.innerHTML=html;
-  montarAvatares(c);
-  if(ABIERTO)desplegar(ABIERTO,true);
-  atenuar();
-  cables();
-  if(!RO&&window.ResizeObserver){
-    RO=new ResizeObserver(function(){cables()});
-    RO.observe($("#org"));
-  }
-}
-/* El filtro no esconde nodos: un organigrama con agujeros deja de ser un
-   organigrama. Lo que no calza se atenúa. Y si el que buscas está dentro de un
-   desk cerrado, el desk se abre solo y su nodo late — así el buscador y el
-   organigrama dejan de ser dos cosas separadas. */
-function atenuar(){
-  var vis={}; FILTRO.forEach(function(m){vis[m.id]=1});
-  var c=$("#vArbol");
-  $$(".node",c).forEach(function(n){
-    n.style.opacity = vis[n.getAttribute("data-id")] ? "" : ".24";
-  });
-  if(FILTRO.length&&FILTRO.length<LISTA.length){
-    var hit=null;
-    for(var i=0;i<FILTRO.length;i++){if(nivel(FILTRO[i])>0&&FILTRO[i].area){hit=FILTRO[i];break}}
-    if(hit&&ABIERTO!==hit.area)desplegar(hit.area);
-    if(hit){
-      var el=$('.node[data-id="'+hit.id+'"]',c);
-      if(el)el.classList.add("node--hit");
-    }
-  }
-}
-function desplegar(code,silencioso){
-  var caja=$("#deskOpen"), body=$("#deskBody");
-  if(!caja)return;
-  if(ABIERTO===code&&!silencioso){
-    ABIERTO=null; caja.classList.remove("on");
-    $$('.node[data-desk]').forEach(function(b){b.setAttribute("aria-expanded","false")});
-    setTimeout(cables,60);
-    return;
-  }
-  ABIERTO=code;
-  var a=AREA[code]||{codigo:code,nombre:code};
-  var dir=LISTA.filter(function(m){return m.area===code&&nivel(m)===1});
-  var seg=LISTA.filter(function(m){return m.area===code&&nivel(m)===2});
-  var base=LISTA.filter(function(m){return m.area===code&&nivel(m)>=3});
-  var lider=LISTA.filter(function(m){return m.lidera===code})[0];
-  var h='<div class="desk-hd" style="--ac:'+AC[code]+'"><b>'+esc(code)+'</b>'
-    +'<span>'+esc(a.nombre)+'</span>'
-    /* El nodo del líder en el núcleo despliega el desk, así que necesita otra
-       puerta hacia su propia ficha o queda sin forma de abrirse. */
-    +(lider?'<button class="chip" data-open="'+esc(lider.id)+'">Ficha de '
-      +esc(primerNombre(lider.nombre))+' →</button>':"")
-    +'</div>';
-  if(dir.length)h+='<div class="org__lvl"><div class="lvl-lbl">Dirección del desk</div>'
-    +'<div class="row" id="rowDir">'+dir.map(function(m){return nodo(m)}).join("")+'</div></div>';
-  if(seg.length)h+='<div class="org__lvl"><div class="lvl-lbl">Segunda línea</div>'
-    +'<div class="row" id="rowSeg">'+seg.map(function(m){return nodo(m)}).join("")+'</div></div>';
-  if(!dir.length&&!seg.length)
-    h+='<p class="org-note">Este desk todavía no tiene cargos cargados en la planilla.</p>';
-  if(base.length)h+='<button class="cantera" data-cantera="'+esc(code)+'" style="--ac:'+AC[code]+'">'
-    +'<b>+'+base.length+'</b><span>miembros en '+esc(a.nombre)+' sin cargo asignado.<br>'
-    +'Ábrelos en el directorio →</span><i>→</i></button>';
-  body.innerHTML=h;
-  montarAvatares(body);
-  $$('.node[data-desk]').forEach(function(b){
-    b.setAttribute("aria-expanded", b.getAttribute("data-desk")===code?"true":"false");
-  });
-  requestAnimationFrame(function(){caja.classList.add("on")});
-  setTimeout(cables, RM?0:80);
-}
-/* Cables del núcleo hacia el desk abierto. Se miden con getBoundingClientRect
-   contra el contenedor, así que sobreviven a cualquier reflow — por eso hay un
-   ResizeObserver arriba en vez de calcularlos una sola vez. */
-function cables(){
-  var org=$("#org"), svg=$("#orgSvg");
-  if(!org||!svg)return;
-  var R=org.getBoundingClientRect();
-  svg.setAttribute("viewBox","0 0 "+R.width+" "+R.height);
-  var d="";
-  function centroInf(el){var b=el.getBoundingClientRect();
-    return {x:b.left-R.left+b.width/2, y:b.bottom-R.top}}
-  function centroSup(el){var b=el.getBoundingClientRect();
-    return {x:b.left-R.left+b.width/2, y:b.top-R.top}}
-  function curva(a,b){
-    var mid=(a.y+b.y)/2;
-    return "M"+a.x.toFixed(1)+" "+a.y.toFixed(1)
-      +" C"+a.x.toFixed(1)+" "+mid.toFixed(1)+" "+b.x.toFixed(1)+" "+mid.toFixed(1)
-      +" "+b.x.toFixed(1)+" "+b.y.toFixed(1);
-  }
-  var top=$$("#rowTop .node"), desks=$$("#rowDesk .node");
-  if(top.length&&desks.length){
-    var origen=centroInf(top[0]);
-    desks.forEach(function(el){d+='<path class="cable" d="'+curva(origen,centroSup(el))+'"/>'});
-  }
-  if(ABIERTO){
-    var lider=$('#rowDesk .node[data-desk="'+ABIERTO+'"]');
-    var dir=$$("#rowDir .node"), seg=$$("#rowSeg .node");
-    var col=AC[ABIERTO]||"var(--gold)";
-    if(lider&&dir.length){
-      var o=centroInf(lider);
-      dir.forEach(function(el){
-        d+='<path class="cable cable--on" style="stroke:'+col+';--len:400" d="'
-          +curva(o,centroSup(el))+'"/>';
-      });
-    }
-    if(dir.length&&seg.length){
-      /* Cada persona de la segunda línea cuelga del director más cercano en
-         horizontal. No es un dato del JSON (no hay "reporta a" cargado), así
-         que se elige por proximidad: comunica pertenencia sin inventar una
-         línea de reporte que nadie declaró. */
-      seg.forEach(function(el){
-        var p=centroSup(el), mejor=dir[0], dm=Infinity;
-        dir.forEach(function(x){
-          var c=centroInf(x), dd=Math.abs(c.x-p.x);
-          if(dd<dm){dm=dd;mejor=x}
-        });
-        d+='<path class="cable cable--on" style="stroke:'+col+';--len:400" d="'
-          +curva(centroInf(mejor),p)+'"/>';
-      });
-    }
-  }
-  svg.innerHTML=d;
-}
-document.addEventListener("click",function(e){
-  var b=e.target.closest("[data-desk]");
-  if(b&&!e.target.closest("#mesa")){desplegar(b.getAttribute("data-desk"));return}
-  var q=e.target.closest("[data-cantera]");
-  if(q){
-    $("#q").value=q.getAttribute("data-cantera");
-    aplicar(q.getAttribute("data-cantera"));
-    vista("dir");
-    $("#vDir").scrollIntoView({block:"start",behavior:RM?"auto":"smooth"});
-  }
-});
-
-/* ============================ FICHA ============================ */
-var HIST=null;
-function abrir(id,sinHash){
-  var m=porId(id); if(!m)return;
-  var i=FILTRO.indexOf(m); if(i<0)i=LISTA.indexOf(m);
-  var lista=FILTRO.indexOf(m)>=0?FILTRO:LISTA;
-  var prev=lista[(i-1+lista.length)%lista.length], next=lista[(i+1)%lista.length];
-  var col=ac(m);
-  var s='<div class="sheet__top">'
-    +'<span class="mono-tag" style="border-color:'+col+'55;color:'+col+'">'+esc(m.ticker)+'</span>'
-    +'<span class="crumb">'+esc(m.area?nomArea(m.area):"FIG")+'</span>'
-    +'<span class="sheet__nav">'
-      +(lista.length>1?'<button class="ic" data-go="'+esc(prev.id)+'" aria-label="Anterior">←</button>'
-        +'<button class="ic" data-go="'+esc(next.id)+'" aria-label="Siguiente">→</button>':"")
-      +'<button class="ic" id="ovX" aria-label="Cerrar">✕</button>'
-    +'</span></div>'
-    +'<div class="sheet__hd">'+avatar(m)
-    +'<div class="sheet__id"><h2 id="ovName">'+esc(m.nombre)+'</h2>'
-      +'<div class="rol">'+esc(m.rolCompleto||m.rol)+'</div>'
-      +'<div class="tags">'
-        +(m.area?'<span class="mono-tag" style="border-color:'+col+'55;color:'+col+'">'+esc(nomArea(m.area))+'</span>':"")
-        +(m.generacion?'<span class="mono-tag">Generación '+m.generacion+'</span>':"")
-        +(m.estado==="alumni"?'<span class="mono-tag">Alumni</span>':"")
-      +'</div>'
-      +'<div class="sheet__acts">'
-        +(m.linkedin?'<a class="btn btn--ghost" href="'+esc(m.linkedin)+'" target="_blank" rel="noopener">LinkedIn ↗</a>':"")
-        +'<button class="btn btn--gold" id="ovCard">↓ Su tarjeta</button>'
-        +'<button class="btn btn--ghost" id="ovLink">Copiar enlace</button>'
-      +'</div>'
-    +'</div></div>';
-
-  var bio=(m.perfil&&m.perfil.bio)||"", hitos=(m.perfil&&m.perfil.hitos)||[];
-  if(bio)s+='<div class="sec"><h3>Quién es</h3><p>'+esc(bio)+'</p></div>';
-  if(hitos.length)s+='<div class="sec"><h3>Trayectoria</h3><ul class="hits">'
-    +hitos.map(function(h){return "<li>"+esc(h)+"</li>"}).join("")+'</ul></div>';
-
-  if(m.torneo){
-    var t=m.torneo;
-    s+='<div class="sec"><h3>Torneo Portafolio 2026</h3>'
-      +'<div class="stats">'
-      +'<div class="stat"><b>'+t.posicion+'°</b><span>Posición</span></div>'
-      +'<div class="stat"><b>'+(t.puntos!=null?Number(t.puntos).toFixed(1):"—")+'</b><span>Puntos</span></div>'
-      +'<div class="stat"><b>'+(t.retRel!=null?(t.retRel>0?"+":"")+(t.retRel*100).toFixed(1)+"%":"—")+'</b><span>Ret. relativo</span></div>'
-      +'</div>'
-      +'<p style="margin-top:11px;font-size:.9rem">Equipo <strong>'+esc(t.equipo)+'</strong>'
-      +(t.corte?' · corte al '+esc(t.corte):"")+'</p>'
-      +'<div class="spark" id="spark" hidden></div></div>';
-  }
-  if(m.extras&&m.extras.length)
-    s+='<div class="sec"><h3>Su aporte</h3><ul class="extras">'
-      +m.extras.map(function(x){
-        var txt=esc(x.texto||x.titulo||"");
-        return "<li>"+(x.url?'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+txt+" ↗</a>":txt)+"</li>";
-      }).join("")+'</ul></div>';
-  if(m.actividades&&m.actividades.length)
-    s+='<div class="sec"><h3>Actividades del club</h3><ul class="hits">'
-      +m.actividades.map(function(id){
-        return '<li><a href="../eventos/index.html#'+esc(id)+'">'+esc(id.replace(/-/g," "))+'</a></li>';
-      }).join("")+'</ul></div>';
-
-  /* Ser explícito con lo que falta es mejor que dejar la ficha a medias sin
-     decir por qué: así se sabe que hay que completar el dato, no que la
-     persona "no tiene" nada. */
-  var falta=[];
-  if(!bio)falta.push("biografía");
-  if(!m.linkedin)falta.push("LinkedIn");
-  if(!m.generacion)falta.push("generación");
-  if(falta.length)s+='<div class="sec"><h3>Ficha incompleta</h3>'
-    +'<p class="miss">Falta por cargar: '+esc(falta.join(" · "))+'.<br>'
-    +'Se completa en la planilla de miembros del Drive, no en el código.</p></div>';
-
-  $("#sheet").innerHTML=s;
-  $("#ov").classList.add("on");
-  document.body.style.overflow="hidden";
-  montarAvatares($("#sheet"));
-  if(!sinHash&&m.ticker)history.replaceState(null,"","#"+m.ticker);
-  $("#ovX").addEventListener("click",function(){cerrar()});
-  $$("[data-go]",$("#sheet")).forEach(function(b){
-    b.addEventListener("click",function(){abrir(b.getAttribute("data-go"))});
-  });
-  var cd=$("#ovCard");
-  if(cd)cd.addEventListener("click",function(){
-    cd.disabled=true; cd.textContent="Generando…";
-    /* Un frame de aire para que el botón alcance a repintarse antes de que el
-       canvas bloquee el hilo: si no, parece que no pasó nada. */
-    requestAnimationFrame(function(){
-      setTimeout(function(){
-        try{tarjeta(m)}catch(err){console.error(err)}
-        cd.disabled=false; cd.textContent="↓ Su tarjeta";
-      },30);
-    });
-  });
-  var lk=$("#ovLink");
-  if(lk)lk.addEventListener("click",function(){
-    var url=location.href.split("#")[0]+"#"+m.ticker;
-    if(navigator.clipboard)navigator.clipboard.writeText(url).then(function(){
-      lk.textContent="Copiado ✓";setTimeout(function(){lk.textContent="Copiar enlace"},1800);
-    });
-  });
-  if(m.torneo)trayectoria(m.torneo.equipoId);
-  $("#ovX").focus();
-}
-function cerrar(sinHash){
-  $("#ov").classList.remove("on");
-  document.body.style.overflow="";
-  if(!sinHash)history.replaceState(null,"",location.pathname+location.search);
-}
-$("#ov").addEventListener("click",function(e){if(e.target===$("#ov"))cerrar()});
-document.addEventListener("keydown",function(e){
-  if(!$("#ov").classList.contains("on"))return;
-  if(e.key==="Escape")cerrar();
-  if(e.key==="ArrowLeft"||e.key==="ArrowRight"){
-    var bs=$$("[data-go]",$("#sheet"));
-    var b=e.key==="ArrowLeft"?bs[0]:bs[1];
-    if(b)b.click();
-  }
-});
-document.addEventListener("click",function(e){
-  var b=e.target.closest("[data-open]");
-  if(b&&!e.target.closest("#mesa"))abrir(b.getAttribute("data-open"));
-});
-
-/* La curva del equipo sale del historial de torneo.json, que se pide una sola
-   vez y solo si alguien tiene resultado que mostrar: no tiene sentido bajar el
-   ranking completo para ver una ficha sin torneo. */
-function trayectoria(equipoId){
-  var box=$("#spark"); if(!box)return;
-  function dibujar(){
-    var eq=null;
-    (TORNEO.equipos||[]).forEach(function(x){if(x.id===equipoId)eq=x});
-    if(!eq||!eq.historial||eq.historial.length<2)return;
-    var pts=eq.historial.filter(function(h){return h.ret!=null});
-    if(pts.length<2)return;
-    var W=560,H=118,P=14;
-    var vs=pts.map(function(p){return p.ret});
-    var lo=Math.min.apply(null,vs),hi=Math.max.apply(null,vs);
-    if(hi===lo){hi+=.01;lo-=.01}
-    var X=function(i){return P+i*(W-P*2)/(pts.length-1)};
-    var Y=function(v){return H-P-(v-lo)/(hi-lo)*(H-P*2)};
-    var d=pts.map(function(p,i){return (i?"L":"M")+X(i).toFixed(1)+" "+Y(p.ret).toFixed(1)}).join(" ");
-    var area=d+" L"+X(pts.length-1).toFixed(1)+" "+(H-P)+" L"+X(0).toFixed(1)+" "+(H-P)+" Z";
-    var ult=pts[pts.length-1].ret, sube=ult>=0;
-    var col=sube?"#5FC08B":"#E07A5F";
-    box.hidden=false;
-    box.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Retorno acumulado del equipo por semana">'
-      +'<defs><linearGradient id="gS" x1="0" y1="0" x2="0" y2="1">'
-      +'<stop offset="0%" stop-color="'+col+'" stop-opacity=".3"/>'
-      +'<stop offset="100%" stop-color="'+col+'" stop-opacity="0"/></linearGradient></defs>'
-      +'<path d="'+area+'" fill="url(#gS)"/>'
-      +'<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="2" stroke-linejoin="round"/>'
-      +'<circle cx="'+X(pts.length-1).toFixed(1)+'" cy="'+Y(ult).toFixed(1)+'" r="3.5" fill="'+col+'"/>'
-      +'<text x="'+P+'" y="14" font-family="IBM Plex Mono" font-size="9" letter-spacing="1.6" '
-        +'fill="rgba(247,244,236,.45)">RETORNO ACUMULADO · S'+pts[0].semana+'→S'+pts[pts.length-1].semana+'</text>'
-      +'<text x="'+(W-P)+'" y="14" text-anchor="end" font-family="IBM Plex Mono" font-size="10" '
-        +'fill="'+col+'">'+(ult>0?"+":"")+(ult*100).toFixed(2)+'%</text>'
-      +'</svg>';
-  }
-  if(TORNEO){dibujar();return}
-  fetch("../datos/torneo.json",{cache:"no-cache"})
-    .then(function(r){return r.ok?r.json():null})
-    .then(function(d){if(d){TORNEO=d;dibujar()}}).catch(function(){});
-}
 
 /* ============================ QR ============================
    Generador propio, en unas 120 líneas. No es capricho: el sitio no puede
@@ -1498,23 +1202,155 @@ function descargar(cv,m){
   },"image/png");
 }
 
-/* ============================ VISTAS ============================ */
-function vista(v){
-  $$(".view-btn").forEach(function(b){
-    b.setAttribute("aria-selected", b.getAttribute("data-view")===v?"true":"false");
+
+/* ============================ FICHA ============================ */
+function abrir(id,sinHash){
+  var m=porId(id); if(!m)return;
+  var lista=FILTRO.indexOf(m)>=0?FILTRO:LISTA;
+  var i=lista.indexOf(m);
+  var prev=lista[(i-1+lista.length)%lista.length], next=lista[(i+1)%lista.length];
+  var col=ac(m);
+  var s='<div class="sheet__top">'
+    +'<span class="mono-tag" style="border-color:'+col+'55;color:'+col+'">'+esc(m.ticker)+'</span>'
+    +'<span class="term__n">'+esc(m.area?nomArea(m.area):"FIG")+'</span>'
+    +'<span class="sheet__nav">'
+      +(lista.length>1?'<button class="ic" data-go="'+esc(prev.id)+'" aria-label="Anterior">←</button>'
+        +'<button class="ic" data-go="'+esc(next.id)+'" aria-label="Siguiente">→</button>':"")
+      +'<button class="ic" id="ovX" aria-label="Cerrar">✕</button>'
+    +'</span></div>'
+    +'<div class="sheet__hd">'+avatar(m)
+    +'<div class="sheet__id"><h2 id="ovName">'+esc(m.nombre)+'</h2>'
+      +'<div class="rol">'+esc(m.rolCompleto||m.rol)+'</div>'
+      +'<div class="tags">'
+        +(m.area?'<span class="mono-tag" style="border-color:'+col+'55;color:'+col+'">'+esc(nomArea(m.area))+'</span>':"")
+        +(m.generacion?'<span class="mono-tag">Generación '+m.generacion+'</span>':"")
+        +(m.estado==="alumni"?'<span class="mono-tag">Alumni</span>':"")
+        +(m.demo?'<span class="mono-tag" style="border-color:#E07A5F55;color:#E07A5F">Persona ficticia</span>':"")
+      +'</div>'
+      +'<div class="sheet__acts">'
+        +(m.linkedin?'<a class="btn btn--ghost" href="'+esc(m.linkedin)+'" target="_blank" rel="noopener">LinkedIn ↗</a>':"")
+        +'<button class="btn btn--gold" id="ovCard">↓ Su tarjeta</button>'
+        +'<button class="btn btn--ghost" id="ovLink">Copiar enlace</button>'
+      +'</div>'
+    +'</div></div>';
+
+  var bio=(m.perfil&&m.perfil.bio)||"", hitos=(m.perfil&&m.perfil.hitos)||[];
+  if(bio)s+='<div class="sec"><h3>Quién es</h3><p>'+esc(bio)+'</p></div>';
+  if(hitos.length)s+='<div class="sec"><h3>Trayectoria</h3><ul class="hits">'
+    +hitos.map(function(h){return "<li>"+esc(h)+"</li>"}).join("")+'</ul></div>';
+  if(m.torneo){
+    var t=m.torneo;
+    s+='<div class="sec"><h3>Torneo Portafolio 2026</h3><div class="stats">'
+      +'<div class="stat"><b>'+t.posicion+'°</b><span>Posición</span></div>'
+      +'<div class="stat"><b>'+(t.puntos!=null?Number(t.puntos).toFixed(1):"—")+'</b><span>Puntos</span></div>'
+      +'<div class="stat"><b>'+(t.retRel!=null?(t.retRel>0?"+":"")+(t.retRel*100).toFixed(1)+"%":"—")+'</b><span>Ret. relativo</span></div>'
+      +'</div><p style="margin-top:11px;font-size:.9rem">Equipo <strong>'+esc(t.equipo)+'</strong>'
+      +(t.corte?' · corte al '+esc(t.corte):"")+'</p>'
+      +'<div class="spark" id="spark" hidden></div></div>';
+  }
+  if(m.extras&&m.extras.length)
+    s+='<div class="sec"><h3>Su aporte</h3><ul class="extras">'
+      +m.extras.map(function(x){
+        var txt=esc(x.texto||x.titulo||"");
+        return "<li>"+(x.url?'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+txt+" ↗</a>":txt)+"</li>";
+      }).join("")+'</ul></div>';
+  if(m.actividades&&m.actividades.length)
+    s+='<div class="sec"><h3>Actividades del club</h3><ul class="hits">'
+      +m.actividades.map(function(id){
+        return '<li><a href="../eventos/index.html#'+esc(id)+'">'+esc(id.replace(/-/g," "))+'</a></li>';
+      }).join("")+'</ul></div>';
+  /* Decir qué falta es mejor que dejar la ficha a medias sin explicar por qué:
+     así se sabe que hay un dato por cargar, no que la persona "no tiene" nada. */
+  var falta=[];
+  if(!bio)falta.push("biografía");
+  if(!m.linkedin)falta.push("LinkedIn");
+  if(!m.generacion)falta.push("generación");
+  if(falta.length)s+='<div class="sec"><h3>Ficha incompleta</h3>'
+    +'<p class="miss">Falta por cargar: '+esc(falta.join(" · "))+'.<br>'
+    +'Se completa en la planilla de miembros del Drive, no en el código.</p></div>';
+
+  $("#sheet").innerHTML=s;
+  $("#ov").classList.add("on");
+  document.body.style.overflow="hidden";
+  montarAvatares($("#sheet"));
+  if(!sinHash&&m.ticker)history.replaceState(null,"","#"+m.ticker);
+  $("#ovX").addEventListener("click",function(){cerrar()});
+  $$("[data-go]",$("#sheet")).forEach(function(b){
+    b.addEventListener("click",function(){abrir(b.getAttribute("data-go"))});
   });
-  $("#vMesa").classList.toggle("on",v==="mesa");
-  $("#vArbol").classList.toggle("on",v==="arbol");
-  $("#vDir").classList.toggle("on",v==="dir");
-  try{localStorage.setItem("figMiembrosVista2",v)}catch(e){}
+  var cd=$("#ovCard");
+  if(cd)cd.addEventListener("click",function(){
+    cd.disabled=true;cd.textContent="Generando…";
+    /* Un respiro para que el botón se repinte antes de que el canvas bloquee
+       el hilo: si no, parece que no pasó nada. */
+    requestAnimationFrame(function(){setTimeout(function(){
+      try{tarjeta(m)}catch(err){console.error(err)}
+      cd.disabled=false;cd.textContent="↓ Su tarjeta";
+    },30)});
+  });
+  var lk=$("#ovLink");
+  if(lk)lk.addEventListener("click",function(){
+    var url=location.href.split("#")[0].split("?")[0]+"#"+m.ticker;
+    if(navigator.clipboard)navigator.clipboard.writeText(url).then(function(){
+      lk.textContent="Copiado ✓";setTimeout(function(){lk.textContent="Copiar enlace"},1800);
+    });
+  });
+  if(m.torneo)trayectoria(m.torneo.equipoId);
+  $("#ovX").focus();
 }
-$$(".view-btn").forEach(function(b){
-  b.addEventListener("click",function(){vista(b.getAttribute("data-view"))});
+function cerrar(sinHash){
+  $("#ov").classList.remove("on");
+  document.body.style.overflow=ABIERTA?"hidden":"";
+  if(!sinHash)history.replaceState(null,"",location.pathname+location.search);
+}
+$("#ov").addEventListener("click",function(e){if(e.target===$("#ov"))cerrar()});
+document.addEventListener("keydown",function(e){
+  if(!$("#ov").classList.contains("on"))return;
+  if(e.key==="Escape"){cerrar();return}
+  if(e.key==="ArrowLeft"||e.key==="ArrowRight"){
+    var bs=$$("[data-go]",$("#sheet"));
+    var b=e.key==="ArrowLeft"?bs[0]:bs[1];
+    if(b)b.click();
+  }
 });
-try{
-  var guardada=localStorage.getItem("figMiembrosVista2");
-  if(guardada)vista(guardada);
-}catch(e){}
+
+/* La curva del equipo sale del historial de torneo.json, que se pide una sola
+   vez y solo si alguien tiene resultado que mostrar. */
+function trayectoria(equipoId){
+  var box=$("#spark"); if(!box)return;
+  function dibujar(){
+    var eq=null;
+    (TORNEO.equipos||[]).forEach(function(x){if(x.id===equipoId)eq=x});
+    if(!eq||!eq.historial)return;
+    var pts=eq.historial.filter(function(h){return h.ret!=null});
+    if(pts.length<2)return;
+    var W=560,H=118,P=14;
+    var vs=pts.map(function(p){return p.ret});
+    var lo=Math.min.apply(null,vs),hi=Math.max.apply(null,vs);
+    if(hi===lo){hi+=.01;lo-=.01}
+    var X=function(i){return P+i*(W-P*2)/(pts.length-1)};
+    var Y=function(v){return H-P-(v-lo)/(hi-lo)*(H-P*2)};
+    var d=pts.map(function(p,i){return (i?"L":"M")+X(i).toFixed(1)+" "+Y(p.ret).toFixed(1)}).join(" ");
+    var area=d+" L"+X(pts.length-1).toFixed(1)+" "+(H-P)+" L"+X(0).toFixed(1)+" "+(H-P)+" Z";
+    var ult=pts[pts.length-1].ret, col=ult>=0?"#5FC08B":"#E07A5F";
+    box.hidden=false;
+    box.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Retorno acumulado por semana">'
+      +'<defs><linearGradient id="gS" x1="0" y1="0" x2="0" y2="1">'
+      +'<stop offset="0%" stop-color="'+col+'" stop-opacity=".3"/>'
+      +'<stop offset="100%" stop-color="'+col+'" stop-opacity="0"/></linearGradient></defs>'
+      +'<path d="'+area+'" fill="url(#gS)"/>'
+      +'<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="2" stroke-linejoin="round"/>'
+      +'<circle cx="'+X(pts.length-1).toFixed(1)+'" cy="'+Y(ult).toFixed(1)+'" r="3.5" fill="'+col+'"/>'
+      +'<text x="'+P+'" y="14" font-family="IBM Plex Mono" font-size="9" letter-spacing="1.6" '
+        +'fill="rgba(247,244,236,.45)">RETORNO ACUMULADO · S'+pts[0].semana+'→S'+pts[pts.length-1].semana+'</text>'
+      +'<text x="'+(W-P)+'" y="14" text-anchor="end" font-family="IBM Plex Mono" font-size="10" '
+        +'fill="'+col+'">'+(ult>0?"+":"")+(ult*100).toFixed(2)+'%</text></svg>';
+  }
+  if(TORNEO){dibujar();return}
+  fetch("../datos/torneo.json",{cache:"no-cache"})
+    .then(function(r){return r.ok?r.json():null})
+    .then(function(d){if(d){TORNEO=d;dibujar()}}).catch(function(){});
+}
 
 /* URLs del footer desde club.json, igual que el resto del sitio */
 fetch("../datos/club.json",{cache:"force-cache"})
@@ -1529,10 +1365,9 @@ fetch("../datos/club.json",{cache:"force-cache"})
 })();
 </script>
 <script>
-/* Métricas anónimas de visitas — SIN cookies ni identificadores. Usa el
-   mismo Apps Script COMPARTIDO del sitio (config.figEndpoint), con
-   tipo:"visita" para que escriba en la pestaña correcta. Solo se activa
-   si config.figEndpoint está configurado en datos/club.json. */
+/* Métricas anónimas de visitas — SIN cookies ni identificadores. Usa el mismo
+   Apps Script COMPARTIDO del sitio (config.figEndpoint), con tipo:"visita".
+   Queda inerte mientras ese campo esté vacío en datos/club.json. */
 (function(){
 try{
 fetch("../datos/club.json",{cache:"force-cache"})
