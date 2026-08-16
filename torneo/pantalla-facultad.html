@@ -79,22 +79,27 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
   color:var(--blue);text-transform:uppercase}
 
 /* ---------------- s2: colaboradores ---------------- */
-#s2 .kick{font-family:var(--f-mono);font-size:22px;letter-spacing:.42em;
-  color:var(--dim);text-transform:uppercase;margin-bottom:56px}
-/* Logos de colaboradores más grandes (2026-08-15, pedido de Francisco): se
-   proyecta en una TV grande y a 74px se leían chicos. */
-#s2 .row{display:flex;align-items:center;gap:110px;background:var(--card);
-  border:1px solid var(--line);border-radius:22px;padding:56px 92px;
+#s2 .kick{font-family:var(--f-mono);font-size:26px;letter-spacing:.42em;
+  color:var(--dim);text-transform:uppercase;margin-bottom:64px}
+/* Logos de colaboradores al máximo que permite el lienzo (2026-08-15, segunda
+   subida a pedido de Francisco). Esta escena es a pantalla completa, así que
+   tiene margen de sobra: a 196px la fila mide 1482px de 1920, con 219px de
+   aire a cada lado. Ojo: la fila de logos DENTRO de cada tarjeta (más abajo)
+   NO puede crecer igual — ahí el techo lo pone el pie de página. */
+#s2 .row{display:flex;align-items:center;gap:76px;background:var(--card);
+  border:1px solid var(--line);border-radius:22px;padding:34px 56px;
   box-shadow:0 30px 70px rgba(10,17,40,.08)}
-#s2 .slot{height:112px;display:flex;align-items:center}
-#s2 .slot img{max-height:100%;max-width:400px;object-fit:contain}
+#s2 .slot{height:196px;display:flex;align-items:center}
+#s2 .slot img{max-height:100%;max-width:610px;object-fit:contain}
 
 /* ---------------- encabezado persistente (desde la lista en adelante) --- */
 #head{position:absolute;top:118px;left:0;right:0;display:flex;flex-direction:column;
   align-items:center;opacity:0;visibility:hidden}
 #head .lock{display:flex;align-items:center;gap:22px}
-#head .logo{width:64px;height:64px;object-fit:contain}
-#head h2{font-family:var(--f-disp);font-weight:600;font-size:56px;color:var(--ink)}
+/* Nombre del torneo +50% (2026-08-15, pedido de Francisco). A 84px queda a
+   51px de la tarjeta de abajo, así que todavía no se tocan. */
+#head .logo{width:92px;height:92px;object-fit:contain}
+#head h2{font-family:var(--f-disp);font-weight:600;font-size:84px;color:var(--ink)}
 #head h2 em{font-style:italic;color:var(--blue)}
 #head .kick{margin-top:12px;font-family:var(--f-mono);font-size:19px;
   letter-spacing:.42em;color:var(--dim);text-transform:uppercase}
@@ -118,12 +123,17 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
   background:var(--card);border:1px solid var(--line);border-radius:26px;
   padding:58px 64px;box-shadow:0 40px 90px rgba(10,17,40,.10);
   opacity:0;visibility:hidden}
-/* Misma subida de tamaño que en s2: la fila de logos de cada tarjeta pasa de
-   48px a 68px de alto (2026-08-15, pedido de Francisco). */
-#cardPanel .logos{display:flex;align-items:center;gap:40px;height:68px;margin-bottom:34px}
+/* La fila de logos de la tarjeta crece MENOS que la de la escena s2, y no es
+   por gusto: acá el alto empuja todo el contenido hacia abajo, y la tarjeta
+   más alta del top 5 (la de un equipo de 3 integrantes, hoy CLB) termina
+   metiéndose bajo el pie de página. Medido: a 84px el borde inferior queda en
+   1003px; a 100px ya invade el pie y a 115px se ve encima de la tarjeta.
+   Si algún día hay que agrandarlos más, primero hay que subir #cardPanel o
+   bajar su padding — no basta con tocar este número. */
+#cardPanel .logos{display:flex;align-items:center;gap:48px;height:84px;margin-bottom:34px}
 #cardPanel .logos img{max-height:100%;object-fit:contain}
-#cardPanel .logos img.bull{max-height:62px}
-#cardPanel .logos img.blk{max-height:46px}
+#cardPanel .logos img.bull{max-height:76px}
+#cardPanel .logos img.blk{max-height:57px}
 #cardPanel .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:46px}
 #cardPanel .who .pos{font-family:var(--f-disp);font-weight:700;font-size:52px;color:var(--blue)}
 #cardPanel .who .nm{font-family:var(--f-disp);font-weight:700;font-size:52px;color:var(--ink);margin-left:14px}
