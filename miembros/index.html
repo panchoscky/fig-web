@@ -550,6 +550,18 @@ function calcularNombresCortos(){
     });
   });
 }
+/* La URL publica de una ficha. Sale de config.sitio en club.json y NO de la
+   barra de direcciones: una tarjeta generada desde una vista previa local
+   llevaria un QR a localhost, y esa tarjeta termina en LinkedIn. Mientras
+   config.sitio este vacio se usa la del navegador, que es lo correcto cuando
+   la pagina ya esta publicada donde corresponde. */
+var SITIO="";
+function urlFicha(m){
+  var base=SITIO
+    ? SITIO.replace(/\/+$/,"")+"/miembros/"
+    : location.origin+location.pathname.replace(/index\.html$/,"");
+  return base+"#"+m.ticker;
+}
 function nomCorto(m){
   if(!NOM_CORTO)calcularNombresCortos();
   return NOM_CORTO[m.id]||m.nombre;
@@ -1151,7 +1163,7 @@ function tarjeta(m){
   x.fillStyle=g;x.fillRect(0,0,W,H);
   x.strokeStyle=col+"44";x.lineWidth=2;x.strokeRect(44,44,W-88,H-88);
 
-  var url=location.origin+location.pathname.replace(/index\.html$/,"")+"#"+m.ticker;
+  var url=urlFicha(m);
 
   function texto(t,f,c,cx,cy,al){
     x.font=f;x.fillStyle=c;x.textAlign=al||"center";x.textBaseline="alphabetic";
@@ -1362,7 +1374,7 @@ function abrir(id,sinHash){
   });
   var lk=$("#ovLink");
   if(lk)lk.addEventListener("click",function(){
-    var url=location.href.split("#")[0].split("?")[0]+"#"+m.ticker;
+    var url=urlFicha(m);
     if(navigator.clipboard)navigator.clipboard.writeText(url).then(function(){
       lk.textContent="Copiado ✓";setTimeout(function(){lk.textContent="Copiar enlace"},1800);
     });
@@ -1428,6 +1440,7 @@ function trayectoria(equipoId){
 fetch("../datos/club.json",{cache:"force-cache"})
   .then(function(r){return r.ok?r.json():null})
   .then(function(d){
+    if(d&&d.config&&d.config.sitio)SITIO=d.config.sitio;
     var u=d&&d.config&&d.config.urls; if(!u)return;
     $$("[data-link]").forEach(function(a){
       var k=a.getAttribute("data-link");
