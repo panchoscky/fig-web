@@ -93,13 +93,19 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 #s2 .slot img{max-height:100%;max-width:610px;object-fit:contain}
 
 /* ---------------- encabezado persistente (desde la lista en adelante) --- */
-#head{position:absolute;top:118px;left:0;right:0;display:flex;flex-direction:column;
+/* El encabezado sube de 118px a 86px para hacerle sitio al nombre del torneo
+   a 132px (2026-08-16, pedido de Francisco). Arriba sobraba aire, así que
+   subirlo no aprieta nada; sin esto el título toca la tarjeta de abajo. */
+#head{position:absolute;top:86px;left:0;right:0;display:flex;flex-direction:column;
   align-items:center;opacity:0;visibility:hidden}
 #head .lock{display:flex;align-items:center;gap:22px}
-/* Nombre del torneo +50% (2026-08-15, pedido de Francisco). A 84px queda a
-   51px de la tarjeta de abajo, así que todavía no se tocan. */
-#head .logo{width:92px;height:92px;object-fit:contain}
-#head h2{font-family:var(--f-disp);font-weight:600;font-size:84px;color:var(--ink)}
+/* Nombre del torneo: 56px → 84px (2026-08-15) → 132px (2026-08-16), las dos
+   veces a pedido de Francisco. El tope NO es el ancho (a 132px el bloque mide
+   1443px de 1920) sino el alto: a 132px con el encabezado en su sitio original
+   el título tocaba la tarjeta, por eso #head subió a 86px. Con eso quedan 27px
+   de aire sobre la tarjeta más alta del top 5 (la de 3 integrantes). */
+#head .logo{width:142px;height:142px;object-fit:contain}
+#head h2{font-family:var(--f-disp);font-weight:600;font-size:132px;color:var(--ink)}
 #head h2 em{font-style:italic;color:var(--blue)}
 #head .kick{margin-top:12px;font-family:var(--f-mono);font-size:19px;
   letter-spacing:.42em;color:var(--dim);text-transform:uppercase}
