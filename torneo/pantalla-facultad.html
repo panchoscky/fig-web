@@ -77,8 +77,10 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 #s1 .sub{margin-top:36px}
 #s1 .sub span{font-family:var(--f-mono);font-size:26px;letter-spacing:.5em;
   color:var(--blue);text-transform:uppercase}
-#s1 .org{margin-top:30px;opacity:0}
-#s1 .org span{font-family:var(--f-body);font-size:27px;color:var(--dim)}
+/* 27px → 38px (2026-08-20, pedido de Francisco: "agranda un poco lo de
+   organización estudiantil"). Es la frase que la Escuela pidió sumar. */
+#s1 .org{margin-top:32px;opacity:0}
+#s1 .org span{font-family:var(--f-body);font-size:38px;color:var(--dim)}
 
 /* ---------------- s2: colaboradores ---------------- */
 #s2 .kick{font-family:var(--f-mono);font-size:26px;letter-spacing:.42em;
@@ -184,10 +186,16 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
    inferior en todas las láminas". */
 #brand{position:absolute;bottom:44px;left:0;right:0;display:flex;flex-direction:column;
   align-items:center;gap:15px;opacity:0;visibility:hidden}
-#brand .lg{display:flex;align-items:center;gap:54px;height:58px}
+/* Cada logo lleva su propio alto, no uno común: el de la FEN con escudo es
+   mucho más "cuadrado" que los demás (ratio 1.74 vs 2.09 del antiguo) y su
+   texto ocupa solo la mitad inferior, así que a la misma altura que Itaú o
+   BlackRock quedaba ilegible. Se equilibran ópticamente, no por número. */
+#brand .lg{display:flex;align-items:center;gap:50px;height:78px}
 #brand .lg img{max-height:100%;object-fit:contain}
-#brand .lg img.bull{max-height:54px}
-#brand .lg img.blk{max-height:40px}
+#brand .lg img.bull{max-height:56px}
+#brand .lg img.fen{max-height:78px}
+#brand .lg img.itau{max-height:62px}
+#brand .lg img.blk{max-height:42px}
 #brand span{font-family:var(--f-mono);font-size:18px;letter-spacing:.16em;color:var(--dim)}
 </style>
 </head>
@@ -210,7 +218,7 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 <div class="sc" id="s2">
   <div class="kick">En alianza con</div>
   <div class="row">
-    <div class="slot"><img src="../logos/fen.png" alt="FEN UChile"></div>
+    <div class="slot"><img src="../logos/fen-escudo.png" alt="Facultad de Economía y Negocios, Universidad de Chile"></div>
     <div class="slot"><img src="../logos/itau.png" alt="Itaú"></div>
     <div class="slot"><img src="../logos/blackrock.png" alt="BlackRock"></div>
   </div>
@@ -230,8 +238,8 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 <div id="brand">
   <div class="lg">
     <img class="bull" src="../logos/fig-navy.png" alt="FEN Investment Group">
-    <img src="../logos/fen.png" alt="FEN UChile">
-    <img src="../logos/itau.png" alt="Itaú">
+    <img class="fen" src="../logos/fen-escudo.png" alt="Facultad de Economía y Negocios, Universidad de Chile">
+    <img class="itau" src="../logos/itau.png" alt="Itaú">
     <img class="blk" src="../logos/blackrock.png" alt="BlackRock">
   </div>
   <span>@fen.investment.group</span>
