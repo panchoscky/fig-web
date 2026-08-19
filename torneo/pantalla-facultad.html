@@ -77,6 +77,8 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 #s1 .sub{margin-top:36px}
 #s1 .sub span{font-family:var(--f-mono);font-size:26px;letter-spacing:.5em;
   color:var(--blue);text-transform:uppercase}
+#s1 .org{margin-top:30px;opacity:0}
+#s1 .org span{font-family:var(--f-body);font-size:27px;color:var(--dim)}
 
 /* ---------------- s2: colaboradores ---------------- */
 #s2 .kick{font-family:var(--f-mono);font-size:26px;letter-spacing:.42em;
@@ -129,17 +131,12 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
   background:var(--card);border:1px solid var(--line);border-radius:26px;
   padding:58px 64px;box-shadow:0 40px 90px rgba(10,17,40,.10);
   opacity:0;visibility:hidden}
-/* La fila de logos de la tarjeta crece MENOS que la de la escena s2, y no es
-   por gusto: acá el alto empuja todo el contenido hacia abajo, y la tarjeta
-   más alta del top 5 (la de un equipo de 3 integrantes, hoy CLB) termina
-   metiéndose bajo el pie de página. Medido: a 84px el borde inferior queda en
-   1003px; a 100px ya invade el pie y a 115px se ve encima de la tarjeta.
-   Si algún día hay que agrandarlos más, primero hay que subir #cardPanel o
-   bajar su padding — no basta con tocar este número. */
-#cardPanel .logos{display:flex;align-items:center;gap:48px;height:84px;margin-bottom:34px}
-#cardPanel .logos img{max-height:100%;object-fit:contain}
-#cardPanel .logos img.bull{max-height:76px}
-#cardPanel .logos img.blk{max-height:57px}
+/* Los logos YA NO van dentro de la tarjeta (2026-08-20, observación de la
+   Escuela: "en las diapositivas finales de resultados los logos aparecen
+   arriba; sugiero moverlos abajo"). Ahora viven en la franja #brand del pie,
+   que se ve en TODAS las láminas. Efecto secundario bueno: la tarjeta pierde
+   ~118px de alto, así que la más alta del top 5 (un equipo de 3 integrantes,
+   hoy CLB) deja de rozar el pie. */
 #cardPanel .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:46px}
 #cardPanel .who .pos{font-family:var(--f-disp);font-weight:700;font-size:52px;color:var(--blue)}
 #cardPanel .who .nm{font-family:var(--f-disp);font-weight:700;font-size:52px;color:var(--ink);margin-left:14px}
@@ -180,11 +177,18 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 #cardPanel .chart .lg b{color:var(--ink);font-weight:600;margin-left:5px}
 #cardPanel .chart svg{flex:1;width:100%;height:100%}
 
-/* pie con marca, siempre visible desde la lista en adelante */
-#foot{position:absolute;bottom:64px;left:0;right:0;display:flex;justify-content:center;
-  align-items:center;gap:16px;opacity:0;visibility:hidden}
-#foot img{height:34px;object-fit:contain}
-#foot span{font-family:var(--f-mono);font-size:20px;letter-spacing:.16em;color:var(--dim)}
+/* FRANJA DE MARCA DEL PIE (2026-08-20, observaciones de la Escuela).
+   Antes era solo el toro + el @, y aparecía recién desde la lista. Ahora
+   lleva los tres logos de los colaboradores y se ve en TODAS las láminas,
+   incluidas la intro y las de resultados: "mantén los tres logos en la franja
+   inferior en todas las láminas". */
+#brand{position:absolute;bottom:44px;left:0;right:0;display:flex;flex-direction:column;
+  align-items:center;gap:15px;opacity:0;visibility:hidden}
+#brand .lg{display:flex;align-items:center;gap:54px;height:58px}
+#brand .lg img{max-height:100%;object-fit:contain}
+#brand .lg img.bull{max-height:54px}
+#brand .lg img.blk{max-height:40px}
+#brand span{font-family:var(--f-mono);font-size:18px;letter-spacing:.16em;color:var(--dim)}
 </style>
 </head>
 <body>
@@ -197,6 +201,10 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
     <div class="mask"><h1>FEN Investment Group</h1></div>
   </div>
   <div class="sub"><span>Torneo Portafolio 2026</span></div>
+  <!-- Pedido de la Escuela (2026-08-20): decir al inicio qué es FIG. Se nombra
+       la Facultad pero NO "Universidad de Chile", que Francisco pidió sacar del
+       texto visible el 2026-07-24 (ver CLAUDE.md). Así se cumplen las dos. -->
+  <div class="org"><span>Organización estudiantil de la Facultad de Economía y Negocios</span></div>
 </div>
 
 <div class="sc" id="s2">
@@ -219,8 +227,13 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 <div id="listPanel"></div>
 <div id="cardPanel"></div>
 
-<div id="foot">
-  <img src="../logos/fig-navy.png" alt="">
+<div id="brand">
+  <div class="lg">
+    <img class="bull" src="../logos/fig-navy.png" alt="FEN Investment Group">
+    <img src="../logos/fen.png" alt="FEN UChile">
+    <img src="../logos/itau.png" alt="Itaú">
+    <img class="blk" src="../logos/blackrock.png" alt="BlackRock">
+  </div>
   <span>@fen.investment.group</span>
 </div>
 
@@ -403,14 +416,9 @@ function pintarTarjeta(t){
   }).join("");
   var badge=t.ultimaVar==null?"":
     '<span class="badge '+(vup?"up":"down")+'">'+pct(t.ultimaVar,2)+' esta semana</span>';
+  /* Sin fila de logos: migraron a la franja #brand del pie (2026-08-20). */
   $("#cardPanel").innerHTML =
-    '<div class="logos">'
-      +'<img class="bull" src="../logos/fig-navy.png" alt="">'
-      +'<img src="../logos/fen.png" alt="FEN UChile">'
-      +'<img src="../logos/itau.png" alt="Itaú">'
-      +'<img class="blk" src="../logos/blackrock.png" alt="BlackRock">'
-    +'</div>'
-    +'<div class="top">'
+    '<div class="top">'
       +'<div class="who"><div><span class="pos">#'+t.pos+'</span><span class="nm">'+esc(t.nombre)+'</span></div>'
       +'<div class="sub">Semana '+(D.semana||"—")+' · '+t.mem.length+' integrante'+(t.mem.length===1?"":"s")+'</div></div>'
       +'<div class="stats">'
@@ -439,10 +447,16 @@ function seek(t){
   var p2=eo(sg(t,S2[0]+300,700));
   $("#s2 .row").style.opacity=p2; $("#s2 .row").style.transform="translateY("+lp(18,0,p2)+"px)";
 
-  /* encabezado + pie: visibles desde HEAD_IN hasta el final */
+  $("#s1 .org").style.opacity=eo(sg(t,S1[0]+1900,700));
+
+  /* encabezado: visible desde HEAD_IN hasta el final */
   var aHead=Math.min(sg(t,HEAD_IN,HEAD_FADE),1-sg(t,TOTAL-HEAD_FADE,HEAD_FADE));
   $("#head").style.opacity=aHead; $("#head").style.visibility=aHead>.002?"visible":"hidden";
-  $("#foot").style.opacity=aHead*.9; $("#foot").style.visibility=aHead>.002?"visible":"hidden";
+
+  /* franja de marca: en TODAS las láminas, desde la intro hasta el cierre
+     (2026-08-20, pedido de la Escuela), no solo desde la lista como antes */
+  var aBrand=Math.min(sg(t,600,700),1-sg(t,TOTAL-HEAD_FADE,HEAD_FADE));
+  $("#brand").style.opacity=aBrand*.95; $("#brand").style.visibility=aBrand>.002?"visible":"hidden";
 
   /* lista: visible en su primer tramo solo, y en el tramo final solo */
   var aList=Math.max(alpha(t,LIST_FIRST,420), alpha(t,LIST_LAST,420));
