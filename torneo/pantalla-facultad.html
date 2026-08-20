@@ -56,9 +56,30 @@
   --f-mono:"IBM Plex Mono","SF Mono",monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:1920px;height:1080px;overflow:hidden}
+/* El LIENZO lo fija el formato elegido (?formato=... o ?w=&h=), y el
+   ESCENARIO sigue midiendo siempre 1920x1080: se escala y se centra dentro
+   del lienzo. Así la composición no se rediseña por formato — se mantiene
+   exactamente la que ya está verificada — y las bandas que sobran las
+   pintamos nosotros en vez de dejarlas al reproductor, que las pone negras
+   (2026-08-20, observación de la Escuela). */
+html,body{overflow:hidden}
 body{font-family:var(--f-body);color:var(--ink);position:relative;
   -webkit-font-smoothing:antialiased;background:#fff}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;
+  overflow:hidden;background:#fff;transform-origin:center center}
+
+/* selector de formato (no se graba) */
+#pick{position:fixed;top:16px;right:16px;z-index:99;background:rgba(255,255,255,.97);
+  border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+  box-shadow:0 10px 30px rgba(10,17,40,.14);font-family:var(--f-body);max-width:280px}
+#pick b{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:10px}
+#pick .ops{display:flex;flex-wrap:wrap;gap:6px}
+#pick a{font-family:var(--f-mono);font-size:12px;text-decoration:none;color:var(--ink);
+  border:1px solid var(--line);border-radius:7px;padding:6px 9px;background:#fff}
+#pick a:hover{border-color:var(--blue);color:var(--blue)}
+#pick a.on{background:var(--blue);border-color:var(--blue);color:#fff}
+#pick .nota{margin-top:10px;font-size:11px;line-height:1.45;color:var(--dim)}
 
 /* fondo: blanco con un glow celeste muy tenue, como la propuesta */
 #bg{position:absolute;inset:0;background:
@@ -216,6 +237,7 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 </head>
 <body>
 
+<div id="stage">
 <div id="bg"></div>
 
 <div class="sc" id="s1">
@@ -266,6 +288,16 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
   <span>@fen.investment.group</span>
 </div>
 
+</div><!-- /#stage -->
+
+<!-- Selector de formato. Vive FUERA de #stage para no escalarse, y se oculta
+     solo al grabar (window.__manual()) para no salir en el video. -->
+<div id="pick">
+  <b>Formato del video</b>
+  <div class="ops" id="pickOps"></div>
+  <div class="nota">El diseño es apaisado: en formatos verticales se ve más chico y con bandas.</div>
+</div>
+
 <script>
 /* ================= utilidades de tiempo (mismo patrón que pantalla.html) === */
 var cl  = function(x){return x<0?0:x>1?1:x};
@@ -273,6 +305,45 @@ var eo  = function(p){return 1-Math.pow(1-p,3)};
 var sg  = function(t,ini,dur){return cl((t-ini)/dur)};
 var lp  = function(a,b,p){return a+(b-a)*p};
 var $   = function(s,r){return (r||document).querySelector(s)};
+
+/* ---------- formato del lienzo ----------------------------------------
+   ?formato=16x9|16x10|4x3|1x1|4x5|9x16   ó   ?w=1080&h=1350 para uno libre
+   ?banda=blanco|azul|navy  -> color de las bandas cuando el formato no es 16:9
+   El grabador lee window.__w / window.__h para abrir el navegador del tamaño
+   correcto, así el MP4 sale ya en la proporción de la pantalla de destino y
+   no queda letterbox negro del reproductor. */
+var FORMATOS={"16x9":[1920,1080],"16x10":[1920,1200],"4x3":[1440,1080],
+              "1x1":[1080,1080],"4x5":[1080,1350],"9x16":[1080,1920]};
+var BANDAS={blanco:"#FFFFFF",azul:"#0052FF",navy:"#04182D"};
+var Q=new URLSearchParams(location.search);
+var FMT=Q.get("formato")||"16x9";
+var LW,LH;
+if(Q.get("w")&&Q.get("h")){ LW=parseInt(Q.get("w"),10); LH=parseInt(Q.get("h"),10); FMT=""; }
+else { var _d=FORMATOS[FMT]||FORMATOS["16x9"]; LW=_d[0]; LH=_d[1]; }
+var BANDA=BANDAS[Q.get("banda")]||BANDAS.blanco;
+window.__w=LW; window.__h=LH;
+
+(function aplicarFormato(){
+  document.documentElement.style.width=LW+"px";
+  document.documentElement.style.height=LH+"px";
+  document.body.style.width=LW+"px";
+  document.body.style.height=LH+"px";
+  document.body.style.background=BANDA;
+  var esc=Math.min(LW/1920,LH/1080);
+  var st=document.getElementById("stage");
+  st.style.transform="translate(-50%,-50%) scale("+esc+")";
+  var vp=document.querySelector('meta[name=viewport]');
+  if(vp) vp.setAttribute("content","width="+LW);
+  /* botones del selector */
+  var ops=document.getElementById("pickOps");
+  if(ops){
+    ops.innerHTML=Object.keys(FORMATOS).map(function(k){
+      var d=FORMATOS[k];
+      return '<a href="?formato='+k+(Q.get("banda")?"&banda="+Q.get("banda"):"")+'"'
+        +(k===FMT?' class="on"':'')+'>'+k.replace("x",":")+' · '+d[0]+'×'+d[1]+'</a>';
+    }).join("");
+  }
+})();
 function alpha(t,r,fade){
   fade=fade||FADE;
   return Math.min(sg(t,r[0],fade), 1-sg(t,r[1]-fade,fade));
@@ -552,7 +623,10 @@ function seek(t){
 
 /* ================= reloj ================= */
 var manual=false, t0=null;
-window.__manual=function(){manual=true};
+window.__manual=function(){
+  manual=true;
+  var pk=document.getElementById("pick"); if(pk) pk.style.display="none";
+};
 window.__seek=function(ms){seek(ms)};
 
 function arrancar(){
