@@ -96,6 +96,21 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 #s2 .slot{height:196px;display:flex;align-items:center}
 #s2 .slot img{max-height:100%;max-width:610px;object-fit:contain}
 
+/* ---------------- s3: resultados de la semana ---------------- */
+/* Reproduce la lámina de la propuesta original. Los rótulos de cada dato van
+   deliberadamente más grandes que en aquella maqueta (ahí eran ~15px a escala
+   1920 y no se leían): "la info de abajo que sea un poquito más grande para
+   que se pueda leer desde lejos" (2026-08-20). */
+#s3 .kick{font-family:var(--f-mono);font-size:26px;letter-spacing:.42em;
+  color:var(--blue);text-transform:uppercase;margin-bottom:26px}
+#s3 .tit{font-family:var(--f-disp);font-weight:600;font-size:118px;color:var(--ink);line-height:1.05}
+#s3 .tit em{font-style:italic;color:var(--blue)}
+#s3 .stats{display:flex;align-items:flex-start;gap:96px;margin-top:34px;opacity:0}
+#s3 .stats .it{display:flex;flex-direction:column;align-items:center;gap:8px}
+#s3 .stats .vl{font-family:var(--f-mono);font-weight:600;font-size:60px;color:var(--blue);line-height:1}
+#s3 .stats .lb{font-family:var(--f-mono);font-size:22px;letter-spacing:.22em;
+  color:var(--dim);text-transform:uppercase}
+
 /* ---------------- encabezado persistente (desde la lista en adelante) --- */
 /* El encabezado sube de 118px a 86px para hacerle sitio al nombre del torneo
    a 132px (2026-08-16, pedido de Francisco). Arriba sobraba aire, así que
@@ -131,7 +146,7 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 /* ---------------- tarjeta de equipo ---------------- */
 #cardPanel{position:absolute;top:300px;left:50%;width:1540px;margin-left:-770px;
   background:var(--card);border:1px solid var(--line);border-radius:26px;
-  padding:58px 64px;box-shadow:0 40px 90px rgba(10,17,40,.10);
+  padding:48px 64px;box-shadow:0 40px 90px rgba(10,17,40,.10);
   opacity:0;visibility:hidden}
 /* Los logos YA NO van dentro de la tarjeta (2026-08-20, observación de la
    Escuela: "en las diapositivas finales de resultados los logos aparecen
@@ -142,11 +157,11 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 #cardPanel .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:46px}
 #cardPanel .who .pos{font-family:var(--f-disp);font-weight:700;font-size:52px;color:var(--blue)}
 #cardPanel .who .nm{font-family:var(--f-disp);font-weight:700;font-size:52px;color:var(--ink);margin-left:14px}
-#cardPanel .who .sub{margin-top:10px;font-family:var(--f-mono);font-size:20px;color:var(--dim)}
+#cardPanel .who .sub{margin-top:10px;font-family:var(--f-mono);font-size:25px;color:var(--dim)}
 #cardPanel .stats{display:flex;gap:20px}
 #cardPanel .stat{background:#F4F7FF;border:1px solid var(--line);border-radius:14px;
   padding:16px 26px;text-align:right;min-width:190px}
-#cardPanel .stat .lb{font-family:var(--f-mono);font-size:14px;letter-spacing:.14em;
+#cardPanel .stat .lb{font-family:var(--f-mono);font-size:18px;letter-spacing:.14em;
   color:var(--dim);text-transform:uppercase}
 #cardPanel .stat .vl{font-family:var(--f-mono);font-weight:600;font-size:30px;margin-top:6px}
 #cardPanel .stat .vl.up{color:var(--up)} #cardPanel .stat .vl.down{color:var(--down)}
@@ -157,22 +172,22 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 #cardPanel .mem .av{width:56px;height:56px;border-radius:50%;background:var(--blue);
   color:#fff;font-family:var(--f-mono);font-weight:600;font-size:20px;
   display:flex;align-items:center;justify-content:center;flex:none}
-#cardPanel .mem .role{font-family:var(--f-mono);font-size:13px;letter-spacing:.14em;
+#cardPanel .mem .role{font-family:var(--f-mono);font-size:16px;letter-spacing:.14em;
   color:var(--dim);text-transform:uppercase}
-#cardPanel .mem .nm2{font-family:var(--f-body);font-weight:600;font-size:20px;margin-top:2px}
+#cardPanel .mem .nm2{font-family:var(--f-body);font-weight:600;font-size:24px;margin-top:2px}
 #cardPanel .chart{flex:1;background:#F8F9FD;border:1px solid var(--line);border-radius:14px;
   padding:22px 26px;display:flex;flex-direction:column}
 #cardPanel .chart .hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-#cardPanel .chart .hd b{font-family:var(--f-mono);font-size:14px;letter-spacing:.1em;
+#cardPanel .chart .hd b{font-family:var(--f-mono);font-size:18px;letter-spacing:.1em;
   color:var(--dim);text-transform:uppercase;font-weight:500}
-#cardPanel .chart .badge{font-family:var(--f-mono);font-weight:600;font-size:14px;
+#cardPanel .chart .badge{font-family:var(--f-mono);font-weight:600;font-size:17px;
   padding:4px 12px;border-radius:100px}
 #cardPanel .chart .badge.up{color:var(--up);background:rgba(18,161,119,.10)}
 #cardPanel .chart .badge.down{color:var(--down);background:rgba(217,85,62,.10)}
 /* Leyenda: sin ella las dos líneas no se distinguen (2026-08-15, pedido de
    Francisco: "que se entienda qué línea es cuál"). */
 #cardPanel .chart .lg{display:flex;gap:26px;flex-wrap:wrap;margin:2px 0 4px;
-  font-family:var(--f-mono);font-size:15px;color:var(--dim)}
+  font-family:var(--f-mono);font-size:19px;color:var(--dim)}
 #cardPanel .chart .lg i{display:inline-block;width:28px;vertical-align:middle;margin-right:9px}
 #cardPanel .chart .lg .team i{height:4px;border-radius:2px;background:var(--up)}
 #cardPanel .chart .lg .avg i{height:0;border-top:3px dashed var(--avg)}
@@ -196,7 +211,7 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 #brand .lg img.fen{max-height:78px}
 #brand .lg img.itau{max-height:62px}
 #brand .lg img.blk{max-height:42px}
-#brand span{font-family:var(--f-mono);font-size:18px;letter-spacing:.16em;color:var(--dim)}
+#brand span{font-family:var(--f-mono);font-size:22px;letter-spacing:.16em;color:var(--dim)}
 </style>
 </head>
 <body>
@@ -222,6 +237,12 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
     <div class="slot"><img src="../logos/itau.png" alt="Itaú"></div>
     <div class="slot"><img src="../logos/blackrock.png" alt="BlackRock"></div>
   </div>
+</div>
+
+<div class="sc" id="s3">
+  <div class="kick">Resultados de la semana</div>
+  <h2 class="tit">Torneo <em>Portafolio</em> 2026</h2>
+  <div class="stats" id="s3Stats"></div>
 </div>
 
 <div id="head">
@@ -259,9 +280,13 @@ function alpha(t,r,fade){
 
 /* ---- línea de tiempo (ms) ---- */
 var S1=[0,4000], S2=[4000,8200];
-var HEAD_IN=8200, HEAD_FADE=520;
-var LIST_FIRST=[8900,11300];              /* la lista sola, antes del primer equipo */
-var N_CARDS=5, CARD_DUR=5400, CARD_START=11300;
+/* S3: lámina "Resultados de la semana" con los datos del corte. Estaba en la
+   propuesta original (Propuesta_Video_FIG.mp4, ~frame 335) y se había perdido
+   al reconstruir el video; el equipo la pidió de vuelta (2026-08-20). */
+var S3=[8200,12400];
+var HEAD_IN=12400, HEAD_FADE=520;
+var LIST_FIRST=[13100,15500];             /* la lista sola, antes del primer equipo */
+var N_CARDS=5, CARD_DUR=5400, CARD_START=15500;
 var CARD_RANGES=[];
 for(var i=0;i<N_CARDS;i++)CARD_RANGES.push([CARD_START+i*CARD_DUR,CARD_START+(i+1)*CARD_DUR]);
 var LIST_LAST=[CARD_RANGES[N_CARDS-1][1], CARD_RANGES[N_CARDS-1][1]+3000];
@@ -312,6 +337,23 @@ function promediosTorneo(){
   return out;
 }
 
+/* Participantes: se cuentan personas ÚNICAS de todos los equipos, no la suma
+   de los integrantes de cada uno — el Excel de inscripciones repite a alguna
+   persona y hay nombres con distinta capitalización. Ojo: si un equipo viene
+   sin integrantes cargados en torneo.json, sus miembros no entran en la
+   cuenta (hoy pasa con "Equipo rocket"). */
+function contarParticipantes(){
+  var vistos={},n=0;
+  (D.equipos||[]).forEach(function(t){
+    (t.miembros||[]).forEach(function(m){
+      var k=normaliza(m.nombre).toLowerCase();
+      if(!k||vistos[k])return;
+      vistos[k]=1; n++;
+    });
+  });
+  return n;
+}
+
 function preparar(){
   PROM = promediosTorneo();
   EQ = D.equipos.slice().sort(function(a,b){return a.posicion-b.posicion}).slice(0,N_CARDS)
@@ -332,6 +374,20 @@ function preparar(){
       };
     });
   $("#headKick").textContent="Ranking Top "+N_CARDS+" · Semana "+(D.semana||"—");
+
+  /* Datos de la lámina s3. El corte viene como "14 · AGO · 2026": se recorta
+     el año para que quepa como dato suelto, igual que en la propuesta. */
+  var corte=String(D.corte||"—").split("·").slice(0,2).join(" · ").trim();
+  var stats=[
+    {vl:D.semana||"—",        lb:"Semana"},
+    {vl:(D.equipos||[]).length,lb:"Equipos"},
+    {vl:contarParticipantes(), lb:"Participantes"},
+    {vl:corte,                 lb:"Corte"}
+  ];
+  $("#s3Stats").innerHTML=stats.map(function(s){
+    return '<div class="it"><div class="vl">'+esc(String(s.vl))+'</div>'
+      +'<div class="lb">'+esc(s.lb)+'</div></div>';
+  }).join("");
 }
 
 /* ---------------- lista ---------------- */
@@ -388,8 +444,8 @@ function chartSVG(t){
       +'<path d="'+area+'" fill="url(#cg)"/>';
   }
 
-  o+='<text x="'+PL+'" y="'+(H-6)+'" font-family="IBM Plex Mono,monospace" font-size="12" fill="rgba(10,17,40,.4)">S'+S[0].s+'</text>'
-    +'<text x="'+(W-PR)+'" y="'+(H-6)+'" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="12" fill="rgba(10,17,40,.4)">S'+S[S.length-1].s+'</text>';
+  o+='<text x="'+PL+'" y="'+(H-6)+'" font-family="IBM Plex Mono,monospace" font-size="16" fill="rgba(10,17,40,.45)">S'+S[0].s+'</text>'
+    +'<text x="'+(W-PR)+'" y="'+(H-6)+'" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="16" fill="rgba(10,17,40,.45)">S'+S[S.length-1].s+'</text>';
 
   if(hayProm){
     var pp=P.map(function(x,k){return X(k)+","+Y(x.v)}).join(" ");
@@ -445,9 +501,14 @@ function pintarTarjeta(t){
 var cardPintado=-1;
 function seek(t){
   /* s1 / s2 */
-  var a1=alpha(t,S1), a2=alpha(t,S2);
+  var a1=alpha(t,S1), a2=alpha(t,S2), a3=alpha(t,S3);
   $("#s1").style.opacity=a1; $("#s1").style.visibility=a1>.002?"visible":"hidden";
   $("#s2").style.opacity=a2; $("#s2").style.visibility=a2>.002?"visible":"hidden";
+  $("#s3").style.opacity=a3; $("#s3").style.visibility=a3>.002?"visible":"hidden";
+  /* los datos entran después del título, no junto con él */
+  var p3=eo(sg(t,S3[0]+700,800));
+  $("#s3 .stats").style.opacity=p3;
+  $("#s3 .stats").style.transform="translateY("+lp(16,0,p3)+"px)";
   var p1=eo(sg(t,S1[0]+300,900));
   $("#s1 .mask").style.width=(p1*1010)+"px";
   $("#s1 .logo").style.transform="scale("+lp(.5,1,eo(sg(t,S1[0],700))).toFixed(3)+")";
