@@ -56,9 +56,30 @@
   --f-mono:"IBM Plex Mono","SF Mono",monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:1920px;height:1080px;overflow:hidden}
+/* El LIENZO lo fija el formato elegido (?formato=... o ?w=&h=), y el
+   ESCENARIO sigue midiendo siempre 1920x1080: se escala y se centra dentro
+   del lienzo. Así la composición no se rediseña por formato — se mantiene
+   exactamente la que ya está verificada — y las bandas que sobran las
+   pintamos nosotros en vez de dejarlas al reproductor, que las pone negras
+   (2026-08-20, observación de la Escuela). */
+html,body{overflow:hidden}
 body{font-family:var(--f-body);color:var(--ink);position:relative;
   -webkit-font-smoothing:antialiased;background:#fff}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;
+  overflow:hidden;background:#fff;transform-origin:center center}
+
+/* selector de formato (no se graba) */
+#pick{position:fixed;top:16px;right:16px;z-index:99;background:rgba(255,255,255,.97);
+  border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+  box-shadow:0 10px 30px rgba(10,17,40,.14);font-family:var(--f-body);max-width:280px}
+#pick b{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:10px}
+#pick .ops{display:flex;flex-wrap:wrap;gap:6px}
+#pick a{font-family:var(--f-mono);font-size:12px;text-decoration:none;color:var(--ink);
+  border:1px solid var(--line);border-radius:7px;padding:6px 9px;background:#fff}
+#pick a:hover{border-color:var(--blue);color:var(--blue)}
+#pick a.on{background:var(--blue);border-color:var(--blue);color:#fff}
+#pick .nota{margin-top:10px;font-size:11px;line-height:1.45;color:var(--dim)}
 
 /* fondo: blanco con un glow celeste muy tenue, como la propuesta */
 #bg{position:absolute;inset:0;background:
@@ -77,24 +98,54 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 #s1 .sub{margin-top:36px}
 #s1 .sub span{font-family:var(--f-mono);font-size:26px;letter-spacing:.5em;
   color:var(--blue);text-transform:uppercase}
+/* 27px → 38px (2026-08-20, pedido de Francisco: "agranda un poco lo de
+   organización estudiantil"). Es la frase que la Escuela pidió sumar. */
+#s1 .org{margin-top:32px;opacity:0}
+#s1 .org span{font-family:var(--f-body);font-size:38px;color:var(--dim)}
 
 /* ---------------- s2: colaboradores ---------------- */
-#s2 .kick{font-family:var(--f-mono);font-size:22px;letter-spacing:.42em;
-  color:var(--dim);text-transform:uppercase;margin-bottom:56px}
-/* Logos de colaboradores más grandes (2026-08-15, pedido de Francisco): se
-   proyecta en una TV grande y a 74px se leían chicos. */
-#s2 .row{display:flex;align-items:center;gap:110px;background:var(--card);
-  border:1px solid var(--line);border-radius:22px;padding:56px 92px;
+#s2 .kick{font-family:var(--f-mono);font-size:26px;letter-spacing:.42em;
+  color:var(--dim);text-transform:uppercase;margin-bottom:64px}
+/* Logos de colaboradores al máximo que permite el lienzo (2026-08-15, segunda
+   subida a pedido de Francisco). Esta escena es a pantalla completa, así que
+   tiene margen de sobra: a 196px la fila mide 1482px de 1920, con 219px de
+   aire a cada lado. Ojo: la fila de logos DENTRO de cada tarjeta (más abajo)
+   NO puede crecer igual — ahí el techo lo pone el pie de página. */
+#s2 .row{display:flex;align-items:center;gap:76px;background:var(--card);
+  border:1px solid var(--line);border-radius:22px;padding:34px 56px;
   box-shadow:0 30px 70px rgba(10,17,40,.08)}
-#s2 .slot{height:112px;display:flex;align-items:center}
-#s2 .slot img{max-height:100%;max-width:400px;object-fit:contain}
+#s2 .slot{height:196px;display:flex;align-items:center}
+#s2 .slot img{max-height:100%;max-width:610px;object-fit:contain}
+
+/* ---------------- s3: resultados de la semana ---------------- */
+/* Reproduce la lámina de la propuesta original. Los rótulos de cada dato van
+   deliberadamente más grandes que en aquella maqueta (ahí eran ~15px a escala
+   1920 y no se leían): "la info de abajo que sea un poquito más grande para
+   que se pueda leer desde lejos" (2026-08-20). */
+#s3 .kick{font-family:var(--f-mono);font-size:26px;letter-spacing:.42em;
+  color:var(--blue);text-transform:uppercase;margin-bottom:26px}
+#s3 .tit{font-family:var(--f-disp);font-weight:600;font-size:118px;color:var(--ink);line-height:1.05}
+#s3 .tit em{font-style:italic;color:var(--blue)}
+#s3 .stats{display:flex;align-items:flex-start;gap:96px;margin-top:34px;opacity:0}
+#s3 .stats .it{display:flex;flex-direction:column;align-items:center;gap:8px}
+#s3 .stats .vl{font-family:var(--f-mono);font-weight:600;font-size:60px;color:var(--blue);line-height:1}
+#s3 .stats .lb{font-family:var(--f-mono);font-size:22px;letter-spacing:.22em;
+  color:var(--dim);text-transform:uppercase}
 
 /* ---------------- encabezado persistente (desde la lista en adelante) --- */
-#head{position:absolute;top:118px;left:0;right:0;display:flex;flex-direction:column;
+/* El encabezado sube de 118px a 86px para hacerle sitio al nombre del torneo
+   a 132px (2026-08-16, pedido de Francisco). Arriba sobraba aire, así que
+   subirlo no aprieta nada; sin esto el título toca la tarjeta de abajo. */
+#head{position:absolute;top:86px;left:0;right:0;display:flex;flex-direction:column;
   align-items:center;opacity:0;visibility:hidden}
 #head .lock{display:flex;align-items:center;gap:22px}
-#head .logo{width:64px;height:64px;object-fit:contain}
-#head h2{font-family:var(--f-disp);font-weight:600;font-size:56px;color:var(--ink)}
+/* Nombre del torneo: 56px → 84px (2026-08-15) → 132px (2026-08-16), las dos
+   veces a pedido de Francisco. El tope NO es el ancho (a 132px el bloque mide
+   1443px de 1920) sino el alto: a 132px con el encabezado en su sitio original
+   el título tocaba la tarjeta, por eso #head subió a 86px. Con eso quedan 27px
+   de aire sobre la tarjeta más alta del top 5 (la de 3 integrantes). */
+#head .logo{width:142px;height:142px;object-fit:contain}
+#head h2{font-family:var(--f-disp);font-weight:600;font-size:132px;color:var(--ink)}
 #head h2 em{font-style:italic;color:var(--blue)}
 #head .kick{margin-top:12px;font-family:var(--f-mono);font-size:19px;
   letter-spacing:.42em;color:var(--dim);text-transform:uppercase}
@@ -116,22 +167,22 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 /* ---------------- tarjeta de equipo ---------------- */
 #cardPanel{position:absolute;top:300px;left:50%;width:1540px;margin-left:-770px;
   background:var(--card);border:1px solid var(--line);border-radius:26px;
-  padding:58px 64px;box-shadow:0 40px 90px rgba(10,17,40,.10);
+  padding:48px 64px;box-shadow:0 40px 90px rgba(10,17,40,.10);
   opacity:0;visibility:hidden}
-/* Misma subida de tamaño que en s2: la fila de logos de cada tarjeta pasa de
-   48px a 68px de alto (2026-08-15, pedido de Francisco). */
-#cardPanel .logos{display:flex;align-items:center;gap:40px;height:68px;margin-bottom:34px}
-#cardPanel .logos img{max-height:100%;object-fit:contain}
-#cardPanel .logos img.bull{max-height:62px}
-#cardPanel .logos img.blk{max-height:46px}
+/* Los logos YA NO van dentro de la tarjeta (2026-08-20, observación de la
+   Escuela: "en las diapositivas finales de resultados los logos aparecen
+   arriba; sugiero moverlos abajo"). Ahora viven en la franja #brand del pie,
+   que se ve en TODAS las láminas. Efecto secundario bueno: la tarjeta pierde
+   ~118px de alto, así que la más alta del top 5 (un equipo de 3 integrantes,
+   hoy CLB) deja de rozar el pie. */
 #cardPanel .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:46px}
 #cardPanel .who .pos{font-family:var(--f-disp);font-weight:700;font-size:52px;color:var(--blue)}
 #cardPanel .who .nm{font-family:var(--f-disp);font-weight:700;font-size:52px;color:var(--ink);margin-left:14px}
-#cardPanel .who .sub{margin-top:10px;font-family:var(--f-mono);font-size:20px;color:var(--dim)}
+#cardPanel .who .sub{margin-top:10px;font-family:var(--f-mono);font-size:25px;color:var(--dim)}
 #cardPanel .stats{display:flex;gap:20px}
 #cardPanel .stat{background:#F4F7FF;border:1px solid var(--line);border-radius:14px;
   padding:16px 26px;text-align:right;min-width:190px}
-#cardPanel .stat .lb{font-family:var(--f-mono);font-size:14px;letter-spacing:.14em;
+#cardPanel .stat .lb{font-family:var(--f-mono);font-size:18px;letter-spacing:.14em;
   color:var(--dim);text-transform:uppercase}
 #cardPanel .stat .vl{font-family:var(--f-mono);font-weight:600;font-size:30px;margin-top:6px}
 #cardPanel .stat .vl.up{color:var(--up)} #cardPanel .stat .vl.down{color:var(--down)}
@@ -142,37 +193,51 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 #cardPanel .mem .av{width:56px;height:56px;border-radius:50%;background:var(--blue);
   color:#fff;font-family:var(--f-mono);font-weight:600;font-size:20px;
   display:flex;align-items:center;justify-content:center;flex:none}
-#cardPanel .mem .role{font-family:var(--f-mono);font-size:13px;letter-spacing:.14em;
+#cardPanel .mem .role{font-family:var(--f-mono);font-size:16px;letter-spacing:.14em;
   color:var(--dim);text-transform:uppercase}
-#cardPanel .mem .nm2{font-family:var(--f-body);font-weight:600;font-size:20px;margin-top:2px}
+#cardPanel .mem .nm2{font-family:var(--f-body);font-weight:600;font-size:24px;margin-top:2px}
 #cardPanel .chart{flex:1;background:#F8F9FD;border:1px solid var(--line);border-radius:14px;
   padding:22px 26px;display:flex;flex-direction:column}
 #cardPanel .chart .hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-#cardPanel .chart .hd b{font-family:var(--f-mono);font-size:14px;letter-spacing:.1em;
+#cardPanel .chart .hd b{font-family:var(--f-mono);font-size:18px;letter-spacing:.1em;
   color:var(--dim);text-transform:uppercase;font-weight:500}
-#cardPanel .chart .badge{font-family:var(--f-mono);font-weight:600;font-size:14px;
+#cardPanel .chart .badge{font-family:var(--f-mono);font-weight:600;font-size:17px;
   padding:4px 12px;border-radius:100px}
 #cardPanel .chart .badge.up{color:var(--up);background:rgba(18,161,119,.10)}
 #cardPanel .chart .badge.down{color:var(--down);background:rgba(217,85,62,.10)}
 /* Leyenda: sin ella las dos líneas no se distinguen (2026-08-15, pedido de
    Francisco: "que se entienda qué línea es cuál"). */
 #cardPanel .chart .lg{display:flex;gap:26px;flex-wrap:wrap;margin:2px 0 4px;
-  font-family:var(--f-mono);font-size:15px;color:var(--dim)}
+  font-family:var(--f-mono);font-size:19px;color:var(--dim)}
 #cardPanel .chart .lg i{display:inline-block;width:28px;vertical-align:middle;margin-right:9px}
 #cardPanel .chart .lg .team i{height:4px;border-radius:2px;background:var(--up)}
 #cardPanel .chart .lg .avg i{height:0;border-top:3px dashed var(--avg)}
 #cardPanel .chart .lg b{color:var(--ink);font-weight:600;margin-left:5px}
 #cardPanel .chart svg{flex:1;width:100%;height:100%}
 
-/* pie con marca, siempre visible desde la lista en adelante */
-#foot{position:absolute;bottom:64px;left:0;right:0;display:flex;justify-content:center;
-  align-items:center;gap:16px;opacity:0;visibility:hidden}
-#foot img{height:34px;object-fit:contain}
-#foot span{font-family:var(--f-mono);font-size:20px;letter-spacing:.16em;color:var(--dim)}
+/* FRANJA DE MARCA DEL PIE (2026-08-20, observaciones de la Escuela).
+   Antes era solo el toro + el @, y aparecía recién desde la lista. Ahora
+   lleva los tres logos de los colaboradores y se ve en TODAS las láminas,
+   incluidas la intro y las de resultados: "mantén los tres logos en la franja
+   inferior en todas las láminas". */
+#brand{position:absolute;bottom:44px;left:0;right:0;display:flex;flex-direction:column;
+  align-items:center;gap:15px;opacity:0;visibility:hidden}
+/* Cada logo lleva su propio alto, no uno común: el de la FEN con escudo es
+   mucho más "cuadrado" que los demás (ratio 1.74 vs 2.09 del antiguo) y su
+   texto ocupa solo la mitad inferior, así que a la misma altura que Itaú o
+   BlackRock quedaba ilegible. Se equilibran ópticamente, no por número. */
+#brand .lg{display:flex;align-items:center;gap:50px;height:78px}
+#brand .lg img{max-height:100%;object-fit:contain}
+#brand .lg img.bull{max-height:56px}
+#brand .lg img.fen{max-height:78px}
+#brand .lg img.itau{max-height:62px}
+#brand .lg img.blk{max-height:42px}
+#brand span{font-family:var(--f-mono);font-size:22px;letter-spacing:.16em;color:var(--dim)}
 </style>
 </head>
 <body>
 
+<div id="stage">
 <div id="bg"></div>
 
 <div class="sc" id="s1">
@@ -181,15 +246,25 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
     <div class="mask"><h1>FEN Investment Group</h1></div>
   </div>
   <div class="sub"><span>Torneo Portafolio 2026</span></div>
+  <!-- Pedido de la Escuela (2026-08-20): decir al inicio qué es FIG. Se nombra
+       la Facultad pero NO "Universidad de Chile", que Francisco pidió sacar del
+       texto visible el 2026-07-24 (ver CLAUDE.md). Así se cumplen las dos. -->
+  <div class="org"><span>Organización estudiantil de la Facultad de Economía y Negocios</span></div>
 </div>
 
 <div class="sc" id="s2">
   <div class="kick">En alianza con</div>
   <div class="row">
-    <div class="slot"><img src="../logos/fen.png" alt="FEN UChile"></div>
+    <div class="slot"><img src="../logos/fen-escudo.png" alt="Facultad de Economía y Negocios, Universidad de Chile"></div>
     <div class="slot"><img src="../logos/itau.png" alt="Itaú"></div>
     <div class="slot"><img src="../logos/blackrock.png" alt="BlackRock"></div>
   </div>
+</div>
+
+<div class="sc" id="s3">
+  <div class="kick">Resultados de la semana</div>
+  <h2 class="tit">Torneo <em>Portafolio</em> 2026</h2>
+  <div class="stats" id="s3Stats"></div>
 </div>
 
 <div id="head">
@@ -203,9 +278,24 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 <div id="listPanel"></div>
 <div id="cardPanel"></div>
 
-<div id="foot">
-  <img src="../logos/fig-navy.png" alt="">
+<div id="brand">
+  <div class="lg">
+    <img class="bull" src="../logos/fig-navy.png" alt="FEN Investment Group">
+    <img class="fen" src="../logos/fen-escudo.png" alt="Facultad de Economía y Negocios, Universidad de Chile">
+    <img class="itau" src="../logos/itau.png" alt="Itaú">
+    <img class="blk" src="../logos/blackrock.png" alt="BlackRock">
+  </div>
   <span>@fen.investment.group</span>
+</div>
+
+</div><!-- /#stage -->
+
+<!-- Selector de formato. Vive FUERA de #stage para no escalarse, y se oculta
+     solo al grabar (window.__manual()) para no salir en el video. -->
+<div id="pick">
+  <b>Formato del video</b>
+  <div class="ops" id="pickOps"></div>
+  <div class="nota">El diseño es apaisado: en formatos verticales se ve más chico y con bandas.</div>
 </div>
 
 <script>
@@ -215,6 +305,45 @@ var eo  = function(p){return 1-Math.pow(1-p,3)};
 var sg  = function(t,ini,dur){return cl((t-ini)/dur)};
 var lp  = function(a,b,p){return a+(b-a)*p};
 var $   = function(s,r){return (r||document).querySelector(s)};
+
+/* ---------- formato del lienzo ----------------------------------------
+   ?formato=16x9|16x10|4x3|1x1|4x5|9x16   ó   ?w=1080&h=1350 para uno libre
+   ?banda=blanco|azul|navy  -> color de las bandas cuando el formato no es 16:9
+   El grabador lee window.__w / window.__h para abrir el navegador del tamaño
+   correcto, así el MP4 sale ya en la proporción de la pantalla de destino y
+   no queda letterbox negro del reproductor. */
+var FORMATOS={"16x9":[1920,1080],"16x10":[1920,1200],"4x3":[1440,1080],
+              "1x1":[1080,1080],"4x5":[1080,1350],"9x16":[1080,1920]};
+var BANDAS={blanco:"#FFFFFF",azul:"#0052FF",navy:"#04182D"};
+var Q=new URLSearchParams(location.search);
+var FMT=Q.get("formato")||"16x9";
+var LW,LH;
+if(Q.get("w")&&Q.get("h")){ LW=parseInt(Q.get("w"),10); LH=parseInt(Q.get("h"),10); FMT=""; }
+else { var _d=FORMATOS[FMT]||FORMATOS["16x9"]; LW=_d[0]; LH=_d[1]; }
+var BANDA=BANDAS[Q.get("banda")]||BANDAS.blanco;
+window.__w=LW; window.__h=LH;
+
+(function aplicarFormato(){
+  document.documentElement.style.width=LW+"px";
+  document.documentElement.style.height=LH+"px";
+  document.body.style.width=LW+"px";
+  document.body.style.height=LH+"px";
+  document.body.style.background=BANDA;
+  var esc=Math.min(LW/1920,LH/1080);
+  var st=document.getElementById("stage");
+  st.style.transform="translate(-50%,-50%) scale("+esc+")";
+  var vp=document.querySelector('meta[name=viewport]');
+  if(vp) vp.setAttribute("content","width="+LW);
+  /* botones del selector */
+  var ops=document.getElementById("pickOps");
+  if(ops){
+    ops.innerHTML=Object.keys(FORMATOS).map(function(k){
+      var d=FORMATOS[k];
+      return '<a href="?formato='+k+(Q.get("banda")?"&banda="+Q.get("banda"):"")+'"'
+        +(k===FMT?' class="on"':'')+'>'+k.replace("x",":")+' · '+d[0]+'×'+d[1]+'</a>';
+    }).join("");
+  }
+})();
 function alpha(t,r,fade){
   fade=fade||FADE;
   return Math.min(sg(t,r[0],fade), 1-sg(t,r[1]-fade,fade));
@@ -222,9 +351,13 @@ function alpha(t,r,fade){
 
 /* ---- línea de tiempo (ms) ---- */
 var S1=[0,4000], S2=[4000,8200];
-var HEAD_IN=8200, HEAD_FADE=520;
-var LIST_FIRST=[8900,11300];              /* la lista sola, antes del primer equipo */
-var N_CARDS=5, CARD_DUR=5400, CARD_START=11300;
+/* S3: lámina "Resultados de la semana" con los datos del corte. Estaba en la
+   propuesta original (Propuesta_Video_FIG.mp4, ~frame 335) y se había perdido
+   al reconstruir el video; el equipo la pidió de vuelta (2026-08-20). */
+var S3=[8200,12400];
+var HEAD_IN=12400, HEAD_FADE=520;
+var LIST_FIRST=[13100,15500];             /* la lista sola, antes del primer equipo */
+var N_CARDS=5, CARD_DUR=5400, CARD_START=15500;
 var CARD_RANGES=[];
 for(var i=0;i<N_CARDS;i++)CARD_RANGES.push([CARD_START+i*CARD_DUR,CARD_START+(i+1)*CARD_DUR]);
 var LIST_LAST=[CARD_RANGES[N_CARDS-1][1], CARD_RANGES[N_CARDS-1][1]+3000];
@@ -275,6 +408,23 @@ function promediosTorneo(){
   return out;
 }
 
+/* Participantes: se cuentan personas ÚNICAS de todos los equipos, no la suma
+   de los integrantes de cada uno — el Excel de inscripciones repite a alguna
+   persona y hay nombres con distinta capitalización. Ojo: si un equipo viene
+   sin integrantes cargados en torneo.json, sus miembros no entran en la
+   cuenta (hoy pasa con "Equipo rocket"). */
+function contarParticipantes(){
+  var vistos={},n=0;
+  (D.equipos||[]).forEach(function(t){
+    (t.miembros||[]).forEach(function(m){
+      var k=normaliza(m.nombre).toLowerCase();
+      if(!k||vistos[k])return;
+      vistos[k]=1; n++;
+    });
+  });
+  return n;
+}
+
 function preparar(){
   PROM = promediosTorneo();
   EQ = D.equipos.slice().sort(function(a,b){return a.posicion-b.posicion}).slice(0,N_CARDS)
@@ -295,6 +445,20 @@ function preparar(){
       };
     });
   $("#headKick").textContent="Ranking Top "+N_CARDS+" · Semana "+(D.semana||"—");
+
+  /* Datos de la lámina s3. El corte viene como "14 · AGO · 2026": se recorta
+     el año para que quepa como dato suelto, igual que en la propuesta. */
+  var corte=String(D.corte||"—").split("·").slice(0,2).join(" · ").trim();
+  var stats=[
+    {vl:D.semana||"—",        lb:"Semana"},
+    {vl:(D.equipos||[]).length,lb:"Equipos"},
+    {vl:contarParticipantes(), lb:"Participantes"},
+    {vl:corte,                 lb:"Corte"}
+  ];
+  $("#s3Stats").innerHTML=stats.map(function(s){
+    return '<div class="it"><div class="vl">'+esc(String(s.vl))+'</div>'
+      +'<div class="lb">'+esc(s.lb)+'</div></div>';
+  }).join("");
 }
 
 /* ---------------- lista ---------------- */
@@ -351,8 +515,8 @@ function chartSVG(t){
       +'<path d="'+area+'" fill="url(#cg)"/>';
   }
 
-  o+='<text x="'+PL+'" y="'+(H-6)+'" font-family="IBM Plex Mono,monospace" font-size="12" fill="rgba(10,17,40,.4)">S'+S[0].s+'</text>'
-    +'<text x="'+(W-PR)+'" y="'+(H-6)+'" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="12" fill="rgba(10,17,40,.4)">S'+S[S.length-1].s+'</text>';
+  o+='<text x="'+PL+'" y="'+(H-6)+'" font-family="IBM Plex Mono,monospace" font-size="16" fill="rgba(10,17,40,.45)">S'+S[0].s+'</text>'
+    +'<text x="'+(W-PR)+'" y="'+(H-6)+'" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="16" fill="rgba(10,17,40,.45)">S'+S[S.length-1].s+'</text>';
 
   if(hayProm){
     var pp=P.map(function(x,k){return X(k)+","+Y(x.v)}).join(" ");
@@ -387,14 +551,9 @@ function pintarTarjeta(t){
   }).join("");
   var badge=t.ultimaVar==null?"":
     '<span class="badge '+(vup?"up":"down")+'">'+pct(t.ultimaVar,2)+' esta semana</span>';
+  /* Sin fila de logos: migraron a la franja #brand del pie (2026-08-20). */
   $("#cardPanel").innerHTML =
-    '<div class="logos">'
-      +'<img class="bull" src="../logos/fig-navy.png" alt="">'
-      +'<img src="../logos/fen.png" alt="FEN UChile">'
-      +'<img src="../logos/itau.png" alt="Itaú">'
-      +'<img class="blk" src="../logos/blackrock.png" alt="BlackRock">'
-    +'</div>'
-    +'<div class="top">'
+    '<div class="top">'
       +'<div class="who"><div><span class="pos">#'+t.pos+'</span><span class="nm">'+esc(t.nombre)+'</span></div>'
       +'<div class="sub">Semana '+(D.semana||"—")+' · '+t.mem.length+' integrante'+(t.mem.length===1?"":"s")+'</div></div>'
       +'<div class="stats">'
@@ -413,9 +572,14 @@ function pintarTarjeta(t){
 var cardPintado=-1;
 function seek(t){
   /* s1 / s2 */
-  var a1=alpha(t,S1), a2=alpha(t,S2);
+  var a1=alpha(t,S1), a2=alpha(t,S2), a3=alpha(t,S3);
   $("#s1").style.opacity=a1; $("#s1").style.visibility=a1>.002?"visible":"hidden";
   $("#s2").style.opacity=a2; $("#s2").style.visibility=a2>.002?"visible":"hidden";
+  $("#s3").style.opacity=a3; $("#s3").style.visibility=a3>.002?"visible":"hidden";
+  /* los datos entran después del título, no junto con él */
+  var p3=eo(sg(t,S3[0]+700,800));
+  $("#s3 .stats").style.opacity=p3;
+  $("#s3 .stats").style.transform="translateY("+lp(16,0,p3)+"px)";
   var p1=eo(sg(t,S1[0]+300,900));
   $("#s1 .mask").style.width=(p1*1010)+"px";
   $("#s1 .logo").style.transform="scale("+lp(.5,1,eo(sg(t,S1[0],700))).toFixed(3)+")";
@@ -423,10 +587,16 @@ function seek(t){
   var p2=eo(sg(t,S2[0]+300,700));
   $("#s2 .row").style.opacity=p2; $("#s2 .row").style.transform="translateY("+lp(18,0,p2)+"px)";
 
-  /* encabezado + pie: visibles desde HEAD_IN hasta el final */
+  $("#s1 .org").style.opacity=eo(sg(t,S1[0]+1900,700));
+
+  /* encabezado: visible desde HEAD_IN hasta el final */
   var aHead=Math.min(sg(t,HEAD_IN,HEAD_FADE),1-sg(t,TOTAL-HEAD_FADE,HEAD_FADE));
   $("#head").style.opacity=aHead; $("#head").style.visibility=aHead>.002?"visible":"hidden";
-  $("#foot").style.opacity=aHead*.9; $("#foot").style.visibility=aHead>.002?"visible":"hidden";
+
+  /* franja de marca: en TODAS las láminas, desde la intro hasta el cierre
+     (2026-08-20, pedido de la Escuela), no solo desde la lista como antes */
+  var aBrand=Math.min(sg(t,600,700),1-sg(t,TOTAL-HEAD_FADE,HEAD_FADE));
+  $("#brand").style.opacity=aBrand*.95; $("#brand").style.visibility=aBrand>.002?"visible":"hidden";
 
   /* lista: visible en su primer tramo solo, y en el tramo final solo */
   var aList=Math.max(alpha(t,LIST_FIRST,420), alpha(t,LIST_LAST,420));
@@ -453,7 +623,10 @@ function seek(t){
 
 /* ================= reloj ================= */
 var manual=false, t0=null;
-window.__manual=function(){manual=true};
+window.__manual=function(){
+  manual=true;
+  var pk=document.getElementById("pick"); if(pk) pk.style.display="none";
+};
 window.__seek=function(ms){seek(ms)};
 
 function arrancar(){
