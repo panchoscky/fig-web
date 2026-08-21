@@ -38,7 +38,7 @@
                    (ver torneo/index.html), así que acá dice lo mismo: hasta
                    hoy decía "Retorno acumulado", que es otra cifra.
     · `historial[].ret` -> retorno ACUMULADO desde el inicio del torneo. Es el
-                   que dibuja el gráfico, contra el promedio de los 59 equipos.
+                   que dibuja el gráfico, contra el promedio de todos los equipos vigentes.
 -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -477,7 +477,7 @@ function construirLista(){
 /* ---------------- tarjeta de un equipo ---------------- */
 /* Gráfico del equipo CONTRA el promedio acumulado del torneo (2026-08-15,
    variante B elegida por Francisco). Dos líneas: la del equipo (verde, sólida)
-   y la del promedio de los 59 equipos (gris, punteada), con la banda entre
+   y la del promedio de todos los equipos vigentes (gris, punteada), con la banda entre
    ambas teñida de verde cuando el equipo va por sobre el promedio y de rojo
    cuando va por debajo. El eje se escala con AMBAS series para que ninguna
    quede cortada. La leyenda que identifica cada línea va en el HTML de la
