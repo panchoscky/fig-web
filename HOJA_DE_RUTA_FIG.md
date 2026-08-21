@@ -10,7 +10,19 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-16** (sesión 11: **historial de métricas
+Última actualización: **2026-08-21** (sesión 12: **corte semanal a la
+semana 15 + 5 equipos eliminados + video de la facultad con formato
+elegible**).
+
+**(0) Corte del torneo a la semana 15 (21-ago-2026).** Francisco pasó los datos en dos formatos — un JSON con el ranking ya calculado y el Excel oficial — se compararon cruzados antes de aplicar nada y coincidían exactamente en los 54 equipos. Se generó con `generar_torneo.py --excel` desde el Excel, como siempre. **5 equipos eliminados** (Fencashticos, Free Riders, Market Moggers, Mosqueteros, Pink Capital): desaparecen de `torneo.json` por completo, incluido su historial pasado (S5-S14) — así funciona hoy el script, arma `equipos[]` desde cero a partir del Excel del corte vigente. Se le preguntó a Francisco explícitamente antes de aplicarlo y confirmó aceptar ese comportamiento sin agregar un flag `eliminado:true` — el dato sigue en el historial de git de antes del commit, pero desaparece de la vista pública. De paso se corrigieron 7 menciones hardcodeadas de "59 equipos" a "54 equipos" en el resto del sitio (mismo patrón que la corrección 63→59 del 2026-08-02) — ver detalle en la fila de `torneo/index.html` de `CLAUDE.md`.
+
+**(1) Video de la facultad — observaciones de la Escuela + formato elegible.** Tras el visto bueno de Decanato, la Escuela pidió: logo FEN con escudo, los 3 logos de colaboradores en franja inferior en todas las láminas, mencionar que FIG es organización estudiantil de la FEN, y datos más recientes — todo aplicado. Se recuperó también la lámina "Resultados de la semana" que traía la propuesta original y se había perdido al reconstruir el video. Las "franjas negras" que reportó la Escuela NO estaban en el archivo (se verificó decodificando el MP4, blanco de borde a borde en todos los fotogramas) — eran el letterbox del reproductor al ver un 16:9 en un celular vertical. Se resolvió de raíz: la página ahora acepta `?formato=16x9|16x10|4x3|1x1|4x5|9x16` (o `?w=&h=` libre) y `?banda=` para pintar nosotros mismos lo que sobra, en vez de dejárselo al reproductor. Después Francisco pidió sacar los 3 logos de colaboradores del pie de nuevo (quedan solo en su lámina propia a pantalla completa) — decisión suya, va en contra de esa observación puntual de la Escuela, documentado así en el commit por si hay que revertirlo. Ver detalle completo en la fila de `torneo/pantalla-facultad.html` de `CLAUDE.md`.
+
+**(2) Área de mujeres (FIG Woman) reactivada.** Los 11 enlaces hacia `fiw/index.html` que estaban ocultos con el marcador `FIW_TEMP_OCULTO` se descomentaron a pedido de Francisco. Pendiente sin resolver: la hoja `FIW` del Drive trae a Delia como "Presidenta" y Victoria como "Vicepresidenta" (antes ambas "Fundadora"), y Gabriela Domínguez ya no aparece en el equipo — Francisco dijo "después te explico" y no se ha retomado.
+
+---
+
+Actualización previa (sesión 11: **historial de métricas
 completado + arranca la sección de Miembros (tarea #27)**.
 
 **(0) Líder real de Portafolio confirmado.** Francisco confirmó que él es el
