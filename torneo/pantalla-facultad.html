@@ -215,23 +215,19 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 #cardPanel .chart .lg b{color:var(--ink);font-weight:600;margin-left:5px}
 #cardPanel .chart svg{flex:1;width:100%;height:100%}
 
-/* FRANJA DE MARCA DEL PIE (2026-08-20, observaciones de la Escuela).
-   Antes era solo el toro + el @, y aparecía recién desde la lista. Ahora
-   lleva los tres logos de los colaboradores y se ve en TODAS las láminas,
-   incluidas la intro y las de resultados: "mantén los tres logos en la franja
-   inferior en todas las láminas". */
-#brand{position:absolute;bottom:44px;left:0;right:0;display:flex;flex-direction:column;
-  align-items:center;gap:15px;opacity:0;visibility:hidden}
-/* Cada logo lleva su propio alto, no uno común: el de la FEN con escudo es
-   mucho más "cuadrado" que los demás (ratio 1.74 vs 2.09 del antiguo) y su
-   texto ocupa solo la mitad inferior, así que a la misma altura que Itaú o
-   BlackRock quedaba ilegible. Se equilibran ópticamente, no por número. */
-#brand .lg{display:flex;align-items:center;gap:50px;height:78px}
-#brand .lg img{max-height:100%;object-fit:contain}
-#brand .lg img.bull{max-height:56px}
-#brand .lg img.fen{max-height:78px}
-#brand .lg img.itau{max-height:62px}
-#brand .lg img.blk{max-height:42px}
+/* PIE DE MARCA (2026-08-20).
+   Historial de este bloque, para no dar vueltas en círculo:
+     · Al principio era el toro + el @, y aparecía recién desde la lista.
+     · La Escuela pidió sumarle los tres logos de los colaboradores y que se
+       viera en todas las láminas.
+     · Francisco pidió sacar esos tres logos del pie (2026-08-20). Los
+       colaboradores NO desaparecen del video: conservan su lámina propia a
+       pantalla completa ("En alianza con", s2), que es donde se lucen.
+   Queda el toro + el @, ahora sí visibles en TODAS las láminas — eso último
+   se mantuvo porque era una mejora aparte, no parte de lo que se sacó. */
+#brand{position:absolute;bottom:56px;left:0;right:0;display:flex;
+  justify-content:center;align-items:center;gap:18px;opacity:0;visibility:hidden}
+#brand img{height:46px;object-fit:contain}
 #brand span{font-family:var(--f-mono);font-size:22px;letter-spacing:.16em;color:var(--dim)}
 </style>
 </head>
@@ -279,12 +275,7 @@ body{font-family:var(--f-body);color:var(--ink);position:relative;
 <div id="cardPanel"></div>
 
 <div id="brand">
-  <div class="lg">
-    <img class="bull" src="../logos/fig-navy.png" alt="FEN Investment Group">
-    <img class="fen" src="../logos/fen-escudo.png" alt="Facultad de Economía y Negocios, Universidad de Chile">
-    <img class="itau" src="../logos/itau.png" alt="Itaú">
-    <img class="blk" src="../logos/blackrock.png" alt="BlackRock">
-  </div>
+  <img src="../logos/fig-navy.png" alt="FEN Investment Group">
   <span>@fen.investment.group</span>
 </div>
 
