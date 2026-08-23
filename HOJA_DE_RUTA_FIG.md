@@ -449,7 +449,7 @@ salas del laboratorio). 2-3 fotos por evento en general; solo 1 para
 | # | Tarea | Modelo | Detalle |
 |---|---|---|---|
 | 6 | **Página de metodología/reglas del torneo ampliada** | Sonnet | ✅ Hecho (2026-07-12) — sección `#metodologia` de `torneo/index.html` ampliada con 3 bloques nuevos: Calendario del torneo (inicio 11-may, corte semanal, ventanas de rebalanceo II/III, cierre, final), Reglas de piso (explicadas en prosa) y Disputas (48 hrs). El fetch automático del PDF de las Bases (`mpazq-afk.github.io`) está bloqueado por la política de red de este entorno (403 del proxy) — el contenido nuevo usa SOLO datos ya verificados en el propio código (HITOS, notas de metodología existentes), nada inventado. Queda un CTA al PDF para lo no cubierto aquí (concentración por activo, elegibilidad, procedimiento formal de disputa) |
-| 6b | **Confirmar vigencia de las Bases y resubir si cambiaron** | Haiku | Francisco debe subir la versión más reciente del PDF de Bases (al chat o Drive) para que un modelo verifique si hay cambios frente a lo que ya está reflejado en `torneo/index.html` §Metodología — el fetch automático al PDF público está bloqueado por red en este entorno |
+| 6b | **Confirmar vigencia de las Bases y resubir si cambiaron** | Haiku | ✅ Hecho (2026-08-23) — el link llevaba desde siempre a una URL 404 (`mpazq-afk.github.io/torneoportafolio2026/...`, ruta que nunca existió en el deploy). Francisco subió el PDF real a Drive (`02_Areas/PORTAFOLIO/`); se copió a `documentos/` en el repo y se corrigieron los 3 links (`index.html`, `datos/club.json`, `torneo/index.html`). Pendiente si corresponde: comparar el contenido del PDF contra `torneo/index.html` §Metodología por si el texto de la página quedó desactualizado |
 | 7 | **Resúmenes de eventos** | Haiku | ✅ Hecho (2026-07-12) — los 9 eventos de `datos/eventos.json` tienen resumen real de 2-3 líneas, cero placeholders "[Resumen por completar]" restantes |
 | 8 | **SEO/social**: og:image + meta tags Open Graph/Twitter en las 5 páginas | Haiku | ✅ Hecho (2026-07-12) — `og-image.png` (1200×630, estilo FIG) generada; meta tags Open Graph/Twitter presentes en las 6 páginas actuales (index, eventos, torneo, postula, fiw, en) |
 | 9 | **404.html** de GitHub Pages con el estilo FIG | Haiku | ✅ Hecho (2026-07-12) — `404.html` en la raíz, mensaje + enlaces con el sistema de diseño FIG |
@@ -663,7 +663,7 @@ después si se pide). Ninguna de las 6 se ha empezado a implementar.
 
 1. URL del Web App de Apps Script para postulaciones (o pedirle crear uno —
    darle el código listo, ver P0-1).
-2. Confirmación de URL de las Bases PDF y correo/URL de contacto.
+2. ✅ URL de las Bases PDF resuelta (2026-08-23, ver P0-4/tarea 6b) — sigue pendiente correo/URL de contacto.
 3. Colores oficiales FIW (vía Delia).
 4. Excel oficial del ranking (para el primer torneo.json real).
 5. Fotos de eventos y FIW (él las sube, numeradas).

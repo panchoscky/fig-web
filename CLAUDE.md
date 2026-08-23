@@ -156,7 +156,13 @@ Resumen de bloqueadores:
    `HOJA_DE_RUTA_FIG.md` P0-2 para el detalle técnico de qué cambió en el
    script).
 3. **Colores oficiales de FIW** con Delia → variables `--acc*` (P0-3).
-4. **URLs de `bases` y `contacto`** en `CONFIG.urls` / `club.json` (P0-4).
+4. ✅ **URL de `bases`** resuelta (2026-08-23) — el link apuntaba a
+   `https://mpazq-afk.github.io/torneoportafolio2026/documentos/...pdf`, que
+   daba 404 (esa ruta nunca existió en el repo de deploy). Francisco subió el
+   PDF real a Drive (`02_Areas/PORTAFOLIO/Bases_finales_torneo_portafolio_2026.pdf`);
+   se copió a `documentos/` en este repo y se apuntaron `CONFIG.urls.bases`
+   (`index.html`), `config.urls.bases` (`datos/club.json`) y el botón directo
+   de `torneo/index.html` al archivo local. `contacto` sigue pendiente (P0-4).
 5. **Fotos reales** en `fotos/eventos/*` y `fotos/fiw/` (P0-5, solo Francisco).
 
 ## Reglas duras (no romper)
