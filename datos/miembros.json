@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-08-16",
+  "actualizado": "2026-08-23",
   "demo": false,
   "config": {
     "areas": [
@@ -107,11 +107,11 @@
       "torneo": {
         "equipo": "DCF Supremacy",
         "equipoId": "dcf-supremacy",
-        "posicion": 9,
-        "puntos": 72.36,
-        "retRel": 0.0403,
-        "semana": 14,
-        "corte": "14 · AGO · 2026"
+        "posicion": 11,
+        "puntos": 73.49,
+        "retRel": 0.0435,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
       }
     },
     {
@@ -244,11 +244,11 @@
       "torneo": {
         "equipo": "VCL Capital",
         "equipoId": "vcl-capital",
-        "posicion": 26,
-        "puntos": 41.96,
-        "retRel": -0.0594,
-        "semana": 14,
-        "corte": "14 · AGO · 2026"
+        "posicion": 23,
+        "puntos": 40.87,
+        "retRel": -0.0542,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
       }
     },
     {
@@ -284,11 +284,11 @@
       "torneo": {
         "equipo": "DCF Supremacy",
         "equipoId": "dcf-supremacy",
-        "posicion": 9,
-        "puntos": 72.36,
-        "retRel": 0.0403,
-        "semana": 14,
-        "corte": "14 · AGO · 2026"
+        "posicion": 11,
+        "puntos": 73.49,
+        "retRel": 0.0435,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
       }
     },
     {
@@ -522,11 +522,11 @@
       "torneo": {
         "equipo": "RiskiSamurai",
         "equipoId": "riskisamurai",
-        "posicion": 5,
-        "puntos": 76.45,
-        "retRel": 0.086,
-        "semana": 14,
-        "corte": "14 · AGO · 2026"
+        "posicion": 9,
+        "puntos": 74.95,
+        "retRel": 0.0836,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
       }
     },
     {
@@ -559,6 +559,4964 @@
       ],
       "fuente": "club.json",
       "ticker": "RAL"
+    },
+    {
+      "id": "agustin-palacios",
+      "nombre": "Agustin Palacios",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/agustin-palacios-soto",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "APA",
+      "torneo": {
+        "equipo": "PGAt",
+        "equipoId": "pgat",
+        "posicion": 40,
+        "puntos": 22.05,
+        "retRel": -0.10039999999999999,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "agustina-maria-correa-erlbaum",
+      "nombre": "Agustina María Correa Erlbaum",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/agustinacorreaerlbaum",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "AMC",
+      "torneo": {
+        "equipo": "O.C.G. Investment",
+        "equipoId": "o-c-g-investment",
+        "posicion": 27,
+        "puntos": 34.54,
+        "retRel": -0.0241,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "agustin-gabriel-gomez-rebolledo",
+      "nombre": "Agustín Gabriel Gomez Rebolledo",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "AGG",
+      "torneo": {
+        "equipo": "JAV Capital",
+        "equipoId": "jav-capital",
+        "posicion": 6,
+        "puntos": 77.91,
+        "retRel": 0.0369,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "alberto-munoz-molina",
+      "nombre": "Alberto Muñoz Molina",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/alberto-josé-muñoz-molina-62b32831b",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "AMM"
+    },
+    {
+      "id": "alfonso-gomez-lobo-alcalde",
+      "nombre": "Alfonso Gómez-Lobo Alcalde",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "AGA",
+      "torneo": {
+        "equipo": "9 financiero",
+        "equipoId": "9-financiero",
+        "posicion": 34,
+        "puntos": 27.33,
+        "retRel": -0.0504,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "alonso-ortega",
+      "nombre": "Alonso Ortega",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/alonso-ortega-9610b93b8",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "AOR",
+      "torneo": {
+        "equipo": "Terra Capital",
+        "equipoId": "terra-capital",
+        "posicion": 18,
+        "puntos": 48.59,
+        "retRel": -0.0387,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "andres-llana",
+      "nombre": "Andres Llaña",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "ALL",
+      "torneo": {
+        "equipo": "Luky Capital",
+        "equipoId": "luky-capital",
+        "posicion": 7,
+        "puntos": 75.66,
+        "retRel": 0.04650000000000001,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "andres-felipe-guinez-medina",
+      "nombre": "Andrés Felipe Guiñez Medina",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "AFG",
+      "torneo": {
+        "equipo": "Sharpe Fox",
+        "equipoId": "sharpe-fox",
+        "posicion": 52,
+        "puntos": 8.98,
+        "retRel": -0.105,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "antonia-javiera-wuth-cabrera",
+      "nombre": "Antonia Javiera Wuth Cabrera",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "AJW",
+      "torneo": {
+        "equipo": "Athena",
+        "equipoId": "athena",
+        "posicion": 16,
+        "puntos": 54.81,
+        "retRel": 0.0334,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "antonia-paz-vilches-ureta",
+      "nombre": "Antonia Paz Vilches Ureta",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/antoniavilchesureta",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "APV",
+      "torneo": {
+        "equipo": "Alpha Partners",
+        "equipoId": "alpha-partners",
+        "posicion": 46,
+        "puntos": 15.88,
+        "retRel": -0.22519999999999998,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "arantza-ramirez-opazo",
+      "nombre": "Arantza Ramírez Opazo",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/arantza-ramírez-opazo-6bbaab2a2",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "ARP",
+      "torneo": {
+        "equipo": "Black Swan Capital",
+        "equipoId": "black-swan-capital",
+        "posicion": 15,
+        "puntos": 60.32,
+        "retRel": -0.0037,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "arturo-andres-saavedra-sepulveda",
+      "nombre": "Arturo Andrés Saavedra Sepúlveda",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "AAS",
+      "torneo": {
+        "equipo": "R&S Investment Group",
+        "equipoId": "rs-investment-group",
+        "posicion": 54,
+        "puntos": 1.58,
+        "retRel": -0.2514,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "arturo-claro-garcia",
+      "nombre": "Arturo Claro García",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "ACG",
+      "torneo": {
+        "equipo": "I.C",
+        "equipoId": "i-c",
+        "posicion": 13,
+        "puntos": 67.8,
+        "retRel": 0.0068000000000000005,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "baltasar-correa-cortes",
+      "nombre": "Baltasar Correa Cortés",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/baltasar-correa-cortés-2473bb359",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BCC",
+      "torneo": {
+        "equipo": "B&JP Capitals",
+        "equipoId": "bjp-capitals",
+        "posicion": 4,
+        "puntos": 80.8,
+        "retRel": 0.1139,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "barbara-johnson",
+      "nombre": "Barbara Johnson",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BJO",
+      "torneo": {
+        "equipo": "Luky Capital",
+        "equipoId": "luky-capital",
+        "posicion": 7,
+        "puntos": 75.66,
+        "retRel": 0.04650000000000001,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "bastian-alexander-angulo-rojas",
+      "nombre": "Bastian Alexander Angulo Rojas",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BAA",
+      "torneo": {
+        "equipo": "BBR Investments",
+        "equipoId": "bbr-investments",
+        "posicion": 24,
+        "puntos": 40.23,
+        "retRel": -0.0424,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "benjamin-lavin-pulido",
+      "nombre": "Benjamin Lavin Pulido",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/benjamin-lavin-pulido-066390347",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BLP",
+      "torneo": {
+        "equipo": "BBR Investments",
+        "equipoId": "bbr-investments",
+        "posicion": 24,
+        "puntos": 40.23,
+        "retRel": -0.0424,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "benjamin-madariaga",
+      "nombre": "Benjamin Madariaga",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BMA",
+      "torneo": {
+        "equipo": "VNM Capital Partners",
+        "equipoId": "vnm-capital-partners",
+        "posicion": 39,
+        "puntos": 22.27,
+        "retRel": -0.1348,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "benjamin-maximiliano-valenzuela-vigas",
+      "nombre": "Benjamin Maximiliano Valenzuela Vigas",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BMV",
+      "torneo": {
+        "equipo": "VBP Investments",
+        "equipoId": "vbp-investments",
+        "posicion": 31,
+        "puntos": 31.72,
+        "retRel": -0.1307,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "benjamin-mundaca",
+      "nombre": "Benjamin Mundaca",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BMU",
+      "torneo": {
+        "equipo": "Optimo Investment",
+        "equipoId": "optimo-investment",
+        "posicion": 12,
+        "puntos": 69.9,
+        "retRel": 0.1439,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "benjamin-acevedo",
+      "nombre": "Benjamín Acevedo",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://cl.linkedin.com/in/benjam%C3%ADn-antonio-acevedo-frugone-14b616325",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BAC",
+      "torneo": {
+        "equipo": "B&JP Capitals",
+        "equipoId": "bjp-capitals",
+        "posicion": 4,
+        "puntos": 80.8,
+        "retRel": 0.1139,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "benjamin-alfonso-reyes-meza",
+      "nombre": "Benjamín Alfonso Reyes Meza",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BAR",
+      "torneo": {
+        "equipo": "Indarra Investments",
+        "equipoId": "indarra-investments",
+        "posicion": 43,
+        "puntos": 17.58,
+        "retRel": -0.11720000000000001,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "benjamin-araneda-nash",
+      "nombre": "Benjamín Araneda Nash",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BAN",
+      "torneo": {
+        "equipo": "Los Default",
+        "equipoId": "los-default",
+        "posicion": 10,
+        "puntos": 74.26,
+        "retRel": 0.0736,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "benjamin-caro-cuevas",
+      "nombre": "Benjamín Caro Cuevas",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/benjam%C3%ADn-alonso-caro-cuevas-70a348343",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BCU",
+      "torneo": {
+        "equipo": "ORB Asset Management",
+        "equipoId": "orb-asset-management",
+        "posicion": 47,
+        "puntos": 15.7,
+        "retRel": -0.0301,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "benjamin-ignacio-castillo-collio",
+      "nombre": "Benjamín Ignacio Castillo Collio",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BIC",
+      "torneo": {
+        "equipo": "CCQ",
+        "equipoId": "ccq",
+        "posicion": 35,
+        "puntos": 26.52,
+        "retRel": -0.1011,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "benjamin-palma",
+      "nombre": "Benjamín Palma",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BPA",
+      "torneo": {
+        "equipo": "Fat fingers",
+        "equipoId": "fat-fingers",
+        "posicion": 53,
+        "puntos": 4.81,
+        "retRel": -0.17739999999999997,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "benjamin-roberto-hernandez-gonzalez",
+      "nombre": "Benjamín Roberto Hernández González",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BRH",
+      "torneo": {
+        "equipo": "Expertos en Blackrock",
+        "equipoId": "expertos-en-blackrock",
+        "posicion": 25,
+        "puntos": 37.79,
+        "retRel": -0.0033,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "borja-bizzarri-edwars",
+      "nombre": "Borja Bizzarri Edwars",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BBE"
+    },
+    {
+      "id": "bruno-aspee-von-knorring",
+      "nombre": "Bruno Aspee Von Knorring",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "BAK",
+      "torneo": {
+        "equipo": "CLB",
+        "equipoId": "clb",
+        "posicion": 5,
+        "puntos": 78.1,
+        "retRel": 0.049100000000000005,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "camila-antonia-retamales-rodriguez",
+      "nombre": "Camila Antonia Retamales Rodríguez",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "CAR",
+      "torneo": {
+        "equipo": "Cimientos financieros",
+        "equipoId": "cimientos-financieros",
+        "posicion": 45,
+        "puntos": 15.94,
+        "retRel": -0.1754,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "carlos-ignacio-piaggio-stack",
+      "nombre": "Carlos Ignacio Piaggio Stack",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/carlos-piaggio-stack-84319027b",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "CIP"
+    },
+    {
+      "id": "cesar-antonio-ahumada-acevedo",
+      "nombre": "Cesar Antonio Ahumada Acevedo",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "CAA",
+      "torneo": {
+        "equipo": "Expertos en Blackrock",
+        "equipoId": "expertos-en-blackrock",
+        "posicion": 25,
+        "puntos": 37.79,
+        "retRel": -0.0033,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "christian-hidalgo",
+      "nombre": "Christian Hidalgo",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "CHI",
+      "torneo": {
+        "equipo": "Los Default",
+        "equipoId": "los-default",
+        "posicion": 10,
+        "puntos": 74.26,
+        "retRel": 0.0736,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "claudio-antonio-ogaz-solar",
+      "nombre": "Claudio Antonio Ogaz Solar",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "CAO",
+      "torneo": {
+        "equipo": "CLB",
+        "equipoId": "clb",
+        "posicion": 5,
+        "puntos": 78.1,
+        "retRel": 0.049100000000000005,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "clemente-hurtado",
+      "nombre": "Clemente Hurtado",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "CHU"
+    },
+    {
+      "id": "clemente-laborde-benavente",
+      "nombre": "Clemente Laborde Benavente",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/clemente-laborde-benavente-649600241",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "CLB",
+      "torneo": {
+        "equipo": "9 financiero",
+        "equipoId": "9-financiero",
+        "posicion": 34,
+        "puntos": 27.33,
+        "retRel": -0.0504,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "cristian-eduardo-merino-riquelme",
+      "nombre": "Cristian Eduardo Meriño Riquelme",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "CEM",
+      "torneo": {
+        "equipo": "EDP",
+        "equipoId": "edp",
+        "posicion": 8,
+        "puntos": 75.45,
+        "retRel": 0.1832,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "cristobal-matte",
+      "nombre": "Cristobal Matte",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "CMA",
+      "torneo": {
+        "equipo": "Default Capital",
+        "equipoId": "default-capital",
+        "posicion": 49,
+        "puntos": 12.53,
+        "retRel": -0.1918,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "cristobal-maximiliano-saavedra-fuentes",
+      "nombre": "Cristobal Maximiliano Saavedra Fuentes",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "CMS",
+      "torneo": {
+        "equipo": "Vantedge Asset Management",
+        "equipoId": "vantedge-asset-management",
+        "posicion": 32,
+        "puntos": 29.77,
+        "retRel": -0.050499999999999996,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "cristobal-riveros",
+      "nombre": "Cristobal Riveros",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "CRI",
+      "torneo": {
+        "equipo": "Black Bulls",
+        "equipoId": "black-bulls",
+        "posicion": 36,
+        "puntos": 25.98,
+        "retRel": -0.10279999999999999,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "cristobal-amaro-jerez-dominguez",
+      "nombre": "Cristóbal Amaro jerez Domínguez",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "CAJ",
+      "torneo": {
+        "equipo": "Bull Market Boys",
+        "equipoId": "bull-market-boys",
+        "posicion": 17,
+        "puntos": 52.16,
+        "retRel": -0.0233,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "cristobal-benavente-espinoza",
+      "nombre": "Cristóbal Benavente Espinoza",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "CBE",
+      "torneo": {
+        "equipo": "Los Default",
+        "equipoId": "los-default",
+        "posicion": 10,
+        "puntos": 74.26,
+        "retRel": 0.0736,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "cristobal-hernan-ordenes-galassi",
+      "nombre": "Cristóbal Hernan Órdenes Galassi",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/cristobal-ordenes-1b3447181/",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "CHO",
+      "torneo": {
+        "equipo": "Warren BuFEN",
+        "equipoId": "warren-bufen",
+        "posicion": 20,
+        "puntos": 47.11,
+        "retRel": 0.038,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "daniel-cortes-tirado",
+      "nombre": "Daniel Cortés Tirado",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/daniel-cortés-tirado-7025b8313",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "DCT",
+      "torneo": {
+        "equipo": "Bull Market Boys",
+        "equipoId": "bull-market-boys",
+        "posicion": 17,
+        "puntos": 52.16,
+        "retRel": -0.0233,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "daniel-torres-molins",
+      "nombre": "Daniel Torres Molins",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "REVISAR: el Excel trae el LinkedIn de Sebastián Espinosa",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "DTM",
+      "torneo": {
+        "equipo": "Martes negro",
+        "equipoId": "martes-negro",
+        "posicion": 22,
+        "puntos": 42.21,
+        "retRel": -0.0072,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "daniela-andrea-flores-albornoz",
+      "nombre": "Daniela Andrea Flores Albornoz",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/daniela-flores-412a8a309",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "DAF"
+    },
+    {
+      "id": "daniela-olmedo-san-martin",
+      "nombre": "Daniela Olmedo San Martin",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/daniela-olmedo-13a029318",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "DOM",
+      "torneo": {
+        "equipo": "Black Swan Capital",
+        "equipoId": "black-swan-capital",
+        "posicion": 15,
+        "puntos": 60.32,
+        "retRel": -0.0037,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "diego-adones",
+      "nombre": "Diego Adones",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/diego-adones-lópez",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "DAD",
+      "torneo": {
+        "equipo": "DFS CAPITAL",
+        "equipoId": "dfs-capital",
+        "posicion": 14,
+        "puntos": 63.87,
+        "retRel": 0.0146,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "diego-alejandro-munoz-gutierrez",
+      "nombre": "Diego Alejandro Muñoz Gutierrez",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/diego-a-mu%C3%B1oz-g-9060a9215",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "DAM",
+      "torneo": {
+        "equipo": "Los Estadísticos Inconscientes",
+        "equipoId": "los-estadisticos-inconscientes",
+        "posicion": 48,
+        "puntos": 13.76,
+        "retRel": -0.0643,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "diego-alonso-ruz-castillo",
+      "nombre": "Diego Alonso Ruz Castillo",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "DAR",
+      "torneo": {
+        "equipo": "R&S Investment Group",
+        "equipoId": "rs-investment-group",
+        "posicion": 54,
+        "puntos": 1.58,
+        "retRel": -0.2514,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "diego-letelier",
+      "nombre": "Diego Letelier",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/diego-letelier-reyman-54927136b",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "DLE",
+      "torneo": {
+        "equipo": "Malaga Capital Partners",
+        "equipoId": "malaga-capital-partners",
+        "posicion": 38,
+        "puntos": 23.27,
+        "retRel": -0.0455,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "dorian-robles",
+      "nombre": "Dorian Robles",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "DRO",
+      "torneo": {
+        "equipo": "Aconcagua Capital",
+        "equipoId": "aconcagua-capital",
+        "posicion": 2,
+        "puntos": 86.54,
+        "retRel": 0.1361,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "elizabeth-salome-nunez-neira",
+      "nombre": "Elizabeth Salome Núñez Neira",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/elizabethnuñez",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "ESN",
+      "torneo": {
+        "equipo": "Alpha Partners",
+        "equipoId": "alpha-partners",
+        "posicion": 46,
+        "puntos": 15.88,
+        "retRel": -0.22519999999999998,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "emilia-jorquera-perez",
+      "nombre": "Emilia Jorquera Perez",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "EJP",
+      "torneo": {
+        "equipo": "Emax Wealth",
+        "equipoId": "emax-wealth",
+        "posicion": 41,
+        "puntos": 19.08,
+        "retRel": -0.0907,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "emilio-andres-rodriguez-colichen",
+      "nombre": "Emilio Andrés Rodríguez Colichen",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "EAR",
+      "torneo": {
+        "equipo": "CCQ",
+        "equipoId": "ccq",
+        "posicion": 35,
+        "puntos": 26.52,
+        "retRel": -0.1011,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "felipe-andres-perez-belmar",
+      "nombre": "Felipe Andrés Pérez Belmar",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "FAP",
+      "torneo": {
+        "equipo": "Cimientos financieros",
+        "equipoId": "cimientos-financieros",
+        "posicion": 45,
+        "puntos": 15.94,
+        "retRel": -0.1754,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "felipe-cifuentes",
+      "nombre": "Felipe Cifuentes",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/felipe-ignacio-cifuentes-urra-146954229",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "FCI",
+      "torneo": {
+        "equipo": "DFS CAPITAL",
+        "equipoId": "dfs-capital",
+        "posicion": 14,
+        "puntos": 63.87,
+        "retRel": 0.0146,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "flavio-perez-bustos",
+      "nombre": "Flavio Pérez Bustos",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "FPB",
+      "torneo": {
+        "equipo": "SeriosFc",
+        "equipoId": "seriosfc",
+        "posicion": 42,
+        "puntos": 17.69,
+        "retRel": -0.11470000000000001,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "francisco-antonio-freire-sabaj",
+      "nombre": "Francisco Antonio Freire Sabaj",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "FAF"
+    },
+    {
+      "id": "gabriel-soliz",
+      "nombre": "Gabriel Soliz",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "GSO",
+      "torneo": {
+        "equipo": "SA Partners",
+        "equipoId": "sa-partners",
+        "posicion": 29,
+        "puntos": 34.09,
+        "retRel": -0.0441,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "guillermo-barros",
+      "nombre": "Guillermo Barros",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/gbarrosm",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "GBA",
+      "torneo": {
+        "equipo": "Malaga Capital Partners",
+        "equipoId": "malaga-capital-partners",
+        "posicion": 38,
+        "puntos": 23.27,
+        "retRel": -0.0455,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "hugo-alonso-fuentes-martines",
+      "nombre": "Hugo Alonso Fuentes Martines",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "HAF",
+      "torneo": {
+        "equipo": "Aconcagua Capital",
+        "equipoId": "aconcagua-capital",
+        "posicion": 2,
+        "puntos": 86.54,
+        "retRel": 0.1361,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "ignacio-aylwin-campos",
+      "nombre": "Ignacio Aylwin Campos",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "IAC",
+      "torneo": {
+        "equipo": "EDP",
+        "equipoId": "edp",
+        "posicion": 8,
+        "puntos": 75.45,
+        "retRel": 0.1832,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "ignacio-paul-sepulveda-inzunza",
+      "nombre": "Ignacio Paul Sepúlveda Inzunza",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "IPS",
+      "torneo": {
+        "equipo": "Indarra Investments",
+        "equipoId": "indarra-investments",
+        "posicion": 43,
+        "puntos": 17.58,
+        "retRel": -0.11720000000000001,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "isabel-rojas-aravena",
+      "nombre": "Isabel rojas aravena",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "IRA",
+      "torneo": {
+        "equipo": "Beta capital",
+        "equipoId": "beta-capital",
+        "posicion": 1,
+        "puntos": 93.26,
+        "retRel": 0.1891,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "isable-antonia-cabezas-salvatierra",
+      "nombre": "Isable Antonia Cabezas Salvatierra",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "IAA",
+      "torneo": {
+        "equipo": "Alpha makers",
+        "equipoId": "alpha-makers",
+        "posicion": 3,
+        "puntos": 85.93,
+        "retRel": 0.20829999999999999,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "ivette-coronado",
+      "nombre": "Ivette Coronado",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "ICO",
+      "torneo": {
+        "equipo": "Beta capital",
+        "equipoId": "beta-capital",
+        "posicion": 1,
+        "puntos": 93.26,
+        "retRel": 0.1891,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "jacinta-lucia-olavarria-quingles",
+      "nombre": "Jacinta Lucía Olavarría Quingles",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/jacinta-lucía-olavarría-quingles-603833364",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JLO",
+      "torneo": {
+        "equipo": "O.C.G. Investment",
+        "equipoId": "o-c-g-investment",
+        "posicion": 27,
+        "puntos": 34.54,
+        "retRel": -0.0241,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "javier-villavicencio",
+      "nombre": "Javier Villavicencio",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JVI",
+      "torneo": {
+        "equipo": "VNM Capital Partners",
+        "equipoId": "vnm-capital-partners",
+        "posicion": 39,
+        "puntos": 22.27,
+        "retRel": -0.1348,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "javiera-esperanza-gonzalez-herrera",
+      "nombre": "Javiera Esperanza González Herrera",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JEG",
+      "torneo": {
+        "equipo": "Cimientos financieros",
+        "equipoId": "cimientos-financieros",
+        "posicion": 45,
+        "puntos": 15.94,
+        "retRel": -0.1754,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "jeferson-alexis-quispe-infante",
+      "nombre": "Jeferson Alexis Quispe Infante",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JAQ",
+      "torneo": {
+        "equipo": "CCQ",
+        "equipoId": "ccq",
+        "posicion": 35,
+        "puntos": 26.52,
+        "retRel": -0.1011,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "jonas-jncharles",
+      "nombre": "Jonas jncharles",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JJN",
+      "torneo": {
+        "equipo": "Inversión Racional",
+        "equipoId": "inversion-racional",
+        "posicion": 26,
+        "puntos": 35.94,
+        "retRel": -0.0383,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "jorge-andres-bustamante-bustamante",
+      "nombre": "Jorge Andrés Bustamante Bustamante",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/jorge-bustamante-565a922a4",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JAB",
+      "torneo": {
+        "equipo": "Los Estadísticos Inconscientes",
+        "equipoId": "los-estadisticos-inconscientes",
+        "posicion": 48,
+        "puntos": 13.76,
+        "retRel": -0.0643,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "jorge-ignacio-cantallopts-jara",
+      "nombre": "Jorge Ignacio Cantallopts Jara",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JIC",
+      "torneo": {
+        "equipo": "Diagonal Capital",
+        "equipoId": "diagonal-capital",
+        "posicion": 44,
+        "puntos": 16.95,
+        "retRel": -0.2327,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "jorge-mery",
+      "nombre": "Jorge Mery",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JME"
+    },
+    {
+      "id": "josefa-varela-jacob",
+      "nombre": "Josefa Varela Jacob",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JVJ",
+      "torneo": {
+        "equipo": "VCL Capital",
+        "equipoId": "vcl-capital",
+        "posicion": 23,
+        "puntos": 40.87,
+        "retRel": -0.0542,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "jose-fabres-bengolea",
+      "nombre": "José Fabres Bengolea",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JFB",
+      "torneo": {
+        "equipo": "MVF Capital",
+        "equipoId": "mvf-capital",
+        "posicion": 50,
+        "puntos": 10.06,
+        "retRel": -0.19690000000000002,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "jose-luis-farias-reyes",
+      "nombre": "José Luis Farías Reyes",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JLF",
+      "torneo": {
+        "equipo": "JAV Capital",
+        "equipoId": "jav-capital",
+        "posicion": 6,
+        "puntos": 77.91,
+        "retRel": 0.0369,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "jose-pedro-amenabar",
+      "nombre": "José Pedro Amenábar",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/jose-amenabar/",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JPA",
+      "torneo": {
+        "equipo": "PGAt",
+        "equipoId": "pgat",
+        "posicion": 40,
+        "puntos": 22.05,
+        "retRel": -0.10039999999999999,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "jose-toledo",
+      "nombre": "José Toledo",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JTO",
+      "torneo": {
+        "equipo": "Jose",
+        "equipoId": "jose",
+        "posicion": 51,
+        "puntos": 9.55,
+        "retRel": -0.3728,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "juan-jose-esbeile-pena",
+      "nombre": "Juan José Esbeile Peña",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JJE",
+      "torneo": {
+        "equipo": "Expertos en Blackrock",
+        "equipoId": "expertos-en-blackrock",
+        "posicion": 25,
+        "puntos": 37.79,
+        "retRel": -0.0033,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "juan-luis-silva-garrido",
+      "nombre": "Juan Luis Silva Garrido",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JLS",
+      "torneo": {
+        "equipo": "Los Estadísticos Inconscientes",
+        "equipoId": "los-estadisticos-inconscientes",
+        "posicion": 48,
+        "puntos": 13.76,
+        "retRel": -0.0643,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "juan-tank",
+      "nombre": "Juan Tank",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "JTA",
+      "torneo": {
+        "equipo": "B&JP Capitals",
+        "equipoId": "bjp-capitals",
+        "posicion": 4,
+        "puntos": 80.8,
+        "retRel": 0.1139,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "laura-beatriz-fuentes-montes",
+      "nombre": "Laura Beatriz Fuentes Montes",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://linkedin.com/in/laura-beatriz-fuentes-montes-084591337",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "LBF",
+      "torneo": {
+        "equipo": "Sharpe Fox",
+        "equipoId": "sharpe-fox",
+        "posicion": 52,
+        "puntos": 8.98,
+        "retRel": -0.105,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "lucas-daniel-valenzuela-pavez",
+      "nombre": "Lucas Daniel Valenzuela Pavez",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "LDV"
+    },
+    {
+      "id": "lucas-vicente-troy-casanova",
+      "nombre": "Lucas Vicente Troy Casanova",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "LVT",
+      "torneo": {
+        "equipo": "CLB",
+        "equipoId": "clb",
+        "posicion": 5,
+        "puntos": 78.1,
+        "retRel": 0.049100000000000005,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "lukas-bravo",
+      "nombre": "Lukas Bravo",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "LBR",
+      "torneo": {
+        "equipo": "Terra Capital",
+        "equipoId": "terra-capital",
+        "posicion": 18,
+        "puntos": 48.59,
+        "retRel": -0.0387,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "maria-consuelo-villarroel-uribe",
+      "nombre": "Maria Consuelo Villarroel Uribe",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "MCV",
+      "torneo": {
+        "equipo": "Athena",
+        "equipoId": "athena",
+        "posicion": 16,
+        "puntos": 54.81,
+        "retRel": 0.0334,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "maria-jose-silva-lizana",
+      "nombre": "Maria José Silva Lizana",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "MJS",
+      "torneo": {
+        "equipo": "Athena",
+        "equipoId": "athena",
+        "posicion": 16,
+        "puntos": 54.81,
+        "retRel": 0.0334,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "mariana-perez-machado",
+      "nombre": "Mariana Pérez Machado",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "MPM",
+      "torneo": {
+        "equipo": "Nova Praxis Asset Management",
+        "equipoId": "nova-praxis-asset-management",
+        "posicion": 19,
+        "puntos": 48.41,
+        "retRel": -0.0336,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "martin-alonso-calderon-cavieres",
+      "nombre": "Martin Alonso Calderon Cavieres",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "MAC",
+      "torneo": {
+        "equipo": "Barber Iker Investment Group",
+        "equipoId": "barber-iker-investment-group",
+        "posicion": 21,
+        "puntos": 46.6,
+        "retRel": -0.018000000000000002,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "martin-amaru-farias-gaete",
+      "nombre": "Martin Amaru Farias Gaete",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "MAF"
+    },
+    {
+      "id": "martin-maldini-ramirez",
+      "nombre": "Martín Maldini Ramírez",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "MMR",
+      "torneo": {
+        "equipo": "Dinamico-Italiano",
+        "equipoId": "dinamico-italiano",
+        "posicion": 30,
+        "puntos": 32.2,
+        "retRel": -0.0475,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "matias-alejandro-garrido-henriquez",
+      "nombre": "Matías Alejandro Garrido Henríquez",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "MAG",
+      "torneo": {
+        "equipo": "Diagonal Capital",
+        "equipoId": "diagonal-capital",
+        "posicion": 44,
+        "puntos": 16.95,
+        "retRel": -0.2327,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "matias-vial-correa",
+      "nombre": "Matías Vial Correa",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/matias-vial-0191bb271",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "MVC",
+      "torneo": {
+        "equipo": "MVF Capital",
+        "equipoId": "mvf-capital",
+        "posicion": 50,
+        "puntos": 10.06,
+        "retRel": -0.19690000000000002,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "maureen-sayen-salazar-rosales",
+      "nombre": "Maureen Sayen Salazar Rosales",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "MSS"
+    },
+    {
+      "id": "mauricio-hoffer-cardenas",
+      "nombre": "Mauricio Hoffer Cárdenas",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "MHC",
+      "torneo": {
+        "equipo": "Nova Praxis Asset Management",
+        "equipoId": "nova-praxis-asset-management",
+        "posicion": 19,
+        "puntos": 48.41,
+        "retRel": -0.0336,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "max-turner",
+      "nombre": "Max Turner",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/max-turner-bezanilla-a07161380",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "MTU",
+      "torneo": {
+        "equipo": "Default Capital",
+        "equipoId": "default-capital",
+        "posicion": 49,
+        "puntos": 12.53,
+        "retRel": -0.1918,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "maximiliano-benjamin-cea-vera",
+      "nombre": "Maximiliano Benjamín Cea Vera",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "MBC",
+      "torneo": {
+        "equipo": "Barber Iker Investment Group",
+        "equipoId": "barber-iker-investment-group",
+        "posicion": 21,
+        "puntos": 46.6,
+        "retRel": -0.018000000000000002,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "maximiliano-bittelman-olmos",
+      "nombre": "Maximiliano Bittelman Olmos",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "MBO",
+      "torneo": {
+        "equipo": "Emax Wealth",
+        "equipoId": "emax-wealth",
+        "posicion": 41,
+        "puntos": 19.08,
+        "retRel": -0.0907,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "miguel-montaner",
+      "nombre": "Miguel Montaner",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/miguel-montaner-037277292",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "MMO",
+      "torneo": {
+        "equipo": "Terra Capital",
+        "equipoId": "terra-capital",
+        "posicion": 18,
+        "puntos": 48.59,
+        "retRel": -0.0387,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "nicolas-valdivieso",
+      "nombre": "Nicolas Valdivieso",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/nicol%C3%A1s-valdivieso-jara-462261234",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "NVA",
+      "torneo": {
+        "equipo": "Default Capital",
+        "equipoId": "default-capital",
+        "posicion": 49,
+        "puntos": 12.53,
+        "retRel": -0.1918,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "nicolas-saba",
+      "nombre": "Nicolás Saba",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "NSA",
+      "torneo": {
+        "equipo": "Fat fingers",
+        "equipoId": "fat-fingers",
+        "posicion": 53,
+        "puntos": 4.81,
+        "retRel": -0.17739999999999997,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "oscar-javier-mardones-urrutia",
+      "nombre": "Oscar Javier Mardones Urrutia",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/oscar-javier-mardones-urrutia-b44933334/",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "OJM",
+      "torneo": {
+        "equipo": "Warren BuFEN",
+        "equipoId": "warren-bufen",
+        "posicion": 20,
+        "puntos": 47.11,
+        "retRel": 0.038,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "oscar-troncoso-espinosa",
+      "nombre": "Oscar Troncoso Espinosa",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/oscar-troncoso-espinosa-6145bb259",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "OTE",
+      "torneo": {
+        "equipo": "ORB Asset Management",
+        "equipoId": "orb-asset-management",
+        "posicion": 47,
+        "puntos": 15.7,
+        "retRel": -0.0301,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "pablo-andres-menning-squella",
+      "nombre": "Pablo Andres Menning Squella",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/pablo-menning-squella-ba8061349",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "PAM",
+      "torneo": {
+        "equipo": "VBP Investments",
+        "equipoId": "vbp-investments",
+        "posicion": 31,
+        "puntos": 31.72,
+        "retRel": -0.1307,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "pablo-fernando-aguilera-bravo",
+      "nombre": "Pablo Fernando Aguilera Bravo",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "PFA",
+      "torneo": {
+        "equipo": "Black Bulls",
+        "equipoId": "black-bulls",
+        "posicion": 36,
+        "puntos": 25.98,
+        "retRel": -0.10279999999999999,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "patricio-caceres",
+      "nombre": "Patricio Caceres",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "PCA",
+      "torneo": {
+        "equipo": "Inversión Racional",
+        "equipoId": "inversion-racional",
+        "posicion": 26,
+        "puntos": 35.94,
+        "retRel": -0.0383,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "pedro-pablo-castillo-rosenberg",
+      "nombre": "Pedro Pablo Castillo Rosenberg",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "REVISAR: el Excel no trae una URL válida",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "PPC",
+      "torneo": {
+        "equipo": "VCL Capital",
+        "equipoId": "vcl-capital",
+        "posicion": 23,
+        "puntos": 40.87,
+        "retRel": -0.0542,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "pol-anton-marti-rishmague",
+      "nombre": "Pol Antón Martí Rishmague",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "PAI",
+      "torneo": {
+        "equipo": "Indarra Investments",
+        "equipoId": "indarra-investments",
+        "posicion": 43,
+        "puntos": 17.58,
+        "retRel": -0.11720000000000001,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "rafael-ariztia-baraona",
+      "nombre": "Rafael Ariztía Baraona",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "RAB",
+      "torneo": {
+        "equipo": "I.C",
+        "equipoId": "i-c",
+        "posicion": 13,
+        "puntos": 67.8,
+        "retRel": 0.0068000000000000005,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "rafael-roman-duran",
+      "nombre": "Rafael Román Durán",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "RRD",
+      "torneo": {
+        "equipo": "ORB Asset Management",
+        "equipoId": "orb-asset-management",
+        "posicion": 47,
+        "puntos": 15.7,
+        "retRel": -0.0301,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "raul-ignacio-salinas-munoz",
+      "nombre": "Raúl Ignacio Salinas Muñoz",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "RIS",
+      "torneo": {
+        "equipo": "Alpha makers",
+        "equipoId": "alpha-makers",
+        "posicion": 3,
+        "puntos": 85.93,
+        "retRel": 0.20829999999999999,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "renato-ortega",
+      "nombre": "Renato Ortega",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "ROR",
+      "torneo": {
+        "equipo": "Optimo Investment",
+        "equipoId": "optimo-investment",
+        "posicion": 12,
+        "puntos": 69.9,
+        "retRel": 0.1439,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "renato-urrutia-gandolfo",
+      "nombre": "Renato Urrutia Gandolfo",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/renato-urrutia-gandolfo-36a3322a3/",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "RUG"
+    },
+    {
+      "id": "richard-orlando-figueroa-villegas",
+      "nombre": "Richard Orlando Figueroa Villegas",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "ROF",
+      "torneo": {
+        "equipo": "EDP",
+        "equipoId": "edp",
+        "posicion": 8,
+        "puntos": 75.45,
+        "retRel": 0.1832,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "rodrigo-ignacio-dumigual-gomez",
+      "nombre": "Rodrigo ignacio dumigual gomez",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "RID",
+      "torneo": {
+        "equipo": "BBR Investments",
+        "equipoId": "bbr-investments",
+        "posicion": 24,
+        "puntos": 40.23,
+        "retRel": -0.0424,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "santiago-gaete",
+      "nombre": "Santiago Gaete",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "SGA",
+      "torneo": {
+        "equipo": "Coclea Corp",
+        "equipoId": "coclea-corp",
+        "posicion": 37,
+        "puntos": 25.15,
+        "retRel": -0.0828,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "santiago-meza-fernandez",
+      "nombre": "Santiago Meza Fernandez",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/santiago-meza-fern%C3%A1ndez-b95258365",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "SMF",
+      "torneo": {
+        "equipo": "MVF Capital",
+        "equipoId": "mvf-capital",
+        "posicion": 50,
+        "puntos": 10.06,
+        "retRel": -0.19690000000000002,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "santiago-phillips",
+      "nombre": "Santiago Phillips",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "SPH",
+      "torneo": {
+        "equipo": "Fat fingers",
+        "equipoId": "fat-fingers",
+        "posicion": 53,
+        "puntos": 4.81,
+        "retRel": -0.17739999999999997,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "sebastian-atencia",
+      "nombre": "Sebastian Atencia",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "SAT",
+      "torneo": {
+        "equipo": "SA Partners",
+        "equipoId": "sa-partners",
+        "posicion": 29,
+        "puntos": 34.09,
+        "retRel": -0.0441,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "sebastian-norambuena",
+      "nombre": "Sebastian Norambuena",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "SNO",
+      "torneo": {
+        "equipo": "VNM Capital Partners",
+        "equipoId": "vnm-capital-partners",
+        "posicion": 39,
+        "puntos": 22.27,
+        "retRel": -0.1348,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "sebastian-alonso-quiroz-gomez",
+      "nombre": "Sebastián Alonso Quiroz Gómez",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "SAQ",
+      "torneo": {
+        "equipo": "Diagonal Capital",
+        "equipoId": "diagonal-capital",
+        "posicion": 44,
+        "puntos": 16.95,
+        "retRel": -0.2327,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "sebastian-andres-espinosa-huentemil",
+      "nombre": "Sebastián Andrés Espinosa Huentemil",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "REVISAR: el Excel trae el LinkedIn de Daniel Torres Molins",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "SAE",
+      "torneo": {
+        "equipo": "Martes negro",
+        "equipoId": "martes-negro",
+        "posicion": 22,
+        "puntos": 42.21,
+        "retRel": -0.0072,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "sebastian-lopez",
+      "nombre": "Sebastián López",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/sebastián-lópez-a3811737a/",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "SLO",
+      "torneo": {
+        "equipo": "Jose",
+        "equipoId": "jose",
+        "posicion": 51,
+        "puntos": 9.55,
+        "retRel": -0.3728,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "sergio-contreras",
+      "nombre": "Sergio Contreras",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/sergio-contreras-cabrera-0463372a5/",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "SCO",
+      "torneo": {
+        "equipo": "DFS CAPITAL",
+        "equipoId": "dfs-capital",
+        "posicion": 14,
+        "puntos": 63.87,
+        "retRel": 0.0146,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "tomas-rojas-moya",
+      "nombre": "Tomas Rojas Moya",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "TRM",
+      "torneo": {
+        "equipo": "SeriosFc",
+        "equipoId": "seriosfc",
+        "posicion": 42,
+        "puntos": 17.69,
+        "retRel": -0.11470000000000001,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "tomas-guzman",
+      "nombre": "Tomás Guzmán",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/tom%C3%A1s-agust%C3%ADn-guzm%C3%A1n-di-giammarino-211407389/",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "TGU",
+      "torneo": {
+        "equipo": "PGAt",
+        "equipoId": "pgat",
+        "posicion": 40,
+        "puntos": 22.05,
+        "retRel": -0.10039999999999999,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "valente-zecchetto-puigrredon",
+      "nombre": "Valente Zecchetto Puigrredón",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "VZP",
+      "torneo": {
+        "equipo": "JAV Capital",
+        "equipoId": "jav-capital",
+        "posicion": 6,
+        "puntos": 77.91,
+        "retRel": 0.0369,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "valentina-aguilera-vega",
+      "nombre": "Valentina Aguilera Vega",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "VAV",
+      "torneo": {
+        "equipo": "Dinamico-Italiano",
+        "equipoId": "dinamico-italiano",
+        "posicion": 30,
+        "puntos": 32.2,
+        "retRel": -0.0475,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "valentina-perez-perez",
+      "nombre": "Valentina Perez Perez",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/valentina-perez-perez-96b87b279",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "VPP",
+      "torneo": {
+        "equipo": "RiskiSamurai",
+        "equipoId": "riskisamurai",
+        "posicion": 9,
+        "puntos": 74.95,
+        "retRel": 0.0836,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "valentina-samai-aguirre-berroeta",
+      "nombre": "Valentina Samai Aguirre Berroeta",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "VSA"
+    },
+    {
+      "id": "vicente-alejandro-fuenzalida-leon",
+      "nombre": "Vicente Alejandro Fuenzalida León",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/vicente-fuenzalida-leon-550a50278",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "VAF",
+      "torneo": {
+        "equipo": "VBP Investments",
+        "equipoId": "vbp-investments",
+        "posicion": 31,
+        "puntos": 31.72,
+        "retRel": -0.1307,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "vicente-andres-arias-venegas",
+      "nombre": "Vicente Andrés Arias Venegas",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/vicente-arias-1bb45625b",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "VAA",
+      "torneo": {
+        "equipo": "9 financiero",
+        "equipoId": "9-financiero",
+        "posicion": 34,
+        "puntos": 27.33,
+        "retRel": -0.0504,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "vicente-andres-avendano-stevenson",
+      "nombre": "Vicente Andrés Avendaño Stevenson",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "VAT",
+      "torneo": {
+        "equipo": "Vantedge Asset Management",
+        "equipoId": "vantedge-asset-management",
+        "posicion": 32,
+        "puntos": 29.77,
+        "retRel": -0.050499999999999996,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "vicente-burgos",
+      "nombre": "Vicente Burgos",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/vicenteburgos",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "VBU",
+      "torneo": {
+        "equipo": "RiskiSamurai",
+        "equipoId": "riskisamurai",
+        "posicion": 9,
+        "puntos": 74.95,
+        "retRel": 0.0836,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "vicente-contreras-gormaz",
+      "nombre": "Vicente Contreras Gormaz",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "VCG",
+      "torneo": {
+        "equipo": "Nova Praxis Asset Management",
+        "equipoId": "nova-praxis-asset-management",
+        "posicion": 19,
+        "puntos": 48.41,
+        "retRel": -0.0336,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "vicente-gabriel-gomez-ordenes",
+      "nombre": "Vicente Gabriel Gómez Órdenes",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/vicenteggomez",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "VGG",
+      "torneo": {
+        "equipo": "O.C.G. Investment",
+        "equipoId": "o-c-g-investment",
+        "posicion": 27,
+        "puntos": 34.54,
+        "retRel": -0.0241,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "vicente-luis-castillo-gonazalez",
+      "nombre": "Vicente Luis Castillo Gonazalez",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "VLC",
+      "torneo": {
+        "equipo": "Barber Iker Investment Group",
+        "equipoId": "barber-iker-investment-group",
+        "posicion": 21,
+        "puntos": 46.6,
+        "retRel": -0.018000000000000002,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "victoria-paz-tapia-rivera",
+      "nombre": "Victoria Paz Tapia Rivera",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "VPT",
+      "torneo": {
+        "equipo": "Warren BuFEN",
+        "equipoId": "warren-bufen",
+        "posicion": 20,
+        "puntos": 47.11,
+        "retRel": 0.038,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "yommer-haniel-hernandez-herrera",
+      "nombre": "Yommer Haniel Hernandez Herrera",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/yommer-haniel-hernandez-herrera-b53a5b304",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "YHH",
+      "torneo": {
+        "equipo": "Vantedge Asset Management",
+        "equipoId": "vantedge-asset-management",
+        "posicion": 32,
+        "puntos": 29.77,
+        "retRel": -0.050499999999999996,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "alfonso-romanini",
+      "nombre": "alfonso romanini",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "ARO",
+      "torneo": {
+        "equipo": "Coclea Corp",
+        "equipoId": "coclea-corp",
+        "posicion": 37,
+        "puntos": 25.15,
+        "retRel": -0.0828,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "gabriel-loyola",
+      "nombre": "gabriel loyola",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "GLO",
+      "torneo": {
+        "equipo": "Portafen",
+        "equipoId": "portafen",
+        "posicion": 28,
+        "puntos": 34.33,
+        "retRel": -0.003,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "renato-retamales",
+      "nombre": "renato retamales",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "RRE",
+      "torneo": {
+        "equipo": "Portafen",
+        "equipoId": "portafen",
+        "posicion": 28,
+        "puntos": 34.33,
+        "retRel": -0.003,
+        "semana": 15,
+        "corte": "21 · AGO · 2026"
+      }
+    },
+    {
+      "id": "alvaro-pacheco-correa",
+      "nombre": "Álvaro Pacheco Correa",
+      "rol": "Miembro",
+      "rolCompleto": "Miembro",
+      "nivel": 3,
+      "lidera": null,
+      "area": null,
+      "detalle": "",
+      "generacion": null,
+      "estado": "activo",
+      "linkedin": "https://www.linkedin.com/in/%C3%A1lvaro-pacheco-correa-b418a13a9/",
+      "perfil": {
+        "bio": "",
+        "hitos": []
+      },
+      "extras": [],
+      "muestra": [
+        "actividades",
+        "bio",
+        "foto",
+        "torneo"
+      ],
+      "fuente": "excel",
+      "ticker": "APC"
     }
   ]
 }
