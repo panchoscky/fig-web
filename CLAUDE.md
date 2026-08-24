@@ -36,6 +36,8 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 ├── en/index.html              ← one-pager en INGLÉS para partners internacionales (única página en inglés del sitio)
 ├── generar_torneo.py        ← Excel ranking_ordenado → datos/torneo.json (mantiene historial semanal)
 ├── completar_metricas_historial.py ← INJERTO QUIRÚRGICO: rellena métricas faltantes en semanas ya publicadas del historial, SIN regenerar el JSON (usar esto, nunca `--excels`, para no borrar los integrantes)
+├── grabar_pantalla_facultad_1_capturar.js ← Paso 1/2 para grabar torneo/pantalla-facultad.html: Chrome headless por CDP crudo (sin Playwright, sin instalar nada), captura fotograma a fotograma a frames/*.png. Necesita un server local corriendo antes (ver su cabecera). Detalle completo más abajo, sección "Pixelación al proyectar"
+├── grabar_pantalla_facultad_2_codificar.py ← Paso 2/2: arma el MP4 final desde frames/*.png con PyAV, uno por uno (nunca todos en memoria)
 ├── incorporar_congelados.py ← Reinserta en torneo.json a los equipos "en espera" de `datos/equipos_congelados.json` (eliminados del corte oficial, pero mantenidos en el ranking público de fig-web por decisión de Francisco) y recalcula el puntaje de TODOS vía percentil continuo (réplica de `scoring.py` del repo torneo-bloomberg-oficial). CORRER SIEMPRE después de `generar_torneo.py`, nunca antes. Reporta en consola y en `ALERTAS_CONGELADOS.md` si algún congelado pasa a sostener el mínimo/máximo de una métrica
 ├── generar_miembros.py      ← club.json (directiva) + Excel del Drive → datos/miembros.json; cruza solo los resultados de torneo y las actividades
 ├── PLANILLA_MIEMBROS_FIG.md  ← qué columnas debe tener la planilla de miembros del Drive y qué NUNCA se publica (léelo antes de tocar la sección de Miembros)
@@ -266,18 +268,48 @@ a la mitad. Se cambió a medir el `scrollWidth` real del `<h1>` en vivo
 a que Playfair Display esté cargada antes de medir — así un futuro cambio
 de tamaño no vuelve a romperlo.
 
-**Pendiente, NO resuelto todavía — pixelación al proyectar**: Francisco
-reportó que el video se ve pixelado en pantalla grande. La causa más
-probable es resolución: el video se graba a 1920×1080 y un proyector de
-auditorio lo estira mucho más allá de su resolución nativa. La página YA
-soporta grabar a una resolución mayor sin tocar código — `?w=3840&h=2160`
-renderiza la MISMA composición (el `#stage` interno sigue siendo 1920×1080,
-se escala solo) al doble de resolución. El obstáculo real es que el script
-`scratchpad/grabar_pantalla_facultad.py` que se usaba para grabar (Playwright
-o CDP + PyAV, ver commits de 2026-08-20) **ya no existe en disco** — vivía en
-el scratchpad efímero de una sesión anterior de Claude Code, que se borra
-entre sesiones. Verificado el 2026-08-23: no hay `playwright`, `selenium`,
-`av` (PyAV) ni `cv2` instalados en el Python de esta máquina, y `ffmpeg` no
-está en el PATH. Hace falta reconstruir el script de grabación (instalando
-lo que falte) antes de poder grabar el próximo video — preguntarle a
-Francisco antes de instalar nada nuevo.
+**Pixelación al proyectar — script de grabación reconstruido (2026-08-23),
+AÚN NO SE HA CORRIDO**. El script viejo (`scratchpad/grabar_pantalla_facultad.py`)
+vivía en el scratchpad efímero de una sesión anterior de Claude Code y se
+perdió al cerrarla — por eso este nuevo queda **en la raíz del repo, no en
+un scratchpad**, para que no vuelva a pasar.
+
+Hardware de la máquina de Francisco (verificado 2026-08-23, relevante para
+cualquier ajuste futuro): Intel Pentium Gold 7505, 2 núcleos/4 hilos, **solo
+3.8 GB de RAM** (con frecuencia menos de 1 GB libre), GPU integrada. Con eso
+en mente, el diseño evita Playwright/Puppeteer (bajan ~300MB de Chromium
+aparte) y evita acumular fotogramas en memoria.
+
+Son DOS scripts nuevos en la raíz del repo:
+- `grabar_pantalla_facultad_1_capturar.js` (Node, **sin instalar nada**:
+  usa el Chrome/Edge ya instalado + el `fetch`/`WebSocket` nativos de Node
+  24, manejando el navegador por CDP crudo — mismo patrón que se usó para
+  verificar `miembros/index.html`). Necesita un server local corriendo
+  primero (`python -m http.server 8000` desde la raíz del repo, porque la
+  página hace `fetch()` a `../datos/torneo.json` y eso lo bloquea `file://`).
+  Congela el reloj de la página (`window.__manual()`), espera
+  `document.fonts.ready` (importante: sin esto los primeros fotogramas
+  podrían capturarse con el título del intro sin revelar del todo — ver
+  `medirMascara()` en `pantalla-facultad.html`) y recorre `window.__seek(ms)`
+  fotograma a fotograma, escribiendo cada uno a `frames/frame_NNNNN.png` y
+  descartándolo de memoria antes del siguiente. Por defecto 30fps (no 60:
+  la mitad de fotogramas, mismo resultado visual en un video sin movimiento
+  rápido, la mitad de riesgo para 3.8GB de RAM).
+- `grabar_pantalla_facultad_2_codificar.py` (Python + `av`/PyAV, instalado
+  el 2026-08-23 con permiso de Francisco — Pillow ya estaba de
+  `optimizar_fotos.py`). Lee los `.png` de `frames/` uno por uno y los
+  codifica directo al MP4 final (nunca los tiene todos en memoria a la
+  vez), CRF configurable (18 por defecto, buena calidad/peso razonable para
+  subir a Drive — más bajo = más calidad y más peso, ver el docstring del
+  script).
+
+Uso completo:
+```
+python -m http.server 8000                              # terminal 1, dejarla corriendo
+node grabar_pantalla_facultad_1_capturar.js              # terminal 2
+python grabar_pantalla_facultad_2_codificar.py           # terminal 2, después
+```
+Estimado en esa máquina (NO cronometrado todavía, es una proyección): unos
+15-20 minutos a 30fps, archivo final entre 20 y 50 MB. **Antes de correrlo
+de verdad, avisarle a Francisco** — accedió a que se armara el script pero
+pidió no correrlo todavía en la sesión donde se escribió.
