@@ -212,3 +212,72 @@ Resumen de bloqueadores:
   existe para otro dato (todos siguen la misma forma: leer Excel → validar
   → volcar JSON con el esquema documentado en el propio archivo o en su
   `.ejemplo`).
+
+## Cambios del 2026-08-23 (segunda tanda, tras la reincorporación de los 5)
+
+**Bug real corregido**: el botón "Torneo 2026" del nav de `eventos/index.html`
+(escritorio y móvil) apuntaba a `https://feninvestmentgroup.com/torneoportafolio2026/`
+— un sitio externo viejo que da 404 (verificado con curl). Era el único link
+del sitio con este problema; se cambió a `../torneo/index.html` en ambos
+repos. Reportado por Francisco: Inicio → Torneo → Eventos → intentar volver
+a Torneo desde ahí daba 404.
+
+**Nav de `index.html` reordenado** (pedido de Francisco: "hay demasiadas
+cosas"): de 11 ítems planos a 6 — Nosotros, Torneo, **Áreas ▾** (Valuation),
+**Comunidad ▾** (Miembros, FIG Woman), **Actividades ▾** (Eventos, Historia),
+Jugar ▾ (sin cambios, ya era desplegable). La clase CSS `.nav__play` se
+renombró a `.nav__drop` (genérica, la reusan los 4 desplegables). **Ojo con
+un bug que casi se introduce**: los triggers de "Áreas ▾" y "Comunidad ▾" no
+deben repetir el mismo `href="#areas"`/`#equipo"` que ya usa su propio
+submenú — el JS de "link activo del nav" (`.nav__links a`, busca por
+`getAttribute("href").slice(1)`) arma un mapa por id de sección, y dos `<a>`
+con el mismo hash se pisan entre sí, dejando el trigger visible SIN el
+resaltado dorado cuando esa sección está en pantalla. Por eso el submenú de
+Áreas solo tiene "Valuation" y el de Comunidad solo "Miembros"/"FIG Woman"
+— el trigger mismo ya cubre la sección ancla, no hace falta repetirla adentro.
+**En el repo de Manuel se adaptó distinto**: como ahí no existe Miembros y
+FIG Woman sigue oculta (`FIW_TEMP_OCULTO`), "Comunidad ▾" habría quedado
+como un desplegable vacío — se dejó "Equipo" como ítem suelto en su lugar,
+sin agrupar.
+
+**ACWI real agregado a `torneo/pantalla.html` y `torneo/pantalla-facultad.html`**
+(pedido explícito de Francisco: "quiero que aparezcan las dos" — ACWI Y
+promedio del torneo, no una en vez de la otra). Hasta ahora ambas pantallas
+solo comparaban cada equipo contra el promedio de los 59, aunque el
+benchmark real ya se captura desde Bloomberg desde el 2026-08-21
+(`datos/torneo.json.acwi`, ver el otro repo). Ahora dibujan una tercera
+línea (azul `#3C6DA8` sobre fondo claro en pantalla-facultad, `#7BA7DE` sobre
+fondo oscuro en pantalla — mismos tokens que usa el resto del sitio para
+ACWI). Si el corte más reciente todavía no tiene el valor de ACWI capturado
+(le puede faltar un corte, el pipeline de Bloomberg lo agrega aparte), la
+línea de ACWI simplemente no llega hasta la última semana — no se inventa
+el dato ni se rompe el gráfico.
+
+**`torneo/pantalla-facultad.html` agrandado** (Francisco lo proyectó con el
+equipo y acordaron que se veía chico/pixelado): nombres de integrantes
+24px→32px, rol 16px→20px, avatar 56px→68px; intro (escena 1) con logo
+150px→190px, título "FEN Investment Group" 96px→124px, kicker y línea de
+organización también más grandes. **Detalle técnico importante**: el ancho
+de la máscara que revela el título letra por letra era un número fijo en
+px (`1010`, calculado a mano para el font-size viejo) — con el font-size
+nuevo el texto real es más ancho que esos 1010px, así que se habría cortado
+a la mitad. Se cambió a medir el `scrollWidth` real del `<h1>` en vivo
+(`MASK_W`, ver `medirMascara()`), con `document.fonts.ready` para esperar
+a que Playfair Display esté cargada antes de medir — así un futuro cambio
+de tamaño no vuelve a romperlo.
+
+**Pendiente, NO resuelto todavía — pixelación al proyectar**: Francisco
+reportó que el video se ve pixelado en pantalla grande. La causa más
+probable es resolución: el video se graba a 1920×1080 y un proyector de
+auditorio lo estira mucho más allá de su resolución nativa. La página YA
+soporta grabar a una resolución mayor sin tocar código — `?w=3840&h=2160`
+renderiza la MISMA composición (el `#stage` interno sigue siendo 1920×1080,
+se escala solo) al doble de resolución. El obstáculo real es que el script
+`scratchpad/grabar_pantalla_facultad.py` que se usaba para grabar (Playwright
+o CDP + PyAV, ver commits de 2026-08-20) **ya no existe en disco** — vivía en
+el scratchpad efímero de una sesión anterior de Claude Code, que se borra
+entre sesiones. Verificado el 2026-08-23: no hay `playwright`, `selenium`,
+`av` (PyAV) ni `cv2` instalados en el Python de esta máquina, y `ffmpeg` no
+está en el PATH. Hace falta reconstruir el script de grabación (instalando
+lo que falte) antes de poder grabar el próximo video — preguntarle a
+Francisco antes de instalar nada nuevo.
