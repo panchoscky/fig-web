@@ -51,7 +51,7 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 ├── logos/                   ← logos oficiales bajados del Drive (FIG oro/blanco/navy, FEN, Itaú, BlackRock)
 │   └── industria/            ← logos de empresas para "FIG en la industria" (ver LEEME.txt de la carpeta)
 ├── datos/
-│   ├── club.json             ← personas, eventos resumen, historia, URLs del sitio principal
+│   ├── club.json             ← personas, eventos resumen, historia, URLs del sitio principal. Desde el 2026-08-27 trae también `torneo.creadores`: la lista EXPLÍCITA de quiénes crearon el Torneo Portafolio 2026, que alimenta la sección `#creadores` de `torneo/index.html` (solo nombre + aporte; el cargo, el LinkedIn y la foto se resuelven en vivo contra `personas.directiva`)
 │   ├── cv_procesados.json    ← manifiesto anti-relectura de CV del Drive (fileId+modifiedTime, evita reprocesar los que no cambiaron)
 │   ├── eventos.json           ← lista completa de eventos (bitácora); campo opcional `area` conecta un evento con la sección "Actividades" de su área (hoy solo valuation)
 │   ├── mercado.json            ← calendario de mercado (RPM/IPoM del Banco Central + FOMC de la Fed); fechas oficiales, se actualizan a mano una vez por semestre — se muestran en la misma línea de tiempo que los hitos del torneo y los eventos del club
@@ -315,3 +315,67 @@ Estimado en esa máquina (NO cronometrado todavía, es una proyección): unos
 15-20 minutos a 30fps, archivo final entre 20 y 50 MB. **Antes de correrlo
 de verdad, avisarle a Francisco** — accedió a que se armara el script pero
 pidió no correrlo todavía en la sesión donde se escribió.
+
+## Cambios del 2026-08-27: cargos del área Portafolio + sección de creadores
+
+**Un solo Director de Portafolio.** Cinco personas figuraban como
+"Director · Portafolio" en `datos/club.json`. Francisco aclaró que **el
+director del área es él**; Manuel Paz, Agustín Arriagada, Benjamín Disi y
+Benjamín Solís pasaron a **"Directivo · Portafolio"** (él eligió ese rótulo
+sobre "Administrador"). El cambio tocó, por persona y solo dentro de su
+propia ficha, el campo `rol`, la primera entrada de `hitos` y la bio (que
+decía "y director del área Portafolio" → "y **directivo** del área
+Portafolio"): `datos/club.json`, el HTML estático y el literal JS `CLUB_DATA`
+de `index.html`, y `datos/miembros.json` (`rol`, `rolCompleto`, `hitos`).
+La bio de Francisco es la única que conserva "director del área Portafolio",
+y `liderArea:"PRT"` sigue siendo suyo y de nadie más. **Los 3 "Director ·
+Trading" NO se tocaron** — no venía pedido, pero es el mismo patrón por si
+algún día se aclara quién dirige esa área (ver P0.5).
+
+**Benjamín Sáez no cofundó el área de Portafolio.** Decía "Co-fundador ·
+Área Portafolio" en el `detalle` y en `hitos`, y su bio decía "Lidera el
+área Portafolio y la dirección estratégica del club" — las dos cosas
+chocaban con que el director del área sea Francisco. Francisco lo corrigió:
+**él cofundó el CLUB, como el resto de la directiva, y es el presidente
+actual**. Quedó `detalle: "Co-fundador de FEN Investment Group."`, el hito
+como "Co-fundador de FIG" y la bio como "Lidera la dirección estratégica
+del club".
+
+**Sección nueva `#creadores` en `torneo/index.html`** (pedido de Francisco:
+"que se vean los creadores del torneo"). Va después de §Metodología, antes
+del footer, con enlace propio en el nav (desktop y móvil). Vuelve al fondo
+navy — Metodología es la única sección clara de la página — así el cierre
+de créditos se lee como bloque aparte y engancha con el footer.
+
+Detalle importante de dónde vive el dato: **la LISTA de creadores es
+explícita**, en `datos/club.json` → `torneo.creadores` (nombre + `aporte`).
+No se deriva de quién tiene hoy un rol de Portafolio, a propósito: haber
+creado el torneo 2026 es un hecho histórico, no un cargo vigente — si el
+año que viene entra alguien nuevo al área, no pasa a ser creador. En cambio
+el **cargo, el LinkedIn y la foto NO se repiten** ahí: `initCreadores()` los
+resuelve en vivo contra `personas.directiva` calzando por nombre, así que un
+cambio de cargo se refleja solo. Si alguien de la lista no tiene ficha en
+`directiva`, esa tarjeta se omite en vez de inventarle el cargo; y la
+sección arranca con el atributo `hidden`, que solo se saca si de verdad se
+dibujó al menos una tarjeta (un `club.json` roto no deja un título con la
+grilla vacía). Las fotos se sondean como en el resto del sitio
+(`../fotos/directiva/<slug>.<ext>`), con monograma dorado de respaldo del
+mismo tamaño para que la tarjeta no salte si falta el archivo.
+
+Son 6: Benjamín Sáez (presidencia y alianzas), Francisco (co-creador y
+plataforma web), Benjamín Disi (reglas y metodología), Benjamín Solís
+(arquitectura), Agustín Arriagada (capacitación en Bloomberg) y Manuel Paz
+(comunicaciones). Cada `aporte` sale de la bio o los hitos que esa persona
+ya tenía en `club.json` — no se inventó mérito nuevo.
+
+**Verificado en navegador** (Chrome headless por CDP crudo, mismo patrón que
+`miembros/index.html`): las 6 tarjetas renderizan con foto real y cargo
+correcto, sin errores de consola, en los dos repos; y la grilla corta bien
+3 → 2 → 1 columnas sin desborde horizontal. **Dos trampas que costaron
+tiempo y conviene no repetir** al verificar cualquier sección de este sitio:
+(1) el `clip` de `Page.captureScreenshot` va en coordenadas del **documento**,
+no del viewport — hay que sumarle `scrollY` al `getBoundingClientRect()`;
+(2) hay que **scrollear la sección a la vista y esperar >0.9s** antes de
+capturar, porque los `.reveal` recién reciben la clase `in` cuando el
+IntersectionObserver los ve entrar en pantalla — si no, se captura un
+rectángulo navy vacío y parece que la sección está rota cuando no lo está.

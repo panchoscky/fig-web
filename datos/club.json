@@ -12,20 +12,49 @@
     "sitio": "",
     "figEndpoint": "https://script.google.com/macros/s/AKfycbzpuJmVV6sW3lUoP6kiKN6YDUYMKtAEZlKQ6eFIqPYnS_SG6L4T2M-4cIkObdNi8Q0-/exec"
   },
+  "torneo": {
+    "_nota": "Creadores del Torneo Portafolio 2026: el equipo del area Portafolio mas el presidente del club. La lista es EXPLICITA a proposito -- haber creado el torneo es un hecho historico, no un cargo vigente, asi que no se deriva del rol que cada persona tenga hoy (si manana entra alguien nuevo al area, no pasa a ser creador del torneo 2026). El rol, el LinkedIn y la foto NO se repiten aca: la seccion los lee en vivo desde personas.directiva calzando por nombre, para que un cambio de cargo se refleje solo. Lo consume la seccion #creadores de torneo/index.html.",
+    "creadores": [
+      {
+        "nombre": "Benjamín Sáez Molina",
+        "aporte": "Presidencia del club y las alianzas con la industria desde las que se articula el torneo."
+      },
+      {
+        "nombre": "Francisco Valenzuela",
+        "aporte": "Co-creador del torneo y responsable de la plataforma web donde se publica el ranking cada viernes."
+      },
+      {
+        "nombre": "Benjamín Disi",
+        "aporte": "Diseño de las reglas, los criterios de evaluación y la metodología de construcción de portafolios."
+      },
+      {
+        "nombre": "Benjamín Solís",
+        "aporte": "Diseño de la arquitectura del torneo junto al equipo del área."
+      },
+      {
+        "nombre": "Agustín Arriagada",
+        "aporte": "Capacitación de los equipos en Bloomberg Terminal desde el Laboratorio de Finanzas de la FEN."
+      },
+      {
+        "nombre": "Manuel Paz",
+        "aporte": "Comunicaciones y difusión del torneo, y creador de la web original del club."
+      }
+    ]
+  },
   "personas": {
     "directiva": [
       {
         "iniciales": "BS",
         "nombre": "Benjamín Sáez Molina",
         "rol": "Presidente",
-        "detalle": "Co-fundador · Área Portafolio.",
+        "detalle": "Co-fundador de FEN Investment Group.",
         "destacado": true,
         "linkedin": "https://www.linkedin.com/in/benjamin-saez-molina/",
         "perfil": {
-          "bio": "Presidente y co-fundador de FEN Investment Group. Lidera el área Portafolio y la dirección estratégica del club, desde donde se articulan el Torneo Portafolio y las alianzas con la industria. Realizó su práctica profesional en Wealth Management en Itaú.",
+          "bio": "Presidente y co-fundador de FEN Investment Group. Lidera la dirección estratégica del club, desde donde se articulan el Torneo Portafolio y las alianzas con la industria. Realizó su práctica profesional en Wealth Management en Itaú.",
           "hitos": [
             "Presidente de FEN Investment Group",
-            "Co-fundador · Área Portafolio",
+            "Co-fundador de FIG",
             "Práctica en Wealth Management · Itaú"
           ]
         }
@@ -48,13 +77,13 @@
       {
         "iniciales": "MP",
         "nombre": "Manuel Paz",
-        "rol": "Director · Portafolio",
+        "rol": "Directivo · Portafolio",
         "detalle": "Co-fundador · Comunicaciones, difusión y creador de la web original.",
         "linkedin": "https://www.linkedin.com/in/mpazq",
         "perfil": {
-          "bio": "Co-fundador de FEN Investment Group y director del área Portafolio, responsable de comunicaciones y difusión del club. Creador de la web original de FIG, la primera presencia digital del grupo. Fuera del club fundó y escaló una tienda de e-commerce D2C que generó más de $280 millones en ventas, y gestiona activamente un portafolio personal de acciones y criptomonedas.",
+          "bio": "Co-fundador de FEN Investment Group y directivo del área Portafolio, responsable de comunicaciones y difusión del club. Creador de la web original de FIG, la primera presencia digital del grupo. Fuera del club fundó y escaló una tienda de e-commerce D2C que generó más de $280 millones en ventas, y gestiona activamente un portafolio personal de acciones y criptomonedas.",
           "hitos": [
-            "Director · Portafolio",
+            "Directivo · Portafolio",
             "Co-fundador de FIG",
             "Comunicaciones y difusión de FIG",
             "Creador de la web original del club",
@@ -84,13 +113,13 @@
       {
         "iniciales": "AA",
         "nombre": "Agustín Arriagada",
-        "rol": "Director · Portafolio",
+        "rol": "Directivo · Portafolio",
         "detalle": "Co-fundador · Monitor del Lab. Bloomberg FEN.",
         "linkedin": "https://www.linkedin.com/in/agustin-arriagada/",
         "perfil": {
-          "bio": "Co-fundador de FEN Investment Group y director del área Portafolio. Monitor del Laboratorio de Finanzas Bloomberg de la FEN, donde capacitó a más de 65 equipos del Torneo Portafolio 2026 en el uso de Bloomberg Terminal, y desarrolló el sistema automatizado de reportes semanales de inversión de FIG (Bloomberg Terminal + Python + Claude API) con señales para 6 activos (S&P 500, oro, BTC, EUR/USD, IPSA, USD/CLP).",
+          "bio": "Co-fundador de FEN Investment Group y directivo del área Portafolio. Monitor del Laboratorio de Finanzas Bloomberg de la FEN, donde capacitó a más de 65 equipos del Torneo Portafolio 2026 en el uso de Bloomberg Terminal, y desarrolló el sistema automatizado de reportes semanales de inversión de FIG (Bloomberg Terminal + Python + Claude API) con señales para 6 activos (S&P 500, oro, BTC, EUR/USD, IPSA, USD/CLP).",
           "hitos": [
-            "Director · Portafolio",
+            "Directivo · Portafolio",
             "Co-fundador de FIG",
             "Monitor · Laboratorio de Finanzas Bloomberg, FEN",
             "Diplomado en Gestión de Inversiones y Trading · PUC",
@@ -101,13 +130,13 @@
       {
         "iniciales": "BD",
         "nombre": "Benjamín Disi",
-        "rol": "Director · Portafolio",
+        "rol": "Directivo · Portafolio",
         "detalle": "Magíster en Finanzas (en curso) · Tutor de Finanzas II y monitor del Lab. Bloomberg Itaú.",
         "linkedin": "https://www.linkedin.com/in/benjam%C3%ADn-disi-hernandez-12b570297",
         "perfil": {
-          "bio": "Co-fundador y director del área Portafolio. Titulado de Ingeniería Comercial y estudiante del Magíster en Finanzas de la Universidad de Chile. Tutor de Finanzas II y monitor del Laboratorio Bloomberg Itaú de la FEN, lideró el diseño de reglas, criterios de evaluación y metodología de construcción de portafolios del primer torneo de inversión de la facultad.",
+          "bio": "Co-fundador y directivo del área Portafolio. Titulado de Ingeniería Comercial y estudiante del Magíster en Finanzas de la Universidad de Chile. Tutor de Finanzas II y monitor del Laboratorio Bloomberg Itaú de la FEN, lideró el diseño de reglas, criterios de evaluación y metodología de construcción de portafolios del primer torneo de inversión de la facultad.",
           "hitos": [
-            "Director · Portafolio",
+            "Directivo · Portafolio",
             "Magíster en Finanzas (en curso) · U. de Chile",
             "Tutor de Finanzas II y monitor del Lab. Bloomberg Itaú · FEN",
             "Diseño metodológico del Torneo Portafolio 2026",
@@ -118,13 +147,13 @@
       {
         "iniciales": "BS",
         "nombre": "Benjamín Solís",
-        "rol": "Director · Portafolio",
+        "rol": "Directivo · Portafolio",
         "detalle": "Co-fundador · diseñó la arquitectura del Torneo Portafolio.",
         "linkedin": "https://www.linkedin.com/in/benjamin-solis",
         "perfil": {
-          "bio": "Co-fundador de FEN Investment Group y director del área Portafolio. Diseñó junto al equipo la arquitectura del Torneo Portafolio, con más de 65 equipos y 170 participantes gestionando carteras reales de iShares. Estudiante de Ingeniería Comercial en la Universidad de Chile, con un intercambio internacional en emlyon business school (Francia).",
+          "bio": "Co-fundador de FEN Investment Group y directivo del área Portafolio. Diseñó junto al equipo la arquitectura del Torneo Portafolio, con más de 65 equipos y 170 participantes gestionando carteras reales de iShares. Estudiante de Ingeniería Comercial en la Universidad de Chile, con un intercambio internacional en emlyon business school (Francia).",
           "hitos": [
-            "Director · Portafolio",
+            "Directivo · Portafolio",
             "Co-fundador de FIG",
             "Diseño de la arquitectura del Torneo Portafolio",
             "Intercambio internacional · emlyon business school, Francia"
