@@ -21,23 +21,22 @@
       },
       {
         "nombre": "Francisco Valenzuela",
-        "aporte": "Co-creador del torneo y responsable de la plataforma web donde se publica el ranking cada viernes."
+        "aporte": "Infraestructura digital y la plataforma web donde se publica el ranking cada viernes."
+      },
+      {
+        "nombre": "Agustín Arriagada",
+        "aporte": "Infraestructura digital y datos de Bloomberg del torneo."
+      },
+      {
+        "nombre": "Manuel Paz",
+        "aporte": "Comunicación y coordinación del torneo."
       },
       {
         "nombre": "Benjamín Disi",
         "aporte": "Diseño de las reglas, los criterios de evaluación y la metodología de construcción de portafolios."
       },
       {
-        "nombre": "Benjamín Solís",
-        "aporte": "Diseño de la arquitectura del torneo junto al equipo del área."
-      },
-      {
-        "nombre": "Agustín Arriagada",
-        "aporte": "Capacitación de los equipos en Bloomberg Terminal desde el Laboratorio de Finanzas de la FEN."
-      },
-      {
-        "nombre": "Manuel Paz",
-        "aporte": "Comunicaciones y difusión del torneo, y creador de la web original del club."
+        "nombre": "Benjamín Solís"
       }
     ]
   },
@@ -97,15 +96,14 @@
         "nombre": "Francisco Valenzuela",
         "rol": "Director · Portafolio",
         "liderArea": "PRT",
-        "detalle": "Co-fundador · Plataforma web y co-creador del Torneo Portafolio 2026.",
+        "detalle": "Co-fundador · Infraestructura digital y plataforma web.",
         "linkedin": "https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/",
         "perfil": {
-          "bio": "Co-fundador de FEN Investment Group y director del área Portafolio, responsable de la plataforma web del club y co-creador del Torneo Portafolio 2026, la competencia insignia de FIG con 54 equipos y USD 10M simulados por cartera. Realizó su práctica profesional en el área de Riesgo de LarraínVial.",
+          "bio": "Co-fundador de FEN Investment Group y director del área Portafolio, responsable de la infraestructura digital y la plataforma web del club, donde se publica el ranking del Torneo Portafolio 2026, la competencia insignia de FIG con 54 equipos y USD 10M simulados por cartera. Realizó su práctica profesional en el área de Riesgo de LarraínVial.",
           "hitos": [
             "Director · Portafolio",
             "Co-fundador de FIG",
-            "Co-creador del Torneo Portafolio 2026",
-            "Plataforma web de FIG",
+            "Infraestructura digital y plataforma web de FIG",
             "Práctica en Riesgo · LarraínVial"
           ]
         }
@@ -148,14 +146,13 @@
         "iniciales": "BS",
         "nombre": "Benjamín Solís",
         "rol": "Directivo · Portafolio",
-        "detalle": "Co-fundador · diseñó la arquitectura del Torneo Portafolio.",
+        "detalle": "Co-fundador.",
         "linkedin": "https://www.linkedin.com/in/benjamin-solis",
         "perfil": {
-          "bio": "Co-fundador de FEN Investment Group y directivo del área Portafolio. Diseñó junto al equipo la arquitectura del Torneo Portafolio, con más de 65 equipos y 170 participantes gestionando carteras reales de iShares. Estudiante de Ingeniería Comercial en la Universidad de Chile, con un intercambio internacional en emlyon business school (Francia).",
+          "bio": "Co-fundador de FEN Investment Group y directivo del área Portafolio. Estudiante de Ingeniería Comercial en la Universidad de Chile, con un intercambio internacional en emlyon business school (Francia).",
           "hitos": [
             "Directivo · Portafolio",
             "Co-fundador de FIG",
-            "Diseño de la arquitectura del Torneo Portafolio",
             "Intercambio internacional · emlyon business school, Francia"
           ]
         }
@@ -227,7 +224,7 @@
       {
         "iniciales": "DA",
         "nombre": "Delia Avilán",
-        "rol": "Fundadora · FEN Investment Woman",
+        "rol": "Fundadora · FEN Investment Woman","liderArea": "FIW",
         "detalle": "Co-fundadora · FEN Investment Woman, junto a Gabriela Domínguez y Victoria Espinoza.",
         "perfil": {
           "bio": "Co-fundadora de FEN Investment Group. Fundó junto a Gabriela Domínguez y Victoria Espinoza FEN Investment Woman, el área que impulsa la participación de mujeres en el mundo de las inversiones dentro de la FEN.",
@@ -271,7 +268,7 @@
       {
         "iniciales": "SR",
         "nombre": "Samuel Rodríguez Arnolds",
-        "rol": "Director · Valuation",
+        "rol": "Director · Valuation","liderArea": "VAL",
         "detalle": "Co-fundador · Área Valuation, junto a Jhosep García.",
         "linkedin": "https://www.linkedin.com/in/samuel-rodr%C3%ADguez-arnolds-8b9608241/",
         "perfil": {

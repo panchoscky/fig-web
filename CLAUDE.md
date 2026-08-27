@@ -379,3 +379,64 @@ no del viewport — hay que sumarle `scrollY` al `getBoundingClientRect()`;
 capturar, porque los `.reveal` recién reciben la clase `in` cuando el
 IntersectionObserver los ve entrar en pantalla — si no, se captura un
 rectángulo navy vacío y parece que la sección está rota cuando no lo está.
+
+## Segunda tanda del 2026-08-27: jerarquía visual y correcciones de crédito
+
+**Tres niveles de marco en §Nosotros** (pedido de Francisco: "que quede claro
+que yo lidero el área"), en `index.html` de los dos repos:
+
+| Nivel | Quién | Marca visual |
+|---|---|---|
+| Presidencia | `destacado:true` en `club.json` | Filete dorado **arriba** + avatar dorado (ya existía) |
+| Dirige un área | `liderArea` en `club.json` | Filete dorado **al costado** + chip "Dirige el área" |
+| Resto | — | Tarjeta normal |
+
+`liderArea` ahora está **declarado explícito** para los tres líderes
+confirmados: Francisco (`PRT`), **Delia Avilán (`FIW`)** y **Samuel Rodríguez
+Arnolds (`VAL`)** — antes solo Francisco lo tenía y los otros dos quedaban
+bien únicamente porque `marcar_lideres()` de `generar_miembros.py` los
+auto-elegía, o sea por suerte. **Trading va sin `liderArea` a propósito**:
+Francisco todavía no tiene claro quién lo dirige, así que ninguna tarjeta de
+Trading lleva marco. Ojo que `datos/miembros.json` **sí** trae
+`lidera:"TRD"` en Juan José Limari, auto-elegido y sin confirmar — es previo
+a este cambio y quedó tal cual; si se regenera ese archivo, revisarlo.
+
+Detalle de CSS que hay que respetar si se tocan estos marcos: `.p-card:hover`
+reemplaza el `box-shadow` **completo**, así que `.p-card--lead:hover` y
+`.p-card--area:hover` tienen que repetir el filete además de la sombra, o el
+filete desaparece al pasar el cursor. Mismo patrón en `.cre--lead`/`.cre--area`
+de `torneo/index.html`.
+
+**Otro desfase que conviene tener presente**: el respaldo embebido de
+`index.html` (el literal JS `CLUB_DATA` + las tarjetas estáticas) tiene **12
+personas** y `club.json` tiene **15** — faltan ahí Samuel Rodríguez Arnolds,
+Gabriela Domínguez y Victoria Espinoza. No se nota en vivo porque `club.json`
+pisa el respaldo al cargar, pero significa que **a Samuel no se le pudo poner
+la marca en el respaldo** (no existe en él). Es previo a esta sesión.
+
+**Sección de creadores, segunda pasada.** Orden pedido por Francisco: Sáez,
+Francisco, Agustín, Manuel, Disi, Solís (antes iban en orden narrativo).
+Aportes nuevos: Agustín pasó de "capacitación en Bloomberg" a
+"**infraestructura digital y datos de Bloomberg**"; Francisco de "co-creador"
+a "**infraestructura digital y la plataforma web**"; Manuel a "**comunicación
+y coordinación**"; y a Solís se le quitó lo de la arquitectura, quedando
+**sin línea de aporte** (decisión explícita de Francisco: prefirió dejarlo en
+blanco antes que inventarle otro mérito). Por eso `aporte` es **opcional** en
+`torneo.creadores` — si falta, no se dibuja el `<p>`.
+
+**Las dos correcciones se propagaron a todo el sitio**, no solo a la sección
+de creadores, porque son correcciones de hecho y dejarlas en otras páginas
+sería publicar algo que ya sabemos que está mal:
+- **Solís no diseñó la arquitectura del torneo** — fuera de su `detalle`, su
+  bio y sus hitos, en `club.json` y `miembros.json`.
+- **Francisco no es "co-creador"** — *todos* los del área lo son, así que
+  destacarlo solo a él engañaba. Su crédito quedó como infraestructura
+  digital y plataforma web, en `detalle`, bio y hitos.
+
+Queda un rastro a propósito en `datos/miembros.demo.json`, que está fuera de
+uso como fuente.
+
+**Inconsistencia conocida que Francisco decidió NO tocar por ahora**: la bio
+de Jhosep García (Vicepresidente) sigue diciendo que **él** lidera el área
+Valuation, aunque el líder confirmado es Samuel, que es quien lleva el marco.
+Preguntar antes de cambiarla.
