@@ -65,7 +65,11 @@ DIFIEREN = {
     "index.html": ("el nav del espejo no tiene Miembros ni FIG Woman, asi que "
                    "'Comunidad' quedo como 'Equipo' suelto. Para portar un "
                    "cambio hay que llevar solo el bloque que se toco, no el "
-                   "archivo entero"),
+                   "archivo entero. OJO: un cambio en index.html suele tocar "
+                   "TRES tramos separados -- el <style>, el markup y el "
+                   "<script> --; portar solo uno deja el espejo a medias, y "
+                   "eso ya paso una vez (las cifras del hero llegaron a "
+                   "produccion sin su CSS ni su markup)"),
 }
 
 # Existen solo en el espejo y estan bien asi.
