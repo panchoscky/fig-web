@@ -41,6 +41,10 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 ├── incorporar_congelados.py ← **DORMIDO desde el 2026-08-26** (la directiva eliminó en definitiva a los 5 equipos; ver el final de la fila de `torneo/index.html`). Hace no-op si `datos/equipos_congelados.json` está vacío. Cuando tenía equipos: los reinsertaba en `torneo.json` recalculando el puntaje de TODOS vía percentil continuo (réplica de `scoring.py` del repo torneo-bloomberg-oficial), a correr SIEMPRE después de `generar_torneo.py`. Se deja en el repo por si se decide congelar a otro equipo eliminado en el futuro
 ├── generar_miembros.py      ← club.json (directiva) + Excel del Drive → datos/miembros.json; cruza solo los resultados de torneo y las actividades
 ├── PLANILLA_MIEMBROS_FIG.md  ← qué columnas debe tener la planilla de miembros del Drive y qué NUNCA se publica (léelo antes de tocar la sección de Miembros)
+├── generar_tabla.py         ← datos/torneo.json → datos/torneo-tabla.json (el mismo sin `historial`, 27,7→7,1 KB comprimido). Lo pide primero torneo/index.html para pintar la tabla; el historial se trae aparte
+├── generar_paginas_equipo.py ← datos/torneo.json → torneo/e/<id>.html, una micro-página por equipo SOLO para que el link tenga vista previa propia al compartirlo (redirige al ranking real)
+├── generar_og_equipos.js     ← Node + Chrome por CDP crudo: og/equipo-<id>.jpg (1200x627), la imagen de esa vista previa. Reusa `drawLi`, la MISMA tarjeta de LinkedIn que ya ofrece la página. Opcional, ver la nota de PESO en su cabecera
+├── verificar_sitio.py        ← CHEQUEO ANTES DE PUBLICAR: JSON que parsean, derivados al día (torneo-tabla, torneo/e/, og/), menciones de "N equipos" escritas a mano vs el JSON, y creadores que calcen con la directiva. `--arreglar` regenera los derivados
 ├── generar_ics.py           ← datos/eventos.json → eventos/fig.ics (calendario iCal; correr tras editar eventos)
 ├── optimizar_fotos.py       ← comprime fotos/ automáticamente (máx 2000px, JPG 78%) — correr tras agregar fotos
 ├── validar_preguntas.py     ← barrera de calidad del banco de preguntas del Desafío FIG
@@ -50,7 +54,10 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 ├── GUIA_DRIVE_FIG.jpg         ← infografía resumen de la guía anterior (para compartir rápido, ej. WhatsApp)
 ├── logos/                   ← logos oficiales bajados del Drive (FIG oro/blanco/navy, FEN, Itaú, BlackRock)
 │   └── industria/            ← logos de empresas para "FIG en la industria" (ver LEEME.txt de la carpeta)
+├── og/                      ← GENERADAS por generar_og_equipos.js: una imagen de vista previa por equipo. No editar a mano
+├── torneo/e/                ← GENERADAS por generar_paginas_equipo.py: una micro-página por equipo. No editar a mano (tiene su LEEME.txt)
 ├── datos/
+│   ├── torneo-tabla.json     ← DERIVADO de torneo.json por generar_tabla.py (sin `historial`). No editar a mano; si queda viejo la página lo detecta y se corrige sola, y verificar_sitio.py falla
 │   ├── club.json             ← personas, eventos resumen, historia, URLs del sitio principal. Desde el 2026-08-27 trae también `torneo.creadores`: la lista EXPLÍCITA de quiénes crearon el Torneo Portafolio 2026, que alimenta la sección `#creadores` de `torneo/index.html` (solo nombre + aporte; el cargo, el LinkedIn y la foto se resuelven en vivo contra `personas.directiva`)
 │   ├── cv_procesados.json    ← manifiesto anti-relectura de CV del Drive (fileId+modifiedTime, evita reprocesar los que no cambiaron)
 │   ├── eventos.json           ← lista completa de eventos (bitácora); campo opcional `area` conecta un evento con la sección "Actividades" de su área (hoy solo valuation)
@@ -440,3 +447,193 @@ uso como fuente.
 de Jhosep García (Vicepresidente) sigue diciendo que **él** lidera el área
 Valuation, aunque el líder confirmado es Samuel, que es quien lleva el marco.
 Preguntar antes de cambiarla.
+
+## Tercera tanda del 2026-08-27: mejoras al torneo (6 de 7 ideas propuestas)
+
+Tras arreglar la sección de creadores (ver la tanda anterior), Francisco pidió
+una lista de mejoras para la página del torneo y luego pidió implementarlas
+**todas menos una**. La que quedó fuera a propósito es el **aviso de dato
+viejo** (un chip que avisara si el pipeline no corrió un viernes): decisión
+explícita suya, no está pendiente.
+
+Antes de proponer nada se verificó qué ya existía; varias ideas se descartaron
+ahí mismo por estar hechas (el desglose de puntos por métrica con barras ya
+estaba en la ficha, los deep links por equipo ya funcionaban con `replaceState`).
+
+### 1. Vista previa propia por equipo al compartir el link
+
+El deep link `torneo/index.html#beta-capital` ya existía, pero las etiquetas
+Open Graph son las de la página completa: los 54 equipos mostraban la misma
+tarjeta genérica en LinkedIn/WhatsApp. Con 145 inscritos, ese era el canal de
+difusión más grande del torneo desaprovechado.
+
+GitHub Pages no puede armar las etiquetas al vuelo, así que se generan de
+antemano: `generar_paginas_equipo.py` escribe **una micro-página por equipo** en
+`torneo/e/<id>.html` cuyo único trabajo es llevar las etiquetas correctas
+(`<title>`, `og:title`, `og:description` con puesto/puntaje/retorno/semana,
+`og:image`) y **redirigir al ranking real**. Detalles que importan:
+
+- **`location.replace()`, no `href`**: si no, la intermedia queda en el
+  historial y el botón "atrás" rebota y devuelve al ranking, dejando al
+  visitante atrapado. Verificado: `history.length` queda en 2, no en 3.
+- **`noindex,follow` + `canonical` al ranking**: son 54 páginas casi idénticas y
+  no deben competir con el ranking en Google. Los rastreadores de redes sociales
+  ignoran `noindex` y leen las `og` igual, que es justo lo que sirve.
+- **URLs absolutas** en `og:image`/`og:url`: los rastreadores de LinkedIn y
+  WhatsApp no resuelven rutas relativas. El dominio sale de `config.sitio` de
+  `club.json` si está lleno (hoy está **vacío**) y si no cae a
+  `https://feninvestmentgroup.com`, el del CNAME del repo de deploy.
+- **Se reescriben enteras cada corte** (el puesto va en el texto) y las de
+  equipos que salieron del torneo se borran solas, para no dejar links vivos
+  mintiendo.
+
+La **imagen** la genera aparte `generar_og_equipos.js` (Node + Chrome por CDP
+crudo, mismo patrón que `grabar_pantalla_facultad_1_capturar.js`). No dibuja
+nada nuevo: llama a `drawLi` por el gancho `window.__figCards`, o sea usa **la
+misma tarjeta de LinkedIn** que la página ya ofrece en "Comparte tu resultado"
+— que además mide 1200x627, exactamente la medida de una vista previa. Si se
+rediseña una, cambia la otra.
+
+**Es un paso opcional y separado a propósito, por peso**: son 54 JPG de ~57 KB
+(3,1 MB por corte) que se reescriben cada semana, y git guarda cada versión.
+Sin imágenes las micro-páginas funcionan igual y caen a `/og-image.png`,
+conservando lo que de verdad diferencia una vista previa de otra, que es el
+título ("Beta capital · 1° de 54").
+
+### 2. `torneo/pantalla.html` ahora se recarga sola
+
+La pantalla de las TV corre en bucle sin nadie delante: el viernes que se
+publica el corte nuevo no había quien la recargara y seguía mostrando el
+anterior hasta que alguien se acordaba. **Verificado que no tenía ni un
+`setInterval` ni un `location.reload`.**
+
+Ahora cada 5 minutos vuelve a pedir `torneo.json`. Tres decisiones de diseño:
+
+- **El cambio queda EN ESPERA hasta que el ciclo de animación da la vuelta**
+  (`t < prev` en el bucle de `arrancar()`). Cambiar a mitad de una transición se
+  ve como una falla delante de la gente; el ciclo dura 42 s, nunca espera mucho.
+- **Si la red se cae no se toca nada**: se queda con el último corte bueno. Lo
+  mismo si el archivo llega a medio publicar (sin equipos): se descarta.
+- **Apagado mientras se graba** (`window.__manual()`): el guion de grabación
+  necesita que los datos no se muevan debajo.
+
+`pantalla-facultad.html` **no** se tocó: esa no es una pantalla en vivo, es la
+fuente del video semanal, y un refresco ahí solo podría arruinar una grabación.
+
+### 3. Carga en dos partes de `torneo.json`
+
+Medido sobre el corte de la semana 15: el archivo completo pesa **27,7 KB
+comprimido** y el `historial` semanal es el **75%** de eso — pero solo hace
+falta al abrir una ficha, el comparador o el replay. `generar_tabla.py` deriva
+`datos/torneo-tabla.json` (el mismo sin historial, **7,1 KB comprimido**), que
+es lo que la página pide primero.
+
+El historial se trae después: **de fondo con `requestIdleCallback`** para que
+abrir una ficha sea instantáneo, **salvo** que el visitante tenga `saveData` o
+venga en 2G, donde se espera a que lo pida de verdad — que es justo el caso en
+que ahorrar esos 20 KB importa.
+
+Como `torneo-tabla.json` es un **archivo derivado**, tiene dos salvavidas:
+
+1. si no existe, se carga `torneo.json` completo y todo funciona como siempre
+   (el camino viejo sigue entero);
+2. si existe pero su `corte`/`semana`/nº de equipos no calza con el completo,
+   al llegar el completo **se repinta todo con él**. Quedarse atrás se corrige
+   solo y nunca queda un dato viejo en pantalla.
+
+Los dos casos se probaron de verdad en Chrome headless (borrando el derivado, y
+ensuciándolo con otro corte y 10 equipos falsos: se auto-corrigió a los 54
+reales con el score correcto).
+
+**Regresión que esto causó y hay que tener presente**: las tarjetas y videos
+(`descargarPng`, `grabarVideo`, `descargarHtml`) dibujan la trayectoria desde
+`t.historial`. Con la carga en dos partes salían con el cartel *"trayectoria
+disponible desde la semana N"* si el historial aún no había llegado. **Lo
+detectó el propio generador de imágenes OG**, que produjo una primera tanda de
+tarjetas sin curva. Las tres funciones quedaron envueltas en `conHistorial()`.
+Si mañana se agrega otra cosa que lea `historial`, envolverla igual.
+
+### 4. La tabla se puede ordenar por columna
+
+Click en **SCORE / 100** o **RET. RELATIVO** reordena; volver a pulsar invierte.
+POS es el orden oficial y el de entrada. Los encabezados son `<button>` de
+verdad (los alcanza el tabulador) y el estado va en `aria-sort` del
+`role="columnheader"`; la flecha es un `<i>` `aria-hidden`, puro adorno.
+
+**Ordenar NO renumera a nadie**: la columna POS sigue mostrando el puesto
+oficial de cada equipo, porque el ranking del torneo es uno solo y no depende de
+cómo mire la tabla el visitante. Verificado: ordenando por retorno relativo las
+tres primeras filas muestran POS 3, 1 y 8.
+
+### 5. La tabla ya se anuncia como tabla
+
+Eran 54 filas de `div`s con grid: un lector de pantalla las leía como texto
+suelto, sin columnas ni encabezados. **No se pasó a `<table>` real a propósito**
+— el diseño depende de `grid-template-columns` (incluido el colapso a 3 columnas
+en móvil), y poner `display:grid` sobre elementos de tabla les **borra** los
+roles ARIA implícitos en los navegadores, que es la trampa clásica. Se pusieron
+los roles explícitos (`table` / `row` / `columnheader` / `cell`), que dan el
+mismo resultado sin tocar una línea de layout.
+
+De paso la fila dejó de ser un `<button>` gigante y el nombre del equipo pasó a
+ser un **`<a href="#id">` real**: le da al teclado un destino, al lector de
+pantalla un nombre corto ("Beta capital" en vez de la fila entera leída de
+corrido) y al visitante un link que puede copiar con botón derecho. El clic lo
+sigue atendiendo el JS.
+
+También se agregó un **`hashchange`**, que antes no existía: pegar un link con
+`#equipo` ya abierta la página, o el botón atrás, ahora funcionan. Ojo:
+`openTeam`/`closeTeam` usan `replaceState`, que **no** dispara `hashchange`, así
+que no hay bucle — por ahí solo entran los cambios que hace el visitante.
+
+### 6. Hitos de trayectoria en la ficha
+
+Bloque nuevo `#tmHitos` sobre el gráfico, derivado del `historial` que
+`torneo.json` ya guarda — no pide ningún dato nuevo al pipeline: mejor puesto,
+peor puesto, mejor score, "desde su peor semana +N puestos" (solo si de verdad
+ganó) y "racha sin ceder puestos" (solo desde 2 semanas). Ojo con el sentido de
+"mejor": en posiciones el mejor es el **menor**, al revés que en puntos.
+
+### La rutina semanal quedó así
+
+```
+python generar_torneo.py --excel <Excel del corte> --semana N --corte "..."
+python generar_tabla.py               # derivado que pinta la tabla
+node generar_og_equipos.js            # OPCIONAL: las imágenes (ver su peso)
+python generar_paginas_equipo.py      # micro-páginas por equipo
+python verificar_sitio.py             # chequeo final
+```
+
+`verificar_sitio.py --arreglar` regenera los derivados por su cuenta (nunca toca
+datos ni HTML escrito por una persona).
+
+### Lo que encontró el verificador en su primera corrida
+
+Compara las menciones escritas a mano de "N equipos" contra `datos/torneo.json`
+y sacó 4. Tres son correctas como están (la bio de Agustín dice "capacitó a más
+de 65 equipos", que es acumulado y no el conteo del torneo — está en `club.json`
+y `miembros.json` —, y un comentario de código que dice "~55 equipos"). La
+cuarta es real y **sigue en vivo**:
+
+> `datos/club.json` → `historia[]` → **"Capítulo IV · 2026"** dice **"59 equipos
+> y más de 150 estudiantes"**, cuando el torneo quedó en 54.
+
+Esto es lo que Francisco venía pidiendo que se le recordara. **Trampa que costó
+una afirmación equivocada en esta misma sesión**: en `index.html` el bloque
+estático y el literal JS `CLUB_DATA` **ya dicen 54**, así que mirando solo ahí
+parece corregido — pero `club.json` los pisa en runtime y es el que se ve.
+Confirmado con `curl` contra `feninvestmentgroup.com/datos/club.json`. Para
+verificar un texto de este sitio, mirar el JSON que lo alimenta, nunca el
+fallback. **No se cambió**: el número correcto para un párrafo que describe el
+lanzamiento en pasado es una decisión de Francisco, no nuestra.
+
+### Verificación
+
+Todo en Chrome headless por CDP crudo (Chrome de la máquina + WebSocket nativo
+de Node, sin instalar nada), **sin un solo error de consola** en ninguna
+corrida: 54 filas desde el derivado, roles ARIA, orden por las dos columnas con
+`aria-sort`, POS que no se renumera, ficha con los 5 hitos y la curva, replay
+con sus 54 filas, comparador con curva, deep link directo al cargar, navegación
+por hash, botón atrás, foco de teclado en el nombre, micro-página que redirige
+al equipo correcto sin ensuciar el historial, los dos salvavidas del derivado, y
+la recarga de la pantalla con corte nuevo + caída de red.
