@@ -565,10 +565,24 @@ if(burger)burger.addEventListener("click",function(){
 /* ============================ DATOS ============================
    Con ?demo=1 se carga datos/miembros.demo.json: un archivo APARTE con cargos
    supuestos y personas que no existen, para ver el diseño con el club lleno.
-   Nunca se mezcla con el real: lo inventado no puede terminar publicado. */
+   Nunca se mezcla con el real: lo inventado no puede terminar publicado.
+
+   Ese archivo NO está en el repo desde el 2026-08-28 (Francisco pidió borrarlo,
+   ya que la base real está cargada). Se regenera cuando haga falta con
+   `python generar_miembros.py --demo`. Mientras no exista, ?demo=1 cae a la
+   base real en vez de dejar la página muerta: el aviso de "Demostración" no
+   aparece porque el archivo real trae `demo:false`, así que se ve exactamente
+   igual que una visita normal. */
 var DEMO=/[?&]demo=1/.test(location.search);
-fetch("../datos/miembros"+(DEMO?".demo":"")+".json",{cache:"no-cache"})
-  .then(function(r){if(!r.ok)throw new Error("falta miembros.json");return r.json()})
+function bajarBase(demo){
+  return fetch("../datos/miembros"+(demo?".demo":"")+".json",{cache:"no-cache"})
+    .then(function(r){
+      if(r.ok)return r.json();
+      if(demo)return bajarBase(false);          /* sin archivo de demo: la real */
+      throw new Error("falta miembros.json");
+    });
+}
+bajarBase(DEMO)
   .then(function(d){
     DATA=d; LISTA=d.miembros||[];
     (d.config&&d.config.areas||[]).forEach(function(a){AREA[a.codigo]=a});

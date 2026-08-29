@@ -73,7 +73,7 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 │   ├── fiw.json                ← textos y equipo de FEN Investment Woman
 │   ├── valuation.json           ← textos, responsables y datos del Torneo de Valuation (pegar formUrl del Forms para activar inscripciones)
 │   ├── miembros.json             ← GENERADO por generar_miembros.py (no editar a mano): personas del club con ticker, área, nivel del organigrama y sus resultados de torneo cruzados
-│   ├── miembros.demo.json         ← SOLO DEMOSTRACIÓN (`?demo=1`): mezcla personas reales con cargos SUPUESTOS y personas que NO EXISTEN (`demo:true`), para ver el organigrama lleno. Nunca usar como fuente; se borra cuando la base real esté cargada
+│   ├── (miembros.demo.json)        ← BORRADO el 2026-08-28, ya no está en el repo: la base real está cargada. Era el modo `?demo=1` (personas reales con cargos SUPUESTOS + personas que NO EXISTEN, `demo:true`). Se regenera con `python generar_miembros.py --demo` cuando haga falta; mientras no exista, `?demo=1` cae a la base real
 │   ├── equipos_congelados.json   ← **VACÍO desde el 2026-08-26** (`{"equipos": []}`): los 5 equipos que estuvieron "en espera" 23→26-ago fueron eliminados en definitiva. Antes traía sus 5 métricas crudas FIJAS (semana 14) + `historial_previo` (semanas 5-14); ese contenido está en git (commit `c7c4f98` y el estado previo a la eliminación). Repoblarlo solo si se congela a otro equipo (ver `incorporar_congelados.py`)
 │   └── torneo.json.ejemplo      ← ESQUEMA del ranking (ver "Pendiente" abajo — aún no existe torneo.json real)
 ├── fotos/
@@ -1290,10 +1290,14 @@ en `VOLVER_A` y `salir()` se lo devuelve. Verificado: tras "Volver a la mesa" el
 - **El panel de desk NO se cierra "de golpe"**: `.mesa-holder` ya tiene
   `transition` de opacidad, transform y filter, asi que salir es un crossfade.
   Se reviso el CSS antes de agregar una animacion que no hacia falta.
-- **`datos/miembros.demo.json` se conserva.** La hoja de ruta decia borrarlo
-  cuando la base real estuviera cargada, pero con el `[hidden]` ya blindado es
-  inofensivo, `sincronizar_espejo.py` nunca lo publica y sigue siendo la unica
-  forma de ver el organigrama lleno. Borrarlo es decision de Francisco.
+- **`datos/miembros.demo.json`: BORRADO** (Francisco lo pidio el mismo dia,
+  despues de leer esta lista). Era la tarea pendiente #27 de la hoja de ruta:
+  se borra cuando la base real esta cargada, y lo esta. `generar_miembros.py
+  --demo` lo vuelve a escribir cuando haga falta. `bajarBase()` en
+  `miembros/index.html` hace que `?demo=1` **caiga a la base real** si el
+  archivo no esta, en vez de dejar la pagina muerta con "La base de miembros
+  aun no esta publicada"; el aviso de Demostracion no sale porque el archivo
+  real trae `demo:false`.
 - **`fotos/` pesa 17 MB** en el repo (originales JPG + los WebP derivados). Hoy
   no molesta; si sigue creciendo hay que decidir si los originales siguen
   versionados o pasan al Drive. Decision de Francisco.

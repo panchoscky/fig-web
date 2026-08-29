@@ -39,7 +39,9 @@ ESPEJO = ORIGEN.parent / "mpazq-afk.github.io"
 NO_SE_COPIAN = {
     "miembros/": "la pagina de Miembros todavia no se publica en produccion",
     "datos/miembros.json": "solo la usa miembros/",
-    "datos/miembros.demo.json": "datos de demostracion, nunca se publican",
+    "datos/miembros.demo.json": "datos de demostracion, nunca se publican "
+                                "(borrado del repo el 2026-08-28; la entrada queda "
+                                "por si se regenera con generar_miembros.py --demo)",
     "fotos/miembros/": "solo las usa miembros/",
     "generar_miembros.py": "genera datos que el espejo no tiene",
     "PLANILLA_MIEMBROS_FIG.md": "documento de trabajo del equipo",
