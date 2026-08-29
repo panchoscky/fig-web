@@ -22,9 +22,56 @@ LO QUE NO TOCA, a proposito
    y este script solo reemplaza la URL completa del sitio.
 2. `torneo/e/*.html`, que no usan tipografia propia.
 
+EL PRELOAD: MEDIDO Y DESCARTADO (2026-08-28)
+---------------------------------------------
+    NO uses --preload en este sitio. Se probo y sale PEOR. El modo queda
+    porque el resultado no es obvio y sin esta nota alguien lo va a volver
+    a intentar.
+
+Medido en Chrome emulando 4G lento (1.6 Mbps) y CPU 4x, cuatro corridas por
+variante sobre la portada, mediana de la primera pintada:
+
+    sin preload            856 ms   (dos corridas en 600 ms)
+    solo el titular       1768 ms
+    las tres criticas     1684 ms
+
+O sea que precargar UNA sola fuente ya cuesta casi un segundo. El motivo es
+particular de este sitio: cada pagina es un HTML monolitico de 150 KB con
+TODO su CSS adentro, asi que la primera pintada depende de que ese archivo
+termine de llegar. El `<link rel=preload>` lo descubre el parser a mitad de
+la descarga y se pone a competir por el mismo ancho de banda que le falta al
+HTML. En un sitio con hoja de estilos aparte el calculo daria distinto.
+
+Lo que se pierde al no precargarlas es solo el salto de tipografia: con
+`font-display: swap` el texto se lee desde el primer momento con la fuente
+del sistema y cambia a la buena cuando llega. Un segundo de pantalla en
+blanco es peor que un cambio de tipografia a los 900 ms.
+
+Como estaba antes de esta nota
+-------------------------------
+Autoalojarlas quito los dos dominios ajenos, pero dejo una cadena de tres
+pasos igual de bloqueante: el navegador baja el HTML, ahi descubre
+`fuentes/fig.css`, lo baja y lo parsea, y RECIEN ahi se entera de que existe
+un .woff2 que pedir. Con `font-display: swap` eso no deja la pagina en blanco
+— se pinta con la tipografia del sistema y salta a la buena despues —, pero
+ese salto es visible y cae justo sobre el titular del hero.
+
+`--preload` agrega un `<link rel="preload" as="font">` por cada una de las
+TRES variantes que aparecen en la primera pantalla de cualquier pagina del
+sitio: Playfair normal (los titulares), Playfair italica (la palabra dorada
+que todos los heroes llevan en cursiva) e Inter regular (el parrafo). Asi se
+piden en paralelo con la hoja de estilos en vez de despues de ella.
+
+Las otras nueve variantes NO se precargan a proposito: `unicode-range` y
+`font-display` ya las traen cuando hacen falta, y precargar de mas compite por
+ancho de banda con lo que si esta en pantalla. `crossorigin` es obligatorio
+aunque el archivo sea del mismo origen — las fuentes se piden en modo CORS y
+sin ese atributo el navegador baja el archivo DOS veces.
+
 Uso:
     python usar_fuentes_locales.py            # revisa y reporta
     python usar_fuentes_locales.py --aplicar  # escribe
+    python usar_fuentes_locales.py --preload --aplicar   # + los preload
 
 Es idempotente: una pagina ya migrada se salta.
 """
@@ -63,16 +110,48 @@ def reemplazo_para(ruta: pathlib.Path) -> str:
             f'<link href="{prefijo}fuentes/fig.css" rel="stylesheet">')
 
 
+# Las tres variantes que se ven en la primera pantalla de cualquier pagina.
+# Los nombres los fija descargar_fuentes.py; si se regeneran las fuentes hay
+# que revisar que sigan siendo estos (el script avisa si alguno no existe).
+CRITICAS = [
+    ("v40-nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2", "Playfair Display, titulares"),
+    ("v40-nuFkD-vYSZviVYUb_rj3ij__anPXDTnogkk7.woff2", "Playfair Display italica, la palabra dorada del hero"),
+    ("v20-UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2", "Inter, el cuerpo de texto"),
+]
+MARCA_PRELOAD = "<!-- Adelanto de las tres variantes"
+
+
+def bloque_preload(prefijo: str) -> str:
+    """Los <link rel=preload> que van JUSTO ANTES de la hoja de estilos."""
+    lineas = [f'{MARCA_PRELOAD} que se ven en la primera pantalla: sin esto el',
+              '     navegador no sabe que existen hasta haber bajado y parseado fig.css.',
+              '     `crossorigin` es obligatorio aunque sean del mismo origen. -->']
+    for archivo, para_que in CRITICAS:
+        lineas.append(f'<link rel="preload" as="font" type="font/woff2" crossorigin '
+                      f'href="{prefijo}fuentes/{archivo}">  <!-- {para_que} -->')
+    return "\n".join(lineas) + "\n"
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--aplicar", action="store_true", help="escribe los cambios")
+    ap.add_argument("--preload", action="store_true",
+                    help="ademas, adelanta las 3 fuentes criticas con <link rel=preload>")
     args = ap.parse_args()
+
+    if args.preload:
+        faltan = [a for a, _ in CRITICAS if not (RAIZ / "fuentes" / a).exists()]
+        if faltan:
+            print("Estos .woff2 no existen en fuentes/ -- revisa CRITICAS:")
+            for f in faltan:
+                print("   ", f)
+            return 1
 
     if not CSS_LOCAL.exists():
         print("Falta fuentes/fig.css -- corre antes: python descargar_fuentes.py")
         return 1
 
-    cambiadas, ya, sin_fuentes = [], [], []
+    cambiadas, ya, sin_fuentes, precargadas = [], [], [], []
     for ruta in sorted(RAIZ.rglob("*.html")):
         if ".git" in ruta.parts or (RAIZ / "torneo" / "e") in ruta.parents:
             continue
@@ -80,6 +159,16 @@ def main() -> int:
         rel = str(ruta.relative_to(RAIZ)).replace("\\", "/")
 
         if "fuentes/fig.css" in texto and URL_SITIO not in texto:
+            # ya migrada: lo unico que puede faltarle es el adelanto
+            if args.preload and MARCA_PRELOAD not in texto:
+                prefijo = "../" * (len(ruta.relative_to(RAIZ).parts) - 1)
+                enlace = f'<link href="{prefijo}fuentes/fig.css" rel="stylesheet">'
+                if enlace in texto:
+                    precargadas.append(rel)
+                    if args.aplicar:
+                        ruta.write_text(texto.replace(enlace, bloque_preload(prefijo) + enlace, 1),
+                                        encoding="utf-8")
+                    continue
             ya.append(rel)
             continue
         if not PATRON.search(texto):
@@ -97,6 +186,8 @@ def main() -> int:
     print()
     for r in cambiadas:
         print(f"  {'MIGRADA' if args.aplicar else 'a migrar'}  {r}")
+    for r in precargadas:
+        print(f"  {'PRELOAD' if args.aplicar else 'preload a poner'}  {r}")
     for r in ya:
         print(f"  ya estaba  {r}")
     for r in sin_fuentes:

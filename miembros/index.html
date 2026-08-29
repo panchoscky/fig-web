@@ -6,6 +6,8 @@
 <title>Miembros — FEN Investment Group</title>
 <meta name="description" content="La mesa de FEN Investment Group: la directiva sentada por desk, la estructura de cada área y la ficha de cada miembro del club.">
 <meta name="theme-color" content="#0A1128">
+<link rel="canonical" href="https://feninvestmentgroup.com/miembros/">
+<meta property="og:url" content="https://feninvestmentgroup.com/miembros/">
 <meta property="og:title" content="Miembros — FEN Investment Group">
 <meta property="og:description" content="La mesa de FIG: la directiva por desk, la estructura de cada área y la ficha de cada miembro.">
 <meta property="og:type" content="website">
@@ -33,6 +35,10 @@
    Identidad: Navy #0A1128 · Oro #D4AF37 · Playfair + Inter + IBM Plex Mono
    ============================================================================ */
 :root{
+  /* Sin esto Chrome dibuja las barras de scroll y los controles nativos en
+     gris claro sobre el navy, y pinta el lienzo en blanco antes de la primera
+     pintada: en un sitio 100% oscuro se ve como un destello o una barra blanca. */
+  color-scheme:dark;
   --navy-deep:#060B1C; --navy:#0A1128; --navy-panel:#0F1934; --navy-soft:#152350;
   --gold:#D4AF37; --gold-light:#EBD388;
   --gold-dim:rgba(212,175,55,.32); --gold-faint:rgba(212,175,55,.11);
@@ -46,7 +52,15 @@
   --ease:cubic-bezier(.22,.61,.21,1); --ease-out:cubic-bezier(.16,1,.3,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* El `display:none` que trae el atributo `hidden` viene de la hoja del
+   navegador, asi que CUALQUIER regla propia que fije `display` se lo come sin
+   avisar. Paso de verdad: `.demo-bar{display:flex}` dejaba el aviso de
+   "Demostracion" a la vista sobre los datos reales. Esto lo blinda. */
+[hidden]{display:none!important}
+/* El hueco de la barra queda reservado siempre: varias paginas bloquean el
+   scroll del body al abrir un panel u overlay, y sin esto la pagina entera se
+   corre 15px al costado cuando la barra desaparece y vuelve. */
+html{scroll-behavior:smooth;scrollbar-gutter:stable}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}
@@ -114,7 +128,11 @@ button{cursor:pointer;border:none;background:none}
 .term:focus-within{border-color:var(--gold);box-shadow:0 0 0 4px rgba(212,175,55,.09)}
 .term__p{font-family:var(--f-mono);font-size:1rem;color:var(--gold);flex:none;user-select:none}
 #q{flex:1;background:none;border:none;outline:none;font-family:var(--f-mono);
-  font-size:.98rem;letter-spacing:.04em;color:var(--ivory);min-width:0}
+  font-size:.98rem;letter-spacing:.04em;color:var(--ivory);min-width:0;
+  /* el input ocupaba 20px de los ~48 de la caja: tocar dentro de la terminal
+     pero fuera de esa franja no enfocaba nada. El padding lo estira hasta los
+     bordes y el margen negativo lo compensa, asi que se ve igual. */
+  padding:11px 0;margin:-11px 0}
 #q::placeholder{color:rgba(247,244,236,.3)}
 #q::-webkit-search-cancel-button{display:none}
 .term__n{font-family:var(--f-mono);font-size:.63rem;letter-spacing:.14em;color:var(--gold);
@@ -162,12 +180,17 @@ button{cursor:pointer;border:none;background:none}
 /* ---------- El área abierta ----------
    Aparece cuando el arco terminó de tapar la pantalla. El tinte del fondo
    queda del color del desk, para saber siempre dónde estás parado. */
+/* El fondo va en `.area`, NO en un `::before` absoluto. Con `position:absolute`
+   el pseudo-elemento medía un viewport y se iba con el scroll: en cuanto el desk
+   era más alto que la ventana, la mitad de abajo del panel quedaba transparente
+   y se veía la portada de la mesa por debajo — el titular, el buscador y las
+   tarjetas mezclados, texto sobre texto. El fondo de un contenedor con
+   `overflow:auto` no scrollea con su contenido, así que acá cubre siempre. */
 .area{position:fixed;inset:0;z-index:50;overflow-y:auto;padding:88px 0 60px;
+  background:radial-gradient(900px 620px at 50% 0%,var(--tint,rgba(212,175,55,.16)),transparent 72%),
+             linear-gradient(180deg,var(--navy),var(--navy-deep));
   opacity:0;pointer-events:none;transition:opacity .34s var(--ease)}
 .area.on{opacity:1;pointer-events:auto}
-.area::before{content:"";position:absolute;inset:0;z-index:-1;
-  background:radial-gradient(900px 620px at 50% 0%,var(--tint,rgba(212,175,55,.16)),transparent 72%),
-             linear-gradient(180deg,var(--navy),var(--navy-deep))}
 .area__hd{text-align:center;margin-bottom:6px}
 .area__hd .cod{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.4em;color:var(--ac)}
 .area__hd h2{font-family:var(--f-disp);font-size:clamp(1.8rem,3.8vw,2.6rem);font-weight:600;margin-top:6px}
@@ -312,7 +335,10 @@ button{cursor:pointer;border:none;background:none}
   background:rgba(224,122,95,.07);font-size:.82rem;color:rgba(247,244,236,.78)}
 .demo-bar b{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.2em;
   text-transform:uppercase;color:var(--down)}
-.demo-bar a{color:var(--gold);text-decoration:underline;margin-left:auto}
+.demo-bar a{color:var(--gold);text-decoration:underline;display:inline-block;
+  /* `auto` a la izquierda: lo mantiene pegado a la derecha de la barra.
+     El resto del margen compensa el padding que agranda el area tocable. */
+  padding:6px 10px;margin:-6px -10px -6px auto}
 
 /* ---------- Telefono ----------
    La mesa gana todo el ancho de la pantalla: a 390px cada pixel cuenta, y el
@@ -349,8 +375,17 @@ footer{background:var(--navy-deep);border-top:1px solid var(--line-d);padding:56
   color:var(--gold);margin-bottom:13px}
 .f-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
 .f-col a{font-size:.9rem;color:rgba(247,244,236,.68);transition:color .2s}
+/* El area tocable crecia solo hasta el alto del texto: 17px, muy por debajo
+   de los 24px que pide WCAG 2.2 para un objetivo tactil. El padding la lleva
+   a 27px y el margen negativo lo compensa exacto, asi que el footer se ve
+   identico pixel a pixel — lo unico que cambia es donde se puede tocar. */
+.f-col a{display:inline-block;padding:5px 0;margin:-5px 0}
 .f-col a:hover{color:var(--gold)}
 .f-bottom{margin-top:38px;padding-top:19px;border-top:1px solid var(--line-d);
+/* Mismo criterio que en .f-col a: el credito y el aviso de demostracion
+   tenian 14 y 22px de alto tocable. El padding los sube sobre los 24px que
+   pide WCAG 2.2 y el margen negativo deja el dibujo intacto. */
+.f-bottom a{display:inline-block;padding:6px 0;margin:-6px 0}
   display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   font-family:var(--f-mono);font-size:.65rem;letter-spacing:.1em;color:rgba(247,244,236,.42)}
 .f-bottom a{color:var(--gold);opacity:.85}
@@ -389,11 +424,14 @@ footer{background:var(--navy-deep);border-top:1px solid var(--line-d);padding:56
     <h1>La mesa <em>de FIG.</em></h1>
     <p>La directiva sentada por desk. Toca un asiento para abrir su ficha o un desk
        para entrar en él — y escribe para encontrar a cualquiera del club.</p>
-    <label class="sr" for="q">Buscar por nombre, ticker, desk o generación</label>
+    <!-- El rotulo y el placeholder los reescribe rotularBuscador() segun lo que
+         la base traiga de verdad: prometer "2025" cuando ningun miembro tiene
+         generacion cargada devuelve cero resultados y parece un buscador roto. -->
+    <label class="sr" for="q" id="qLbl">Buscar por nombre, ticker o desk</label>
     <div class="term">
       <span class="term__p" aria-hidden="true">&gt;</span>
       <input id="q" type="search" autocomplete="off" spellcheck="false"
-             placeholder="nombre, ticker, PRT, 2025…">
+             placeholder="nombre, ticker, PRT…">
       <span class="term__n" id="qn"></span>
     </div>
     <div class="demo-bar" id="demoBar" hidden>
@@ -479,6 +517,35 @@ footer{background:var(--navy-deep);border-top:1px solid var(--line-d);padding:56
 (function(){
 "use strict";
 document.documentElement.classList.remove("no-js");
+
+/* ---------------- Un solo pedido por archivo de datos ----------------
+   Varias piezas de la pagina necesitan el MISMO JSON -- los enlaces del pie y
+   el beacon de metricas piden club.json; la linea de tiempo y la tira de fotos
+   piden eventos.json -- y cada una abria su propia peticion. Con `no-cache` la
+   segunda vuelve 304 sin cuerpo, asi que casi no pesa, pero igual paga la ida y
+   vuelta entera: en un telefono en 4G la latencia es lo caro, no los bytes.
+
+   Se memoiza la PROMESA, no el dato, asi dos llamados que salen a la vez
+   comparten la misma peticion en vez de encadenarse.
+
+   Lo que se guarda es el TEXTO y cada consumidor parsea su propia copia: si se
+   compartiera el objeto ya parseado, un bloque que le agregue o le pise un
+   campo se lo estaria cambiando al otro sin que nadie lo note. Volver a parsear
+   23 KB cuesta una fraccion de milisegundo; ese bug no.
+
+   Nunca rechaza: si el archivo no esta o no parsea, entrega null, que es lo
+   que todos los consumidores ya sabian manejar. */
+window.figJSON=function(url){
+  var c=window.__figJSONcache||(window.__figJSONcache={});
+  if(!c[url])c[url]=fetch(url,{cache:"no-cache"})
+    .then(function(r){return r.ok?r.text():null})
+    .catch(function(){return null});
+  return c[url].then(function(t){
+    if(!t)return null;
+    try{return JSON.parse(t)}catch(e){return null}
+  });
+};
+
 var $=function(s,r){return (r||document).querySelector(s)};
 var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 var esc=function(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){
@@ -510,8 +577,23 @@ fetch("../datos/miembros"+(DEMO?".demo":"")+".json",{cache:"no-cache"})
   })
   .catch(function(){$("#pie").textContent="La base de miembros aún no está publicada."});
 
+/* El buscador solo ofrece lo que la base puede responder. Hoy `generacion` viene
+   nula en las 160 personas y `estado` es "activo" en todas, asi que escribir
+   "2025" o "ALUMNI" devolvia 0 de 160 — el placeholder prometia dos filtros que
+   no existen. Cuando la planilla del Drive traiga esas columnas, esto se
+   enciende solo, sin tocar codigo. */
+function rotularBuscador(){
+  var hayGen=LISTA.some(function(m){return !!m.generacion});
+  var hayAlum=LISTA.some(function(m){return m.estado==="alumni"});
+  var ph=["nombre","ticker","PRT"], lbl=["nombre","ticker","desk"];
+  if(hayGen){ph.push("2025");lbl.push("generación")}
+  if(hayAlum){ph.push("ALUMNI");lbl.push("alumni")}
+  $("#q").placeholder=ph.join(", ")+"…";
+  $("#qLbl").textContent="Buscar por "+lbl.slice(0,-1).join(", ")+" o "+lbl[lbl.length-1];
+}
 function arrancar(){
   FILTRO=LISTA.slice();
+  rotularBuscador();
   dibujarMesa();
   var h=(location.hash||"").replace("#","").toUpperCase();
   if(h){var m=porTicker(h); if(m)abrir(m.id)}
@@ -581,11 +663,17 @@ function norm(s){
 /* Foto: se prueba sola, primero fotos/miembros/ y luego fotos/directiva/, así
    que a un directivo no hay que copiarle la foto dos veces. Sin foto queda el
    monograma con su ticker, que ya está pintado debajo. */
-function rutasFoto(m){
+function rutasFoto(m,mini){
   if(m.muestra&&m.muestra.indexOf("foto")<0)return [];
   var out=[];
+  /* Con `mini` se pide primero el derivado de 240px que escribe
+     generar_imagenes_web.py: los asientos de la mesa miden 54px y ahí el
+     retrato de 800px es peso puro. Las rutas de siempre quedan detrás, así
+     que una foto recién subida sigue apareciendo aunque no se haya
+     regenerado nada. */
+  if(mini)["miembros","directiva"].forEach(function(d){out.push("../fotos/"+d+"/mini/"+m.id+".webp")});
   ["miembros","directiva"].forEach(function(d){
-    ["jpg","jpeg","png","webp"].forEach(function(e){out.push("../fotos/"+d+"/"+m.id+"."+e)});
+    ["webp","jpg","jpeg","png"].forEach(function(e){out.push("../fotos/"+d+"/"+m.id+"."+e)});
   });
   return out;
 }
@@ -593,13 +681,14 @@ function rutasFoto(m){
    serie, y sin caché eso se repetía en la mesa, en la ficha y otra vez al
    entrar a un desk — con 60 personas son cientos de peticiones 404. */
 var FOTOS={};
-function probeFoto(m,cb){
-  if(FOTOS.hasOwnProperty(m.id)){cb(FOTOS[m.id]);return}
-  var rutas=rutasFoto(m);
+function probeFoto(m,cb,mini){
+  var clave=(mini?"m:":"g:")+m.id;
+  if(FOTOS.hasOwnProperty(clave)){cb(FOTOS[clave]);return}
+  var rutas=rutasFoto(m,mini);
   (function probar(i){
-    if(i>=rutas.length){FOTOS[m.id]=null;cb(null);return}
+    if(i>=rutas.length){FOTOS[clave]=null;cb(null);return}
     var img=new Image();
-    img.onload=function(){FOTOS[m.id]=rutas[i];cb(rutas[i])};
+    img.onload=function(){FOTOS[clave]=rutas[i];cb(rutas[i])};
     img.onerror=function(){probar(i+1)};
     img.src=rutas[i];
   })(0);
@@ -608,12 +697,41 @@ function avatar(m){
   return '<span class="av av--mono" data-av="'+esc(m.id)+'" style="--ac:'+ac(m)
     +'" aria-hidden="true">'+esc(m.ticker||"")+'</span>';
 }
+/* ---------------- Cuándo se baja la foto de un asiento ----------------
+   El `loading="lazy"` del <img> de abajo no servía de nada: para saber SI hay
+   foto hay que sondear, y sondear con `new Image()` la BAJA — para eso existe.
+   O sea que la lista entera se descargaba al montarse, aunque el visitante no
+   bajara nunca. En un directorio de 160 personas eso es harto.
+
+   Acá no se puede hacer lo que hace index.html (encadenar los candidatos en el
+   `onerror` del <img> y dejar que el navegador aplace), porque el respaldo no
+   es una capa debajo sino el <span> del monograma, que se REEMPLAZA por el
+   <img> recién cuando se sabe que la foto existe. Así que lo que se aplaza es
+   el sondeo mismo: no sale hasta que el asiento se acerca a la pantalla.
+
+   Sin IntersectionObserver se sondea al toque, como antes. */
+var ioAvatares=null;
+function alAcercarse(el,fn){
+  if(!("IntersectionObserver" in window)){fn();return}
+  if(!ioAvatares)ioAvatares=new IntersectionObserver(function(ents){
+    ents.forEach(function(e){
+      if(!e.isIntersecting)return;
+      ioAvatares.unobserve(e.target);
+      var f=e.target.__alVerse; e.target.__alVerse=null;
+      if(f)f();
+    });
+  },{rootMargin:"300px"});   /* con margen: llega cargada, no cargándose */
+  el.__alVerse=fn;
+  ioAvatares.observe(el);
+}
 function montarAvatares(raiz){
   $$("[data-av]",raiz).forEach(function(el){
     var m=porId(el.getAttribute("data-av")); if(!m)return;
-    probeFoto(m,function(src){
-      if(src&&el.isConnected)
-        el.outerHTML='<img class="av" src="'+src+'" alt="'+esc(m.nombre)+'" loading="lazy">';
+    alAcercarse(el,function(){
+      probeFoto(m,function(src){
+        if(src&&el.isConnected)
+          el.outerHTML='<img class="av" src="'+src+'" alt="'+esc(m.nombre)+'" loading="lazy" decoding="async" width="54" height="54">';
+      },true);   /* miniatura: el asiento mide 54px */
     });
   });
 }
@@ -795,7 +913,9 @@ function dibujarMesa(){
          estorba: queda sobre la cara y no se lee ni él ni ella. */
       var tk=el.parentNode&&el.parentNode.querySelector(".tk");
       if(tk)tk.setAttribute("opacity","0");
-    });
+    },true);   /* miniatura: el asiento mide 50 de un viewBox de 1000, o sea unos
+                  20px reales en un teléfono — el retrato de 800px era 3x el peso
+                  de toda la mesa junta */
   });
 }
 
@@ -803,8 +923,12 @@ function dibujarMesa(){
    El arco elegido se abre hasta los 360° mientras su radio exterior crece
    fuera del lienzo: deja de ser un arco y se vuelve el fondo. Cuando terminó
    de tapar todo, aparece la estructura del área. */
+var VOLVER_A=null;   /* a que arco devolver el foco al salir del desk */
 function entrar(codigo){
   if(ABIERTA)return;
+  /* Sin esto, cerrar un desk dejaba el foco en el <body> y quien navega con
+     teclado volvia al principio de la pagina en vez de al desk del que salio. */
+  VOLVER_A=document.querySelector('[data-area="'+codigo+'"]');
   var geo=geometria(), a=null;
   geo.forEach(function(x){if(x.codigo===codigo)a=x});
   if(!a)return;
@@ -882,6 +1006,8 @@ function salir(){
   document.body.style.overflow="";
   $("#holder").classList.remove("fuera");
   $("#pie").style.opacity="";
+  if(VOLVER_A&&VOLVER_A.isConnected&&VOLVER_A.focus)VOLVER_A.focus();
+  VOLVER_A=null;
 }
 $("#volver").addEventListener("click",salir);
 /* Girar el telefono cambia de geometria compacta a normal y viceversa. */
@@ -1439,8 +1565,7 @@ function trayectoria(equipoId){
 }
 
 /* URLs del footer desde club.json, igual que el resto del sitio */
-fetch("../datos/club.json",{cache:"force-cache"})
-  .then(function(r){return r.ok?r.json():null})
+figJSON("../datos/club.json")
   .then(function(d){
     if(d&&d.config&&d.config.sitio)SITIO=d.config.sitio;
     var u=d&&d.config&&d.config.urls; if(!u)return;
@@ -1457,8 +1582,7 @@ fetch("../datos/club.json",{cache:"force-cache"})
    Queda inerte mientras ese campo esté vacío en datos/club.json. */
 (function(){
 try{
-fetch("../datos/club.json",{cache:"force-cache"})
-.then(function(r){return r.ok?r.json():null})
+figJSON("../datos/club.json")
 .then(function(d){
   var u=d&&d.config&&d.config.figEndpoint;if(!u)return;
   var b=JSON.stringify({tipo:"visita",pagina:location.pathname,fecha:new Date().toISOString(),origen:(document.referrer.split("/")[2]||"")});

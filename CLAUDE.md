@@ -863,3 +863,456 @@ Probado ademas a mano en headless: cifras del hero, pliegue de la tabla (que el
 buscador no lo active y que ordenar no lo revierta), linea del rival en el
 lider, en un equipo del medio y en el ultimo, y que el nav propio del espejo
 siguiera intacto despues de portarle el cambio de fuentes.
+
+## Sexta tanda del 2026-08-28: rendimiento en telefono y ajustes de movil
+
+Francisco pidio "mejoras de optimizacion para PC y para telefonos sin perder
+calidad, y mejoras de diseno". Todo quedo **aplicado en local y SIN commit**:
+el pidio revisarlo primero.
+
+### Lo que se midio antes de tocar nada
+
+Chrome real emulando telefono (4G lento, 1.6 Mbps + CPU 4x) y PC. Primera
+pintada y peso total por pagina:
+
+| | FCP movil antes | FCP movil despues | peso antes | despues |
+|---|---|---|---|---|
+| `index.html` | 620 ms | ~900 ms* | **2284 KB** | **173 KB** |
+| `eventos/` | 1804 ms | 732 ms | **2122 KB** | **70 KB** |
+| `torneo/` | 2540 ms | 660 ms | 400 KB | 166 KB |
+| `miembros/` | 2764 ms | 728 ms | 244 KB | 88 KB |
+
+*El FCP de la portada oscila entre 600 y 1300 ms entre corridas; no hay
+regresion, es el ruido de la medicion. Los pesos salen de
+`verificar_paginas.js` y son un TECHO (el server local no comprime).
+
+### 1. Las imagenes: `generar_imagenes_web.py` (nuevo)
+
+**El hallazgo mas grande.** `.ev-bg` de `eventos/index.html` pedia el JPG
+original (250-330 KB) para pintar el fondo de una tarjeta de 400px, tapado
+ademas por `.ev-veil`. Con diez eventos eran ~1,9 MB tirados. La tira de la
+portada (`.photo-marquee`) hacia lo mismo, y se dibuja **al 13% de opacidad y
+en escala de grises**.
+
+El script deriva, sin tocar los originales:
+
+```
+fotos/eventos/<ev>/<n>.webp        1600px q82  galeria y lightbox
+fotos/eventos/<ev>/mini/<n>.webp    720px q72  fondos de tarjeta y tira
+fotos/directiva/<slug>.webp         800px q82  ficha de persona
+fotos/directiva/mini/<slug>.webp    240px q78  avatares
+datos/fotos.json                    manifiesto: que hay y cuanto mide
+```
+
+Ejemplo real: `visita-santander-2026/1.jpg` 325 KB -> `1.webp` 167 KB ->
+`mini/1.webp` **33 KB**. Los 34 JPG de eventos (8,8 MB) pesan 4,5 MB en
+WebP grande y 1,0 MB en miniatura.
+
+**Todo consumidor cae al `.jpg` si falta el `.webp`** (navegador viejo, o una
+foto subida despues de la ultima corrida). El manifiesto es un ATAJO, no un
+requisito: si no esta, el sondeo de siempre sigue funcionando — y ademas
+permite declarar `width`/`height` en la galeria, que antes saltaba al cargar.
+
+**Trampa que costo una regresion silenciosa**: `miembros/index.html` llama a
+`probeFoto` desde DOS lugares — `montarAvatares()` y los asientos del SVG de
+la mesa (`[data-foto]`). Se cambio solo el primero y la mesa siguio bajando
+los retratos de 800px: 490 KB en avatares de 20px. Se detecto listando los
+recursos reales que baja la pagina, no leyendo el codigo.
+
+### 2. `torneo.json` se bajaba DOS VECES en la portada
+
+El ticker del pie y el grafico del hero son IIFE independientes y cada uno
+hacia su `fetch`: 205 KB x 2 = 410 KB, mas de la mitad del peso de la portada
+en un telefono. Ahora `window.figTorneoJSON()` memoiza la promesa y los dos
+comparten la misma.
+
+### 3. `cache:"no-store"` -> `no-cache` en los 31 fetch de `datos/*.json`
+
+`no-store` PROHIBE guardar: cada visita, cada pagina y hasta el boton atras
+rebajaban el archivo entero. `no-cache` revalida siempre —la frescura es
+identica, nunca se muestra un corte viejo— pero si no cambio, la respuesta es
+un 304 sin cuerpo. De paso se elimino el ultimo `force-cache`, que es el que
+habia causado el bug de la seccion de creadores.
+
+### 4. El preload de fuentes: PROBADO Y DESCARTADO
+
+Parecia obvio adelantar los `.woff2` con `<link rel=preload>`. Medido, sale
+**peor**: 856 ms sin preload contra 1684-1768 ms con el. El motivo es propio
+de este sitio — cada pagina es un HTML monolitico de 150 KB con todo su CSS
+adentro, asi que la primera pintada depende de que ESE archivo llegue, y el
+preload se pone a competir por el mismo ancho de banda. El modo `--preload`
+de `usar_fuentes_locales.py` quedo escrito y documentado con los numeros
+**para que nadie lo vuelva a intentar a ciegas**. No usarlo.
+
+`content-visibility` se descarto por lo mismo: se midio el DOM de cada seccion
+y es chico (el peso esta en el CSS y el JS inline), asi que no habia layout
+que ahorrar — y `#axPop` es `position:fixed` dentro de la seccion Torneo, que
+un `contain` habria roto.
+
+### 5. `optimizar_logos.py` (nuevo): 690 KB -> 231 KB en `logos/`
+
+`fig-oro.png` pesaba 38 KB y esta en el preloader y el nav de las 14 paginas.
+Un logo no es una foto: 1673 colores en 500x500. Guardado con paleta de 256
+queda en 8 KB con una diferencia media de **0,12 sobre 255**, invisible.
+
+**Lo importante es el umbral, no la conversion.** El script mide la diferencia
+contra el original y solo escribe si queda bajo `--umbral` (1,0 por defecto).
+Asi `logos/fen.png` (13.504 colores, degradados) se dejo intacto: daria 11,42
+de diferencia, que si se ve. `fen-escudo.png` daria 141. Los dos quedaron
+fuera solos, sin que nadie tuviera que acordarse.
+
+Mismo nombre y mismo formato, asi que **no hubo que tocar una sola linea de
+HTML**.
+
+### 6. Diseno de telefono
+
+- **El ticker se tapaba a si mismo**: "TORNEO · SEMANA 15" ocupaba 150 de los
+  390px y de la cinta solo se leia un pedazo de nombre sin principio ni fin.
+  Bajo 640px se abrevia a "S15" (dos spans, uno visible por ancho) y los items
+  se juntan. Ojo: hubo que poner `gap:0` en `.tk-tag`, porque el gap del flex
+  metia un espacio en medio de "S15".
+- **Las cifras del hero** se partian 2+1 con la ultima suelta. Ahora en
+  vertical son columnas iguales, cifra sobre rotulo, con filete. Se aplico
+  igual en `index`, `eventos`, `fiw` y `valuation` con
+  `repeat(auto-fit,minmax(0,1fr))`, que reparte las que haya sin depender de
+  cuantas sean.
+- **Los tres chips del torneo** quedaban apilados en tres filas de anchos
+  distintos. Bajo 640px pierden la capsula y son una linea de datos. Dos
+  detalles que costaron dos pasadas: el separador es una **barra**, no un
+  punto (la fecha ya trae puntos: "21 · AGO · 2026"), y va en `::after` del
+  dato anterior, no en `::before` del siguiente, o la segunda linea empezaba
+  con una barra suelta.
+
+### 7. Objetivos tactiles (WCAG 2.2) y contraste
+
+Se midio con un script propio. **El contraste pasa AA en todo el sitio** — no
+hubo nada que corregir ahi. Los objetivos tactiles bajo 24px si: los enlaces
+del footer (17px), el credito del pie (14px), el input del buscador de
+miembros (20px de alto dentro de una caja de 48) y el link del ticker.
+
+Todos se arreglaron con **padding + margen negativo que lo compensa exacto**,
+asi que el dibujo no cambia ni un pixel y lo unico que crece es donde se puede
+tocar. Ojo con un error que se cometio y hubo que deshacer: al agregar
+`margin` a `.demo-bar a` se borro su `margin-left:auto` y el link perdio la
+alineacion a la derecha; quedo como `margin:-6px -10px -6px auto`.
+
+**Falso positivo que NO se toco**: los nombres de equipo de la tabla del
+torneo miden 23px, pero el objetivo real es la fila entera (`.lb-row`, ~55px,
+con su propio listener). Cambiarlos habria sido arreglar algo que no estaba
+roto.
+
+**La mesa de `miembros/` tampoco se toco**: parecia cortada por los costados
+en las capturas, pero se midio el bbox de cada texto contra el viewBox y
+**ningun elemento se sale**. Esta pegada al borde a proposito — el propio
+codigo lo explica: a 390px cada pixel cuenta.
+
+### Efecto colateral que conviene saber
+
+Ahora que la tira de fotos de la portada pesa 30 KB por imagen en vez de 300,
+**en el telefono alcanza a cargarse de verdad**: el fondo del hero, que antes
+casi siempre se veia navy liso porque las fotos no llegaban a tiempo, ahora
+muestra las fotos al 13% como estaba disenado. Se ve bien y el texto se lee,
+pero es un cambio visible respecto de lo que se veia antes en movil — si no
+gusta, se baja la opacidad de `.photo-marquee` en el `@media(max-width:640px)`
+que ya existe.
+
+### Como seguir
+
+Nada esta commiteado. Para revisar: `git status` y `git diff`. Para publicar
+haria falta el commit en `panchoscky/fig-web` y despues
+`python sincronizar_espejo.py --aplicar` (ojo: `index.html` NUNCA se copia
+entero al espejo, hay que portar los bloques tocados — el ticker, las cifras
+del hero y la tira de fotos son tres tramos separados).
+
+**Las 15 paginas cargan sin un solo error de consola ni archivo faltante**
+(`verificar_paginas.js`) y `verificar_sitio.py` sale sin errores, con los 3
+avisos de conteo de siempre (los "65 equipos" de la bio de Agustin, que son
+acumulados, y el comentario de codigo con "~55 equipos").
+
+La rutina semanal gana dos pasos, los dos **opcionales y solo cuando se
+agregan imagenes**:
+
+```
+python generar_imagenes_web.py      # al subir fotos nuevas
+python optimizar_logos.py --aplicar # al subir un logo nuevo
+```
+
+## Septima tanda del 2026-08-28: menos pedidos, no menos bytes
+
+Continuacion directa de la sexta. Francisco pidio seguir optimizando. Igual que
+la anterior, **aplicado en local y SIN commit**.
+
+La sexta tanda bajo el PESO. Esta baja la CANTIDAD DE PEDIDOS y el momento en
+que se hacen, que en un telefono en 4G es lo que de verdad se siente: la
+latencia de cada ida y vuelta pesa mas que los kilobytes.
+
+Medido sobre la portada sola, en frio (`--solo`, ver mas abajo):
+
+| | antes | despues |
+|---|---|---|
+| pedidos a `datos/` | 7 | **5** |
+| `torneo.json` en la portada | 205 KB | **4,3 KB** (derivado) |
+| pedidos a `fotos/directiva/` | 12 | **0** |
+| pedidos a `logos/industria/` | 12 (5 eran 404) | **0** |
+
+### 1. `datos/torneo-portada.json`: el tercer derivado
+
+La portada no muestra el ranking -- solo la cinta del pie (top 5) y el grafico
+del hero (trayectoria promedio del top 5 contra el ACWI). Para eso bajaba los
+54 equipos con sus metricas, su detalle de puntaje, sus integrantes y las nueve
+cifras por semana de cada uno, y usaba **dos campos**.
+
+`generar_tabla.py` ahora escribe los DOS derivados (mismo `_fuenteSha1`, un
+solo chequeo los cubre, la rutina semanal no gana ningun paso). El nuevo se
+queda con los `TOP_PORTADA` primeros y poda el historial a `{semana, ret}`:
+**204,7 KB -> 4,3 KB, 98% menos.**
+
+`figTorneoJSON()` en `index.html` pide ese y **se cae solo al archivo completo**
+si no esta o si vino corto para `HERO_TOP` -- vale mas bajar 205 KB que dibujar
+un "TOP 5" promediando cuatro equipos. `verificar_sitio.py` compara `HERO_TOP`
+contra `topPortada` y **falla** si alguien los desalinea, porque ese desajuste
+no se ve: el grafico sale perfecto, con el numero equivocado.
+
+### 2. `window.figJSON(url)`: un pedido por archivo
+
+`club.json` se pedia DOS veces en cinco paginas (los enlaces del pie y el
+beacon de metricas, cada uno con su fetch) y `eventos.json` dos veces en dos.
+Con `no-cache` la segunda vuelve 304 sin cuerpo, asi que casi no pesa -- pero
+paga la ida y vuelta igual. **16 fetch colapsados a 8**, en seis paginas.
+
+Guarda el TEXTO, no el objeto ya parseado: si dos bloques compartieran el mismo
+objeto, uno que le agregue o le pise un campo se lo estaria cambiando al otro
+sin que nadie lo note. Reparsear 23 KB cuesta una fraccion de milisegundo; ese
+bug no.
+
+### 3. El hallazgo: **sondear derrota a `loading="lazy"`**
+
+Las miniaturas de la grilla de personas se resolvian con `probeFoto`/
+`probeLogo`: un `new Image()` por tarjeta que iba probando extensiones y, al
+acertar, copiaba la URL al `<img>`. El `<img>` tenia su `loading="lazy"` puesto
+y **no servia de nada**: para saber SI hay foto hay que bajarla, asi que cuando
+el navegador llegaba a decidir si la aplazaba, el sondeo ya la habia bajado
+entera. Las 15 fotos de la directiva y los 6 logos de industria se descargaban
+en cada carga de la portada, este o no §Nosotros en pantalla.
+
+Dos arreglos distintos porque el respaldo es distinto en cada pagina:
+
+- **`index.html`**: el monograma es una capa DEBAJO del `<img>`, asi que la
+  cadena de candidatos se encadena en el `onerror` del propio `<img>`
+  (`montarMiniatura()`). El navegador aplaza de verdad, y si ningun candidato
+  carga la clase `ok` nunca se pone y se ve el monograma, igual que antes.
+- **`miembros/index.html`**: ahi el monograma es un `<span>` que se REEMPLAZA
+  por el `<img>` recien cuando se sabe que la foto existe, asi que no se puede
+  encadenar. Lo que se aplaza es el sondeo mismo, con un IntersectionObserver
+  (`alAcercarse()`, `rootMargin:300px`). Importa en el directorio de 160
+  personas, no en la carga inicial.
+
+`probeLogo()` quedo sin ningun consumidor y se elimino; `probeFoto()` perdio su
+parametro `mini` (la grilla era la unica que lo usaba) y quedo como uso
+exclusivo del Expediente, donde sondear SI corresponde: necesita la URL antes
+de armar la ficha y solo corre cuando alguien abre una tarjeta.
+
+**Lo que NO se toco**: los 18 asientos de la mesa de `miembros/` (`[data-foto]`,
+otra ruta) siguen sondeando al cargar, y esta bien: la mesa esta arriba, en
+pantalla. Aplazar lo que ya se ve no ahorra nada y agrega un salto.
+
+### 4. La tira de fotos de la portada arranca en idle
+
+Es adorno: ocho miniaturas detras del hero, al 13% de opacidad y en escala de
+grises. Desde la sexta tanda alcanzan a llegar en un telefono -- que era lo que
+queriamos -- pero llegaban compitiendo por el ancho de banda con las fuentes y
+el JSON del torneo durante la PRIMERA pintada, que es lo que el visitante si
+esta esperando. Ahora espera al `requestIdleCallback`, y con `saveData` o en 2G
+no arranca: el hero queda navy liso, exactamente como se veia antes de que las
+miniaturas existieran.
+
+### 5. Las fuentes: MEDIDAS Y YA ESTAN EN SU PISO
+
+En una visita fria la portada baja 166,7 KB de tipografia -- mas que el HTML.
+Vale la pena saber por que no se toco:
+
+    Inter latin (variable, cubre 400-700)   47,1 KB
+    Playfair Display latin, redonda         37,5 KB
+    Playfair Display latin, BASTARDILLA     37,9 KB
+    IBM Plex Mono latin 400 / 500 / 600     44,2 KB
+
+- No bloquean la pintada (`display=swap`), asi que son ancho de banda, no FCP
+  -- por eso el preload de la sexta tanda salia peor y quedo descartado.
+- Se probo pedirle a Google Playfair como rango variable
+  (`0,500..700`) en vez de las cinco variantes sueltas: **devuelve exactamente
+  los mismos 4 archivos y los mismos 118,9 KB**. No hay nada que ganar ahi.
+- La bastardilla parece un lujo de 37,9 KB hasta que uno mira donde se usa:
+  `.hero h1 em` y `.h-sec em`, o sea el titulo de CADA seccion de casi todas
+  las paginas. Es identidad visual, no decoracion suelta.
+
+Sacar un peso de IBM Plex Mono (~15 KB) o la bastardilla es lo unico que
+quedaria, y las dos son decisiones de diseno de Francisco, no optimizaciones.
+
+### 6. Herramientas
+
+- `verificar_sitio.py` tiene `revisar_portada_derivada()`: derivado al dia +
+  el chequeo `HERO_TOP <= topPortada`. Probado a mano subiendo HERO_TOP a 20:
+  falla con el mensaje correcto.
+- `verificar_paginas.js --solo=index.html` revisa una sola pagina (prefijo, no
+  "contiene", o `index.html` matchea las diez). **Sin esto no se puede medir
+  nada**: las 15 paginas se mezclan en el mismo log del server local y no hay
+  como saber quien pidio que.
+
+### Trampa de medicion que costo un rato
+
+`chrome --headless --virtual-time-budget=N --dump-dom` **baja igual todas las
+imagenes con `loading="lazy"`**, esten o no en pantalla. Sirve para comprobar
+que algo se DIBUJA, no para comprobar que algo se APLAZA -- ahi parecia que el
+cambio no habia servido de nada. Para medir el aplazamiento hay que usar el
+camino de `verificar_paginas.js` (CDP, ventana real, espera real) y contar los
+pedidos en el log de `python -m http.server`.
+
+## Octava tanda del 2026-08-28: el bug del panel de desk y una limpieza de SEO
+
+Francisco reporto que al entrar a un area en `miembros/` "aparecia un marco
+blanco y luego cargaba". El bug existia, era peor de lo que parecia, y buscarlo
+destapo otras cuatro cosas visibles en produccion. **Esta tanda SI se commitea**
+junto con la sexta y la septima, que seguian sin commitear.
+
+### 1. El panel de desk se quedaba sin fondo (el bug reportado)
+
+`.area` es `position:fixed;inset:0;overflow-y:auto` y su fondo vivia en un
+`::before` con `position:absolute;inset:0`. Un absoluto dentro de un contenedor
+que scrollea mide UN viewport y **se va con el contenido**: en cuanto el desk
+era mas alto que la ventana, la mitad de abajo del panel quedaba transparente y
+se veia la portada de la mesa por debajo -- el titular "La directiva sentada por
+desk...", el buscador y el aviso, mezclados con las tarjetas de las personas.
+Texto sobre texto, ilegible.
+
+**No se ve en pantallas altas**, por eso nadie lo habia cazado: reproducido a
+1200x650 con el desk PRT.
+
+El fondo paso a `.area` directamente y el `::before` se elimino. El fondo de un
+contenedor con `overflow:auto` **no** scrollea con su contenido, asi que ahora
+cubre siempre, sin importar cuanta gente tenga el desk.
+
+### 2. `color-scheme:dark` -- faltaba en las 15 paginas
+
+En un sitio 100% navy, Chrome dibujaba las barras de scroll nativas con la
+paleta CLARA: pista `rgb(241,241,241)` cruzando la linea de tiempo de
+`eventos/` y bajando por el borde de cada pagina. Tambien pinta el lienzo en
+blanco antes de la primera pintada. Es la fuente mas probable de cualquier
+"destello blanco" que se vea en este sitio.
+
+Con `color-scheme:dark` en `:root` las barras pasan a pista `rgb(44,44,44)` con
+pulgar `rgb(159,159,159)` -- medido, no supuesto.
+
+De paso, `html{scrollbar-gutter:stable}`: seis paginas hacen
+`document.body.style.overflow="hidden"` al abrir un panel u overlay, y sin el
+hueco reservado la pagina entera se corre 15px al costado cada vez.
+
+### 3. El aviso de "Demostracion" se estaba mostrando con los datos reales
+
+`<div id="demoBar" hidden>` NUNCA se ocultaba: el `display:none` del atributo
+`hidden` viene de la hoja del navegador, y `.demo-bar{display:flex}` se lo comia.
+Cualquiera que entrara a Miembros leia "personas que no existen" arriba de la
+directiva real -- medido con `getComputedStyle`: `display:flex`, 620x105 px.
+
+Se blindo la clase entera con `[hidden]{display:none!important}` en las 15
+paginas. Se reviso el resto: era el unico `[hidden]` roto del sitio, pero la
+trampa vuelve cada vez que alguien le pone `display` a algo que tambien usa
+`hidden`. **Ojo en `torneo/index.html`**: el reset `*{margin:0...}` aparece DOS
+veces y la segunda vive dentro de la tarjeta HTML descargable -- esa no se toca.
+
+Verificado que `?demo=1` sigue mostrando el aviso.
+
+### 4. El buscador prometia filtros que la base no puede responder
+
+El placeholder decia `nombre, ticker, PRT, 2025...` y el rotulo "o generacion",
+pero `generacion` viene **nula en las 160 personas** y `estado` es "activo" en
+todas: escribir "2025" o "ALUMNI" devolvia **0 de 160**, que se lee como un
+buscador roto.
+
+`rotularBuscador()` arma el placeholder y el rotulo desde lo que la lista trae
+de verdad. Cuando la planilla del Drive gane las columnas `area` y `generacion`,
+se enciende solo. Verificado: con `?demo=1` (que si trae generaciones) el
+placeholder vuelve a ofrecer "2025" sin tocar codigo.
+
+**Lo que esto NO arregla, porque es dato y no codigo**: de las 160 personas,
+**146 no tienen `area`**, 160 no tienen bio ni foto y 100 no tienen LinkedIn.
+Por eso los 4 desks solo muestran a la directiva y el boton "+N miembros sin
+cargo" no aparece nunca. Se arregla en la planilla, no aca.
+
+### 5. Notas internas que estaban a la vista del publico
+
+- `eventos/`: la charla con Roberto Bonifaz mostraba **"Resumen por completar."**
+  en la tarjeta (su `resumen` esta vacio en el JSON). Ahora un resumen que falta
+  se **omite**; no se anuncia.
+- Las 10 tarjetas decian "PARTICIPANTES POR CONFIRMAR" (`participantes` esta
+  vacio en los 10 eventos): una nota interna repetida diez veces. El hueco queda
+  vacio -- `.ev-foot` es `space-between`, asi que el enlace sigue a la derecha.
+- El overlay decia "Por confirmar - **se cargan desde el Excel**". Quedo solo
+  "Por confirmar".
+- Mismo arreglo en `valuation/index.html`, que comparte el molde de tarjeta.
+
+### 6. Los filtros de `eventos/` se leian como un error
+
+Tres filas seguidas que empezaban con una pildora dorada casi identica ("Todos",
+"Todos", "Todos los anos"). Ahora cada fila lleva su rotulo mono -- TIPO /
+CUANDO / ANO -- con `min-width` para que las pildoras arranquen alineadas, y el
+chip del ano perdio el "los anos", que paso a ser redundante. `#yearRow:empty`
+sigue funcionando porque `buildYearRow()` limpia la fila entera cuando hay menos
+de dos anos.
+
+### 7. SEO: lo que faltaba de verdad
+
+- **`rel="canonical"` no existia en ninguna pagina.** El sitio se sirve desde
+  DOS dominios (produccion y el espejo de GitHub Pages): para un buscador eran
+  dos copias del mismo contenido compitiendo entre si. Las 10 paginas publicas
+  ya declaran la suya, mas su `og:url`.
+- **`hreflang`** entre `/` y `/en/` (+ `x-default`), que tampoco estaba.
+- **`desafio/` y `juego/` no tenian NINGUNA etiqueta Open Graph**: compartidas
+  por WhatsApp o LinkedIn salian sin titulo ni imagen. Ahora llevan el bloque
+  completo.
+- **JSON-LD**. En `index.html` va un `Organization` escrito a mano, con datos
+  ESTABLES nada mas (nombre, logo, redes) -- y `verificar_sitio.py` compara sus
+  `sameAs` contra `config.urls` de `club.json` y **falla** si alguien cambia una
+  y no la otra, porque un JSON-LD desfasado no se ve en pantalla. En `eventos/`
+  los `Event` se **arman desde `eventos.json`** en vez de escribirse: un bloque
+  copiado quedaria viejo al siguiente evento, y publicar una fecha equivocada en
+  Google es peor que no publicar nada. Solo entran los eventos con resumen y
+  lugar cargados -- hoy 9 de 10.
+
+### 8. Foco de teclado al salir de un desk
+
+Cerrar un desk dejaba el foco en el `<body>`: quien navega con teclado volvia al
+principio de la pagina en vez de al desk del que salio. `entrar()` guarda el arco
+en `VOLVER_A` y `salir()` se lo devuelve. Verificado: tras "Volver a la mesa" el
+`activeElement` es el arco `TRD`.
+
+### Lo que se miro y NO se toco
+
+- **El panel de desk NO se cierra "de golpe"**: `.mesa-holder` ya tiene
+  `transition` de opacidad, transform y filter, asi que salir es un crossfade.
+  Se reviso el CSS antes de agregar una animacion que no hacia falta.
+- **`datos/miembros.demo.json` se conserva.** La hoja de ruta decia borrarlo
+  cuando la base real estuviera cargada, pero con el `[hidden]` ya blindado es
+  inofensivo, `sincronizar_espejo.py` nunca lo publica y sigue siendo la unica
+  forma de ver el organigrama lleno. Borrarlo es decision de Francisco.
+- **`fotos/` pesa 17 MB** en el repo (originales JPG + los WebP derivados). Hoy
+  no molesta; si sigue creciendo hay que decidir si los originales siguen
+  versionados o pasan al Drive. Decision de Francisco.
+- **Trading sigue sin lider declarado** (`liderArea`), que es lo unico que le
+  falta a la jerarquia visual de la seccion Nosotros. Falta que Francisco lo
+  confirme.
+
+### Verificacion
+
+`verificar_sitio.py` sin errores, con los 3 avisos de conteo de siempre y dos
+chequeos nuevos en verde (`revisar_canonicas`, `revisar_datos_estructurados`).
+`verificar_paginas.js`: las 15 paginas cargan sin un solo error de consola ni
+archivo faltante. Ademas, a mano en Chrome: panel de desk scrolleado hasta abajo
+sin filtracion, barras de scroll medidas en RGB antes y despues, aviso de
+demostracion oculto con datos reales y visible con `?demo=1`, placeholder que se
+adapta a la base, JSON-LD de eventos con 9 fichas y la fecha correcta, y el foco
+que vuelve al arco.
+
+**Nada de esto se llevo al repo de Manuel** -- Francisco pidio explicitamente no
+tocarlo todavia. Cuando se quiera portar: `python sincronizar_espejo.py`, y ojo
+con `index.html`, que NUNCA se copia entero (el canonical, el JSON-LD y el
+`color-scheme` son tres tramos separados de la cabecera y el `<style>`).
