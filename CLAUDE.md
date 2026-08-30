@@ -1420,3 +1420,120 @@ Tres cosas que se vieron recien al mirar las capturas, no al leer el codigo:
   en CI, ahi si convendria agregarlo condicionado a que el usuario sea root.
 
 **Nada de esto se llevo al repo de Manuel.**
+
+## Decima tanda del 2026-08-30: instrumentos, ingles y FIW fuera del espejo
+
+Sesion preparando la reunion del area de Portafolio con BlackRock.
+
+### `informe/` gana la seccion "07 · Instrumentos"
+
+El informe respondia "que muestran los datos del ranking". Ahora tambien
+responde **que compraron los equipos**, que es lo que le interesa a BlackRock:
+4 cifras (96,4% de las operaciones en ETF de iShares, 199 ETF distintos, 14
+bolsas en 7 divisas, 87,9% renta variable) y 3 graficos SVG — los 12 ETF mas
+usados, mercados contra sectores, y factores/tematicos/apuestas pais.
+
+**El dato viene de OTRO pipeline**, no del Excel semanal: sale del registro de
+operaciones de Bloomberg, que procesa `src/analisis_etf.py` del repo
+`torneo-bloomberg-oficial` (nuevo, mas `config/clasificacion_etf.csv` con los
+202 tickers clasificados a mano por gestora/clase/mercado/tema). Escribe
+`datos/etf.json`. Dos consecuencias que el codigo respeta:
+
+- La seccion arranca `hidden` y solo se muestra si el fetch trae datos
+  utilizables. Probado borrando el archivo: la seccion desaparece y el resto
+  del informe sigue entero. Un dato opcional de otro pipeline no puede tumbar
+  la pagina.
+- **Su periodo NO es el del ranking.** El ledger llega al 2026-08-05 y el corte
+  vigente es la semana 15 (21-ago). Se dice en el pie de cada grafico en vez de
+  dejar que el lector suponga que es el mismo periodo.
+
+Ojo con dos cifras que hay que confirmar antes de mostrarlas afuera (estan
+detalladas en `INFORME_ETF_TORNEO.md`): cual es la medida oficial de "le gano
+al indice" (29/54 por `ret−acwi` contra 16/54 por `exc`), y si las bases
+permitian ETF fuera de iShares — hay 23 compras que no lo son, incluidas 2 de
+IBM, que es una accion individual.
+
+### `en/index.html`: "Tomorrow's Leaders" y estado real del torneo
+
+- **"Forging Tomorrow's Elite" paso a "Forging Tomorrow's Leaders"** (pedido de
+  Francisco), en el `<h1>` y en la `og:description`.
+- Seccion nueva "Where it stands" con las cifras reales: 136 estudiantes, 812
+  operaciones, 199 ETF, 14 bolsas, el ETF mas tenido (SOXX, 65% de los equipos)
+  y los 58 puntos entre el primero y el ultimo. Es la pagina que se le muestra
+  a un partner internacional, asi que vale que traiga datos y no solo relato.
+- **No enlaza a `informe/`** a proposito: esa carpeta no se publica en el
+  espejo, y un enlace ahi seria un 404 en produccion.
+
+### FIW fuera del espejo: `despublicar_fiw.py` (nuevo)
+
+Francisco pidio que desde el repo de Manuel **no se pueda acceder al area de
+mujeres ni sea visible**. Hasta ahora solo estaban ocultos los ENLACES
+(`FIW_TEMP_OCULTO`), que resulto ser bastante menos de lo que parecia: `/fiw/`
+seguia respondiendo por URL directa, el sitemap se la declaraba a Google, y el
+area se veia en el selector de desks de la portada, en el panel 04, en el
+`<option>` del formulario de postulacion, en la tarjeta "Area 04" del ingles y
+en el nav del 404 (ahi como enlace visible, no comentado).
+
+El script **borra** `fiw/`, `datos/fiw.json` y `fotos/fiw/` del espejo y quita
+el area de 6 paginas. Va como paso APARTE despues de `sincronizar_espejo.py`, no
+como exclusiones dentro de el: si esos archivos quedaran en `NO_SE_COPIAN`, el
+espejo dejaria de recibir todas las mejoras futuras de `eventos/`, `postula/`,
+`valuation/`, `en/` y `404.html` solo para esconder una seccion.
+
+**Los dos scripts son un par**: sincronizar primero, despublicar despues, y
+`generar_sitemap.py` DENTRO del espejo al final. Como el segundo reescribe 5
+archivos, el primero siempre los reportara como "por copiar" aunque no haya
+cambiado nada — esta documentado en su cabecera para que nadie lo lea como un
+error.
+
+**Lo que NO se toco, y es una decision pendiente de Francisco:**
+
+1. **Los cargos de las tres cofundadoras.** Delia Avilan, Gabriela Dominguez y
+   Victoria Espinoza figuran en `club.json` como "Co-fundadora · FEN Investment
+   Woman", con bios que cuentan que fundaron el area. Eso no es una seccion del
+   sitio: es el merito publico de tres personas reales. Ocultar un area es una
+   decision de publicacion; reescribirle el curriculum a alguien no. Por eso el
+   nombre SIGUE visible en §Nosotros del espejo — es una limitacion deliberada,
+   no un descuido.
+2. **El evento "Encuentro FEN Investment Woman"** del 27-may-2026 en la
+   bitacora. Es una actividad que ocurrio; borrarla es editar la historia del
+   club. Hay un flag `QUITAR_EVENTO` en el script para cuando se decida.
+
+### La primera sincronizacion de verdad del espejo
+
+`sincronizar_espejo.py` existia desde la quinta tanda pero **nunca se habia
+corrido con `--aplicar`**. El espejo estaba 137 archivos atras: sin los WebP
+(produccion servia los JPG pesados), con los logos sin optimizar (`fig-oro.png`
+a 38 KB en vez de 8), sin `torneo-portada.json`, y sin las tandas 6 a 9.
+
+Dos cosas que hubo que arreglar para que la sincronizacion fuera revisable:
+
+- **El espejo esta en CRLF y fig-web en LF.** Copiando a lo bruto, git mostraba
+  cada archivo como si hubieran cambiado sus 3.000 lineas y el cambio real
+  quedaba invisible. Ahora `copiar_conservando_fin_de_linea()` respeta el final
+  que el archivo ya tenia alla, y `iguales()` compara ignorandolo — sin eso el
+  script reportaria los mismos 30 archivos como pendientes para siempre. El
+  diff real quedo en 1.584 inserciones y 166 borrados, legible.
+- **`torneo/index.html` entro a `DIFIEREN`**: su nav enlaza a `../informe/`, que
+  alla no existe. Copiarlo entero dejaba dos enlaces a un 404 en produccion.
+
+**Bug que aparecio de paso:** el sitemap del espejo declaraba `/miembros/`, que
+alla da 404 — le estaba pidiendo a Google una pagina inexistente desde que se
+creo. Se arregla solo al generar el sitemap dentro del espejo, que enumera los
+`.html` que de verdad existen. Quedo en 9 URLs.
+
+**Y en `verificar_sitio.py`:** marcaba ERROR si una pagina de `CANONICAS` no
+existia. Ahora que el mismo script corre en los dos repos y el espejo publica
+menos paginas a proposito, eso es un AVISO. Una pagina que no se publica no
+puede tener mal su canonical.
+
+### Verificacion
+
+`verificar_paginas.js` en los dos repos: todas las paginas cargan sin un solo
+error de consola ni archivo faltante (16 en fig-web, 12 en el espejo). Los dos
+`verificar_sitio.py` salen sin errores. Ademas, a mano en Chrome sobre el
+espejo: `/fiw/` da 404, y el texto visible de las 6 paginas afectadas no nombra
+el area en ninguna — solo quedan las menciones de las tres cofundadoras y el
+evento de la bitacora, que son las dos exclusiones deliberadas de arriba.
+
+**Nada esta commiteado ni pusheado en ninguno de los tres repos.**

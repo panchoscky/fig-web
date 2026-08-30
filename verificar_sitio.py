@@ -293,10 +293,16 @@ def revisar_canonicas() -> None:
     contenido compitiendo entre si -- y el que gane puede ser el equivocado.
     """
     malas = []
+    ausentes = []
     for arch, ruta in CANONICAS.items():
         f = RAIZ / arch
         if not f.exists():
-            malas.append(f"{arch}: no existe")
+            # No es un error: este script corre TAMBIEN en el espejo, que a
+            # proposito publica menos paginas que el repo de trabajo (hoy le
+            # faltan miembros/ e informe/). Una pagina que no se publica no
+            # puede tener mal su canonical. Se informa para que nadie confunda
+            # "no publicada" con "me olvide de revisarla".
+            ausentes.append(arch)
             continue
         texto = f.read_text(encoding="utf-8")
         esperado = f'<link rel="canonical" href="{SITIO_CANONICO}{ruta}">'
@@ -307,11 +313,14 @@ def revisar_canonicas() -> None:
             malas.append(f"{arch}: {n} canonical (debe haber uno solo)")
         elif esperado not in texto:
             malas.append(f"{arch}: el canonical no apunta a {SITIO_CANONICO}{ruta}")
+    if ausentes:
+        aviso("no se publican en este repo, sin canonical que revisar: "
+              + ", ".join(ausentes))
     if malas:
         for m in malas:
             error(f"canonical -- {m}")
         return
-    bien(f"las {len(CANONICAS)} paginas publicas declaran su canonical")
+    bien(f"las {len(CANONICAS) - len(ausentes)} paginas publicas declaran su canonical")
 
 
 def revisar_datos_estructurados() -> None:
