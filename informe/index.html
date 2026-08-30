@@ -226,6 +226,7 @@ footer a:hover{color:var(--acc)}
       <li><a href="../torneo/index.html">Ranking</a></li>
       <li><a href="#mercado">Mercado</a></li>
       <li><a href="#riesgo">Riesgo</a></li>
+      <li><a href="#instrumentos">Instrumentos</a></li>
       <li><a href="#tabla">Tabla</a></li>
       <li><a href="#metodologia">Metodología</a></li>
     </ul>
@@ -237,6 +238,7 @@ footer a:hover{color:var(--acc)}
   <a href="../torneo/index.html">Ranking</a>
   <a href="#mercado">Mercado</a>
   <a href="#riesgo">Riesgo</a>
+  <a href="#instrumentos">Instrumentos</a>
   <a href="#tabla">Tabla</a>
   <a href="#metodologia">Metodología</a>
 </div>
@@ -363,11 +365,50 @@ footer a:hover{color:var(--acc)}
   </div>
 </section>
 
-<!-- 7. TABLA -->
+<!-- 7. INSTRUMENTOS — se alimenta de datos/etf.json, que genera
+     `src/analisis_etf.py` del repo torneo-bloomberg-oficial desde el ledger
+     de operaciones. Si ese archivo no existe, la sección entera se queda
+     oculta: es un dato opcional que llega por otro pipeline, no por el
+     Excel semanal, así que no puede romper el informe cuando falta. -->
+<section id="instrumentos" hidden>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">07 · Instrumentos</div>
+      <h2>Qué compraron los equipos</h2>
+      <p>El ranking mide el resultado; esto mira la decisión que lo produjo. Sale del registro de operaciones de Bloomberg, no del Excel semanal, así que cubre un período propio que se indica al pie de cada gráfico.</p>
+    </div>
+
+    <div class="stats reveal" id="stEtf"></div>
+
+    <figure class="fig reveal">
+      <h3>Los ETF más usados</h3>
+      <p class="sub">Ordenados por cuántos equipos lo incorporaron a su cartera, no por número de operaciones: un equipo que compra el mismo ETF cuatro veces no lo hace más popular.</p>
+      <div class="chart-scroll"><svg id="cEtf" role="img" aria-labelledby="cEtfT"><title id="cEtfT">ETF más usados por los equipos del torneo</title></svg></div>
+      <figcaption id="capEtf"></figcaption>
+    </figure>
+
+    <figure class="fig reveal">
+      <h3>Mercados y sectores</h3>
+      <p class="sub">Dónde se posicionaron. A la izquierda el mercado del ETF; a la derecha, solo los ETF sectoriales.</p>
+      <div class="legend" id="legIns"></div>
+      <div class="chart-scroll"><svg id="cIns" role="img" aria-labelledby="cInsT"><title id="cInsT">Mercados y sectores elegidos por los equipos</title></svg></div>
+      <figcaption id="capIns"></figcaption>
+    </figure>
+
+    <figure class="fig reveal">
+      <h3>Factores, temáticos y apuestas país</h3>
+      <p class="sub">Las tres capas más finas de decisión dentro del mismo universo. El porcentaje es sobre los equipos del torneo.</p>
+      <div class="chart-scroll"><svg id="cFin" role="img" aria-labelledby="cFinT"><title id="cFinT">Factores, temáticos y apuestas país usados por los equipos</title></svg></div>
+      <figcaption id="capFin"></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 8. TABLA -->
 <section id="tabla">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">07 · Detalle</div>
+      <div class="kicker">08 · Detalle</div>
       <h2>Todos los equipos</h2>
       <p>La misma información de los gráficos, en forma de tabla: sirve para buscar un equipo puntual y es la versión accesible de todo lo anterior.</p>
     </div>
@@ -389,11 +430,11 @@ footer a:hover{color:var(--acc)}
   </div>
 </section>
 
-<!-- 8. METODOLOGÍA -->
+<!-- 9. METODOLOGÍA -->
 <section id="metodologia" class="alt">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">08 · Metodología</div>
+      <div class="kicker">09 · Metodología</div>
       <h2>Cómo leer este informe</h2>
     </div>
     <div class="reveal">
@@ -550,6 +591,7 @@ function arrancar(){
   gMercado();gDist();gRiesgo();gMov();gPts();
   pintarTabla();pintarMeta();
   observar();
+  cargarInstrumentos();
 }
 
 /* ==========================================================================
@@ -947,6 +989,130 @@ function gPts(){
     return {t:c.t,d:a-b,peso:c.peso};
   }).sort(function(x,y){return y.d-x.d});
   $("#capPts").innerHTML="El puntaje reparte 100 puntos entre cinco métricas y se calcula por percentil <b>contra el resto del torneo</b>, no contra un valor fijo: por eso un equipo puede cambiar de puntaje sin que cambie su propia cartera. La mayor diferencia entre los diez primeros y el resto está en <b>"+brecha[0].t+"</b> ("+num(brecha[0].d,1)+" puntos de ventaja promedio, sobre "+brecha[0].peso+" posibles), y la menor en <b>"+brecha[brecha.length-1].t+"</b> ("+num(brecha[brecha.length-1].d,1)+").";
+}
+
+/* ==========================================================================
+   GRÁFICOS 6-8 — INSTRUMENTOS (datos/etf.json)
+
+   Fuente distinta del resto del informe: esto NO sale de torneo.json sino
+   del registro de operaciones de Bloomberg, que procesa `src/analisis_etf.py`
+   en el repo torneo-bloomberg-oficial. Dos consecuencias que hay que
+   respetar:
+
+     1. El archivo puede no existir (es otro pipeline, con otra cadencia).
+        Por eso la sección arranca `hidden` y solo se muestra si el fetch
+        trae datos utilizables. Un informe que se rompe porque falta un
+        dato opcional es peor que un informe sin esa sección.
+     2. Su período NO coincide con el corte del ranking. El ledger llega
+        hasta `ultimaOperacion`, que hoy va varias semanas atrás del corte
+        vigente. Se dice explícitamente en el pie de cada gráfico en vez de
+        dejar que el lector suponga que es el mismo período.
+   ========================================================================== */
+var ETF=null;
+
+/* Un panel de barras horizontales. Devuelve el alto que ocupó, para que el
+   llamador pueda dimensionar el lienzo sin adivinar. */
+function panelBarras(svg,px,pw,py,datos,color,titulo,mL){
+  var FH=24, mR=48;
+  var bw=pw-mL-mR;
+  var max=Math.max.apply(null,datos.map(function(d){return d.pctEquipos}))||1;
+  if(titulo)svg.appendChild(txt(px,py-10,titulo,"ax-txt",{"letter-spacing":"0.14em",style:"fill:var(--dim2)"}));
+  datos.forEach(function(d,i){
+    var y=py+i*FH;
+    var w=Math.max((d.pctEquipos/max)*bw,2);
+    var r=el("rect",{x:px+mL,y:y+4,width:w,height:FH-11,rx:3,ry:3,fill:color});
+    ligar(r,"<b>"+d.nombre+"</b>"+
+      fila("Equipos que lo usaron",d.equipos+" ("+num(d.pctEquipos,1)+"%)")+
+      fila("Operaciones",d.operaciones)+
+      fila("Monto aprox.","USD "+ent(d.usdAprox)));
+    svg.appendChild(r);
+    var et=d.nombre.length>22?d.nombre.slice(0,21)+"…":d.nombre;
+    svg.appendChild(txt(px+mL-10,y+FH/2+1,et,"ax-txt end",{style:"fill:var(--dim);font-family:var(--f-body);font-size:11.5px"}));
+    svg.appendChild(txt(px+mL+w+8,y+FH/2+1,num(d.pctEquipos,0)+"%","dl",{fill:color,"text-anchor":"start"}));
+  });
+  return datos.length*FH;
+}
+
+function gEtf(){
+  var svg=$("#cEtf");limpiar(svg);
+  var top=ETF.topEtf.slice(0,12);
+  var W=880, mT=18, mB=32;
+  var H=mT+mB+top.length*24;
+  lienzo(svg,W,H);
+  panelBarras(svg,0,W,mT,top.map(function(d){
+    return {nombre:d.ticker+" · "+d.tema,pctEquipos:d.pctEquipos,equipos:d.equipos,
+            operaciones:d.operaciones,usdAprox:d.usdAprox};
+  }),"var(--acc)",null,260);
+  svg.appendChild(txt(W/2,H-8,"% DE LOS "+ETF.totales.equipos+" EQUIPOS QUE LO INCORPORÓ A SU CARTERA","ax-txt mid",{"letter-spacing":"0.14em"}));
+
+  var g=ETF.gestora.filter(function(x){return x.nombre==="iShares"})[0];
+  $("#capEtf").innerHTML="Sobre "+ent(ETF.totales.compras)+" operaciones de compra de "+ETF.totales.equipos+
+    " equipos, hasta el "+ETF.ultimaOperacion+". El más usado es <b>"+ETF.topEtf[0].ticker+
+    "</b>, presente en "+ETF.topEtf[0].equipos+" carteras ("+num(ETF.topEtf[0].pctEquipos,0)+
+    "% del torneo)."+(g?" El <b>"+num(g.pctOperaciones,1)+"%</b> de las operaciones se hizo en ETF de iShares.":"");
+}
+
+function gIns(){
+  var svg=$("#cIns");limpiar(svg);
+  var mer=ETF.mercado.slice(0,8), sec=ETF.sectores.slice(0,8);
+  var W=940, mT=34, mB=32;
+  var H=mT+mB+Math.max(mer.length,sec.length)*24;
+  lienzo(svg,W,H);
+  panelBarras(svg,0,W/2,mT,mer,"var(--s-exc)","MERCADO",150);
+  panelBarras(svg,W/2,W/2,mT,sec,"var(--s-ir)","SECTOR",150);
+  leyenda($("#legIns"),[{c:"var(--s-exc)",t:"Mercado del ETF",sq:true},{c:"var(--s-ir)",t:"ETF sectoriales",sq:true}]);
+
+  var eeuu=mer[0], sSem=sec[0];
+  $("#capIns").innerHTML="El mercado más elegido es <b>"+eeuu.nombre+"</b> ("+num(eeuu.pctOperaciones,1)+
+    "% de las operaciones, en "+eeuu.equipos+" equipos) y el sector más elegido es <b>"+sSem.nombre+
+    "</b> ("+sSem.equipos+" equipos, "+num(sSem.pctEquipos,0)+"% del torneo). Un ETF sectorial se cuenta además en su mercado, así que las dos columnas no suman lo mismo.";
+}
+
+function gFin(){
+  var svg=$("#cFin");limpiar(svg);
+  var fac=ETF.factores.slice(0,6), tem=ETF.tematicos.slice(0,6), pai=ETF.paises.slice(0,6);
+  var W=1020, mT=34, mB=32;
+  var H=mT+mB+Math.max(fac.length,tem.length,pai.length)*24;
+  lienzo(svg,W,H);
+  var p=W/3;
+  panelBarras(svg,0,p,mT,fac,"var(--s-shp)","FACTOR",140);
+  panelBarras(svg,p,p,mT,tem,"var(--s-var)","TEMÁTICO",140);
+  panelBarras(svg,2*p,p,mT,pai,"var(--s-mdd)","APUESTA PAÍS",140);
+
+  function tot(a){var n=0;a.forEach(function(x){n+=x.operaciones});return n}
+  var c=ETF.totales.compras;
+  $("#capFin").innerHTML="Los factores son el <b>"+num(100*tot(ETF.factores)/c,0)+
+    "%</b> de las operaciones, los temáticos el <b>"+num(100*tot(ETF.tematicos)/c,0)+
+    "%</b> y las apuestas por un país el <b>"+num(100*tot(ETF.paises)/c,0)+
+    "%</b>. Son decisiones más finas que elegir un índice amplio, y muestran que el torneo no se jugó solo con carteras genéricas.";
+}
+
+function pintarStatsEtf(){
+  var t=ETF.totales;
+  var g=ETF.gestora.filter(function(x){return x.nombre==="iShares"})[0];
+  var items=[];
+  if(g)items.push({n:num(g.pctOperaciones,1)+"%",l:"En ETF de iShares",s:"de "+ent(t.compras)+" operaciones de compra"});
+  items.push({n:ent(t.etf),l:"ETF distintos",s:"usados a lo largo del torneo"});
+  items.push({n:t.bolsas,l:"Bolsas",s:"en "+t.divisas+" divisas distintas"});
+  var rv=ETF.clase[0];
+  if(rv)items.push({n:num(rv.pctOperaciones,1)+"%",l:rv.nombre,s:"el resto en renta fija, commodities y cripto"});
+  $("#stEtf").innerHTML=items.map(function(i){
+    return '<div class="stat"><div class="n">'+i.n+'</div><div class="l">'+i.l+'</div><div class="s">'+i.s+'</div></div>';
+  }).join("");
+}
+
+/* Se llama DESPUÉS de arrancar(): la sección es opcional y no debe retrasar
+   ni bloquear el resto del informe si el archivo tarda o no está. */
+function cargarInstrumentos(){
+  figJSON("../datos/etf.json").then(function(d){
+    if(!d||!d.topEtf||!d.topEtf.length||!d.totales)throw new Error("etf.json sin datos utilizables");
+    ETF=d;
+    $("#instrumentos").hidden=false;
+    pintarStatsEtf();gEtf();gIns();gFin();
+    observar();
+  }).catch(function(err){
+    if(window.console)console.info("informe: sección de instrumentos omitida ("+err.message+")");
+  });
 }
 
 /* ==========================================================================
