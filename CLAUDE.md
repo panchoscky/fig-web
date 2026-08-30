@@ -1320,3 +1320,103 @@ que vuelve al arco.
 tocarlo todavia. Cuando se quiera portar: `python sincronizar_espejo.py`, y ojo
 con `index.html`, que NUNCA se copia entero (el canonical, el JSON-LD y el
 `color-scheme` son tres tramos separados de la cabecera y el `<style>`).
+
+## Novena tanda del 2026-08-30: `informe/index.html`, la pagina de analisis
+
+Francisco pidio "un informe, con datos, graficos y demas del torneo de
+portafolio, como una pagina extra". Es la pagina 16 del sitio.
+
+### Que es
+
+Un informe de analisis del Torneo Portafolio, distinto del ranking: `torneo/`
+responde "quien va ganando", este responde "que muestran los datos". Ocho
+secciones: resumen ejecutivo, el torneo frente al ACWI, dispersion de
+resultados, riesgo vs retorno, movilidad del ranking, composicion del puntaje,
+la tabla completa y metodologia.
+
+**No tiene una sola cifra escrita a mano.** Todo se calcula en vivo desde
+`datos/torneo.json`, incluido el texto de los cinco hallazgos del resumen: las
+frases estan escritas alrededor de numeros que rellena el JS. Es la unica forma
+de que un informe no quede desfasado del corte siguiente, que es exactamente
+como mueren los informes escritos a mano.
+
+Los cinco graficos son SVG generado en JS, sin ninguna libreria (el sitio no
+tiene build step y la CSP no dejaria cargar una). Todos con tooltip al pasar el
+cursor, leyenda y rotulos directos.
+
+### Hallazgo real: hay DOS medidas de "le gana al indice" y no calzan
+
+Escribiendo el resumen aparecio una contradiccion entre dos secciones, y no era
+un error de redaccion:
+
+- **`ret` − `acwi`** (retorno acumulado publicado menos el del indice): en la
+  semana 14 quedan por delante **29 de 54** equipos.
+- **`exc`** (el retorno en exceso de Bloomberg PORT, que es lo mismo que
+  `retRel` y lo que alimenta el puntaje): quedan **15**.
+
+La brecha por equipo es grande y sistematica, no un redondeo: para Beta capital
+en la S14, la primera cuenta da +7,45% y la segunda +18,92%. **No esta
+documentado en los datos con que base calcula PORT su retorno en exceso**, asi
+que el informe no elige una ni inventa una explicacion: muestra las dos y deja
+anotado en Metodologia que **el area de Portafolio tiene que confirmar cual es
+la oficial** para comunicar resultados. Vale la pena preguntarlo, porque las dos
+cifras cuentan historias distintas del torneo.
+
+### Decisiones de los graficos
+
+La paleta de series salio del **validador de paletas** (contraste, separacion
+para daltonismo, piso de vision normal), no del ojo:
+
+- **5 categorias** del desglose de puntaje: `#c98500 #3987e5 #199e70 #9085e9
+  #d55181`. Pasa las cinco pruebas sobre el fondo `#101731`. Ojo con el ORDEN:
+  las pruebas de separacion se corren sobre pares adyacentes, y varias
+  ordenaciones de esos mismos cinco colores fallan (aqua junto a magenta da
+  Delta-E 1.6 con deuteranopia, o sea se ven iguales).
+- **Divergente** (polaridad sobre/bajo el indice, subio/bajo en la tabla):
+  azul `#3987e5` / rojo `#e66767`, gris al medio.
+- **Excepcion deliberada**: el par oro/azul del grafico de mercado son los
+  tokens de marca que YA usan `torneo/pantalla.html` y el hero de `index.html`
+  para "FIG vs ACWI". El validador los marca fuera de banda de luminosidad,
+  pero su separacion es Delta-E 22.9 con daltonismo y 23.5 en vision normal
+  -- muy sobre el piso -- y romper la lectura entre paginas costaba mas.
+
+Tres cosas que se vieron recien al mirar las capturas, no al leer el codigo:
+
+1. **La rampa secuencial del scatter va OSCURO→CLARO**, al reves de como se
+   usaria sobre fondo blanco. Sobre el navy el paso mas claro es el que mas
+   resalta, y con la rampa al derecho los que mas brillaban eran los ULTIMOS de
+   la tabla.
+2. **`ticksNice()` corta en 1,5/3/7 y no en 1/2/5.** Exigir el paso redondo
+   inmediatamente mayor dejaba ejes de dos marcas (un rango de 11 puntos
+   saltaba a pasos de 5).
+3. El numero de la barra mas alta del histograma se encimaba con el rotulo
+   "IGUAL AL INDICE". El rotulo quedo al costado de la linea del cero.
+
+### Trampas de este sitio que volvieron a aparecer
+
+- **La captura de pantalla completa sale vacia.** Los `.reveal` solo reciben la
+  clase `in` cuando el IntersectionObserver los ve entrar en pantalla, asi que
+  hay que scrollear cada seccion y esperar ~1s antes de capturar. Ya estaba
+  documentado y volvio a pasar.
+- **Un atributo de presentacion SVG pierde contra una regla CSS.** Poner
+  `font-family` como atributo no hacia nada frente a `.ax-txt{font-family:mono}`;
+  hay que usar el atributo `style`, que si gana.
+- **`b:first-child` tambien matchea un `<b>` que abre un parrafo**, no solo el
+  rotulo: frases como "el retorno en exceso" salian en versalitas mono a media
+  oracion. Quedo como `div > b:first-child`.
+
+### De paso
+
+- `verificar_sitio.py` estaba dando **2 errores en `main` desde antes** de esta
+  tanda: `torneo-tabla.json` y `torneo-portada.json` habian quedado atras
+  respecto de `torneo.json` (venia del commit `8e03e98`, el que elimino en
+  definitiva a los 5 equipos). Se corrio `generar_tabla.py`. Ahora sale sin
+  errores, con los 3 avisos de conteo de siempre.
+- La pagina entro al nav de `torneo/index.html` (escritorio y movil) y a
+  `generar_sitemap.py` con prioridad 0.8. El sitemap quedo en 11 URLs.
+- **`verificar_paginas.js` no corre en un contenedor como root**: le falta
+  `--no-sandbox`. No se toco el script, porque en la maquina de Francisco anda
+  bien; se uso una copia temporal con ese flag. Si alguna vez hay que correrlo
+  en CI, ahi si convendria agregarlo condicionado a que el usuario sea root.
+
+**Nada de esto se llevo al repo de Manuel.**
