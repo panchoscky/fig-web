@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<html lang="es" class="no-js">
+<html lang="en" class="no-js">
 <head>
+<!-- GENERADO por generar_informe_en.py desde informe/index.html.
+     No editar a mano: el proximo `python generar_informe_en.py --aplicar`
+     lo pisa. Para cambiar el texto, edita TRADUCCIONES en ese script. -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Informe del Torneo Portafolio 2026 — FIG</title>
-<meta name="description" content="Informe con datos y gráficos del Torneo Portafolio 2026 de FEN Investment Group: rendimiento frente al MSCI ACWI, distribución de resultados, riesgo y retorno, movilidad del ranking y composición del puntaje.">
+<title>Portfolio Tournament 2026 Report — FIG</title>
+<meta name="description" content="A data report on FEN Investment Group's Portfolio Tournament 2026: performance against the MSCI ACWI, spread of results, risk taken and how much the ranking moves.">
 <meta name="theme-color" content="#0A1128">
-<link rel="canonical" href="https://feninvestmentgroup.com/informe/">
-<meta property="og:url" content="https://feninvestmentgroup.com/informe/">
-<meta property="og:title" content="Informe del Torneo Portafolio 2026 — FIG">
-<meta property="og:description" content="Qué muestran los datos del Torneo Portafolio 2026: rendimiento frente al mercado, dispersión de resultados, riesgo asumido y movilidad del ranking.">
+<link rel="canonical" href="https://feninvestmentgroup.com/en/informe/">
+<link rel="alternate" hreflang="es" href="https://feninvestmentgroup.com/informe/">
+<link rel="alternate" hreflang="en" href="https://feninvestmentgroup.com/en/informe/">
+<link rel="alternate" hreflang="x-default" href="https://feninvestmentgroup.com/informe/">
+<meta property="og:url" content="https://feninvestmentgroup.com/en/informe/">
+<meta property="og:title" content="Portfolio Tournament 2026 Report — FIG">
+<meta property="og:description" content="What the Portfolio Tournament 2026 data shows: performance against the market, spread of results, risk taken and movement in the ranking.">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://feninvestmentgroup.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Informe del Torneo Portafolio 2026 — FIG">
-<meta name="twitter:description" content="Datos y gráficos del Torneo Portafolio 2026 de FEN Investment Group.">
+<meta name="twitter:title" content="Portfolio Tournament 2026 Report — FIG">
+<meta name="twitter:description" content="Data and charts from FEN Investment Group's Portfolio Tournament 2026.">
 <meta name="twitter:image" content="https://feninvestmentgroup.com/og-image.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230A1128'/%3E%3Ccircle cx='50' cy='50' r='34' fill='%23D4AF37'/%3E%3C/svg%3E">
-<link href="../fuentes/fig.css" rel="stylesheet">
+<link href="../../fuentes/fig.css" rel="stylesheet">
 <style>
 /* ============================================================================
    INFORME DEL TORNEO PORTAFOLIO — página de análisis
    Mismo ADN del sitio FIG, paleta estándar navy + oro.
 
-   TODO lo que se afirma acá se calcula en vivo desde ../datos/torneo.json.
+   TODO lo que se afirma acá se calcula en vivo desde ../../datos/torneo.json.
    No hay una sola cifra escrita a mano en el texto: los números viven en
    <b data-n="..."> y los rellena rotular(). Así el informe no puede quedar
    desfasado del corte vigente, que es exactamente el problema que tiene
@@ -217,51 +223,51 @@ footer a:hover{color:var(--acc)}
 
 <nav class="nav" id="nav">
   <div class="wrap">
-    <a href="../index.html" class="brand" aria-label="FEN Investment Group — Inicio">
-      <img class="brand-logo" src="../logos/fig-oro.png" alt="FIG">
-      <div><div class="brand-name">Informe</div><span class="brand-sub">Torneo Portafolio</span></div>
+    <a href="../index.html" class="brand" aria-label="FEN Investment Group — Home">
+      <img class="brand-logo" src="../../logos/fig-oro.png" alt="FIG">
+      <div><div class="brand-name">Report</div><span class="brand-sub">Portfolio Tournament</span></div>
     </a>
     <ul class="nav__links">
-      <li><a href="../index.html">Inicio FIG</a></li>
-      <li><a href="../torneo/index.html">Ranking</a></li>
-      <li><a href="#mercado">Mercado</a></li>
-      <li><a href="#riesgo">Riesgo</a></li>
-      <li><a href="#instrumentos">Instrumentos</a></li>
-      <li><a href="#tabla">Tabla</a></li>
-      <li><a href="#metodologia">Metodología</a></li>
-      <li><a href="../en/informe/index.html" hreflang="en" lang="en">English</a></li>
+      <li><a href="../index.html">FIG home</a></li>
+      <li><a href="../../torneo/index.html">Ranking</a></li>
+      <li><a href="#mercado">Market</a></li>
+      <li><a href="#riesgo">Risk</a></li>
+      <li><a href="#instrumentos">Instruments</a></li>
+      <li><a href="#tabla">Table</a></li>
+      <li><a href="#metodologia">Methodology</a></li>
+      <li><a href="../../informe/index.html" hreflang="es" lang="es">Español</a></li>
     </ul>
-    <button class="nav__burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mmenu"><i></i><i></i><i></i></button>
+    <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mmenu"><i></i><i></i><i></i></button>
   </div>
 </nav>
 <div class="m-menu" id="mmenu">
-  <a href="../index.html">Inicio FIG</a>
-  <a href="../torneo/index.html">Ranking</a>
-  <a href="#mercado">Mercado</a>
-  <a href="#riesgo">Riesgo</a>
-  <a href="#instrumentos">Instrumentos</a>
-  <a href="#tabla">Tabla</a>
-  <a href="#metodologia">Metodología</a>
-  <a href="../en/informe/index.html" hreflang="en" lang="en">English</a>
+  <a href="../index.html">FIG home</a>
+  <a href="../../torneo/index.html">Ranking</a>
+  <a href="#mercado">Market</a>
+  <a href="#riesgo">Risk</a>
+  <a href="#instrumentos">Instruments</a>
+  <a href="#tabla">Table</a>
+  <a href="#metodologia">Methodology</a>
+  <a href="../../informe/index.html" hreflang="es" lang="es">Español</a>
 </div>
 
 <header class="hero">
   <div class="wrap">
-    <div class="kicker">Informe · Torneo Portafolio 2026</div>
-    <h1>Lo que dicen <em>los datos</em> del torneo</h1>
-    <p class="lead">Un corte transversal de la competencia: cómo le fue al conjunto frente al mercado, cuánto se parecen entre sí los resultados, qué riesgo se asumió para conseguirlos y qué tan estable ha sido el ranking.</p>
-    <div class="hero__corte"><span class="dot"></span><span id="corteTxt">Cargando el corte vigente…</span></div>
+    <div class="kicker">Report · Portfolio Tournament 2026</div>
+    <h1>What the <em>tournament</em> data says</h1>
+    <p class="lead">A cross-section of the competition: how the field did against the market, how alike the results are, what risk was taken to get them, and how stable the ranking has been.</p>
+    <div class="hero__corte"><span class="dot"></span><span id="corteTxt">Loading the current cut…</span></div>
 
-    <div class="stats" id="stats" aria-label="Cifras principales del torneo"></div>
+    <div class="stats" id="stats" aria-label="Headline tournament figures"></div>
   </div>
 </header>
 
 <main>
 <div id="errBox" class="wrap" hidden style="padding-top:40px">
-  <div class="error"><b>No se pudieron cargar los datos del torneo.</b> Este informe se alimenta de <code>datos/torneo.json</code>; si estás viendo esto, ese archivo no está disponible. El <a href="../torneo/index.html" style="color:var(--acc)">ranking oficial</a> sigue funcionando.</div>
+  <div class="error"><b>The tournament data could not be loaded.</b> This report reads <code>datos/torneo.json</code>; if you are seeing this, that file is unavailable. The <a href="../../torneo/index.html" style="color:var(--acc)">official ranking</a> still works.</div>
 </div>
 
-<div id="cargando" class="cargando">Cargando datos del torneo…</div>
+<div id="cargando" class="cargando">Loading tournament data…</div>
 
 <div id="contenido" hidden>
 
@@ -269,9 +275,9 @@ footer a:hover{color:var(--acc)}
 <section id="resumen">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">01 · Resumen</div>
-      <h2>Cinco cosas que muestran los números</h2>
-      <p>Todo lo que sigue está calculado desde el corte vigente. Las cifras se recalculan solas cada vez que se publica una semana nueva.</p>
+      <div class="kicker">01 · Summary</div>
+      <h2>Five things the numbers show</h2>
+      <p>Everything below is computed from the current cut. The figures recalculate themselves every time a new week is published.</p>
     </div>
     <div class="hallazgos reveal" id="hallazgos"></div>
   </div>
@@ -281,15 +287,15 @@ footer a:hover{color:var(--acc)}
 <section id="mercado" class="alt">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">02 · Frente al mercado</div>
-      <h2>El torneo contra el <em>MSCI ACWI</em></h2>
-      <p>Cada equipo compite contra el índice global de referencia. Esta es la trayectoria del conjunto —no de un equipo— comparada con ese índice, semana a semana y en retorno acumulado desde el inicio.</p>
+      <div class="kicker">02 · Against the market</div>
+      <h2>The tournament against the <em>MSCI ACWI</em></h2>
+      <p>Every team competes against the global benchmark. This is the path of the field as a whole, not of one team, against that index, week by week and in cumulative return since the start.</p>
     </div>
     <figure class="fig reveal">
-      <h3>Retorno acumulado: el torneo y su índice de referencia</h3>
-      <p class="sub">La banda cubre del percentil 25 al 75 de los equipos; la línea dorada es la mediana.</p>
+      <h3>Cumulative return: the tournament and its benchmark</h3>
+      <p class="sub">The band covers the 25th to 75th percentile of teams; the gold line is the median.</p>
       <div class="legend" id="legMercado"></div>
-      <div class="chart-scroll"><svg id="cMercado" role="img" aria-labelledby="cMercadoT"><title id="cMercadoT">Retorno acumulado de los equipos frente al MSCI ACWI, por semana</title></svg></div>
+      <div class="chart-scroll"><svg id="cMercado" role="img" aria-labelledby="cMercadoT"><title id="cMercadoT">Cumulative return of the teams against the MSCI ACWI, by week</title></svg></div>
       <figcaption id="capMercado"></figcaption>
     </figure>
   </div>
@@ -299,15 +305,15 @@ footer a:hover{color:var(--acc)}
 <section id="distribucion">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">03 · Dispersión</div>
-      <h2>Qué tan distintos son los resultados</h2>
-      <p>El retorno relativo es cuánto le saca —o le pierde— cada equipo al índice. Un torneo donde todos hacen lo mismo tendría una distribución angosta; este no la tiene.</p>
+      <div class="kicker">03 · Spread</div>
+      <h2>How different the results are</h2>
+      <p>Relative return is how much each team beats, or trails, the index by. A tournament where everyone did the same thing would show a narrow distribution; this one does not.</p>
     </div>
     <figure class="fig reveal">
-      <h3>Distribución del retorno relativo</h3>
-      <p class="sub">Cuántos equipos caen en cada tramo, en el corte vigente.</p>
+      <h3>Distribution of relative return</h3>
+      <p class="sub">How many teams fall in each band, at the current cut.</p>
       <div class="legend" id="legDist"></div>
-      <div class="chart-scroll"><svg id="cDist" role="img" aria-labelledby="cDistT"><title id="cDistT">Histograma del retorno relativo de los equipos</title></svg></div>
+      <div class="chart-scroll"><svg id="cDist" role="img" aria-labelledby="cDistT"><title id="cDistT">Histogram of the teams' relative return</title></svg></div>
       <figcaption id="capDist"></figcaption>
     </figure>
   </div>
@@ -317,15 +323,15 @@ footer a:hover{color:var(--acc)}
 <section id="riesgo" class="alt">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">04 · Riesgo y retorno</div>
-      <h2>Cuánto se arriesgó para llegar ahí</h2>
-      <p>La caída máxima (<em>drawdown</em>) es lo peor que perdió una cartera desde un máximo. Cruzarla contra el retorno relativo separa a quien ganó administrando el riesgo de quien ganó tolerándolo.</p>
+      <div class="kicker">04 · Risk and return</div>
+      <h2>How much risk it took to get there</h2>
+      <p>Maximum drawdown is the worst a portfolio fell from a peak. Plotting it against relative return separates those who won by managing risk from those who won by tolerating it.</p>
     </div>
     <figure class="fig reveal">
-      <h3>Caída máxima frente a retorno relativo</h3>
-      <p class="sub">Un punto por equipo. Arriba a la izquierda es la esquina buena: más retorno con menos caída.</p>
+      <h3>Maximum drawdown against relative return</h3>
+      <p class="sub">One dot per team. Top left is the good corner: more return with a smaller drawdown.</p>
       <div class="legend" id="legRiesgo"></div>
-      <div class="chart-scroll"><svg id="cRiesgo" role="img" aria-labelledby="cRiesgoT"><title id="cRiesgoT">Dispersión de caída máxima contra retorno relativo por equipo</title></svg></div>
+      <div class="chart-scroll"><svg id="cRiesgo" role="img" aria-labelledby="cRiesgoT"><title id="cRiesgoT">Scatter of maximum drawdown against relative return, by team</title></svg></div>
       <figcaption id="capRiesgo"></figcaption>
     </figure>
   </div>
@@ -335,15 +341,15 @@ footer a:hover{color:var(--acc)}
 <section id="movilidad">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">05 · Movilidad</div>
-      <h2>El ranking se mueve más de lo que parece</h2>
-      <p>Comparar la posición de la primera semana publicada con la de hoy muestra si la tabla se congeló temprano o si todavía se juega.</p>
+      <div class="kicker">05 · Movement</div>
+      <h2>The ranking moves more than it looks</h2>
+      <p>Comparing each team's position in the first published week with today's shows whether the table froze early or is still in play.</p>
     </div>
     <figure class="fig reveal">
-      <h3>Mayores cambios de posición</h3>
-      <p class="sub">Puestos ganados o perdidos entre la primera semana publicada y el corte vigente.</p>
+      <h3>Biggest changes in position</h3>
+      <p class="sub">Places gained or lost between the first published week and the current cut.</p>
       <div class="legend" id="legMov"></div>
-      <div class="chart-scroll"><svg id="cMov" role="img" aria-labelledby="cMovT"><title id="cMovT">Equipos con mayor cambio de posición en el ranking</title></svg></div>
+      <div class="chart-scroll"><svg id="cMov" role="img" aria-labelledby="cMovT"><title id="cMovT">Teams with the biggest change in ranking position</title></svg></div>
       <figcaption id="capMov"></figcaption>
     </figure>
   </div>
@@ -353,15 +359,15 @@ footer a:hover{color:var(--acc)}
 <section id="puntaje" class="alt">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">06 · Composición</div>
-      <h2>De dónde salen los puntos</h2>
-      <p>El puntaje reparte 100 puntos entre cinco métricas de Bloomberg. Ver el desglose explica por qué dos equipos con retornos parecidos pueden estar a veinte puestos de distancia.</p>
+      <div class="kicker">06 · Composition</div>
+      <h2>Where the points come from</h2>
+      <p>The score splits 100 points across five Bloomberg metrics. The breakdown explains why two teams with similar returns can sit twenty places apart.</p>
     </div>
     <figure class="fig reveal">
-      <h3>Desglose del puntaje, primeros diez equipos</h3>
-      <p class="sub">Cada barra suma el puntaje total del equipo sobre 100.</p>
+      <h3>Score breakdown, top ten teams</h3>
+      <p class="sub">Each bar adds up to the team's total score out of 100.</p>
       <div class="legend" id="legPts"></div>
-      <div class="chart-scroll"><svg id="cPts" role="img" aria-labelledby="cPtsT"><title id="cPtsT">Composición del puntaje de los diez primeros equipos</title></svg></div>
+      <div class="chart-scroll"><svg id="cPts" role="img" aria-labelledby="cPtsT"><title id="cPtsT">Score composition of the top ten teams</title></svg></div>
       <figcaption id="capPts"></figcaption>
     </figure>
   </div>
@@ -375,32 +381,32 @@ footer a:hover{color:var(--acc)}
 <section id="instrumentos" hidden>
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">07 · Instrumentos</div>
-      <h2>Qué compraron los equipos</h2>
-      <p>El ranking mide el resultado; esto mira la decisión que lo produjo. Sale del registro de operaciones de Bloomberg, no del Excel semanal, así que cubre un período propio que se indica al pie de cada gráfico.</p>
+      <div class="kicker">07 · Instruments</div>
+      <h2>What the teams bought</h2>
+      <p>The ranking measures the outcome; this looks at the decision behind it. It comes from the Bloomberg trade record, not the weekly spreadsheet, so it covers a period of its own, stated under each chart.</p>
     </div>
 
     <div class="stats reveal" id="stEtf"></div>
 
     <figure class="fig reveal">
-      <h3>Los ETF más usados</h3>
-      <p class="sub">Ordenados por cuántos equipos lo incorporaron a su cartera, no por número de operaciones: un equipo que compra el mismo ETF cuatro veces no lo hace más popular.</p>
-      <div class="chart-scroll"><svg id="cEtf" role="img" aria-labelledby="cEtfT"><title id="cEtfT">ETF más usados por los equipos del torneo</title></svg></div>
+      <h3>The most used ETFs</h3>
+      <p class="sub">Ranked by how many teams held them, not by number of trades: a team buying the same ETF four times does not make it more popular.</p>
+      <div class="chart-scroll"><svg id="cEtf" role="img" aria-labelledby="cEtfT"><title id="cEtfT">ETFs most used by the tournament teams</title></svg></div>
       <figcaption id="capEtf"></figcaption>
     </figure>
 
     <figure class="fig reveal">
-      <h3>Mercados y sectores</h3>
-      <p class="sub">Dónde se posicionaron. A la izquierda el mercado del ETF; a la derecha, solo los ETF sectoriales.</p>
+      <h3>Markets and sectors</h3>
+      <p class="sub">Where they positioned themselves. On the left, the ETF's market; on the right, sector ETFs only.</p>
       <div class="legend" id="legIns"></div>
-      <div class="chart-scroll"><svg id="cIns" role="img" aria-labelledby="cInsT"><title id="cInsT">Mercados y sectores elegidos por los equipos</title></svg></div>
+      <div class="chart-scroll"><svg id="cIns" role="img" aria-labelledby="cInsT"><title id="cInsT">Markets and sectors chosen by the teams</title></svg></div>
       <figcaption id="capIns"></figcaption>
     </figure>
 
     <figure class="fig reveal">
-      <h3>Factores, temáticos y apuestas país</h3>
-      <p class="sub">Las tres capas más finas de decisión dentro del mismo universo. El porcentaje es sobre los equipos del torneo.</p>
-      <div class="chart-scroll"><svg id="cFin" role="img" aria-labelledby="cFinT"><title id="cFinT">Factores, temáticos y apuestas país usados por los equipos</title></svg></div>
+      <h3>Factors, thematics and country bets</h3>
+      <p class="sub">The three finer layers of decision inside the same universe. The percentage is of the tournament's teams.</p>
+      <div class="chart-scroll"><svg id="cFin" role="img" aria-labelledby="cFinT"><title id="cFinT">Factors, thematics and country bets used by the teams</title></svg></div>
       <figcaption id="capFin"></figcaption>
     </figure>
   </div>
@@ -410,20 +416,20 @@ footer a:hover{color:var(--acc)}
 <section id="tabla">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">08 · Detalle</div>
-      <h2>Todos los equipos</h2>
-      <p>La misma información de los gráficos, en forma de tabla: sirve para buscar un equipo puntual y es la versión accesible de todo lo anterior.</p>
+      <div class="kicker">08 · Detail</div>
+      <h2>Every team</h2>
+      <p>The same information as the charts, as a table: useful to look up one team, and the accessible version of everything above.</p>
     </div>
     <div class="reveal">
       <div class="tbl-wrap">
         <table id="tblEq">
           <caption id="capTabla"></caption>
           <thead><tr>
-            <th scope="col">Pos</th><th scope="col">Equipo</th>
-            <th scope="col">Puntos</th><th scope="col">Ret. relativo</th>
+            <th scope="col">Pos</th><th scope="col">Team</th>
+            <th scope="col">Points</th><th scope="col">Rel. return</th>
             <th scope="col">IR</th><th scope="col">Sharpe</th>
-            <th scope="col">VaR 95%</th><th scope="col">Máx. caída</th>
-            <th scope="col">Δ posición</th>
+            <th scope="col">VaR 95%</th><th scope="col">Max. drawdown</th>
+            <th scope="col">Δ position</th>
           </tr></thead>
           <tbody></tbody>
         </table>
@@ -436,12 +442,12 @@ footer a:hover{color:var(--acc)}
 <section id="metodologia" class="alt">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">09 · Metodología</div>
-      <h2>Cómo leer este informe</h2>
+      <div class="kicker">09 · Methodology</div>
+      <h2>How to read this report</h2>
     </div>
     <div class="reveal">
       <div class="aviso" style="margin-bottom:26px">
-        <b>Esto no es asesoría de inversión.</b> Las carteras del Torneo Portafolio son simuladas: ningún equipo administra dinero real y ninguna cifra de este informe constituye una recomendación de compra o venta. El torneo es una actividad formativa de FEN Investment Group.
+        <b>This is not investment advice.</b> Portfolio Tournament portfolios are simulated: no team manages real money, and no figure in this report is a recommendation to buy or sell. The tournament is an educational activity run by FEN Investment Group.
       </div>
       <div class="meta-list" id="metaList"></div>
     </div>
@@ -454,16 +460,24 @@ footer a:hover{color:var(--acc)}
 <footer>
   <div class="wrap">
     <span>© 2026 FEN Investment Group</span>
-    <span>Creado por <a href="https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/" target="_blank" rel="noopener">Francisco Valenzuela</a> y <a href="https://www.linkedin.com/in/mpazq" target="_blank" rel="noopener">Manuel Paz</a></span>
-    <a href="../index.html">← Volver a FEN Investment Group</a>
+    <span>Made by <a href="https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/" target="_blank" rel="noopener">Francisco Valenzuela</a> y <a href="https://www.linkedin.com/in/mpazq" target="_blank" rel="noopener">Manuel Paz</a></span>
+    <a href="../index.html">← Back to FEN Investment Group</a>
   </div>
 </footer>
 
 <div class="tip" id="tip" role="status" aria-live="polite"></div>
 
 <script>
+
+/* Traduce SOLO el mes del corte, que en los datos viene en espanol
+   ("21 · AGO · 2026"). Generado por generar_informe_en.py. */
+function corteEN(c){
+  var M={ENE:"Jan",FEB:"Feb",MAR:"Mar",ABR:"Apr",MAY:"May",JUN:"Jun",
+         JUL:"Jul",AGO:"Aug",SEP:"Sep",OCT:"Oct",NOV:"Nov",DIC:"Dec"};
+  return String(c||"").replace(/[A-Z\u00c1\u00c9\u00cd\u00d3\u00da]{3}/g,function(m){return M[m]||m});
+}
 /* ==========================================================================
-   INFORME DEL TORNEO — todo se deriva de ../datos/torneo.json
+   INFORME DEL TORNEO — todo se deriva de ../../datos/torneo.json
    ========================================================================== */
 (function(){
 "use strict";
@@ -543,9 +557,9 @@ var D=null, EQ=[], ACWI={}, SEM=[], SEM_ACWI=[];
 
 function figJSON(u){return fetch(u,{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})}
 
-figJSON("../datos/torneo.json").then(function(d){
+figJSON("../../datos/torneo.json").then(function(d){
   D=d; EQ=d.equipos||[];
-  if(!EQ.length)throw new Error("sin equipos");
+  if(!EQ.length)throw new Error("no teams");
   (d.acwi||[]).forEach(function(a){if(a&&a.ret!==null&&a.ret!==undefined)ACWI[a.semana]=a.ret});
   SEM_ACWI=Object.keys(ACWI).map(Number).sort(function(a,b){return a-b});
   var set={};EQ.forEach(function(e){(e.historial||[]).forEach(function(h){if(h.ret!==null&&h.ret!==undefined)set[h.semana]=1})});
@@ -553,7 +567,7 @@ figJSON("../datos/torneo.json").then(function(d){
   arrancar();
 }).catch(function(err){
   $("#cargando").hidden=true;$("#errBox").hidden=false;
-  if(window.console)console.error("informe: no se pudo cargar torneo.json",err);
+  if(window.console)console.error("report: could not load torneo.json",err);
 });
 
 /* serie de una semana */
@@ -587,7 +601,7 @@ function comparativa(){
 function arrancar(){
   $("#cargando").hidden=true;
   $("#contenido").hidden=false;
-  $("#corteTxt").textContent="Corte al "+D.corte+" · semana "+D.semana;
+  $("#corteTxt").textContent="Cut of "+corteEN(D.corte)+" · week "+D.semana;
   pintarStats();
   pintarHallazgos();
   gMercado();gDist();gRiesgo();gMov();gPts();
@@ -604,10 +618,10 @@ function pintarStats(){
   EQ.forEach(function(e){var m=(e.miembros||[]).length;personas+=m;if(m)conMiembros++});
   var lider=EQ.reduce(function(a,b){return a.posicion<b.posicion?a:b});
   var st=[
-    {n:ent(EQ.length),l:"Equipos",s:"en el corte vigente"},
-    {n:ent(personas),l:"Participantes",s:conMiembros<EQ.length?("en "+conMiembros+" equipos con nómina registrada"):"inscritos en los equipos"},
-    {n:ent(SEM.length),l:"Cortes publicados",s:"semanas "+SEM[0]+" a "+SEM[SEM.length-1]},
-    {n:"USD "+ent(EQ.length*10)+"M",l:"Capital simulado",s:"USD 10M por cartera"}
+    {n:ent(EQ.length),l:"Teams",s:"at the current cut"},
+    {n:ent(personas),l:"Participants",s:conMiembros<EQ.length?("across "+conMiembros+" teams with a registered roster"):"signed up across the teams"},
+    {n:ent(SEM.length),l:"Cuts published",s:"weeks "+SEM[0]+" to "+SEM[SEM.length-1]},
+    {n:"USD "+ent(EQ.length*10)+"M",l:"Simulated capital",s:"USD 10M per portfolio"}
   ];
   $("#stats").innerHTML=st.map(function(s){
     return '<div class="stat"><div class="n">'+s.n+'</div><div class="l">'+s.l+'</div><div class="s">'+s.s+'</div></div>';
@@ -630,29 +644,29 @@ function pintarHallazgos(){
   if(sc!==null){
     var rc=retsDe(sc), gan=rc.filter(function(x){return x>ACWI[sc]}).length;
     var ganPct=100*gan/rc.length;
-    h.push("En la semana <b>"+sc+"</b>, última con dato del índice, <b>"+gan+" de "+rc.length+"</b> equipos ("+num(ganPct,0)+"%) acumulaban más retorno que el <b>MSCI ACWI</b>. El índice llevaba "+pctS(ACWI[sc])+" y la mediana del torneo "+pctS(cuantil(rc,.5))+".");
+    h.push("In week <b>"+sc+"</b>, the last with index data, <b>"+gan+" of "+rc.length+"</b> teams ("+num(ganPct,0)+"%) had accumulated more return than the <b>MSCI ACWI</b>. The index stood at "+pctS(ACWI[sc])+" and the tournament median at "+pctS(cuantil(rc,.5))+".");
     // evolución del % que gana
     var pr=[];SEM_ACWI.forEach(function(s){var r=retsDe(s);if(r.length)pr.push({s:s,p:100*r.filter(function(x){return x>ACWI[s]}).length/r.length})});
     if(pr.length>2){
       var ini=pr[0], fin=pr[pr.length-1];
-      h.push("Esa ventaja se fue cerrando: en la semana <b>"+ini.s+"</b> le ganaba al índice el <b>"+num(ini.p,0)+"%</b> del torneo, y en la <b>"+fin.s+"</b> el <b>"+num(fin.p,0)+"%</b>. El mercado no se quedó quieto mientras los equipos aprendían.");
+      h.push("That edge narrowed: in week <b>"+ini.s+"</b>, <b>"+num(ini.p,0)+"%</b> of the tournament was beating the index, and by week <b>"+fin.s+"</b>, <b>"+num(fin.p,0)+"%</b>. The market did not stand still while the teams learned.");
     }
   }else{
-    h.push("El corte vigente todavía no tiene capturado el valor del <b>MSCI ACWI</b>, que llega por un proceso aparte. Las comparaciones contra el índice de este informe llegan hasta la última semana que sí lo tiene.");
+    h.push("The current cut does not yet have the <b>MSCI ACWI</b> value, which arrives through a separate process. The comparisons against the index in this report run to the last week that does have it.");
   }
 
   var mejor=EQ.reduce(function(a,b){return a.retRel>b.retRel?a:b});
   var peor=EQ.reduce(function(a,b){return a.retRel<b.retRel?a:b});
-  h.push("La distancia entre extremos es enorme: <b>"+mejor.nombre+"</b> le saca <b>"+pctS(mejor.retRel)+"</b> al índice y <b>"+peor.nombre+"</b> queda <b>"+pctS(peor.retRel)+"</b>. Son <b>"+num(Math.abs(mejor.retRel-peor.retRel)*100,0)+" puntos porcentuales</b> de diferencia dentro de la misma competencia, con las mismas reglas y el mismo universo de instrumentos.");
+  h.push("The gap between the extremes is enormous: <b>"+mejor.nombre+"</b> beats the index by <b>"+pctS(mejor.retRel)+"</b> while <b>"+peor.nombre+"</b> sits at <b>"+pctS(peor.retRel)+"</b>. That is <b>"+num(Math.abs(mejor.retRel-peor.retRel)*100,0)+" percentage points</b> of difference inside the same competition, with the same rules and the same instrument universe.");
 
-  h.push("<b>"+pos+" de "+rU.length+"</b> equipos cierran el corte con retorno acumulado positivo, y la mediana del torneo va en <b>"+pctS(medU)+"</b>. Ganar plata y ganarle al mercado no son lo mismo: el punto de comparación de esta competencia no es cero, es el índice.");
+  h.push("<b>"+pos+" of "+rU.length+"</b> teams close the cut with a positive cumulative return, and the tournament median sits at <b>"+pctS(medU)+"</b>. Making money and beating the market are not the same thing: the benchmark here is not zero, it is the index.");
 
   // movilidad
   var mov=[];EQ.forEach(function(e){var a=hDe(e,SEM[0]),b=hDe(e,sU);if(a&&b)mov.push({d:a.posicion-b.posicion,e:e,a:a.posicion,b:b.posicion})});
   if(mov.length){
     mov.sort(function(x,y){return y.d-x.d});
     var top=mov[0], prom=media(mov.map(function(m){return Math.abs(m.d)}));
-    h.push("El ranking está lejos de estar resuelto: entre la semana <b>"+SEM[0]+"</b> y la <b>"+sU+"</b> cada equipo se movió en promedio <b>"+num(prom,1)+" puestos</b>, y <b>"+top.e.nombre+"</b> subió <b>"+top.d+"</b> lugares, del "+top.a+"° al "+top.b+"°.");
+    h.push("The ranking is far from settled: between week <b>"+SEM[0]+"</b> and week <b>"+sU+"</b> each team moved an average of <b>"+num(prom,1)+" places</b>, and <b>"+top.e.nombre+"</b> climbed <b>"+top.d+"</b> spots, from "+top.a+" to "+top.b+".");
   }
 
   $("#hallazgos").innerHTML=h.slice(0,5).map(function(t){return '<div class="hz"><p>'+t+'</p></div>'}).join("");
@@ -688,7 +702,7 @@ function gMercado(){
   // eje X
   svg.appendChild(el("line",{x1:mL,x2:mL+pw,y1:mT+ph,y2:mT+ph,class:"ax-line"}));
   datos.forEach(function(d){svg.appendChild(txt(X(d.s),mT+ph+20,"S"+d.s,"ax-txt mid"))});
-  svg.appendChild(txt(mL+pw/2,H-4,"SEMANA DEL TORNEO","ax-txt mid",{"letter-spacing":"0.18em"}));
+  svg.appendChild(txt(mL+pw/2,H-4,"TOURNAMENT WEEK","ax-txt mid",{"letter-spacing":"0.18em"}));
 
   // banda intercuartil
   var arriba=datos.map(function(d){return X(d.s)+","+Y(d.p75)}).join(" ");
@@ -710,31 +724,31 @@ function gMercado(){
   var yF=Y(last.p50), yA=SEM_ACWI.length?Y(ACWI[SEM_ACWI[SEM_ACWI.length-1]]):null;
   var xF=X(last.s)+9, xA=SEM_ACWI.length?X(SEM_ACWI[SEM_ACWI.length-1])+9:null;
   if(yA!==null&&Math.abs(yF-yA)<15){var m=(yF+yA)/2;if(yF<yA){yF=m-8;yA=m+8}else{yF=m+8;yA=m-8}}
-  var tF=txt(xF,yF+4,"TORNEO","dl",{fill:"var(--acc)"});svg.appendChild(tF);
+  var tF=txt(xF,yF+4,"TOURNAMENT","dl",{fill:"var(--acc)"});svg.appendChild(tF);
   if(yA!==null)svg.appendChild(txt(xA,yA+4,"ACWI","dl",{fill:"var(--acwi)"}));
 
   // puntos + hover
   datos.forEach(function(d){
     var c=el("circle",{cx:X(d.s),cy:Y(d.p50),r:4,fill:"var(--acc)",stroke:"var(--navy-panel)","stroke-width":2});
     var a=ACWI[d.s];
-    ligar(c,"<b>Semana "+d.s+"</b>"+
-      fila("Mediana del torneo",pctS(d.p50))+
+    ligar(c,"<b>Week "+d.s+"</b>"+
+      fila("Tournament median",pctS(d.p50))+
       fila("Rango medio (25–75)",pct(d.p25)+" a "+pct(d.p75))+
-      (a!==undefined?fila("MSCI ACWI",pctS(a))+fila("Diferencia",pctS(d.p50-a)):fila("MSCI ACWI","sin dato"))+
-      fila("Equipos",d.n));
+      (a!==undefined?fila("MSCI ACWI",pctS(a))+fila("Difference",pctS(d.p50-a)):fila("MSCI ACWI","no data"))+
+      fila("Teams",d.n));
     svg.appendChild(c);
     if(a!==undefined)svg.appendChild(el("circle",{cx:X(d.s),cy:Y(a),r:3,fill:"var(--acwi)",stroke:"var(--navy-panel)","stroke-width":1.5}));
   });
 
   leyenda($("#legMercado"),[
-    {c:"var(--acc)",t:"Mediana del torneo"},
-    {c:"rgba(212,175,55,.42)",t:"Rango medio de los equipos (percentil 25–75)",sq:true},
+    {c:"var(--acc)",t:"Tournament median"},
+    {c:"rgba(212,175,55,.42)",t:"Middle range of teams (25th–75th percentile)",sq:true},
     {c:"var(--acwi)",t:"MSCI ACWI",dash:true}
   ]);
 
   var falta=SEM.filter(function(s){return ACWI[s]===undefined});
-  $("#capMercado").innerHTML="Retorno acumulado desde el inicio del torneo. La banda muestra dónde cae la mitad central de los equipos: cuando se ensancha, la competencia se está separando."+
-    (falta.length?" <b>La línea del índice llega hasta la semana "+SEM_ACWI[SEM_ACWI.length-1]+"</b>: el valor del ACWI lo captura un proceso aparte y suele llegar un corte después. No se estima el dato que falta.":"");
+  $("#capMercado").innerHTML="Cumulative return since the tournament started. The band shows where the middle half of the teams falls: when it widens, the field is pulling apart."+
+    (falta.length?" <b>The index line runs to week "+SEM_ACWI[SEM_ACWI.length-1]+"</b>: the ACWI value is captured by a separate process and usually arrives one cut later. The missing figure is not estimated.":"");
 }
 
 /* ==========================================================================
@@ -776,7 +790,7 @@ function gDist(){
     var color=b.b<=0?"var(--neg)":(b.a>=0?"var(--pos)":"var(--mid)");
     var r=el("rect",{x:X(k)+2,y:Y(n),width:bw,height:h,fill:color,rx:3,ry:3});
     var lista=b.eq.slice().sort(function(x,y){return x.posicion-y.posicion}).slice(0,5).map(function(e){return e.nombre}).join(", ");
-    ligar(r,"<b>"+pctS(b.a,0)+" a "+pctS(b.b,0)+"</b>"+fila("Equipos",n)+
+    ligar(r,"<b>"+pctS(b.a,0)+" a "+pctS(b.b,0)+"</b>"+fila("Teams",n)+
       '<div class="r" style="display:block;margin-top:5px"><span>'+lista+(n>5?" y "+(n-5)+" más":"")+"</span></div>");
     svg.appendChild(r);
     svg.appendChild(txt(X(k)+2+bw/2,Y(n)-7,String(n),"dl",{fill:"var(--ivory)","text-anchor":"middle"}));
@@ -793,20 +807,20 @@ function gDist(){
     svg.appendChild(el("line",{x1:x0,x2:x0,y1:mT-14,y2:mT+ph,class:"zero"}));
     /* al costado del cero, no encima: ahí está el número de la barra más alta */
     var haciaDer=x0<mL+pw*0.6;
-    svg.appendChild(txt(x0+(haciaDer?7:-7),mT-20,"IGUAL AL ÍNDICE","ax-txt",{"letter-spacing":"0.12em","text-anchor":haciaDer?"start":"end"}));
+    svg.appendChild(txt(x0+(haciaDer?7:-7),mT-20,"LEVEL WITH THE INDEX","ax-txt",{"letter-spacing":"0.12em","text-anchor":haciaDer?"start":"end"}));
   }
-  svg.appendChild(txt(mL+pw/2,H-6,"RETORNO RELATIVO AL MSCI ACWI","ax-txt mid",{"letter-spacing":"0.18em"}));
+  svg.appendChild(txt(mL+pw/2,H-6,"RELATIVE RETURN VS MSCI ACWI","ax-txt mid",{"letter-spacing":"0.18em"}));
 
   leyenda($("#legDist"),[
-    {c:"var(--pos)",t:"Le gana al índice",sq:true},
-    {c:"var(--mid)",t:"Tramo que cruza el cero",sq:true},
-    {c:"var(--neg)",t:"Queda bajo el índice",sq:true}
+    {c:"var(--pos)",t:"Beats the index",sq:true},
+    {c:"var(--mid)",t:"Band crossing zero",sq:true},
+    {c:"var(--neg)",t:"Trails the index",sq:true}
   ]);
 
   var sobre=v.filter(function(x){return x>0}).length;
   var cmp=comparativa();
-  $("#capDist").innerHTML="De los <b>"+v.length+"</b> equipos, <b>"+sobre+"</b> cierran con retorno relativo positivo. La mediana está en <b>"+pctS(cuantil(v,.5))+"</b> y la desviación estándar en <b>"+pct(sd(v))+"</b>: una dispersión así, con reglas idénticas para todos, muestra cuánto pesan las decisiones de cada equipo."+
-    (cmp?" <b>Ojo con esta cifra:</b> medido en cambio como retorno acumulado menos el del índice, los equipos por delante del ACWI en la semana "+cmp.s+" eran <b>"+cmp.porRet+"</b>, no "+cmp.porExc+". Las dos medidas no coinciden — ver la nota de metodología.":"");
+  $("#capDist").innerHTML="Of the <b>"+v.length+"</b> teams, <b>"+sobre+"</b> close with a positive relative return. The median sits at <b>"+pctS(cuantil(v,.5))+"</b> and the standard deviation at <b>"+pct(sd(v))+"</b>: a spread like that, under identical rules, shows how much each team\u2019s decisions weigh."+
+    (cmp?" <b>Careful with this figure:</b> measured instead as cumulative return minus the index, the teams ahead of the ACWI in week "+cmp.s+" were <b>"+cmp.porRet+"</b>, not "+cmp.porExc+". The two measures do not agree \u2014 see the methodology note.":"");
 }
 
 /* ==========================================================================
@@ -842,8 +856,8 @@ function gRiesgo(){
 
   svg.appendChild(el("line",{x1:mL,x2:mL+pw,y1:mT+ph,y2:mT+ph,class:"ax-line"}));
   svg.appendChild(el("line",{x1:mL,x2:mL,y1:mT,y2:mT+ph,class:"ax-line"}));
-  svg.appendChild(txt(mL+pw/2,H-6,"CAÍDA MÁXIMA (MAGNITUD)","ax-txt mid",{"letter-spacing":"0.18em"}));
-  svg.appendChild(txt(0,0,"RETORNO RELATIVO","ax-txt",{transform:"translate(15,"+(mT+ph/2)+") rotate(-90)","text-anchor":"middle","letter-spacing":"0.18em"}));
+  svg.appendChild(txt(mL+pw/2,H-6,"MAXIMUM DRAWDOWN (MAGNITUDE)","ax-txt mid",{"letter-spacing":"0.18em"}));
+  svg.appendChild(txt(0,0,"RELATIVE RETURN","ax-txt",{transform:"translate(15,"+(mT+ph/2)+") rotate(-90)","text-anchor":"middle","letter-spacing":"0.18em"}));
 
   /* Rampa secuencial de un solo tono. Va OSCURO→CLARO, al revés de como se
      usaría sobre fondo blanco: encima del navy, el paso más claro es el que
@@ -857,10 +871,10 @@ function gRiesgo(){
     var c=el("circle",{cx:X(Math.abs(e.metricas.mdd)),cy:Y(e.retRel),r:e.posicion<=3?8:6,
       fill:color(e.puntos),stroke:"var(--navy-panel)","stroke-width":2,opacity:.94});
     ligar(c,"<b>"+e.nombre+"</b>"+
-      fila("Posición",e.posicion+"°")+
+      fila("Position",e.posicion+"")+
       fila("Puntos",num(e.puntos)+" / 100")+
-      fila("Retorno relativo",pctS(e.retRel))+
-      fila("Caída máxima",pct(e.metricas.mdd))+
+      fila("Relative return",pctS(e.retRel))+
+      fila("Max. drawdown",pct(e.metricas.mdd))+
       fila("Sharpe",num(e.metricas.sharpe)));
     svg.appendChild(c);
   });
@@ -879,10 +893,10 @@ function gRiesgo(){
   var cov=0,vx=0,vy=0;
   for(var k=0;k<xs.length;k++){cov+=(xs[k]-mx)*(ys[k]-my);vx+=(xs[k]-mx)*(xs[k]-mx);vy+=(ys[k]-my)*(ys[k]-my)}
   var r=cov/Math.sqrt(vx*vy);
-  $("#capRiesgo").innerHTML="Color por puntaje. La correlación entre caída máxima y retorno relativo es <b>"+num(r)+"</b>"+
-    (r<-0.15?", es decir <b>negativa</b>: en este torneo los equipos que más cayeron tendieron a rendir peor, no mejor. Asumir más riesgo no compró más retorno."
-     :(r>0.15?", es decir <b>positiva</b>: quienes toleraron caídas más profundas tendieron a terminar con más retorno relativo. Es un premio al riesgo que conviene mirar con cuidado, porque también es un premio a la suerte."
-     :", prácticamente <b>nula</b>: el tamaño de la caída no explica el retorno. Los resultados se separan por otras razones que por cuánto riesgo se toleró."));
+  $("#capRiesgo").innerHTML="Coloured by score. The correlation between maximum drawdown and relative return is <b>"+num(r)+"</b>"+
+    (r<-0.15?", that is <b>negative</b>: in this tournament the teams that fell furthest tended to do worse, not better. Taking on more risk did not buy more return."
+     :(r>0.15?", that is <b>positive</b>: those who tolerated deeper drawdowns tended to finish with more relative return. That is a reward for risk worth reading carefully, because it is also a reward for luck."
+     :", effectively <b>nil</b>: the size of the drawdown does not explain the return. The results separate for reasons other than how much risk was tolerated."));
 }
 
 /* ==========================================================================
@@ -907,30 +921,30 @@ function gMov(){
   var X=function(d){return x0+(d/maxA)*(pw/2)};
 
   svg.appendChild(el("line",{x1:x0,x2:x0,y1:mT-8,y2:H-mB+6,class:"ax-line"}));
-  svg.appendChild(txt(x0,mT-14,"SIN CAMBIO","ax-txt mid",{"letter-spacing":"0.12em"}));
+  svg.appendChild(txt(x0,mT-14,"NO CHANGE","ax-txt mid",{"letter-spacing":"0.12em"}));
 
   sel.forEach(function(m,i){
     var y=mT+i*fila_h, sube=m.d>0;
     var xa=sube?x0:X(m.d), w=Math.abs(X(m.d)-x0);
     var r=el("rect",{x:xa,y:y+5,width:Math.max(w,2),height:fila_h-14,rx:3,ry:3,fill:sube?"var(--pos)":"var(--neg)"});
     ligar(r,"<b>"+m.e.nombre+"</b>"+
-      fila("Semana "+s0,m.a+"°")+fila("Semana "+sU,m.b+"°")+
+      fila("Week "+s0,m.a+"")+fila("Week "+sU,m.b+"")+
       fila("Cambio",(m.d>0?"+":"")+m.d+" puestos")+
       fila("Puntos hoy",num(m.e.puntos)));
     svg.appendChild(r);
     svg.appendChild(txt(mL-12,y+fila_h/2+2,m.e.nombre.length>26?m.e.nombre.slice(0,25)+"…":m.e.nombre,"ax-txt end",{style:"fill:var(--dim);font-family:var(--f-body);font-size:11.5px"}));
     svg.appendChild(txt(sube?X(m.d)+8:X(m.d)-8,y+fila_h/2+2,(m.d>0?"+":"")+m.d,"dl",{fill:sube?"var(--pos)":"var(--neg)","text-anchor":sube?"start":"end"}));
   });
-  svg.appendChild(txt(mL+pw/2,H-8,"PUESTOS GANADOS O PERDIDOS ENTRE LA SEMANA "+s0+" Y LA "+sU,"ax-txt mid",{"letter-spacing":"0.14em"}));
+  svg.appendChild(txt(mL+pw/2,H-8,"PLACES GAINED OR LOST BETWEEN WEEK "+s0+" AND WEEK "+sU,"ax-txt mid",{"letter-spacing":"0.14em"}));
 
-  leyenda($("#legMov"),[{c:"var(--pos)",t:"Subió en la tabla",sq:true},{c:"var(--neg)",t:"Bajó en la tabla",sq:true}]);
+  leyenda($("#legMov"),[{c:"var(--pos)",t:"Climbed the table",sq:true},{c:"var(--neg)",t:"Fell in the table",sq:true}]);
 
   var todos=mov.map(function(m){return Math.abs(m.d)});
   var sem=[];EQ.forEach(function(e){
     var hs=(e.historial||[]).slice().sort(function(a,b){return a.semana-b.semana});
     for(var i=1;i<hs.length;i++){if(hs[i].posicion&&hs[i-1].posicion)sem.push(Math.abs(hs[i].posicion-hs[i-1].posicion))}
   });
-  $("#capMov").innerHTML="Se muestran los "+n+" que más subieron y los "+n+" que más bajaron. En promedio, cada equipo cambió <b>"+num(media(todos),1)+" puestos</b> entre ambos extremos y <b>"+num(media(sem),1)+" puestos</b> de una semana a la siguiente: la tabla se reordena de verdad, no solo en los márgenes.";
+  $("#capMov").innerHTML="Showing the "+n+" biggest climbers and the "+n+" biggest fallers. On average each team moved <b>"+num(media(todos),1)+" places</b> between the two ends and <b>"+num(media(sem),1)+" places</b> from one week to the next: the table genuinely reorders, not just at the margins.";
 }
 
 /* ==========================================================================
@@ -938,10 +952,10 @@ function gMov(){
    ========================================================================== */
 var COMP=[
   {k:"ir",  t:"Information Ratio", peso:30, c:"var(--s-ir)"},
-  {k:"exc", t:"Retorno en exceso", peso:25, c:"var(--s-exc)"},
-  {k:"sharpe",t:"Ratio de Sharpe", peso:15, c:"var(--s-shp)"},
+  {k:"exc", t:"Excess return", peso:25, c:"var(--s-exc)"},
+  {k:"sharpe",t:"Sharpe ratio", peso:15, c:"var(--s-shp)"},
   {k:"var95",t:"VaR 95%",          peso:15, c:"var(--s-var)"},
-  {k:"mdd", t:"Caída máxima",      peso:15, c:"var(--s-mdd)"}
+  {k:"mdd", t:"Max. drawdown",      peso:15, c:"var(--s-mdd)"}
 ];
 function gPts(){
   var svg=$("#cPts");limpiar(svg);
@@ -971,15 +985,15 @@ function gPts(){
       var r=el("rect",{x:mL+X(acc),y:y+6,width:wv,height:fh-16,fill:c.c,rx:2,ry:2});
       ligar(r,"<b>"+e.nombre+"</b>"+
         fila(c.t,num(v)+" de "+c.peso+" pts")+
-        fila("Aporta al total",num(100*v/e.puntos,0)+"%")+
-        fila("Puntaje total",num(e.puntos)+" / 100"));
+        fila("Share of total",num(100*v/e.puntos,0)+"%")+
+        fila("Total score",num(e.puntos)+" / 100"));
       svg.appendChild(r);
       acc+=v;
     });
     svg.appendChild(txt(mL-12,y+fh/2+2,e.posicion+"° "+(e.nombre.length>22?e.nombre.slice(0,21)+"…":e.nombre),"ax-txt end",{style:"fill:var(--ivory);font-family:var(--f-body);font-size:11.5px"}));
     svg.appendChild(txt(mL+X(e.puntos)+9,y+fh/2+2,num(e.puntos),"dl",{fill:"var(--acc)"}));
   });
-  svg.appendChild(txt(mL+pw/2,H-8,"PUNTOS SOBRE 100","ax-txt mid",{"letter-spacing":"0.18em"}));
+  svg.appendChild(txt(mL+pw/2,H-8,"POINTS OUT OF 100","ax-txt mid",{"letter-spacing":"0.18em"}));
 
   leyenda($("#legPts"),COMP.map(function(c){return {c:c.c,t:c.t+" ("+c.peso+")",sq:true}}));
 
@@ -990,7 +1004,7 @@ function gPts(){
     var b=resto.length?media(resto.map(function(e){return e.puntosDetalle[c.k]||0})):0;
     return {t:c.t,d:a-b,peso:c.peso};
   }).sort(function(x,y){return y.d-x.d});
-  $("#capPts").innerHTML="El puntaje reparte 100 puntos entre cinco métricas y se calcula por percentil <b>contra el resto del torneo</b>, no contra un valor fijo: por eso un equipo puede cambiar de puntaje sin que cambie su propia cartera. La mayor diferencia entre los diez primeros y el resto está en <b>"+brecha[0].t+"</b> ("+num(brecha[0].d,1)+" puntos de ventaja promedio, sobre "+brecha[0].peso+" posibles), y la menor en <b>"+brecha[brecha.length-1].t+"</b> ("+num(brecha[brecha.length-1].d,1)+").";
+  $("#capPts").innerHTML="The score splits 100 points across five metrics and is computed by percentile <b>against the rest of the tournament</b>, not against a fixed value: that is why a team\u2019s score can move without its own portfolio changing. The biggest gap between the top ten and the rest is in <b>"+brecha[0].t+"</b> ("+num(brecha[0].d,1)+" points of average advantage, out of "+brecha[0].peso+" available), and the smallest in <b>"+brecha[brecha.length-1].t+"</b> ("+num(brecha[brecha.length-1].d,1)+").";
 }
 
 /* ==========================================================================
@@ -1024,9 +1038,9 @@ function panelBarras(svg,px,pw,py,datos,color,titulo,mL){
     var w=Math.max((d.pctEquipos/max)*bw,2);
     var r=el("rect",{x:px+mL,y:y+4,width:w,height:FH-11,rx:3,ry:3,fill:color});
     ligar(r,"<b>"+d.nombre+"</b>"+
-      fila("Equipos que lo usaron",d.equipos+" ("+num(d.pctEquipos,1)+"%)")+
-      fila("Operaciones",d.operaciones)+
-      fila("Monto aprox.","USD "+ent(d.usdAprox)));
+      fila("Teams that used it",d.equipos+" ("+num(d.pctEquipos,1)+"%)")+
+      fila("Trades",d.operaciones)+
+      fila("Approx. amount","USD "+ent(d.usdAprox)));
     svg.appendChild(r);
     var et=d.nombre.length>22?d.nombre.slice(0,21)+"…":d.nombre;
     svg.appendChild(txt(px+mL-10,y+FH/2+1,et,"ax-txt end",{style:"fill:var(--dim);font-family:var(--f-body);font-size:11.5px"}));
@@ -1045,13 +1059,13 @@ function gEtf(){
     return {nombre:d.ticker+" · "+d.tema,pctEquipos:d.pctEquipos,equipos:d.equipos,
             operaciones:d.operaciones,usdAprox:d.usdAprox};
   }),"var(--acc)",null,260);
-  svg.appendChild(txt(W/2,H-8,"% DE LOS "+ETF.totales.equipos+" EQUIPOS QUE LO INCORPORÓ A SU CARTERA","ax-txt mid",{"letter-spacing":"0.14em"}));
+  svg.appendChild(txt(W/2,H-8,"% OF THE "+ETF.totales.equipos+" TEAMS THAT HELD IT","ax-txt mid",{"letter-spacing":"0.14em"}));
 
   var g=ETF.gestora.filter(function(x){return x.nombre==="iShares"})[0];
-  $("#capEtf").innerHTML="Sobre "+ent(ETF.totales.compras)+" operaciones de compra de "+ETF.totales.equipos+
-    " equipos, hasta el "+ETF.ultimaOperacion+". El más usado es <b>"+ETF.topEtf[0].ticker+
-    "</b>, presente en "+ETF.topEtf[0].equipos+" carteras ("+num(ETF.topEtf[0].pctEquipos,0)+
-    "% del torneo)."+(g?" El <b>"+num(g.pctOperaciones,1)+"%</b> de las operaciones se hizo en ETF de iShares.":"");
+  $("#capEtf").innerHTML="Across "+ent(ETF.totales.compras)+" buy trades by "+ETF.totales.equipos+
+    " teams, through "+ETF.ultimaOperacion+". The most used is <b>"+ETF.topEtf[0].ticker+
+    "</b>, held in "+ETF.topEtf[0].equipos+" portfolios ("+num(ETF.topEtf[0].pctEquipos,0)+
+    "% of the tournament)."+(g?" <b>"+num(g.pctOperaciones,1)+"%</b> of all trades were in iShares ETFs.":"");
 }
 
 function gIns(){
@@ -1060,14 +1074,14 @@ function gIns(){
   var W=940, mT=34, mB=32;
   var H=mT+mB+Math.max(mer.length,sec.length)*24;
   lienzo(svg,W,H);
-  panelBarras(svg,0,W/2,mT,mer,"var(--s-exc)","MERCADO",150);
+  panelBarras(svg,0,W/2,mT,mer,"var(--s-exc)","MARKET",150);
   panelBarras(svg,W/2,W/2,mT,sec,"var(--s-ir)","SECTOR",150);
-  leyenda($("#legIns"),[{c:"var(--s-exc)",t:"Mercado del ETF",sq:true},{c:"var(--s-ir)",t:"ETF sectoriales",sq:true}]);
+  leyenda($("#legIns"),[{c:"var(--s-exc)",t:"ETF market",sq:true},{c:"var(--s-ir)",t:"Sector ETFs",sq:true}]);
 
   var eeuu=mer[0], sSem=sec[0];
-  $("#capIns").innerHTML="El mercado más elegido es <b>"+eeuu.nombre+"</b> ("+num(eeuu.pctOperaciones,1)+
-    "% de las operaciones, en "+eeuu.equipos+" equipos) y el sector más elegido es <b>"+sSem.nombre+
-    "</b> ("+sSem.equipos+" equipos, "+num(sSem.pctEquipos,0)+"% del torneo). Un ETF sectorial se cuenta además en su mercado, así que las dos columnas no suman lo mismo.";
+  $("#capIns").innerHTML="The most chosen market is <b>"+eeuu.nombre+"</b> ("+num(eeuu.pctOperaciones,1)+
+    "% of trades, across "+eeuu.equipos+" teams) and the most chosen sector is <b>"+sSem.nombre+
+    "</b> ("+sSem.equipos+" teams, "+num(sSem.pctEquipos,0)+"% of the tournament). A sector ETF also counts in its market, so the two columns do not add up to the same total.";
 }
 
 function gFin(){
@@ -1078,26 +1092,26 @@ function gFin(){
   lienzo(svg,W,H);
   var p=W/3;
   panelBarras(svg,0,p,mT,fac,"var(--s-shp)","FACTOR",140);
-  panelBarras(svg,p,p,mT,tem,"var(--s-var)","TEMÁTICO",140);
-  panelBarras(svg,2*p,p,mT,pai,"var(--s-mdd)","APUESTA PAÍS",140);
+  panelBarras(svg,p,p,mT,tem,"var(--s-var)","THEMATIC",140);
+  panelBarras(svg,2*p,p,mT,pai,"var(--s-mdd)","COUNTRY BET",140);
 
   function tot(a){var n=0;a.forEach(function(x){n+=x.operaciones});return n}
   var c=ETF.totales.compras;
-  $("#capFin").innerHTML="Los factores son el <b>"+num(100*tot(ETF.factores)/c,0)+
-    "%</b> de las operaciones, los temáticos el <b>"+num(100*tot(ETF.tematicos)/c,0)+
-    "%</b> y las apuestas por un país el <b>"+num(100*tot(ETF.paises)/c,0)+
-    "%</b>. Son decisiones más finas que elegir un índice amplio, y muestran que el torneo no se jugó solo con carteras genéricas.";
+  $("#capFin").innerHTML="Factors are <b>"+num(100*tot(ETF.factores)/c,0)+
+    "%</b> of trades, thematics <b>"+num(100*tot(ETF.tematicos)/c,0)+
+    "%</b> and single-country bets <b>"+num(100*tot(ETF.paises)/c,0)+
+    "%</b>. These are finer decisions than picking a broad index, and they show the tournament was not played with generic portfolios alone.";
 }
 
 function pintarStatsEtf(){
   var t=ETF.totales;
   var g=ETF.gestora.filter(function(x){return x.nombre==="iShares"})[0];
   var items=[];
-  if(g)items.push({n:num(g.pctOperaciones,1)+"%",l:"En ETF de iShares",s:"de "+ent(t.compras)+" operaciones de compra"});
-  items.push({n:ent(t.etf),l:"ETF distintos",s:"usados a lo largo del torneo"});
-  items.push({n:t.bolsas,l:"Bolsas",s:"en "+t.divisas+" divisas distintas"});
+  if(g)items.push({n:num(g.pctOperaciones,1)+"%",l:"In iShares ETFs",s:"of "+ent(t.compras)+" buy trades"});
+  items.push({n:ent(t.etf),l:"Distinct ETFs",s:"used across the tournament"});
+  items.push({n:t.bolsas,l:"Exchanges",s:"in "+t.divisas+" different currencies"});
   var rv=ETF.clase[0];
-  if(rv)items.push({n:num(rv.pctOperaciones,1)+"%",l:rv.nombre,s:"el resto en renta fija, commodities y cripto"});
+  if(rv)items.push({n:num(rv.pctOperaciones,1)+"%",l:rv.nombre,s:"the rest in fixed income, commodities and crypto"});
   $("#stEtf").innerHTML=items.map(function(i){
     return '<div class="stat"><div class="n">'+i.n+'</div><div class="l">'+i.l+'</div><div class="s">'+i.s+'</div></div>';
   }).join("");
@@ -1106,14 +1120,14 @@ function pintarStatsEtf(){
 /* Se llama DESPUÉS de arrancar(): la sección es opcional y no debe retrasar
    ni bloquear el resto del informe si el archivo tarda o no está. */
 function cargarInstrumentos(){
-  figJSON("../datos/etf.json").then(function(d){
-    if(!d||!d.topEtf||!d.topEtf.length||!d.totales)throw new Error("etf.json sin datos utilizables");
+  figJSON("../../datos/etf.json").then(function(d){
+    if(!d||!d.topEtf||!d.topEtf.length||!d.totales)throw new Error("etf.json has no usable data");
     ETF=d;
     $("#instrumentos").hidden=false;
     pintarStatsEtf();gEtf();gIns();gFin();
     observar();
   }).catch(function(err){
-    if(window.console)console.info("informe: sección de instrumentos omitida ("+err.message+")");
+    if(window.console)console.info("report: instruments section skipped ("+err.message+")");
   });
 }
 
@@ -1137,7 +1151,7 @@ function pintarTabla(){
       "<td>"+(m.mdd!==undefined?pct(m.mdd):"—")+"</td>"+
       "<td>"+dTxt+"</td></tr>";
   }).join("");
-  $("#capTabla").textContent="Los "+EQ.length+" equipos del corte al "+D.corte+" (semana "+D.semana+"). La columna Δ posición compara con el corte anterior.";
+  $("#capTabla").textContent="The "+EQ.length+" teams at the cut of "+corteEN(D.corte)+" (week "+D.semana+"). The Δ position column compares with the previous cut.";
 }
 
 /* ==========================================================================
@@ -1147,20 +1161,20 @@ function pintarMeta(){
   var faltaAcwi=SEM.filter(function(s){return ACWI[s]===undefined});
   var sinNomina=EQ.filter(function(e){return !(e.miembros||[]).length}).length;
   var its=[
-    ["Fuente","Los datos vienen del Excel oficial del torneo, generado desde Bloomberg PORT por el área de Portafolio, y se transforman con <code>generar_torneo.py</code> a <code>datos/torneo.json</code>. Este informe lee ese archivo directamente: no hay una sola cifra escrita a mano en esta página."],
-    ["Corte vigente","Semana <b>"+D.semana+"</b>, al <b>"+D.corte+"</b>. Se publican <b>"+SEM.length+"</b> cortes, de la semana "+SEM[0]+" a la "+SEM[SEM.length-1]+"."],
-    ["Retorno acumulado","Lo que ganó o perdió la cartera desde el inicio del torneo. Es la cifra de los gráficos de trayectoria."],
-    ["Retorno relativo","El <b>retorno en exceso</b> que entrega Bloomberg PORT. Es distinto del retorno acumulado y no hay que confundirlos: un equipo puede tener retorno positivo y retorno relativo negativo."],
-    ["Puntaje","100 puntos repartidos entre Information Ratio (30), retorno en exceso (25), Ratio de Sharpe (15), VaR 95% (15) y caída máxima (15). Cada métrica se puntúa por <b>percentil continuo contra los demás equipos</b>, así que el puntaje de un equipo depende de cómo le fue al resto."],
-    ["VaR y caída máxima","Vienen en negativo. El mejor valor es el más cercano a cero, no el mayor en magnitud."]
+    ["Source","The data comes from the tournament\u2019s official spreadsheet, produced from Bloomberg PORT by the Portfolio desk, and is turned into <code>datos/torneo.json</code> by <code>generar_torneo.py</code>. This report reads that file directly: there is not a single hand-written figure on this page."],
+    ["Current cut","Week <b>"+D.semana+"</b>, at <b>"+corteEN(D.corte)+"</b>. <b>"+SEM.length+"</b> cuts are published, from week "+SEM[0]+" to week "+SEM[SEM.length-1]+"."],
+    ["Cumulative return","What the portfolio gained or lost since the tournament began. It is the figure behind the trajectory charts."],
+    ["Relative return","The <b>excess return</b> reported by Bloomberg PORT. It is different from cumulative return and the two should not be confused: a team can have a positive return and a negative relative return."],
+    ["Score","100 points split across Information Ratio (30), excess return (25), Sharpe ratio (15), VaR 95% (15) and maximum drawdown (15). Each metric is scored by <b>continuous percentile against the other teams</b>, so a team\u2019s score depends on how everyone else did."],
+    ["VaR and maximum drawdown","Both come as negative numbers. The best value is the one closest to zero, not the largest in magnitude."]
   ];
   var cmp=comparativa();
   if(cmp&&cmp.porRet!==cmp.porExc){
-    its.push(["Dos medidas que no calzan","Hay dos formas de decir que un equipo <b>le gana al índice</b>, y en estos datos no dan lo mismo. Restando el retorno acumulado del ACWI al del equipo, en la semana <b>"+cmp.s+"</b> quedan por delante <b>"+cmp.porRet+" de "+cmp.n+"</b> equipos. Usando el <b>retorno en exceso de Bloomberg PORT</b> —el campo que alimenta el puntaje y los gráficos de retorno relativo— quedan <b>"+cmp.porExc+"</b>. La brecha por equipo es grande y sistemática, así que no es un redondeo: son dos cálculos distintos, y no está documentado en los datos con qué base construye PORT el suyo. Este informe muestra las dos en vez de elegir una, y <b>conviene que el área de Portafolio confirme cuál es la oficial</b> para comunicar resultados."]);
+    its.push(["Two measures that disagree","There are two ways to say a team <b>beats the index</b>, and in this data they do not agree. Subtracting the ACWI\u2019s cumulative return from the team\u2019s, in week <b>"+cmp.s+"</b> <b>"+cmp.porRet+" of "+cmp.n+"</b> teams come out ahead. Using <b>Bloomberg PORT\u2019s excess return</b> \u2014 the field that feeds the score and the relative-return charts \u2014 <b>"+cmp.porExc+"</b> do. The gap per team is large and systematic, so it is not rounding: they are two different calculations, and the data does not document what base PORT builds its own on. This report shows both instead of picking one, and <b>the Portfolio desk should confirm which is official</b> for reporting results."]);
   }
-  if(faltaAcwi.length)its.push(["Dato faltante","El <b>MSCI ACWI</b> se captura por un proceso aparte y suele llegar un corte después, así que "+(faltaAcwi.length===1?"la semana <b>"+faltaAcwi[0]+"</b> todavía no lo tiene":"las semanas <b>"+faltaAcwi.join(", ")+"</b> todavía no lo tienen")+". Donde falta, no se estima: la línea del índice simplemente se corta y las comparaciones se hacen contra el último corte que sí lo tiene."]);
-  if(sinNomina)its.push(["Nóminas","<b>"+sinNomina+"</b> "+(sinNomina===1?"equipo no tiene":"equipos no tienen")+" nómina de integrantes registrada en el archivo de datos, así que el conteo de participantes es un <b>piso</b>, no el total exacto."]);
-  its.push(["Actualización","Esta página se recalcula sola con cada corte semanal. Si el ranking oficial muestra una semana más nueva que la de arriba, es que este archivo se cargó desde la caché del navegador."]);
+  if(faltaAcwi.length)its.push(["Missing data","The <b>MSCI ACWI</b> is captured by a separate process and usually arrives one cut later, so "+(faltaAcwi.length===1?"week <b>"+faltaAcwi[0]+"</b> does not have it yet":"weeks <b>"+faltaAcwi.join(", ")+"</b> do not have it yet")+". Where it is missing it is not estimated: the index line simply stops, and comparisons are made against the last cut that does have it."]);
+  if(sinNomina)its.push(["Rosters","<b>"+sinNomina+"</b> "+(sinNomina===1?"team has no":"teams have no")+" member roster in the data file, so the participant count is a <b>floor</b>, not the exact total."]);
+  its.push(["Updates","This page recalculates itself with every weekly cut. If the official ranking shows a newer week than the one above, this file was served from the browser cache."]);
 
   $("#metaList").innerHTML=its.map(function(x){
     return "<div><b>"+x[0]+"</b><p>"+x[1]+"</p></div>";
@@ -1200,7 +1214,7 @@ function observar(){
    datos/club.json. Registra página, fecha y origen. */
 (function(){
 try{
-fetch("../datos/club.json",{cache:"no-cache"})
+fetch("../../datos/club.json",{cache:"no-cache"})
 .then(function(r){return r.ok?r.json():null})
 .then(function(d){
   var u=d&&d.config&&d.config.figEndpoint;if(!u)return;

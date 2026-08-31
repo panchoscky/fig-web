@@ -46,11 +46,9 @@ NO_SE_COPIAN = {
     "miembros/": "la pagina de Miembros todavia no se publica en produccion",
     "datos/miembros.json": "solo la usa miembros/",
     # --- Decisiones de Francisco del 2026-08-30 -------------------------------
-    # El informe de analisis y la seccion de instrumentos NO se publican todavia.
-    # Ojo: `torneo/index.html` y `sitemap.xml` enlazan a informe/, asi que los
-    # dos necesitan su propia version alla (ver DIFIEREN y el sitemap del espejo).
-    "informe/": "el informe de analisis no se publica todavia (Francisco, 2026-08-30)",
-    "datos/etf.json": "solo lo usa informe/",
+    # El informe SI se publica desde el 2026-08-30 (segunda decision), en sus dos
+    # idiomas: informe/ y en/informe/. Por eso `torneo/index.html` salio de
+    # DIFIEREN: sus enlaces a ../informe/ ya son validos alla.
     "INFORME_ETF_TORNEO.md": "documento de trabajo interno",
     # Se GENERAN, y el espejo no tiene las mismas paginas que este repo (le
     # faltan informe/ y miembros/). Copiar el sitemap de aca le declararia a
@@ -104,11 +102,6 @@ DIFIEREN = {
                    "<script> --; portar solo uno deja el espejo a medias, y "
                    "eso ya paso una vez (las cifras del hero llegaron a "
                    "produccion sin su CSS ni su markup)"),
-    "torneo/index.html": ("su nav enlaza a ../informe/, que NO se publica en el "
-                          "espejo. Copiarlo entero dejaria dos enlaces a un 404 "
-                          "en produccion (uno en el nav de escritorio y otro en "
-                          "el de movil). La version del espejo es la misma de "
-                          "aca menos esos dos <a>"),
 }
 
 # Existen solo en el espejo y estan bien asi.
