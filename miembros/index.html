@@ -382,12 +382,11 @@ footer{background:var(--navy-deep);border-top:1px solid var(--line-d);padding:56
 .f-col a{display:inline-block;padding:5px 0;margin:-5px 0}
 .f-col a:hover{color:var(--gold)}
 .f-bottom{margin-top:38px;padding-top:19px;border-top:1px solid var(--line-d);
-/* Mismo criterio que en .f-col a: el credito y el aviso de demostracion
-   tenian 14 y 22px de alto tocable. El padding los sube sobre los 24px que
-   pide WCAG 2.2 y el margen negativo deja el dibujo intacto. */
-.f-bottom a{display:inline-block;padding:6px 0;margin:-6px 0}
   display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   font-family:var(--f-mono);font-size:.65rem;letter-spacing:.1em;color:rgba(247,244,236,.42)}
+/* Igual que en index.html: esta regla estaba DENTRO del bloque `.f-bottom{`
+   (CSS invalido) y no hacia nada. El credito del pie medía 14px. */
+.f-bottom a{display:inline-block;padding:6px 0;margin:-6px 0}
 .f-bottom a{color:var(--gold);opacity:.85}
 </style>
 </head>
