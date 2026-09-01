@@ -27,7 +27,7 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 ├── eventos/index.html      ← bitácora de actividades (torneos, visitas, charlas, comunidad)
 ├── fiw/index.html           ← página de FEN Investment Woman (paleta propia, editable)
 ├── valuation/index.html     ← página del área Valuation (paleta estándar; responsables + sección de Torneo del área que se activa con datos/valuation.json)
-├── portafolio/index.html    ← página del área Portafolio (2026-08-31; MISMA plantilla que valuation/, misma sección de Torneo pero apuntando al ranking en vivo en vez de a un Forms)
+├── portafolio/index.html    ← página del área Portafolio (2026-09-01; YA NO es la plantilla de valuation/: hero con el plano riesgo/retorno del torneo, cinta de datos vivos, tablero del corte y barra de asignación de los 100 puntos — ver la tanda del 2026-09-01 (3))
 ├── trading/index.html       ← página del área Trading (2026-08-31; MISMA plantilla que valuation/. Su sección de Torneo va `hidden` con `torneo.activo:false`: el desk aún no tiene torneo propio, y por eso tampoco hay ítem "Torneo" en su nav — al encenderlo hay que devolverlo)
 ├── torneo/index.html        ← ranking oficial del Torneo Portafolio 2026 (con trayectoria por equipo)
 ├── torneo/pantalla.html      ← PANTALLA para las TV de la facultad (1920x1080, bucle, se alimenta sola de torneo.json)
@@ -1962,3 +1962,102 @@ el mismo arreglo de scroll que se le hizo a `index.html` el 31-ago
 (`flex-start` + `overflow-y:auto` + margenes automaticos). **Es el segundo
 menu que se topa con esto**: al agregar enlaces a CUALQUIER `.m-menu`, correr
 `verificar_menu_movil.js --pag=<la pagina>`.
+
+
+## Tanda del 2026-09-01 (3): Portafolio, segunda vuelta -- el dato deja de ser fondo
+
+Francisco, sobre la version anterior: *"la idea de usar los datos en vivo de
+fondo era buena, pero mal implementada, solo son lineas finas y no se
+entiende... crea algo nuevo e inovador... se atrevido, ariesgate con ideas
+nuevas y estilos disrubtivos"*.
+
+Tenia razon y el diagnostico es exacto: el hero dibujaba las 54 trayectorias
+crudas del torneo como polilineas de 1px al 26% de opacidad DETRAS del titulo.
+Como textura no se leia, y como grafico tampoco: sin ejes, sin rotulos y con 54
+series superpuestas no hay nada que entender ahi. La idea de fondo (que este
+desk se presente con los datos que produce) se conservo entera; lo que cambio
+es que **el dato dejo de ser fondo y paso a ser la pieza**.
+
+### El plano de la frontera (`pintarPlano`)
+
+El hero es ahora un **plano riesgo / retorno**, que es la imagen fundacional de
+la gestion de carteras. Cada cartera del corte es un disco:
+
+| | |
+|---|---|
+| x | `metricas.mdd` en valor absoluto -- la caida maxima, o sea el riesgo |
+| y | `metricas.exc` (o `retRel`) -- el retorno sobre el iShares MSCI ACWI |
+| r | `puntos` del corte |
+
+La **linea azul del cero ES el indice** (mismo token `--bmk` de siempre): sobre
+ella el disco va lleno, bajo ella queda calado. Y la **linea dorada es la
+frontera**: recorriendo de menos a mas riesgo, las carteras que superan a todas
+las de menos riesgo que ellas. Bajo esa linea siempre existe otra cartera que
+rindio mas arriesgando menos.
+
+Dato que hace que valga la pena: **la frontera no es el ranking**. En el corte
+de la semana 15 la componen 6 carteras y son las posiciones 1, 2, 3, 6, 7 y 15
+-- Black Swan Capital entra con el riesgo mas bajo del torneo (1,38%) pese a ir
+15a. Verificado aparte con Python contra `datos/torneo.json`, no solo por el
+render.
+
+**Sale de `datos/torneo-tabla.json` (7 KB), no del historial.** Es una mejora
+real de degradacion respecto de la version anterior: el campo de trayectorias
+necesitaba los 205 KB de `torneo.json`, asi que con `saveData` o en 2G el hero
+se quedaba sin su pieza. El plano esta en pie desde la primera pintada.
+
+Cuidado si se toca el SVG: los margenes son `pl=64 / pt=32` **a proposito**. Con
+los 46/22 originales, "+20,00%" se cortaba contra el borde y el rotulo del eje Y
+--que iba rotado a 90 grados-- se encimaba con las marcas. El rotulo del eje Y
+va horizontal arriba a la izquierda; rotado no cabe.
+
+### Lo demas que cambio, y por que
+
+- **La cinta bajo el hero** era una marquesina de PALABRAS ("Asignacion de
+  activos - Top-down - Control de riesgo"), decoracion que repetia lo que ya
+  decia la pagina. Ahora corre el estado real del corte: semana, fecha,
+  carteras, lider, puntaje, cuantas le ganan al ACWI, el mejor de cada una de
+  las 5 metricas y el ACWI. **Las palabras siguen en el HTML como respaldo**: si
+  el ranking no carga, la cinta se ve como antes en vez de quedar vacia.
+- **§El corte** paso de cuatro tarjetas redondeadas iguales a un **tablero** de
+  12 columnas separado por filetes de 1px, donde cada dato ocupa el ancho que le
+  toca (el lider media fila, porque es un nombre y no un numero). El grafico se
+  pega por abajo con `margin-top:-1px` y cierra el mismo bloque. Celda nueva:
+  **"Le ganan al indice", 16 de 54**, que es la lectura central de este desk y
+  no existia en ninguna parte del sitio.
+- **§Como se evalua** se llama ahora **§Los 100 puntos** y abre con una **barra
+  de asignacion**: los 100 puntos repartidos en cinco tramos proporcionales al
+  peso real de cada metrica. El peso de una metrica ES una asignacion --el mismo
+  gesto que hace el desk con el capital-- y cinco tarjetas no muestran una
+  asignacion. Debajo, una franja a lo ancho por metrica. Los anchos siguen sin
+  estar escritos: salen de `pesos()`.
+- **Pilares** y **§Nosotros** dejaron de ser tarjetas sueltas: franjas con el
+  numeral calado al aire, y una ficha unica dividida por filetes.
+- **Riel de secciones** fijo al costado, solo desde 1460px. Se numera SOLO con
+  las secciones visibles (§El corte, §Torneo y §Actividades pueden estar
+  ocultas), asi que un numero escrito a mano se desalinearia; y cambia a tinta
+  oscura sobre las secciones claras.
+- **Esquinas rectas en toda la pagina** (`border-radius:0` en las tarjetas
+  compartidas). Es el gesto que separa a Portafolio de `valuation/` y
+  `trading/` sin tocar la paleta ni las tipografias. El avatar queda fuera: es
+  un circulo a proposito.
+
+`fotos/portafolio/` sigue sin leerse y `trayectorias()` se borro con el campo.
+
+### Verificacion
+
+Contrastado con Python contra `datos/torneo.json`: 54 carteras, 16 con exceso
+positivo (ninguna en cero exacto), riesgo de 1,38% a 18,26%, exceso de -37,28%
+a +20,83%, frontera de 6 carteras, pesos 30/25/15/15/15.
+
+**Degradacion probada bloqueando los JSON en el navegador**, tres escenarios --
+completo, sin el historial, y sin ningun dato del torneo. En los tres: cero
+"NaN", cero desborde horizontal, cero excepciones JS. Sin historial el plano
+sigue en pie y solo cae el grafico de mediana e intercuartil; sin nada del
+torneo caen el plano, §El corte y la barra de los 100 puntos, la cinta vuelve a
+las 16 palabras, las cifras del hero vuelven a su texto de respaldo y el riel se
+renumera solo de 01 a 06. Texto en pie: 9546 / 8878 / 6650 caracteres.
+
+`verificar_paginas.js` (las 19 paginas), `verificar_movil.js`,
+`verificar_menu_movil.js --pag=portafolio/index.html` (7 enlaces, entra entero
+en las tres pantallas) y `verificar_sitio.py`: sin errores.
