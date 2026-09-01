@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-07-19",
+  "actualizado": "2026-08-31",
   "config": {
     "urls": {
       "torneo": "torneo/index.html",
@@ -62,14 +62,16 @@
         "iniciales": "JG",
         "nombre": "Jhosep García",
         "rol": "Vicepresidente",
-        "detalle": "Co-fundador · Área Valuation, junto a Samuel Rodríguez Arnolds.",
+        "liderArea": "VAL",
+        "detalle": "Co-fundador · Dirige el área Valuation.",
         "destacado": true,
         "linkedin": "https://linkedin.com/in/jhosep-garcia",
         "perfil": {
-          "bio": "Vicepresidente y co-fundador de FEN Investment Group. Encabeza junto a Samuel Rodríguez Arnolds el área Valuation, donde los miembros analizan y valorizan compañías reales aplicando las metodologías que se usan en la industria financiera.",
+          "bio": "Vicepresidente y co-fundador de FEN Investment Group. Dirige el área Valuation, donde los miembros analizan y valorizan compañías reales aplicando las metodologías que se usan en la industria financiera.",
           "hitos": [
             "Vicepresidente de FEN Investment Group",
-            "Co-encargado · Área Valuation"
+            "Dirige el área Valuation",
+            "Co-fundador de FIG"
           ]
         }
       },
@@ -77,6 +79,7 @@
         "iniciales": "MP",
         "nombre": "Manuel Paz",
         "rol": "Director · Portafolio y Trading",
+        "liderArea": "TRD",
         "detalle": "Co-fundador · Comunicaciones, difusión y creador de la web original.",
         "linkedin": "https://www.linkedin.com/in/mpazq",
         "perfil": {
@@ -160,13 +163,13 @@
       {
         "iniciales": "RA",
         "nombre": "Rafael Aliendre",
-        "rol": "Director · Trading",
+        "rol": "Directivo · Trading",
         "detalle": "Co-fundador.",
         "linkedin": "https://www.linkedin.com/in/rafael-aliendre-javier",
         "perfil": {
-          "bio": "Co-fundador y director del área Trading. Memorista en la Dirección de Estrategia e Inteligencia de Mercado de CODELCO, con prácticas previas en Factoring Capital Express, Moxi SpA y Falabella Financiero.",
+          "bio": "Co-fundador de FEN Investment Group e integrante del área Trading. Memorista en la Dirección de Estrategia e Inteligencia de Mercado de CODELCO, con prácticas previas en Factoring Capital Express, Moxi SpA y Falabella Financiero.",
           "hitos": [
-            "Director · Trading",
+            "Directivo · Trading",
             "Memorista · CODELCO, Estrategia e Inteligencia de Mercado",
             "Prácticas en Factoring Capital Express, Moxi SpA y Falabella Financiero"
           ]
@@ -190,13 +193,13 @@
       {
         "iniciales": "JD",
         "nombre": "Juan Pablo Díaz Cerda",
-        "rol": "Director · Trading",
+        "rol": "Directivo · Trading",
         "detalle": "Co-fundador · práctica en BCI Seguros, Gerencia de Inversiones.",
         "linkedin": "https://www.linkedin.com/in/juan-pablo-d%C3%ADaz-cerda-449133310/",
         "perfil": {
-          "bio": "Co-fundador de FEN Investment Group y encargado del área Trading. Realizó su práctica en la Gerencia de Inversiones de BCI Seguros, donde gestionó una asignación de USD 150.000 en renta variable. Obtuvo el 2° lugar nacional en el Concurso de Inversiones con Información Privilegiada de Radio Duna y el 2° lugar en el Torneo de Trading Itaú-FEN.",
+          "bio": "Co-fundador de FEN Investment Group e integrante del área Trading. Realizó su práctica en la Gerencia de Inversiones de BCI Seguros, donde gestionó una asignación de USD 150.000 en renta variable. Obtuvo el 2° lugar nacional en el Concurso de Inversiones con Información Privilegiada de Radio Duna y el 2° lugar en el Torneo de Trading Itaú-FEN.",
           "hitos": [
-            "Director · Trading",
+            "Directivo · Trading",
             "Co-fundador de FIG",
             "Práctica en Gestión de Cartera Táctica · BCI Seguros",
             "2° lugar nacional · Concurso de Inversiones, Radio Duna",
@@ -223,7 +226,8 @@
       {
         "iniciales": "DA",
         "nombre": "Delia Avilán",
-        "rol": "Fundadora · FEN Investment Woman","liderArea": "FIW",
+        "rol": "Fundadora · FEN Investment Woman",
+        "liderArea": "FIW",
         "detalle": "Co-fundadora · FEN Investment Woman, junto a Gabriela Domínguez y Victoria Espinoza.",
         "perfil": {
           "bio": "Co-fundadora de FEN Investment Group. Fundó junto a Gabriela Domínguez y Victoria Espinoza FEN Investment Woman, el área que impulsa la participación de mujeres en el mundo de las inversiones dentro de la FEN.",
@@ -267,14 +271,14 @@
       {
         "iniciales": "SR",
         "nombre": "Samuel Rodríguez Arnolds",
-        "rol": "Director · Valuation","liderArea": "VAL",
-        "detalle": "Co-fundador · Área Valuation, junto a Jhosep García.",
+        "rol": "Directivo · Valuation",
+        "detalle": "Co-fundador · Área Valuation.",
         "linkedin": "https://www.linkedin.com/in/samuel-rodr%C3%ADguez-arnolds-8b9608241/",
         "perfil": {
-          "bio": "Co-fundador de FEN Investment Group y encargado, junto a Jhosep García, del área Valuation. Realizó su práctica en Investment Banking en MoonValley Capital.",
+          "bio": "Co-fundador de FEN Investment Group e integrante del área Valuation. Realizó su práctica en Investment Banking en MoonValley Capital.",
           "hitos": [
-            "Director · Valuation",
-            "Co-encargado · Área Valuation",
+            "Directivo · Valuation",
+            "Co-fundador de FIG",
             "Práctica en Investment Banking · MoonValley Capital"
           ]
         }

@@ -1,16 +1,18 @@
 {
-  "actualizado": "2026-08-23",
+  "actualizado": "2026-08-31",
   "demo": false,
   "config": {
     "areas": [
       {
         "codigo": "PRT",
         "nombre": "Portafolio",
+        "pagina": "portafolio/index.html",
         "resumen": "Construcción y gestión de carteras con disciplina de benchmark. Dirige el Torneo Portafolio."
       },
       {
         "codigo": "TRD",
         "nombre": "Trading",
+        "pagina": "trading/index.html",
         "resumen": "Ejecución, análisis técnico y operación en el Laboratorio Bloomberg."
       },
       {
@@ -24,6 +26,11 @@
         "nombre": "FEN Investment Woman",
         "pagina": "fiw/index.html",
         "resumen": "Comunidad de mujeres de FIG: mentoría, referentes y actividades propias."
+      },
+      {
+        "codigo": "ADM",
+        "nombre": "Administración",
+        "resumen": "Gestión interna, alianzas y la operación que sostiene al resto de los desks."
       }
     ],
     "jerarquia": [
@@ -51,7 +58,7 @@
       "rolCompleto": "Presidente",
       "nivel": 0,
       "lidera": null,
-      "area": "PRT",
+      "area": "ADM",
       "detalle": "Co-fundador de FEN Investment Group.",
       "generacion": null,
       "estado": "activo",
@@ -81,17 +88,18 @@
       "rol": "Vicepresidente",
       "rolCompleto": "Vicepresidente",
       "nivel": 0,
-      "lidera": null,
+      "lidera": "VAL",
       "area": "VAL",
-      "detalle": "Co-fundador · Área Valuation, junto a Samuel Rodríguez Arnolds.",
+      "detalle": "Co-fundador · Dirige el área Valuation.",
       "generacion": null,
       "estado": "activo",
       "linkedin": "https://linkedin.com/in/jhosep-garcia",
       "perfil": {
-        "bio": "Vicepresidente y co-fundador de FEN Investment Group. Encabeza junto a Samuel Rodríguez Arnolds el área Valuation, donde los miembros analizan y valorizan compañías reales aplicando las metodologías que se usan en la industria financiera.",
+        "bio": "Vicepresidente y co-fundador de FEN Investment Group. Dirige el área Valuation, donde los miembros analizan y valorizan compañías reales aplicando las metodologías que se usan en la industria financiera.",
         "hitos": [
           "Vicepresidente de FEN Investment Group",
-          "Co-encargado · Área Valuation"
+          "Dirige el área Valuation",
+          "Co-fundador de FIG"
         ]
       },
       "extras": [],
@@ -211,20 +219,19 @@
     {
       "id": "juan-jose-limari",
       "nombre": "Juan José Limari",
-      "rol": "Director",
-      "rolCompleto": "Director · Trading",
+      "rol": "Fundador",
+      "rolCompleto": "Fundador",
       "nivel": 0,
-      "lidera": "TRD",
-      "area": "TRD",
+      "lidera": null,
+      "area": null,
       "detalle": "Co-fundador · Itaú, mesa de dinero.",
       "generacion": null,
       "estado": "activo",
       "linkedin": "",
       "perfil": {
-        "bio": "Co-fundador de FEN Investment Group y director del área Trading. Realizó una práctica extracurricular en la mesa de dinero del Banco Itaú Chile (Liquidez y Funds Transfer Pricing), donde desarrolló un valorizador automático de renta fija (Z-spread) para futuras emisiones de bonos del banco. Ganó el primer lugar del Trading Challenge Itaú-FEN 2025 y es ayudante coordinador del curso Introducción a las Finanzas de la FEN.",
+        "bio": "Co-fundador de FEN Investment Group. Realizó una práctica extracurricular en la mesa de dinero del Banco Itaú Chile (Liquidez y Funds Transfer Pricing), donde desarrolló un valorizador automático de renta fija (Z-spread) para futuras emisiones de bonos del banco. Ganó el primer lugar del Trading Challenge Itaú-FEN 2025 y es ayudante coordinador del curso Introducción a las Finanzas de la FEN.",
         "hitos": [
-          "Director · Trading",
-          "Co-fundador de FIG",
+          "Fundador de FIG",
           "Práctica extracurricular · Mesa de dinero, Banco Itaú Chile",
           "1er lugar · Trading Challenge Itaú-FEN 2025",
           "Ayudante coordinador · Introducción a las Finanzas, FEN"
@@ -253,20 +260,20 @@
     {
       "id": "samuel-rodriguez-arnolds",
       "nombre": "Samuel Rodríguez Arnolds",
-      "rol": "Director",
-      "rolCompleto": "Director · Valuation",
-      "nivel": 0,
-      "lidera": "VAL",
+      "rol": "Directivo",
+      "rolCompleto": "Directivo · Valuation",
+      "nivel": 1,
+      "lidera": null,
       "area": "VAL",
-      "detalle": "Co-fundador · Área Valuation, junto a Jhosep García.",
+      "detalle": "Co-fundador · Área Valuation.",
       "generacion": null,
       "estado": "activo",
       "linkedin": "https://www.linkedin.com/in/samuel-rodr%C3%ADguez-arnolds-8b9608241/",
       "perfil": {
-        "bio": "Co-fundador de FEN Investment Group y encargado, junto a Jhosep García, del área Valuation. Realizó su práctica en Investment Banking en MoonValley Capital.",
+        "bio": "Co-fundador de FEN Investment Group e integrante del área Valuation. Realizó su práctica en Investment Banking en MoonValley Capital.",
         "hitos": [
-          "Director · Valuation",
-          "Co-encargado · Área Valuation",
+          "Directivo · Valuation",
+          "Co-fundador de FIG",
           "Práctica en Investment Banking · MoonValley Capital"
         ]
       },
@@ -454,19 +461,19 @@
     {
       "id": "manuel-paz",
       "nombre": "Manuel Paz",
-      "rol": "Directivo",
-      "rolCompleto": "Directivo · Portafolio",
-      "nivel": 1,
-      "lidera": null,
-      "area": "PRT",
+      "rol": "Director",
+      "rolCompleto": "Director · Portafolio y Trading",
+      "nivel": 0,
+      "lidera": "TRD",
+      "area": "TRD",
       "detalle": "Co-fundador · Comunicaciones, difusión y creador de la web original.",
       "generacion": null,
       "estado": "activo",
       "linkedin": "https://www.linkedin.com/in/mpazq",
       "perfil": {
-        "bio": "Co-fundador de FEN Investment Group y directivo del área Portafolio, responsable de comunicaciones y difusión del club. Creador de la web original de FIG, la primera presencia digital del grupo. Fuera del club fundó y escaló una tienda de e-commerce D2C que generó más de $280 millones en ventas, y gestiona activamente un portafolio personal de acciones y criptomonedas.",
+        "bio": "Co-fundador de FEN Investment Group y director de las áreas Portafolio y Trading, responsable de comunicaciones y difusión del club. Creador de la web original de FIG, la primera presencia digital del grupo. Fuera del club fundó y escaló una tienda de e-commerce D2C que generó más de $280 millones en ventas, y gestiona activamente un portafolio personal de acciones y criptomonedas.",
         "hitos": [
-          "Directivo · Portafolio",
+          "Director · Portafolio y Trading",
           "Co-fundador de FIG",
           "Comunicaciones y difusión de FIG",
           "Creador de la web original del club",
@@ -488,8 +495,8 @@
     {
       "id": "juan-pablo-diaz-cerda",
       "nombre": "Juan Pablo Díaz Cerda",
-      "rol": "Director",
-      "rolCompleto": "Director · Trading",
+      "rol": "Directivo",
+      "rolCompleto": "Directivo · Trading",
       "nivel": 1,
       "lidera": null,
       "area": "TRD",
@@ -498,9 +505,9 @@
       "estado": "activo",
       "linkedin": "https://www.linkedin.com/in/juan-pablo-d%C3%ADaz-cerda-449133310/",
       "perfil": {
-        "bio": "Co-fundador de FEN Investment Group y encargado del área Trading. Realizó su práctica en la Gerencia de Inversiones de BCI Seguros, donde gestionó una asignación de USD 150.000 en renta variable. Obtuvo el 2° lugar nacional en el Concurso de Inversiones con Información Privilegiada de Radio Duna y el 2° lugar en el Torneo de Trading Itaú-FEN.",
+        "bio": "Co-fundador de FEN Investment Group e integrante del área Trading. Realizó su práctica en la Gerencia de Inversiones de BCI Seguros, donde gestionó una asignación de USD 150.000 en renta variable. Obtuvo el 2° lugar nacional en el Concurso de Inversiones con Información Privilegiada de Radio Duna y el 2° lugar en el Torneo de Trading Itaú-FEN.",
         "hitos": [
-          "Director · Trading",
+          "Directivo · Trading",
           "Co-fundador de FIG",
           "Práctica en Gestión de Cartera Táctica · BCI Seguros",
           "2° lugar nacional · Concurso de Inversiones, Radio Duna",
@@ -530,8 +537,8 @@
     {
       "id": "rafael-aliendre",
       "nombre": "Rafael Aliendre",
-      "rol": "Director",
-      "rolCompleto": "Director · Trading",
+      "rol": "Directivo",
+      "rolCompleto": "Directivo · Trading",
       "nivel": 1,
       "lidera": null,
       "area": "TRD",
@@ -540,9 +547,9 @@
       "estado": "activo",
       "linkedin": "https://www.linkedin.com/in/rafael-aliendre-javier",
       "perfil": {
-        "bio": "Co-fundador y director del área Trading. Memorista en la Dirección de Estrategia e Inteligencia de Mercado de CODELCO, con prácticas previas en Factoring Capital Express, Moxi SpA y Falabella Financiero.",
+        "bio": "Co-fundador de FEN Investment Group e integrante del área Trading. Memorista en la Dirección de Estrategia e Inteligencia de Mercado de CODELCO, con prácticas previas en Factoring Capital Express, Moxi SpA y Falabella Financiero.",
         "hitos": [
-          "Director · Trading",
+          "Directivo · Trading",
           "Memorista · CODELCO, Estrategia e Inteligencia de Mercado",
           "Prácticas en Factoring Capital Express, Moxi SpA y Falabella Financiero"
         ]

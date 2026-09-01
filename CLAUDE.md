@@ -27,6 +27,8 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 ├── eventos/index.html      ← bitácora de actividades (torneos, visitas, charlas, comunidad)
 ├── fiw/index.html           ← página de FEN Investment Woman (paleta propia, editable)
 ├── valuation/index.html     ← página del área Valuation (paleta estándar; responsables + sección de Torneo del área que se activa con datos/valuation.json)
+├── portafolio/index.html    ← página del área Portafolio (2026-08-31; MISMA plantilla que valuation/, misma sección de Torneo pero apuntando al ranking en vivo en vez de a un Forms)
+├── trading/index.html       ← página del área Trading (2026-08-31; MISMA plantilla que valuation/. Su sección de Torneo va `hidden` con `torneo.activo:false`: el desk aún no tiene torneo propio, y por eso tampoco hay ítem "Torneo" en su nav — al encenderlo hay que devolverlo)
 ├── torneo/index.html        ← ranking oficial del Torneo Portafolio 2026 (con trayectoria por equipo)
 ├── torneo/pantalla.html      ← PANTALLA para las TV de la facultad (1920x1080, bucle, se alimenta sola de torneo.json)
 ├── miembros/index.html      ← LA MESA: directiva, organigrama por desk, buscador "Terminal FIG" y ficha por persona (se alimenta de datos/miembros.json)
@@ -72,6 +74,8 @@ página. Si algo cambia seguido, va en un `.json` bajo `datos/`.
 │   ├── linea_tiempo.json       ← hitos estructurales del Torneo (rebalanceos, cierres, final); se combina con eventos.json en la línea de tiempo de index.html y eventos/index.html — editable desde el Drive (`Linea_Tiempo_Hitos_Torneo` en `00_MAESTRO`)
 │   ├── fiw.json                ← textos y equipo de FEN Investment Woman
 │   ├── valuation.json           ← textos, responsables y datos del Torneo de Valuation (pegar formUrl del Forms para activar inscripciones)
+│   ├── portafolio.json          ← lo mismo para portafolio/index.html
+│   ├── trading.json             ← lo mismo para trading/index.html (`torneo.activo:false` hasta que el desk tenga uno; el `_como_editar` explica cómo encenderlo)
 │   ├── miembros.json             ← GENERADO por generar_miembros.py (no editar a mano): personas del club con ticker, área, nivel del organigrama y sus resultados de torneo cruzados
 │   ├── (miembros.demo.json)        ← BORRADO el 2026-08-28, ya no está en el repo: la base real está cargada. Era el modo `?demo=1` (personas reales con cargos SUPUESTOS + personas que NO EXISTEN, `demo:true`). Se regenera con `python generar_miembros.py --demo` cuando haga falta; mientras no exista, `?demo=1` cae a la base real
 │   ├── equipos_congelados.json   ← **VACÍO desde el 2026-08-26** (`{"equipos": []}`): los 5 equipos que estuvieron "en espera" 23→26-ago fueron eliminados en definitiva. Antes traía sus 5 métricas crudas FIJAS (semana 14) + `historial_previo` (semanas 5-14); ese contenido está en git (commit `c7c4f98` y el estado previo a la eliminación). Repoblarlo solo si se congela a otro equipo (ver `incorporar_congelados.py`)
@@ -1673,3 +1677,130 @@ python sincronizar_espejo.py --aplicar
 python despublicar_fiw.py --aplicar   # SIEMPRE despues del anterior
 cd ../mpazq-afk.github.io && python generar_sitemap.py
 ```
+
+
+## Tanda del 2026-08-31: cinco desks, paginas de Portafolio y Trading
+
+Francisco confirmo la estructura de areas que quedaba abierta desde el 26-ago
+y pidio las dos paginas de area que faltaban. Todo se publico en
+`panchoscky/fig-web` unicamente: **el espejo de Manuel NO se toco**.
+
+### Quien dirige cada area (confirmado, no supuesto)
+
+| Desk | Dirige | Pagina |
+|---|---|---|
+| PRT · Portafolio | Francisco Valenzuela | `portafolio/index.html` |
+| TRD · Trading | **Manuel Paz** | `trading/index.html` |
+| VAL · Valuation | **Jhosep Garcia** | `valuation/index.html` |
+| FIW · FEN Investment Woman | Delia Avilan | `fiw/index.html` |
+| ADM · Administracion | **nadie, a proposito** | — |
+
+Dos cambian lo que decia el repo, asi que **no "corregirlos" hacia atras**:
+
+- **Valuation cambio de lider.** El 27-ago se habia confirmado a Samuel
+  Rodriguez Arnolds; el 31-ago Francisco dijo que es Jhosep Garcia. Samuel
+  bajo a `Directivo · Valuation` y perdio el chip.
+- **Trading por fin tiene lider**: Manuel Paz, que conserva el rol
+  `Director · Portafolio y Trading` que el mismo publico en el espejo.
+  Rafael Aliendre y Juan Pablo Diaz Cerda bajaron a `Directivo · Trading`,
+  el mismo patron que se habia aplicado en Portafolio.
+- **Juan Jose Limari ya no pertenece a Trading**: queda `Fundador` sin desk.
+- **Administracion (ADM) es area nueva.** Francisco puso a Benjamin Saez como
+  responsable "por el momento" pero eligio explicitamente que **nadie lleve el
+  chip "Dirige el area"** ahi. Benja sigue mostrandose solo como Presidente.
+
+### El orden de los desks vive en CINCO lugares
+
+Al agregar o mover un area hay que tocar los cinco o el sitio se desalinea:
+
+1. `datos/club.json` — `liderArea` de cada persona (fuente de verdad).
+2. `AREAS` de `generar_miembros.py` — con `pagina` si el area tiene una.
+3. `config.areas` de `datos/miembros.json` — se copia del anterior.
+4. §Areas de `index.html` — la lista de tabs Y su `.dp-view`, en el MISMO
+   orden: el conmutador trabaja por indice, no por codigo.
+5. `AC={...}` de `miembros/index.html` — el color del desk, dos veces.
+
+`index.html` trae ademas una copia embebida de `personas` como respaldo por si
+`datos/club.json` no carga; estaba desactualizada y se puso al dia.
+
+### Las paginas de area son UNA plantilla, no tres
+
+`portafolio/` y `trading/` se sacaron de `valuation/index.html` conservando el
+`<style>` y el `<script>` completos y todos los `id` (`heroBajada`,
+`valResumen`, `valPilares`, `valResponsables`, `tv*`, `valEventosGrid`). Solo
+cambian textos, metadatos, el `DATA` embebido, el JSON que cargan y el filtro
+de eventos. **Al cambiar una, mirar siempre si aplica a las otras dos.**
+
+Dos diferencias deliberadas entre ellas:
+
+- **Portafolio** no pide inscripciones con un Forms: el Torneo Portafolio 2026
+  ya esta en curso, asi que el CTA de esa seccion lleva al ranking en vivo y a
+  las bases. El mecanismo de `formUrl` sigue intacto por si algun dia se usa.
+- **Trading** no tiene torneo propio: su seccion va `hidden` con
+  `torneo.activo:false` y **por eso tampoco hay item "Torneo" en su nav**. Al
+  encenderla hay que devolverlo; el `_como_editar` del JSON lo recuerda.
+
+### El filete dorado, ahora tambien en las paginas de area
+
+Quien dirige el area lleva filete dorado al costado + chip "Dirige el area",
+igual que en §Nosotros de `index.html`. Se PORTO, no se reinvento, pero con un
+detalle: en el raiz la tarjeta es clara y el oro es `--gold`; en las paginas de
+area la seccion es oscura y el oro es `--acc`. El borde usa `--acc-dim`, que ya
+existia y es el mismo alfa .34 del original con el oro claro. El `:hover` se
+redefine en ambos lados porque la regla base de `.p-card` reemplaza el
+`box-shadow` completo y se comeria el filete.
+
+Quien lo lleva se marca con `lidera:true` en el `responsables` del JSON del
+area — uno solo por pagina.
+
+### La Mesa: un bug que introdujo este mismo cambio
+
+Al sacar a Limari de Trading quedo **nivel 1 y sin area**, y a la mesa se
+sienta solo quien es *nivel 1 CON area* (los arcos) o *nivel 0* (la cabecera):
+no calzaba en ninguno de los dos y **desaparecia del dibujo**. Paso a nivel 0,
+igual que David Gonzalez Canon, el otro fundador sin desk. El script de parche
+dejo una comprobacion: los 15 de la directiva tienen que aparecer, hoy 12 en
+los arcos y 3 en la cabecera.
+
+ADM no necesito nada: `codigos()` solo dibuja arco para desks con gente
+sentada, y ADM todavia no tiene segunda linea, asi que no sale como arco vacio
+y Benja sigue en el centro. El arco aparece solo cuando entre alguien.
+
+Ademas, `config.areas` traia `pagina` desde siempre y la mesa **nunca la
+usaba**: se entraba a un desk y no habia salida hacia su pagina. Ahora la
+cabecera del desk ofrece "Conocer el area" cuando esa area tiene una.
+
+### `datos/miembros.json` se parcheo A MANO, contra su propia nota
+
+145 de sus 160 fichas vienen del Excel de miembros del Drive, que no esta en el
+repo: regenerar sin `--excel` las borraria. **Cuando el Excel este a mano,
+correr `generar_miembros.py --excel <ruta>`** y el parche queda de sobra. Los
+`AREAS` y `CARGOS_DEMO` del generador ya quedaron alineados con esto, asi que
+una regeneracion futura no revierte nada.
+
+### Lo que se miro y NO se toco
+
+- El **Capitulo II de la historia** sigue diciendo "15 directores, 4 desks" y
+  "cuatro subareas". Es narrativa fundacional y ADM nacio despues, asi que
+  puede ser correcto tal cual; es decision de Francisco.
+- **`en/index.html`** sigue con "Four areas". Cambiarlo obliga a tocar
+  `despublicar_fiw.py`, que busca ESE texto exacto para sacar FIW del espejo.
+- El **nav principal** enlaza Valuation pero no Portafolio ni Trading, que
+  ahora tambien tienen pagina. Se dejo asi para no recargarlo; se entra desde
+  §Areas y desde el pie.
+- El chip `.p-tag` mide 8px (`font-size:.5rem`), bajo el umbral de 11px de
+  `verificar_movil.js`. Es el mismo tamano que ya tenia en el raiz; subirlo
+  obliga a subirlo en los dos lados para que no se desalineen.
+
+### Verificacion
+
+`verificar_paginas.js`: las 19 paginas cargan sin errores de consola ni
+archivos faltantes. `verificar_movil.js`: ninguna se sale del ancho a 390px.
+`verificar_sitio.py`: sin errores (los 3 avisos de numero de equipos son los
+historicos de siempre). `sitemap.xml` regenerado, 14 URLs.
+
+**Ojo con una falsa alarma**: medir `miembros/index.html` sola da 418 KB
+criticos y en el barrido completo da 217 KB. No es una regresion — es
+`datos/torneo.json` (209 KB), que en el barrido ya viene cacheado desde la
+portada. Al medir una pagina suelta con `--solo=`, paga todo lo que comparte
+con las demas.

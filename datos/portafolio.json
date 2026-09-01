@@ -1,0 +1,43 @@
+{
+  "_como_editar": "Textos y datos del área Portafolio (desk PRT). La página portafolio/index.html trae estos mismos valores embebidos en su objeto DATA y los sobreescribe con este archivo, así que para cambiar un texto basta editarlo acá. Qué activa cada cosa: 'bajada' es la frase bajo el título del hero; 'resumen' es la lista de párrafos de la sección 'Qué es Portafolio' (agregar o quitar un párrafo cambia la sección sola); 'pilares' son las 3 tarjetas de 'De la asignación al benchmark' (si agregas una cuarta se dibuja igual). TORNEO: a diferencia de Valuation, el Torneo Portafolio 2026 YA está en curso, así que el botón principal es 'torneo.rankingUrl' y lleva al ranking en vivo (torneo/index.html); 'torneo.basesUrl' agrega el botón 'Ver las bases' (hoy apunta al PDF de bases que ya está en documentos/). El mecanismo de 'torneo.formUrl' se dejó intacto por si algún día se necesita un formulario de inscripción: mientras esté vacío no aparece ningún botón de inscripción, y si le pegas un link de Google Forms aparece solo, junto al del ranking. Si pones 'torneo.activo' en false, la sección del torneo desaparece entera. Los campos de 'torneo.datos' con 'Por confirmar' se rellenan cuando tengas la info. OJO con 'Equipos en competencia': ese número tiene que calzar con datos/torneo.json (hoy 54, corte de la semana 15 al 21 · AGO · 2026); si un corte elimina equipos hay que actualizarlo acá también. RESPONSABLES: el orden de la lista es el orden en que se muestran y Francisco Valenzuela va primero por ser el director del área. Quien DIRIGE el área lleva además 'lidera': true: su tarjeta se dibuja con filete dorado al costado y el chip 'Dirige el área' (la misma jerarquía que ya se usa en la sección Nosotros del index.html de la raíz). Debe haber UNO SOLO por área — hoy Francisco Valenzuela — y el resto va sin el campo; si el campo falta o está en false, la tarjeta se ve normal. Las fotos se detectan solas desde fotos/directiva/<slug>.jpg (los 5 slug de esta lista ya tienen foto). ACTIVIDADES: la sección de eventos del área se alimenta de datos/eventos.json filtrando por area:\"portafolio\" y queda oculta mientras ningún evento tenga esa etiqueta (hoy ninguno la tiene). FOTOS DEL HERO: la tira de fondo del hero busca fotos/portafolio/1.jpg, 2.jpg, 3.jpg… (numeradas, sin saltos); mientras la carpeta no exista el hero se ve igual, sin errores.",
+  "bajada": "El área de FIG que gestiona carteras con visión top-down: asignación de activos, control de riesgo y decisiones medidas contra un benchmark.",
+  "resumen": [
+    "Portafolio es el desk de FEN Investment Group dedicado a la gestión de carteras: construir un portafolio con visión top-down, repartir el capital entre mercados y clases de activo, controlar el riesgo y medir cada decisión contra un benchmark.",
+    "Es el área que diseña y dirige el Torneo Portafolio, la competencia insignia del club, donde cada equipo gestiona una cartera simulada en Bloomberg y se evalúa con las mismas métricas que usa la industria: information ratio, retorno en exceso, ratio de Sharpe, VaR y máximo drawdown."
+  ],
+  "pilares": [
+    {"num": "01 · ASIGNACIÓN", "titulo": "Del mercado a la cartera", "texto": "Visión top-down: repartir el capital entre mercados, clases de activo y sectores antes de elegir un instrumento."},
+    {"num": "02 · RIESGO", "titulo": "Medir lo que se puede perder", "texto": "Volatilidad, VaR y máximo drawdown: un retorno solo se puede evaluar junto al riesgo que costó conseguirlo."},
+    {"num": "03 · BENCHMARK", "titulo": "Rendir cuentas contra el índice", "texto": "Cada decisión se compara con un benchmark. Lo que se busca no es un buen número suelto, sino ganarle al índice de forma consistente."}
+  ],
+  "torneo": {
+    "activo": true,
+    "titulo": "Torneo Portafolio 2026",
+    "bajada": "El Torneo Portafolio 2026 es la competencia insignia de FIG y esta área es la que lo diseña y lo dirige. Cada equipo gestiona una cartera simulada de USD 10 millones invertida en ETF de iShares y BlackRock, medida contra el iShares MSCI ACWI con métricas extraídas de Bloomberg. El torneo ya está en curso y el ranking se actualiza cada viernes.",
+    "estado": "Ranking en vivo",
+    "rankingUrl": "../torneo/index.html",
+    "formUrl": "",
+    "basesUrl": "../documentos/Bases_finales_torneo_portafolio_2026.pdf",
+    "cardTexto": "El ranking se publica cada viernes con el corte de la semana: puntaje, trayectoria de cada equipo y desglose de las cinco métricas.",
+    "datos": [
+      {"k": "Estado", "v": "En curso"},
+      {"k": "Equipos en competencia", "v": "54"},
+      {"k": "Capital simulado por cartera", "v": "USD 10 millones"},
+      {"k": "Universo de inversión", "v": "ETF de iShares / BlackRock"},
+      {"k": "Benchmark oficial", "v": "iShares MSCI ACWI"},
+      {"k": "Duración", "v": "11 de mayo al 2 de noviembre de 2026"},
+      {"k": "Ranking", "v": "Cada viernes · since-inception"},
+      {"k": "Ventanas de rebalanceo", "v": "Junio · agosto · octubre"},
+      {"k": "Final ante jurado", "v": "5 finalistas · 9 de noviembre de 2026"},
+      {"k": "Premios", "v": "Por confirmar"},
+      {"k": "Organiza", "v": "Área Portafolio · FIG"}
+    ]
+  },
+  "responsables": [
+    {"iniciales": "FV", "slug": "francisco-valenzuela", "nombre": "Francisco Valenzuela", "rol": "Director · Portafolio", "lidera": true, "detalle": "Dirige el área Portafolio. Co-fundador de FIG · infraestructura digital y plataforma web.", "linkedin": "https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/"},
+    {"iniciales": "MP", "slug": "manuel-paz", "nombre": "Manuel Paz", "rol": "Director · Portafolio y Trading", "detalle": "Co-fundador de FIG · comunicaciones, difusión y creador de la web original.", "linkedin": "https://www.linkedin.com/in/mpazq"},
+    {"iniciales": "AA", "slug": "agustin-arriagada", "nombre": "Agustín Arriagada", "rol": "Directivo · Portafolio", "detalle": "Co-fundador de FIG · monitor del Laboratorio Bloomberg FEN.", "linkedin": "https://www.linkedin.com/in/agustin-arriagada/"},
+    {"iniciales": "BD", "slug": "benjamin-disi", "nombre": "Benjamín Disi", "rol": "Directivo · Portafolio", "detalle": "Magíster en Finanzas (en curso) · tutor de Finanzas II y monitor del Lab. Bloomberg Itaú.", "linkedin": "https://www.linkedin.com/in/benjam%C3%ADn-disi-hernandez-12b570297"},
+    {"iniciales": "BS", "slug": "benjamin-solis", "nombre": "Benjamín Solís", "rol": "Directivo · Portafolio", "detalle": "Co-fundador de FIG.", "linkedin": "https://www.linkedin.com/in/benjamin-solis"}
+  ]
+}

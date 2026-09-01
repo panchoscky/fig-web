@@ -195,6 +195,17 @@ button{cursor:pointer;border:none;background:none}
 .area__hd .cod{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.4em;color:var(--ac)}
 .area__hd h2{font-family:var(--f-disp);font-size:clamp(1.8rem,3.8vw,2.6rem);font-weight:600;margin-top:6px}
 .area__hd p{color:rgba(247,244,236,.6);max-width:58ch;margin:12px auto 0;font-size:.98rem}
+/* Salida del desk hacia su propia pagina. Misma pastilla que .volver, pero
+   en el flujo del encabezado y no fija: son dos salidas distintas (volver a
+   la mesa / entrar al area) y no pueden pisarse una a la otra. Solo aparece
+   si esa area declara `pagina` en config.areas. */
+.area__pag{display:inline-flex;align-items:center;gap:8px;margin-top:16px;
+  font-family:var(--f-mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;
+  border:1px solid var(--line-d);border-radius:999px;padding:9px 20px;
+  color:var(--ac,var(--gold));transition:.22s var(--ease)}
+.area__pag:hover{border-color:var(--ac,var(--gold));background:rgba(255,255,255,.04)}
+.area__pag i{font-style:normal;transition:transform .22s var(--ease)}
+.area__pag:hover i{transform:translateX(4px)}
 .volver{position:fixed;top:88px;left:50%;transform:translateX(-50%);z-index:52;
   font-family:var(--f-mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;
   border:1px solid var(--line-d);border-radius:999px;padding:9px 20px;
@@ -480,10 +491,11 @@ footer{background:var(--navy-deep);border-top:1px solid var(--line-d);padding:56
       <div class="f-col">
         <h4>Áreas</h4>
         <ul>
-          <li><a href="../index.html#areas">Portafolio</a></li>
-          <li><a href="../index.html#areas">Trading</a></li>
+          <li><a href="../portafolio/index.html">Portafolio</a></li>
+          <li><a href="../trading/index.html">Trading</a></li>
           <li><a href="../valuation/index.html">Valuation</a></li>
           <li><a href="../fiw/index.html">FEN Investment Woman</a></li>
+          <li><a href="../index.html#areas">Administración</a></li>
         </ul>
       </div>
       <div class="f-col">
@@ -552,7 +564,7 @@ var esc=function(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){
 var RM=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
 
 var DATA={miembros:[],config:{areas:[]}}, TORNEO=null, LISTA=[], FILTRO=[], SEL=-1;
-var AC={PRT:"#D4AF37",TRD:"#5FC08B",VAL:"#7BA7DE",FIW:"#E0A3A3"};
+var AC={PRT:"#D4AF37",TRD:"#5FC08B",VAL:"#7BA7DE",FIW:"#E0A3A3",ADM:"#B0A7D6"};
 var AREA={}, ABIERTA=null;
 
 var burger=$("#burger"),mmenu=$("#mmenu");
@@ -972,7 +984,11 @@ function mostrarArea(codigo,capa){
   var base=LISTA.filter(function(m){return m.area===codigo&&nivel(m)>=3});
 
   var h='<div class="area__hd"><div class="cod">'+esc(codigo)+'</div>'
-    +'<h2>'+esc(a.nombre)+'</h2>'+(a.resumen?'<p>'+esc(a.resumen)+'</p>':"")+'</div>';
+    +'<h2>'+esc(a.nombre)+'</h2>'+(a.resumen?'<p>'+esc(a.resumen)+'</p>':"")
+    /* `pagina` es relativa a la raiz del sitio y la mesa cuelga de /miembros/ */
+    +(a.pagina?'<a class="area__pag" href="../'+esc(a.pagina)+'">'
+      +'Conocer el área <i aria-hidden="true">→</i></a>':"")
+    +'</div>';
   if(lider)h+='<div class="nivel nivel--raiz"><span class="nivel__lbl">Dirige el desk</span>'
     +'<div class="nivel__scroll"><div class="fila fila--raiz fila--uno">'
     +persona(lider,"p--lider",0)+'</div></div></div>';
@@ -1296,7 +1312,7 @@ function tarjeta(m){
   var W=1080,H=1350,cv=document.createElement("canvas");
   cv.width=W;cv.height=H;
   var x=cv.getContext("2d");
-  var col=({PRT:"#D4AF37",TRD:"#5FC08B",VAL:"#7BA7DE",FIW:"#E0A3A3"})[m.area]||"#D4AF37";
+  var col=({PRT:"#D4AF37",TRD:"#5FC08B",VAL:"#7BA7DE",FIW:"#E0A3A3",ADM:"#B0A7D6"})[m.area]||"#D4AF37";
 
   x.fillStyle="#0A1128";x.fillRect(0,0,W,H);
   var g=x.createRadialGradient(W/2,330,20,W/2,330,720);

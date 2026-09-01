@@ -59,17 +59,21 @@ from generar_torneo import leer_hoja_con_encabezado, normalizar, slug  # noqa: E
 DATOS = RAIZ / "datos"
 SALIDA = DATOS / "miembros.json"
 
-# Las 4 áreas, en el mismo orden y con los mismos códigos que los desks de
+# Las 5 áreas, en el mismo orden y con los mismos códigos que los desks de
 # §Áreas en index.html. `pagina` solo la tienen las que ya tienen página propia.
+# ADM nació el 2026-08-31 y todavía no tiene página ni líder declarado: por
+# decisión de Francisco nadie lleva el chip "Dirige el área" en ese desk.
 AREAS = [
-    {"codigo": "PRT", "nombre": "Portafolio",
+    {"codigo": "PRT", "nombre": "Portafolio", "pagina": "portafolio/index.html",
      "resumen": "Construcción y gestión de carteras con disciplina de benchmark. Dirige el Torneo Portafolio."},
-    {"codigo": "TRD", "nombre": "Trading",
+    {"codigo": "TRD", "nombre": "Trading", "pagina": "trading/index.html",
      "resumen": "Ejecución, análisis técnico y operación en el Laboratorio Bloomberg."},
     {"codigo": "VAL", "nombre": "Valuation", "pagina": "valuation/index.html",
      "resumen": "Research y valorización de compañías reales con metodologías de la industria."},
     {"codigo": "FIW", "nombre": "FEN Investment Woman", "pagina": "fiw/index.html",
      "resumen": "Comunidad de mujeres de FIG: mentoría, referentes y actividades propias."},
+    {"codigo": "ADM", "nombre": "Administración",
+     "resumen": "Gestión interna, alianzas y la operación que sostiene al resto de los desks."},
 ]
 # Cómo se reconoce el área en el texto libre de `rol`/`detalle` de club.json.
 PISTAS_AREA = {
@@ -77,6 +81,7 @@ PISTAS_AREA = {
     "TRD": ("trading",),
     "VAL": ("valuation",),
     "FIW": ("fen investment woman", "investment woman", "fiw"),
+    "ADM": ("administración", "administracion", "administrativa"),
 }
 # Orden jerárquico. Determina cómo se apila el organigrama y el orden por defecto.
 JERARQUIA = ["Presidente", "Vicepresidente", "Fundador", "Director",
@@ -536,23 +541,25 @@ def candidatos_sin_ficha(miembros, representados=frozenset()):
 CARGOS_DEMO = {
     "francisco-valenzuela":     ("Director · Portafolio", "PRT", 0, True),
     "agustin-arriagada":        ("Director Técnico · Portafolio", "PRT", 1, False),
-    "manuel-paz":               ("Director de Comunicaciones · Portafolio", "PRT", 1, False),
     "benjamin-solis":           ("Director de Torneo · Portafolio", "PRT", 1, False),
     "benjamin-disi":            ("Director Académico · Portafolio", "PRT", 1, False),
-    "samuel-rodriguez-arnolds": ("Encargado · Valuation", "VAL", 0, True),
-    "jhosep-garcia":            ("Vicepresidente", "VAL", 0, False),
+    "jhosep-garcia":            ("Vicepresidente", "VAL", 0, True),
+    "samuel-rodriguez-arnolds": ("Directivo · Valuation", "VAL", 1, False),
     "delia-avilan":             ("Encargada · FEN Investment Woman", "FIW", 0, True),
     "gabriela-dominguez":       ("Directora de Comunidad · FIW", "FIW", 1, False),
     "victoria-espinoza":        ("Directora de Mentorías · FIW", "FIW", 1, False),
-    "rafael-aliendre":          ("Director · Trading", "TRD", 0, True),
-    "juan-jose-limari":         ("Director de Mesa · Trading", "TRD", 1, False),
-    "juan-pablo-diaz-cerda":    ("Director de Research · Trading", "TRD", 1, False),
+    "manuel-paz":               ("Director · Portafolio y Trading", "TRD", 0, True),
+    "rafael-aliendre":          ("Directivo · Trading", "TRD", 1, False),
+    "juan-pablo-diaz-cerda":    ("Directivo · Trading", "TRD", 1, False),
+    # Juan José Limari ya no pertenece a Trading (2026-08-31): queda como
+    # fundador sin desk, así que no va en esta tabla.
+    "benjamin-saez-molina":     ("Presidente", "ADM", 0, False),
 }
 # (nombre, cargo, área, nivel). Personas que NO existen.
 FICTICIOS_DEMO = [
     ("Camila Ossandón Vera",   "Analista Junior · Portafolio",      "PRT", 2),
     ("Tomás Iriarte Prado",    "Analista Junior · Portafolio",      "PRT", 2),
-    ("Josefa Meneses Lira",    "Coordinadora Administrativa · PRT", "PRT", 2),
+    ("Josefa Meneses Lira",    "Coordinadora Administrativa · ADM", "ADM", 2),
     ("Ignacio Ferrada Soto",   "Analista Junior · Trading",         "TRD", 2),
     ("Antonia Bulnes Reyes",   "Asistente de Mesa · Trading",       "TRD", 2),
     ("Martín Zúñiga Alcaíno",  "Analista Junior · Valuation",       "VAL", 2),
