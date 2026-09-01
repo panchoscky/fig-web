@@ -1673,6 +1673,7 @@ python verificar_sitio.py
 python -m http.server 8000            # en otra terminal
 node verificar_paginas.js
 node verificar_movil.js               # telefono
+node verificar_menu_movil.js          # SOLO si se toco el menu movil
 python sincronizar_espejo.py --aplicar
 python despublicar_fiw.py --aplicar   # SIEMPRE despues del anterior
 cd ../mpazq-afk.github.io && python generar_sitemap.py
@@ -1806,7 +1807,8 @@ scrollea entero cuando no. Con 13 enlaces (999px) las tres pantallas pasan.
 **`verificar_menu_movil.js` (nuevo)**: ningun verificador abria el menu, por
 eso el bug vivio tanto. Abre `#mmenu` en los tres telefonos y avisa que enlace
 queda inalcanzable. **Correrlo cada vez que se agregue o saque un enlace del
-menu movil**; va junto a `verificar_movil.js` en la rutina.
+menu movil**; ya esta en la rutina semanal, justo despues de
+`verificar_movil.js`.
 
 ### Lo que se miro y NO se toco
 
