@@ -346,9 +346,19 @@ body.on-light .rail-node .rn-lab{color:#A8871C;text-shadow:none}
 
 .m-menu{
   position:fixed;inset:0;background:rgba(6,11,28,.97);backdrop-filter:blur(12px);
-  z-index:1100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  z-index:1100;display:flex;flex-direction:column;align-items:center;gap:6px;
   opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility .45s;
+  /* Antes esto era `justify-content:center` a secas y alcanzaba. Con 13
+     enlaces el menu mide ~780px: entra en un telefono de 844px pero no en uno
+     de 667px, y un flex centrado que desborda deja los primeros items FUERA
+     de la pantalla, inalcanzables (no genera scroll hacia arriba). Con
+     flex-start + margenes automaticos en los extremos queda igual de centrado
+     mientras sobre espacio, y cuando no, se scrollea entero. */
+  justify-content:flex-start;overflow-y:auto;overscroll-behavior:contain;
+  padding:24px 20px;
 }
+.m-menu>:first-child{margin-top:auto}
+.m-menu>:last-child{margin-bottom:auto}
 .m-menu.open{opacity:1;visibility:visible}
 .m-menu a{
   font-family:var(--f-disp);font-size:clamp(1.7rem,7vw,2.4rem);font-weight:600;
@@ -1097,6 +1107,8 @@ body.has-ticker{padding-bottom:38px}
       <li class="nav__drop">
         <a href="#areas" aria-haspopup="true">Áreas ▾</a>
         <div class="nav__drop-menu">
+          <a href="portafolio/index.html">Portafolio</a>
+          <a href="trading/index.html">Trading</a>
           <a href="valuation/index.html">Valuation</a>
         </div>
       </li>
@@ -1133,6 +1145,8 @@ body.has-ticker{padding-bottom:38px}
   <a href="#nosotros">Nosotros</a>
   <a href="#torneo">Torneo 2026</a>
   <a href="#areas">Áreas</a>
+  <a href="portafolio/index.html">Portafolio</a>
+  <a href="trading/index.html">Trading</a>
   <a href="valuation/index.html">Valuation</a>
   <a href="#equipo">Equipo</a>
   <a href="miembros/index.html">Miembros</a>

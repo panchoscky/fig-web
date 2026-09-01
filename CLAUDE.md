@@ -1778,6 +1778,36 @@ correr `generar_miembros.py --excel <ruta>`** y el parche queda de sobra. Los
 `AREAS` y `CARGOS_DEMO` del generador ya quedaron alineados con esto, asi que
 una regeneracion futura no revierte nada.
 
+### El nav, y un menu movil que ya estaba roto
+
+Francisco pidio Portafolio y Trading en el nav principal. En escritorio NO
+hicieron falta items nuevos: ya existia el desplegable **"Areas"**, que traia
+un solo enlace (Valuation) porque era la unica area con pagina. Ahora trae
+las tres, en el orden canonico. FIG Woman sigue en "Comunidad" a proposito.
+
+En movil el menu es una lista plana, y ahi aparecio lo importante:
+`.m-menu` era un flex `justify-content:center` **sin scroll**. Cuando la lista
+pasa del alto de la pantalla, un flex centrado empuja los PRIMEROS items a
+offset negativo: quedan fuera del viewport y **no hay barra que arrastrar**.
+
+Medido sobre lo que ya estaba publicado, con 11 enlaces:
+
+| Telefono | Contenido | Resultado |
+|---|---|---|
+| 390x844 | 844px | entraba justo |
+| 375x667 | 740px | **"Nosotros" y "Torneo 2026" inalcanzables** |
+| 360x640 | 727px | **igual** |
+
+O sea **no lo rompio este cambio, ya estaba roto**; sumar dos enlaces solo lo
+habria empeorado. Arreglado con `flex-start` + `overflow-y:auto` + margenes
+automaticos en el primer y ultimo hijo: centra mientras sobre espacio y
+scrollea entero cuando no. Con 13 enlaces (999px) las tres pantallas pasan.
+
+**`verificar_menu_movil.js` (nuevo)**: ningun verificador abria el menu, por
+eso el bug vivio tanto. Abre `#mmenu` en los tres telefonos y avisa que enlace
+queda inalcanzable. **Correrlo cada vez que se agregue o saque un enlace del
+menu movil**; va junto a `verificar_movil.js` en la rutina.
+
 ### Lo que se miro y NO se toco
 
 - El **Capitulo II de la historia** sigue diciendo "15 directores, 4 desks" y
@@ -1785,9 +1815,6 @@ una regeneracion futura no revierte nada.
   puede ser correcto tal cual; es decision de Francisco.
 - **`en/index.html`** sigue con "Four areas". Cambiarlo obliga a tocar
   `despublicar_fiw.py`, que busca ESE texto exacto para sacar FIW del espejo.
-- El **nav principal** enlaza Valuation pero no Portafolio ni Trading, que
-  ahora tambien tienen pagina. Se dejo asi para no recargarlo; se entra desde
-  §Areas y desde el pie.
 - El chip `.p-tag` mide 8px (`font-size:.5rem`), bajo el umbral de 11px de
   `verificar_movil.js`. Es el mismo tamano que ya tenia en el raiz; subirlo
   obliga a subirlo en los dos lados para que no se desalineen.
