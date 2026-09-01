@@ -551,9 +551,12 @@ CARGOS_DEMO = {
     "manuel-paz":               ("Director · Portafolio y Trading", "TRD", 0, True),
     "rafael-aliendre":          ("Directivo · Trading", "TRD", 1, False),
     "juan-pablo-diaz-cerda":    ("Directivo · Trading", "TRD", 1, False),
-    # Juan José Limari ya no pertenece a Trading (2026-08-31): queda como
-    # fundador sin desk, así que no va en esta tabla.
-    "benjamin-saez-molina":     ("Presidente", "ADM", 0, False),
+    # Juan José Limari salió de Trading el 2026-08-31 y el 2026-09-01 entró a
+    # Administración, junto a David González. Benjamín Saez dirige ese desk
+    # sin dejar la presidencia.
+    "benjamin-saez-molina":     ("Presidente", "ADM", 0, True),
+    "david-gonzalez-canon":     ("Directivo · Administración", "ADM", 1, False),
+    "juan-jose-limari":         ("Directivo · Administración", "ADM", 1, False),
 }
 # (nombre, cargo, área, nivel). Personas que NO existen.
 FICTICIOS_DEMO = [

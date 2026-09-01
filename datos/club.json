@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-08-31",
+  "actualizado": "2026-09-01",
   "config": {
     "urls": {
       "torneo": "torneo/index.html",
@@ -46,13 +46,15 @@
         "iniciales": "BS",
         "nombre": "Benjamín Sáez Molina",
         "rol": "Presidente",
-        "detalle": "Co-fundador de FEN Investment Group.",
+        "liderArea": "ADM",
+        "detalle": "Co-fundador · Dirige el área Administración.",
         "destacado": true,
         "linkedin": "https://www.linkedin.com/in/benjamin-saez-molina/",
         "perfil": {
-          "bio": "Presidente y co-fundador de FEN Investment Group. Lidera la dirección estratégica del club, desde donde se articulan el Torneo Portafolio y las alianzas con la industria. Realizó su práctica profesional en Wealth Management en Itaú.",
+          "bio": "Presidente y co-fundador de FEN Investment Group. Lidera la dirección estratégica del club, desde donde se articulan el Torneo Portafolio y las alianzas con la industria, y dirige el área Administración. Realizó su práctica profesional en Wealth Management en Itaú.",
           "hitos": [
             "Presidente de FEN Investment Group",
+            "Dirige el área Administración",
             "Co-fundador de FIG",
             "Práctica en Wealth Management · Itaú"
           ]
@@ -178,11 +180,12 @@
       {
         "iniciales": "JL",
         "nombre": "Juan José Limari",
-        "rol": "Fundador",
-        "detalle": "Co-fundador · Itaú, mesa de dinero.",
+        "rol": "Directivo · Administración",
+        "detalle": "Co-fundador · Administración · Itaú, mesa de dinero.",
         "perfil": {
           "bio": "Co-fundador de FEN Investment Group. Realizó una práctica extracurricular en la mesa de dinero del Banco Itaú Chile (Liquidez y Funds Transfer Pricing), donde desarrolló un valorizador automático de renta fija (Z-spread) para futuras emisiones de bonos del banco. Ganó el primer lugar del Trading Challenge Itaú-FEN 2025 y es ayudante coordinador del curso Introducción a las Finanzas de la FEN.",
           "hitos": [
+            "Directivo · Administración",
             "Fundador de FIG",
             "Práctica extracurricular · Mesa de dinero, Banco Itaú Chile",
             "1er lugar · Trading Challenge Itaú-FEN 2025",
@@ -210,12 +213,13 @@
       {
         "iniciales": "DG",
         "nombre": "David González Cañon",
-        "rol": "Fundador",
-        "detalle": "Práctica en HSBC · ex Banco BICE · Coordinador Lab. Bloomberg FEN.",
+        "rol": "Directivo · Administración",
+        "detalle": "Co-fundador · Administración · Práctica en HSBC · ex Banco BICE · Coordinador Lab. Bloomberg FEN.",
         "linkedin": "https://www.linkedin.com/in/davidgonzalezca%C3%B1on/",
         "perfil": {
           "bio": "Co-fundador de FEN Investment Group. Realizó su práctica en HSBC apoyando a banqueros de Instituciones Financieras, Sector Público y Grandes Corporativos, y antes se desempeñó como Analista de Riesgo Financiero Junior en Banco BICE. En la FEN ha sido coordinador del Laboratorio Bloomberg y ayudante de cursos.",
           "hitos": [
+            "Directivo · Administración",
             "Fundador de FIG",
             "Práctica · HSBC, Large Corporates & Institutional Banking",
             "Analista de Riesgo Financiero Junior · Banco BICE",

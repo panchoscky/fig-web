@@ -1833,3 +1833,132 @@ criticos y en el barrido completo da 217 KB. No es una regresion — es
 `datos/torneo.json` (209 KB), que en el barrido ya viene cacheado desde la
 portada. Al medir una pagina suelta con `--solo=`, paga todo lo que comparte
 con las demas.
+
+
+## Tanda del 2026-09-01: Administracion se vuelve un desk de verdad
+
+Francisco: *"en la pagina de miembros, en la mesa, aun no veo el area de
+administracion, en ella pon a benjamin saes, davis y limari"*.
+
+### Por que no se veia
+
+No era un bug. La Mesa solo dibuja el arco de un desk si hay alguien
+**sentado**, y `sentados()` pide `area===codigo && (nivel===1 || lidera)`.
+Benjamin Saez era nivel 0 sin `lidera`, asi que caia en la **cabecera** (el
+centro) y no en un arco; David y Limari no tenian area. ADM existia en los
+datos pero no tenia a nadie que dibujar.
+
+El detalle bonito: **esos tres eran exactamente los del centro**, bajo el
+rotulo "PRESIDENCIA". Al pasarlos al desk la cabecera quedo vacia y el centro
+paso a mostrar el sello FIG. Eso **ya estaba contemplado** en el codigo
+(`cab.length ? "PRESIDENCIA" : "FEN INVESTMENT GROUP"`), no hubo que tocarlo.
+Ahora los 15 de la directiva se sientan en un desk y ninguno flota al centro.
+
+### Cambio de decision: ADM si tiene lider
+
+El 31-ago Francisco habia elegido que Administracion fuera **sin** chip de
+lider. El 01-sep lo cambio: **Benjamin Saez la dirige**, con chip, y sigue
+siendo Presidente. David Gonzalez y Juan Jose Limari entran como
+`Directivo · Administracion`, conservando su condicion de cofundadores en el
+detalle y en los hitos (mismo patron que Rafael Aliendre en Trading).
+
+### Dos trampas que aparecieron
+
+**1. El area se deduce del TEXTO, no de un campo.** `generar_miembros.py` usa
+`area_de_texto(rol, detalle)` — lee **solo `rol` y `detalle`, nunca la bio** —
+y ademas descarta `liderArea` si no calza con el area deducida. El rol de
+Benjamin es "Presidente" a secas, asi que sin escribir "Administracion" en su
+**detalle** su `liderArea:"ADM"` se habria caido en la proxima regeneracion.
+El parche dejo una comprobacion que replica `area_de_texto` y falla si los
+tres no dan ADM.
+
+**2. Presidir Y dirigir un area a la vez no existia.** `.p-card--lead` (filete
+arriba, presidencia) y `.p-card--area` (filete al costado, dirige un desk)
+escriben **las dos el `box-shadow` completo**, asi que ganaba la ultima
+declarada y el presidente perdia su filete de arriba. Se agrego la regla
+combinada `.p-card--lead.p-card--area` con los dos filetes, mas su `:hover`.
+
+### Verificacion
+
+Medido en el DOM ya pintado de `miembros/index.html`: cinco arcos
+(PRT, TRD, VAL, FIW, **ADM · ADMINISTRACION**), **15 asientos**, centro en
+"FEN INVESTMENT GROUP / FIG". `verificar_paginas.js`, `verificar_movil.js` y
+`verificar_sitio.py` sin errores.
+
+
+## Tanda del 2026-09-01 (2): Portafolio deja de ser un clon de la plantilla
+
+Francisco: *"me gustaria algo mas de inovasion con la pagina de portafolio,
+quiero que se sienta como una pagina de FIG, pero que tambien tenga sierta
+personalidad propia"*. Eligio hacer **las dos cosas**: datos vivos Y
+tratamiento visual propio.
+
+El problema de fondo era real: `portafolio/`, `trading/` y `valuation/` eran
+la misma pagina con otros textos.
+
+### Donde se rompe la simetria (y donde NO)
+
+Lo unico que se rompe a proposito es el **hero**. Valuation y Trading llevan
+detras del titulo una tira de fotos (`.photo-marquee`, sondeando
+`fotos/<area>/`). En Portafolio esa tira y los anillos salieron, y el fondo
+pasa a ser un **campo de las 54 trayectorias reales** del torneo, una
+polilinea por equipo, sin ejes ni rotulos: ahi son textura, no lectura.
+El argumento: este desk se presenta con los datos que produce.
+
+**`fotos/portafolio/` ya no se lee.** El mecanismo se retiro con la tira; esta
+anotado en el `_como_editar` para que nadie llene una carpeta muerta.
+
+Lo que NO cambia: navy + oro, tipografias autoalojadas, nav, pie con el
+credito, preloader y beacon. Se sumo un acento secundario `--bmk` (#7BA7DE)
+que **ya es el token con que el sitio dibuja el ACWI** en `index.html`, las
+pantallas e `informe/`. Vale doble aca: oro = torneo, azul = benchmark.
+
+### Los datos vivos, en dos tiempos
+
+Mismo enfoque que `torneo/index.html`, y por el mismo motivo (`torneo.json`
+pesa 205 KB y el 75% es historial):
+
+1. `datos/torneo-tabla.json` (~7 KB) -> cinta del hero, cifras del corte y las
+   5 metricas, de inmediato. Si no existe, cae al completo.
+2. `datos/torneo.json` en tiempo ocioso -> historial -> campo del hero y
+   grafico. Con `saveData` o en 2G no se pide.
+
+**§El corte** trae un grafico que no existe en ninguna otra pagina: **mediana
+de los 54 equipos + banda intercuartil contra el ACWI**, semana a semana. Se
+eligio mediana+IQR y no un promedio porque las 54 trayectorias crudas van de
+-11,3% a +22,1% y aplastaban las dos lineas que importan.
+
+**§Como se evalua** explica las 5 metricas, que es lo que de verdad distingue
+al desk: aca una cartera no se juzga por rentabilidad sola. **El peso de cada
+metrica no esta escrito en ninguna parte**: se deriva del `max(puntosDetalle)`
+sobre los 54 equipos, porque por percentil continuo el mejor de cada metrica
+se lleva el peso completo. Da 30/25/15/15/15. Si cambia la formula, la pagina
+se entera sola.
+
+De paso murio otra cifra a mano: "Equipos en competencia" ahora lleva
+`vLive:"equipos"` y sale del corte vigente.
+
+### Verificado a mano, no solo por el informe del agente
+
+Contrastado contra `datos/torneo.json` con Python: 54 equipos, semana 15,
+corte 21-AGO-2026, puntero *Beta capital* 93,26, ultimo 1,58, rango 91,68, y
+los pesos 30/25/15/15/15 salen efectivamente de los maximos por metrica.
+
+**Degradacion probada bloqueando los JSON en el navegador**, tres escenarios
+-- sin ningun dato del torneo, sin el historial, y completo. En los tres:
+cero "NaN", cero desborde horizontal, los 6 responsables pintados con UN solo
+filete, cero excepciones JS. Lo unico que cambia es cuanto texto queda en pie
+(6508 / 7454 / 8103 caracteres): las piezas sin dato simplemente no se
+muestran.
+
+`verificar_paginas.js` (las 19 paginas), `verificar_movil.js`,
+`verificar_menu_movil.js` y `verificar_sitio.py`: sin errores. Grep de
+recursos externos en la pagina: ninguno.
+
+### Detalle que se repitio
+
+El menu movil de Portafolio paso de 5 a 7 enlaces, asi que hubo que portarle
+el mismo arreglo de scroll que se le hizo a `index.html` el 31-ago
+(`flex-start` + `overflow-y:auto` + margenes automaticos). **Es el segundo
+menu que se topa con esto**: al agregar enlaces a CUALQUIER `.m-menu`, correr
+`verificar_menu_movil.js --pag=<la pagina>`.
