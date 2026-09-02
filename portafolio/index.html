@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portafolio — FIG</title>
 <meta name="description" content="Portafolio: el área de FEN Investment Group dedicada a la gestión de carteras, la asignación de activos y el control de riesgo. Es el área que dirige el Torneo Portafolio 2026. Universidad de Chile.">
-<meta name="theme-color" content="#0A1128">
+<meta name="theme-color" content="#08213F">
 <link rel="canonical" href="https://feninvestmentgroup.com/portafolio/">
 <meta property="og:url" content="https://feninvestmentgroup.com/portafolio/">
 <meta property="og:title" content="Portafolio — FIG">
@@ -28,8 +28,7 @@
 /* ============================================================================
    PORTAFOLIO — página del área
    Nació como copia de valuation/index.html y conserva de ella el sistema
-   entero: la misma paleta navy + oro (NO tiene paleta propia — la única con
-   paleta propia es FIW), las mismas tipografías autoalojadas de fuentes/, el
+   entero: las mismas tipografías autoalojadas de fuentes/, el
    mismo nav, preloader, pie y beacon, y los mismos id de las secciones
    compartidas (heroBajada, valResumen, valPilares, valResponsables, tv*,
    valEventosGrid), para que un arreglo en una de las tres páginas de área se
@@ -46,8 +45,11 @@
      · §El corte (#corte) — cifras y gráfico en vivo del torneo;
      · §Cómo se evalúa (#metricas) — las 5 métricas con su peso real;
      · un acento secundario con significado, el azul del benchmark (--bmk),
-       que el sitio ya usa para el ACWI en otras páginas. El oro sigue siendo
-       el acento principal en todo lo demás.
+       que el sitio ya usa para el ACWI en otras páginas;
+       PALETA PROPIA desde el 2026-09-02 (decisión de la directiva): azul y
+       naranja de Itaú + grafito de BlackRock, los dos sponsors del torneo.
+       Es la segunda página con paleta propia, después de fiw/. El detalle y
+       los contrastes medidos están en el bloque :root.
    Ninguna de esas piezas tiene una cifra escrita a mano: todas salen de
    ../datos/torneo-tabla.json y ../datos/torneo.json, y si esos archivos no
    están, se ocultan solas sin dejar huecos (ver el bloque "RANKING EN VIVO
@@ -65,33 +67,50 @@
      gris claro sobre el navy, y pinta el lienzo en blanco antes de la primera
      pintada: en un sitio 100% oscuro se ve como un destello o una barra blanca. */
   color-scheme:dark;
-  --navy-deep:#060B1C; --navy:#0A1128; --navy-panel:#101731;
-  --acc:#D4AF37;          /* oro principal   */
-  --acc-light:#EBD388;    /* oro claro       */
-  --acc-deep:#9E7E1E;     /* oro profundo    */
-  --acc-warm:#E8C972;     /* oro cálido      */
-  --acc-dim:rgba(212,175,55,.34);
-  --acc-faint:rgba(212,175,55,.12);
+  /* PALETA PROPIA DE PORTAFOLIO — decisión de la directiva (2026-09-02).
+     Este desk se alinea con los dos sponsors del Torneo Portafolio: el azul
+     y el naranja de Itaú, y el grafito de BlackRock, dueña del universo de
+     ETF iShares con el que compiten los equipos. Es la segunda página del
+     sitio con paleta propia, después de fiw/. El resto sigue en navy + oro.
+     Los NOMBRES de las variables no cambian (--acc, --acc-light…): así el
+     resto del CSS y los scripts de verificación siguen calzando, y volver
+     atrás es reescribir este bloque y nada más.
+     Contraste WCAG medido antes de aplicar (texto sobre su fondo real):
+       --acc      sobre --navy   5.30  AA
+       --acc-light sobre --navy  7.65  AAA
+       --acc-deep sobre --paper  4.80  AA   (el oro que reemplaza daba 3.68: NO pasaba)
+       --bmk      sobre --navy   6.48  AA
+     El naranja y el azul del benchmark se separan MÁS que el par oro/azul
+     anterior, así que los gráficos quedan mejor, no peor. */
+  --navy-deep:#04162B; --navy:#08213F; --navy-panel:#0E2B4E;
+  --acc:#EC7000;          /* naranja Itaú          */
+  --acc-light:#FF9A3C;    /* naranja claro         */
+  --acc-deep:#B35400;     /* naranja profundo      */
+  --acc-warm:#F2A25C;     /* naranja cálido        */
+  --acc-dim:rgba(236,112,0,.34);
+  --acc-faint:rgba(236,112,0,.12);
+  /* Grafito BlackRock: superficie de las tarjetas. No es un acento, es
+     estructura — por eso nunca lleva texto encima que no sea marfil. */
+  --graph:#22252B;
   /* ACENTO SECUNDARIO — el azul del benchmark.
-     Portafolio NO cambia de paleta: sigue siendo navy + oro como el resto del
-     sitio (la única área con paleta propia es FIW). Lo que suma es un acento
-     con SIGNIFICADO, no decorativo: este azul ya es el token con que todo el
+     Sobrevive intacto al cambio de paleta, y a propósito: este azul ya es el
+     token con que todo el
      sitio dibuja el iShares MSCI ACWI (index.html, torneo/pantalla.html,
      pantalla-facultad.html, informe/). Acá vale doble, porque este es el desk
      que se mide contra un índice: el oro es siempre el torneo, el azul es
      siempre el benchmark, y esa lectura ya viene aprendida de las otras
      páginas. Fuera de los gráficos no se usa para nada.
-     Nota de validación: el par oro/azul queda fuera de la banda de luminosidad
-     del validador de paletas (los dos son claros sobre fondo oscuro, que es
-     inherente a este sitio), pero su separación es ΔE 22.9 con daltonismo y
-     23.5 en visión normal — muy por sobre el piso — y ambas series van además
-     con leyenda, rótulo directo y tabla de datos. Misma decisión deliberada
-     que ya tomó informe/index.html. */
+     Nota de validación: el par naranja/azul queda fuera de la banda de
+     luminosidad del validador de paletas (los dos son claros sobre fondo
+     oscuro, inherente a este sitio), pero su separación es aún mayor que la
+     del par oro/azul que reemplaza, y ambas series van además con leyenda,
+     rótulo directo y tabla de datos. Misma decisión deliberada que ya tomó
+     informe/index.html. */
   --bmk:#7BA7DE;         /* azul ACWI sobre fondo oscuro */
   --bmk-deep:#3C6DA8;    /* azul ACWI sobre fondo claro  */
   --bmk-faint:rgba(123,167,222,.16);
   --ivory:#F9F6EF; --paper:#FCFAF3; --ink:#141019; --ink-soft:#5A5347;
-  --line-l:rgba(20,16,25,.13); --line-d:rgba(212,175,55,.2);
+  --line-l:rgba(20,16,25,.13); --line-d:rgba(236,112,0,.2);
   --f-disp:"Playfair Display",Georgia,serif;
   --f-body:"Inter",-apple-system,"Segoe UI",sans-serif;
   --f-mono:"IBM Plex Mono","SF Mono",monospace;
@@ -127,11 +146,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .mono-tag{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);border:1px solid var(--acc-dim);border-radius:100px;padding:5px 13px;display:inline-block}
 .btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:.92rem;padding:15px 30px;border-radius:2px;transition:transform .4s var(--ease),box-shadow .4s,background .35s,color .35s,border-color .35s;white-space:nowrap}
 .btn--acc{background:var(--acc);color:var(--navy)}
-.btn--acc:hover{background:var(--acc-light);transform:translateY(-2px);box-shadow:0 16px 38px -12px rgba(212,175,55,.5)}
+.btn--acc:hover{background:var(--acc-light);transform:translateY(-2px);box-shadow:0 16px 38px -12px rgba(236,112,0,.5)}
 .btn--ghost{border:1px solid var(--acc-dim);color:var(--ivory)}
 .btn--ghost:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-2px)}
 .btn--navy{background:var(--navy);color:var(--acc)}
-.btn--navy:hover{transform:translateY(-2px);box-shadow:0 18px 40px -14px rgba(10,17,40,.6)}
+.btn--navy:hover{transform:translateY(-2px);box-shadow:0 18px 40px -14px rgba(8,33,63,.6)}
 .btn.is-off{background:transparent;border:1px dashed var(--acc-dim);color:rgba(249,246,239,.5);cursor:default;pointer-events:none}
 .section--light .btn.is-off{color:var(--ink-soft)}
 /* sobre fondo claro el fantasma quedaba color marfil sobre marfil (invisible) */
@@ -157,7 +176,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* Nav */
 .nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 0;transition:padding .4s var(--ease),background .4s,border-color .4s;border-bottom:1px solid transparent}
-.nav.scrolled{padding:12px 0;background:rgba(6,11,28,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line-d)}
+.nav.scrolled{padding:12px 0;background:rgba(4,22,43,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line-d)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}
 .brand{display:flex;align-items:center;gap:13px}
 .brand-name{font-family:var(--f-disp);font-weight:600;font-size:1.02rem;line-height:1.15}
@@ -180,7 +199,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
    la pantalla, sin barra que arrastrar. Con flex-start + márgenes automáticos
    en los extremos queda igual de centrado mientras sobre espacio, y se
    scrollea entero cuando no. */
-.m-menu{position:fixed;inset:0;background:rgba(6,11,28,.97);backdrop-filter:blur(12px);z-index:1100;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility .45s;overflow-y:auto;overscroll-behavior:contain;padding:24px 20px}
+.m-menu{position:fixed;inset:0;background:rgba(4,22,43,.97);backdrop-filter:blur(12px);z-index:1100;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility .45s;overflow-y:auto;overscroll-behavior:contain;padding:24px 20px}
 .m-menu>:first-child{margin-top:auto}
 .m-menu>:last-child{margin-bottom:auto}
 .m-menu.open{opacity:1;visibility:visible}
@@ -200,7 +219,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
    retorno, que es la imagen fundacional de la gestión de carteras. Cada
    cartera del torneo es un disco —x: su máximo drawdown, o sea el riesgo;
    y: su retorno sobre el iShares MSCI ACWI; tamaño: su puntaje— y la línea
-   dorada une la FRONTERA: las carteras que nadie supera con menos riesgo.
+   naranja une la FRONTERA: las carteras que nadie supera con menos riesgo.
    La línea azul del cero es el índice, así que el plano dice de un vistazo
    lo único que este desk quiere decir: cuántos le ganan al mercado y a qué
    precio en riesgo.
@@ -212,14 +231,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hero{min-height:100svh;display:flex;align-items:center;position:relative;overflow:hidden;
   padding:clamp(7.5rem,13vh,9.5rem) 0 clamp(3rem,6vh,5rem)}
 .hero-fallback{position:absolute;inset:0;
-  background:radial-gradient(1000px 600px at 80% -5%,rgba(212,175,55,.14),transparent 60%),
+  background:radial-gradient(1000px 600px at 80% -5%,rgba(236,112,0,.14),transparent 60%),
              radial-gradient(800px 560px at -8% 105%,rgba(158,126,30,.2),transparent 62%),var(--navy)}
 /* Retícula de instrumento: el papel milimetrado sobre el que se dibuja un
    plano. Va enmascarada hacia los bordes para que no compita con el texto;
    donde `mask-image` no exista se ve entera, y al 5% sigue siendo fondo. */
 .hero-fallback::after{content:"";position:absolute;inset:0;
-  background-image:linear-gradient(rgba(212,175,55,.05) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(212,175,55,.05) 1px,transparent 1px);
+  background-image:linear-gradient(rgba(236,112,0,.05) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(236,112,0,.05) 1px,transparent 1px);
   background-size:74px 74px;
   -webkit-mask-image:radial-gradient(120% 90% at 70% 40%,#000 15%,transparent 78%);
           mask-image:radial-gradient(120% 90% at 70% 40%,#000 15%,transparent 78%)}
@@ -240,7 +259,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* ---- El plano ---- */
 .plano{position:relative;border:1px solid var(--acc-dim);border-right:none;border-radius:3px 0 0 3px;
-  background:linear-gradient(205deg,rgba(16,23,49,.86),rgba(6,11,28,.92));
+  background:linear-gradient(205deg,rgba(14,43,78,.86),rgba(4,22,43,.92));
   padding:15px 16px 13px;
   opacity:0;transform:translateY(22px);
   transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
@@ -306,7 +325,7 @@ body.hero-in .hero h1 .ln>span{transform:none}
    este desk conoce: la cinta de un piso de operaciones. Las palabras siguen
    en el HTML como respaldo: si el ranking no carga, la cinta se ve como
    antes en vez de quedar vacía. */
-.marq{border-top:1px solid var(--line-d);border-bottom:1px solid var(--line-d);background:rgba(6,11,28,.72);overflow:hidden;position:relative;z-index:2}
+.marq{border-top:1px solid var(--line-d);border-bottom:1px solid var(--line-d);background:rgba(4,22,43,.72);overflow:hidden;position:relative;z-index:2}
 .marq__track{display:flex;width:max-content;animation:marquee 46s linear infinite}
 .marq:hover .marq__track{animation-play-state:paused}
 @keyframes marquee{to{transform:translateX(-50%)}}
@@ -322,7 +341,7 @@ body.hero-in .hero h1 .ln>span{transform:none}
 /* Secciones */
 section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .section--light{background:
-  radial-gradient(1100px 460px at 85% -5%,rgba(212,175,55,.08),transparent 60%),var(--ivory);
+  radial-gradient(1100px 460px at 85% -5%,rgba(236,112,0,.08),transparent 60%),var(--ivory);
   color:var(--ink)}
 .section--dark{background:var(--navy);color:var(--ivory)}
 .sec-head{max-width:740px;margin-bottom:clamp(2.4rem,5vw,3.8rem)}
@@ -356,7 +375,7 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
   padding:clamp(1.7rem,3.4vw,2.6rem) 0;border-bottom:1px solid var(--line-d);
   transition:padding-left .5s var(--ease)}
 .pilar::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .5s;
-  background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(212,175,55,.1),transparent 65%)}
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(236,112,0,.1),transparent 65%)}
 .pilar:hover{padding-left:16px}
 .pilar:hover::before{opacity:1}
 .p-ghost{position:relative;font-family:var(--f-disp);font-weight:700;line-height:.82;
@@ -380,13 +399,13 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .facts .v{text-align:right;color:var(--ink);font-weight:500}
 .torneo-ctas{display:flex;gap:14px;flex-wrap:wrap}
 .torneo-card{background:var(--navy);color:var(--ivory);border:1px solid var(--line-d);border-radius:12px;padding:34px 30px;position:relative;overflow:hidden}
-.torneo-card::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 240px at 90% -10%,rgba(212,175,55,.18),transparent 60%);pointer-events:none}
+.torneo-card::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 240px at 90% -10%,rgba(236,112,0,.18),transparent 60%);pointer-events:none}
 .torneo-card .mono-tag{margin-bottom:16px}
 .torneo-card h3{font-family:var(--f-disp);font-weight:600;font-size:1.7rem;line-height:1.16;position:relative;margin-bottom:12px}
 .torneo-card p{font-size:.95rem;color:rgba(249,246,239,.76);position:relative}
 .torneo-card .tc-tag{position:relative;display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
-.torneo-card .tc-dot{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 rgba(212,175,55,.5);animation:pulse 2.4s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(212,175,55,.45)}70%{box-shadow:0 0 0 12px rgba(212,175,55,0)}100%{box-shadow:0 0 0 0 rgba(212,175,55,0)}}
+.torneo-card .tc-dot{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 rgba(236,112,0,.5);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(236,112,0,.45)}70%{box-shadow:0 0 0 12px rgba(236,112,0,0)}100%{box-shadow:0 0 0 0 rgba(236,112,0,0)}}
 
 /* ============================================================================
    §EL CORTE — la pieza de datos vivos
@@ -424,7 +443,7 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .bd--lider .bd-v{font-family:var(--f-disp);font-size:clamp(1.6rem,4.6vw,2.8rem);
   line-height:1.08;letter-spacing:-.01em;overflow-wrap:anywhere}
 .bd-sub{font-size:.79rem;color:rgba(249,246,239,.6);line-height:1.5;margin-top:auto}
-/* La celda del líder lleva un filete dorado al costado: es la única jerarquía
+/* La celda del líder lleva un filete naranja al costado: es la única jerarquía
    del tablero que no depende del tamaño. */
 .bd--lider{box-shadow:inset 3px 0 0 0 var(--acc)}
 @media(max-width:900px){
@@ -461,7 +480,7 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .ch-plot svg{display:block;width:100%;height:auto}
 .ch-plot svg text{font-family:var(--f-mono);letter-spacing:.06em}
 .ch-tip{position:absolute;left:0;top:0;pointer-events:none;opacity:0;transition:opacity .14s;
-  background:rgba(6,11,28,.97);border:1px solid var(--acc-dim);border-radius:4px;padding:9px 12px;
+  background:rgba(4,22,43,.97);border:1px solid var(--acc-dim);border-radius:4px;padding:9px 12px;
   font-family:var(--f-mono);font-size:.66rem;line-height:1.75;white-space:nowrap;z-index:5;
   transform:translate(-50%,-116%)}
 .ch-tip.on{opacity:1}
@@ -522,7 +541,7 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .alloc.in .al-seg{flex-basis:var(--w,0%)}
 .al-n{font-family:var(--f-mono);font-weight:600;font-size:1.05rem;line-height:1;font-variant-numeric:tabular-nums}
 .al-name{font-family:var(--f-mono);font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;
-  margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(10,17,40,.72)}
+  margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(8,33,63,.72)}
 @media(max-width:760px){.al-name{display:none}.al-n{font-size:.86rem}}
 /* La clave de la barra, siempre en texto: una cifra no puede vivir solo dentro
    de una figura. Cuando la barra se angosta y los rótulos de adentro se
@@ -569,16 +588,16 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 
 /* Responsables */
 .people{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.p-card{border:1px solid var(--line-d);background:var(--navy-panel);border-radius:8px;padding:28px 24px;display:flex;flex-direction:column;gap:14px;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s}
-.p-card:hover{transform:translateY(-6px);border-color:rgba(212,175,55,.5);box-shadow:0 24px 48px -24px rgba(0,0,0,.55)}
-/* Quien DIRIGE el área: filete dorado al COSTADO + chip "Dirige el área".
+.p-card{border:1px solid var(--line-d);background:var(--graph);border-radius:8px;padding:28px 24px;display:flex;flex-direction:column;gap:14px;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s}
+.p-card:hover{transform:translateY(-6px);border-color:rgba(236,112,0,.5);box-shadow:0 24px 48px -24px rgba(0,0,0,.55)}
+/* Quien DIRIGE el área: filete naranja al COSTADO + chip "Dirige el área".
    Portado de index.html (§Nosotros), donde la misma jerarquía se marca con
-   .p-card--area sobre tarjeta CLARA y el oro se llama --gold. Acá la sección
-   Responsables es OSCURA (.p-card usa var(--navy-panel)), así que se adaptan
-   los valores en vez de copiarlos: el filete y el chip van con --acc (#D4AF37,
-   el oro que sí se lee sobre el panel navy) y el borde con var(--acc-dim), que
-   es el mismo .34 de alfa del original pero con el oro claro en lugar del
-   profundo (rgba(168,135,28,...), pensado para fondo claro).
+   .p-card--area sobre tarjeta CLARA y el acento se llama --gold. Acá la
+   sección Responsables es OSCURA (.p-card usa var(--graph), el grafito
+   BlackRock), así que se adaptan los valores en vez de copiarlos: el filete y
+   el chip van con --acc (#EC7000, el naranja Itaú, que da 5.30 de contraste
+   sobre el grafito) y el borde con var(--acc-dim), que es el mismo .34 de
+   alfa del original pero sobre el naranja principal en lugar del profundo.
    El :hover se redefine —igual que allá y por la misma razón— porque la regla
    base de .p-card reemplaza el box-shadow completo y se comería el filete; acá
    se repite junto a la sombra oscura propia de estas páginas. */
@@ -599,11 +618,11 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 /* Eventos del área (mismo estilo de tarjeta que eventos/index.html, filtrado por area:"portafolio") */
 .ev-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
 .ev-card{position:relative;border-radius:10px;overflow:hidden;min-height:320px;border:1px solid var(--line-d);background:var(--navy-panel);display:flex;flex-direction:column;justify-content:flex-end;transition:transform .5s var(--ease),border-color .5s,box-shadow .5s}
-.ev-card:hover{transform:translateY(-8px);border-color:rgba(212,175,55,.5);box-shadow:0 32px 64px -26px rgba(0,0,0,.65)}
+.ev-card:hover{transform:translateY(-8px);border-color:rgba(236,112,0,.5);box-shadow:0 32px 64px -26px rgba(0,0,0,.65)}
 .ev-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.02);transition:transform 1.2s var(--ease);filter:saturate(.9)}
 .ev-card:hover .ev-bg{transform:scale(1.08)}
-.ev-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,17,40,.25) 0%,rgba(10,17,40,.55) 45%,rgba(6,11,28,.94) 100%)}
-.ev-ghost{position:absolute;top:-6px;right:10px;font-family:var(--f-disp);font-weight:700;font-size:clamp(4.5rem,8vw,6.5rem);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(212,175,55,.14);pointer-events:none;user-select:none}
+.ev-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,33,63,.25) 0%,rgba(8,33,63,.55) 45%,rgba(4,22,43,.94) 100%)}
+.ev-ghost{position:absolute;top:-6px;right:10px;font-family:var(--f-disp);font-weight:700;font-size:clamp(4.5rem,8vw,6.5rem);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(236,112,0,.14);pointer-events:none;user-select:none}
 .ev-body{position:relative;padding:28px 28px 24px;display:flex;flex-direction:column;gap:12px}
 .ev-top{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .ev-date{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);font-weight:600}
@@ -622,13 +641,13 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 
 /* CTA */
 .cta-band{background:radial-gradient(900px 300px at 15% 0%,rgba(255,255,255,.24),transparent 60%),linear-gradient(120deg,var(--acc-deep),var(--acc) 48%,var(--acc-light));color:var(--navy);text-align:center;overflow:hidden}
-.cta-ghost{position:absolute;top:50%;left:0;transform:translateY(-50%);font-family:var(--f-disp);font-weight:700;font-size:clamp(5.5rem,15vw,11rem);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(10,17,40,.12);white-space:nowrap;pointer-events:none;user-select:none;animation:ghostSlide 46s linear infinite}
+.cta-ghost{position:absolute;top:50%;left:0;transform:translateY(-50%);font-family:var(--f-disp);font-weight:700;font-size:clamp(5.5rem,15vw,11rem);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(8,33,63,.12);white-space:nowrap;pointer-events:none;user-select:none;animation:ghostSlide 46s linear infinite}
 @keyframes ghostSlide{to{transform:translateY(-50%) translateX(-50%)}}
 .cta-band .kicker{color:var(--navy);justify-content:center}
 .cta-band .kicker::before{background:var(--navy)}
 .cta-band h2{font-family:var(--f-disp);font-weight:600;font-size:clamp(2.2rem,5.2vw,3.8rem);line-height:1.08;margin:20px auto 16px;max-width:16ch}
 .cta-band h2 em{font-style:italic}
-.cta-band p{max-width:52ch;margin:0 auto 32px;color:rgba(10,17,40,.78);font-size:1.03rem}
+.cta-band p{max-width:52ch;margin:0 auto 32px;color:rgba(8,33,63,.78);font-size:1.03rem}
 
 /* Footer */
 footer{background:var(--navy-deep);padding:34px 0;border-top:1px solid var(--line-d)}
@@ -1323,7 +1342,7 @@ function pintarCinta(){
      r = puntaje del corte
    La línea azul del cero ES el índice: sobre ella están las carteras que le
    ganan al mercado, y son disco lleno; bajo ella quedan calados.
-   La línea dorada es la FRONTERA: recorriendo de menos a más riesgo, las
+   La línea naranja es la FRONTERA: recorriendo de menos a más riesgo, las
    carteras que superan a todas las de menos riesgo que ellas. Bajo esa línea
    siempre existe otra cartera que rindió más asumiendo menos.
    Sale entero de ../datos/torneo-tabla.json (7 KB): no necesita el historial,
@@ -1376,13 +1395,13 @@ function pintarPlano(){
   marcas(ym,yM,4).forEach(function(v){
     if(Math.abs(v)<1e-9)return;
     G+='<line x1="'+pl+'" y1="'+sy(v).toFixed(1)+'" x2="'+(pl+iw)+'" y2="'+sy(v).toFixed(1)
-      +'" stroke="rgba(212,175,55,.1)" stroke-width="1"/>'
+      +'" stroke="rgba(236,112,0,.1)" stroke-width="1"/>'
       +'<text x="'+(pl-8)+'" y="'+(sy(v)+3.2).toFixed(1)+'" text-anchor="end" font-size="9" fill="rgba(249,246,239,.45)">'+fmtPct(v,true)+'</text>';
   });
   marcas(0,xM,3).forEach(function(v){
     if(v<=0)return;
     G+='<line x1="'+sx(v).toFixed(1)+'" y1="'+pt+'" x2="'+sx(v).toFixed(1)+'" y2="'+(pt+ih)
-      +'" stroke="rgba(212,175,55,.07)" stroke-width="1"/>'
+      +'" stroke="rgba(236,112,0,.07)" stroke-width="1"/>'
       +'<text x="'+sx(v).toFixed(1)+'" y="'+(pt+ih+14)+'" text-anchor="middle" font-size="9" fill="rgba(249,246,239,.45)">'+fmtPct(v)+'</text>';
   });
   /* El índice. Es la única línea azul del plano y no necesita leyenda: lleva
@@ -1394,15 +1413,15 @@ function pintarPlano(){
   var fr=frontera(pts);
   if(fr){
     G+='<path d="M'+fr.map(function(q){return sx(q.x).toFixed(1)+" "+sy(q.y).toFixed(1)}).join("L")
-      +'" fill="none" stroke="#D4AF37" stroke-width="1.4" stroke-opacity=".75" stroke-linejoin="round" stroke-linecap="round"/>';
+      +'" fill="none" stroke="#EC7000" stroke-width="1.4" stroke-opacity=".75" stroke-linejoin="round" stroke-linecap="round"/>';
   }
   /* Los discos. Lleno = le gana al índice; calado = no. */
   pts.slice().sort(function(a,b){return b.p-a.p}).forEach(function(q){
     var r=(3+(pM>0?q.p/pM:0)*6).toFixed(1),X=sx(q.x).toFixed(1),Y=sy(q.y).toFixed(1);
     var det=esc(q.n+" · exceso "+fmtPct(q.y,true)+" · caída máxima "+fmtPct(q.x)+" · "+fmtNum(q.p)+" pts");
     G+=q.y>0
-      ? '<circle class="pt" cx="'+X+'" cy="'+Y+'" r="'+r+'" fill="#EBD388" fill-opacity=".82"><title>'+det+'</title></circle>'
-      : '<circle class="pt" cx="'+X+'" cy="'+Y+'" r="'+r+'" fill="#D4AF37" fill-opacity=".1" stroke="rgba(212,175,55,.55)" stroke-width="1"><title>'+det+'</title></circle>';
+      ? '<circle class="pt" cx="'+X+'" cy="'+Y+'" r="'+r+'" fill="#FF9A3C" fill-opacity=".82"><title>'+det+'</title></circle>'
+      : '<circle class="pt" cx="'+X+'" cy="'+Y+'" r="'+r+'" fill="#EC7000" fill-opacity=".1" stroke="rgba(236,112,0,.55)" stroke-width="1"><title>'+det+'</title></circle>';
   });
   /* El líder, con anillo y nombre escrito: es el único rótulo directo del
      plano. El rótulo se voltea al otro lado si el disco está cerca del borde
@@ -1413,9 +1432,9 @@ function pintarPlano(){
     var rT=(3+(pM>0?top.p/pM:0)*6),X=sx(top.x),Y=sy(top.y);
     var xT=Math.max(pl+34,Math.min(X,pl+iw-34));
     G+='<circle cx="'+X.toFixed(1)+'" cy="'+Y.toFixed(1)+'" r="'+(rT+5).toFixed(1)
-      +'" fill="none" stroke="#D4AF37" stroke-width="1" stroke-opacity=".8"/>'
+      +'" fill="none" stroke="#EC7000" stroke-width="1" stroke-opacity=".8"/>'
       +'<text x="'+xT.toFixed(1)+'" y="'+(Y-rT-10).toFixed(1)+'" text-anchor="middle"'
-      +' font-size="9.5" fill="#D4AF37">'+esc(top.n.toUpperCase())+'</text>';
+      +' font-size="9.5" fill="#EC7000">'+esc(top.n.toUpperCase())+'</text>';
   }
   /* Rótulos de los ejes. */
   G+='<text x="'+(pl+iw)+'" y="'+(H-8)+'" text-anchor="end" font-size="8.5" fill="rgba(249,246,239,.4)">RIESGO · CAÍDA MÁXIMA →</text>'
@@ -1433,7 +1452,7 @@ function pintarPlano(){
   if(pie){
     pie.innerHTML='Cada disco es una cartera del torneo, puesta según lo que arriesgó y lo que le sacó al índice. '
       +'<b>'+g.n+' de '+g.tot+'</b> están sobre la línea del ACWI. '
-      +'La línea dorada es la frontera: bajo ella siempre hay otra cartera que rindió más arriesgando menos.';
+      +'La línea naranja es la frontera: bajo ella siempre hay otra cartera que rindió más arriesgando menos.';
   }
   fig.hidden=false;
   requestAnimationFrame(function(){fig.classList.add("on")});
@@ -1527,7 +1546,7 @@ function pintarGrafico(){
   var ys=marcas(lo,hi,4);
   ys.forEach(function(v){
     var y=sy(v).toFixed(1);
-    G+='<line x1="'+pl+'" y1="'+y+'" x2="'+(pl+iw)+'" y2="'+y+'" stroke="'+(Math.abs(v)<1e-9?"rgba(249,246,239,.24)":"rgba(212,175,55,.11)")+'" stroke-width="1"/>';
+    G+='<line x1="'+pl+'" y1="'+y+'" x2="'+(pl+iw)+'" y2="'+y+'" stroke="'+(Math.abs(v)<1e-9?"rgba(249,246,239,.24)":"rgba(236,112,0,.11)")+'" stroke-width="1"/>';
     G+='<text x="'+(pl-8)+'" y="'+(sy(v)+3.5).toFixed(1)+'" text-anchor="end" font-size="'+(chico?9:10)+'" fill="rgba(249,246,239,.5)">'+fmtPct(v,true)+'</text>';
   });
   /* Eje de semanas: la primera y la última SIEMPRE, más las intermedias que
@@ -1542,9 +1561,10 @@ function pintarGrafico(){
   /* Banda intercuartil: el 50% central del campo. Es contexto, va detrás. */
   var arriba=pts.map(function(p){return sx(p.semana).toFixed(1)+" "+sy(p.q3).toFixed(1)});
   var abajo=pts.slice().reverse().map(function(p){return sx(p.semana).toFixed(1)+" "+sy(p.q1).toFixed(1)});
-  /* El oro puro al 15% sobre el navy se lee gris oliva; con el oro CLARO la
-     banda mantiene el calor de la paleta y se sigue leyendo como fondo. */
-  G+='<path d="M'+arriba.join("L")+"L"+abajo.join("L")+'Z" fill="#EBD388" fill-opacity=".15"/>';
+  /* El naranja puro al 15% sobre el azul se ensucia; con el naranja CLARO la
+     banda mantiene el calor de la paleta y se sigue leyendo como fondo.
+     (Antes decía lo mismo del oro: misma razón, otro color.) */
+  G+='<path d="M'+arriba.join("L")+"L"+abajo.join("L")+'Z" fill="#FF9A3C" fill-opacity=".15"/>';
   /* Benchmark. Se corta donde se acaba su dato: el ACWI lo captura el
      pipeline de Bloomberg aparte y suele llegar un corte después. Jamás se
      prolonga la línea con un valor inventado. */
@@ -1555,14 +1575,14 @@ function pintarGrafico(){
   }
   /* Mediana del campo. */
   G+='<path d="M'+pts.map(function(p){return sx(p.semana).toFixed(1)+" "+sy(p.med).toFixed(1)}).join("L")
-    +'" fill="none" stroke="#D4AF37" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>';
+    +'" fill="none" stroke="#EC7000" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>';
   /* Puntas: anillo del color del fondo para que no se peguen si coinciden. */
   function punta(x,y,c){
-    return '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="4" fill="'+c+'" stroke="#101731" stroke-width="2"/>';
+    return '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="4" fill="'+c+'" stroke="#0E2B4E" stroke-width="2"/>';
   }
   var fE=pts[pts.length-1],bE=bm.length?bm[bm.length-1]:null;
   if(bE)G+=punta(sx(bE.semana),sy(bE.bmk),"#7BA7DE");
-  G+=punta(sx(fE.semana),sy(fE.med),"#D4AF37");
+  G+=punta(sx(fE.semana),sy(fE.med),"#EC7000");
   /* Rótulos directos al final de CADA línea, separados a la fuerza si quedan
      más juntos que el alto de una línea (con el campo empatado al índice se
      encimaban y se leían como un borrón). En pantalla angosta no caben: ahí
@@ -1571,7 +1591,7 @@ function pintarGrafico(){
     var yF=sy(fE.med),yB=bE?sy(bE.bmk):null;
     /* El benchmark casi siempre termina un corte antes, así que su rótulo no
        puede ir al costado como el del torneo: caería dentro del gráfico,
-       encima de la banda y de la línea dorada. Cuando la serie no llega al
+       encima de la banda y de la línea naranja. Cuando la serie no llega al
        borde derecho, su rótulo va sobre la punta. Cuando sí llega, van los dos
        al costado y se separan a la fuerza si quedan más juntos que el alto de
        una línea (con el campo empatado al índice se encimaban y se leían como
@@ -1583,14 +1603,14 @@ function pintarGrafico(){
         ? '<text x="'+sx(bE.semana).toFixed(1)+'" y="'+(yB-11).toFixed(1)+'" text-anchor="middle" font-size="9.5" letter-spacing="1.4" fill="#7BA7DE">ACWI</text>'
         : '<text x="'+(sx(bE.semana)+9).toFixed(1)+'" y="'+(yB+3.5).toFixed(1)+'" font-size="9.5" letter-spacing="1.4" fill="#7BA7DE">ACWI</text>';
     }
-    G+='<text x="'+(sx(fE.semana)+9).toFixed(1)+'" y="'+(yF+3.5).toFixed(1)+'" font-size="9.5" letter-spacing="1.4" fill="#D4AF37">TORNEO</text>';
+    G+='<text x="'+(sx(fE.semana)+9).toFixed(1)+'" y="'+(yF+3.5).toFixed(1)+'" font-size="9.5" letter-spacing="1.4" fill="#EC7000">TORNEO</text>';
   }
   /* Guía del cursor + zona sensible. `touch-action:pan-y` cede el gesto
      horizontal al gráfico y le deja el vertical al scroll de la página: sin
      eso, en un teléfono el navegador se queda todos los toques como scroll. */
-  G+='<line id="chGuide" x1="0" y1="'+pt+'" x2="0" y2="'+(pt+ih)+'" stroke="rgba(212,175,55,.45)" stroke-width="1" opacity="0"/>';
-  G+='<circle id="chDotF" r="4.5" fill="#D4AF37" stroke="#101731" stroke-width="2" opacity="0"/>';
-  G+='<circle id="chDotB" r="4.5" fill="#7BA7DE" stroke="#101731" stroke-width="2" opacity="0"/>';
+  G+='<line id="chGuide" x1="0" y1="'+pt+'" x2="0" y2="'+(pt+ih)+'" stroke="rgba(236,112,0,.45)" stroke-width="1" opacity="0"/>';
+  G+='<circle id="chDotF" r="4.5" fill="#EC7000" stroke="#0E2B4E" stroke-width="2" opacity="0"/>';
+  G+='<circle id="chDotB" r="4.5" fill="#7BA7DE" stroke="#0E2B4E" stroke-width="2" opacity="0"/>';
   G+='<rect id="chHit" x="'+pl+'" y="'+pt+'" width="'+iw+'" height="'+ih+'" fill="transparent"/>';
 
   var etq="Retorno acumulado del torneo: mediana de "+TD.equipos.length+" carteras contra el iShares MSCI ACWI, semana a semana. Las cifras están también en la tabla bajo el gráfico.";
@@ -1628,7 +1648,7 @@ function pintarLeyenda(){
 }
 
 function pintarNota(pts,bm){
-  var n=$("#chNote"),t="Cada cartera reporta su retorno acumulado desde el inicio del torneo. La línea dorada es la mediana de los "
+  var n=$("#chNote"),t="Cada cartera reporta su retorno acumulado desde el inicio del torneo. La línea naranja es la mediana de los "
     +TD.equipos.length+" equipos y la banda es el 50% central: la mitad de las carteras vive dentro de ella.";
   if(bm.length&&bm[bm.length-1].semana<pts[pts.length-1].semana){
     t+=" El benchmark lo captura el pipeline de Bloomberg por separado y suele llegar un corte después, así que la línea del ACWI termina en la semana "
@@ -1703,7 +1723,7 @@ function bindCrosshair(){
    Las franjas se dibujan SIEMPRE; la barra y su clave solo si el ranking
    cargó. Sin datos no queda un hueco: queda la explicación, que sigue siendo
    verdad, y la barra simplemente no existe. */
-var AL_TONOS=["#EBD388","#DFC26A","#D4AF37","#C09A2C","#AC8722"];
+var AL_TONOS=["#FFD2A8","#FFBB7A","#FCA04A","#EC8524","#D26F14"];  /* rampa de la barra de asignacion: NO son tonos libres, llevan texto tinta encima. Estos 5 replican el perfil de contraste de la rampa dorada anterior (13.5/11.3/9.2/7.1/5.4 contra 12.7/10.8/8.9/7.1/5.6): todos sobre 4.5. Una rampa naranja que baje mas oscura al final rompe la lectura de los dos ultimos segmentos. */
 function renderMetricas(){
   var rows=$("#mtRows"),bar=$("#alloc"),key=$("#allocKey");
   if(!rows)return;

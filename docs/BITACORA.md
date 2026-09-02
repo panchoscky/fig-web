@@ -1836,3 +1836,69 @@ renumera solo de 01 a 06. Texto en pie: 9546 / 8878 / 6650 caracteres.
 `verificar_paginas.js` (las 19 paginas), `verificar_movil.js`,
 `verificar_menu_movil.js --pag=portafolio/index.html` (7 enlaces, entra entero
 en las tres pantallas) y `verificar_sitio.py`: sin errores.
+
+
+## Cambios del 2026-09-02 (tercera tanda: paleta propia de Portafolio)
+
+**Portafolio deja el navy + oro y toma la paleta de los sponsors del torneo.**
+Decisión de la directiva, encargada por Francisco: el desk que corre el Torneo
+Portafolio se alinea visualmente con las dos empresas asociadas — **Itaú** (azul
+y naranja) y **BlackRock** (grafito), dueña del universo de ETF iShares con el
+que compiten los 48 equipos. Es la **segunda** página del sitio con paleta propia,
+después de `fiw/`. El resto del sitio no se tocó.
+
+Se eligió entre tres alcances (se le preguntó a Francisco con `AskUserQuestion`):
+naranja sobre navy, grafito de base, o co-branding acotado solo en las piezas de
+datos. Eligió la primera — la de más señal sin que la página deje de parecerse al
+resto del sitio.
+
+Valores nuevos, todos en el bloque `:root` de `portafolio/index.html`:
+
+| token | antes | ahora |
+|---|---|---|
+| `--navy-deep` / `--navy` / `--navy-panel` | `#060B1C` `#0A1128` `#101731` | `#04162B` `#08213F` `#0E2B4E` |
+| `--acc` | `#D4AF37` oro | `#EC7000` naranja Itaú |
+| `--acc-light` | `#EBD388` | `#FF9A3C` |
+| `--acc-deep` | `#9E7E1E` | `#B35400` |
+| `--acc-warm` | `#E8C972` | `#F2A25C` |
+| `--graph` | — | `#22252B` grafito BlackRock (fondo de `.p-card`) |
+| `--bmk` | `#7BA7DE` | **sin cambios** (el azul del ACWI es un dato, no decoración) |
+
+**Los nombres de las variables no se tocaron a propósito.** Todo el CSS y los
+scripts de verificación siguen calzando, y revertir esto es reescribir un bloque.
+
+**Contraste medido ANTES de aplicar** (con un validador WCAG escrito para esto, no
+a ojo): `--acc` sobre `--navy` 5.30 · `--acc-light` sobre `--navy` 7.65 · `--acc-deep`
+sobre `--paper` 4.80 · `--bmk` sobre `--navy` 6.48. Hallazgo de paso: **el oro
+profundo que se reemplazó daba 3.68 sobre fondo claro, o sea NO pasaba AA** — el
+cambio de paleta arregló un fallo de accesibilidad que ya existía.
+
+**Tres cosas que casi se publican mal** (ya destiladas como trampas en `CLAUDE.md`):
+
+1. **La copia visible nombraba el color.** Dos textos que lee el visitante decían
+   "la línea **dorada** es la frontera" / "es la mediana", y seis comentarios más
+   hablaban de "oro". Se detectó mirando la captura, no leyendo el código.
+2. **La primera rampa de `AL_TONOS` rompía el contraste.** La barra de asignación
+   lleva texto tinta encima; la rampa naranja inicial (`#FFC08A`→`#9A4700`) caía a
+   4.25 y 2.93 en los dos últimos segmentos. Se rehízo replicando el perfil de
+   luminosidad de la dorada: `#FFD2A8 #FFBB7A #FCA04A #EC8524 #D26F14` (13.5 / 11.3
+   / 9.2 / 7.1 / 5.4, contra 12.7 / 10.8 / 8.9 / 7.1 / 5.6 de la anterior).
+3. **Quedaba navy viejo escrito a mano.** 13 `rgba()` con los canales del navy
+   antiguo, el `<meta theme-color>` (la barra del navegador en teléfono) y 4 colores
+   dentro del JS que dibuja los SVG — incluido el aro del punto que sigue al cursor,
+   que se dibuja del color del panel para recortarse contra él.
+
+**Cómo se aplicó**: con scripts de un solo uso que **abortan si el archivo no trae
+exactamente lo que esperan** (contando ocurrencias antes de reemplazar). Dos abortos
+reales atajaron errores: un `stroke="#D4AF37"` que aparecía 3 veces y no 1, y un
+`var(--graph-soft)` que vivía también en un comentario. Los scripts quedaron en el
+scratchpad de la sesión, no en el repo: son de un solo uso.
+
+**Verificado**: `verificar_sitio.py` sin errores (los 7 avisos son los históricos de
+siempre, ver Pendientes #7); `verificar_paginas.js --solo=portafolio` sin errores de
+consola; `verificar_movil.js` sin desborde a 390px; `verificar_menu_movil.js` con el
+menú alcanzable en las tres pantallas. Además se capturaron las 8 secciones por CDP
+crudo para mirarlas de verdad — de ahí salió el hallazgo de "línea dorada".
+
+**Solo se publicó en `fig-web`.** El espejo de Manuel no se tocó: decisión de
+Francisco en esta sesión.

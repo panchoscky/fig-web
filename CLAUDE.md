@@ -35,8 +35,12 @@ Si algo cambia seguido, va en un `.json` bajo `datos/`.
 
 **Paleta y tipografías**: navy `#0A1128` + oro `#D4AF37`, Playfair Display + Inter +
 IBM Plex Mono (autoalojadas en `fuentes/`), reveals on-scroll, respeto total a
-`prefers-reduced-motion`. `fiw/index.html` es la única con paleta propia (oro rosa,
-variables `--acc*`) — no tocar esos 4 valores sin pedírselo a Francisco.
+`prefers-reduced-motion`. **Dos páginas tienen paleta propia** y no siguen esa base:
+`fiw/index.html` (oro rosa) y, desde el 2026-09-02, `portafolio/index.html` (azul
+`#08213F` + naranja `#EC7000` de Itaú + grafito `#22252B` de BlackRock — los dos
+sponsors del Torneo Portafolio; decisión de la directiva). En ambas los NOMBRES de
+las variables son los mismos que en el resto del sitio (`--acc`, `--acc-light`…):
+cambia el valor, nunca el token. No tocar esos valores sin pedírselo a Francisco.
 
 ## Estado general (2026-09-02)
 
@@ -190,6 +194,19 @@ Cada una costó tiempo al menos una vez. El registro completo está en `docs/BIT
 - **El preload de fuentes está PROBADO Y DESCARTADO** (856 ms sin él contra 1684 ms con
   él). El modo `--preload` quedó escrito y documentado para que nadie lo reintente a
   ciegas. No usarlo.
+- **Al cambiar una paleta hay que cambiar también la COPIA que nombra el color.**
+  `portafolio/index.html` decía "la línea dorada es la frontera" en dos textos que
+  ve el visitante y en seis comentarios; el oro ya no existía ahí. Después de tocar
+  los tokens, buscar `dorad`/`oro` en la página (con Python en UTF-8, no `grep -i`).
+- **Una rampa de color que lleva texto encima no se elige por gusto.** Los 5 tonos de
+  `AL_TONOS` (barra de asignación) llevan texto tinta: la primera rampa naranja caía
+  más oscura que la dorada que reemplazaba y rompía el contraste en los 2 últimos
+  segmentos (4.25 y 2.93, bajo el mínimo de 4.5). Hay que replicar el PERFIL DE
+  LUMINOSIDAD de la rampa anterior, no solo cambiarle el tono.
+- **Un cambio de paleta deja navy viejo escondido en formato `rgba()`.** Los tokens
+  se cambian en `:root`, pero `rgba(10,17,40,.78)` y compañía son el mismo color
+  escrito a mano y no se mueven solos. Buscar también el hex del `<meta theme-color>`
+  (pinta la barra del navegador en teléfono) y los colores dentro del JS que dibuja SVG.
 - Un `--` dentro de un comentario XML lo vuelve mal formado (mordió al primer sitemap).
 
 ### Miembros
