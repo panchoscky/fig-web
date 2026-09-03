@@ -14,8 +14,13 @@ el formulario de postulacion, en la version en ingles y en el nav del 404.
 Va como PASO APARTE despues de `sincronizar_espejo.py` y no como una lista de
 excepciones dentro de el, por una razon concreta: si estos archivos quedaran en
 NO_SE_COPIAN, el espejo dejaria de recibir TODAS las mejoras futuras de
-`eventos/`, `postula/`, `valuation/`, `en/` y `404.html` solo para esconder una
-seccion. Asi el espejo sigue recibiendo todo y despues se le quita FIW.
+`eventos/`, `postula/`, `valuation/`, `portafolio/`, `trading/`, `en/` y
+`404.html` solo para esconder una seccion. Asi el espejo sigue recibiendo todo
+y despues se le quita FIW.
+
+Hoy reescribe 7 archivos del espejo (404, eventos, postula, valuation,
+portafolio, trading y en/index.html). Tambien trae reglas para index.html, que
+nunca se copia entero: son un blindaje por si alguien lo porta a lo bruto.
 
 Es idempotente: correrlo dos veces sobre el mismo espejo no cambia nada la
 segunda vez.
@@ -61,11 +66,14 @@ QUITAR_EVENTO = False
 # Marcas de que el archivo TODAVIA publica el area como tal. Deliberadamente
 # NO incluye el texto "Investment Woman" suelto: eso sigue apareciendo, con
 # razon, en el cargo de las tres cofundadoras y en el evento de la bitacora.
+# Tampoco `data-desk="3"`: tras la reestructuracion a 5 desks ese indice es
+# Administracion (`ADM · Administracion`), no FIW, y estaba dando 2 falsas
+# alarmas en cada corrida sobre index.html. El chip de FIW ya lo cubre `>FIW<`
+# (el codigo es `<span class="di-code">FIW</span>`).
 RASTROS_DEL_AREA = (
     'fiw/index.html',       # cualquier enlace a la pagina del area
-    'data-desk="3"',        # el chip del selector de desks
     'FIW · Comunidad',      # el panel 04
-    '>FIW<',                # el nav corto del 404 y de postula
+    '>FIW<',                # el chip del selector y el nav corto del 404 / postula
     '<h3>FEN Investment Woman</h3>',   # la tarjeta del one-pager en ingles
 )
 
@@ -94,25 +102,30 @@ EDICIONES = [
             <span class="mono-tag">Fundadora · Delia Avilán</span>
             <span class="mono-tag">Comunidad abierta</span>
           </div>
-          <!-- FIW_TEMP_OCULTO <a href="fiw/index.html" class="a-link">Conocer el área <span class="arr">→</span></a> -->
+          <a href="fiw/index.html" class="a-link">Conocer el área <span class="arr">→</span></a>
           <div class="dp-bar"><i></i></div>
         </div>
 """, "", True),
-    # Enumeraciones que nombran el area. El NUMERO de areas no se toca: el club
-    # tiene cuatro, y decir "tres" seria falso. Solo se deja de nombrarla.
+    # Enumeraciones que nombran el area. El NUMERO de areas NO lo toca este
+    # script: el sitio dice "cinco" en los dos repos (decision de Francisco,
+    # 2026-09-03) aunque en el espejo FIW no sea accesible. Solo se deja de
+    # ENUMERARLA en las listas de areas.
+    ("cinco áreas especializadas: Portafolio, Trading, Valuation, FEN Investment Woman y Administración.",
+     "cinco áreas especializadas, con dirección propia cada una.", False),
     ("Portafolio, Trading, Valuation y FEN Investment Woman.",
      "Portafolio, Trading y Valuation, entre otras.", False),
     ("Portafolio, Trading, Valuation y FEN Investment Woman\"",
      "Portafolio, Trading y Valuation, entre otras\"", False),
     ("Comunidad de inversiones de la Facultad de Economia y Negocios. Portafolio, Trading, Valuation y FEN Investment Woman.",
      "Comunidad de inversiones de la Facultad de Economia y Negocios. Portafolio, Trading y Valuation.", False),
-    # Restos de enlaces ya comentados: se van del archivo
-    ("""      <!-- FIW_TEMP_OCULTO <li><a href="fiw/index.html">FIG Woman</a></li> -->
-""", "", False),
-    ("""  <!-- FIW_TEMP_OCULTO <a href="fiw/index.html">FIG Woman</a> -->
-""", "", False),
-    ("""          <!-- FIW_TEMP_OCULTO <li><a href="fiw/index.html">FEN Investment Woman</a></li> -->
-""", "", False),
+    # Enlaces del nav ya DESCOMENTADOS (se descomentaron los 11 a pedido de
+    # Francisco, HOJA_DE_RUTA_FIG.md:21). Sangria exacta: 10 / 2 / 10 espacios.
+    ("""          <a href="fiw/index.html">FIG Woman</a>
+""", "", True),
+    ("""  <a href="fiw/index.html">FIG Woman</a>
+""", "", True),
+    ("""          <li><a href="fiw/index.html">FEN Investment Woman</a></li>
+""", "", True),
 ]),
 ("404.html", [
     ("""      <li><a href="fiw/index.html">FIW</a></li>
@@ -136,15 +149,33 @@ EDICIONES = [
     ("Postula a Portafolio, Trading, Valuation o FEN Investment Woman.",
      "Postula a Portafolio, Trading o Valuation.", False),
 ]),
+# Las tres paginas de desk (valuation/, portafolio/, trading/) llevan la misma
+# frase de "Origen". Desde el 2026-09-03 fig-web las tiene unificadas con el
+# <h3>"Una de las areas fundadoras"</h3> (eso viaja por sincronizar_espejo.py);
+# aca solo se quita el " y FEN Investment Woman" del <p>, dejando "entre otras",
+# que es como quedan las tres en el espejo.
 ("valuation/index.html", [
     ("Área fundadora de FIG, junto a Portafolio, Trading y FEN Investment Woman.",
-     "Área fundadora de FIG, junto a Portafolio y Trading.", True),
+     "Área fundadora de FIG, junto a Portafolio y Trading, entre otras.", True),
+]),
+("portafolio/index.html", [
+    ("Área fundadora de FIG, junto a Trading, Valuation y FEN Investment Woman.",
+     "Área fundadora de FIG, junto a Trading y Valuation, entre otras.", True),
+]),
+("trading/index.html", [
+    ("Área fundadora de FIG, junto a Portafolio, Valuation y FEN Investment Woman.",
+     "Área fundadora de FIG, junto a Portafolio y Valuation, entre otras.", True),
 ]),
 ("en/index.html", [
+    # Se quita la tarjeta de FIW y se renumera Administracion de "Area 05" a
+    # "Area 04" para que el espejo no quede con un hueco (01,02,03,05). El stat
+    # "5 practice areas" NO se toca: el club tiene cinco (decision de Francisco).
     ("""      <div class="card"><span class="tag">Area 04</span><h3>FEN Investment Woman</h3><p>Our community driving women's participation in finance and investing.</p></div>
 """, "", True),
-    ("""<h2 class="reveal d1">Four areas, <em>one community.</em></h2>""",
-     """<h2 class="reveal d1">Our areas of <em>practice.</em></h2>""", True),
+    ('<span class="tag">Area 05</span><h3>Administration</h3>',
+     '<span class="tag">Area 04</span><h3>Administration</h3>', True),
+    # El <h2> "Four areas..." ya no existe en fig-web: desde el 2026-09-03 dice
+    # "Our areas of practice." (sin numero). Viaja por sync; no hace falta regla.
     ("Portfolio, Trading, Valuation and FEN Investment Woman.",
      "Portfolio, Trading and Valuation.", False),
 ]),
@@ -158,6 +189,27 @@ def main() -> int:
 
     if not ESPEJO.exists():
         print(f"No encuentro el espejo en {ESPEJO}")
+        return 1
+
+    # Autoverificacion: toda regla obligatoria tiene que calzar contra el archivo
+    # de ORIGEN (este repo). Si no calza, es que el HTML de fig-web cambio y la
+    # regla quedo escrita contra una version que ya no existe -- exactamente lo
+    # que le paso a las reglas del nav de index.html.
+    desalineadas = []
+    for arch, reglas in EDICIONES:
+        f = ORIGEN / arch
+        if not f.exists():
+            desalineadas.append(f"{arch}: no existe en el origen")
+            continue
+        texto = f.read_text(encoding="utf-8")
+        for buscar, _reemplazar, obligatorio in reglas:
+            if obligatorio and buscar not in texto:
+                desalineadas.append(f"{arch}: la regla ya no calza -> {buscar.strip()[:70]}")
+    if desalineadas:
+        print("REGLAS DESALINEADAS con el HTML de este repo (arreglar EDICIONES):")
+        for x in desalineadas:
+            print(f"  {x}")
+        print()
         return 1
 
     acciones, faltantes = [], []
@@ -244,7 +296,7 @@ def main() -> int:
 
     print("\nRecuerda: los cargos de las tres cofundadoras en datos/club.json NO "
           "se tocan (ver la cabecera de este archivo).")
-    return 0
+    return 1 if faltantes else 0
 
 
 if __name__ == "__main__":

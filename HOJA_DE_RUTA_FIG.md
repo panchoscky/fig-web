@@ -10,9 +10,20 @@
 > (2) agrega lo nuevo que haya surgido al backlog, (3) actualiza la tabla de
 > estado de `CLAUDE.md`. Un documento desactualizado es peor que ninguno.
 
-Última actualización: **2026-08-21** (sesión 12: **corte semanal a la
-semana 15 + 5 equipos eliminados + video de la facultad con formato
-elegible**).
+Última actualización de esta cabecera: **2026-09-02**. La última tanda
+registrada en `docs/BITACORA.md` es del 2026-09-02: **Portafolio toma paleta
+propia** — azul y naranja de Itaú + grafito de BlackRock, los dos sponsors del
+Torneo Portafolio; es la segunda página del sitio con paleta propia después de
+`fiw/`, los nombres de las variables no cambian. En las tandas previas (31-ago
+al 2-sep): nace el desk de **Administración** (cinco desks en total) y las
+páginas nuevas `portafolio/index.html` y `trading/index.html`; y el corte del
+torneo a la **semana 16** (corte 28-ago-2026, **48 equipos**, ACWI al día —
+`378d99e`, confirmado en `CLAUDE.md` §"Estado general").
+
+> El cuerpo de este documento (§2 en adelante) es anterior a esa fecha y quedó
+> atrás en varios puntos. Las fuentes al día son `docs/ESTADO_PIEZAS.md` (estado
+> por página), `docs/ARBOL_REPO.md` (qué hace cada archivo) y `docs/BITACORA.md`
+> (decisiones fechadas).
 
 **(0) Corte del torneo a la semana 15 (21-ago-2026).** Francisco pasó los datos en dos formatos — un JSON con el ranking ya calculado y el Excel oficial — se compararon cruzados antes de aplicar nada y coincidían exactamente en los 54 equipos. Se generó con `generar_torneo.py --excel` desde el Excel, como siempre. **5 equipos eliminados** (Fencashticos, Free Riders, Market Moggers, Mosqueteros, Pink Capital): desaparecen de `torneo.json` por completo, incluido su historial pasado (S5-S14) — así funciona hoy el script, arma `equipos[]` desde cero a partir del Excel del corte vigente. Se le preguntó a Francisco explícitamente antes de aplicarlo y confirmó aceptar ese comportamiento sin agregar un flag `eliminado:true` — el dato sigue en el historial de git de antes del commit, pero desaparece de la vista pública. De paso se corrigieron 7 menciones hardcodeadas de "59 equipos" a "54 equipos" en el resto del sitio (mismo patrón que la corrección 63→59 del 2026-08-02) — ver detalle en la fila de `torneo/index.html` de `CLAUDE.md`.
 
@@ -291,27 +302,36 @@ Estas reglas hacen que el trabajo de cualquier modelo se vea igual:
    tocado, y servir con `python3 -m http.server` + curl 200 de cada página.
 7. **Commits en español, descriptivos, push a la rama designada de la sesión.**
 
+## 1b. Publicar el corte semanal si Francisco no está
+
+> Lo único de todo el ecosistema que no se deduce leyendo el código. Escrito
+> por Francisco el 2026-09-03.
+
+**El Excel del corte lo genera Agustín** con el pipeline del repo
+`torneo-bloomberg-oficial` (Bloomberg → `salidas/Excel_Oficial_FIG_PORT_AAAA-MM-DD.xlsx`).
+Para publicar hace falta ese Excel: pedírselo a Agustín, o si tenés su repo
+clonado al lado, actualizarlo y tomarlo de `salidas/`.
+
+**Los dos repos:**
+- `panchoscky/fig-web` — el de trabajo. Acá se corre todo el pipeline y se
+  commitea. La rutina paso a paso está en la skill `corte-semanal-fig` (y en
+  `CLAUDE.md` §"La rutina semanal").
+- `mpazq-afk/mpazq-afk.github.io` — el **espejo**, tiene el `CNAME`, es el que
+  sirve `feninvestmentgroup.com`. **El push a este repo lo hace SOLO Manuel.**
+  Si Francisco no está: dejar `fig-web` commiteado y con el corte aplicado, y
+  **avisarle a Manuel** para que él sincronice y publique el espejo (o que
+  autorice el push explícitamente en el momento). Nadie más pushea ahí.
+
+**Avisar del corte** (publicado, o si algo salió mal): a **Manuel** (dueño del
+repo de deploy), **Agustín** (dueño del pipeline Bloomberg) y **Benjamín Sáez**
+(presidente).
+
 ## 2. Mapa del ecosistema
 
-```
-/ (raíz del repo — movido aquí el 2026-07-19, antes vivía en FIG_completo_git/
-  para que GitHub Pages pueda servirlo directo sin subcarpeta)
-├── index.html               ✅ sitio principal (enlaza a todas las subpáginas)
-├── eventos/index.html        ✅ bitácora de actividades (lee datos/eventos.json)
-├── torneo/index.html          ✅ ranking del torneo + trayectoria por equipo (lee datos/torneo.json)
-├── fiw/index.html              ⚠️ FEN Investment Woman (colores provisionales)
-├── postula/index.html            ⚠️ formulario de postulación (falta endpoint)
-├── generar_torneo.py              ✅ Excel ranking → datos/torneo.json (mantiene historial)
-├── datos/
-│   ├── club.json                  ← config.urls + config.postulaEndpoint + personas + eventos resumen + historia
-│   ├── eventos.json                ← bitácora completa
-│   ├── fiw.json                     ← textos FIW
-│   └── torneo.json.ejemplo           ← ESQUEMA del ranking (renombrar a torneo.json con datos reales)
-├── fotos/eventos/* , fotos/fiw/     ← 1.jpg, 2.jpg… numeradas sin saltos (vacías aún)
-├── CLAUDE.md                        ← contexto vivo del proyecto (mantener al día)
-├── HOJA_DE_RUTA_FIG.md              ← ESTE archivo
-├── LEEME_PAGINAS.md, IDEAS_FIG.md, IDEAS_GRAN_ESCALA_FIG.md ← contexto adicional
-```
+El árbol de archivos anotado del repo, con qué hace cada uno y de dónde viene
+cada dato, es ahora **`docs/ARBOL_REPO.md`** — la fuente única. Este documento
+ya no lo duplica (la copia que vivía aquí listaba 5 páginas HTML cuando el sitio
+tiene 19). El estado por página está en `docs/ESTADO_PIEZAS.md`.
 
 Fuera del repo (no reinventar, ver `CLAUDE.md` §"Lo que YA existe"):
 sitio en producción del Drive, app `torneo-app` (Vite+TS), overlay OBS
@@ -327,7 +347,7 @@ Instagram `instagram.com/fen.investment.group`.
 | 2026-07-07 | Enlaces cruzados | index.html → torneo/, eventos/, fiw/ + Instagram/LinkedIn reales en CONFIG y club.json |
 | 2026-07-07 | Rendimiento pasado por equipo | Campo `historial` en el esquema del torneo; sección "Trayectoria" (sparkline SVG + stats: mejor posición, mejor score, semanas en top 3) en el overlay de equipo; sparkline también en las tarjetas descargables PNG 1080×1350 y HTML |
 | 2026-07-07 | `generar_torneo.py` | Lee hoja `ranking_ordenado` + Excel inscripciones → escribe datos/torneo.json; CONSERVA el historial del JSON anterior y agrega la semana nueva; calcula `delta`; modo `--demo` para probar |
-| 2026-07-07 | Formulario de postulación | `postula/index.html` — envía a `config.postulaEndpoint` (Apps Script) definido en club.json; mientras esté vacío muestra banner "en configuración" con envío deshabilitado; CTA "Quiero ser parte" del index ya apunta aquí |
+| 2026-07-07 | Formulario de postulación | `postula/index.html` — envía a `config.figEndpoint` (Apps Script único del sitio) definido en club.json; nació como `config.postulaEndpoint`, se consolidó en un solo endpoint el 2026-07-14/18. Mientras estuvo vacío mostraba banner "en configuración" con envío deshabilitado; hoy el endpoint está pegado (P0-1 resuelto). CTA "Quiero ser parte" del index apunta aquí |
 | 2026-07-09 | Logos oficiales | Bajados del Drive a `logos/` (toro FIG en oro/blanco/navy + lockup, Itaú, BlackRock + versión blanca). NO hay logo de FIW en el Drive — pendiente P0 |
 | 2026-07-09 | Intros animadas | Todas las páginas abren con logo al centro → nombre (+ área en subpáginas; FIW muestra su nombre + "FEN Investment Group"); 1 vez por sesión por página (sessionStorage), respeta reduced-motion. Logo real en navs/footer |
 | 2026-07-11 | El Rally del Toro | `juego/index.html`: runner canvas (toro del logo, velas rojas y burbujas). Mecánica central: el portafolio (USD 10.000 base) crece con multiplicador que sube cada 8 s mientras el mercado se acelera; VENDER (tecla S/botón) asegura el valor en el ranking local (localStorage top-10 con nombre); chocar = pierdes todo lo no vendido. Transmite "un inversionista debe saber cuándo salir". Enlazado desde el banner de postula/ como sala de espera |
@@ -337,7 +357,7 @@ Instagram `instagram.com/fen.investment.group`.
 | 2026-07-09 | Tarjetas v4 | Feed 1080×1350 rediseñada + LinkedIn 1200×627 + HTML autocontenida + VIDEOS Feed/Story con intro animada (MediaRecorder; WebM Chrome / MP4 Safari). Gráfico de 3 líneas: retorno equipo vs promedio vs ACWI; miembros, delta badge, logos colaboradores, RRSS por formato. Esquema: `historial[].ret` + serie `acwi` (generar_torneo.py --acwi); el promedio lo calcula la página. Hook `window.__figCards` |
 | 2026-07-14 | Toro dibujado en el Rally | Pedido de Francisco: que se vea un toro corriendo inspirado en el logo, no el logo plano. `drawToro()` de `juego/index.html` ahora dibuja la silueta en canvas: cuerpo con degradado oro (EBD388→D4AF37→9E7E1E), giba, cabeza baja embistiendo, cuernos medialuna claros como el logo, ojo/nariz navy, cola con borla animada, y galope de 4 patas en pares diagonales (fase por `elapsed`); en el salto las patas quedan recogidas/estiradas y el cuerpo rota −.16 rad; quieto, posa plantado (portada). Sin imágenes: se eliminó el `Image` del logo en el canvas (el nav lo conserva). Hitbox ajustada a 64×52 con los mismos márgenes de gracia |
 | 2026-07-14 | Demos autocontenidas | `build_demos.py` (scratchpad de la sesión, no comiteado) genera 3 archivos HTML de un solo archivo para compartir de prueba: principal, torneo y juego — logos embebidos en base64 y `club.json`/`eventos.json` inyectados vía shim de `fetch()`; torneo.json se omite a propósito para que la página muestre su modo DEMO honestamente. Enviados a Francisco por chat |
-| 2026-07-14 | Lote de 8 mejoras (Fable) | Pedido de Francisco ("desarrolla las 8 ideas"): (1) **Tarjeta compartible del Rally** — al vender, botón "Descargar tarjeta del resultado" genera un PNG 1080×1350 con el monto, % de ganancia, el toro dibujado (reutiliza `toroSilueta()`) y la cita del club; (2) **Ticker bursátil** en `index.html` — cinta fija al pie con el top 5 del torneo (puntos, retorno vs ACWI, delta ▲▼), SOLO aparece si existe `datos/torneo.json` real, cerrable y recordado por sesión, pausa al hover, respeta reduced-motion; (3) **Sparkline "TU RUN"** en el juego — curva de equity de la corrida actual arriba a la derecha del canvas; (4) **Filtro por año** en la bitácora (píldoras generadas desde los datos; se ocultan si hay un solo año) combinado con el filtro por tipo existente; (5) **Calendario .ics** — `generar_ics.py` (stdlib, RFC 5545, correr tras editar eventos.json) → `eventos/fig.ics`, botón en la página; en GitHub Pages la URL del .ics sirve para suscripción; (6) **Métricas anónimas sin cookies** — beacon en las 8 páginas, inerte hasta configurar `config.statsEndpoint` (código Apps Script abajo); (7) **`en/index.html`** — one-pager en inglés para partners (única página en inglés del sitio, enlazada del footer), solo datos verificados; (8) **Modo pantalla** (`eventos/?pantalla=1`) — fotos de todos los eventos a pantalla completa con título/fecha rotando cada 8 s, para TVs de la FEN, ESC sale, enlazado del footer de eventos. Todo verificado con Playwright; resúmenes demo embebidos de eventos/index.html sincronizados con eventos.json |
+| 2026-07-14 | Lote de 8 mejoras (Fable) | Pedido de Francisco ("desarrolla las 8 ideas"): (1) **Tarjeta compartible del Rally** — al vender, botón "Descargar tarjeta del resultado" genera un PNG 1080×1350 con el monto, % de ganancia, el toro dibujado (reutiliza `toroSilueta()`) y la cita del club; (2) **Ticker bursátil** en `index.html` — cinta fija al pie con el top 5 del torneo (puntos, retorno vs ACWI, delta ▲▼), SOLO aparece si existe `datos/torneo.json` real, cerrable y recordado por sesión, pausa al hover, respeta reduced-motion; (3) **Sparkline "TU RUN"** en el juego — curva de equity de la corrida actual arriba a la derecha del canvas; (4) **Filtro por año** en la bitácora (píldoras generadas desde los datos; se ocultan si hay un solo año) combinado con el filtro por tipo existente; (5) **Calendario .ics** — `generar_ics.py` (stdlib, RFC 5545, correr tras editar eventos.json) → `eventos/fig.ics`, botón en la página; en GitHub Pages la URL del .ics sirve para suscripción; (6) **Métricas anónimas sin cookies** — beacon en las páginas, inerte hasta configurar el endpoint (se llamó `config.statsEndpoint` aquí; se consolidó en `config.figEndpoint`, el Apps Script único del sitio, el 2026-07-14/18); (7) **`en/index.html`** — one-pager en inglés para partners (única página en inglés del sitio, enlazada del footer), solo datos verificados; (8) **Modo pantalla** (`eventos/?pantalla=1`) — fotos de todos los eventos a pantalla completa con título/fecha rotando cada 8 s, para TVs de la FEN, ESC sale, enlazado del footer de eventos. Todo verificado con Playwright; resúmenes demo embebidos de eventos/index.html sincronizados con eventos.json |
 | 2026-07-16 | Material Finanzas — Q1 Inventario | (Sesión distinta, Haiku) Francisco subió una carpeta "material finanzas" al Drive personal: 189 archivos (153 PDFs + 22 DOCs + 11 XLSs + 3 PPTs) en 4 subcarpetas (Finanzas I, Finanzas II, Intro a Finanzas, APF). Inventariados y mapeados a ramos/temas propuestos en `Q1_INVENTARIO_FINANZAS.md`. Ver detalle en P1.5 abajo |
 | 2026-07-17 | Material Finanzas — Q2 lote 1 | Primer lote de extracción de preguntas: `datos/preguntas/finanzas-01.json` con 26 preguntas (14 `matematica-financiera` + 12 `analisis-financiero`, nuevos) desde 2 archivos de "Intro a Finanzas" (VA/VF/anualidades/perpetuidades y ratios ROI/ROE/liquidez/endeudamiento). Ramo `intro-finanzas` y ambos temas agregados a `index.json` en el mismo commit. `validar_preguntas.py` → TODO OK, 38 preguntas totales, balance de dificultad ~45/42/13. Excels excluidos por instrucción explícita de Francisco. Ver detalle en P1.5-Q2 abajo |
 | 2026-07-17 | Material Finanzas — Q2 lote 2 | Segundo lote: `datos/preguntas/finanzas-02.json` con 20 preguntas más — 10 amplían el tema existente `renta-fija` (bonos: tasa cupón vs tasa mercado, cupón cero, bullet, francés, covenants, par/sobre par/bajo par) y 10 crean el tema nuevo `riesgo-financiero` (riesgo de mercado, crédito, liquidez, contraparte, sistémico, BIS). Fuente: 2 resúmenes de cátedra de Intro a Finanzas (Iván Abarca, renta fija y riesgo financiero). `validar_preguntas.py` → TODO OK, 58 preguntas totales, balance de dificultad 25/24/9 (≈43/41/16, muy cerca del target 40/40/20) |

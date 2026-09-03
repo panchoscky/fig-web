@@ -35,6 +35,13 @@ import re
 import subprocess
 import sys
 
+# Se reusa para no duplicar a mano la lista de paginas publicas ni la logica de
+# fecha_git: el sitemap y su verificacion tienen que salir de la MISMA fuente.
+try:
+    import generar_sitemap
+except Exception:      # pragma: no cover - solo si falta el archivo
+    generar_sitemap = None
+
 RAIZ = pathlib.Path(__file__).resolve().parent
 DATOS = RAIZ / "datos"
 
@@ -206,6 +213,11 @@ def revisar_imagenes_og(torneo: dict) -> None:
         return
     carpeta = RAIZ / "og"
     sin = [e["id"] for e in equipos if not (carpeta / f"equipo-{e['id']}.jpg").exists()]
+    # equipo-*.jpg y no *.jpg: si algun dia cae un og generico en la carpeta, no
+    # tiene que denunciarse como huerfano.
+    esperadas = {f"equipo-{e['id']}.jpg" for e in equipos}
+    actuales = {p.name for p in carpeta.glob("equipo-*.jpg")} if carpeta.exists() else set()
+    sobran = sorted(actuales - esperadas)
     if not carpeta.exists() or len(sin) == len(equipos):
         aviso("og/: ningun equipo tiene imagen de vista previa propia -- todos usan "
               "og-image.png. Opcional, ver generar_og_equipos.js")
@@ -214,38 +226,127 @@ def revisar_imagenes_og(torneo: dict) -> None:
               "-- corre node generar_og_equipos.js")
     else:
         bien(f"og/: los {len(equipos)} equipos tienen imagen de vista previa")
+    if sobran:
+        muestra = ", ".join(sobran[:6]) + ("..." if len(sobran) > 6 else "")
+        aviso(f"og/: {len(sobran)} imagen(es) de equipos que ya no compiten "
+              f"({muestra}). generar_og_equipos.js nunca borra: sacarlas a mano "
+              "(tambien del espejo). Son inertes, ninguna pagina las referencia.")
+
+
+# Numeros escritos EN PALABRAS que aparecen como "N equipos/teams". El bug
+# "Sixty-three" que estuvo meses en en/index.html no lo veia el regex de digitos.
+_PALABRAS_NUM = {
+    "forty-seven": 47, "forty-eight": 48, "forty-nine": 49, "fifty": 50,
+    "fifty-two": 52, "fifty-three": 53, "fifty-four": 54, "fifty-five": 55,
+    "fifty-nine": 59, "sixty": 60, "sixty-one": 61, "sixty-three": 63,
+    "sixty-five": 65,
+}
+
+# Fragmentos de texto (NO numeros de linea: miembros.json se regenera y las
+# lineas se mueven) que nombran un numero de equipos a proposito -- citas de
+# prensa, hechos acumulados, notas historicas -- y no hay que corregir.
+EXCEPCIONES_CONTEO = (
+    "capacitó a más de 65 equipos",           # bio de Agustin: hecho acumulado
+    "54 equipos y más de 150 estudiantes",    # cita de prensa, Capitulo IV de club.json
+    "estuvieron EN ESPERA",                   # _nota historica de equipos_congelados.json
+    "TRAYECTORIA DISPONIBLE DESDE LA SEMANA",  # rotulo del grafico del torneo
+)
+
+_TAG = re.compile(r"<[^>]+>")
+
+
+def _blanquear_comentarios(texto: str, es_html: bool) -> str:
+    """Deja los comentarios en blanco CONSERVANDO los saltos de linea, para que
+    los numeros de linea del reporte sigan calzando. Los .json no llevan
+    comentarios; el HTML puede traer /* */ dentro de <style>/<script>."""
+    def repl(m):
+        return "\n" * m.group(0).count("\n")
+    if es_html:
+        texto = re.sub(r"<!--.*?-->", repl, texto, flags=re.S)
+        texto = re.sub(r"/\*.*?\*/", repl, texto, flags=re.S)
+    return texto
 
 
 def revisar_conteo_equipos(torneo: dict) -> None:
-    """Las mencionas escritas a mano de "N equipos" calzan con el JSON."""
+    """Las menciones escritas a mano de "N equipos/teams", la semana y la fecha
+    de corte calzan con datos/torneo.json. Cubre texto en espanol y en ingles,
+    salta comentarios de codigo y las excepciones historicas declaradas."""
     equipos = torneo.get("equipos", [])
     if not equipos:
         return
     n = len(equipos)
-    patron = re.compile(r"\b(\d{2,3})\s+equipos\b", re.IGNORECASE)
+    semana = torneo.get("semana")
+    corte = torneo.get("corte") or ""
+
+    num_pat = re.compile(r"\b(\d{2,3})\s+(?:equipos|teams)\b", re.IGNORECASE)
+    pal_pat = re.compile(r"\b([a-z]+(?:-[a-z]+)?)\s+(?:student\s+)?teams\b", re.IGNORECASE)
+    # semana/week N pero SOLO si "cut"/"corte" aparece cerca (asi no se confunde
+    # con "disponible desde la semana 2" y otros rotulos sueltos).
+    sem_pat = re.compile(
+        r"(?:week|semana)\s+(\d{1,2})\b[^\n]{0,25}\b(?:cut|corte)\b"
+        r"|\b(?:cut|corte)\b[^\n]{0,25}(?:week|semana)\s+(\d{1,2})\b",
+        re.IGNORECASE)
+
+    # Fecha de corte esperada, en las dos formas que usa el sitio.
+    MESES = {"ENE": "January", "FEB": "February", "MAR": "March", "ABR": "April",
+             "MAY": "May", "JUN": "June", "JUL": "July", "AGO": "August",
+             "SEP": "September", "OCT": "October", "NOV": "November", "DIC": "December"}
+    fecha_ok = set()
+    mc = re.match(r"\s*(\d{1,2})\s*·\s*([A-Z]{3})\s*·\s*(\d{4})", corte)
+    if mc:
+        dia, mes3, anio = mc.group(1), mc.group(2), mc.group(3)
+        fecha_ok = {f"{mes3}", f"{MESES.get(mes3, '')}"}
+    fecha_pat = re.compile(r"\(\s*(?:([A-Z][a-z]+)\s+(\d{1,2}),\s*(\d{4})"
+                           r"|(\d{1,2})\s*·\s*([A-Z]{3})\s*·\s*(\d{4}))\s*\)")
+
     malas = []
     for ruta in sorted(list(RAIZ.rglob("*.html")) + list(DATOS.rglob("*.json"))):
         if ".git" in ruta.parts or ruta.name.endswith(".demo.json"):
             continue
         if (RAIZ / "torneo" / "e") in ruta.parents:      # generadas, salen del JSON
             continue
+        # miembros.json es DERIVADO de club.json, que ya se escanea aca mismo:
+        # revisarlo dos veces solo duplica cada hallazgo.
+        if ruta.name == "miembros.json":
+            continue
         try:
-            texto = ruta.read_text(encoding="utf-8")
+            crudo = ruta.read_text(encoding="utf-8")
         except (UnicodeDecodeError, OSError):
             continue
+        es_html = ruta.suffix.lower() == ".html"
+        texto = _blanquear_comentarios(crudo, es_html)
         for linea_n, linea in enumerate(texto.splitlines(), 1):
-            for m in patron.finditer(linea):
+            plano = _TAG.sub(" ", linea) if es_html else linea
+            if any(exc in plano for exc in EXCEPCIONES_CONTEO):
+                continue
+            for m in num_pat.finditer(plano):
                 if int(m.group(1)) != n:
-                    malas.append(f"{rel(ruta)}:{linea_n} dice \"{m.group(0)}\"")
+                    malas.append(f'{rel(ruta)}:{linea_n} dice "{m.group(0).strip()}" (son {n})')
+            for m in pal_pat.finditer(plano):
+                val = _PALABRAS_NUM.get(m.group(1).lower())
+                if val is not None and val != n:
+                    malas.append(f'{rel(ruta)}:{linea_n} dice "{m.group(0).strip()}" (son {n})')
+            if semana:
+                for m in sem_pat.finditer(plano):
+                    g = m.group(1) or m.group(2)
+                    if g and int(g) != semana:
+                        malas.append(f'{rel(ruta)}:{linea_n} habla del corte de la '
+                                     f'semana {g} (el corte vigente es la {semana})')
+            if fecha_ok:
+                for m in fecha_pat.finditer(plano):
+                    mes = m.group(1) or m.group(5)
+                    if mes and mes not in fecha_ok:
+                        malas.append(f'{rel(ruta)}:{linea_n} fecha de corte "{m.group(0)}" '
+                                     f'no calza con el corte {corte!r}')
+
     if malas:
-        aviso(f"hay {len(malas)} mencion(es) de un numero de equipos distinto de {n}:")
-        for m in malas[:8]:
-            aviso(f"    {m}")
-        if len(malas) > 8:
-            aviso(f"    ... y {len(malas) - 8} mas")
-        aviso("    (revisalas a mano: algunas pueden ser historicas a proposito)")
+        cuerpo = "\n".join(f"    {m}" for m in malas[:12])
+        extra = f"\n    ... y {len(malas) - 12} mas" if len(malas) > 12 else ""
+        aviso(f"{len(malas)} mencion(es) de conteo/semana/fecha que no calzan con "
+              f"torneo.json:\n{cuerpo}{extra}\n    (algunas pueden ser historicas: "
+              "si lo son, agregar el fragmento a EXCEPCIONES_CONTEO)")
     else:
-        bien(f"todas las menciones escritas a mano dicen {n} equipos")
+        bien(f"conteo de equipos, semana y fecha de corte: todo dice {n} / semana {semana}")
 
 
 # Techo del HTML de una pagina, en KB de FUENTE (sin comprimir). Todo va inline
@@ -273,55 +374,80 @@ def revisar_peso_html() -> None:
         bien(f"ninguna pagina pasa los {TECHO_HTML_KB} KB de fuente")
 
 
-# Las 10 paginas publicas y la URL canonica que le toca a cada una. Tiene que
-# calzar con generar_sitemap.py: son las mismas 10 que van al sitemap.
-SITIO_CANONICO = "https://feninvestmentgroup.com"
-CANONICAS = {
-    "index.html": "/", "en/index.html": "/en/", "eventos/index.html": "/eventos/",
-    "fiw/index.html": "/fiw/", "torneo/index.html": "/torneo/",
-    "miembros/index.html": "/miembros/", "valuation/index.html": "/valuation/",
-    "portafolio/index.html": "/portafolio/", "trading/index.html": "/trading/",
-    "postula/index.html": "/postula/", "desafio/index.html": "/desafio/",
-    "juego/index.html": "/juego/",
-}
+def _sitemap_esperado() -> tuple[str, dict[str, pathlib.Path]]:
+    """{loc: archivo} que produciria generar_sitemap.py en ESTE repo. Cada repo
+    (trabajo y espejo) tiene sus propias paginas, asi que esto se calcula, no se
+    escribe a mano -- que era de donde salia el AVISO permanente de 'ausentes'
+    en el espejo."""
+    sitio = generar_sitemap.SITIO_POR_DEFECTO
+    club = DATOS / "club.json"
+    if club.exists():
+        try:
+            cfg = json.loads(club.read_text(encoding="utf-8")).get("config") or {}
+            sitio = cfg.get("sitio") or sitio
+        except json.JSONDecodeError:
+            pass
+    sitio = sitio.rstrip("/")
+    out: dict[str, pathlib.Path] = {}
+    for ruta in sorted(RAIZ.rglob("*.html")):
+        r = str(ruta.relative_to(RAIZ)).replace("\\", "/")
+        if r.startswith("torneo/e/") or r in generar_sitemap.EXCLUIDAS:
+            continue
+        publica = r[:-len("index.html")] if r.endswith("index.html") else r
+        out[f"{sitio}/{publica}"] = ruta
+    return sitio, out
+
+
+def _archivo_de_loc(loc: str, base: str) -> pathlib.Path:
+    """loc -> archivo en disco. loc que termina en '/' es una carpeta
+    (-> index.html); loc con un .html al final es esa pagina tal cual."""
+    ruta = loc[len(base):].lstrip("/")
+    if ruta == "" or ruta.endswith("/"):
+        return RAIZ / ruta / "index.html"
+    return RAIZ / ruta
 
 
 def revisar_canonicas() -> None:
-    """Cada pagina publica declara SU canonical, y solo una.
+    """Cada pagina del sitemap declara SU canonical, una sola, apuntando a su
+    propio <loc>. La lista de paginas sale del sitemap, no de un dict a mano.
 
     El sitio se sirve desde dos dominios (produccion y el espejo de GitHub
     Pages). Sin canonical los dos son, para un buscador, dos copias del mismo
     contenido compitiendo entre si -- y el que gane puede ser el equivocado.
     """
-    malas = []
-    ausentes = []
-    for arch, ruta in CANONICAS.items():
-        f = RAIZ / arch
-        if not f.exists():
-            # No es un error: este script corre TAMBIEN en el espejo, que a
-            # proposito publica menos paginas que el repo de trabajo (hoy le
-            # faltan miembros/ e informe/). Una pagina que no se publica no
-            # puede tener mal su canonical. Se informa para que nadie confunda
-            # "no publicada" con "me olvide de revisarla".
-            ausentes.append(arch)
-            continue
-        texto = f.read_text(encoding="utf-8")
-        esperado = f'<link rel="canonical" href="{SITIO_CANONICO}{ruta}">'
-        n = texto.count('rel="canonical"')
-        if n == 0:
-            malas.append(f"{arch}: sin canonical")
-        elif n > 1:
-            malas.append(f"{arch}: {n} canonical (debe haber uno solo)")
-        elif esperado not in texto:
-            malas.append(f"{arch}: el canonical no apunta a {SITIO_CANONICO}{ruta}")
-    if ausentes:
-        aviso("no se publican en este repo, sin canonical que revisar: "
-              + ", ".join(ausentes))
-    if malas:
-        for m in malas:
-            error(f"canonical -- {m}")
+    if generar_sitemap is None:
+        aviso("no encuentro generar_sitemap.py -- no puedo revisar canonicals")
         return
-    bien(f"las {len(CANONICAS) - len(ausentes)} paginas publicas declaran su canonical")
+    sm = RAIZ / "sitemap.xml"
+    if not sm.exists():
+        aviso("no hay sitemap.xml -- generalo con generar_sitemap.py (sin el no "
+              "se revisan los canonicals)")
+        return
+    texto_sm = sm.read_text(encoding="utf-8")
+    base = generar_sitemap.SITIO_POR_DEFECTO
+    m0 = re.search(r"<loc>([^<]+?://[^/<]+)", texto_sm)
+    if m0:
+        base = m0.group(1)
+    malas = []
+    locs = re.findall(r"<loc>([^<]+)</loc>", texto_sm)
+    for loc in locs:
+        f = _archivo_de_loc(loc, base)
+        if not f.exists():
+            malas.append(f"{rel(f)}: en el sitemap pero no existe el archivo")
+            continue
+        t = f.read_text(encoding="utf-8")
+        n = t.count('rel="canonical"')
+        esperado = f'<link rel="canonical" href="{loc}">'
+        if n == 0:
+            malas.append(f"{rel(f)}: sin canonical")
+        elif n > 1:
+            malas.append(f"{rel(f)}: {n} canonical (debe haber uno solo)")
+        elif esperado not in t:
+            malas.append(f"{rel(f)}: el canonical no apunta a {loc}")
+    if malas:
+        error("canonical --\n" + "\n".join(f"    {x}" for x in malas))
+        return
+    bien(f"las {len(locs)} paginas del sitemap declaran su canonical")
 
 
 def revisar_datos_estructurados() -> None:
@@ -354,8 +480,55 @@ def revisar_datos_estructurados() -> None:
     bien("el JSON-LD de index.html calza con datos/club.json")
 
 
+def revisar_respaldo_index() -> None:
+    """El literal JS CLUB_DATA embebido en index.html no se quedo atras de
+    datos/club.json en nombres ni LinkedIn.
+
+    index.html pinta primero ese respaldo y despues lo pisa con club.json, asi
+    que un desfase no se ve en vivo -- pero es doble fuente de verdad: cada
+    cambio de cargo hay que hacerlo dos veces, y quien lee el HTML para
+    verificar un dato lee el viejo (ya causo una afirmacion equivocada). Es
+    AVISO, no ERROR: club.json gana al cargar."""
+    idx = RAIZ / "index.html"
+    club_p = DATOS / "club.json"
+    if not idx.exists() or not club_p.exists():
+        return
+    m = re.search(r"CLUB_DATA\s*=\s*\{(.*?)\n\s*\};", idx.read_text(encoding="utf-8"), re.S)
+    if not m:
+        aviso("index.html: no encuentro el literal CLUB_DATA para compararlo con club.json")
+        return
+    blob = m.group(1)
+    try:
+        club = json.loads(club_p.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return
+    directiva = ((club.get("personas") or {}).get("directiva")) or []
+    faltan_nombre, faltan_li = [], []
+    for p in directiva:
+        nom = p.get("nombre") or ""
+        if nom and f'nombre:"{nom}"' not in blob and f"nombre:'{nom}'" not in blob:
+            faltan_nombre.append(nom)
+            continue
+        li = p.get("linkedin")
+        if li and li not in blob:
+            faltan_li.append(nom)
+    partes = []
+    if faltan_nombre:
+        partes.append(f"    sin ficha en el respaldo: {', '.join(faltan_nombre)}")
+    if faltan_li:
+        partes.append(f"    con LinkedIn en club.json pero no en el respaldo: {', '.join(faltan_li)}")
+    if partes:
+        aviso("index.html: el respaldo CLUB_DATA quedo atras de club.json "
+              "(club.json gana al cargar, pero es doble fuente de verdad):\n"
+              + "\n".join(partes))
+    else:
+        bien(f"index.html: el respaldo CLUB_DATA calza con club.json ({len(directiva)} fichas)")
+
+
 def revisar_derivados_seo() -> None:
-    """sitemap.xml y robots.txt existen y el sitemap no lista las micro-paginas."""
+    """sitemap.xml existe, lista EXACTAMENTE las paginas que generar_sitemap.py
+    produciria hoy, no incluye las micro-paginas, y sus <lastmod> no van por
+    detras del ultimo commit de cada archivo."""
     sm, rb = RAIZ / "sitemap.xml", RAIZ / "robots.txt"
     if not sm.exists() or not rb.exists():
         aviso("faltan sitemap.xml y/o robots.txt -- generalos con generar_sitemap.py")
@@ -365,7 +538,41 @@ def revisar_derivados_seo() -> None:
         error("sitemap.xml lista las micro-paginas de equipo, que van con noindex "
               "-- corre generar_sitemap.py")
         return
-    bien(f"sitemap.xml ({texto.count('<url>')} URLs) y robots.txt al dia")
+
+    if generar_sitemap is None:
+        aviso("no encuentro generar_sitemap.py -- solo puedo revisar que exista el sitemap")
+        bien(f"sitemap.xml ({texto.count('<url>')} URLs) y robots.txt presentes")
+        return
+
+    _, esperadas = _sitemap_esperado()
+    en_archivo = set(re.findall(r"<loc>([^<]+)</loc>", texto))
+    faltan = sorted(set(esperadas) - en_archivo)
+    sobran = sorted(en_archivo - set(esperadas))
+    if faltan or sobran:
+        detalle = []
+        if faltan:
+            detalle.append("    faltan: " + ", ".join(faltan))
+        if sobran:
+            detalle.append("    sobran: " + ", ".join(sobran))
+        error("sitemap.xml no calza con las paginas del repo -- corre "
+              "generar_sitemap.py:\n" + "\n".join(detalle))
+        return
+
+    # <lastmod> por detras del git: el sitemap quedo viejo.
+    bloques = re.findall(r"<loc>([^<]+)</loc>\s*(?:<lastmod>([^<]+)</lastmod>)?", texto)
+    atrasadas = []
+    for loc, lastmod in bloques:
+        ruta = esperadas.get(loc)
+        if not ruta:
+            continue
+        commit = generar_sitemap.fecha_git(ruta)
+        if commit and (not lastmod or lastmod < commit):
+            atrasadas.append(f"    {loc}: sitemap {lastmod or '(sin fecha)'} < commit {commit}")
+    if atrasadas:
+        aviso("sitemap.xml tiene <lastmod> mas viejos que el ultimo commit "
+              "(regeneralo con generar_sitemap.py):\n" + "\n".join(atrasadas))
+    else:
+        bien(f"sitemap.xml ({len(en_archivo)} URLs, fechas al dia) y robots.txt")
 
 
 def revisar_creadores() -> None:
@@ -420,6 +627,7 @@ def main() -> int:
     revisar_derivados_seo()
     revisar_canonicas()
     revisar_datos_estructurados()
+    revisar_respaldo_index()
     revisar_peso_html()
 
     if args.arreglar and (ERRORES or AVISOS):
@@ -439,12 +647,19 @@ def main() -> int:
         revisar_peso_html()
 
     print()
+
+    def _emitir(etiqueta: str, msg: str) -> None:
+        lineas = msg.split("\n")
+        print(f"  {etiqueta:<5} {lineas[0]}")
+        for cont in lineas[1:]:
+            print(f"        {cont}")
+
     for b in BIEN:
-        print(f"  OK    {b}")
+        _emitir("OK", b)
     for a in AVISOS:
-        print(f"  AVISO {a}")
+        _emitir("AVISO", a)
     for e in ERRORES:
-        print(f"  ERROR {e}")
+        _emitir("ERROR", e)
 
     print()
     if ERRORES:

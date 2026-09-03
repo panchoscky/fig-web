@@ -171,6 +171,10 @@ TRADUCCIONES = [
 
 
 ("Creado por", "Made by"),
+# El "y" que une los dos creditos del pie queda entre </a> y <a>, asi que el
+# par "Creado por"->"Made by" no lo alcanza y revisar() no lo veia (queda como
+# fragmento de 1 caracter tras partir por etiquetas).
+('">Francisco Valenzuela</a> y <a ', '">Francisco Valenzuela</a> and <a '),
 ("← Volver a FEN Investment Group", "← Back to FEN Investment Group"),
 # ---- encabezados de la tabla ----
 
@@ -202,6 +206,12 @@ TRADUCCIONES = [
 ('fila("Mediana del torneo",pctS(d.p50))', 'fila("Tournament median",pctS(d.p50))'),
 ('t:"Mediana del torneo"', 't:"Tournament median"'),
 ('t:"Rango medio de los equipos (percentil 25–75)"', 't:"Middle range of teams (25th–75th percentile)"'),
+# El tooltip del histograma: revisar() no veia el " a " ni el " y N mas" sueltos
+# (quedan como fragmentos de 1-2 caracteres al partir por etiquetas).
+('fila("Rango medio (25–75)",pct(d.p25)+" a "+pct(d.p75))',
+ 'fila("Middle range (25–75)",pct(d.p25)+" to "+pct(d.p75))'),
+('"<b>"+pctS(b.a,0)+" a "+pctS(b.b,0)+"</b>"', '"<b>"+pctS(b.a,0)+" to "+pctS(b.b,0)+"</b>"'),
+('(n>5?" y "+(n-5)+" más":"")', '(n>5?" and "+(n-5)+" more":"")'),
 ('"Retorno acumulado desde el inicio del torneo. La banda muestra dónde cae la mitad central de los equipos: cuando se ensancha, la competencia se está separando."',
  '"Cumulative return since the tournament started. The band shows where the middle half of the teams falls: when it widens, the field is pulling apart."'),
 ('" <b>La línea del índice llega hasta la semana "+SEM_ACWI[SEM_ACWI.length-1]+"</b>: el valor del ACWI lo captura un proceso aparte y suele llegar un corte después. No se estima el dato que falta."',

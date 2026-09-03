@@ -474,7 +474,7 @@ footer a:hover{color:var(--acc)}
 <footer>
   <div class="wrap">
     <span>© 2026 FEN Investment Group</span>
-    <span>Made by <a href="https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/" target="_blank" rel="noopener">Francisco Valenzuela</a> y <a href="https://www.linkedin.com/in/mpazq" target="_blank" rel="noopener">Manuel Paz</a></span>
+    <span>Made by <a href="https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/" target="_blank" rel="noopener">Francisco Valenzuela</a> and <a href="https://www.linkedin.com/in/mpazq" target="_blank" rel="noopener">Manuel Paz</a></span>
     <a href="../index.html">← Back to FEN Investment Group</a>
   </div>
 </footer>
@@ -747,7 +747,7 @@ function gMercado(){
     var a=ACWI[d.s];
     ligar(c,"<b>Week "+d.s+"</b>"+
       fila("Tournament median",pctS(d.p50))+
-      fila("Rango medio (25–75)",pct(d.p25)+" a "+pct(d.p75))+
+      fila("Middle range (25–75)",pct(d.p25)+" to "+pct(d.p75))+
       (a!==undefined?fila("MSCI ACWI",pctS(a))+fila("Difference",pctS(d.p50-a)):fila("MSCI ACWI","no data"))+
       fila("Teams",d.n));
     svg.appendChild(c);
@@ -804,8 +804,8 @@ function gDist(){
     var color=b.b<=0?"var(--neg)":(b.a>=0?"var(--pos)":"var(--mid)");
     var r=el("rect",{x:X(k)+2,y:Y(n),width:bw,height:h,fill:color,rx:3,ry:3});
     var lista=b.eq.slice().sort(function(x,y){return x.posicion-y.posicion}).slice(0,5).map(function(e){return e.nombre}).join(", ");
-    ligar(r,"<b>"+pctS(b.a,0)+" a "+pctS(b.b,0)+"</b>"+fila("Teams",n)+
-      '<div class="r" style="display:block;margin-top:5px"><span>'+lista+(n>5?" y "+(n-5)+" más":"")+"</span></div>");
+    ligar(r,"<b>"+pctS(b.a,0)+" to "+pctS(b.b,0)+"</b>"+fila("Teams",n)+
+      '<div class="r" style="display:block;margin-top:5px"><span>'+lista+(n>5?" and "+(n-5)+" more":"")+"</span></div>");
     svg.appendChild(r);
     svg.appendChild(txt(X(k)+2+bw/2,Y(n)-7,String(n),"dl",{fill:"var(--ivory)","text-anchor":"middle"}));
   });

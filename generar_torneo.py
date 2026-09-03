@@ -15,19 +15,25 @@ nueva. Así la página puede dibujar la trayectoria (rendimiento pasado) en el
 overlay de cada equipo y en las tarjetas PNG/HTML descargables.
 
 Uso:
-    python3 generar_torneo.py --excel ranking.xlsx --semana 8 --corte "03 · JUL · 2026"
-    python3 generar_torneo.py --excel ranking.xlsx --inscripciones inscripciones.xlsx --semana 8 --corte "03 · JUL · 2026"
-    python3 generar_torneo.py --demo          # genera un torneo.json de prueba con datos ficticios
+    # dry-run: muestra el resumen del corte y NO escribe nada
+    python3 generar_torneo.py --excel Excel_Oficial_FIG_PORT_2026-08-28.xlsx
+    # escribe de verdad
+    python3 generar_torneo.py --excel Excel_Oficial_FIG_PORT_2026-08-28.xlsx --aplicar
+    python3 generar_torneo.py --demo --aplicar    # torneo.json de prueba con datos ficticios
+
+`--semana` y `--corte` son OPCIONALES: se deducen de la fecha AAAA-MM-DD del
+nombre del Excel (misma fórmula que semanaHoy() en torneo/index.html). Pásalos a
+mano solo si el Excel llega sin fecha en el nombre (ya pasó, el corte al 07-ago).
 
 Requiere: openpyxl (pip install openpyxl). El modo --demo no requiere nada.
 
-COLUMNAS ESPERADAS en la hoja ranking_ordenado (nombres flexibles, se buscan
-por coincidencia, sin distinguir mayúsculas/tildes):
-    equipo/nombre, posicion/pos/rank, puntos/score/total,
-    ir, exceso/exc, sharpe, var/var95, mdd/drawdown,
-    pts_ir, pts_exc, pts_sharpe, pts_var, pts_mdd, ret_rel/retorno_relativo
-Si alguna columna no aparece, se avisa y el campo queda en null — la página
-lo muestra como "—" sin romperse. Ajustar ALIAS abajo si el Excel cambia.
+DE DÓNDE SALE CADA CAMPO:
+    equipo/posicion/puntaje/retorno   -> hoja ranking_ordenado (las 4 que trae)
+    ir/exc/sharpe/var95/mdd            -> hoja "Tabla"  (ausente => null, nunca 0)
+    pts_ir/pts_exc/...                 -> hoja "puntos"
+Que ranking_ordenado no traiga las métricas es lo NORMAL. El script avisa solo
+si una métrica no llega de NINGUNA hoja (encabezado renombrado): ahí se
+publicaría en blanco. Un valor null se ve como "—"; nunca se guarda como 0.
 """
 import argparse
 import json
@@ -158,14 +164,27 @@ def num(v):
         return None
 
 
+def _pct(v):
+    """Un porcentaje del Excel a decimal. AUSENTE (None) se queda None: nunca
+    se fabrica un 0.0, porque completar_metricas_historial.py lo daria por
+    bueno y ese 0.0 falso quedaria en el historial para siempre."""
+    return v / 100 if v is not None else None
+
+
 def leer_metricas_y_puntos(ruta):
     """Lee las hojas 'Tabla' (métricas crudas) y 'puntos' (puntaje por
     métrica) del Excel oficial, más completas que ranking_ordenado (que solo
-    trae el total). Devuelve (metricas_por_slug, puntosDetalle_por_slug)."""
+    trae el total). Devuelve (metricas_por_slug, puntosDetalle_por_slug,
+    claves_no_reconocidas) — la tercera es la lista de claves de ALIAS_TABLA /
+    ALIAS_PUNTOS que no se pudieron mapear, para que leer_ranking avise."""
     metricas, puntos_detalle = {}, {}
+    sin_mapear = []
 
     filas, mapa = leer_hoja_con_encabezado(ruta, "Tabla", ALIAS_TABLA)
-    if filas:
+    if filas is None:
+        sin_mapear += [f"Tabla:{k}" for k in ALIAS_TABLA if k != "nombre"]
+    else:
+        sin_mapear += [f"Tabla:{k}" for k in ALIAS_TABLA if k not in mapa]
         for fila in filas:
             def val(k, f=fila, m=mapa):
                 return f[m[k]] if k in m and m[k] < len(f) else None
@@ -174,14 +193,17 @@ def leer_metricas_y_puntos(ruta):
                 continue
             metricas[slug(nombre)] = {
                 "ir": num(val("ir")),
-                "exc": (num(val("exc")) or 0) / 100,
+                "exc": _pct(num(val("exc"))),
                 "sharpe": num(val("sharpe")),
-                "var95": (num(val("var95")) or 0) / 100,
-                "mdd": (num(val("mdd")) or 0) / 100,
+                "var95": _pct(num(val("var95"))),
+                "mdd": _pct(num(val("mdd"))),
             }
 
     filas, mapa = leer_hoja_con_encabezado(ruta, "puntos", ALIAS_PUNTOS)
-    if filas:
+    if filas is None:
+        sin_mapear += [f"puntos:{k}" for k in ALIAS_PUNTOS if k != "nombre"]
+    else:
+        sin_mapear += [f"puntos:{k}" for k in ALIAS_PUNTOS if k not in mapa]
         for fila in filas:
             def val(k, f=fila, m=mapa):
                 return f[m[k]] if k in m and m[k] < len(f) else None
@@ -193,7 +215,7 @@ def leer_metricas_y_puntos(ruta):
                 "sharpe": num(val("pts_sharpe")) or 0, "var95": num(val("pts_var95")) or 0,
                 "mdd": num(val("pts_mdd")) or 0,
             }
-    return metricas, puntos_detalle
+    return metricas, puntos_detalle, sin_mapear
 
 
 def leer_ranking(ruta):
@@ -203,12 +225,28 @@ def leer_ranking(ruta):
     if faltan:
         sys.exit(f"Columnas obligatorias no encontradas en ranking_ordenado: {faltan}\n"
                  f"Encabezados vistos: {filas[0]}\nAjusta ALIAS en generar_torneo.py.")
-    avisos = [k for k in ALIAS if k not in mapa]
-    if avisos:
-        print(f"  AVISO: columnas no encontradas en ranking_ordenado (se completan "
-              f"con Tabla/puntos si existen): {avisos}")
 
-    metricas_extra, puntos_extra = leer_metricas_y_puntos(ruta)
+    metricas_extra, puntos_extra, tabla_sin_mapear = leer_metricas_y_puntos(ruta)
+
+    # Aviso SOLO por lo que no llega desde NINGUNA fuente. En los Excel reales
+    # ranking_ordenado trae 4 columnas (equipo/posicion/puntaje/retorno) y las 5
+    # metricas + 5 puntajes salen de las hojas Tabla/puntos — eso es lo normal,
+    # no un problema. Lo que sí importa es si Tabla/puntos tampoco las trae
+    # (encabezado renombrado en el repo de Agustin): ahí se publicarian todas en
+    # blanco y nadie se enteraba (el lector fallaba en silencio).
+    METR = ("ir", "exc", "sharpe", "var95", "mdd")
+    en_ranking = {k for k in METR if k in mapa}
+    en_tabla = {k for k in METR if f"Tabla:{k}" not in tabla_sin_mapear}
+    huerfanas = [k for k in METR if k not in en_ranking and k not in en_tabla]
+    if huerfanas:
+        print(f"  AVISO: estas metricas no llegan ni de ranking_ordenado ni de la "
+              f"hoja 'Tabla' — se publicaran en blanco: {huerfanas}. "
+              f"Revisa si cambiaron los encabezados del Excel (ALIAS_TABLA).")
+    pts_huerfanos = [k for k in ("pts_ir", "pts_exc", "pts_sharpe", "pts_var95", "pts_mdd")
+                     if k not in mapa and f"puntos:{k}" in tabla_sin_mapear]
+    if pts_huerfanos:
+        print(f"  AVISO: estos puntajes por metrica no llegan de ninguna hoja: "
+              f"{pts_huerfanos} (ALIAS_PUNTOS).")
 
     equipos = []
     for fila in filas[1:]:
@@ -241,6 +279,12 @@ def leer_ranking(ruta):
             "miembros": [],
             "_ret": num(val("ret")),  # retorno acumulado del equipo (para historial)
         })
+
+    nulas = sum(1 for e in equipos for v in (e.get("metricas") or {}).values() if v is None)
+    if nulas:
+        total = len(equipos) * len(METR)
+        print(f"  AVISO: {nulas}/{total} valores de metrica quedaron en null "
+              f"(se veran como '—' en la pagina; NO se guardan como 0 en el historial).")
     return equipos
 
 
@@ -478,46 +522,121 @@ def demo():
     return {"semana": 8, "corte": "03 · JUL · 2026", "acwi": acwi, "equipos": equipos}
 
 
+def _fecha_del_excel(ruta):
+    """AAAA-MM-DD del nombre del Excel, o None. El Excel oficial la trae
+    (Excel_Oficial_FIG_PORT_2026-08-28.xlsx). Ya pasó que llegara sin ella
+    (el corte al 07-ago): por eso derivar la semana es un fallback, no la
+    única vía — sin fecha en el nombre hay que pasar --semana y --corte."""
+    if not ruta:
+        return None
+    m = FECHA_EN_NOMBRE.search(Path(ruta).stem)
+    return m.group(0) if m else None
+
+
+def _resumen(datos, anterior, acwi_conservados):
+    """Qué cambiaría este corte respecto del torneo.json actual."""
+    nuevos = {e["id"] for e in datos["equipos"]}
+    viejos = {e["id"] for e in (anterior or {}).get("equipos", [])}
+    entran = sorted(nuevos - viejos)
+    salen = sorted(viejos - nuevos)
+    sin_miembros = sorted(e["id"] for e in datos["equipos"] if not e.get("miembros"))
+    sem_ant = (anterior or {}).get("semana")
+
+    print("\n--- RESUMEN DEL CORTE (dry-run) ---")
+    print(f"  semana:  {sem_ant}  ->  {datos['semana']}")
+    print(f"  corte:   {(anterior or {}).get('corte')!r}  ->  {datos['corte']!r}")
+    print(f"  equipos: {len(viejos)}  ->  {len(nuevos)}")
+    if entran:
+        print(f"  ENTRAN ({len(entran)}): {', '.join(entran)}")
+    if salen:
+        print(f"  SALEN  ({len(salen)}): {', '.join(salen)}  "
+              "(desaparecen con su historial; el dato sigue en git)")
+    if not entran and not salen:
+        print("  ningun equipo entra ni sale")
+    print(f"  equipos sin integrantes: {len(sin_miembros)}"
+          + (f"  ({', '.join(sin_miembros[:5])}{'...' if len(sin_miembros) > 5 else ''})"
+             if sin_miembros else ""))
+    print(f"  puntos ACWI que quedan en el JSON: {acwi_conservados}")
+    print("-----------------------------------")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[1])
     ap.add_argument("--excel", help="Excel oficial con hoja ranking_ordenado")
-    ap.add_argument("--excels", help="varios excels semanales separados por coma (nombre debe traer "
-                     "la fecha AAAA-MM-DD) para reconstruir el historial completo desde la hoja "
-                     "'Retornos por corte' del corte más reciente — no requiere --semana ni --corte")
-    ap.add_argument("--inscripciones", help="Excel de inscripciones (columna LinkedIn)")
-    ap.add_argument("--semana", type=int, help="número de semana del corte (1-25)")
-    ap.add_argument("--corte", help='fecha del corte, ej: "03 · JUL · 2026"')
+    ap.add_argument("--excels", help="RECONSTRUYE EL HISTORIAL DESDE CERO: varios excels "
+                     "semanales separados por coma (el nombre debe traer la fecha AAAA-MM-DD). "
+                     "OJO: deja acwi=[] (borra los puntos ACWI que hubiera) y NO conserva "
+                     "integrantes salvo que pases --inscripciones. Solo para rearmar la serie.")
+    ap.add_argument("--inscripciones", help="Excel de inscripciones. En un corte normal NO se "
+                     "pasa: el script conserva los integrantes del torneo.json anterior. Pasarlo "
+                     "REESCRIBE los miembros de cada equipo desde el Excel, pisando correcciones "
+                     "hechas a mano.")
+    ap.add_argument("--semana", type=int, help="número de semana del corte (1-25). Si no se pasa, "
+                     "se deduce de la fecha en el nombre del Excel.")
+    ap.add_argument("--corte", help='fecha del corte, ej: "03 · JUL · 2026". Si no se pasa, se '
+                     "deduce de la fecha en el nombre del Excel.")
     ap.add_argument("--acwi", type=float, help="retorno acumulado del ACWI esta semana, decimal (ej: 0.078)")
-    ap.add_argument("--demo", action="store_true", help="escribe un torneo.json ficticio de prueba")
+    ap.add_argument("--demo", action="store_true", help="genera un torneo.json ficticio de prueba")
+    ap.add_argument("--aplicar", action="store_true",
+                    help="escribe datos/torneo.json. SIN este flag solo muestra el resumen y no toca nada.")
     ap.add_argument("--salida", default=str(SALIDA), help=f"ruta de salida (default {SALIDA})")
     args = ap.parse_args()
 
     salida = Path(args.salida)
+    anterior = None
+    acwi_conservados = 0
+
     if args.demo:
         datos = demo()
     elif args.excels:
         rutas = [r.strip() for r in args.excels.split(",") if r.strip()]
         datos = procesar_multiples(rutas, args.inscripciones)
+        anterior = cargar_anterior()   # solo para el resumen; procesar_multiples no lo usa
     else:
-        if not (args.excel and args.semana and args.corte):
-            ap.error("--excel, --semana y --corte son obligatorios (o usa --demo)")
+        if not args.excel:
+            ap.error("hace falta --excel (o --excels, o --demo)")
+        fecha = _fecha_del_excel(args.excel)
+        semana = args.semana
+        corte = args.corte
+        if semana is None:
+            if not fecha:
+                ap.error("el nombre del Excel no trae fecha AAAA-MM-DD: pasa --semana a mano")
+            semana = semana_de_fecha(fecha)
+            print(f"  semana deducida del Excel: {semana} (fecha {fecha})")
+        elif fecha and semana != semana_de_fecha(fecha):
+            print(f"  AVISO: pasaste --semana {semana} pero la fecha del Excel ({fecha}) "
+                  f"corresponde a la semana {semana_de_fecha(fecha)}. Sigo con la {semana}.")
+        if corte is None:
+            if not fecha:
+                ap.error("el nombre del Excel no trae fecha AAAA-MM-DD: pasa --corte a mano")
+            corte = corte_legible(fecha)
+            print(f"  corte deducido del Excel: {corte!r}")
+
         equipos = leer_ranking(args.excel)
         if args.inscripciones:
             insc = leer_inscripciones(args.inscripciones)
             for eq in equipos:
                 eq["miembros"] = insc.get(eq["id"], [])
         anterior = cargar_anterior()
-        integrar_historial(equipos, anterior, args.semana)
+        integrar_historial(equipos, anterior, semana)
         acwi = list((anterior or {}).get("acwi", []))
-        acwi = [a for a in acwi if a.get("semana") != args.semana]
+        acwi = [a for a in acwi if a.get("semana") != semana]
         if args.acwi is not None:
-            acwi.append({"semana": args.semana, "ret": args.acwi})
+            acwi.append({"semana": semana, "ret": args.acwi})
         acwi.sort(key=lambda a: a["semana"])
-        datos = {"semana": args.semana, "corte": args.corte, "acwi": acwi, "equipos": equipos}
+        acwi_conservados = len(acwi)
+        datos = {"semana": semana, "corte": corte, "acwi": acwi, "equipos": equipos}
+
+    if not args.demo:
+        _resumen(datos, anterior, acwi_conservados)
+
+    if not args.aplicar:
+        print(f"\nDRY-RUN: no se escribió nada. Corré con --aplicar para escribir {salida}.")
+        return
 
     salida.parent.mkdir(parents=True, exist_ok=True)
     salida.write_text(json.dumps(datos, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"OK · {salida} · semana {datos['semana']} · {len(datos['equipos'])} equipos")
+    print(f"\nOK · {salida} · semana {datos['semana']} · {len(datos['equipos'])} equipos")
     print("La página torneo/index.html saldrá del modo DEMO automáticamente.")
 
 

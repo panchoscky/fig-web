@@ -21,9 +21,10 @@ Uso
     python despublicar_fiw.py --aplicar       # SIEMPRE despues: saca FIW de alla
 
 OJO: este script y `despublicar_fiw.py` son un PAR y se corren en ese orden.
-Como el segundo reescribe 5 archivos del espejo (404, eventos, postula,
-valuation y en/), este siempre va a reportarlos como "por copiar" aunque nada
-haya cambiado en fig-web. No es un error: es la marca de que FIW sigue fuera.
+Como el segundo reescribe 7 archivos del espejo (404, eventos, postula,
+valuation, portafolio, trading y en/), este siempre va a reportarlos como "por
+copiar" aunque nada haya cambiado en fig-web. No es un error: es la marca de
+que FIW sigue fuera.
 
 Nunca borra nada del espejo. Si aparece un archivo que solo existe alla, lo
 reporta para que lo mire una persona.
@@ -51,9 +52,10 @@ NO_SE_COPIAN = {
     # DIFIEREN: sus enlaces a ../informe/ ya son validos alla.
     "INFORME_ETF_TORNEO.md": "documento de trabajo interno",
     # Se GENERAN, y el espejo no tiene las mismas paginas que este repo (le
-    # faltan informe/ y miembros/). Copiar el sitemap de aca le declararia a
-    # Google dos URLs que alla dan 404. Hay que correr generar_sitemap.py
-    # DENTRO del espejo, que enumera los .html que de verdad existen ahi.
+    # falta miembros/; informe/ y en/informe/ SI se publican alla desde el
+    # 2026-08-30). Copiar el sitemap de aca le declararia a Google una URL que
+    # alla da 404. Hay que correr generar_sitemap.py DENTRO del espejo, que
+    # enumera los .html que de verdad existen ahi.
     "sitemap.xml": "se genera en el espejo, que tiene menos paginas",
     "robots.txt": "lo escribe el mismo generar_sitemap.py",
     # FIG Woman: Francisco pidio (2026-08-30) que el area NO sea accesible ni
@@ -90,9 +92,16 @@ NO_SE_COPIAN = {
     # URL (le sacan /index.html y el #). Copiar la de aca se los borraria.
     "MAPA_CONTENIDO_FIG.html": "guia interna; el espejo tiene su version con scripts propios",
     "frames/": "salida temporal del grabador de video",
+    # El espejo tiene su PROPIO CLAUDE.md, mas corto (7 KB contra 16), que en su
+    # primera linea avisa "Este repo es el ESPEJO, no la fuente... no desarrolles
+    # aca". Copiar el de aca borraria ese aviso, que es lo que lee una sesion de
+    # Claude Code abierta en la carpeta de Manuel.
+    "CLAUDE.md": "el espejo tiene el suyo, mas corto, que avisa 'no desarrolles aca'",
 }
 
-# Difieren a proposito y NUNCA se pisan.
+# Difieren a proposito y NUNCA se pisan. main() los imprime por nombre con su
+# motivo en cada corrida: son los que hay que portar A MANO, solo el bloque que
+# se toco, no el archivo entero.
 DIFIEREN = {
     "index.html": ("el nav del espejo no tiene Miembros ni FIG Woman, asi que "
                    "'Comunidad' quedo como 'Equipo' suelto. Para portar un "
@@ -102,6 +111,14 @@ DIFIEREN = {
                    "<script> --; portar solo uno deja el espejo a medias, y "
                    "eso ya paso una vez (las cifras del hero llegaron a "
                    "produccion sin su CSS ni su markup)"),
+    "docs/BITACORA.md": ("el espejo tiene su propio encabezado ('Este es el repo "
+                         "ESPEJO: la fuente de verdad es fig-web'). Porta solo el "
+                         "cuerpo nuevo, no el archivo entero"),
+    "docs/ARBOL_REPO.md": ("igual que BITACORA: el espejo tiene su encabezado "
+                           "propio. Porta solo el cuerpo nuevo"),
+    "docs/ESTADO_PIEZAS.md": ("igual que BITACORA: el espejo tiene su encabezado "
+                              "propio y menos piezas. Porta solo las filas que "
+                              "aplican, no el archivo entero"),
 }
 
 # Existen solo en el espejo y estan bien asi.

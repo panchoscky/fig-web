@@ -15,7 +15,6 @@
 | El estado de una página antes de tocarla | `docs/ESTADO_PIEZAS.md` |
 | Por qué algo quedó como quedó | `docs/BITACORA.md` |
 | El backlog priorizado y el protocolo de continuidad | `HOJA_DE_RUTA_FIG.md` |
-| Qué hay en el Drive del club (logos, URLs, ids) | `MAPEO_DRIVE_FIG.md` |
 | Qué columnas debe traer la planilla de miembros | `PLANILLA_MIEMBROS_FIG.md` |
 
 **Al cerrar una tanda de trabajo, escríbela en `docs/BITACORA.md`, no acá.** Este
@@ -79,21 +78,31 @@ cambia el valor, nunca el token. No tocar esos valores sin pedírselo a Francisc
 ## La rutina semanal
 
 ```
-python generar_torneo.py --excel <Excel del corte> --semana N --corte "DD · MMM · 2026"
+python generar_torneo.py --excel <Excel del corte>          # DRY-RUN: revisa el resumen
+python generar_torneo.py --excel <Excel del corte> --aplicar # escribe (deduce semana y corte del nombre del Excel)
 python generar_tabla.py                  # escribe torneo-tabla.json Y torneo-portada.json
 node generar_og_equipos.js               # OPCIONAL: imágenes de vista previa (pesan)
 python generar_paginas_equipo.py
-python generar_informe_en.py --aplicar   # SOLO si se tocó informe/index.html
+python generar_informe_en.py             # dry-run SIEMPRE (falla si algo quedó en español)
+python generar_informe_en.py --aplicar   # SOLO si el dry-run marcó cambios en informe/
 python generar_sitemap.py
-python verificar_sitio.py                # datos y derivados
+python verificar_sitio.py                # datos y derivados (lo corre también el hook pre-push)
 python -m http.server 8000               # en otra terminal
 node verificar_paginas.js                # las páginas en un navegador de verdad
 node verificar_movil.js                  # teléfono
-node verificar_menu_movil.js             # SOLO si se tocó un menú móvil
+node verificar_menu_movil.js --pag=<página>   # SOLO si se tocó un menú móvil (una página por corrida)
 python sincronizar_espejo.py --aplicar
 python despublicar_fiw.py --aplicar      # SIEMPRE después del anterior
 cd ../mpazq-afk.github.io && python generar_sitemap.py
 ```
+
+> `generar_torneo.py` ya no escribe sin `--aplicar`: sin el flag muestra el
+> resumen del corte (semana, equipos que entran/salen, ACWI que se conserva) y
+> no toca `datos/torneo.json`. `--semana` y `--corte` se deducen de la fecha del
+> nombre del Excel; pásalos a mano solo si el Excel llega sin fecha.
+>
+> Hay un hook **`pre-push`** instalado (no se versiona, hay que copiarlo a mano
+> en cada clon) que corre `verificar_sitio.py` y corta el push si da error.
 
 Pasos extra, solo al subir imágenes: `python generar_imagenes_web.py` (fotos nuevas) y
 `python optimizar_logos.py --aplicar` (logos nuevos).
@@ -142,14 +151,20 @@ Cada una costó tiempo al menos una vez. El registro completo está en `docs/BIT
 
 ### El espejo (`mpazq-afk.github.io`)
 
-- **`index.html` y `torneo/index.html` NUNCA se copian enteros**: difieren a propósito
-  (allá no existe Miembros, FIG Woman está oculta, y no existe `informe/`). Para portar
-  un cambio hay que llevar **solo el bloque tocado** y verificar después que el nav del
-  espejo siga intacto.
+- **`index.html` NUNCA se copia entero** (es la única entrada "solo `index.html`" de
+  `DIFIEREN`): allá el nav no tiene Miembros y FIG Woman está oculta. Para portar un
+  cambio hay que llevar **solo el bloque tocado** y verificar después que el nav del
+  espejo siga intacto. Un cambio en `index.html` suele tocar **tres tramos** —el
+  `<style>`, el markup y el `<script>`—; portar solo uno deja el espejo a medias (ya
+  pasó: las cifras del hero llegaron sin su CSS). `torneo/index.html` **sí** se copia
+  entero (hoy es idéntico en los dos repos), y `informe/` + `en/informe/` **sí** se
+  publican en el espejo desde el 2026-08-30. Lo que le falta al espejo es `miembros/`.
+  Los `docs/*.md` y el `CLAUDE.md` del espejo tienen encabezado propio: `sincronizar_espejo.py`
+  ya los marca (`CLAUDE.md` en `NO_SE_COPIAN`, los tres `docs/` en `DIFIEREN`).
 - **`sincronizar_espejo.py` y `despublicar_fiw.py` son un PAR**, en ese orden, y después
-  `generar_sitemap.py` DENTRO del espejo. Como el segundo reescribe 5 archivos, el
-  primero **siempre** los reportará como "por copiar" aunque nada haya cambiado: no es
-  un error.
+  `generar_sitemap.py` DENTRO del espejo. Como el segundo reescribe 7 archivos
+  (404, eventos, postula, valuation, portafolio, trading y en/), el primero **siempre**
+  los reportará como "por copiar" aunque nada haya cambiado: no es un error.
 - El espejo está en **CRLF** y este repo en LF. El script ya lo respeta; si lo tocas, no
   rompas `copiar_conservando_fin_de_linea()` o cada archivo saldrá como si hubieran
   cambiado sus 3.000 líneas.
@@ -243,11 +258,13 @@ Bloqueadores que dependen de Francisco o del club:
    Portafolio.
 5. **Si las bases permitían ETF fuera de iShares**: hay 23 compras que no lo son,
    incluidas 2 de IBM, que es una acción individual. Detalle en `INFORME_ETF_TORNEO.md`.
-6. **Verificar en vivo** que una postulación real y una corrida del juego lleguen a la
-   planilla (el endpoint está pegado pero nadie lo confirmó).
+6. **Verificar en vivo** que una corrida del juego llegue a la planilla (el form de
+   postulación YA se verificó — Francisco confirmó el 2026-09-03 que una postulación real
+   llega bien).
 7. **Textos históricos que quedaron con cifras viejas** y son decisión de Francisco, no
-   nuestra: el "Capítulo IV" de `club.json` dice "59 equipos"; el "Capítulo II" dice
-   "15 directores, 4 desks" y ahora son cinco; `en/index.html` dice "Four areas"
+   nuestra: el "Capítulo IV" de `club.json` dice "59 equipos". (El "Capítulo II" y el
+   "Four areas" de `en/index.html` se resolvieron el 2026-09-03: el sitio dice **cinco**
+   áreas en los dos repos, y `en/index.html` pasó a "Our areas of practice".)
    (cambiarlo obliga a tocar `despublicar_fiw.py`, que busca ese texto exacto).
 8. **`fotos/` pesa 17 MB** en el repo. Hoy no molesta; si sigue creciendo hay que
    decidir si los originales siguen versionados o pasan al Drive.
@@ -257,8 +274,8 @@ Bloqueadores que dependen de Francisco o del club:
 - Ya existe un **sitio FIG distinto en producción** en el Drive
   (`WEB/fen-investments-web/`). URLs reales confirmadas: LinkedIn
   `linkedin.com/company/fen-investment-group`, Instagram `instagram.com/fen.investment.group/`,
-  torneo `feninvestmentgroup.com/torneoportafolio2026/`. Antes de inventar una URL,
-  revisar `MAPEO_DRIVE_FIG.md`.
+  torneo `feninvestmentgroup.com/torneoportafolio2026/`. No inventar URLs de Drive:
+  pedírselas a Francisco.
 - Ya existe una **app del torneo** (`torneo-app`, Vite+TS+Tailwind) y un **generador de
   overlay para OBS** (`ranking-video`) que hoy lee un CSV de Google Sheets — candidato a
   conectarse a `datos/torneo.json` (ver `IDEAS_GRAN_ESCALA_FIG.md` §6).

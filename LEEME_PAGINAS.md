@@ -65,12 +65,14 @@ Los enlaces de retorno ya están puestos en ambas páginas nuevas.
   equipo (métricas PORT + desglose de puntos + miembros con LinkedIn) y
   descarga de tarjetas: **PNG 1080×1350** (Instagram/LinkedIn) y **HTML
   autocontenido**, generadas en el navegador del usuario, sin servidor.
-- Arranca en **modo DEMO** (los 8 equipos ficticios del ejemplo de las Bases,
-  con banner visible). Al publicar `datos/torneo.json` desde el pipeline
-  semanal, el banner desaparece y muestra los datos reales.
-- El esquema exacto está en `datos/torneo.json.ejemplo` (renombrar a
-  `torneo.json` cuando tenga datos reales). El eslabón nuevo del pipeline:
-  `generar_torneo.py` lee `ranking_ordenado` + el Excel de inscripciones
-  (columna LinkedIn) y escribe ese JSON.
+- Tiene un **modo DEMO** de respaldo (los 8 equipos ficticios del ejemplo de las
+  Bases, con banner visible) que se activa solo si falta `datos/torneo.json`.
+  Hoy ese archivo existe (datos reales, 48 equipos), así que la página muestra
+  el ranking real y el banner no aparece.
+- El esquema exacto está en `datos/torneo.json.ejemplo`, un corte de muestra de
+  referencia — **no se renombra**: el `datos/torneo.json` real ya existe desde
+  hace semanas. El eslabón del pipeline: `generar_torneo.py` lee
+  `ranking_ordenado` + el Excel de inscripciones (columna LinkedIn) y escribe
+  ese JSON.
 - Semana actual y countdown al próximo hito se calculan solos con las fechas
   oficiales del torneo.
