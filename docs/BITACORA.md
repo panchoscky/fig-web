@@ -1902,3 +1902,89 @@ crudo para mirarlas de verdad — de ahí salió el hallazgo de "línea dorada".
 
 **Solo se publicó en `fig-web`.** El espejo de Manuel no se tocó: decisión de
 Francisco en esta sesión.
+
+## Tanda del 2026-09-04 (2): portadas y fondos de Trading y Portafolio
+
+Pedido de Francisco: "ver, editar y mejorar la portada y fondos de la página de
+trading, también mejorar la de portafolio". Se miraron las dos páginas de verdad
+antes de tocarlas (capturas por CDP a 1265px y a 390px, con
+`FIG_herramientas/capturar_secciones.js`), y todos los cambios se aplicaron con
+scripts que **abortan si el archivo no trae exactamente lo que esperan**. Un
+aborto real atajó un error: el chequeo final "no debe quedar ninguna referencia a
+`--graph`" saltó porque el propio comentario histórico que se estaba escribiendo
+nombra el token para explicar por qué se fue; el chequeo se afinó a
+`var(--graph)` y `--graph:`, que es lo que de verdad importa.
+
+### Trading: el hero deja de ser dos manchas de color
+
+El fondo eran dos radiales, y **uno seguía siendo dorado** —
+`rgba(158,126,30,.2)` — cinco días después de que el área pasara a la paleta XTB
+(`e41e09e`): sobre el rojo se leía como una mancha sucia en la esquina inferior
+izquierda. Además la mitad derecha del hero estaba vacía y los `.hero-rings` no
+se veían.
+
+**"La sesión"** — fondo nuevo, con el mismo criterio que el campo de fronteras de
+Portafolio: el área se presenta con la figura que mira todos los días. Velas
+japonesas OHLC (huecas si cierran arriba, rellenas si cierran abajo), una
+**EMA(9) calculada de verdad** sobre los cierres, tres niveles horizontales
+sacados del propio rango (máximo, mínimo y el medio) y el volumen al pie. Vive
+en la mitad derecha —la que estaba vacía— y va enmascarada hacia la izquierda
+para no competir con el título. Se anima un solo trazo, la media móvil, 24s.
+
+**La serie es SINTÉTICA y eso no se disimula**: es un random walk con semilla
+fija, no un instrumento real ni datos del desk. La geometría es la de verdad,
+los números no representan nada — por eso la figura no lleva **ni un rótulo ni
+una cifra**, para que nadie la lea como un dato. Cuando el Alpha Trading
+Challenge tenga datos propios, esta pieza es el hueco donde entran. Se genera con
+`FIG_herramientas/gen_sesion_trading.py` (fuera del repo, junto al capturador) y
+queda estática en el HTML: sin JS, sin peticiones, una sola pintada.
+
+También: fuera los `.hero-rings` (CSS, HTML y su regla del media query — la
+derecha ahora está ocupada), fuera los **tres restos de la paleta oro** que
+quedaban (`.hero-fallback`, `.side-card:hover`, borde de `.side-card .mono-tag`,
+que sobre el rojo se veían oliva), y `.section--dark` deja de ser navy plano.
+
+### Portafolio: se cierran P11, P12, P8 y P9
+
+Los cuatro venían de la revisión de diseño del 2026-09-03 (13 hallazgos; P1–P6 se
+aplicaron en `d216e57`).
+
+- **P11 y P12** — la máscara del campo de fronteras tiene su máximo de opacidad
+  en `40% 39%`, o sea **exactamente encima del título**: las curvas competían ahí
+  y se desvanecían donde había sitio para verlas, y la frontera líder
+  (`.fr-lead`, la única línea al 46%) cruzaba "Gestionar la cartera," en diagonal
+  y de lejos se leía como una rayadura. **No se tocó el SVG ni su máscara** —la
+  figura sigue entera, que es el punto de la pieza—: se agregó un **velo de
+  lectura** (`.hero-say::before`, un radial de `--navy` bajo la columna de texto)
+  que apaga el fondo donde hay que leer. El campo se ve donde hay espacio y se
+  retira donde estorba. Además `.fr-campo circle{opacity:.6}`: los puntos, que
+  son las carteras dominadas, a 1265px se leían como polvo sobre la pantalla.
+- **P8** — las seis tarjetas de §Responsables iban en el grafito BlackRock
+  (`--graph #22252B`). El contraste del texto pasaba; el problema era otro: un
+  gris neutro sobre un navy saturado se lee como una mancha apagada **pegada
+  encima** de la sección, no como parte de ella. Pasan a `--navy-panel`, que es
+  la superficie que ya usan `.ch-card` y `.ev-card` en esta misma página. Era el
+  **único uso de `--graph` en todo el sitio**, así que el token se fue con él en
+  vez de quedar como código muerto; el guiño a BlackRock lo sigue haciendo la
+  página que nombra los ETF.
+- **P9** — los números fantasma de §Método (`.p-ghost`) iban en `var(--acc-dim)`:
+  un contorno de 1px al 34% de alfa sobre navy, invisible, y el **único** estado
+  en que aparecían era el `:hover`, que en un teléfono no existe. Ahora se leen
+  en reposo (54% de contorno + un relleno al 7% que les da cuerpo) y el hover es
+  un salto claro en vez del único momento en que la cifra existe.
+
+Los dos heros y las dos `.section--dark` ganaron además profundidad: halos al
+5–7% de alfa en vez de navy pelado, que era lo que las dejaba planas al lado de
+las secciones claras (esas sí tenían un radial desde siempre).
+
+**Verificado**: `verificar_sitio.py` sin errores (el aviso de `CLUB_DATA` es el
+histórico de siempre); `verificar_paginas.js` sin errores de consola —
+`portafolio/` 140 KB críticos, `trading/` 72 KB, contra un techo de 300—;
+`verificar_movil.js` sin desborde a 390px. Se recapturaron las dos páginas
+enteras a 1265px y a 390px para mirarlas, no solo para que compilaran.
+
+**Solo se publicó en `fig-web`.** El espejo de Manuel sigue sin sincronizar
+(`sincronizar_espejo.py --aplicar` pendiente desde `d216e57`).
+
+**Queda abierto de la revisión de diseño**: P7 (la tarjeta de §Torneo flotando),
+P10 (§Método y §100 puntos comparten molde) y P13 (halo en avatares).

@@ -93,9 +93,6 @@
   --acc-warm:#F2A25C;     /* naranja cálido        */
   --acc-dim:rgba(236,112,0,.34);
   --acc-faint:rgba(236,112,0,.12);
-  /* Grafito BlackRock: superficie de las tarjetas. No es un acento, es
-     estructura — por eso nunca lleva texto encima que no sea marfil. */
-  --graph:#22252B;
   /* ACENTO SECUNDARIO — el azul del benchmark.
      Sobrevive intacto al cambio de paleta, y a propósito: este azul ya es el
      token con que todo el
@@ -236,7 +233,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   padding:clamp(7.5rem,13vh,9.5rem) 0 clamp(3rem,6vh,5rem)}
 .hero-fallback{position:absolute;inset:0;
   background:radial-gradient(1000px 600px at 80% -5%,rgba(236,112,0,.14),transparent 60%),
-             radial-gradient(800px 560px at -8% 105%,rgba(236,112,0,.16),transparent 62%),var(--navy)}
+             radial-gradient(800px 560px at -8% 105%,rgba(236,112,0,.16),transparent 62%),
+             linear-gradient(168deg,var(--navy) 0%,var(--navy-deep) 100%)}
 /* CAMPO DE FRONTERAS (2026-09-02) — reemplaza la retícula de papel milimetrado.
    La retícula era un fondo prestado: cualquier página de finanzas puede tener
    una. Esto no. Cada curva es la rama de una hipérbola
@@ -268,6 +266,39 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   44%{stroke-dashoffset:0;opacity:1}
   86%{stroke-dashoffset:0;opacity:1}
   100%{stroke-dashoffset:0;opacity:0}}
+/* VELO DE LECTURA (2026-09-04) — cierra los dos reparos que quedaban del
+   campo de fronteras (P11 y P12 de la revision del 3-sep):
+     P11 — el campo se leia como textura y no como figura, porque su mascara
+           tiene el maximo de opacidad en 40% 39%, o sea EXACTAMENTE encima
+           del titulo: las curvas competian ahi y se desvanecian donde habia
+           sitio para verlas.
+     P12 — la frontera lider (.fr-lead, la unica linea al 46%) cruzaba
+           "Gestionar la cartera," en diagonal y de lejos se leia como una
+           rayadura, no como un trazo.
+   La solucion no toca el SVG ni su mascara —la figura sigue entera, que es
+   el punto de la pieza— sino que apaga el fondo DEBAJO de la columna de
+   texto, que es lo que haria cualquiera a mano: el campo se ve donde hay
+   espacio y se retira donde hay que leer. Es un radial de navy, del mismo
+   color que el fondo, asi que no aparece como un parche; se desvanece antes
+   de llegar al plano.
+   El z-index:-1 lo deja detras del texto pero DELANTE de .hero-fallback: el
+   contexto de apilamiento lo pone .wrap (z-index:2), que ya existia. */
+.hero-say{position:relative}
+.hero-say::before{content:"";position:absolute;inset:-9% -13% -11% -46%;z-index:-1;
+  pointer-events:none;
+  background:radial-gradient(76% 68% at 36% 46%,
+    rgba(8,33,63,.93) 0%,rgba(8,33,63,.78) 38%,rgba(8,33,63,.34) 64%,transparent 80%)}
+/* En una columna el texto ocupa todo el ancho y el velo se comeria el campo
+   entero: ahi basta con que baje el ruido justo detras del titulo. */
+@media(max-width:980px){
+  .hero-say::before{inset:-6% -18%;
+    background:radial-gradient(88% 52% at 44% 30%,
+      rgba(8,33,63,.88) 0%,rgba(8,33,63,.6) 44%,transparent 78%)}
+}
+/* Los puntos del campo son las carteras dominadas, pero a 1265px se leian
+   como polvo sobre la pantalla. Bajarlos deja las CURVAS como la figura y
+   los puntos como lo que son: la region factible detras de ellas. */
+.fr-campo circle{opacity:.6}
 /* Dos columnas SIEMPRE en escritorio, tenga o no dato el plano: si la columna
    se creara al llegar el JSON, el título saltaría a mitad de la carga. Vacía
    se ve exactamente como el hero de las otras páginas de área. */
@@ -369,7 +400,13 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .section--light{background:
   radial-gradient(1100px 460px at 85% -5%,rgba(236,112,0,.08),transparent 60%),var(--ivory);
   color:var(--ink)}
-.section--dark{background:var(--navy);color:var(--ivory)}
+/* El navy pelado dejaba las secciones oscuras planas al lado de las claras,
+   que si tienen un radial. Dos halos muy bajos (5-7% de alfa) les dan la
+   misma profundidad sin subir el contraste del texto ni un punto. */
+.section--dark{background:
+  radial-gradient(920px 440px at 10% -2%,rgba(236,112,0,.055),transparent 62%),
+  radial-gradient(760px 400px at 94% 102%,rgba(123,167,222,.055),transparent 60%),var(--navy);
+  color:var(--ivory)}
 .sec-head{max-width:740px;margin-bottom:clamp(2.4rem,5vw,3.8rem)}
 .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2.5rem,6vw,5rem);align-items:start}
 /* La frase de entrada es el titular real de la seccion: crece hasta el tamano
@@ -405,9 +442,16 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .pilar:hover{padding-left:16px}
 .pilar:hover::before{opacity:1}
 .p-ghost{position:relative;font-family:var(--f-disp);font-weight:700;line-height:.82;
-  font-size:clamp(2.8rem,6.6vw,5rem);color:transparent;
-  -webkit-text-stroke:1px var(--acc-dim);transition:-webkit-text-stroke-color .45s}
-.pilar:hover .p-ghost{-webkit-text-stroke-color:var(--acc)}
+  font-size:clamp(2.8rem,6.6vw,5rem);
+  /* 2026-09-04 — el número iba en var(--acc-dim), o sea un contorno de 1px al
+     34% de alfa sobre el navy: no se veía, y el único estado en que aparecía
+     era el :hover, que en un teléfono no existe. Ahora se lee en reposo (54%
+     de contorno + un relleno al 7% que le da cuerpo) y el hover sigue siendo
+     un salto claro en vez del único momento en que la cifra existe. */
+  color:rgba(236,112,0,.07);
+  -webkit-text-stroke:1px rgba(236,112,0,.54);
+  transition:-webkit-text-stroke-color .45s,color .45s}
+.pilar:hover .p-ghost{-webkit-text-stroke-color:var(--acc);color:rgba(236,112,0,.13)}
 .p-body{position:relative;max-width:62ch}
 .pilar .p-num{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.3em;color:var(--acc);display:block;margin-bottom:9px}
 .pilar h3{font-family:var(--f-disp);font-size:clamp(1.4rem,3vw,1.95rem);font-weight:600;line-height:1.18;margin-bottom:9px}
@@ -614,16 +658,26 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 
 /* Responsables */
 .people{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.p-card{border:1px solid var(--line-d);background:var(--graph);border-radius:8px;padding:28px 24px;display:flex;flex-direction:column;gap:14px;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s}
+.p-card{border:1px solid var(--line-d);background:var(--navy-panel);border-radius:8px;padding:28px 24px;display:flex;flex-direction:column;gap:14px;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s}
 .p-card:hover{transform:translateY(-6px);border-color:rgba(236,112,0,.5);box-shadow:0 24px 48px -24px rgba(0,0,0,.55)}
 /* Quien DIRIGE el área: filete naranja al COSTADO + chip "Dirige el área".
    Portado de index.html (§Nosotros), donde la misma jerarquía se marca con
    .p-card--area sobre tarjeta CLARA y el acento se llama --gold. Acá la
-   sección Responsables es OSCURA (.p-card usa var(--graph), el grafito
-   BlackRock), así que se adaptan los valores en vez de copiarlos: el filete y
-   el chip van con --acc (#EC7000, el naranja Itaú, que da 5.30 de contraste
-   sobre el grafito) y el borde con var(--acc-dim), que es el mismo .34 de
-   alfa del original pero sobre el naranja principal en lugar del profundo.
+   sección Responsables es OSCURA (.p-card usa var(--navy-panel)), así que se
+   adaptan los valores en vez de copiarlos: el filete y el chip van con --acc
+   (#EC7000, el naranja Itaú) y el borde con var(--acc-dim), que es el mismo
+   .34 de alfa del original pero sobre el naranja principal en lugar del
+   profundo.
+   2026-09-04 — estas tarjetas eran el grafito BlackRock (--graph #22252B),
+   el guiño a la dueña de los iShares con que compiten los equipos. La idea
+   estaba bien y el contraste del TEXTO pasaba, pero el problema era otro: el
+   grafito es un gris neutro y el fondo es un navy saturado, así que las seis
+   tarjetas se leían como manchas apagadas pegadas encima de la sección en vez
+   de como parte de ella. --navy-panel es el mismo tono de superficie que ya
+   usan .ch-card y .ev-card en esta página, o sea que Responsables deja de ser
+   la única sección que habla otro idioma. Era el único uso de --graph en todo
+   el sitio, así que el token se fue con él: el guiño a BlackRock lo sigue
+   haciendo la página donde de verdad se nota, que es la que nombra los ETF.
    El :hover se redefine —igual que allá y por la misma razón— porque la regla
    base de .p-card reemplaza el box-shadow completo y se comería el filete; acá
    se repite junto a la sombra oscura propia de estas páginas. */
