@@ -18,7 +18,7 @@
 <meta name="twitter:title" content="Portafolio — FIG">
 <meta name="twitter:description" content="Gestión de carteras, control de riesgo y el Torneo Portafolio 2026 en FEN Investment Group.">
 <meta name="twitter:image" content="/og-image.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230A1128'/%3E%3Ccircle cx='50' cy='50' r='34' fill='%23D4AF37'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%2308213F'/%3E%3Ccircle cx='50' cy='50' r='34' fill='%23EC7000'/%3E%3C/svg%3E">
 <!-- Tipografias autoalojadas: antes esto eran dos preconnect y una
      hoja de estilos de fonts.googleapis.com, que bloqueaba la primera
      pintada y le mandaba la IP de cada visitante a Google. Las genera
@@ -76,16 +76,20 @@
      resto del CSS y los scripts de verificación siguen calzando, y volver
      atrás es reescribir este bloque y nada más.
      Contraste WCAG medido antes de aplicar (texto sobre su fondo real):
-       --acc      sobre --navy   5.30  AA
-       --acc-light sobre --navy  7.65  AAA
-       --acc-deep sobre --paper  4.80  AA   (el oro que reemplaza daba 3.68: NO pasaba)
-       --bmk      sobre --navy   6.48  AA
+       --acc       sobre --navy   5.30  AA
+       --acc-light sobre --navy   7.65  AAA
+       --acc-deep  sobre --paper  4.80  AA   (el oro que reemplaza daba 3.68: NO pasaba)
+       --acc-chroma sobre --paper 4.37  AA texto grande  (más rojo que --acc-deep,
+                    que sobre crema se leía terroso; solo para display ≥24px)
+       --bmk       sobre --navy   6.48  AA
      El naranja y el azul del benchmark se separan MÁS que el par oro/azul
      anterior, así que los gráficos quedan mejor, no peor. */
   --navy-deep:#04162B; --navy:#08213F; --navy-panel:#0E2B4E;
   --acc:#EC7000;          /* naranja Itaú          */
   --acc-light:#FF9A3C;    /* naranja claro         */
   --acc-deep:#B35400;     /* naranja profundo      */
+  --acc-chroma:#C2540A;   /* naranja display sobre crema — más rojo que --acc-deep,
+                             solo para texto grande (≥24px): itálicas del título y .mrow-n */
   --acc-warm:#F2A25C;     /* naranja cálido        */
   --acc-dim:rgba(236,112,0,.34);
   --acc-faint:rgba(236,112,0,.12);
@@ -140,7 +144,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .kicker::before{content:"";width:34px;height:1px;background:var(--acc);opacity:.7;flex:none}
 .h-sec{font-family:var(--f-disp);font-weight:600;font-size:clamp(2.1rem,4.6vw,3.4rem);line-height:1.1;letter-spacing:-.012em;margin:18px 0 0}
 .h-sec em{font-style:italic;color:var(--acc)}
-.section--light .h-sec em{color:var(--acc-deep)}
+.section--light .h-sec em{color:var(--acc-chroma)}
 .lead{font-size:1.05rem;color:rgba(249,246,239,.78);max-width:58ch}
 .section--light .lead{color:var(--ink-soft)}
 .mono-tag{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);border:1px solid var(--acc-dim);border-radius:100px;padding:5px 13px;display:inline-block}
@@ -232,7 +236,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   padding:clamp(7.5rem,13vh,9.5rem) 0 clamp(3rem,6vh,5rem)}
 .hero-fallback{position:absolute;inset:0;
   background:radial-gradient(1000px 600px at 80% -5%,rgba(236,112,0,.14),transparent 60%),
-             radial-gradient(800px 560px at -8% 105%,rgba(158,126,30,.2),transparent 62%),var(--navy)}
+             radial-gradient(800px 560px at -8% 105%,rgba(236,112,0,.16),transparent 62%),var(--navy)}
 /* CAMPO DE FRONTERAS (2026-09-02) — reemplaza la retícula de papel milimetrado.
    La retícula era un fondo prestado: cualquier página de finanzas puede tener
    una. Esto no. Cada curva es la rama de una hipérbola
@@ -380,10 +384,10 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .about-side{display:flex;flex-direction:column;gap:0;border:1px solid var(--line-l);background:var(--paper)}
 .side-card{border:none;border-top:1px solid var(--line-l);background:transparent;padding:24px 26px;position:relative;overflow:hidden;transition:background .4s}
 .about-side .side-card:first-child{border-top:none}
-.side-card:hover{background:rgba(158,126,30,.045)}
+.side-card:hover{background:rgba(236,112,0,.05)}
 .side-card::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:linear-gradient(90deg,var(--acc),transparent);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
 .side-card:hover::after{transform:scaleX(1)}
-.side-card .mono-tag{border-color:rgba(158,126,30,.4);color:var(--acc-deep);margin-bottom:12px}
+.side-card .mono-tag{border-color:var(--acc-dim);color:var(--ink-soft);margin-bottom:12px}
 .side-card h3{font-family:var(--f-disp);font-size:1.2rem;font-weight:600;margin-bottom:6px}
 .side-card p{font-size:.9rem;color:var(--ink-soft)}
 
@@ -417,7 +421,7 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .torneo-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,5vw,4rem);align-items:start}
 .facts{list-style:none;margin:26px 0 30px;border-top:1px solid var(--line-l)}
 .facts li{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid var(--line-l);font-size:.92rem}
-.facts .k{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--acc-deep);flex:none}
+.facts .k{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);flex:none}
 .facts .v{text-align:right;color:var(--ink);font-weight:500}
 .torneo-ctas{display:flex;gap:14px;flex-wrap:wrap}
 .torneo-card{background:var(--navy);color:var(--ivory);border:1px solid var(--line-d);border-radius:12px;padding:34px 30px;position:relative;overflow:hidden}
@@ -516,7 +520,7 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .ch-legend i{width:17px;height:3px;border-radius:2px;flex:none}
 .ch-legend .sw-fig{background:var(--acc)}
 .ch-legend .sw-bmk{background:var(--bmk)}
-.ch-legend .sw-band{height:11px;background:rgba(235,211,136,.24);border:1px solid rgba(235,211,136,.34)}
+.ch-legend .sw-band{height:11px;background:rgba(255,154,60,.22);border:1px solid rgba(255,154,60,.4)}
 /* Toda cifra del gráfico existe también como texto: un valor nunca puede vivir
    solo dentro de un SVG ni de un tooltip. */
 .ch-tabla{margin-top:20px;border-top:1px solid var(--acc-faint);padding-top:14px}
@@ -581,13 +585,13 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
   transition:padding-left .5s var(--ease)}
 .mrow:hover{padding-left:14px}
 .mrow-n{font-family:var(--f-mono);font-weight:600;font-size:clamp(2.2rem,5.6vw,3.6rem);
-  line-height:.9;color:var(--acc-deep);font-variant-numeric:tabular-nums}
+  line-height:.9;color:var(--acc-chroma);font-variant-numeric:tabular-nums}
 .mrow-n em{display:block;font-style:normal;font-size:.2em;letter-spacing:.2em;text-transform:uppercase;
   color:var(--ink-soft);margin-top:10px;line-height:1.5}
 .mrow-b{min-width:0;max-width:64ch}
 .mrow-b h3{font-family:var(--f-disp);font-size:clamp(1.35rem,2.9vw,1.85rem);font-weight:600;line-height:1.18}
 .mrow-sub{display:block;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--acc-deep);margin:6px 0 12px}
+  text-transform:uppercase;color:var(--ink-soft);margin:6px 0 12px}
 .mrow-b p{font-size:.97rem;color:var(--ink-soft);line-height:1.62}
 .mrow-best{margin-top:14px;padding-top:12px;border-top:1px solid var(--line-l);
   display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
