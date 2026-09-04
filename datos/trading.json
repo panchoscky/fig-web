@@ -11,17 +11,18 @@
     {"num": "03 · LABORATORIO", "titulo": "Operar con las herramientas reales", "texto": "Práctica en el Laboratorio Bloomberg de la FEN, con los mismos datos y terminales con los que se opera en la industria."}
   ],
   "torneo": {
-    "activo": false,
-    "titulo": "Torneo de Trading",
-    "bajada": "Por confirmar.",
-    "estado": "Por confirmar",
+    "activo": true,
+    "titulo": "Alpha Trading Challenge 2026",
+    "bajada": "Alianza entre FEN Investment Group y XTB: el torneo de trading universitario más grande de Chile, abierto a estudiantes de pregrado y postgrado de todo el país.",
+    "estado": "Inscripciones desde el 21 de septiembre",
     "formUrl": "",
     "basesUrl": "",
     "datos": [
-      {"k": "Formato", "v": "Por confirmar"},
-      {"k": "Fechas", "v": "Por confirmar"},
-      {"k": "Quiénes pueden participar", "v": "Por confirmar"},
-      {"k": "Organiza", "v": "Área Trading · FIG"}
+      {"k": "Formato", "v": "Torneo interuniversitario de trading en alianza con XTB"},
+      {"k": "Inscripciones", "v": "21 de septiembre al 4 de octubre"},
+      {"k": "Torneo", "v": "14 de octubre al 6 de noviembre"},
+      {"k": "Quiénes pueden participar", "v": "Estudiantes de pregrado y postgrado de universidades de todo Chile"},
+      {"k": "Organiza", "v": "Área Trading · FIG, junto a XTB"}
     ]
   },
   "responsables": [

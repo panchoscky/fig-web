@@ -18,7 +18,7 @@
 <meta name="twitter:title" content="Trading — FIG">
 <meta name="twitter:description" content="Mercados en tiempo real, análisis técnico y gestión del riesgo en FEN Investment Group.">
 <meta name="twitter:image" content="/og-image.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230A1128'/%3E%3Ccircle cx='50' cy='50' r='34' fill='%23D4AF37'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230A1128'/%3E%3Ccircle cx='50' cy='50' r='34' fill='%23FF0000'/%3E%3C/svg%3E">
 <!-- Tipografias autoalojadas: antes esto eran dos preconnect y una
      hoja de estilos de fonts.googleapis.com, que bloqueaba la primera
      pintada y le mandaba la IP de cada visitante a Google. Las genera
@@ -27,13 +27,26 @@
 <style>
 /* ============================================================================
    TRADING — página del área
-   Mismo ADN del sitio FIG, paleta estándar navy + oro (NO tiene paleta propia:
-   la única con paleta propia es FIW).
+   Mismo esqueleto navy del sitio FIG, pero con PALETA PROPIA desde el
+   2026-09-04 (a pedido de Francisco): el área lanza el Alpha Trading
+   Challenge 2026 en alianza con XTB, así que el oro se reemplaza por el
+   rojo de marca de XTB (#FF0000 + #18181E). Tercera página con paleta
+   propia después de fiw/ y portafolio/ — trading/ y valuation/ DEJAN de
+   compartir plantilla de color a partir de ahora (siguen compartiendo
+   estructura y JS). Los NOMBRES de las variables no cambian, así que el
+   resto del CSS sigue calzando igual.
+   Contraste WCAG medido antes de aplicar (texto sobre su fondo real):
+     --acc       sobre --navy   4.67  AA
+     --acc-light sobre --navy   7.33  AAA
+     --acc-deep  sobre --paper  7.20  AAA
    Datos: DATA embebida + override desde ../datos/trading.json
    Torneo: el área NO tiene torneo propio confirmado, así que datos/trading.json
    trae torneo.activo:false y la sección queda oculta. Cuando exista, basta
    poner activo:true y llenar los datos ahí: no hay que tocar esta página.
    Fotos de responsables: ../fotos/directiva/<slug>.jpg (se detectan solas).
+   Logos de clubes invitados al torneo: ../logos/clubes-trading/ (se listan
+   a mano en CLUBES_TORNEO más abajo — a diferencia de fotos/, acá no hay
+   convención de sondeo porque cada logo tiene nombre propio, no un número).
    ============================================================================ */
 :root{
   /* Sin esto Chrome dibuja las barras de scroll y los controles nativos en
@@ -41,14 +54,14 @@
      pintada: en un sitio 100% oscuro se ve como un destello o una barra blanca. */
   color-scheme:dark;
   --navy-deep:#060B1C; --navy:#0A1128; --navy-panel:#101731;
-  --acc:#D4AF37;          /* oro principal   */
-  --acc-light:#EBD388;    /* oro claro       */
-  --acc-deep:#9E7E1E;     /* oro profundo    */
-  --acc-warm:#E8C972;     /* oro cálido      */
-  --acc-dim:rgba(212,175,55,.34);
-  --acc-faint:rgba(212,175,55,.12);
+  --acc:#FF0000;          /* rojo XTB        */
+  --acc-light:#FF7A68;    /* rojo claro      */
+  --acc-deep:#A81616;     /* rojo profundo   */
+  --acc-warm:#FF9478;     /* rojo cálido     */
+  --acc-dim:rgba(255,0,0,.34);
+  --acc-faint:rgba(255,0,0,.12);
   --ivory:#F9F6EF; --paper:#FCFAF3; --ink:#141019; --ink-soft:#5A5347;
-  --line-l:rgba(20,16,25,.13); --line-d:rgba(212,175,55,.2);
+  --line-l:rgba(20,16,25,.13); --line-d:rgba(255,0,0,.2);
   --f-disp:"Playfair Display",Georgia,serif;
   --f-body:"Inter",-apple-system,"Segoe UI",sans-serif;
   --f-mono:"IBM Plex Mono","SF Mono",monospace;
@@ -84,7 +97,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .mono-tag{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);border:1px solid var(--acc-dim);border-radius:100px;padding:5px 13px;display:inline-block}
 .btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:.92rem;padding:15px 30px;border-radius:2px;transition:transform .4s var(--ease),box-shadow .4s,background .35s,color .35s,border-color .35s;white-space:nowrap}
 .btn--acc{background:var(--acc);color:var(--navy)}
-.btn--acc:hover{background:var(--acc-light);transform:translateY(-2px);box-shadow:0 16px 38px -12px rgba(212,175,55,.5)}
+.btn--acc:hover{background:var(--acc-light);transform:translateY(-2px);box-shadow:0 16px 38px -12px rgba(255,0,0,.5)}
 .btn--ghost{border:1px solid var(--acc-dim);color:var(--ivory)}
 .btn--ghost:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-2px)}
 .btn--navy{background:var(--navy);color:var(--acc)}
@@ -138,7 +151,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* Hero */
 .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:clamp(7rem,12vh,9rem) 0 clamp(4rem,8vh,6rem)}
 .hero-fallback{position:absolute;inset:0;
-  background:radial-gradient(1000px 600px at 80% -5%,rgba(212,175,55,.14),transparent 60%),
+  background:radial-gradient(1000px 600px at 80% -5%,rgba(255,0,0,.14),transparent 60%),
              radial-gradient(800px 560px at -8% 105%,rgba(158,126,30,.2),transparent 62%),var(--navy)}
 .photo-marquee{position:absolute;inset:0;overflow:hidden;z-index:0;opacity:.13}
 .photo-marquee .pm-track{display:flex;align-items:center;gap:16px;height:100%;width:max-content;animation:pmScroll 90s linear infinite}
@@ -151,7 +164,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hero-rings{position:absolute;top:50%;right:-8%;width:min(52vw,620px);aspect-ratio:1;transform:translateY(-50%);pointer-events:none;opacity:.5}
 .hero-rings i{position:absolute;inset:0;border-radius:50%;border:1px solid var(--acc-faint)}
 .hero-rings i:nth-child(2){inset:12%;border-style:dashed;animation:spin 90s linear infinite}
-.hero-rings i:nth-child(3){inset:26%;border-color:rgba(212,175,55,.2)}
+.hero-rings i:nth-child(3){inset:26%;border-color:rgba(255,0,0,.2)}
 @keyframes spin{to{transform:rotate(360deg)}}
 .hero h1{font-family:var(--f-disp);font-weight:600;font-size:clamp(2.8rem,6.4vw,5.2rem);line-height:1.05;letter-spacing:-.016em;margin:18px 0 24px;max-width:14ch}
 .hero h1 em{font-style:italic;color:var(--acc)}
@@ -188,10 +201,32 @@ body.hero-in .hero h1 .ln>span{transform:none}
 .mq{font-family:var(--f-disp);font-style:italic;font-size:1.05rem;color:rgba(249,246,239,.55);padding:14px 34px;white-space:nowrap;border-right:1px solid var(--acc-faint)}
 .mq b{color:var(--acc);font-weight:600}
 
+/* Clubes invitados — cinta de logos, mismo mecanismo que .marq (duplicar
+   el track para loop infinito) pero con imagenes en vez de texto. Datos:
+   CLUB_LOGOS mas abajo en el JS, apuntando a ../logos/clubes-trading/. */
+.club-marq{border-top:1px solid var(--line-d);border-bottom:1px solid var(--line-d);background:rgba(6,11,28,.6);padding:30px 0;position:relative;z-index:2}
+.club-marq__head{margin-bottom:22px;justify-content:center;display:flex}
+.club-marq__viewport{overflow:hidden;position:relative}
+.club-marq__viewport::before,.club-marq__viewport::after{content:"";position:absolute;top:0;bottom:0;width:90px;z-index:2;pointer-events:none}
+.club-marq__viewport::before{left:0;background:linear-gradient(90deg,var(--navy),transparent)}
+.club-marq__viewport::after{right:0;background:linear-gradient(270deg,var(--navy),transparent)}
+.club-marq__track{display:flex;align-items:center;gap:60px;width:max-content;animation:marquee 42s linear infinite}
+.club-marq:hover .club-marq__track{animation-play-state:paused}
+.club-item{display:flex;align-items:center;gap:12px;white-space:nowrap}
+.club-item img{height:38px;width:auto;max-width:130px;object-fit:contain;opacity:.85;transition:opacity .3s,filter .3s;filter:grayscale(.2)}
+.club-item:hover img{opacity:1;filter:none}
+.club-item span{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(249,246,239,.5)}
+@media(max-width:640px){
+  .club-marq__viewport::before,.club-marq__viewport::after{width:44px}
+  .club-marq__track{gap:40px}
+  .club-item img{height:28px}
+  .club-item span{display:none}
+}
+
 /* Secciones */
 section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .section--light{background:
-  radial-gradient(1100px 460px at 85% -5%,rgba(212,175,55,.08),transparent 60%),var(--ivory);
+  radial-gradient(1100px 460px at 85% -5%,rgba(255,0,0,.08),transparent 60%),var(--ivory);
   color:var(--ink)}
 .section--dark{background:var(--navy);color:var(--ivory)}
 .sec-head{max-width:740px;margin-bottom:clamp(2.4rem,5vw,3.8rem)}
@@ -212,8 +247,8 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 /* Pilares */
 .pilares{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .pilar{background:var(--navy-panel);border:1px solid var(--line-d);border-radius:8px;padding:36px 32px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:14px;transition:transform .45s var(--ease),border-color .45s,box-shadow .45s}
-.pilar::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .5s;background:radial-gradient(280px circle at var(--mx,50%) var(--my,0%),rgba(212,175,55,.12),transparent 65%)}
-.pilar:hover{transform:translateY(-7px);border-color:rgba(212,175,55,.5);box-shadow:0 28px 56px -26px rgba(0,0,0,.6)}
+.pilar::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .5s;background:radial-gradient(280px circle at var(--mx,50%) var(--my,0%),rgba(255,0,0,.12),transparent 65%)}
+.pilar:hover{transform:translateY(-7px);border-color:rgba(255,0,0,.5);box-shadow:0 28px 56px -26px rgba(0,0,0,.6)}
 .pilar:hover::before{opacity:1}
 .pilar .p-num{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.3em;color:var(--acc);position:relative}
 .pilar h3{font-family:var(--f-disp);font-size:1.5rem;font-weight:600;line-height:1.2;position:relative}
@@ -227,18 +262,18 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .facts .v{text-align:right;color:var(--ink);font-weight:500}
 .torneo-ctas{display:flex;gap:14px;flex-wrap:wrap}
 .torneo-card{background:var(--navy);color:var(--ivory);border:1px solid var(--line-d);border-radius:12px;padding:34px 30px;position:relative;overflow:hidden}
-.torneo-card::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 240px at 90% -10%,rgba(212,175,55,.18),transparent 60%);pointer-events:none}
+.torneo-card::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 240px at 90% -10%,rgba(255,0,0,.18),transparent 60%);pointer-events:none}
 .torneo-card .mono-tag{margin-bottom:16px}
 .torneo-card h3{font-family:var(--f-disp);font-weight:600;font-size:1.7rem;line-height:1.16;position:relative;margin-bottom:12px}
 .torneo-card p{font-size:.95rem;color:rgba(249,246,239,.76);position:relative}
 .torneo-card .tc-tag{position:relative;display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
-.torneo-card .tc-dot{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 rgba(212,175,55,.5);animation:pulse 2.4s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(212,175,55,.45)}70%{box-shadow:0 0 0 12px rgba(212,175,55,0)}100%{box-shadow:0 0 0 0 rgba(212,175,55,0)}}
+.torneo-card .tc-dot{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 rgba(255,0,0,.5);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,0,0,.45)}70%{box-shadow:0 0 0 12px rgba(255,0,0,0)}100%{box-shadow:0 0 0 0 rgba(255,0,0,0)}}
 
 /* Responsables */
 .people{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .p-card{border:1px solid var(--line-d);background:var(--navy-panel);border-radius:8px;padding:28px 24px;display:flex;flex-direction:column;gap:14px;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s}
-.p-card:hover{transform:translateY(-6px);border-color:rgba(212,175,55,.5);box-shadow:0 24px 48px -24px rgba(0,0,0,.55)}
+.p-card:hover{transform:translateY(-6px);border-color:rgba(255,0,0,.5);box-shadow:0 24px 48px -24px rgba(0,0,0,.55)}
 /* Quien DIRIGE el área: filete dorado al COSTADO + chip "Dirige el área".
    Portado de index.html (§Nosotros), donde la misma jerarquía se marca con
    .p-card--area sobre tarjeta CLARA y el oro se llama --gold. Acá la sección
@@ -267,11 +302,11 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 /* Eventos del área (mismo estilo de tarjeta que eventos/index.html, filtrado por area:"trading") */
 .ev-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
 .ev-card{position:relative;border-radius:10px;overflow:hidden;min-height:320px;border:1px solid var(--line-d);background:var(--navy-panel);display:flex;flex-direction:column;justify-content:flex-end;transition:transform .5s var(--ease),border-color .5s,box-shadow .5s}
-.ev-card:hover{transform:translateY(-8px);border-color:rgba(212,175,55,.5);box-shadow:0 32px 64px -26px rgba(0,0,0,.65)}
+.ev-card:hover{transform:translateY(-8px);border-color:rgba(255,0,0,.5);box-shadow:0 32px 64px -26px rgba(0,0,0,.65)}
 .ev-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.02);transition:transform 1.2s var(--ease);filter:saturate(.9)}
 .ev-card:hover .ev-bg{transform:scale(1.08)}
 .ev-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,17,40,.25) 0%,rgba(10,17,40,.55) 45%,rgba(6,11,28,.94) 100%)}
-.ev-ghost{position:absolute;top:-6px;right:10px;font-family:var(--f-disp);font-weight:700;font-size:clamp(4.5rem,8vw,6.5rem);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(212,175,55,.14);pointer-events:none;user-select:none}
+.ev-ghost{position:absolute;top:-6px;right:10px;font-family:var(--f-disp);font-weight:700;font-size:clamp(4.5rem,8vw,6.5rem);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(255,0,0,.14);pointer-events:none;user-select:none}
 .ev-body{position:relative;padding:28px 28px 24px;display:flex;flex-direction:column;gap:12px}
 .ev-top{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .ev-date{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);font-weight:600}
@@ -350,9 +385,10 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
       <li><a href="../index.html">Inicio FIG</a></li>
       <li><a href="../eventos/index.html">Eventos</a></li>
       <li><a href="#nosotros">El área</a></li>
+      <li><a href="#torneo">Torneo</a></li>
       <li><a href="#responsables">Responsables</a></li>
     </ul>
-    <a href="#nosotros" class="btn btn--acc btn--nav">Conoce el área</a>
+    <a href="#torneo" class="btn btn--acc btn--nav">Ver el torneo</a>
     <button class="nav__burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><i></i><i></i><i></i></button>
   </div>
 </nav>
@@ -360,6 +396,7 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
   <a href="../index.html">Inicio FIG</a>
   <a href="../eventos/index.html">Eventos</a>
   <a href="#nosotros">El área</a>
+  <a href="#torneo">Torneo</a>
   <a href="#responsables">Responsables</a>
 </div>
 
@@ -376,8 +413,8 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
     </h1>
     <p class="hero__sub reveal d2" id="heroBajada">El área de FIG donde se opera el mercado en tiempo real: análisis técnico, lectura de flujos y riesgo medido en cada operación.</p>
     <div class="hero__cta reveal d3">
-      <a href="#nosotros" class="btn btn--acc">Conoce el área <span class="arr">→</span></a>
-      <a href="#responsables" class="btn btn--ghost">Responsables</a>
+      <a href="#torneo" class="btn btn--acc">Torneo del área <span class="arr">→</span></a>
+      <a href="#nosotros" class="btn btn--ghost">Conoce el área</a>
     </div>
     <div class="hero__meta reveal d3">
       <span>Análisis <b>técnico</b></span>
@@ -389,6 +426,18 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
 <div class="marq" aria-hidden="true">
   <div class="marq__track" id="marqTrack">
     <span class="mq"><b>Análisis técnico</b></span><span class="mq">Flujos</span><span class="mq"><b>Ejecución</b></span><span class="mq">Volatilidad</span><span class="mq"><b>Gestión de riesgo</b></span><span class="mq">Corto plazo</span><span class="mq"><b>Laboratorio Bloomberg</b></span><span class="mq">Mercados</span>
+  </div>
+</div>
+
+<!-- CLUBES INVITADOS — cinta de logos del Alpha Trading Challenge 2026.
+     Lista en CLUB_LOGOS (JS mas abajo); decorativa (aria-hidden), como el
+     marquee de palabras de arriba. -->
+<div class="club-marq">
+  <div class="wrap club-marq__head">
+    <span class="kicker"><span class="scr" data-text="Clubes que se suman al Alpha Trading Challenge">Clubes que se suman al Alpha Trading Challenge</span></span>
+  </div>
+  <div class="club-marq__viewport" aria-hidden="true">
+    <div class="club-marq__track" id="clubMarqTrack"></div>
   </div>
 </div>
 
@@ -529,17 +578,18 @@ var DATA={
     {num:"03 · LABORATORIO",titulo:"Operar con las herramientas reales",texto:"Práctica en el Laboratorio Bloomberg de la FEN, con los mismos datos y terminales con los que se opera en la industria."}
   ],
   torneo:{
-    activo:false,
-    titulo:"Torneo de Trading",
-    bajada:"Por confirmar.",
-    estado:"Por confirmar",
+    activo:true,
+    titulo:"Alpha Trading Challenge 2026",
+    bajada:"Alianza entre FEN Investment Group y XTB: el torneo de trading universitario más grande de Chile, abierto a estudiantes de pregrado y postgrado de todo el país.",
+    estado:"Inscripciones desde el 21 de septiembre",
     formUrl:"",
     basesUrl:"",
     datos:[
-      {k:"Formato",v:"Por confirmar"},
-      {k:"Fechas",v:"Por confirmar"},
-      {k:"Quiénes pueden participar",v:"Por confirmar"},
-      {k:"Organiza",v:"Área Trading · FIG"}
+      {k:"Formato",v:"Torneo interuniversitario de trading en alianza con XTB"},
+      {k:"Inscripciones",v:"21 de septiembre al 4 de octubre"},
+      {k:"Torneo",v:"14 de octubre al 6 de noviembre"},
+      {k:"Quiénes pueden participar",v:"Estudiantes de pregrado y postgrado de universidades de todo Chile"},
+      {k:"Organiza",v:"Área Trading · FIG, junto a XTB"}
     ]
   },
   responsables:[
@@ -776,6 +826,26 @@ $$("a",mmenu).forEach(function(a){a.addEventListener("click",function(){toggleMe
 
 /* marquee: duplicar para loop */
 (function(){var t=$("#marqTrack");if(t)t.innerHTML+=t.innerHTML})();
+
+/* ---------------- Clubes invitados (Alpha Trading Challenge 2026) ----------------
+   Logos en ../logos/clubes-trading/. Los que llegaron como SVG de reconstrucción
+   de raster pesaban >1MB (miles de puntos de trazo): se pasaron a PNG recortado
+   antes de subirlos, por eso la mezcla de extensiones acá abajo. */
+var CLUB_LOGOS=[
+  {archivo:"uai-finance-investment-club.png",nombre:"UAI Finance & Investment Club"},
+  {archivo:"investment-club-puc.svg",nombre:"Investment Club PUC"},
+  {archivo:"club-finanzas-uandes.png",nombre:"Club de Finanzas UANDES"},
+  {archivo:"club-finanzas-duocuc.png",nombre:"Club de Finanzas DuocUC"},
+  {archivo:"beauchef-finance-club.svg",nombre:"Beauchef Finance Club"},
+  {archivo:"club-finanzas-fae-usach.svg",nombre:"Club de Finanzas FAE USACH"}
+];
+(function(){
+  var t=$("#clubMarqTrack");if(!t)return;
+  var html=CLUB_LOGOS.map(function(c){
+    return '<span class="club-item"><img src="../logos/clubes-trading/'+esc(c.archivo)+'" alt="" loading="lazy" width="130" height="38"><span>'+esc(c.nombre)+'</span></span>';
+  }).join("");
+  t.innerHTML=html+html;
+})();
 
 /* ---------------- Fotos del área en movimiento (fondo oscuro del hero) ----------------
    Tira de fotos reales de ../fotos/trading/1.jpg, 2.jpg, 3.jpg… (numeradas,
