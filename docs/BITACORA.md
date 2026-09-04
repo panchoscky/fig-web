@@ -1988,3 +1988,113 @@ enteras a 1265px y a 390px para mirarlas, no solo para que compilaran.
 
 **Queda abierto de la revisión de diseño**: P7 (la tarjeta de §Torneo flotando),
 P10 (§Método y §100 puntos comparten molde) y P13 (halo en avatares).
+
+## Tanda del 2026-09-04 (3): auspiciadores a la vista, y se cierra la revisión de diseño
+
+Tres pedidos de Francisco en una: cerrar lo que quedaba de la revisión de diseño
+del 3-sep, encontrarle un lugar al guiño a BlackRock que se había perdido al
+eliminar el token `--graph`, y **poner los logos de los auspiciadores** — Itaú y
+BlackRock en Portafolio, XTB en Trading — con una condición explícita: "no deben
+tener una sección completa".
+
+### Los auspiciadores
+
+Van en una franja al pie de la tarjeta de §Torneo, en las dos páginas. Ahí y no
+en el hero por una razón que no es estética: **lo que auspician es el TORNEO, no
+el área**, así que al lado de la ficha de la competencia la afirmación se lee en
+su contexto. Por eso el rótulo dice "Auspician el torneo".
+
+**El respaldo de la afirmación ya estaba en el repo**: `datos/club.json` declara,
+en la ficha de cada competencia, que BlackRock "actúa como sponsor del torneo
+junto al banco Itaú" y que el Alpha Trading Challenge "cuenta con XTB como
+sponsor estratégico". Esto no inventa un auspicio: publica uno que el sitio ya
+afirmaba en texto corrido.
+
+Detalles que costaron una vuelta:
+
+- **`loading="lazy"` dejó los logos en blanco.** Pesan 7 KB cada uno y viven a
+  media página, así que diferirlos no ahorraba nada — pero los dejaba fuera de
+  cualquier render que no haga scroll: el capturador headless los mostró vacíos,
+  y lo mismo pasaría al imprimir. Se les quitó.
+- **BlackRock va en su versión oscura** (`logos/blackrock.png`), no la blanca del
+  hero de `torneo/`: esta sección es crema. Los dos archivos existían ya.
+- **Los logos no se igualan por altura.** BlackRock es una firma apaisada de
+  1035×150 e Itaú un cuadrado de 400×400; a la misma altura la marca cuadrada se
+  ve enana. La cuadrada lleva su propia altura (`.spons img.sq`), igual que en
+  `torneo/index.html`, de donde viene el patrón.
+- **El logo de XTB TODAVÍA NO EXISTE en el repo, y Trading quedó sin su franja.**
+  Se probaron las dos formas de dejarla puesta de antemano —el `<img>` con el
+  `src` escrito, y un sondeo con `new Image()` que la insertara solo al cargar— y
+  **las dos meten un 404 en cada carga de la página**: `verificar_paginas.js`
+  falla la página con ambas, y tiene razón. El repo sí perdona los 404 que son
+  sondeos legítimos (`RUTAS_SONDEADAS` en ese script: `fotos/` y
+  `logos/industria/`), pero esos son mecanismos permanentes por diseño y esto es
+  un archivo que falta una sola vez; ampliar la lista para tapar un hueco
+  temporal habría sido arreglar el termómetro en vez de la fiebre. Así que el
+  bloque quedó como **plantilla comentada** en su sitio exacto, con las
+  instrucciones al lado. Cuando llegue el archivo son dos pasos y ninguno es de
+  diseño: guardar el logotipo oficial —**versión para fondo claro**, la sección
+  es crema— como `logos/xtb.png` y descomentar el bloque. El CSS de `.spons` ya
+  está escrito en la página, es el mismo que usa `portafolio/`.
+
+### El guiño a BlackRock
+
+Queda resuelto por lo anterior, y mejor de lo que estaba: era un gris de fondo
+que nadie podía identificar como BlackRock, y pasa a ser el logotipo, junto a la
+línea que dice que auspicia el torneo. Un color no comunica un auspicio; un logo
+con su rótulo, sí.
+
+### Lo que quedaba de la revisión de diseño
+
+- **P7 — la tarjeta de §Torneo flotaba.** La lista de datos de la izquierda es
+  mucho más larga que la tarjeta de la derecha, así que quedaba media pantalla de
+  crema debajo. Ahora la columna derecha tiene dos piezas (tarjeta + logos) y va
+  `position:sticky`, así que acompaña la lectura de la lista en vez de quedarse
+  arriba mirando. En una columna el sticky se apaga: ya no hay nada a lo que
+  seguir.
+- **P10 — §Método y §100 puntos compartían molde.** Son secciones consecutivas y
+  repetían el mismo ritmo (cifra grande, filete, texto), así que la segunda no se
+  leía como algo nuevo. El arreglo sale de que **no son lo mismo**: §100 puntos es
+  una tabla de PESOS (30 + 25 + 15 + 15 + 15, cada fila vale por sí sola) y
+  §Método es una SECUENCIA (se asigna, después se mide el riesgo, y recién
+  entonces se rinde cuentas). Así que §Método pasa a dibujarse como un recorrido,
+  con un riel vertical que encadena los tres pasos, y §100 puntos se queda tal
+  cual, que es como debe verse una tabla. Las medidas del grid salieron a
+  variables (`--col-n`, `--gap-n`) para que el riel caiga exacto en la mitad del
+  canal, y el riel acompaña el desplazamiento del `:hover` con la misma curva:
+  un `absolute` se mide contra el padding box y no contra el contenido, así que
+  sin eso se quedaba atrás al abrirse la franja.
+- **P13 — halo en los avatares: FALSO POSITIVO, no se tocó nada.** Se recortaron y
+  ampliaron tres avatares de la captura para mirarlos de verdad: están limpios.
+  Lo que a tamaño real parecía un halo es el fondo claro de cada fotografía
+  (muros, paredes) contra el navy de la tarjeta. El CSS confirma por qué no puede
+  haberlo: `.avatar` define el degradado naranja con el atajo `background`, y el
+  JS lo reemplaza por `background-image` con la foto, así que el degradado no
+  asoma por ningún borde. **Con esto la revisión del 3-sep queda cerrada entera**
+  (P1–P13).
+
+### El fondo de Trading, segunda pasada
+
+Francisco miró "la sesión" publicada y dijo que la media móvil no se veía bien:
+pidió "una más gruesa y un movimiento más suave". Las dos cosas se arreglaron en
+sitios distintos:
+
+- **Grosor**, en el generador: 2.6px y .62 de alfa, contra 1.5 y .44. A 1.5px se
+  perdía entre las mechas de las velas.
+- **Movimiento**, en el CSS, y el culpable era la curva: iba con `var(--ease)`,
+  que es un `cubic-bezier(.22,.61,.21,1)` — un ease-out fuerte que arranca de
+  golpe y frena largo. En un trazo de 1463px eso se ve como un latigazo al
+  principio. Pasa a `ease-in-out`, que entra y sale despacio, y el ciclo de 24s a
+  32s, así que el avance por segundo baja y el trazo nunca da un tirón.
+
+**Truco para mirar una animación con el capturador**: dispara en el instante 0,
+cuando la línea todavía tiene el `dashoffset` completo y opacidad 0 — por eso no
+aparecía en ninguna captura. Se resolvió escribiendo una copia temporal de la
+página dentro de `trading/` (para que las rutas relativas siguieran resolviendo)
+con la animación forzada a su estado final, capturándola y **borrándola después**.
+
+**Verificado**: `verificar_sitio.py` sin errores (el aviso de `CLUB_DATA` es el
+histórico), `verificar_paginas.js` sin errores de consola ni archivos faltantes,
+`verificar_movil.js` sin desborde a 390px.
+
+**Solo se publicó en `fig-web`.** El espejo de Manuel sigue sin sincronizar.

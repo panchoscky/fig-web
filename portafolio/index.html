@@ -432,11 +432,31 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
    valuation/ y trading/. Acá pasan a ser tres FRANJAS a lo ancho, separadas
    por filetes y con el número calado al aire: el mismo lenguaje de rejilla
    fina que usan el plano del hero y el tablero del corte. */
-.pilares{display:grid;grid-template-columns:1fr;border-top:1px solid var(--line-d)}
-.pilar{display:grid;grid-template-columns:clamp(78px,11vw,150px) minmax(0,1fr);
-  gap:clamp(1rem,3vw,2.6rem);align-items:start;position:relative;overflow:hidden;
+/* P10 (2026-09-04) — §Método y §Los 100 puntos venían con el MISMO molde:
+   cifra grande a la izquierda, filete horizontal, título y texto a la derecha.
+   Son secciones consecutivas, así que la página repetía el mismo ritmo dos
+   veces seguidas y las dos perdían: la segunda no se leía como algo nuevo.
+   Pero las dos cosas NO son lo mismo y ahí está el arreglo: §100 puntos es una
+   tabla de PESOS —cada fila vale por sí sola, 30 + 25 + 15 + 15 + 15— mientras
+   que §Método es una SECUENCIA: primero se asigna, después se mide el riesgo y
+   recién entonces se rinde cuentas contra el índice. Así que §Método pasa a
+   dibujarse como un recorrido, con un riel vertical que encadena los tres
+   pasos, y §100 puntos se queda tal cual, que es como debe verse una tabla.
+   Las dos medidas del grid salen a variables para que el riel caiga EXACTO en
+   la mitad del canal, y el riel acompaña el desplazamiento del :hover con la
+   misma curva y el mismo tiempo: un absolute se mide contra el padding box, no
+   contra el contenido, así que sin esto se quedaba atrás al abrirse la franja. */
+.pilares{display:grid;grid-template-columns:1fr;border-top:1px solid var(--line-d);
+  --col-n:clamp(78px,11vw,150px);--gap-n:clamp(1rem,3vw,2.6rem)}
+.pilar{display:grid;grid-template-columns:var(--col-n) minmax(0,1fr);
+  gap:var(--gap-n);align-items:start;position:relative;overflow:hidden;
   padding:clamp(1.7rem,3.4vw,2.6rem) 0;border-bottom:1px solid var(--line-d);
   transition:padding-left .5s var(--ease)}
+.pilar::after{content:"";position:absolute;top:0;bottom:0;width:1px;
+  left:calc(var(--col-n) + var(--gap-n) / 2);background:var(--acc-faint);
+  transition:left .5s var(--ease),background .5s}
+.pilar:hover::after{left:calc(var(--col-n) + var(--gap-n) / 2 + 16px);
+  background:var(--acc-dim)}
 .pilar::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .5s;
   background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(236,112,0,.1),transparent 65%)}
 .pilar:hover{padding-left:16px}
@@ -458,6 +478,8 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .pilar p{font-size:.97rem;color:rgba(249,246,239,.72)}
 @media(max-width:560px){
   .pilar{grid-template-columns:1fr;gap:.4rem}
+  /* En una columna el riel no encadena nada: caería encima del texto. */
+  .pilar::after{display:none}
   .p-ghost{font-size:2.6rem}
 }
 
@@ -475,6 +497,39 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .torneo-card p{font-size:.95rem;color:rgba(249,246,239,.76);position:relative}
 .torneo-card .tc-tag{position:relative;display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
 .torneo-card .tc-dot{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 rgba(236,112,0,.5);animation:pulse 2.4s infinite}
+/* AUSPICIADORES DEL TORNEO (2026-09-04) — franja de logos pegada bajo la
+   tarjeta de §Torneo. No es una sección: son tres o cuatro elementos al pie de
+   una tarjeta que ya existía, y van ahí y no en el hero porque lo que auspician
+   es el TORNEO, no el área — al lado de la ficha del torneo la afirmación se lee
+   en su contexto. La fuente es `datos/club.json`, que ya lo declara en la ficha
+   de cada competencia.
+   De paso cierra el P7 de la revisión del 3-sep: la tarjeta navy quedaba flotando
+   arriba a la derecha con medio metro de crema debajo, porque la lista de datos
+   de la izquierda es mucho más larga. Ahora la columna derecha tiene dos piezas y
+   además queda `sticky`, así que acompaña la lectura de la lista en vez de
+   quedarse arriba mirando. */
+.torneo-side{display:flex;flex-direction:column;gap:20px;position:sticky;top:96px}
+.spons{display:flex;align-items:center;gap:clamp(16px,2.2vw,26px);flex-wrap:wrap;
+  padding:2px 2px 0}
+.spons b{font-family:var(--f-mono);font-size:.55rem;font-weight:500;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-soft);flex:none}
+/* Los logos vienen en proporciones muy distintas (BlackRock es una firma
+   apaisada de 1035x150, Itaú un cuadrado de 400x400), así que igualarlos por
+   altura los deja de tamaños ópticos opuestos: la marca cuadrada se ve enana.
+   Por eso la cuadrada lleva su propia altura, igual que en `torneo/index.html`,
+   de donde viene este patrón. */
+.spons img{height:24px;width:auto;object-fit:contain;opacity:.82;
+  transition:opacity .3s}
+.spons img.sq{height:38px}
+.spons:hover img{opacity:1}
+@media(max-width:1000px){
+  /* En una columna la tarjeta ya no tiene una lista al lado a la que seguir. */
+  .torneo-side{position:static}
+}
+@media(max-width:560px){
+  .spons img{height:19px}
+  .spons img.sq{height:27px}
+}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(236,112,0,.45)}70%{box-shadow:0 0 0 12px rgba(236,112,0,0)}100%{box-shadow:0 0 0 0 rgba(236,112,0,0)}}
 
 /* ============================================================================
@@ -1040,12 +1095,22 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
         <ul class="facts" id="tvDatos"></ul>
         <div class="torneo-ctas" id="tvCtas"></div>
       </div>
-      <aside class="torneo-card reveal d1">
-        <span class="mono-tag">Ranking en vivo</span>
-        <h3 id="tvCardTitulo">El torneo ya está en curso</h3>
-        <p id="tvCardTexto">El ranking se publica cada viernes con el corte de la semana.</p>
-        <span class="tc-tag"><span class="tc-dot"></span><span id="tvEstado">Ranking en vivo</span></span>
-      </aside>
+      <div class="torneo-side reveal d1">
+        <aside class="torneo-card">
+          <span class="mono-tag">Ranking en vivo</span>
+          <h3 id="tvCardTitulo">El torneo ya está en curso</h3>
+          <p id="tvCardTexto">El ranking se publica cada viernes con el corte de la semana.</p>
+          <span class="tc-tag"><span class="tc-dot"></span><span id="tvEstado">Ranking en vivo</span></span>
+        </aside>
+        <!-- Sponsors del Torneo Portafolio 2026, declarados en datos/club.json.
+             BlackRock va en su versión oscura (logos/blackrock.png) porque esta
+             sección es clara; la blanca es la del hero de torneo/, que es navy. -->
+        <div class="spons">
+          <b>Auspician el torneo</b>
+          <img class="sq" src="../logos/itau.png" alt="Itaú" width="400" height="400">
+          <img src="../logos/blackrock.png" alt="BlackRock" width="1035" height="150">
+        </div>
+      </div>
     </div>
   </div>
 </section>
