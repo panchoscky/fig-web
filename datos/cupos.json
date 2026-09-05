@@ -1,0 +1,77 @@
+{
+  "_como_editar": [
+    "Los cupos abiertos de cada desk. Los dibuja la mesa de miembros/ en el anillo de afuera,",
+    "y al tocar uno se abre su ficha.",
+    "",
+    "REGLA: aca NO se escribe a quien responde el cupo. Eso se deriva de quien lidera el area",
+    "en datos/miembros.json, asi que si manana cambia el director, la ficha del cupo cambia",
+    "sola. Escribirlo aca seria un dato duplicado que se desactualiza sin que nadie se entere.",
+    "",
+    "Para CERRAR un cupo: saca su bloque de 'abiertos' (o pon 'activo': false). La mesa deja de",
+    "dibujarlo y no queda ningun hueco.",
+    "Para ABRIR otro: agrega el codigo del desk con los mismos campos.",
+    "Si este archivo no existe, la mesa se dibuja igual, sin cupos. No es obligatorio.",
+    "",
+    "Los textos son un BORRADOR escrito a partir de lo que cada area ya dice de si misma en",
+    "config.areas de miembros.json y en su propia pagina. Estan para que Francisco los corrija,",
+    "no para quedarse tal cual."
+  ],
+  "actualizado": "2026-09-04",
+  "abiertos": {
+    "PRT": {
+      "activo": true,
+      "titulo": "Analista de cartera",
+      "perfil": "Alguien a quien le interese que una decisión de inversión se pueda defender con números y no con una corazonada.",
+      "busca": [
+        "Curiosidad por la asignación de activos: repartir el capital entre mercados y sectores antes de elegir un instrumento.",
+        "Ganas de aprender a medir el riesgo —volatilidad, VaR, máximo drawdown— y no solo el retorno.",
+        "Constancia para sostener el corte semanal del Torneo Portafolio, que se publica cada viernes."
+      ],
+      "aprende": "A gestionar una cartera con disciplina de benchmark y a rendir cuentas contra un índice."
+    },
+    "TRD": {
+      "activo": true,
+      "titulo": "Analista de mercado",
+      "perfil": "Alguien que quiera aprender a leer el mercado mientras ocurre, con método y no con intuición.",
+      "busca": [
+        "Interés por leer el precio y el volumen con el mercado abierto.",
+        "Disciplina para fijar el plan de operación —entrada, salida y tamaño— antes de entrar, y sostenerlo cuando el precio va en contra.",
+        "Ganas de operar en las terminales Bloomberg de la FEN, las mismas que usa la industria."
+      ],
+      "aprende": "Análisis técnico, lectura de flujos y gestión activa del riesgo en cada operación."
+    },
+    "VAL": {
+      "activo": true,
+      "titulo": "Analista de research",
+      "perfil": "Alguien con paciencia para entender de dónde sale de verdad el dinero de una compañía.",
+      "busca": [
+        "Gusto por leer estados financieros y buscar la historia que hay detrás de las cifras.",
+        "Ganas de aplicar DCF y múltiplos a empresas reales, no a ejercicios de clase.",
+        "Capacidad de escribir una tesis de inversión y defenderla frente a quien piense distinto."
+      ],
+      "aprende": "Valorización de compañías con las metodologías que se usan en la industria."
+    },
+    "FIW": {
+      "activo": true,
+      "titulo": "Coordinación de comunidad",
+      "perfil": "Alguien con ganas de que más mujeres de la facultad se acerquen a las finanzas y se queden.",
+      "busca": [
+        "Iniciativa para proponer y sostener actividades propias del área.",
+        "Interés en la mentoría: conectar a quienes recién entran con quienes ya llevan camino.",
+        "Ganas de buscar referentes de la industria y traerlas a la facultad."
+      ],
+      "aprende": "A construir comunidad y a organizar actividades que dejan algo detrás."
+    },
+    "ADM": {
+      "activo": true,
+      "titulo": "Coordinación de operaciones",
+      "perfil": "Alguien ordenado a quien le importe que las cosas pasen, aunque su trabajo no sea el que se ve.",
+      "busca": [
+        "Orden para sostener la operación que hace posible al resto: convocatorias, calendario y registro.",
+        "Interés en las alianzas con la industria y en cómo se sostiene un club por dentro.",
+        "Criterio para decidir qué es urgente y qué puede esperar."
+      ],
+      "aprende": "Cómo se gestiona una organización de verdad, con socios externos y plazos que se cumplen."
+    }
+  }
+}

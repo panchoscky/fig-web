@@ -465,7 +465,7 @@
       "id": "manuel-paz",
       "nombre": "Manuel Paz",
       "rol": "Director",
-      "rolCompleto": "Director · Portafolio y Trading",
+      "rolCompleto": "Director · Trading",
       "nivel": 0,
       "lidera": "TRD",
       "area": "TRD",
@@ -474,9 +474,10 @@
       "estado": "activo",
       "linkedin": "https://www.linkedin.com/in/mpazq",
       "perfil": {
-        "bio": "Co-fundador de FEN Investment Group y director de las áreas Portafolio y Trading, responsable de comunicaciones y difusión del club. Creador de la web original de FIG, la primera presencia digital del grupo. Fuera del club fundó y escaló una tienda de e-commerce D2C que generó más de $280 millones en ventas, y gestiona activamente un portafolio personal de acciones y criptomonedas.",
+        "bio": "Co-fundador de FEN Investment Group y director del área Trading, donde también lleva las comunicaciones y difusión del club. Creador de la web original de FIG, la primera presencia digital del grupo. Fuera del club fundó y escaló una tienda de e-commerce D2C que generó más de $280 millones en ventas, y gestiona activamente un portafolio personal de acciones y criptomonedas.",
         "hitos": [
-          "Director · Portafolio y Trading",
+          "Director · Trading",
+          "Directivo · Portafolio",
           "Co-fundador de FIG",
           "Comunicaciones y difusión de FIG",
           "Creador de la web original del club",

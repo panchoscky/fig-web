@@ -34,12 +34,17 @@ Si algo cambia seguido, va en un `.json` bajo `datos/`.
 
 **Paleta y tipografías**: navy `#0A1128` + oro `#D4AF37`, Playfair Display + Inter +
 IBM Plex Mono (autoalojadas en `fuentes/`), reveals on-scroll, respeto total a
-`prefers-reduced-motion`. **Dos páginas tienen paleta propia** y no siguen esa base:
-`fiw/index.html` (oro rosa) y, desde el 2026-09-02, `portafolio/index.html` (azul
-`#08213F` + naranja `#EC7000` de Itaú + grafito `#22252B` de BlackRock — los dos
-sponsors del Torneo Portafolio; decisión de la directiva). En ambas los NOMBRES de
-las variables son los mismos que en el resto del sitio (`--acc`, `--acc-light`…):
-cambia el valor, nunca el token. No tocar esos valores sin pedírselo a Francisco.
+`prefers-reduced-motion`. **Tres páginas tienen paleta propia** y no siguen esa base:
+`fiw/index.html` (oro rosa), `portafolio/index.html` (azul `#08213F` + naranja
+`#EC7000` de Itaú, por el sponsor del Torneo Portafolio; 2026-09-02) y
+`trading/index.html` (rojo `#FF0000` + `#18181E` de XTB, por el Alpha Trading
+Challenge; 2026-09-04). En las tres los NOMBRES de las variables son los mismos que
+en el resto del sitio (`--acc`, `--acc-light`…): cambia el valor, nunca el token.
+No tocar esos valores sin pedírselo a Francisco.
+El grafito `#22252B` de BlackRock **ya no existe**: era el token `--graph` y su
+único uso eran las tarjetas de §Responsables de `portafolio/`, donde un gris neutro
+sobre el navy se leía como una mancha pegada encima. Pasaron a `--navy-panel` el
+2026-09-04 y el token se fue con ellas.
 
 ## Estado general (2026-09-02)
 
@@ -200,7 +205,9 @@ Cada una costó tiempo al menos una vez. El registro completo está en `docs/BIT
   desalinea: `club.json` (`liderArea`), `AREAS` de `generar_miembros.py`,
   `config.areas` de `miembros.json`, §Áreas de `index.html` (la lista de tabs **y** su
   `.dp-view`, en el mismo orden — el conmutador trabaja por índice), y `AC={...}` de
-  `miembros/index.html` (dos veces).
+  `miembros/index.html`. Ese último era **dos** veces hasta el 2026-09-04: el
+  generador de la tarjeta PNG repetía el mapa de colores entero y ahora deriva de
+  `ac(m)`. Junto a `AC` vive `AC_LITE`, la variante clara para texto chico.
 - **`valuation/` y `trading/` son la MISMA plantilla**: al cambiar una, mirar si aplica
   a la otra. `portafolio/` ya se separó a propósito y no sigue la plantilla.
 - **Al agregar o sacar enlaces de cualquier `.m-menu`, correr

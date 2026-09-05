@@ -26,7 +26,7 @@
     ]
   },
   "responsables": [
-    {"iniciales": "MP", "slug": "manuel-paz", "nombre": "Manuel Paz", "rol": "Director · Portafolio y Trading", "lidera": true, "detalle": "Co-fundador de FIG. Dirige el área Trading y las comunicaciones del club.", "linkedin": "https://www.linkedin.com/in/mpazq"},
+    {"iniciales": "MP", "slug": "manuel-paz", "nombre": "Manuel Paz", "rol": "Director · Trading", "lidera": true, "detalle": "Co-fundador de FIG. Dirige el área Trading y las comunicaciones del club.", "linkedin": "https://www.linkedin.com/in/mpazq"},
     {"iniciales": "RA", "slug": "rafael-aliendre", "nombre": "Rafael Aliendre", "rol": "Directivo · Trading", "detalle": "Co-fundador de FIG. Memorista en Estrategia e Inteligencia de Mercado en CODELCO.", "linkedin": "https://www.linkedin.com/in/rafael-aliendre-javier"},
     {"iniciales": "JD", "slug": "juan-pablo-diaz-cerda", "nombre": "Juan Pablo Díaz Cerda", "rol": "Directivo · Trading", "detalle": "Co-fundador de FIG. Práctica en la Gerencia de Inversiones de BCI Seguros.", "linkedin": "https://www.linkedin.com/in/juan-pablo-d%C3%ADaz-cerda-449133310/"}
   ]

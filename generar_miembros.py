@@ -548,7 +548,7 @@ CARGOS_DEMO = {
     "delia-avilan":             ("Encargada · FEN Investment Woman", "FIW", 0, True),
     "gabriela-dominguez":       ("Directora de Comunidad · FIW", "FIW", 1, False),
     "victoria-espinoza":        ("Directora de Mentorías · FIW", "FIW", 1, False),
-    "manuel-paz":               ("Director · Portafolio y Trading", "TRD", 0, True),
+    "manuel-paz":               ("Director · Trading", "TRD", 0, True),
     "rafael-aliendre":          ("Directivo · Trading", "TRD", 1, False),
     "juan-pablo-diaz-cerda":    ("Directivo · Trading", "TRD", 1, False),
     # Juan José Limari salió de Trading el 2026-08-31 y el 2026-09-01 entró a

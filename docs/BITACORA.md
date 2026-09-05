@@ -2098,3 +2098,129 @@ histórico), `verificar_paginas.js` sin errores de consola ni archivos faltantes
 `verificar_movil.js` sin desborde a 390px.
 
 **Solo se publicó en `fig-web`.** El espejo de Manuel sigue sin sincronizar.
+
+## Tanda del 2026-09-04 (4): la mesa gana jerarquía, colores de área y cupos
+
+Pedido de Francisco, en una sola frase larga: corregir el cargo de Manuel, poner
+en la mesa los colores nuevos de cada área, mostrar los cupos que el club está
+buscando, ordenar la mesa por jerarquía (directores cerca, sus áreas detrás,
+trainees fuera), **que no se sobrepongan las fotos ni los nombres**, y que al
+pulsar el logo del centro la directiva gire alrededor y termine rodeándolo.
+
+Se hizo en cinco pasos, verificando cada uno antes del siguiente.
+
+### 1 · El cargo de Manuel Paz
+
+Figuraba como `Director · Portafolio y Trading` en **13 lugares**. Dirige solo
+Trading; en Portafolio está, pero como `Directivo · Portafolio`.
+
+Y no era solo un texto: `generar_miembros.py` **deduce el área leyendo el texto
+del rol** (`area_de_texto`). Con "Portafolio y Trading" mandaba a Manuel a PRT
+nivel 1 sin liderazgo, mientras `datos/miembros.json` decía TRD nivel 0
+liderando. Como ese archivo está parchado a mano, **cualquiera que corriera el
+generador rompía la mesa**. Corregido el rol, la función deduce TRD y calza con
+`liderArea`; se comprobó ejecutándola, y el resultado es simétrico al de
+"Director · Portafolio" para Francisco.
+
+### 2 · Los colores
+
+`AC` tenía cinco colores inventados en esta página, de cuando ningún área tenía
+paleta propia. Ahora salen del `:root` de cada página de área. El peor caso era
+Valuation en `#7BA7DE`, que en el resto del sitio **es el azul del ACWI**.
+
+Se agregó `AC_LITE` por contraste medido, no por gusto: el rojo XTB da 4.67 sobre
+el navy, que alcanza para un aro de 1.6px pero no para un ticker de 13px.
+Superficies con `AC`, texto chico con `AC_LITE` — el mismo reparto que hacen las
+páginas de área entre `--acc` y `--acc-light`. También se quitó el oro escrito
+fijo en el `:hover` del aro, que hacía que las cinco áreas se iluminaran doradas.
+
+Y **desapareció uno de los cinco lugares donde vive el orden de los desks**: el
+generador de la tarjeta PNG repetía el mapa de colores entero y ahora deriva de
+`ac(m)`.
+
+### 3 · Los anillos, y el solape
+
+El anillo único se abrió en tres: `R_DIR` (el director del desk, solo y centrado
+en su sector), `R_EQUIPO` (su gente) y `R_CUPO`. **La distancia al centro pasó a
+ser el cargo.** El disco central quedó solo con el logo — decisión de Francisco —
+y quien no pertenece a ningún desk tiene ahora su propio sector rotulado FIG, que
+al no estar en `AC` sale con el oro de la marca. El viewBox pasó de 1000 a 1120:
+con cuatro anillos, meterlos en 1000 dejaba el texto pegado.
+
+**El solape se resolvió midiendo.** Se escribió
+`FIG_herramientas/verificar_mesa.js`, que saca la caja real de cada nombre y cada
+aro del SVG ya pintado y comprueba que ninguna cruza con la de otra persona.
+Tres cosas que enseñó:
+
+- **La primera versión daba falsos positivos**: comparaba círculos por su
+  bounding box, y en un layout radial dos aros en diagonal tienen cajas que se
+  cruzan mucho antes que ellos. Corregido a geometría exacta (círculo-círculo por
+  distancia entre centros, círculo-texto por distancia al rectángulo).
+- **Contra la versión anterior encuentra 2 solapes reales**: el aro de Francisco
+  V. sobre el nombre de Agustín A., y el nombre de Jhosep G. bajo el aro de
+  Samuel R. O sea que el bug existía y era medible.
+- **Destapó uno nuevo en teléfono**: cuando un sector venía apretado, `repartir`
+  abría una segunda fila hacia adentro y a 390px se comía el anillo de
+  directores. El orden correcto es al revés — primero achicar el asiento (hasta
+  el 70%, donde el retrato todavía se reconoce) y solo si ni así cabe abrir la
+  segunda fila, con un piso que no puede cruzar.
+
+Hoy: limpio a 390, 700, 1265 y 1600 px, con los 15 de la directiva y sin
+duplicados.
+
+### 4 · Los cupos
+
+Un cupo por desk en el anillo de afuera, y también dentro del organigrama del
+área, en la segunda línea — que es donde entraría la persona. Los datos van en
+**`datos/cupos.json`**, con dos decisiones:
+
+- **A quién responde no se escribe ahí**: se deriva de quien lidera el área, así
+  que si cambia el director la ficha cambia sola.
+- **Si el archivo no está, no se dibuja nada.** La mesa sin cupos es una mesa
+  correcta, no una rota.
+
+Los textos son un borrador sacado de lo que cada área ya dice de sí misma; el
+propio archivo lo advierte en su cabecera.
+
+Dos cosas que salieron de paso: se inventaron tres clases CSS que no existían
+(`.sheet__bio`, `.sheet__h`, `.hitos`) y la ficha se habría visto sin estilos —
+las de verdad son `.sec` y `.hits`, las mismas de la ficha de una persona. Y
+**`postula/` no ofrecía Administración**: el cupo de ese desk llevaba a un
+formulario donde no se podía elegir su área. Faltaba desde que Administración
+nació como desk el 1 de septiembre.
+
+### 5 · La constelación
+
+Al pulsar el logo, cada avatar interpola **a la vez su ángulo y su radio** hacia
+un anillo ceñido al logo, y el ángulo va a su destino **más una vuelta completa**:
+eso es lo que hace que giren alrededor en vez de deslizarse en línea recta.
+Terminan repartidos parejo, ya sin sectores. Se vuelve pulsando otra vez, con
+`Esc`, entrando a un desk o escribiendo en el buscador.
+
+El radio del anillo **no es un número fijo**: se calcula desde cuánta gente hay y
+desde el tamaño del logo ya crecido. Con un valor a ojo, 15 personas quedaban a
+91px de arco cada una y los aros miden hasta 88 — los nombres se metían bajo el
+avatar del vecino, y se vio en la captura.
+
+Esto cierra además un botón muerto: el disco central tenía `role="button"` y foco
+de teclado desde el paso 3 sin hacer nada. También se arregló que los cupos
+entraban en el selector del teclado pero caían en `entrar()` con un código nulo,
+así que **con teclado no se podían abrir**.
+
+### Lo que enseñó el chequeo sobre sí mismo
+
+`verificar_mesa.js` terminó midiendo por `getBoundingClientRect` y no por los
+atributos `cx`/`cy`: en la constelación el `<g>` lleva un `transform`, y esos
+atributos dicen dónde se dibujó el asiento, no dónde está. Y se le agregó
+`--espera=`, porque al probar la ida y vuelta medía a mitad de la animación y
+reportaba **6 choques que no existían**. Un chequeo que mide en el momento
+equivocado miente igual que no tener chequeo.
+
+**Verificado**: `verificar_sitio.py` sin errores (el aviso de `CLUB_DATA` es el
+histórico), `verificar_paginas.js` sin errores de consola (miembros en 100 KB
+críticos, techo 300), `verificar_movil.js` sin desborde a 390px, y
+`verificar_mesa.js` limpio en cuatro anchos, en reposo, en constelación y tras la
+ida y vuelta.
+
+**`miembros/` no viaja al espejo** (está en `NO_SE_COPIAN`), pero los archivos del
+paso 1 sí: el espejo sigue pendiente de sincronizar.
