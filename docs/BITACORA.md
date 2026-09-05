@@ -2224,3 +2224,49 @@ ida y vuelta.
 
 **`miembros/` no viaja al espejo** (está en `NO_SE_COPIAN`), pero los archivos del
 paso 1 sí: el espejo sigue pendiente de sincronizar.
+
+## Arreglo del 2026-09-04 (5): el marco blanco de la mesa
+
+Francisco abrió la página publicada y avisó: *"cuando aprieto un área o el logo, queda
+marcado un marco de cuadrado blanco"*. Era real y estaba en producción desde `ffd15e5`.
+
+**Qué pasaba.** Los `<g>` de la mesa llevan `tabindex="0"` para ser alcanzables con el
+teclado. Cuando uno recibe el foco **por puntero**, Chrome dibuja su propio anillo
+—`outline:auto rgb(238,238,238) 5px`, de ahí el blanco— y como el outline rodea la **caja
+rectangular** del grupo, en un arco curvo eso es un rectángulo de 437×421.
+
+La página ya tenía su regla de foco (`:focus-visible{outline:2px solid var(--gold)}`), pero
+está escrita para `:focus-visible`, y **en un clic la condición que se cumple es `:focus` a
+secas**. Por eso no lo tapaba: no era que el anillo dorado fallara, es que el del navegador
+se dibujaba en un estado que la página no cubría.
+
+**Llegaba por dos caminos**, los dos que reportó Francisco:
+- pulsando el logo, donde el foco se queda en `#centro` y el marco queda a la vista;
+- volviendo de un desk, porque `salir()` devuelve el foco al arco con `.focus()`, que
+  **tampoco** cuenta como teclado.
+
+**El arreglo** apaga el anillo solo cuando el navegador ya decidió que no hay foco que
+mostrar, así que con Tab no cambia nada:
+
+```css
+.silla:focus:not(:focus-visible),.arco:focus:not(:focus-visible),
+.cupo:focus:not(:focus-visible),.centro:focus:not(:focus-visible){outline:none}
+```
+
+**Lo que costó una vuelta: cómo se verifica esto.** El primer diagnóstico puso el foco con
+`el.focus()` desde JS y devolvió `focus-visible=false` y `outline-style:none` en todo — o
+sea, no reproducía nada y parecía que el bug no existía. **Un `.focus()` programático no
+cuenta como teclado**, así que miente en las dos direcciones: esconde el marco del puntero y
+hace creer que el anillo de teclado tampoco está. Solo apareció al mandar **Tab y clics de
+verdad** por `Input.dispatchKeyEvent` / `Input.dispatchMouseEvent`. Con eso quedó medido:
+
+| | antes | después |
+|---|---|---|
+| puntero (arco, logo, asiento, cupo) | `outline: auto #EEE 5px` | `outline: none` |
+| teclado (Tab) | `solid #D4AF37 2px` | `solid #D4AF37 2px`, 3 de 3 |
+
+**El resto del sitio no lo tiene**: los dos `tabindex` de `index.html` son tarjetas HTML
+rectangulares y no dibujan anillo con puntero. Se comprobó con el mismo método.
+
+Verificado: `verificar_sitio.py`, `verificar_paginas.js`, `verificar_movil.js` y
+`verificar_mesa.js`, todos verdes.

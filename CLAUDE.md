@@ -229,6 +229,20 @@ Cada una costó tiempo al menos una vez. El registro completo está en `docs/BIT
   se cambian en `:root`, pero `rgba(10,17,40,.78)` y compañía son el mismo color
   escrito a mano y no se mueven solos. Buscar también el hex del `<meta theme-color>`
   (pinta la barra del navegador en teléfono) y los colores dentro del JS que dibuja SVG.
+- **Un `<g>` de SVG con `tabindex` dibuja un marco blanco al hacerle clic.** Cuando recibe
+  el foco por PUNTERO, Chrome pinta su propio anillo (`outline:auto #EEE 5px`) alrededor de
+  la **caja rectangular** del grupo: en un arco curvo eso es un rectángulo de 437×421. La
+  regla `:focus-visible` de la página **no lo tapa**, porque en un clic la condición que se
+  cumple es `:focus` a secas. Se apaga con `.silla:focus:not(:focus-visible){outline:none}`
+  (y sus hermanos), que solo actúa cuando el navegador ya decidió que no hay foco que
+  mostrar; con Tab el anillo dorado sigue igual. Llega por dos caminos y conviene probar los
+  dos: el clic directo, y un `.focus()` del JS (por ejemplo el que hace `salir()` al volver
+  de un desk), que **tampoco** cuenta como teclado. Pasó en `miembros/` y lo vio Francisco
+  en producción (`14bda37`); aplica a cualquier SVG interactivo que se agregue.
+- **Para verificar un foco hay que usar Tab y clics REALES por CDP.** Un `.focus()`
+  programático da `focus-visible=false` aunque el usuario venga del teclado, así que miente
+  en las dos direcciones: hace creer que el anillo de teclado no existe y esconde el marco
+  del puntero.
 - Un `--` dentro de un comentario XML lo vuelve mal formado (mordió al primer sitemap).
 
 ### Miembros
