@@ -73,6 +73,21 @@ a{color:inherit;text-decoration:none}
 button,input{font-family:inherit;color:inherit}
 button{cursor:pointer;border:none;background:none}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+/* El marco blanco de la mesa (2026-09-04, lo vio Francisco al pulsar un desk o el
+   logo). Los <g> del SVG llevan tabindex para ser alcanzables con el teclado, y
+   Chrome les dibuja SU anillo —outline:auto #EEE de 5px— cuando reciben el foco
+   por PUNTERO, porque ahi la condicion que se cumple es :focus y no
+   :focus-visible, asi que la regla dorada de arriba no llega a taparlo. Y como el
+   outline rodea la caja del grupo, en un arco curvo eso es un rectangulo de
+   437x421: el "cuadrado blanco".
+   Pasa por dos caminos distintos: pulsando el logo (el foco se queda ahi) y
+   volviendo de un desk (salir() devuelve el foco al arco con .focus(), que
+   tampoco cuenta como teclado).
+   Esta regla apaga el anillo SOLO cuando el navegador ya decidio que no es un
+   foco que haya que mostrar. Con Tab se sigue viendo el anillo dorado: se
+   comprobo con Tab de verdad, no con .focus(). */
+.silla:focus:not(:focus-visible),.arco:focus:not(:focus-visible),
+.cupo:focus:not(:focus-visible),.centro:focus:not(:focus-visible){outline:none}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px;position:relative;z-index:2}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .kicker{font-family:var(--f-mono);font-size:.7rem;font-weight:500;letter-spacing:.42em;
