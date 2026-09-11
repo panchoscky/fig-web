@@ -77,6 +77,12 @@ RASTROS_DEL_AREA = (
     '<h3>FEN Investment Woman</h3>',   # la tarjeta del one-pager en ingles
 )
 
+# Paginas que otro script del mismo orden ya saco del espejo: que no esten ahi
+# es lo esperado, no una alarma.
+DESPUBLICADAS_POR_OTRO = {
+    "trading/index.html": "la saca despublicar_trading.py (Francisco, 2026-09-10)",
+}
+
 BORRAR = [
     ("fiw", "la pagina del area: mientras exista, /fiw/ responde por URL directa"),
     ("datos/fiw.json", "solo la usa esa pagina"),
@@ -221,7 +227,12 @@ def main() -> int:
     for arch, reglas in EDICIONES:
         f = ESPEJO / arch
         if not f.exists():
-            faltantes.append(arch)
+            # Que falte puede ser correcto: otro script del mismo orden ya saco
+            # esa pagina del espejo. `trading/` se la lleva despublicar_trading.py
+            # desde el 2026-09-10. Avisarlo aca seria una falsa alarma en cada
+            # corrida -- exactamente lo que ya paso con `data-desk="3"`.
+            if arch not in DESPUBLICADAS_POR_OTRO:
+                faltantes.append(arch)
             continue
         texto = f.read_text(encoding="utf-8")
         nuevo = texto

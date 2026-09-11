@@ -64,6 +64,8 @@ sobre el navy se leía como una mancha pegada encima. Pasaron a `--navy-panel` e
   una IA, ese mismo archivo sí se puede editar después. **Nunca** editar ni borrar algo
   que ya existía en el Drive antes de la sesión. Después de crear o editar, avisarle
   qué se hizo.
+- **Trading NO se publica en el repo de Manuel** (desde el 2026-09-10, hasta que el Alpha
+  Trading Challenge tenga bases formales). `despublicar_trading.py` lo saca del espejo.
 - **FIG Woman NO se publica en el repo de Manuel.** `despublicar_fiw.py` lo saca del
   espejo. Ver "El espejo" más abajo.
 - **Nunca** commitear datos personales más allá de nombre + rol + LinkedIn público.
@@ -98,6 +100,7 @@ node verificar_movil.js                  # teléfono
 node verificar_menu_movil.js --pag=<página>   # SOLO si se tocó un menú móvil (una página por corrida)
 python sincronizar_espejo.py --aplicar
 python despublicar_fiw.py --aplicar      # SIEMPRE después del anterior
+python despublicar_trading.py --aplicar  # SIEMPRE después: saca Trading
 cd ../mpazq-afk.github.io && python generar_sitemap.py
 ```
 
@@ -166,7 +169,7 @@ Cada una costó tiempo al menos una vez. El registro completo está en `docs/BIT
   publican en el espejo desde el 2026-08-30. Lo que le falta al espejo es `miembros/`.
   Los `docs/*.md` y el `CLAUDE.md` del espejo tienen encabezado propio: `sincronizar_espejo.py`
   ya los marca (`CLAUDE.md` en `NO_SE_COPIAN`, los tres `docs/` en `DIFIEREN`).
-- **`sincronizar_espejo.py` y `despublicar_fiw.py` son un PAR**, en ese orden, y después
+- **`sincronizar_espejo.py`, `despublicar_fiw.py` y `despublicar_trading.py` son una CADENA de TRES**, en ese orden (era un par hasta el 2026-09-10: Trading tampoco se publica todavía), y después
   `generar_sitemap.py` DENTRO del espejo. Como el segundo reescribe 7 archivos
   (404, eventos, postula, valuation, portafolio, trading y en/), el primero **siempre**
   los reportará como "por copiar" aunque nada haya cambiado: no es un error.

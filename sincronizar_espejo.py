@@ -19,12 +19,16 @@ Uso
     python sincronizar_espejo.py              # revisa y reporta, no escribe
     python sincronizar_espejo.py --aplicar    # copia
     python despublicar_fiw.py --aplicar       # SIEMPRE despues: saca FIW de alla
+    python despublicar_trading.py --aplicar   # SIEMPRE despues: saca Trading
 
-OJO: este script y `despublicar_fiw.py` son un PAR y se corren en ese orden.
-Como el segundo reescribe 7 archivos del espejo (404, eventos, postula,
-valuation, portafolio, trading y en/), este siempre va a reportarlos como "por
-copiar" aunque nada haya cambiado en fig-web. No es un error: es la marca de
-que FIW sigue fuera.
+OJO: estos TRES scripts son una CADENA y se corren en ese orden. Era un par
+hasta el 2026-09-10, cuando Francisco aviso que Trading tampoco puede estar
+publicada todavia (el Alpha Trading Challenge no tiene bases formales) y se
+sumo el tercero. Correr solo los dos primeros vuelve a publicar el area.
+
+Como los dos ultimos reescriben o borran archivos del espejo, este siempre va
+a reportarlos como "por copiar" aunque nada haya cambiado en fig-web. No es un
+error: es la marca de que FIW y Trading siguen fuera.
 
 Nunca borra nada del espejo. Si aparece un archivo que solo existe alla, lo
 reporta para que lo mire una persona.
@@ -85,6 +89,7 @@ NO_SE_COPIAN = {
     "usar_fuentes_locales.py": "se corre una vez en el repo de trabajo",
     "sincronizar_espejo.py": "no tiene sentido dentro del espejo",
     "despublicar_fiw.py": "opera SOBRE el espejo desde aca; alla no sirve",
+    "despublicar_trading.py": "opera SOBRE el espejo desde aca; alla no sirve",
     "GUIA_DRIVE_FIG.html": "guia interna del equipo",
     "GUIA_DRIVE_FIG.jpg": "guia interna del equipo",
     "VIDEO_PODIO_GEMINI.md": "documento de trabajo",
