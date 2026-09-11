@@ -93,6 +93,7 @@ NO_SE_COPIAN = {
     "GUIA_DRIVE_FIG.html": "guia interna del equipo",
     "GUIA_DRIVE_FIG.jpg": "guia interna del equipo",
     "VIDEO_PODIO_GEMINI.md": "documento de trabajo",
+    "docs/MEMORIA_ISAC_FIG_hasta_2026-09-06.md": "memoria interna del asistente; no es del sitio",
     # El espejo tiene su PROPIA version, con dos scripts extra que limpian la
     # URL (le sacan /index.html y el #). Copiar la de aca se los borraria.
     "MAPA_CONTENIDO_FIG.html": "guia interna; el espejo tiene su version con scripts propios",
