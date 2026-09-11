@@ -48,10 +48,13 @@ LO QUE ESTE SCRIPT NO TOCA, A PROPOSITO
 3. **El nombre "Trading" en el cargo de Manuel Paz** (`datos/club.json`:
    "Director - Trading"). Es el cargo de una persona real, no una seccion del
    sitio. Mismo criterio que las tres cofundadoras de FIW.
-4. **La mencion a XTB como sponsor en `datos/club.json`.** Esa linea NO entro
-   con la tanda del 4-sep: ya estaba publicada desde antes del 2026-09-02. Si
-   Francisco tambien la quiere fuera hay que sacarla de fig-web, que es la
-   fuente -- no aca. Ver el aviso al final de la corrida.
+4. **Nada que diga "XTB" fuera de trading/.** Ya no queda: las menciones de
+   `en/index.html` y `datos/club.json` -- que eran anteriores al 2026-09-02 y
+   por eso este script nunca las agarro -- se sacaron de fig-web el 2026-09-11,
+   a pedido de Francisco. Se saco la frase del sponsor y la fila "Trading
+   Tournament | XTB" de la seccion Partners; la descripcion del torneo quedo,
+   sin nombrar al auspiciador. Como se hizo en la FUENTE, vale para los dos
+   sitios: fig-web tambien esta publicado, en panchoscky.github.io/fig-web.
 5. **Los comentarios de codigo** que nombran trading/ como referencia tecnica
    (portafolio/ y valuation/ lo citan para explicar que comparten plantilla).
    No se ven en pantalla.
@@ -240,11 +243,6 @@ def main() -> int:
         print()
         print("Ahora corre, DENTRO del espejo:  python generar_sitemap.py")
         print("(para que /trading/ deje de estar declarada en sitemap.xml)")
-        print()
-        print("AVISO: la mencion a XTB como sponsor en datos/club.json NO la saca")
-        print("este script -- ya estaba publicada desde antes del 2026-09-02, no")
-        print("entro con la tanda del 4-sep. Si tambien tiene que salir, se saca")
-        print("de fig-web, que es la fuente.")
     return 0
 
 
