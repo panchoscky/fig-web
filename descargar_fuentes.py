@@ -56,11 +56,16 @@ RAIZ = pathlib.Path(__file__).resolve().parent
 SALIDA = RAIZ / "fuentes"
 
 # EXACTAMENTE la misma familia/pesos que pedian las paginas.
+# IBM Plex Mono: solo 400 desde el 11-sep-2026 -- 500 y 600 solo las usaban
+# GUIA_DRIVE_FIG.html y MAPA_CONTENIDO_FIG.html (paginas internas, no el sitio
+# publico) y se pasaron a 400 para no cargar 4 .woff2 extra (~57 KB) sin uso
+# real en ninguna pagina publicada. Si alguna pagina vuelve a necesitar 500/600,
+# agregarlos aca de nuevo antes de usarlos en CSS.
 URL_FUENTES = (
     "https://fonts.googleapis.com/css2"
     "?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600"
     "&family=Inter:wght@400;500;600;700"
-    "&family=IBM+Plex+Mono:wght@400;500;600"
+    "&family=IBM+Plex+Mono:wght@400"
     "&display=swap"
 )
 
