@@ -21,7 +21,14 @@ O sea: se bajaban megabytes de detalle que nadie llega a ver nunca.
 QUE GENERA (los originales NO se tocan)
 ---------------------------------------
     fotos/eventos/<ev>/<n>.webp        lado mayor 1600 — galeria y lightbox
-    fotos/eventos/<ev>/mini/<n>.webp   lado mayor  720 — fondos y tira
+    fotos/eventos/<ev>/mini/<n>.webp   lado mayor  720 — fondo de tarjeta (.ev-bg)
+    fotos/eventos/<ev>/micro/1.webp    lado mayor  320 — SOLO la foto 1, para
+                                        la tira de la portada (.photo-marquee):
+                                        se dibuja a ≤170-260px de alto, al 13%
+                                        de opacidad y en escala de grises, así
+                                        que 720px ahí era detalle que no se ve
+                                        (medido 2026-09-05: 265 KB para las 8
+                                        miniaturas de la tira, solo esa pieza).
     fotos/directiva/<slug>.webp        lado mayor  800 — ficha de persona
     fotos/directiva/mini/<slug>.webp   lado mayor  240 — avatares y thumbs
     datos/fotos.json                   manifiesto: que existe y de que tamano
@@ -69,6 +76,7 @@ EXT_ORIGEN = (".jpg", ".jpeg", ".png")
 # lado mayor en px y calidad WebP de cada derivado
 GRANDE_EVENTO, Q_GRANDE = 1600, 82
 MINI_EVENTO, Q_MINI = 720, 72
+MICRO_EVENTO, Q_MICRO = 320, 58  # solo la foto 1 de cada evento, para .photo-marquee
 GRANDE_PERSONA, Q_PERSONA = 800, 82
 MINI_PERSONA, Q_MINI_PERSONA = 240, 78
 
@@ -131,10 +139,13 @@ def main():
         for n, origen in fotos:
             with abrir(origen) as im:
                 ancho, alto = im.size
-            for destino, lado, q in (
+            derivados = [
                 (carpeta / f"{n}.webp", GRANDE_EVENTO, Q_GRANDE),
                 (carpeta / "mini" / f"{n}.webp", MINI_EVENTO, Q_MINI),
-            ):
+            ]
+            if n == 1:  # la tira de la portada solo pide la foto 1 de cada evento
+                derivados.append((carpeta / "micro" / f"{n}.webp", MICRO_EVENTO, Q_MICRO))
+            for destino, lado, q in derivados:
                 kb, tocado = derivar(origen, destino, lado, q, args.forzar, args.dry_run)
                 ahorro += kb
                 hechos += 1 if tocado else 0

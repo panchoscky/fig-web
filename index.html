@@ -3045,13 +3045,15 @@ applyLinks();
    nuevo con fotos, aparece solo. Puramente decorativo. */
 (function(){
   var hosts=$$(".photo-marquee"); if(!hosts.length)return;
-  /* Se pide la MINIATURA primero (fotos/eventos/<ev>/mini/1.webp, ~30 KB).
-     Esta tira se dibuja al 13% de opacidad, en escala de grises y a 170px de
-     alto: el original de 300 KB era detalle que literalmente no se ve. El
-     sondeo de siempre queda detrás, así que una carpeta sin miniatura
-     generada se sigue viendo igual. */
+  /* Se pide la MICRO primero (fotos/eventos/<ev>/micro/1.webp, ~8 KB: lado
+     mayor 320px). Esta tira se dibuja al 13% de opacidad, en escala de grises
+     y a 170-260px de alto — hasta la "mini" de 720px (pensada para el fondo
+     más grande de .ev-bg en eventos/) era detalle que no se ve acá: medido
+     2026-09-05, las 8 miniaturas pesaban 265 KB y las 8 micro pesan 63 KB.
+     El sondeo de siempre queda detrás (mini, luego el original), así que una
+     carpeta sin derivado "micro" generado se sigue viendo igual. */
   function probePortada(carpeta,cb){
-    var rutas=["mini/1.webp","1.webp","1.jpg","1.jpeg","1.png"],k=0;
+    var rutas=["micro/1.webp","mini/1.webp","1.webp","1.jpg","1.jpeg","1.png"],k=0;
     (function next(){
       if(k>=rutas.length){cb(null);return}
       var url="fotos/eventos/"+carpeta+"/"+rutas[k++];
@@ -3066,17 +3068,18 @@ applyLinks();
     var imgs=urls.map(function(u){return '<img src="'+esc(u)+'" alt="" loading="lazy" decoding="async">'}).join("");
     hosts.forEach(function(h){h.innerHTML='<div class="pm-track">'+imgs+imgs+'</div>'});
   }
-  /* Cuándo arranca todo esto. La tira es adorno: ocho miniaturas detrás del
-     hero, al 13% de opacidad y en escala de grises. Desde que pesan 30 KB en
-     vez de 300 alcanzan a llegar en un teléfono — que es lo que queríamos —,
-     pero llegaban compitiendo con las fuentes y el JSON del torneo por el
-     ancho de banda de la PRIMERA pintada, que es lo que el visitante sí está
+  /* Cuándo arranca todo esto. La tira es adorno: ocho fotos detrás del
+     hero, al 13% de opacidad y en escala de grises. Desde que pesan ~63 KB en
+     total (derivado "micro", 320px — antes eran 265 KB con "mini", 720px)
+     alcanzan a llegar en un teléfono — que es lo que queríamos —, pero
+     llegaban compitiendo con las fuentes y el JSON del torneo por el ancho de
+     banda de la PRIMERA pintada, que es lo que el visitante sí está
      esperando. Así que espera a que el navegador esté desocupado.
 
-     Y con ahorro de datos pedido, o en 2G, no arranca: 240 KB de decoración es
-     justo lo que no corresponde gastar ahí, y el hero se ve navy liso, que es
-     como se veía igual antes de que las miniaturas existieran. Mismo criterio
-     que usa torneo/index.html para el historial. */
+     Y con ahorro de datos pedido, o en 2G, no arranca: esos ~63 KB de
+     decoración son justo lo que no corresponde gastar ahí, y el hero se ve
+     navy liso, que es como se veía igual antes de que las fotos existieran.
+     Mismo criterio que usa torneo/index.html para el historial. */
   var con=navigator.connection||{};
   if(con.saveData||/(^|-)2g$/.test(con.effectiveType||""))return;
   (window.requestIdleCallback||function(f){setTimeout(f,1200)})(function(){
