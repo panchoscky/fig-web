@@ -2701,14 +2701,17 @@ function creIniciales(n){
   return String(n||"").trim().split(/\s+/).slice(0,2)
     .map(function(w){return w.charAt(0).toUpperCase()}).join("");
 }
-/* Prueba ../fotos/directiva/<slug>.(webp|jpg|jpeg|png) → cb(url) o cb(null).
-   El WEBP primero: es el derivado de 800px que escribe generar_imagenes_web.py
-   y pesa la mitad que el JPG original a la misma vista. */
+/* Prueba ../fotos/directiva/mini/<slug>.webp → .../<slug>.(jpg|jpeg|png) → cb(url) o cb(null).
+   El avatar se pinta a 64px (.cre-av): la MINI de 240px que ya genera
+   generar_imagenes_web.py para "avatares y thumbs" sobra de sobra, y pesa
+   una fracción del derivado grande de 800px que se pedía antes por error
+   (medido 2026-09-05: 4-6 KB la mini contra 33-45 KB la grande, por persona).
+   Si no hay mini (carpeta vieja sin regenerar), cae al original. */
 function creFoto(sl,cb){
-  var exts=["webp","jpg","jpeg","png"],k=0;
+  var rutas=["mini/"+sl+".webp",sl+".jpg",sl+".jpeg",sl+".png"],k=0;
   (function next(){
-    if(k>=exts.length){cb(null);return}
-    var url="../fotos/directiva/"+sl+"."+exts[k++];
+    if(k>=rutas.length){cb(null);return}
+    var url="../fotos/directiva/"+rutas[k++];
     var im=new Image();
     im.onload=function(){cb(url)};
     im.onerror=next;

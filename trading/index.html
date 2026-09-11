@@ -744,14 +744,17 @@ var DATA={
   ]
 };
 
-/* detecta la foto real de un responsable en ../fotos/directiva/<slug>.<ext> */
+/* detecta la foto real de un responsable en ../fotos/directiva/. El avatar
+   se pinta a 64px (.avatar): la MINI de 240px que ya genera
+   generar_imagenes_web.py para "avatares y thumbs" alcanza de sobra — antes
+   se pedía el original sin pasar por ahí. */
 var DIRFOTOS="../fotos/directiva/";
 function probeFoto(slug,cb){
   if(!slug){cb(null);return;}
-  var exts=["jpg","jpeg","png","webp","JPG"],i=0;
+  var rutas=["mini/"+slug+".webp",slug+".jpg",slug+".jpeg",slug+".png",slug+".webp",slug+".JPG"],i=0;
   (function tryExt(){
-    if(i>=exts.length){cb(null);return;}
-    var img=new Image(),url=DIRFOTOS+slug+"."+exts[i];
+    if(i>=rutas.length){cb(null);return;}
+    var img=new Image(),url=DIRFOTOS+rutas[i];
     img.onload=function(){cb(url)};
     img.onerror=function(){i++;tryExt()};
     img.src=url;
@@ -835,12 +838,15 @@ function renderResponsables(){
    oculta mientras no exista ningún evento con esa etiqueta. */
 var TIPOS_EV={torneo:"Torneo",visita:"Visita",charla:"Charla · Capacitación",comunidad:"Comunidad"};
 var FOTOS_EV_BASE="../fotos/eventos/";
+/* La tarjeta pinta esto como fondo chico (.ev-bg): la MINI de 720px que ya
+   genera generar_imagenes_web.py para exactamente este uso alcanza de sobra
+   — antes se pedía el original sin pasar por ahí. Mismo fix que eventos/. */
 function probeEvBg(carpeta,cb){
   if(!carpeta){cb(null);return;}
-  var exts=["jpg","webp","png","jpeg","JPG"],i=0;
+  var rutas=["mini/1.webp","1.jpg","1.webp","1.png","1.jpeg","1.JPG"],i=0;
   (function tryExt(){
-    if(i>=exts.length){cb(null);return;}
-    var img=new Image(),url=FOTOS_EV_BASE+carpeta+"/1."+exts[i];
+    if(i>=rutas.length){cb(null);return;}
+    var img=new Image(),url=FOTOS_EV_BASE+carpeta+"/"+rutas[i];
     img.onload=function(){cb(url)};
     img.onerror=function(){i++;tryExt()};
     img.src=url;
