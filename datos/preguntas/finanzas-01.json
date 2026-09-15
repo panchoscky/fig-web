@@ -263,9 +263,9 @@
     "pregunta": "La Razón Corriente (Total activo circulante / Total pasivo circulante) mide...",
     "alternativas": [
       "La capacidad de la empresa para cubrir sus obligaciones de corto plazo con sus activos de corto plazo",
-      "La rentabilidad de los activos circulantes de la empresa",
-      "El nivel de endeudamiento total respecto al patrimonio",
-      "La eficiencia en la rotación del inventario"
+      "La rentabilidad que generan los activos circulantes de la empresa durante el período",
+      "El nivel de endeudamiento total de la empresa en relación con su patrimonio contable",
+      "La eficiencia con que la empresa convierte su inventario en ventas durante el período"
     ],
     "correcta": 0,
     "explicacion": "Es un ratio de liquidez: compara lo que la empresa posee en el corto plazo contra lo que debe pagar en el corto plazo.",
@@ -391,9 +391,9 @@
     "pregunta": "La Razón Precio-Utilidad (Precio de mercado / Utilidad por acción) es un indicador de...",
     "alternativas": [
       "Valuación de mercado: cuánto están dispuestos a pagar los inversionistas por cada peso de utilidad",
-      "Liquidez de corto plazo de la empresa",
-      "Nivel de endeudamiento de la empresa",
-      "Eficiencia operativa en el uso de activos"
+      "Liquidez de corto plazo de la empresa para cubrir sus obligaciones más inmediatas",
+      "Nivel de endeudamiento de la empresa respecto de su patrimonio contable total",
+      "Eficiencia operativa en el uso de los activos para generar ventas"
     ],
     "correcta": 0,
     "explicacion": "Es una medida de valuación que refleja las expectativas del mercado sobre el crecimiento futuro de la empresa, no su liquidez ni su estructura de deuda.",

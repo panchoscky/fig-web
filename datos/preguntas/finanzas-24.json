@@ -119,9 +119,9 @@
     "pregunta": "¿En qué situación es especialmente útil evaluar un proyecto con el método del Valor Presente Neto Ajustado (VPNA o APV), separando el VPN puro del VPN del financiamiento?",
     "alternativas": [
       "Cuando el proyecto tiene condiciones de financiamiento especiales, como un préstamo subsidiado a una tasa distinta a la de mercado",
-      "Cuando el proyecto se financia 100% con recursos propios de la empresa",
-      "Cuando no existe información sobre la tasa de impuestos corporativos",
-      "Únicamente cuando el proyecto tiene una duración menor a un año"
+      "Cuando el proyecto se financia en un 100% con recursos propios de la empresa, sin deuda",
+      "Cuando no existe información disponible sobre la tasa de impuestos corporativos vigente",
+      "Únicamente cuando el proyecto tiene una duración menor a un año calendario"
     ],
     "correcta": 0,
     "explicacion": "El VPNA separa el valor del proyecto 'puro' (como si se financiara 100% patrimonio) del valor que aporta o resta la forma específica de financiarlo, por eso es especialmente útil cuando hay condiciones no estándar, como un préstamo subsidiado o con comisiones particulares.",

@@ -478,7 +478,12 @@ function mostrarPregunta(){
   limpiarTimers();
   var q=ronda[idx];
   $("#qProg").textContent="PREGUNTA "+(idx+1)+" / "+ronda.length;
-  $("#qScore").textContent=total+" PTS";
+  /* el puntaje y la barra de decaimiento son solo de modo Desafío: en Estudio
+     no hay puntaje ni tiempo, mostrarlos fijos en "0 PTS"/100% es un resto
+     visual sin sentido para ese modo */
+  $(".q-bar").classList.toggle("hidden",modo!=="desafio");
+  $("#qScore").classList.toggle("hidden",modo!=="desafio");
+  if(modo==="desafio")$("#qScore").textContent=total+" PTS";
   $("#qMeta").innerHTML='<span class="mono-tag">'+esc(nombreTema(q.tema))+'</span>'
     +'<span class="mono-tag">'+esc(nombreRamo(q.ramo))+'</span>'
     +'<span class="mono-tag">DIFICULTAD '+q.dificultad+'</span>';
@@ -655,7 +660,8 @@ function abrirPick(campo){
   var lista=campo==="tema"?INDICE.temas:INDICE.ramos;
   $("#pickList").innerHTML=lista.map(function(it){
     var n=BANCO.filter(function(q){return q[campo]===it.id}).length;
-    return '<button class="pick" data-v="'+esc(it.id)+'" '+(n?"":"disabled style='opacity:.35'")+'>'+esc(it.nombre)+'<small>'+n+' preg.</small></button>';
+    var nMostrado=Math.min(n,20); /* armarEstudio() corta a 20: el contador debe reflejar eso, no el total del banco */
+    return '<button class="pick" data-v="'+esc(it.id)+'" '+(n?"":"disabled style='opacity:.35'")+'>'+esc(it.nombre)+'<small>'+nMostrado+' preg.</small></button>';
   }).join("");
   $$(".pick",$("#pickList")).forEach(function(b){
     b.addEventListener("click",function(){

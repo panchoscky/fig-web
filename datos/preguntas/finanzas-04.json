@@ -7,9 +7,9 @@
     "pregunta": "Si el costo financiero de la deuda de una empresa es MAYOR que su ROA, ¿qué indica esto sobre el uso de la deuda?",
     "alternativas": [
       "Que la empresa está usando la deuda de forma ineficiente: sus activos no rinden lo suficiente para cubrir el costo de esa deuda",
-      "Que la empresa tiene una excelente política de financiamiento",
-      "Que el ROE de la empresa necesariamente será mayor que el ROA",
-      "Que la empresa no enfrenta ningún riesgo financiero"
+      "Que la empresa tiene una excelente política de financiamiento que maximiza su valor",
+      "Que el ROE de la empresa necesariamente será mayor que su ROA en ese período",
+      "Que la empresa no enfrenta ningún riesgo financiero asociado a esa deuda"
     ],
     "correcta": 0,
     "explicacion": "Cuando el costo de la deuda supera la rentabilidad que generan los activos (ROA), la empresa pierde valor al endeudarse, es un uso ineficiente del apalancamiento financiero.",

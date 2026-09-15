@@ -183,9 +183,9 @@
     "pregunta": "¿A qué se refiere el riesgo de mercado?",
     "alternativas": [
       "A la caída del valor de los activos o el aumento del valor de los pasivos por variaciones de precios o indicadores financieros",
-      "A la posibilidad de que un deudor no cumpla con el pago comprometido",
-      "A la escasez de fondos para cumplir obligaciones de corto plazo",
-      "A la quiebra de una institución que se propaga al resto del sistema"
+      "A la posibilidad de que una contraparte o deudor no cumpla con el pago que se comprometió a realizar",
+      "A la escasez de fondos líquidos que impide cumplir obligaciones de corto plazo",
+      "A la quiebra de una institución financiera que se propaga y contagia al resto del sistema"
     ],
     "correcta": 0,
     "explicacion": "El riesgo de mercado surge de variaciones en tasas de interés, precios de commodities, tipo de cambio e índices, y puede gestionarse con instrumentos derivados.",
@@ -231,9 +231,9 @@
     "pregunta": "El riesgo de contraparte, presente en activos derivados, se relaciona más estrechamente con...",
     "alternativas": [
       "Una forma de riesgo de crédito, referida a la exposición previa a la liquidación (settlement) del contrato",
-      "El riesgo de mercado exclusivamente",
-      "El riesgo operacional de la institución financiera",
-      "El riesgo sistémico del mercado en su conjunto"
+      "Una forma de riesgo de mercado exclusivamente, sin relación con el crédito de la contraparte",
+      "El riesgo operacional de la institución financiera derivado de fallas internas de proceso",
+      "El riesgo sistémico del mercado en su conjunto, ajeno a una contraparte específica"
     ],
     "correcta": 0,
     "explicacion": "El material lo describe como una forma de riesgo de crédito: la contraparte puede incumplir antes de que se liquide el contrato, por lo que se mitiga con colaterales o garantías.",
@@ -247,9 +247,9 @@
     "pregunta": "¿Por qué el riesgo de contraparte suele ser mayor en mercados OTC (over-the-counter, extrabursátiles) que en mercados organizados?",
     "alternativas": [
       "Porque los mercados organizados cuentan con mecanismos centralizados que reducen la exposición al incumplimiento",
-      "Porque en OTC los montos transados son siempre más pequeños",
-      "Porque en OTC no existen instrumentos derivados",
-      "Porque los mercados organizados no permiten transar bonos"
+      "Porque en los mercados OTC los montos transados son siempre considerablemente más pequeños",
+      "Porque en los mercados OTC simplemente no existen instrumentos derivados disponibles",
+      "Porque los mercados organizados no permiten transar bonos ni otros instrumentos de deuda"
     ],
     "correcta": 0,
     "explicacion": "Los mercados organizados suelen tener cámaras de compensación y garantías estandarizadas que los mercados OTC (bilaterales) no siempre tienen, elevando el riesgo de contraparte en estos últimos.",

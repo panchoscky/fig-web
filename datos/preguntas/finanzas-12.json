@@ -16,7 +16,7 @@
     "fuente": "Finanzas I · Pauta Ayudantía 2 Otoño 2010 (Aldo Bombardiere).pdf"
   },
   {
-    "id": "rf-021",
+    "id": "rif-020",
     "tema": "riesgo-financiero",
     "ramo": "finanzas-i",
     "dificultad": 2,
@@ -135,9 +135,9 @@
     "pregunta": "Al comparar dos proyectos mutuamente excluyentes de distinta escala (por ejemplo, uno requiere una inversión mucho mayor que el otro), ¿por qué puede ser un error elegir el proyecto solo por tener la TIR más alta?",
     "alternativas": [
       "Porque la TIR ignora la diferencia de escala entre los proyectos, y el de menor TIR pero mayor inversión podría generar más valor absoluto (mayor VAN)",
-      "Porque la TIR siempre es menor en el proyecto de mayor inversión, sin excepción",
-      "Porque la TIR no puede calcularse en proyectos con distinta inversión inicial",
-      "Porque el proyecto con mayor TIR siempre tiene múltiples tasas internas de retorno"
+      "Porque la TIR siempre resulta menor en el proyecto de mayor inversión inicial, sin excepción alguna posible",
+      "Porque la TIR simplemente no puede calcularse cuando los proyectos tienen distinta inversión inicial",
+      "Porque el proyecto con mayor TIR siempre presenta necesariamente múltiples tasas internas de retorno"
     ],
     "correcta": 0,
     "explicacion": "La TIR es una medida porcentual que no captura el tamaño de la inversión; un proyecto pequeño puede tener TIR más alta pero generar menos valor absoluto que uno grande con TIR menor pero mayor VAN.",
@@ -167,9 +167,9 @@
     "pregunta": "Entre el criterio de TIR y el criterio de VAN, ¿cuál es más confiable para elegir entre proyectos mutuamente excluyentes de distinta escala o distinto patrón de flujos?",
     "alternativas": [
       "El VAN, porque mide directamente la creación de valor en unidades monetarias y no se distorsiona por diferencias de escala o de patrón temporal",
-      "La TIR, porque siempre coincide con la decisión del VAN sin excepción alguna",
-      "Ambos criterios son exactamente equivalentes en todos los casos, sin excepción",
-      "Ninguno de los dos criterios sirve para proyectos mutuamente excluyentes"
+      "La TIR, porque sus resultados siempre coinciden con la decisión del VAN, sin ninguna excepción",
+      "Ambos criterios son exactamente equivalentes en todos los casos posibles, sin ninguna excepción",
+      "Ninguno de los dos criterios sirve para evaluar proyectos mutuamente excluyentes de este tipo"
     ],
     "correcta": 0,
     "explicacion": "El VAN mide la creación de valor en términos absolutos y no depende de supuestos problemáticos como la escala del proyecto, por lo que es el criterio preferido al comparar proyectos mutuamente excluyentes.",

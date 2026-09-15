@@ -151,9 +151,9 @@
     "pregunta": "En la estructura financiera típica de un banco (por ejemplo, una relación deuda:activos de 12:13), ¿qué revela esto sobre su financiamiento?",
     "alternativas": [
       "Que casi la totalidad de sus activos están financiados por acreedores (depositantes), aportando los accionistas una porción muy pequeña",
-      "Que el banco no tiene ningún tipo de deuda con terceros",
-      "Que los accionistas financian la mayoría de los activos del banco",
-      "Que el banco tiene más patrimonio que pasivos totales"
+      "Que el banco no tiene ningún tipo de deuda con terceros y se financia únicamente con capital propio de sus accionistas",
+      "Que los accionistas del banco financian la mayor parte de sus activos totales con capital propio aportado",
+      "Que el banco tiene bastante más patrimonio contable que pasivos totales en su balance general"
     ],
     "correcta": 0,
     "explicacion": "En un banco, la mayor parte del financiamiento proviene de depósitos y cuentas corrientes (deuda), mientras el aporte de los accionistas es proporcionalmente muy bajo.",
@@ -215,9 +215,9 @@
     "pregunta": "¿Qué pasó con la Razón de Cobertura de Intereses de LAN entre 2011 y 2012, y qué la explica principalmente?",
     "alternativas": [
       "Cayó de 3,7 a 1,3, explicado por la caída del EBIT junto a un fuerte aumento de los gastos financieros por la mayor deuda de la fusión",
-      "Subió de 1,3 a 3,7 gracias a la reducción de deuda lograda tras la fusión",
-      "Se mantuvo estable en 3,7 durante todo el período analizado",
-      "Cayó a cero porque la empresa dejó de pagar intereses por completo"
+      "Subió notoriamente de 1,3 a 3,7 gracias a la fuerte reducción de deuda que se logró tras la fusión con TAM",
+      "Se mantuvo prácticamente estable en 3,7 durante todo el período analizado, sin variaciones relevantes",
+      "Cayó derechamente a cero porque la empresa dejó de pagar intereses de su deuda por completo ese año"
     ],
     "correcta": 0,
     "explicacion": "La combinación de menor EBIT y mucho mayor gasto financiero (por la deuda asumida en la fusión) hizo que la cobertura de intereses cayera drásticamente.",

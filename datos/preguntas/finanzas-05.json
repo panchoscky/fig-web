@@ -151,9 +151,9 @@
     "pregunta": "El Costo de Capital Promedio Ponderado (WACC) de una empresa combina...",
     "alternativas": [
       "El costo del patrimonio y el costo de la deuda después de impuestos, ponderados por su participación en el valor total de la empresa",
-      "Solo el costo de la deuda de la empresa, sin considerar el patrimonio",
-      "Solo el costo patrimonial calculado por CAPM, sin ningún ajuste por deuda",
-      "El promedio simple entre la tasa libre de riesgo y la tasa de la deuda"
+      "Solo el costo de la deuda de la empresa, sin considerar en ningún caso el patrimonio",
+      "Solo el costo patrimonial calculado por CAPM, sin ningún ajuste por el efecto de la deuda",
+      "El promedio simple entre la tasa libre de riesgo y la tasa de la deuda, sin ponderar"
     ],
     "correcta": 0,
     "explicacion": "El WACC pondera el costo patrimonial y el costo de la deuda (neto del beneficio tributario) según el peso que cada fuente de financiamiento tiene sobre el valor total de la empresa.",
