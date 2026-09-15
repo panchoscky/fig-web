@@ -7,9 +7,9 @@
     "pregunta": "¿Es necesario que dos activos tengan correlación negativa entre sí para lograr un efecto de diversificación al combinarlos en un portafolio?",
     "alternativas": [
       "No: basta con que la correlación sea menor a 1 para obtener algún beneficio de diversificación en el riesgo del portafolio",
-      "Sí, la diversificación solo funciona si la correlación es exactamente -1",
-      "Sí, cualquier correlación positiva entre los activos elimina por completo el efecto de diversificación",
-      "No, la correlación entre los activos es irrelevante para el riesgo de un portafolio"
+      "Sí, la diversificación solo funcionaría si la correlación entre los activos resulta exactamente igual a -1",
+      "Sí, cualquier correlación positiva entre los activos eliminaría por completo el efecto de diversificación logrado",
+      "No, la correlación entre los activos resultaría irrelevante para determinar el riesgo total de un portafolio"
     ],
     "correcta": 0,
     "explicacion": "El beneficio de diversificación aparece siempre que la correlación entre los activos sea menor a 1 (no se necesita que sea negativa): mientras más baja la correlación, mayor la reducción de riesgo, y con correlación -1 se puede incluso eliminar el riesgo por completo, pero no es un requisito para obtener algún beneficio.",
@@ -23,9 +23,9 @@
     "pregunta": "¿Cuál es la característica más importante para determinar la varianza (riesgo) de un portafolio bien diversificado, con muchos activos?",
     "alternativas": [
       "La covarianza entre los activos que lo componen, no la varianza individual de cada uno por separado",
-      "La varianza individual de cada activo por separado, sumada sin ponderar",
-      "Solo el retorno esperado de cada activo, sin considerar ningún tipo de riesgo",
-      "El número total de activos incluidos, sin importar cómo se mueven entre sí"
+      "La varianza individual de cada activo considerado por separado, sumada sin aplicar ninguna ponderación",
+      "Solo el retorno esperado de cada uno de los activos, sin considerar en absoluto ningún tipo de riesgo",
+      "El número total de activos incluidos en el portafolio, sin importar de qué forma se mueven entre sí"
     ],
     "correcta": 0,
     "explicacion": "En un portafolio bien diversificado con muchos activos, el riesgo idiosincrático de cada uno se diluye y lo que domina la varianza del portafolio es la covarianza promedio entre los activos, no la varianza individual de cada instrumento.",
@@ -39,9 +39,9 @@
     "pregunta": "Si dos activos riesgosos tienen correlación exactamente -1 entre sí, ¿es posible construir un portafolio combinándolos que tenga riesgo (desviación estándar) igual a cero?",
     "alternativas": [
       "Sí: existe una combinación de pesos específica (proporcional a las volatilidades inversas de cada activo) que anula por completo el riesgo del portafolio",
-      "No, con correlación -1 el riesgo del portafolio solo se reduce a la mitad como máximo, nunca llega a cero",
-      "Sí, pero solo es posible si además ambos activos tienen exactamente el mismo retorno esperado",
-      "No, es matemáticamente imposible reducir a cero el riesgo de un portafolio de solo dos activos"
+      "No, con correlación -1 el riesgo del portafolio solo se reduciría a la mitad como máximo, sin llegar nunca a cero",
+      "Sí, pero eso sería posible únicamente si además ambos activos tuvieran exactamente el mismo retorno esperado",
+      "No, resultaría matemáticamente imposible reducir a cero el riesgo de un portafolio compuesto por solo dos activos"
     ],
     "correcta": 0,
     "explicacion": "Con correlación -1, los pesos que anulan el riesgo del portafolio son w1 = σ2/(σ1+σ2) y w2 = σ1/(σ1+σ2): los movimientos de ambos activos se cancelan exactamente, dejando una desviación estándar de portafolio igual a cero (aunque el retorno esperado resultante no sea cero).",
@@ -71,9 +71,9 @@
     "pregunta": "¿Qué mide el coeficiente de aversión relativa al riesgo (CRRA, Coeficiente de Arrow-Pratt relativo) de un inversionista?",
     "alternativas": [
       "Qué tan averso al riesgo es un inversionista en relación a su nivel de riqueza, a partir de la curvatura de su función de utilidad",
-      "El monto exacto en dinero que un inversionista está dispuesto a apostar en un solo activo riesgoso",
-      "La correlación entre el nivel de riqueza del inversionista y el retorno del portafolio de mercado",
-      "El número de activos distintos que un inversionista debería incluir en su portafolio"
+      "El monto exacto en dinero que un inversionista estaría dispuesto a apostar en un único activo riesgoso disponible",
+      "La correlación que existe entre el nivel de riqueza del inversionista y el retorno del portafolio de mercado",
+      "El número de activos distintos que un inversionista debería idealmente incluir dentro de su portafolio"
     ],
     "correcta": 0,
     "explicacion": "El coeficiente CRRA se calcula como -w·u''(w)/u'(w) a partir de la función de utilidad del inversionista, y mide cuán averso al riesgo es en proporción a su riqueza; a mayor CRRA, más penaliza la incertidumbre en su decisión de inversión.",
@@ -87,9 +87,9 @@
     "pregunta": "Si la curva de tasas de interés usada para valorar bonos es completamente plana (la misma tasa para todos los plazos), ¿qué se puede concluir sobre las tasas forward implícitas en esa curva?",
     "alternativas": [
       "Todas las tasas forward implícitas son iguales entre sí, y además iguales a la tasa spot (ya que las tasas spot también son todas iguales)",
-      "Las tasas forward son siempre mayores que la tasa spot, sin importar la forma de la curva",
-      "No se pueden calcular tasas forward cuando la curva de tasas es plana",
-      "Las tasas forward serían todas iguales a cero en ese escenario"
+      "Las tasas forward resultarían siempre mayores que la tasa spot, sin importar cuál sea la forma que tenga la curva",
+      "No sería posible calcular tasas forward en el caso de que la curva de tasas resulte completamente plana",
+      "Las tasas forward implícitas serían todas iguales a cero en ese escenario particular de curva plana"
     ],
     "correcta": 0,
     "explicacion": "La tasa forward entre dos períodos se deriva de la razón entre las tasas spot de esos plazos. Si la curva es plana (todas las tasas spot iguales), esa razón da como resultado la misma tasa en cada tramo, por lo que todas las tasas forward implícitas coinciden entre sí y con la tasa spot.",
@@ -119,9 +119,9 @@
     "pregunta": "¿Qué agrega la hipótesis de los mercados adaptativos a la teoría clásica de eficiencia de mercado?",
     "alternativas": [
       "Que el grado de eficiencia de un mercado no es fijo, sino que evoluciona con el tiempo según cambian las condiciones y los participantes",
-      "Que los mercados son siempre completamente eficientes en su forma fuerte, sin excepción",
-      "Que ningún mercado puede llegar a ser eficiente bajo ninguna circunstancia",
-      "Que la eficiencia de mercado depende únicamente de la cantidad de información pública disponible, sin ningún otro factor"
+      "Que los mercados son siempre completamente eficientes en su forma fuerte, sin ninguna excepción posible",
+      "Que ningún mercado podría llegar a ser eficiente bajo ninguna circunstancia según esta hipótesis particular",
+      "Que la eficiencia de mercado dependería únicamente de la cantidad de información pública disponible, sin ningún otro factor"
     ],
     "correcta": 0,
     "explicacion": "La hipótesis de los mercados adaptativos plantea que la eficiencia no es un estado fijo (como sugiere la clasificación clásica débil/semifuerte/fuerte), sino un proceso dinámico: el grado de eficiencia de un mercado cambia con el tiempo a medida que evolucionan sus participantes, la competencia y el entorno.",

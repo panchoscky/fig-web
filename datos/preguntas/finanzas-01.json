@@ -7,9 +7,9 @@
     "pregunta": "¿Qué representa el Valor Actual (VA) de un activo?",
     "alternativas": [
       "El valor presente de sus flujos futuros, descontados al costo de oportunidad",
-      "El precio de compra original que se pagó por el activo",
-      "El total de flujos futuros del activo, sin descontar",
-      "El valor contable registrado en los libros de la empresa"
+      "El precio de compra original que se pagó por el activo al momento de adquirirlo",
+      "El total de flujos futuros del activo sumados sin aplicar ningún descuento",
+      "El valor contable histórico registrado en los libros de la empresa"
     ],
     "correcta": 0,
     "explicacion": "El VA descuenta los flujos futuros esperados a una tasa r que refleja el costo de oportunidad; no es simplemente la suma de flujos ni el valor contable.",
@@ -23,8 +23,8 @@
     "pregunta": "Según el valor del dinero en el tiempo, $1 recibido hoy vale...",
     "alternativas": [
       "Más que $1 recibido mañana, porque puede invertirse y generar intereses",
-      "Lo mismo que $1 recibido mañana si no hay inflación",
-      "Menos que $1 recibido mañana, por el riesgo de inflación",
+      "Lo mismo que $1 recibido mañana, siempre que no exista inflación en el período",
+      "Menos que $1 recibido mañana, por el riesgo de inflación acumulada",
       "Depende únicamente del monto nominal, no del momento en que se recibe"
     ],
     "correcta": 0,
@@ -39,9 +39,9 @@
     "pregunta": "En la fórmula VF = VP(1+r)^t, ¿qué representa la variable r?",
     "alternativas": [
       "La tasa de descuento o costo de oportunidad de los fondos",
-      "El monto total invertido inicialmente",
-      "El número de períodos de capitalización",
-      "La inflación acumulada durante el período"
+      "El monto total invertido inicialmente en la operación",
+      "El número de períodos de capitalización considerados",
+      "La inflación acumulada durante todo el período"
     ],
     "correcta": 0,
     "explicacion": "r es la tasa de interés o costo de oportunidad que compensa por posponer el consumo y asumir riesgo; el número de períodos lo representa t, no r.",
@@ -88,8 +88,8 @@
     "alternativas": [
       "Una serie de flujos de efectivo iguales en la que el primer pago ocurre un período a futuro",
       "Una serie de flujos de efectivo iguales en la que el primer pago ocurre hoy mismo",
-      "Un único flujo de efectivo descontado a valor presente",
-      "Una serie de flujos de efectivo que crece indefinidamente"
+      "Un único flujo de efectivo que se descuenta directamente a valor presente",
+      "Una serie de flujos de efectivo que crece indefinidamente a una tasa constante"
     ],
     "correcta": 0,
     "explicacion": "En la anualidad ordinaria el primer flujo se recibe al final del primer período; si el primer pago fuera hoy, se llamaría anualidad exacta o anticipada.",
@@ -151,9 +151,9 @@
     "pregunta": "¿Por qué la tasa de interés efectiva anual (i) es distinta de la tasa nominal (r) cuando hay capitalización más de una vez al año?",
     "alternativas": [
       "Porque i = (1+r/m)^m − 1 incorpora el efecto de interés sobre interés dentro del año",
-      "Porque i siempre es menor que r por definición matemática",
-      "Porque r ya incluye la inflación esperada e i no la incluye",
-      "Porque i solo se calcula para inversiones a más de un año"
+      "Porque i siempre es menor que r por pura definición matemática de la fórmula",
+      "Porque r ya incluye la inflación esperada del período e i no la incluye",
+      "Porque i solamente se calcula para inversiones a más de un año de plazo"
     ],
     "correcta": 0,
     "explicacion": "Cuando m>1, los intereses generados en un subperíodo se reinvierten y generan más intereses, por lo que la tasa efectiva anual supera a la tasa nominal dividida simplemente entre m.",
@@ -183,9 +183,9 @@
     "pregunta": "Al calcular el Valor Actual Neto (VAN) de un proyecto, ¿qué se agrega a la suma de los flujos futuros descontados?",
     "alternativas": [
       "El flujo de inversión inicial (F₀), normalmente negativo",
-      "La tasa de descuento del período siguiente",
+      "La tasa de descuento aplicable al período siguiente",
       "El valor de rescate del proyecto multiplicado por dos",
-      "La inflación proyectada de cada año del proyecto"
+      "La inflación proyectada para cada año del proyecto"
     ],
     "correcta": 0,
     "explicacion": "El VAN suma el flujo inicial (usualmente un desembolso negativo) a los flujos futuros descontados, para reflejar el costo de emprender el proyecto.",
@@ -231,9 +231,9 @@
     "pregunta": "¿Qué mide el ROA (Rentabilidad sobre Activos)?",
     "alternativas": [
       "La eficiencia de la empresa en generar utilidad operacional a partir de sus activos totales",
-      "El precio de mercado de las acciones respecto a su utilidad",
-      "La proporción de deuda sobre el patrimonio de la empresa",
-      "La velocidad con que la empresa cobra a sus clientes"
+      "El precio de mercado de las acciones de la empresa respecto a su utilidad por acción",
+      "La proporción de deuda financiera sobre el patrimonio contable de la empresa",
+      "La velocidad con que la empresa cobra a sus clientes sus cuentas pendientes"
     ],
     "correcta": 0,
     "explicacion": "ROA = EBIT/Activos totales promedio: mide qué tan bien la administración usa los activos para generar resultados operacionales, sin considerar cómo se financian.",
@@ -247,9 +247,9 @@
     "pregunta": "El ROE (Rentabilidad sobre el Patrimonio) se calcula como (Utilidad neta − Dividendos preferentes) / Patrimonio promedio accionistas comunes. ¿Qué mide?",
     "alternativas": [
       "La rentabilidad que obtienen los accionistas comunes sobre su inversión en la empresa",
-      "La rentabilidad total de todos los activos de la empresa",
-      "El margen de utilidad de la empresa sobre sus ventas",
-      "La capacidad de pago de deuda de corto plazo"
+      "La rentabilidad total generada por todos los activos de la empresa, con o sin deuda",
+      "El margen de utilidad que obtiene la empresa sobre el total de sus ventas",
+      "La capacidad de la empresa para pagar su deuda financiera de corto plazo"
     ],
     "correcta": 0,
     "explicacion": "El ROE se enfoca específicamente en el retorno para los dueños comunes de la empresa, descontando lo que corresponde a acciones preferentes.",
@@ -279,9 +279,9 @@
     "pregunta": "¿En qué se diferencia la Prueba Ácida de la Razón Corriente?",
     "alternativas": [
       "La Prueba Ácida excluye los inventarios del activo circulante, por ser el activo menos líquido",
-      "La Prueba Ácida incluye además los activos fijos de la empresa",
-      "La Prueba Ácida se calcula solo con el pasivo de largo plazo",
-      "La Prueba Ácida usa el patrimonio en vez del pasivo circulante"
+      "La Prueba Ácida incluye además los activos fijos de largo plazo de la empresa",
+      "La Prueba Ácida se calcula usando solamente el pasivo de largo plazo de la empresa",
+      "La Prueba Ácida reemplaza el pasivo circulante por el patrimonio contable total"
     ],
     "correcta": 0,
     "explicacion": "Prueba Ácida = (Activo circulante − Inventarios)/Pasivo circulante; al restar inventarios, entrega una medida más conservadora de liquidez inmediata.",
@@ -295,9 +295,9 @@
     "pregunta": "¿Qué mide la Razón de Cobertura de Intereses (EBIT, utilidad antes de intereses e impuestos / Gasto de intereses)?",
     "alternativas": [
       "La capacidad de la empresa para pagar sus gastos financieros con las utilidades operacionales generadas",
-      "El total de deuda que la empresa podría solicitar en el futuro",
-      "La proporción de intereses sobre las ventas totales",
-      "La rentabilidad de la empresa después de impuestos"
+      "El total de deuda adicional que la empresa podría solicitar en el futuro cercano",
+      "La proporción que representan los intereses pagados sobre las ventas totales del período",
+      "La rentabilidad final que obtiene la empresa una vez descontados los impuestos"
     ],
     "correcta": 0,
     "explicacion": "Compara el EBIT (utilidad antes de intereses e impuestos) contra el gasto financiero, mientras más alto, mayor holgura para cubrir la deuda con la operación.",
@@ -327,9 +327,9 @@
     "pregunta": "La Rotación de Inventarios se calcula como Costo de productos vendidos / Inventario promedio. ¿Qué indica un valor alto de este ratio?",
     "alternativas": [
       "Que la empresa vende y repone su inventario rápidamente",
-      "Que la empresa mantiene demasiado stock inmovilizado",
-      "Que los costos de producción están subiendo",
-      "Que el margen de utilidad de la empresa es mayor"
+      "Que la empresa mantiene demasiado stock inmovilizado en bodega",
+      "Que los costos de producción de la empresa están subiendo",
+      "Que el margen de utilidad de la empresa es cada vez mayor"
     ],
     "correcta": 0,
     "explicacion": "Una rotación alta significa que el inventario se convierte en ventas rápidamente; una rotación baja es una causa típica de ROI bajo por administración ineficiente de activos.",
@@ -343,9 +343,9 @@
     "pregunta": "¿Qué son los ratios de crecimiento dentro de las medidas de desempeño financiero?",
     "alternativas": [
       "Indicadores que comparan la evolución de la empresa (ventas, utilidades) con la economía o la industria",
-      "Indicadores que miden exclusivamente la deuda de largo plazo",
-      "Indicadores de liquidez de corto plazo",
-      "Indicadores del precio de mercado de las acciones"
+      "Indicadores que miden exclusivamente el nivel de deuda de largo plazo de la empresa",
+      "Indicadores de liquidez de corto plazo que evalúan la capacidad de pago inmediata",
+      "Indicadores que resumen el comportamiento reciente del precio de mercado de las acciones"
     ],
     "correcta": 0,
     "explicacion": "Estos ratios comparan, por ejemplo, el crecimiento de las ventas de la empresa contra el crecimiento del PIB o del sector industrial en que opera.",
@@ -375,9 +375,9 @@
     "pregunta": "La Utilidad por Acción se calcula como (Utilidad neta − Dividendos preferentes) / Acciones comunes promedio en circulación. ¿Para qué sirve este indicador?",
     "alternativas": [
       "Para medir cuánta utilidad genera la empresa por cada acción común en manos de los inversionistas",
-      "Para medir la liquidez de la acción en el mercado bursátil",
-      "Para calcular el porcentaje de deuda financiada con acciones",
-      "Para determinar el precio justo de emisión de nuevas acciones"
+      "Para medir qué tan líquida es la acción de la empresa dentro del mercado bursátil",
+      "Para calcular qué porcentaje de la deuda total está financiado con emisión de acciones",
+      "Para determinar cuál sería el precio justo de emisión de nuevas acciones"
     ],
     "correcta": 0,
     "explicacion": "Es la base para comparar la rentabilidad entre empresas de distinto tamaño y para calcular otros indicadores de mercado como la razón precio-utilidad.",
@@ -391,9 +391,9 @@
     "pregunta": "La Razón Precio-Utilidad (Precio de mercado / Utilidad por acción) es un indicador de...",
     "alternativas": [
       "Valuación de mercado: cuánto están dispuestos a pagar los inversionistas por cada peso de utilidad",
-      "Liquidez de corto plazo de la empresa para cubrir sus obligaciones más inmediatas",
-      "Nivel de endeudamiento de la empresa respecto de su patrimonio contable total",
-      "Eficiencia operativa en el uso de los activos para generar ventas"
+      "Liquidez de corto plazo: la capacidad de la empresa para cubrir sus obligaciones más inmediatas",
+      "Endeudamiento: el nivel de deuda de la empresa respecto de su patrimonio contable total",
+      "Eficiencia operativa en el uso de los activos de la empresa para generar ventas"
     ],
     "correcta": 0,
     "explicacion": "Es una medida de valuación que refleja las expectativas del mercado sobre el crecimiento futuro de la empresa, no su liquidez ni su estructura de deuda.",
@@ -406,10 +406,10 @@
     "dificultad": 3,
     "pregunta": "El Ciclo Financiero Neto suma los días de rotación de disponible, inventario y cuentas por cobrar, y resta los días de cuentas por pagar. ¿Qué representa un ciclo más corto?",
     "alternativas": [
-      "Que la empresa necesita financiar un período más corto de su operación",
-      "Que la empresa tiene mayor endeudamiento de largo plazo",
-      "Que el margen de utilidad de la empresa es más alto",
-      "Que la empresa paga menos impuestos por sus ventas"
+      "Que la empresa necesita financiar un período más corto de su operación con recursos propios",
+      "Que la empresa tiene un mayor nivel de endeudamiento de largo plazo con terceros",
+      "Que el margen de utilidad que obtiene la empresa sobre sus ventas es más alto",
+      "Que la empresa paga proporcionalmente menos impuestos sobre sus ventas totales"
     ],
     "correcta": 0,
     "explicacion": "Un ciclo financiero neto corto significa que la empresa recupera el efectivo invertido en operaciones más rápido, reduciendo la necesidad de financiamiento externo para el capital de trabajo.",

@@ -23,9 +23,9 @@
     "pregunta": "Una empresa endeudada evalúa un proyecto con VAN negativo, financiado 100% con deuda nueva de igual prioridad que la existente. ¿Puede este proyecto aumentar la riqueza de los accionistas originales pese a tener VAN negativo?",
     "alternativas": [
       "Sí: puede haber transferencia de riqueza de los bonistas a los accionistas (sustitución de activos), aunque el proyecto destruya valor total",
-      "No, nunca: un proyecto con VAN negativo siempre reduce la riqueza de todos los involucrados por igual",
-      "No, porque los bonistas siempre exigen una tasa que ya anticipa e internaliza el riesgo de sustitución de activos",
-      "No, porque los bonistas siempre están protegidos por cláusulas contractuales ante cualquier decisión de inversión"
+      "No, nunca: un proyecto con VAN negativo siempre reduciría la riqueza de todos los involucrados exactamente por igual",
+      "No, porque los bonistas siempre exigirían una tasa que ya anticipa e internaliza por completo el riesgo de sustitución de activos",
+      "No, porque los bonistas siempre estarían protegidos por cláusulas contractuales ante cualquier decisión de inversión que se tome"
     ],
     "correcta": 0,
     "explicacion": "Al financiar un proyecto riesgoso con deuda de igual prioridad, se diluye la deuda existente (aumenta su riesgo de no pago), lo que traspasa valor desde los bonistas hacia los accionistas. Ese traspaso puede superar la pérdida de valor del proyecto, aumentando la riqueza accionaria pese a que el VAN del proyecto sea negativo, el clásico problema de sustitución de activos.",
@@ -71,9 +71,9 @@
     "pregunta": "Si la estructura de capital de una empresa NO se mantiene estable a lo largo del tiempo, ¿qué método de valoración es más recomendable usar en vez del método del Costo de Capital (WACC)?",
     "alternativas": [
       "El Valor Presente Ajustado (VPA/VPNA), porque modela los flujos de financiamiento período a período en vez de asumir una estructura objetivo constante",
-      "El método del Costo de Capital sigue siendo igual de válido, ya que no depende de ningún supuesto sobre la estructura de capital",
-      "Ningún método de valoración funciona si la estructura de capital cambia en el tiempo",
-      "El método de múltiplos de mercado, porque no requiere ningún supuesto sobre la deuda de la empresa"
+      "El método del Costo de Capital sigue siendo igual de válido en ese caso, ya que no dependería de ningún supuesto sobre la estructura de capital",
+      "Ningún método de valoración disponible funcionaría si la estructura de capital de la empresa cambia a lo largo del tiempo",
+      "El método de múltiplos de mercado, porque en teoría no requeriría ningún supuesto sobre el nivel de deuda de la empresa"
     ],
     "correcta": 0,
     "explicacion": "El método del Costo de Capital descuenta a una tasa (WACC) que asume una estructura de capital objetivo y estable en el tiempo. Si esa estructura cambia período a período, es más apropiado usar VPA, que separa el VAN del proyecto puro del VAN del financiamiento, permitiendo modelar el nivel de deuda de cada período por separado.",

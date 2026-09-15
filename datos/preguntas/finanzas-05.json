@@ -7,9 +7,9 @@
     "pregunta": "Cuando una empresa recompra acciones, ¿pierden riqueza los accionistas que NO participan en la recompra?",
     "alternativas": [
       "No, porque el precio de recompra es el mismo que el precio de las acciones que permanecen en circulación",
-      "Sí, porque reciben un pago menor al de quienes se quedan en la empresa",
-      "Sí, siempre pierden las oportunidades de crecimiento futuro de la empresa",
-      "Depende exclusivamente del tamaño de la empresa que realiza la recompra"
+      "Sí, porque reciben un pago bastante menor al que reciben quienes se quedan en la empresa",
+      "Sí, siempre pierden por completo las oportunidades de crecimiento futuro de la empresa",
+      "Depende exclusivamente del tamaño total de la empresa que realiza la recompra"
     ],
     "correcta": 0,
     "explicacion": "No existe pérdida de riqueza para los accionistas salientes: el precio al que se recompran las acciones es el mismo que cotizan las que se mantienen en circulación.",
@@ -24,8 +24,8 @@
     "alternativas": [
       "Valorar cada segmento de negocio con el múltiplo de su propia industria, y sumar los valores",
       "Usar un único múltiplo promedio de todas las industrias en que opera la empresa",
-      "Valorar solo el segmento más grande de la empresa e ignorar los demás",
-      "Aplicar el múltiplo de la industria del competidor más grande del mercado"
+      "Valorar solo el segmento más grande de la empresa, ignorando por completo los demás",
+      "Aplicar directamente el múltiplo de la industria del competidor más grande del mercado"
     ],
     "correcta": 0,
     "explicacion": "Al ser una firma con más de un rubro productivo, lo correcto es evaluar cada segmento con el múltiplo de su propia industria y sumar los valores estimados de las partes.",
@@ -39,9 +39,9 @@
     "pregunta": "¿Qué establece la \"propiedad de separación\" en la teoría de portafolios?",
     "alternativas": [
       "Que, ya identificado el portafolio de mercado, el inversionista elige libremente su punto sobre la Línea de Mercado de Capitales",
-      "Que todos los inversionistas deben invertir exclusivamente en el portafolio de mercado",
-      "Que el portafolio óptimo depende solo de la aversión al riesgo, sin relación con la LMC",
-      "Que no es posible combinar activos riesgosos con el activo libre de riesgo"
+      "Que todos los inversionistas deben invertir exclusivamente en el portafolio de mercado, sin excepción alguna posible",
+      "Que el portafolio óptimo depende solo de la aversión al riesgo del inversionista, sin relación alguna con la LMC",
+      "Que no es posible, bajo ninguna circunstancia conocida, combinar activos riesgosos con el activo libre de riesgo"
     ],
     "correcta": 0,
     "explicacion": "La propiedad de separación indica que la elección del portafolio óptimo de activos riesgosos es independiente de las preferencias de riesgo del inversionista; estas solo determinan en qué punto de la LMC se ubica.",
@@ -71,9 +71,9 @@
     "pregunta": "Según la Proposición I de Modigliani-Miller SIN impuestos (M&M 1958), ¿de qué depende el valor de una empresa?",
     "alternativas": [
       "Es independiente del nivel de apalancamiento (deuda) que utilice la empresa",
-      "Aumenta siempre que la empresa se endeude más",
-      "Depende exclusivamente del beta de sus acciones",
-      "Disminuye a medida que la empresa se endeuda más"
+      "Aumenta siempre que la empresa decide endeudarse un poco más",
+      "Depende exclusivamente del beta de las acciones de la empresa",
+      "Disminuye a medida que la empresa se va endeudando cada vez más"
     ],
     "correcta": 0,
     "explicacion": "El resultado central de M&M 1958 es que, en un mercado sin impuestos ni fricciones, el valor de la empresa no cambia con su estructura de financiamiento.",
@@ -103,9 +103,9 @@
     "pregunta": "Si M&M con impuestos sugiere que el valor de la empresa aumenta con la deuda, ¿por qué en la práctica no se observan empresas 100% financiadas con deuda?",
     "alternativas": [
       "Porque existen costos de quiebra que contrarrestan el beneficio del escudo tributario a niveles altos de deuda",
-      "Porque la ley prohíbe que las empresas se financien completamente con deuda",
-      "Porque las tasas de interés siempre suben al 100% cuando hay demasiada deuda",
-      "Porque los inversionistas nunca prestan dinero a empresas rentables"
+      "Porque la ley prohíbe expresamente que las empresas se financien por completo solo con deuda",
+      "Porque las tasas de interés siempre suben al 100% cuando hay demasiada deuda acumulada en el balance",
+      "Porque los inversionistas nunca le prestan dinero a las empresas que resultan rentables"
     ],
     "correcta": 0,
     "explicacion": "A mayor endeudamiento, crece la probabilidad de quiebra y sus costos asociados, lo que a cierto nivel supera el beneficio del escudo tributario y frena el endeudamiento óptimo.",
@@ -135,9 +135,9 @@
     "pregunta": "¿Qué ocurre con el costo patrimonial (kp) de una empresa a medida que aumenta su razón deuda/patrimonio (B/P)?",
     "alternativas": [
       "Aumenta, porque los accionistas exigen mayor retorno al asumir más riesgo financiero por el apalancamiento",
-      "Disminuye, porque la deuda reduce el riesgo total que enfrenta la empresa",
-      "Se mantiene constante, independiente del nivel de endeudamiento",
-      "Se iguala automáticamente al costo de la deuda de la empresa"
+      "Disminuye, porque la deuda reduce el riesgo total que enfrenta la empresa en su conjunto",
+      "Se mantiene siempre constante, sin importar el nivel de endeudamiento que tenga la empresa",
+      "Se iguala automáticamente al costo de la deuda que mantiene contratada la empresa"
     ],
     "correcta": 0,
     "explicacion": "A mayor apalancamiento, el riesgo financiero que asumen los accionistas crece, por lo que exigen una rentabilidad patrimonial mayor, esta relación se refleja explícitamente en la fórmula de M&M con impuestos.",
@@ -151,9 +151,9 @@
     "pregunta": "El Costo de Capital Promedio Ponderado (WACC) de una empresa combina...",
     "alternativas": [
       "El costo del patrimonio y el costo de la deuda después de impuestos, ponderados por su participación en el valor total de la empresa",
-      "Solo el costo de la deuda de la empresa, sin considerar en ningún caso el patrimonio",
-      "Solo el costo patrimonial calculado por CAPM, sin ningún ajuste por el efecto de la deuda",
-      "El promedio simple entre la tasa libre de riesgo y la tasa de la deuda, sin ponderar"
+      "Solo el costo de la deuda financiera de la empresa, sin considerar en ningún caso el costo del patrimonio",
+      "Solo el costo patrimonial calculado por CAPM, sin ningún ajuste por el efecto que tiene la deuda contratada",
+      "El promedio simple entre la tasa libre de riesgo y la tasa de la deuda, sin ponderar por participación relativa"
     ],
     "correcta": 0,
     "explicacion": "El WACC pondera el costo patrimonial y el costo de la deuda (neto del beneficio tributario) según el peso que cada fuente de financiamiento tiene sobre el valor total de la empresa.",

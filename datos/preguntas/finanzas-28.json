@@ -39,9 +39,9 @@
     "pregunta": "Si una empresa aumenta de forma inesperada su pago de dividendos, financiándolo con flujos que originalmente respaldaban el pago de su deuda, ¿qué efecto tiene esto sobre el valor de mercado de la deuda y el patrimonio?",
     "alternativas": [
       "El valor de la deuda baja y el del patrimonio sube: hay una redistribución de riqueza desde los bonistas hacia los accionistas",
-      "Ambos suben en la misma proporción, porque el valor total de la empresa no cambia",
-      "El valor de la deuda sube y el del patrimonio baja, porque los bonistas anticipan el cambio de política",
-      "Ningún efecto: la política de dividendos no puede alterar el valor relativo de deuda y patrimonio"
+      "Ambos suben en exactamente la misma proporción, porque el valor total de la empresa no cambiaría en ese caso",
+      "El valor de la deuda sube y el del patrimonio baja, porque los bonistas anticiparían de inmediato el cambio de política",
+      "Ningún efecto real: la política de dividendos no podría alterar el valor relativo entre deuda y patrimonio"
     ],
     "correcta": 0,
     "explicacion": "Al desviar hacia dividendos flujos que antes respaldaban el pago de la deuda, se reduce la probabilidad de pago íntegro a los bonistas (cae el valor de mercado de la deuda) y sube el valor percibido del patrimonio, una transferencia de riqueza desde bonistas hacia accionistas, similar en espíritu al problema de sustitución de activos.",
@@ -71,9 +71,9 @@
     "pregunta": "¿Qué muestra la evidencia empírica internacional sobre la política de dividendos de las empresas?",
     "alternativas": [
       "Varía considerablemente entre países, es estable en el tiempo dentro de cada empresa, y los inversionistas reaccionan negativamente ante recortes de dividendos",
-      "Es prácticamente idéntica en todos los países del mundo, sin importar el marco tributario o legal",
-      "Las empresas cambian su política de dividendos con mucha frecuencia, de un trimestre a otro, sin generar reacción en el mercado",
-      "Los inversionistas son indiferentes ante cualquier cambio, ya sea aumento o recorte, en el dividendo pagado"
+      "Es prácticamente idéntica en todos los países del mundo, sin importar cuál sea el marco tributario o legal vigente",
+      "Las empresas cambian su política de dividendos con mucha frecuencia, de un trimestre a otro, sin que eso genere reacción alguna en el mercado",
+      "Los inversionistas resultan indiferentes ante cualquier cambio, ya sea aumento o recorte, en el dividendo que se paga"
     ],
     "correcta": 0,
     "explicacion": "La evidencia muestra fuertes diferencias entre países (EE.UU., Reino Unido y Canadá con pagos altos; Alemania, Corea y Japón con pagos bajos), que las empresas mantienen su política estable en el tiempo, y que el mercado reacciona: positivamente ante alzas de dividendos y negativamente ante recortes.",

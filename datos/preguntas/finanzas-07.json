@@ -7,9 +7,9 @@
     "pregunta": "Según el análisis de LAN, ¿por qué \"más liquidez implica menor rentabilidad\" en una empresa?",
     "alternativas": [
       "Porque mantener más activos líquidos (menos riesgosos) implica tener menos activos fijos, que son los que generan mayor flujo operacional",
-      "Porque los activos líquidos siempre generan pérdidas contables directas para la empresa",
-      "Porque la liquidez aumenta de forma automática el pasivo total de la empresa",
-      "Porque no existe ninguna relación real entre la liquidez y la rentabilidad de una empresa"
+      "Porque los activos líquidos siempre generan pérdidas contables directas y permanentes para el balance de la empresa",
+      "Porque la liquidez de la empresa aumenta de forma automática el pasivo total registrado en su balance general",
+      "Porque no existe ninguna relación real ni comprobada entre la liquidez y la rentabilidad de una empresa cualquiera"
     ],
     "correcta": 0,
     "explicacion": "Existe un trade-off: los activos líquidos son más seguros pero generan menos flujo, mientras que los activos fijos (más riesgosos) son los que generan mayor rentabilidad operacional.",
@@ -55,9 +55,9 @@
     "pregunta": "Si el TIE de una empresa es 2,0 y su deuda (y por tanto sus intereses) se duplicara, ¿qué ocurriría con su utilidad del ejercicio, asumiendo que no hay otros resultados no operacionales?",
     "alternativas": [
       "La utilidad caería a cero, ya que todo el flujo operacional se destinaría a pagar los intereses",
-      "La utilidad se duplicaría automáticamente junto con la deuda",
-      "La utilidad no se vería afectada por el mayor gasto en intereses",
-      "La empresa entraría en quiebra inmediata sin importar su nivel de EBIT"
+      "La utilidad del ejercicio se duplicaría automáticamente junto con el aumento de la deuda",
+      "La utilidad no se vería afectada en absoluto por el mayor gasto financiero en intereses",
+      "La empresa entraría en quiebra de forma inmediata, sin importar su nivel de EBIT"
     ],
     "correcta": 0,
     "explicacion": "Con TIE=2,0, el EBIT alcanza para pagar el doble del interés actual; si la deuda se duplica, el gasto financiero absorbe todo el EBIT, dejando la utilidad en cero.",
@@ -87,9 +87,9 @@
     "pregunta": "¿Por qué el ROA también se conoce como \"basic earning power\" (BEP)?",
     "alternativas": [
       "Porque mide el poder generador de utilidades operacionales de los activos, sin considerar cómo se financia la empresa",
-      "Porque incluye el efecto completo de la estructura de deuda de la empresa",
-      "Porque solo puede calcularse en empresas que no tienen ningún pasivo",
-      "Porque mide exclusivamente el precio de mercado de las acciones"
+      "Porque incluye dentro de su cálculo el efecto completo de la estructura de deuda de la empresa",
+      "Porque solo puede calcularse en empresas que no tienen contratado ningún tipo de pasivo",
+      "Porque mide de forma exclusiva el precio de mercado que alcanzan las acciones de la empresa"
     ],
     "correcta": 0,
     "explicacion": "En este material, el ROA se calcula con utilidad operacional (no utilidad neta), por lo que aísla el desempeño puro de los activos sin el efecto del financiamiento, en otros textos, ROA y BEP se distinguen porque el ROA sí usa la utilidad neta.",
@@ -119,9 +119,9 @@
     "pregunta": "Una mayor Rotación de Cuentas por Cobrar generalmente indica...",
     "alternativas": [
       "Que la empresa cobra a sus clientes más rápido, requiriendo menos capital de trabajo invertido en ese activo",
-      "Que la empresa está teniendo más problemas para cobrar a sus clientes",
-      "Que la empresa está aumentando fuertemente su nivel de endeudamiento",
-      "Que las ventas totales de la empresa están cayendo en el período"
+      "Que la empresa está teniendo cada vez más problemas para cobrarle a sus clientes actuales",
+      "Que la empresa está aumentando de forma fuerte su nivel de endeudamiento con terceros",
+      "Que las ventas totales que genera la empresa están cayendo durante el período analizado"
     ],
     "correcta": 0,
     "explicacion": "A mayor rotación, menor es el saldo de cuentas por cobrar en relación a las ventas, lo que libera capital de trabajo y hace más eficiente a la empresa.",
@@ -135,9 +135,9 @@
     "pregunta": "¿Qué muestra el Período Promedio de Cobro?",
     "alternativas": [
       "El tiempo promedio que la empresa espera, tras realizar una venta, para recibir el pago en caja",
-      "El tiempo promedio que la empresa demora en pagar a sus proveedores",
-      "El tiempo promedio que un producto permanece en inventario antes de venderse",
-      "El plazo promedio de vencimiento de la deuda de largo plazo de la empresa"
+      "El tiempo promedio que la empresa demora en pagarles a sus proveedores habituales",
+      "El tiempo promedio que un producto permanece en inventario antes de lograr venderse",
+      "El plazo promedio de vencimiento de la deuda de largo plazo que mantiene la empresa"
     ],
     "correcta": 0,
     "explicacion": "Este indicador mide cuántos días, en promedio, transcurren entre la venta a crédito y la recepción efectiva del pago.",
@@ -151,9 +151,9 @@
     "pregunta": "En la estructura financiera típica de un banco (por ejemplo, una relación deuda:activos de 12:13), ¿qué revela esto sobre su financiamiento?",
     "alternativas": [
       "Que casi la totalidad de sus activos están financiados por acreedores (depositantes), aportando los accionistas una porción muy pequeña",
-      "Que el banco no tiene ningún tipo de deuda con terceros y se financia únicamente con capital propio de sus accionistas",
-      "Que los accionistas del banco financian la mayor parte de sus activos totales con capital propio aportado",
-      "Que el banco tiene bastante más patrimonio contable que pasivos totales en su balance general"
+      "Que el banco no tiene contratado ningún tipo de deuda con terceros y se financia únicamente con capital propio de sus accionistas",
+      "Que los accionistas del banco financian la mayor parte de sus activos totales con capital propio aportado por ellos",
+      "Que el banco tiene bastante más patrimonio contable que pasivos totales registrados en su balance general"
     ],
     "correcta": 0,
     "explicacion": "En un banco, la mayor parte del financiamiento proviene de depósitos y cuentas corrientes (deuda), mientras el aporte de los accionistas es proporcionalmente muy bajo.",
@@ -167,9 +167,9 @@
     "pregunta": "En 2012, LAN Airlines se fusionó con la brasileña TAM para formar el grupo LATAM. Según el análisis financiero de la época, ¿qué ocurrió con las ventas y la rentabilidad tras la fusión?",
     "alternativas": [
       "Las ventas subieron fuertemente, pero la rentabilidad (ROA y ROE) cayó de forma considerable",
-      "Tanto las ventas como la rentabilidad subieron de manera proporcional",
-      "Las ventas cayeron mientras la rentabilidad se mantuvo estable",
-      "Ni las ventas ni la rentabilidad se vieron afectadas por la fusión"
+      "Tanto las ventas como la rentabilidad subieron de manera proporcional entre sí",
+      "Las ventas cayeron mientras la rentabilidad de la empresa se mantuvo estable",
+      "Ni las ventas ni la rentabilidad se vieron afectadas de ningún modo por la fusión"
     ],
     "correcta": 0,
     "explicacion": "Las ventas de LAN subieron de US$5.585 a US$9.722 millones, pero el ROA cayó de 3,6% a 0,2%, un ejemplo real de que más ventas no garantizan mejores resultados.",
@@ -199,9 +199,9 @@
     "pregunta": "La frase \"Una empresa LAN más otra empresa TAM es igual a media empresa LATAM\", usada al analizar esta fusión, ilustra qué idea?",
     "alternativas": [
       "Que combinar dos empresas no garantiza que el resultado conjunto sea mejor; en este caso los indicadores financieros empeoraron pese al aumento de ventas",
-      "Que LATAM terminó siendo una empresa más grande y rentable que LAN y TAM por separado, mejorando todos sus indicadores",
-      "Que la fusión no tuvo absolutamente ningún efecto sobre los estados financieros consolidados de la empresa",
-      "Que TAM absorbió por completo las operaciones, la marca y la administración de LAN tras la fusión"
+      "Que LATAM terminó siendo una empresa bastante más grande y rentable que LAN y TAM por separado, mejorando todos sus indicadores financieros",
+      "Que la fusión no tuvo absolutamente ningún efecto sobre los estados financieros consolidados de la nueva empresa formada",
+      "Que TAM absorbió por completo las operaciones, la marca y la administración completa de LAN tras concretarse la fusión"
     ],
     "correcta": 0,
     "explicacion": "La frase resume que el aumento de tamaño (ventas) no se tradujo en mejores resultados, sino en un deterioro de la rentabilidad y la cobertura de intereses.",
@@ -215,7 +215,7 @@
     "pregunta": "¿Qué pasó con la Razón de Cobertura de Intereses de LAN entre 2011 y 2012, y qué la explica principalmente?",
     "alternativas": [
       "Cayó de 3,7 a 1,3, explicado por la caída del EBIT junto a un fuerte aumento de los gastos financieros por la mayor deuda de la fusión",
-      "Subió notoriamente de 1,3 a 3,7 gracias a la fuerte reducción de deuda que se logró tras la fusión con TAM",
+      "Subió de forma notoria de 1,3 a 3,7 gracias a la fuerte reducción de deuda que se logró tras la fusión con TAM",
       "Se mantuvo prácticamente estable en 3,7 durante todo el período analizado, sin variaciones relevantes",
       "Cayó derechamente a cero porque la empresa dejó de pagar intereses de su deuda por completo ese año"
     ],

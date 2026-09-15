@@ -23,9 +23,9 @@
     "pregunta": "Modigliani & Miller (1963), al incorporar impuestos corporativos, concluyen que el valor de la empresa aumenta con más deuda por el escudo tributario. ¿Implica esto que una empresa debería endeudarse el 100%?",
     "alternativas": [
       "No: el resultado solo es válido para razones deuda/valor entre 0% y 100%, y en la práctica otros costos limitan el endeudamiento óptimo",
-      "Sí, porque mientras más deuda, menor es siempre el costo de capital total sin ningún límite",
-      "No, porque MM (1963) prohíbe explícitamente superar el 50% de deuda sobre el valor de la empresa",
-      "Sí, siempre que la tasa de impuesto corporativo sea menor al 20%"
+      "Sí, porque mientras más deuda tenga la empresa, menor resulta siempre el costo de capital total, sin ningún límite en absoluto",
+      "No, porque MM (1963) prohíbe de forma explícita superar el 50% de deuda sobre el valor total de la empresa",
+      "Sí, siempre que la tasa de impuesto corporativo aplicable resulte menor al 20% en ese país"
     ],
     "correcta": 0,
     "explicacion": "Aunque el modelo de 1963 muestra que el escudo tributario suma valor con más deuda, la razón B/V solo tiene sentido económico entre 0% y 100%; en la práctica, costos de quiebra y de agencia (no incluidos en este modelo simple) frenan el endeudamiento antes de llegar a ese extremo.",
@@ -39,9 +39,9 @@
     "pregunta": "¿Qué caracteriza al método de flujos al patrimonio (flujo de caja del accionista) para valorar una empresa, en comparación con el flujo de caja total (FCFF)?",
     "alternativas": [
       "Descuenta al costo patrimonial (kp) los flujos que quedan tras pagar intereses, amortizar deuda e impuestos, reflejando la perspectiva del accionista",
-      "Es una perspectiva 'total' de la empresa que ignora por completo la estructura de financiamiento de la empresa",
-      "Se descuenta siempre al WACC, exactamente igual que el flujo de caja total de la empresa",
-      "No incluye nunca el pago de impuestos, ya que esos los asume directamente el Estado"
+      "Es una perspectiva 'total' de la empresa que ignora por completo cuál es la estructura de financiamiento que utiliza",
+      "Se descuenta siempre al WACC, exactamente de la misma forma que se descuenta el flujo de caja total de la empresa",
+      "No incluye nunca, bajo ningún caso, el pago de impuestos, ya que esos los asumiría directamente el Estado"
     ],
     "correcta": 0,
     "explicacion": "El flujo al patrimonio (FCFE) es la caja que efectivamente le queda al accionista tras cubrir intereses, amortización de capital e impuestos; por representar su perspectiva, se descuenta a la tasa de costo patrimonial (kp), no al WACC.",
@@ -55,9 +55,9 @@
     "pregunta": "¿En qué se diferencian la teoría del trade-off (estática) y la teoría del pecking order (jerarquía de financiamiento) respecto al endeudamiento de una empresa?",
     "alternativas": [
       "El trade-off predice una razón de endeudamiento óptima y estable; el pecking order no predice un óptimo, solo un orden de preferencia de fuentes",
-      "Ambas teorías predicen exactamente la misma razón de endeudamiento óptima para cualquier empresa",
-      "El pecking order predice un óptimo estable, mientras el trade-off solo ordena las fuentes de financiamiento",
-      "Ambas teorías rechazan por completo el uso de deuda como fuente de financiamiento"
+      "Ambas teorías predicen, según esto, exactamente la misma razón de endeudamiento óptima para cualquier empresa evaluada",
+      "El pecking order predice en realidad un óptimo estable, mientras el trade-off solo ordena las fuentes de financiamiento disponibles",
+      "Ambas teorías rechazan por completo, según esto, el uso de cualquier tipo de deuda como fuente de financiamiento"
     ],
     "correcta": 0,
     "explicacion": "El trade-off balancea el escudo tributario de la deuda contra los costos de quiebra/agencia y predice un nivel óptimo hacia el cual las empresas convergen; el pecking order, en cambio, es dinámico y solo predice el orden en que se usan las fuentes (recursos propios → deuda → acciones), sin apuntar a un óptimo fijo.",
@@ -87,9 +87,9 @@
     "pregunta": "La evidencia empírica sobre determinantes de la estructura de capital muestra que las oportunidades de crecimiento, la rentabilidad y la intensidad de activos intangibles de una empresa están, en general, ¿cómo relacionadas con su nivel de endeudamiento?",
     "alternativas": [
       "Negativamente relacionadas: empresas más rentables, con más oportunidades de crecimiento o más intangibles tienden a endeudarse menos",
-      "Positivamente relacionadas: a mayor rentabilidad y crecimiento, mayor es el endeudamiento observado",
-      "No existe ninguna relación empírica documentada entre esas variables y el endeudamiento",
-      "La relación es positiva solo para intangibles y negativa solo para rentabilidad"
+      "Positivamente relacionadas: a mayor rentabilidad y crecimiento de la empresa, mayor resulta el endeudamiento observado en la práctica",
+      "No existe, según la evidencia empírica disponible, ninguna relación documentada entre esas variables y el endeudamiento",
+      "La relación observada resulta positiva solo para los activos intangibles y negativa solo para la rentabilidad de la empresa"
     ],
     "correcta": 0,
     "explicacion": "Empresas más rentables prefieren autofinanciarse (menos necesidad de deuda, coherente con pecking order); empresas con más oportunidades de crecimiento o intangibles enfrentan mayores costos de agencia y de quiebra al endeudarse, por lo que la evidencia muestra una relación negativa en los tres casos.",
@@ -103,9 +103,9 @@
     "pregunta": "Según Myers y Majluf (1984), ¿qué efecto tiene contar con poca reserva financiera (holgura o 'slack') sobre las decisiones de una empresa?",
     "alternativas": [
       "Aumenta el riesgo de subinversión: la empresa puede rechazar proyectos con VAN positivo por no querer emitir acciones subvaloradas por el mercado",
-      "No tiene ningún efecto, porque la reserva financiera es irrelevante para decidir qué proyectos aceptar",
-      "Hace que la empresa emita acciones nuevas con más facilidad, sin ningún costo asociado",
-      "Elimina por completo el problema de asimetría de información entre gerentes e inversionistas"
+      "No tiene ningún efecto real, porque la reserva financiera disponible sería irrelevante para decidir qué proyectos aceptar",
+      "Hace que la empresa emita acciones nuevas con mucha más facilidad, sin ningún costo asociado a esa decisión",
+      "Elimina por completo, en ese escenario, el problema de asimetría de información entre gerentes e inversionistas"
     ],
     "correcta": 0,
     "explicacion": "Con poca holgura financiera, financiar un buen proyecto puede requerir emitir acciones que el mercado interprete como señal negativa (asimetría de información) y subvalore, llevando a la empresa a rechazar proyectos con VAN positivo antes que emitir en esas condiciones, el problema de subinversión central de Myers-Majluf.",

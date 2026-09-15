@@ -7,9 +7,9 @@
     "pregunta": "En un bono, ¿qué representa la Tasa Cupón (Kd)?",
     "alternativas": [
       "La tasa de interés que el bono promete pagar, fijada en el contrato y que no cambia en el tiempo",
-      "La tasa que exige el mercado según el riesgo del bono, y que varía en el tiempo",
-      "El precio de mercado del bono expresado como porcentaje",
-      "La tasa de inflación esperada durante la vida del bono"
+      "La tasa que exige el mercado según el riesgo del bono, la clasificación crediticia y el plazo, y que varía en el tiempo",
+      "El precio de mercado del bono expresado como porcentaje de su valor nominal original",
+      "La tasa de inflación esperada acumulada durante toda la vida del bono"
     ],
     "correcta": 0,
     "explicacion": "La tasa cupón se establece en el contrato de emisión y no cambia; es distinta de la tasa de mercado (Kb), que sí varía según cómo el mercado valora el riesgo del bono.",
@@ -23,9 +23,9 @@
     "pregunta": "¿Qué representa la Tasa de Mercado (Kb) de un bono?",
     "alternativas": [
       "La TIR que el mercado exige a un instrumento con igual clasificación de riesgo, y que cambia en el tiempo",
-      "La tasa fija que promete pagar el emisor, definida en el contrato",
-      "El valor nominal del bono dividido por su plazo de vencimiento",
-      "La comisión que cobra el intermediario que coloca el bono"
+      "La tasa fija que promete pagar el emisor, definida en el contrato de emisión y que no cambia en el tiempo",
+      "El valor nominal del bono dividido por su plazo de vencimiento en años",
+      "La comisión que cobra el intermediario financiero que coloca el bono en el mercado"
     ],
     "correcta": 0,
     "explicacion": "A diferencia de la tasa cupón (fija), la tasa de mercado refleja cómo los inversionistas valoran el riesgo del bono en cada momento, por lo que cambia en el tiempo.",
@@ -71,9 +71,9 @@
     "pregunta": "¿Qué caracteriza a un bono Tipo Bullet (o Americano)?",
     "alternativas": [
       "Paga solo intereses en cada cupón, y el 100% del principal se paga junto al último cupón",
-      "Paga cuotas iguales que combinan intereses y amortización hasta el vencimiento",
-      "No paga ningún cupón; todo el pago ocurre al vencimiento",
-      "Paga primero el principal y luego los intereses acumulados"
+      "Paga cuotas iguales que combinan intereses y amortización de capital hasta el vencimiento",
+      "No paga ningún cupón durante su vida; todo el pago ocurre de una vez al vencimiento",
+      "Paga primero el principal completo y luego los intereses acumulados al final"
     ],
     "correcta": 0,
     "explicacion": "A diferencia del cupón cero (nada hasta el final) o el bono francés (cuotas iguales), el bullet separa: cupones de solo interés durante la vida del bono y el principal completo al vencimiento.",
@@ -87,9 +87,9 @@
     "pregunta": "En un bono Tipo Francés, ¿qué distingue su estructura de pagos?",
     "alternativas": [
       "Paga cuotas iguales hasta el vencimiento, que combinan intereses y amortización de capital",
-      "Paga solo intereses en cada período y el principal completo al final",
-      "No realiza pagos hasta el vencimiento, donde paga todo junto",
-      "Paga el principal completo en la primera cuota y solo intereses después"
+      "Paga solo intereses en cada período y el principal completo al final del plazo",
+      "No realiza ningún pago hasta el vencimiento, donde paga capital e intereses juntos",
+      "Paga el principal completo en la primera cuota y solo intereses en las siguientes"
     ],
     "correcta": 0,
     "explicacion": "El bono francés funciona como un crédito hipotecario: cada cuota es igual, pero la proporción entre interés y amortización de capital cambia a lo largo del tiempo.",
@@ -103,9 +103,9 @@
     "pregunta": "¿Qué es un \"covenant\" en el contexto de la emisión de un bono?",
     "alternativas": [
       "Una cláusula contractual que impone condiciones al emisor para proteger al bonista",
-      "El nombre del intermediario que coloca el bono en el mercado",
-      "La tasa de interés adicional que se paga por el riesgo país",
-      "El monto total de la emisión expresado en la moneda local"
+      "El nombre del intermediario financiero que coloca el bono en el mercado primario",
+      "La tasa de interés adicional que se paga por el riesgo país del emisor",
+      "El monto total de la emisión de deuda expresado en la moneda local"
     ],
     "correcta": 0,
     "explicacion": "Los covenants (prohibitivos, imperativos o condicionales) dan seguridad al bonista limitando lo que puede hacer el emisor mientras la deuda esté vigente.",
@@ -119,9 +119,9 @@
     "pregunta": "Un ejemplo de covenant \"prohibitivo\" en un bono sería...",
     "alternativas": [
       "\"La empresa no puede volver a endeudarse hasta pagar el 50% de esta deuda\"",
-      "\"La empresa debe entregar información financiera todos los meses\"",
-      "\"Si las ventas bajan, la empresa debe amortizar más rápido\"",
-      "\"El bono se puede transar libremente en el mercado secundario\""
+      "\"La empresa debe entregar información financiera a los bonistas todos los meses\"",
+      "\"Si las ventas de la empresa bajan, debe amortizar la deuda más rápido\"",
+      "\"El bono emitido se puede transar libremente en el mercado secundario\""
     ],
     "correcta": 0,
     "explicacion": "Los covenants prohibitivos restringen acciones específicas del emisor; los imperativos obligan a hacer algo (como reportar), y los condicionales activan cláusulas ante ciertos eventos.",
@@ -135,9 +135,9 @@
     "pregunta": "¿Quiénes son los \"emisores de valores\" en el mercado de renta fija?",
     "alternativas": [
       "Quienes buscan financiamiento y entregan un instrumento de deuda a cambio de dinero",
-      "Quienes compran los instrumentos de deuda ofrecidos en el mercado",
-      "Los organismos reguladores que fiscalizan las emisiones",
-      "Los bancos centrales que fijan la tasa de política monetaria"
+      "Quienes compran los instrumentos de deuda que se ofrecen en el mercado",
+      "Los organismos reguladores encargados de fiscalizar las emisiones de deuda",
+      "Los bancos centrales que fijan la tasa de política monetaria de referencia"
     ],
     "correcta": 0,
     "explicacion": "Los emisores se financian entregando bonos u otros instrumentos a cambio de dinero; los demandantes de valores son quienes compran esos instrumentos.",
@@ -151,9 +151,9 @@
     "pregunta": "Si un bono se transa \"sobre la par\", ¿qué relación existe entre su tasa cupón (Kd) y la tasa de mercado (Kb)?",
     "alternativas": [
       "Kd > Kb: el bono paga más que lo que exige el mercado, por eso vale más del 100%",
-      "Kd < Kb: el bono paga menos que lo que exige el mercado",
-      "Kd = Kb: el bono se transa exactamente a la par",
-      "No existe una relación directa entre ambas tasas"
+      "Kd < Kb: el bono paga menos que lo que exige el mercado por ese riesgo",
+      "Kd = Kb: el bono se transa exactamente a la par, sin premio ni descuento",
+      "No existe ninguna relación directa entre la tasa cupón y la de mercado"
     ],
     "correcta": 0,
     "explicacion": "Cuando el cupón que paga el bono es más atractivo que la tasa que exige el mercado, los inversionistas pagan más del valor nominal por acceder a ese flujo, de ahí \"sobre la par\".",
@@ -167,9 +167,9 @@
     "pregunta": "Según la clasificación de riesgos de una empresa, ¿qué es el riesgo financiero?",
     "alternativas": [
       "La pérdida patrimonial por decisiones de inversión, financiamiento o administración de recursos",
-      "Los errores de visión de negocio o la mala reputación corporativa",
+      "Los errores de visión de negocio de largo plazo o la mala reputación corporativa",
       "Las pérdidas por fallas tecnológicas o procesos operativos del día a día",
-      "El riesgo asociado exclusivamente a decisiones de marketing"
+      "El riesgo asociado exclusivamente a las decisiones del área de marketing"
     ],
     "correcta": 0,
     "explicacion": "El riesgo financiero se distingue del riesgo corporativo (decisiones estratégicas) y del riesgo operacional (procesos, tecnología, recursos humanos, día a día).",
@@ -182,10 +182,10 @@
     "dificultad": 2,
     "pregunta": "¿A qué se refiere el riesgo de mercado?",
     "alternativas": [
-      "A la caída del valor de los activos o el aumento del valor de los pasivos por variaciones de precios o indicadores financieros",
+      "A la caída del valor de los activos o el alza del valor de los pasivos por variaciones de precios o tasas",
       "A la posibilidad de que una contraparte o deudor no cumpla con el pago que se comprometió a realizar",
-      "A la escasez de fondos líquidos que impide cumplir obligaciones de corto plazo",
-      "A la quiebra de una institución financiera que se propaga y contagia al resto del sistema"
+      "A la escasez de fondos líquidos que impide a la empresa cumplir sus obligaciones de corto plazo",
+      "A la quiebra de una institución financiera que se propaga y contagia al resto del sistema financiero"
     ],
     "correcta": 0,
     "explicacion": "El riesgo de mercado surge de variaciones en tasas de interés, precios de commodities, tipo de cambio e índices, y puede gestionarse con instrumentos derivados.",
@@ -199,9 +199,9 @@
     "pregunta": "¿Qué es el riesgo de crédito?",
     "alternativas": [
       "La posibilidad de pérdida por el incumplimiento del prestatario o la contraparte en una operación financiera",
-      "La posibilidad de que caigan los precios de los activos financieros",
-      "La escasez de liquidez para cumplir obligaciones de corto plazo",
-      "El riesgo de que quiebre una institución financiera y arrastre a otras"
+      "La posibilidad de que caigan de forma sostenida los precios de los activos financieros en el mercado",
+      "La escasez de liquidez que impide a la empresa cumplir con sus obligaciones de corto plazo",
+      "El riesgo de que quiebre una institución financiera y arrastre consigo a otras del sistema"
     ],
     "correcta": 0,
     "explicacion": "El riesgo de crédito obliga a las instituciones a decidir quién es sujeto de crédito, cuánto cobrarle y cómo cobrarle, para gestionar el riesgo de no pago.",
@@ -215,9 +215,9 @@
     "pregunta": "El riesgo de liquidez ocurre cuando una empresa...",
     "alternativas": [
       "Tiene activos, pero no posee liquidez suficiente para cumplir sus obligaciones de corto plazo",
-      "No tiene activos suficientes para cubrir su deuda total",
-      "Sus acciones caen de precio en el mercado bursátil",
-      "Sus clientes dejan de comprar sus productos"
+      "No tiene activos suficientes para cubrir el total de su deuda financiera vigente",
+      "Sus acciones caen de precio de forma sostenida en el mercado bursátil local",
+      "Sus clientes dejan de comprar los productos o servicios que la empresa ofrece"
     ],
     "correcta": 0,
     "explicacion": "El riesgo de liquidez puede forzar a la empresa a liquidar activos o financiarse a un alto costo, y en casos extremos puede provocar una quiebra.",
@@ -247,9 +247,9 @@
     "pregunta": "¿Por qué el riesgo de contraparte suele ser mayor en mercados OTC (over-the-counter, extrabursátiles) que en mercados organizados?",
     "alternativas": [
       "Porque los mercados organizados cuentan con mecanismos centralizados que reducen la exposición al incumplimiento",
-      "Porque en los mercados OTC los montos transados son siempre considerablemente más pequeños",
-      "Porque en los mercados OTC simplemente no existen instrumentos derivados disponibles",
-      "Porque los mercados organizados no permiten transar bonos ni otros instrumentos de deuda"
+      "Porque en los mercados OTC los montos transados son siempre considerablemente más pequeños que en los organizados",
+      "Porque en los mercados OTC simplemente no existen instrumentos derivados disponibles para transar",
+      "Porque los mercados organizados no permiten transar bonos ni otros instrumentos de deuda corporativa"
     ],
     "correcta": 0,
     "explicacion": "Los mercados organizados suelen tener cámaras de compensación y garantías estandarizadas que los mercados OTC (bilaterales) no siempre tienen, elevando el riesgo de contraparte en estos últimos.",
@@ -263,9 +263,9 @@
     "pregunta": "¿Qué describe el \"riesgo sistémico\"?",
     "alternativas": [
       "La amenaza de que la quiebra de una institución financiera se propague al resto del sistema, como un efecto dominó",
-      "La posibilidad de que una sola empresa pierda valor en el mercado bursátil",
-      "El riesgo de que suban las tasas de interés de referencia",
-      "La pérdida de confianza de un solo inversionista en un activo específico"
+      "La posibilidad de que una sola empresa pierda valor de forma sostenida en el mercado bursátil",
+      "El riesgo puntual de que suban de forma inesperada las tasas de interés de referencia del mercado",
+      "La pérdida de confianza de un solo inversionista particular en un activo financiero específico"
     ],
     "correcta": 0,
     "explicacion": "El riesgo sistémico amenaza la estabilidad de todo el sistema financiero, no solo la de una institución individual.",
@@ -278,10 +278,10 @@
     "dificultad": 2,
     "pregunta": "¿Qué mecanismo se usa habitualmente para mitigar el riesgo de contraparte en instrumentos derivados?",
     "alternativas": [
-      "Colaterales o garantías que minimizan la pérdida en caso de incumplimiento",
-      "Aumentar la tasa de interés cobrada al cliente",
-      "Reducir el plazo de vencimiento del instrumento",
-      "Eliminar por completo el uso de instrumentos derivados"
+      "Colaterales o garantías que minimizan la pérdida en caso de incumplimiento de la contraparte",
+      "Aumentar la tasa de interés que se le cobra al cliente por el instrumento",
+      "Reducir el plazo de vencimiento pactado para el instrumento derivado",
+      "Eliminar por completo el uso de instrumentos derivados en la operación"
     ],
     "correcta": 0,
     "explicacion": "El material señala explícitamente que este riesgo se mitiga a través de colaterales o garantías que minimizan la pérdida en caso de incumplimiento de la contraparte.",
@@ -294,10 +294,10 @@
     "dificultad": 1,
     "pregunta": "Según el material, ¿qué transan principalmente los participantes del mercado de capitales?",
     "alternativas": [
-      "Riesgo, tiempo y dinero, basados en la confianza (fe pública)",
-      "Únicamente bienes y servicios de consumo",
-      "Solo deuda de largo plazo emitida por el Estado",
-      "Exclusivamente acciones de empresas que transan en bolsa"
+      "Riesgo, tiempo y dinero, basados en la confianza (fe pública) entre las partes",
+      "Únicamente bienes y servicios de consumo que se transan entre empresas",
+      "Solo deuda de largo plazo emitida por el Estado y sus organismos",
+      "Exclusivamente acciones de empresas que transan de forma pública en bolsa"
     ],
     "correcta": 0,
     "explicacion": "El mercado de capitales se basa en la confianza y permite endeudarse o ahorrar, transando esencialmente tiempo, riesgo y dinero entre oferentes y demandantes.",

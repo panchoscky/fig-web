@@ -7,9 +7,9 @@
     "pregunta": "¿Es correcto afirmar que el rendimiento implícito (TIR o yield) de un bono es mayor cuanto más alto es su precio de mercado?",
     "alternativas": [
       "No, a mayor precio de mercado del bono, menor es su rendimiento implícito, ya que se paga más por obtener los mismos flujos futuros",
-      "Sí, un precio de mercado más alto siempre refleja un mayor rendimiento esperado para el inversionista",
-      "No, el rendimiento implícito de un bono no tiene ninguna relación con su precio de mercado",
-      "Sí, pero solo en bonos con tasa cupón variable o flotante"
+      "Sí, un precio de mercado más alto siempre refleja un mayor rendimiento esperado para el inversionista que lo compra",
+      "No, el rendimiento implícito de un bono no guarda ninguna relación con su precio de mercado vigente",
+      "Sí, pero esta relación solo aplica en bonos que tienen tasa cupón variable o flotante"
     ],
     "correcta": 0,
     "explicacion": "El precio y el yield de un bono se mueven en direcciones opuestas: si el precio sube, para mantener la igualdad del valor presente de los flujos, la tasa de rendimiento interno (yield) debe bajar.",
@@ -23,9 +23,9 @@
     "pregunta": "Si dos proyectos A y B tienen el mismo horizonte pero B es más riesgoso que A, y un analista calcula el VAN de ambos usando la misma tasa de descuento concluyendo que B tiene mayor VAN, ¿es correcta su recomendación de elegir B?",
     "alternativas": [
       "No, un proyecto más riesgoso debe evaluarse con una tasa de descuento más alta acorde a su riesgo, no con la misma tasa que uno menos riesgoso",
-      "Sí, siempre se debe elegir el proyecto con mayor VAN sin importar las tasas de descuento usadas",
-      "No, porque el VAN nunca debe usarse para comparar proyectos de distinto riesgo",
-      "Sí, porque el riesgo de un proyecto no afecta el cálculo correcto de su VAN"
+      "Sí, siempre se debe elegir el proyecto con mayor VAN calculado, sin importar qué tasas de descuento se usaron",
+      "No, porque el VAN nunca debe usarse para comparar proyectos que tienen distinto nivel de riesgo entre sí",
+      "Sí, porque el riesgo particular de un proyecto no afecta de ningún modo el cálculo correcto de su VAN"
     ],
     "correcta": 0,
     "explicacion": "Usar la misma tasa de descuento para proyectos de distinto riesgo sistemático invalida la comparación de VAN; el proyecto más riesgoso requiere una tasa de descuento mayor, lo que podría cambiar la conclusión.",
@@ -39,9 +39,9 @@
     "pregunta": "Si el precio teórico (valor presente de los flujos) de un bono calculado a la tasa de descuento relevante es mayor que su precio de mercado, ¿qué decisión de inversión se recomienda?",
     "alternativas": [
       "Comprar el bono, ya que se estaría pagando menos de lo que realmente vale según sus flujos futuros descontados",
-      "Vender el bono de inmediato, porque está sobrevalorado por el mercado",
+      "Vender el bono de inmediato, porque estaría sobrevalorado por el mercado en ese momento",
       "No tomar ninguna decisión, porque el precio de mercado siempre refleja el valor justo del bono",
-      "Esperar a que el precio de mercado suba antes de tomar cualquier decisión"
+      "Esperar a que el precio de mercado suba todavía más antes de tomar cualquier decisión"
     ],
     "correcta": 0,
     "explicacion": "Cuando el valor presente teórico de los flujos del bono supera su precio de mercado, comprarlo genera una ganancia (VAN positivo), ya que se adquiere por debajo de su valor real.",
@@ -55,9 +55,9 @@
     "pregunta": "Si el precio de mercado de un bono sube después de que un inversionista calculó que convenía comprarlo, sin cambios en la tasa de descuento relevante, ¿qué ocurre con la conveniencia de comprarlo?",
     "alternativas": [
       "Puede dejar de ser conveniente, porque ahora se pagaría más que el valor presente teórico de sus flujos futuros",
-      "Sigue siendo igual de conveniente, porque el precio de mercado no afecta la decisión de compra",
-      "Se vuelve automáticamente más conveniente, porque el alza de precio indica mayor demanda",
-      "La conveniencia solo depende de la tasa cupón del bono, no de su precio de mercado"
+      "Sigue siendo igual de conveniente, porque el precio de mercado no afecta en nada la decisión de compra",
+      "Se vuelve automáticamente más conveniente, porque el alza de precio indica una mayor demanda del bono",
+      "La conveniencia solo depende de la tasa cupón del bono, no de su precio de mercado vigente"
     ],
     "correcta": 0,
     "explicacion": "Si el precio de mercado sube por encima del valor presente teórico de los flujos, la compra deja de generar ganancia, incluso si antes del alza sí convenía.",
@@ -71,9 +71,9 @@
     "pregunta": "Si un bono comparable de riesgo similar comienza a transarse con un rendimiento (yield) más alto que la tasa de descuento usada originalmente para valorar el bono en cuestión, ¿qué debe hacerse?",
     "alternativas": [
       "Actualizar la tasa de descuento del bono en cuestión al nuevo yield del comparable, ya que ambos comparten el mismo riesgo sistemático",
-      "Ignorar el bono comparable, porque el riesgo de un bono nunca afecta la valoración de otro",
-      "Mantener la tasa de descuento original sin importar lo que ocurra con bonos comparables",
-      "Usar el promedio simple entre la tasa cupón propia y el yield del bono comparable"
+      "Ignorar por completo al bono comparable, porque el riesgo de un bono nunca afecta la valoración de otro distinto",
+      "Mantener la tasa de descuento original sin importar lo que ocurra con los bonos comparables del mercado",
+      "Usar el promedio simple entre la tasa cupón propia y el yield que exhibe el bono comparable"
     ],
     "correcta": 0,
     "explicacion": "Cuando dos bonos comparten el mismo nivel de riesgo, el yield de uno se convierte en el costo de oportunidad relevante (tasa de descuento) para valorar al otro, actualizando la decisión de inversión.",
@@ -87,9 +87,9 @@
     "pregunta": "Dos bonos con el mismo valor nominal, misma tasa cupón, mismo plazo y la misma TIR de mercado, pero uno es tipo bullet (amortiza todo el principal al final) y el otro tipo francés (cuotas constantes que amortizan durante toda la vida), ¿por qué tienen en general precios de mercado distintos?",
     "alternativas": [
       "Porque el bullet concentra el pago del principal al final y el francés lo reparte en cuotas constantes, generando distinta sensibilidad al descuento",
-      "Porque los bonos bullet y franceses nunca pueden tener la misma tasa cupón ni la misma TIR de mercado",
-      "Porque el bono francés siempre paga una tasa cupón más alta que el bono bullet, por definición",
-      "En realidad ambos bonos siempre tienen exactamente el mismo precio de mercado si comparten tasa cupón y TIR"
+      "Porque los bonos bullet y franceses nunca pueden, bajo ninguna circunstancia, compartir la misma tasa cupón ni la misma TIR de mercado",
+      "Porque el bono francés siempre paga, por definición y en cualquier caso, una tasa cupón más alta que el bono bullet",
+      "En realidad ambos bonos siempre tienen exactamente el mismo precio de mercado si comparten tasa cupón y TIR de mercado"
     ],
     "correcta": 0,
     "explicacion": "Aunque compartan tasa cupón, plazo y TIR, la distinta estructura temporal de los flujos (concentrados al final en el bullet, repartidos en el francés) genera una duración distinta y por tanto un precio de mercado distinto, la única excepción es cuando la TIR de mercado coincide exactamente con la tasa cupón, caso en que ambos se valorizan a la par.",
@@ -103,9 +103,9 @@
     "pregunta": "Para decidir si conviene refinanciar un crédito con otro banco que ofrece una tasa nominal similar pero con distinta frecuencia de capitalización, ¿qué se debe comparar entre ambos créditos?",
     "alternativas": [
       "La tasa efectiva anual (TEA) de cada crédito, calculada a partir de su tasa nominal y frecuencia de capitalización",
-      "Únicamente el monto de la cuota mensual, sin ajustar por la frecuencia de capitalización",
-      "El plazo total del crédito en años, sin considerar ninguna tasa de interés",
-      "La tasa nominal anual establecida de cada banco, sin ningún ajuste"
+      "Únicamente el monto de la cuota mensual de cada crédito, sin ajustar por su frecuencia de capitalización",
+      "El plazo total de cada crédito expresado en años, sin considerar ninguna tasa de interés asociada",
+      "La tasa nominal anual que anuncia cada banco, sin aplicar ningún tipo de ajuste posterior"
     ],
     "correcta": 0,
     "explicacion": "Al igual que al comparar depósitos, la decisión de refinanciamiento debe basarse en la tasa efectiva anual (TEA) de cada crédito, que refleja el verdadero costo considerando la frecuencia de capitalización.",
@@ -135,9 +135,9 @@
     "pregunta": "Al comparar dos proyectos mutuamente excluyentes de distinta escala (por ejemplo, uno requiere una inversión mucho mayor que el otro), ¿por qué puede ser un error elegir el proyecto solo por tener la TIR más alta?",
     "alternativas": [
       "Porque la TIR ignora la diferencia de escala entre los proyectos, y el de menor TIR pero mayor inversión podría generar más valor absoluto (mayor VAN)",
-      "Porque la TIR siempre resulta menor en el proyecto de mayor inversión inicial, sin excepción alguna posible",
-      "Porque la TIR simplemente no puede calcularse cuando los proyectos tienen distinta inversión inicial",
-      "Porque el proyecto con mayor TIR siempre presenta necesariamente múltiples tasas internas de retorno"
+      "Porque la TIR siempre resulta menor en el proyecto de mayor inversión inicial, sin ninguna excepción posible en ningún caso",
+      "Porque la TIR simplemente no puede calcularse cuando dos proyectos tienen distinta inversión inicial entre sí, nunca",
+      "Porque el proyecto con mayor TIR siempre presenta, necesariamente y sin excepción, múltiples tasas internas de retorno válidas"
     ],
     "correcta": 0,
     "explicacion": "La TIR es una medida porcentual que no captura el tamaño de la inversión; un proyecto pequeño puede tener TIR más alta pero generar menos valor absoluto que uno grande con TIR menor pero mayor VAN.",
@@ -151,9 +151,9 @@
     "pregunta": "¿Cómo se resuelve correctamente el problema de comparar dos proyectos mutuamente excluyentes de distinta escala usando el criterio de la TIR?",
     "alternativas": [
       "Calculando la TIR incremental sobre la diferencia de flujos entre ambos proyectos, y aceptando el grande si esa TIR supera la tasa de descuento",
-      "Eligiendo siempre el proyecto de menor inversión inicial, sin realizar ningún otro análisis adicional",
-      "Sumando las TIR de ambos proyectos y comparando el resultado con la tasa de descuento",
-      "Ignorando la TIR por completo y usando solo el período de recuperación de la inversión"
+      "Eligiendo siempre el proyecto de menor inversión inicial, sin realizar en este caso ningún otro análisis adicional",
+      "Sumando las TIR individuales de ambos proyectos y comparando ese resultado contra la tasa de descuento",
+      "Ignorando por completo la TIR y usando en su lugar solo el período de recuperación de la inversión"
     ],
     "correcta": 0,
     "explicacion": "La TIR incremental evalúa si vale la pena la inversión adicional que implica elegir el proyecto más grande sobre el más pequeño, comparándola con la tasa de descuento relevante.",
@@ -167,9 +167,9 @@
     "pregunta": "Entre el criterio de TIR y el criterio de VAN, ¿cuál es más confiable para elegir entre proyectos mutuamente excluyentes de distinta escala o distinto patrón de flujos?",
     "alternativas": [
       "El VAN, porque mide directamente la creación de valor en unidades monetarias y no se distorsiona por diferencias de escala o de patrón temporal",
-      "La TIR, porque sus resultados siempre coinciden con la decisión del VAN, sin ninguna excepción",
-      "Ambos criterios son exactamente equivalentes en todos los casos posibles, sin ninguna excepción",
-      "Ninguno de los dos criterios sirve para evaluar proyectos mutuamente excluyentes de este tipo"
+      "La TIR, porque sus resultados siempre terminan coincidiendo con la decisión del VAN, sin ninguna excepción posible",
+      "Ambos criterios resultan exactamente equivalentes en todos los casos posibles, sin ninguna excepción real",
+      "Ninguno de los dos criterios disponibles sirve para evaluar proyectos mutuamente excluyentes de este tipo"
     ],
     "correcta": 0,
     "explicacion": "El VAN mide la creación de valor en términos absolutos y no depende de supuestos problemáticos como la escala del proyecto, por lo que es el criterio preferido al comparar proyectos mutuamente excluyentes.",
@@ -183,9 +183,9 @@
     "pregunta": "¿Qué problema surge al calcular la TIR de un proyecto cuyos flujos de caja cambian de signo más de una vez a lo largo de su vida?",
     "alternativas": [
       "Puede existir más de una tasa interna de retorno matemáticamente válida, lo que hace que no exista una regla de decisión única basada en la TIR",
-      "La TIR de ese proyecto siempre resultará igual a cero, sin importar cuáles sean los flujos de caja",
-      "El VAN del proyecto deja de poder calcularse correctamente en esos casos particulares",
-      "La TIR del proyecto se vuelve negativa de forma automática en todos esos casos"
+      "La TIR de ese proyecto siempre resultará igual a cero, sin importar cuáles sean sus flujos de caja reales",
+      "El VAN del proyecto deja por completo de poder calcularse de forma correcta en esos casos particulares",
+      "La TIR del proyecto se vuelve negativa de manera automática en absolutamente todos esos casos"
     ],
     "correcta": 0,
     "explicacion": "Cuando el signo de los flujos de caja cambia más de una vez, la ecuación del VAN igualado a cero puede tener múltiples soluciones válidas, generando ambigüedad en la regla de decisión de la TIR.",
@@ -199,9 +199,9 @@
     "pregunta": "¿Es correcto afirmar que un inversionista en bonos se beneficia cuando suben las tasas de interés de mercado, porque esto aumentaría su riqueza final?",
     "alternativas": [
       "No, el tenedor de un bono se ve perjudicado por un alza de tasas, ya que el precio del instrumento que posee cae de valor",
-      "Sí, un alza de tasas siempre incrementa directamente el valor de mercado de un bono ya emitido",
-      "No, porque las tasas de interés de mercado no afectan en absoluto el precio de los bonos existentes",
-      "Sí, pero solo si el bono tiene tasa cupón variable en vez de fija"
+      "Sí, un alza de tasas de mercado siempre incrementa de forma directa el valor de un bono ya emitido",
+      "No, porque las tasas de interés de mercado no afectan en absoluto el precio de los bonos ya existentes",
+      "Sí, pero únicamente si el bono en cuestión tiene tasa cupón variable en vez de tasa cupón fija"
     ],
     "correcta": 0,
     "explicacion": "Cuando suben las tasas de mercado, el precio de los bonos ya emitidos (con cupón fijo) cae, porque sus flujos futuros se descuentan a una tasa mayor, perjudicando a quien ya los posee.",
@@ -215,9 +215,9 @@
     "pregunta": "¿Es siempre correcto afirmar que el costo de oportunidad del dinero viene dado exclusivamente por la tasa de interés de mercado?",
     "alternativas": [
       "No necesariamente: si existen oportunidades de inversión productivas, el costo de oportunidad puede ser mayor que la tasa de interés de mercado",
-      "Sí, el costo de oportunidad del dinero siempre es idéntico a la tasa de interés de mercado, sin excepciones",
-      "No, el costo de oportunidad del dinero nunca tiene relación con ninguna tasa de interés",
-      "Sí, pero solo quienes no tienen acceso al mercado de capitales pueden usar la tasa de interés como costo de oportunidad"
+      "Sí, el costo de oportunidad del dinero siempre resulta idéntico a la tasa de interés de mercado, sin excepción alguna",
+      "No, el costo de oportunidad del dinero nunca guarda relación con ninguna tasa de interés existente",
+      "Sí, pero solo para quienes no tienen acceso al mercado de capitales puede usarse la tasa de interés como costo de oportunidad"
     ],
     "correcta": 0,
     "explicacion": "En un mercado de capitales sin oportunidades de inversión adicionales, la tasa de interés es el costo de oportunidad del dinero; pero si existen proyectos de inversión más rentables disponibles, el costo de oportunidad relevante puede ser mayor.",
@@ -231,9 +231,9 @@
     "pregunta": "¿Qué elementos de una emisión de bonos afectan directamente su precio de mercado, según los factores discutidos en la valoración de instrumentos de renta fija?",
     "alternativas": [
       "El tipo de emisor y su clasificación de riesgo, la tasa cupón, el plazo al vencimiento y las cláusulas especiales (prepago, rescate, convertibilidad)",
-      "Únicamente el nombre comercial de la empresa emisora del bono, sin ningún otro factor técnico",
-      "Solo la fecha exacta del calendario en que se emitió el bono, sin ningún otro factor técnico relevante",
-      "Únicamente el volumen de acciones transadas por la empresa emisora en el último mes"
+      "Únicamente el nombre comercial de la empresa que emite el bono, sin ningún otro factor técnico de por medio en absoluto",
+      "Solo la fecha exacta del calendario en la que se emitió el bono, sin ningún otro factor técnico relevante ni adicional",
+      "Únicamente el volumen de acciones que transó la empresa emisora del bono durante todo el último mes calendario"
     ],
     "correcta": 0,
     "explicacion": "El precio de un bono depende de factores como la clasificación de riesgo del emisor, la tasa cupón ofrecida, el plazo y las cláusulas especiales que favorecen a una de las partes del contrato.",
@@ -247,9 +247,9 @@
     "pregunta": "Si una oferta consiste en pagar una cuota anual constante durante 10 años y luego recibir esa misma cuota como perpetuidad a partir del año 11, y se define que este es un trato \"justo\" (mismo valor presente en ambos lados), ¿cómo se determina la tasa de interés asociada al trato?",
     "alternativas": [
       "Igualando el valor presente de la anualidad que se paga con el de la perpetuidad que se recibe, y despejando la tasa que satisface esa igualdad",
-      "Sumando directamente los montos nominales pagados y recibidos, sin traerlos nunca a valor presente",
-      "Usando siempre la tasa de mercado vigente sin necesidad de ningún cálculo adicional",
-      "Dividiendo simplemente el número de años de pago por el número de años de la perpetuidad"
+      "Sumando de forma directa los montos nominales pagados y recibidos en el trato, sin traerlos nunca a valor presente",
+      "Usando siempre la tasa de mercado vigente en ese momento puntual, sin necesidad de ningún cálculo adicional propio",
+      "Dividiendo de forma simple el número de años de pago por el número total de años que dura la perpetuidad"
     ],
     "correcta": 0,
     "explicacion": "Un trato se considera justo cuando el valor presente de lo que se paga es igual al valor presente de lo que se recibe; igualando ambas expresiones se puede despejar la tasa de interés implícita del trato.",

@@ -23,9 +23,9 @@
     "pregunta": "¿Qué representa el Valor Actual Neto (VAN) de un proyecto?",
     "alternativas": [
       "La suma de los flujos futuros del proyecto llevados a valor presente, menos la inversión inicial",
-      "La suma de los flujos futuros sin descontar, menos la inversión inicial",
-      "El promedio simple de los flujos anuales del proyecto",
-      "La tasa a la cual el proyecto genera exactamente cero utilidad"
+      "La suma de los flujos futuros del proyecto sin descontar, menos la inversión inicial requerida",
+      "El promedio simple de todos los flujos anuales que genera el proyecto",
+      "La tasa de descuento a la cual el proyecto genera exactamente cero utilidad"
     ],
     "correcta": 0,
     "explicacion": "VAN = −Ii + Σ Fi/(1+r)^i: se descuentan todos los flujos futuros a valor presente y se resta la inversión inicial.",
@@ -55,9 +55,9 @@
     "pregunta": "¿Qué representa la Tasa Interna de Retorno (TIR) de un proyecto?",
     "alternativas": [
       "La tasa de descuento a la cual el VAN del proyecto se hace exactamente cero",
-      "La tasa de interés que cobra el banco por financiar el proyecto",
-      "El promedio ponderado de todos los flujos del proyecto",
-      "La inflación esperada durante la vida del proyecto"
+      "La tasa de interés que cobra el banco por financiar el proyecto de inversión",
+      "El promedio ponderado de todos los flujos de caja del proyecto",
+      "La inflación esperada acumulada durante toda la vida del proyecto"
     ],
     "correcta": 0,
     "explicacion": "La TIR es la rentabilidad implícita del proyecto: es el valor de r que hace que el VAN sea igual a cero.",
@@ -87,9 +87,9 @@
     "pregunta": "¿Cuál es una limitación importante de la TIR mencionada en el material?",
     "alternativas": [
       "No sirve para evaluar y comparar proyectos que son excluyentes entre sí",
-      "Solo puede calcularse para proyectos con flujos únicamente positivos",
-      "Siempre entrega el mismo resultado numérico que el VAN",
-      "Es idéntica a la tasa de rendimiento contable del proyecto"
+      "Solo puede calcularse para proyectos con flujos de caja únicamente positivos",
+      "Siempre entrega el mismo resultado numérico que arroja el cálculo del VAN",
+      "Es idéntica en su cálculo a la tasa de rendimiento contable del proyecto"
     ],
     "correcta": 0,
     "explicacion": "Además de comportarse mal cuando hay flujos negativos intermedios, la TIR no es un buen criterio para comparar proyectos mutuamente excluyentes.",
@@ -103,9 +103,9 @@
     "pregunta": "¿Para qué se utiliza la TIR modificada?",
     "alternativas": [
       "Para corregir el cálculo de la TIR cuando el proyecto tiene flujos negativos intermedios que la hacen \"mal comportada\"",
-      "Para calcular la TIR de proyectos que no tienen ningún flujo negativo",
-      "Para reemplazar por completo al VAN en la evaluación de proyectos",
-      "Para ajustar la TIR por la inflación esperada del período"
+      "Para calcular la TIR de proyectos que no tienen ningún flujo de caja negativo en toda su vida útil",
+      "Para reemplazar por completo al VAN como criterio único de evaluación financiera de todo proyecto",
+      "Para ajustar el resultado final de la TIR por la inflación esperada durante todo el período"
     ],
     "correcta": 0,
     "explicacion": "Cuando hay flujos negativos intermedios, la TIR puede entregar resultados erróneos o múltiples valores; la TIR modificada corrige ese problema.",
@@ -119,9 +119,9 @@
     "pregunta": "El Período de Recuperación Descontado es una herramienta que...",
     "alternativas": [
       "Prefiere el proyecto que recupera primero la inversión inicial, usando flujos descontados a valor presente",
-      "Reemplaza completamente al criterio del VAN en la evaluación de proyectos",
-      "Solo se aplica a proyectos que tienen una TIR negativa",
-      "Mide la rentabilidad total del proyecto durante toda su vida útil"
+      "Reemplaza por completo al criterio del VAN en toda la evaluación de proyectos de inversión",
+      "Solo se aplica a proyectos que presentan una Tasa Interna de Retorno negativa en su cálculo",
+      "Mide la rentabilidad total y acumulada del proyecto durante toda su vida útil completa"
     ],
     "correcta": 0,
     "explicacion": "Es complementario al VAN, no funciona por sí solo, resulta útil cuando dos proyectos tienen el mismo VAN y se valora recuperar la inversión más rápido.",
@@ -135,9 +135,9 @@
     "pregunta": "¿Cuál es la diferencia entre el Período de Recuperación simple y el Período de Recuperación Descontado?",
     "alternativas": [
       "El simple no descuenta los flujos por la tasa de interés; el descontado sí los lleva a valor presente antes de sumarlos",
-      "El simple solo aplica a proyectos de financiamiento, el descontado a proyectos de inversión",
-      "No existe ninguna diferencia real entre ambos criterios",
-      "El descontado ignora por completo la inversión inicial del proyecto"
+      "El simple solo aplica a proyectos de financiamiento, y el descontado solo a proyectos de inversión pura",
+      "No existe ninguna diferencia real entre ambos criterios de recuperación de la inversión",
+      "El período descontado ignora por completo la inversión inicial del proyecto evaluado"
     ],
     "correcta": 0,
     "explicacion": "El período de recuperación simple suma los flujos futuros sin descontar hasta igualar la inversión inicial; el descontado primero lleva cada flujo a valor presente.",
@@ -151,9 +151,9 @@
     "pregunta": "Si el Índice de Rentabilidad (IR) de un proyecto es mayor a 1, ¿qué implica esto?",
     "alternativas": [
       "Que el VAN del proyecto es mayor a 0, por lo tanto conviene realizarlo",
-      "Que el proyecto tiene una TIR negativa",
-      "Que la inversión inicial es mayor que los flujos futuros generados",
-      "Que el proyecto es de financiamiento y no de inversión"
+      "Que el proyecto evaluado tiene una Tasa Interna de Retorno negativa",
+      "Que la inversión inicial es mayor que los flujos futuros que genera",
+      "Que el proyecto es de financiamiento puro y no de inversión real"
     ],
     "correcta": 0,
     "explicacion": "IR = (VAN + Ii) / Ii. Si IR > 1, necesariamente el VAN es positivo, confirmando que el proyecto conviene.",
@@ -167,9 +167,9 @@
     "pregunta": "En el modelo CAPM (Capital Asset Pricing Model), ¿qué representa el coeficiente Beta (β) de un activo?",
     "alternativas": [
       "El riesgo sistemático del activo, es decir, su sensibilidad a los movimientos del mercado",
-      "El riesgo total del activo, incluyendo la parte diversificable",
-      "La rentabilidad esperada del activo en términos absolutos",
-      "El costo de oportunidad de mantener el activo en cartera"
+      "El riesgo total del activo, incluyendo la parte diversificable de ese riesgo",
+      "La rentabilidad esperada del activo expresada en términos absolutos",
+      "El costo de oportunidad de mantener ese activo dentro de una cartera"
     ],
     "correcta": 0,
     "explicacion": "El beta mide únicamente el riesgo sistemático (no diversificable) del activo respecto al portafolio de mercado.",
@@ -183,9 +183,9 @@
     "pregunta": "Si el Beta de un activo es mayor a 1, ¿cómo se comporta respecto al mercado?",
     "alternativas": [
       "Se mueve con mayor intensidad que el mercado, en la misma dirección",
-      "Se mueve con menor intensidad que el mercado, en dirección opuesta",
-      "No tiene ninguna relación con los movimientos del mercado",
-      "Se mueve exactamente igual que el mercado en todo momento"
+      "Se mueve con menor intensidad que el mercado, en dirección opuesta a este",
+      "No tiene ninguna relación con los movimientos generales del mercado",
+      "Se mueve exactamente igual que el mercado en todo momento del tiempo"
     ],
     "correcta": 0,
     "explicacion": "Un beta mayor a 1 indica que el activo amplifica los movimientos del mercado, siempre en la misma dirección que este.",
@@ -199,9 +199,9 @@
     "pregunta": "¿Qué es la diversificación en un portafolio de inversión?",
     "alternativas": [
       "Invertir en varios activos en vez de uno solo, con el fin de reducir el riesgo total",
-      "Concentrar toda la inversión en el activo de mayor rentabilidad esperada",
-      "Vender todos los activos de renta variable y comprar solo bonos",
-      "Invertir exclusivamente en activos libres de riesgo"
+      "Concentrar toda la inversión disponible en el activo de mayor rentabilidad esperada",
+      "Vender todos los activos de renta variable de la cartera y comprar solo bonos",
+      "Invertir la totalidad de los fondos exclusivamente en activos libres de riesgo"
     ],
     "correcta": 0,
     "explicacion": "Al combinar varios activos, se reduce la exposición al riesgo específico de cualquiera de ellos por separado.",
@@ -215,9 +215,9 @@
     "pregunta": "¿Cuál es la diferencia entre riesgo sistemático y riesgo no sistemático?",
     "alternativas": [
       "El sistemático no se puede eliminar diversificando; el no sistemático sí disminuye al agregar más activos",
-      "El sistemático solo afecta a los bonos, el no sistemático solo a las acciones",
-      "Ambos se eliminan completamente al diversificar el portafolio",
-      "El riesgo no sistemático es siempre mayor que el sistemático"
+      "El riesgo sistemático solo afecta a los bonos, y el no sistemático solo a las acciones",
+      "Ambos tipos de riesgo se eliminan por completo al diversificar el portafolio",
+      "El riesgo no sistemático de un activo es siempre mayor que el sistemático"
     ],
     "correcta": 0,
     "explicacion": "El riesgo sistemático (de mercado, país, economía) persiste sin importar cuánto se diversifique; el no sistemático se reduce agregando activos poco correlacionados.",
@@ -231,9 +231,9 @@
     "pregunta": "Si la covarianza entre dos activos es negativa, ¿qué implica esto para un portafolio que combine ambos?",
     "alternativas": [
       "Que se mueven en direcciones opuestas, lo que permite reducir el riesgo del portafolio al combinarlos",
-      "Que ambos activos tienen exactamente la misma rentabilidad esperada",
-      "Que no existe ninguna relación entre los dos activos",
-      "Que ambos activos deben excluirse del portafolio de mercado"
+      "Que ambos activos tienen exactamente la misma rentabilidad esperada en el tiempo",
+      "Que no existe ninguna relación estadística entre el comportamiento de los dos activos",
+      "Que ambos activos deben excluirse por completo del portafolio de mercado"
     ],
     "correcta": 0,
     "explicacion": "Una covarianza negativa significa que cuando uno sube el otro tiende a bajar, lo que ayuda a diversificar el riesgo del portafolio combinado.",
@@ -279,9 +279,9 @@
     "pregunta": "¿Qué mide el Ratio de Sharpe?",
     "alternativas": [
       "La relación entre la rentabilidad de un activo o portafolio y su riesgo (volatilidad)",
-      "Solo la rentabilidad absoluta de un activo, sin considerar su riesgo",
-      "El riesgo sistemático de un portafolio, sin considerar su rentabilidad",
-      "La tasa libre de riesgo vigente en el mercado"
+      "Solo la rentabilidad absoluta de un activo, sin considerar en absoluto su riesgo",
+      "El riesgo sistemático de un portafolio, sin considerar de ningún modo su rentabilidad",
+      "La tasa libre de riesgo vigente en el mercado en un momento determinado"
     ],
     "correcta": 0,
     "explicacion": "A mayor Ratio de Sharpe, mejor es la relación entre el retorno obtenido y el riesgo asumido para conseguirlo.",
@@ -311,9 +311,9 @@
     "pregunta": "¿Qué caracteriza a la eficiencia semi-fuerte de un mercado financiero?",
     "alternativas": [
       "Los precios reflejan tanto la información pasada como el análisis de la información pública actual",
-      "Los precios solo reflejan la información pasada del activo",
-      "Los precios incorporan también la información privada o privilegiada",
-      "El mercado no incorpora ninguna información en los precios"
+      "Los precios de los activos reflejan únicamente la información pasada de ese activo",
+      "Los precios del mercado incorporan también la información privada o privilegiada",
+      "El mercado financiero no incorpora ninguna información relevante en sus precios"
     ],
     "correcta": 0,
     "explicacion": "La eficiencia semi-fuerte va más allá de la débil (solo información pasada) al incorporar el análisis público actual, pero no llega a la eficiencia fuerte, que incluiría información privilegiada.",

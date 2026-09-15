@@ -7,9 +7,9 @@
     "pregunta": "¿Qué efecto tiene la existencia de mercados de capitales sobre una economía?",
     "alternativas": [
       "Mejora la asignación de recursos entre presente y futuro, aumentando el bienestar general",
-      "No tiene ningún efecto sobre la asignación de recursos de la economía",
-      "Solo beneficia a los agentes económicos con más riqueza inicial",
-      "Reduce el bienestar general al introducir riesgo financiero innecesario"
+      "No tiene ningún efecto real sobre la asignación de recursos dentro de la economía",
+      "Solo beneficia a los agentes económicos que cuentan con más riqueza inicial",
+      "Reduce el bienestar general de la economía al introducir riesgo financiero innecesario"
     ],
     "correcta": 0,
     "explicacion": "Los mercados de capitales permiten prestar y pedir prestado según las preferencias de consumo presente/futuro de cada individuo, alcanzando un equilibrio Pareto superior al de una economía sin ellos.",
@@ -23,9 +23,9 @@
     "pregunta": "¿A qué se refiere realmente el riesgo de mercado (o riesgo de tasa de interés) de un bono?",
     "alternativas": [
       "A que la tasa de descuento del bono fluctúe en el mercado, afectando su precio (si sube la tasa, el precio baja)",
-      "A que el emisor pueda cambiar unilateralmente la tasa cupón del bono ya emitido",
-      "A que el bono pierda su clasificación de riesgo crediticio otorgada al momento de emitirse",
-      "A que el emisor no pague el cupón exactamente en la fecha pactada"
+      "A que el emisor pueda cambiar unilateralmente la tasa cupón de un bono que ya fue emitido",
+      "A que el bono pierda la clasificación de riesgo crediticio que se le otorgó al momento de emitirse",
+      "A que el emisor no pague el cupón del bono exactamente en la fecha que fue pactada"
     ],
     "correcta": 0,
     "explicacion": "El riesgo de tasa de interés surge de que la tasa de descuento del mercado cambie, moviendo el precio del bono en sentido inverso, no tiene relación con la tasa cupón, que es fija.",
@@ -55,9 +55,9 @@
     "pregunta": "¿Es correcto afirmar que una curva de tasas de interés con pendiente positiva se explica ÚNICAMENTE por la existencia de un premio por liquidez?",
     "alternativas": [
       "No, también existen la teoría de las expectativas y la teoría de segmentación de mercado como explicaciones posibles",
-      "Sí, el premio por liquidez es la única explicación teórica aceptada para este fenómeno",
-      "No, la pendiente positiva de la curva no tiene ninguna explicación teórica conocida",
-      "Sí, pero esta explicación solo aplica a los bonos emitidos por gobiernos"
+      "Sí, el premio por liquidez es la única explicación teórica aceptada para explicar este fenómeno",
+      "No, la pendiente positiva de la curva de tasas no tiene ninguna explicación teórica conocida hasta hoy",
+      "Sí, pero esta explicación teórica solo aplica a los bonos que emiten los gobiernos soberanos"
     ],
     "correcta": 0,
     "explicacion": "Existen al menos tres teorías que explican la forma de la curva de tasas: preferencias por liquidez, expectativas, y segmentación de mercado, el premio por liquidez es solo una de ellas.",
@@ -71,9 +71,9 @@
     "pregunta": "¿Por qué una decisión de inversión basada únicamente en el criterio de período de recuperación puede no ser consistente con un proyecto de VAN positivo?",
     "alternativas": [
       "Porque ignora los flujos posteriores a recuperar la inversión y el valor del dinero en el tiempo, sesgando contra proyectos de largo plazo",
-      "Porque el período de recuperación siempre coincide exactamente con el resultado del VAN",
-      "Porque el período de recuperación solo puede usarse en proyectos financiados sin deuda",
-      "Porque el VAN nunca puede calcularse para un proyecto evaluado con período de recuperación"
+      "Porque el período de recuperación siempre coincide de forma exacta con el resultado que arroja el cálculo del VAN",
+      "Porque el período de recuperación solo puede usarse en proyectos que están financiados sin ningún tipo de deuda",
+      "Porque el VAN nunca puede calcularse para un proyecto que se evalúa con el criterio del período de recuperación"
     ],
     "correcta": 0,
     "explicacion": "Al no considerar los flujos que ocurren después de recuperar la inversión inicial, este criterio puede rechazar proyectos rentables de largo plazo o aceptar otros con VAN negativo.",
@@ -103,9 +103,9 @@
     "pregunta": "Al comparar dos alternativas de inversión con distinta estructura de flujos en el tiempo, ¿qué se debe hacer para determinar cuál genera un mayor monto futuro?",
     "alternativas": [
       "Llevar ambas alternativas al mismo punto en el tiempo (valor futuro o presente) usando las tasas correspondientes, y comparar los montos resultantes",
-      "Comparar directamente las tasas de interés nominales anunciadas de cada alternativa, sin más cálculos",
-      "Elegir siempre la alternativa que requiera la menor inversión inicial",
-      "Comparar solamente los flujos del primer año de cada alternativa"
+      "Comparar de forma directa las tasas de interés nominales anunciadas de cada alternativa, sin realizar más cálculos",
+      "Elegir siempre la alternativa que requiera la menor inversión inicial entre todas las disponibles",
+      "Comparar únicamente los flujos correspondientes al primer año de cada una de las alternativas"
     ],
     "correcta": 0,
     "explicacion": "Para comparar alternativas con flujos distintos en el tiempo, es necesario llevarlas a un punto común (valor presente o futuro) usando las tasas apropiadas para cada una antes de comparar montos.",

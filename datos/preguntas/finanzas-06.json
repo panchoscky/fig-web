@@ -39,9 +39,9 @@
     "pregunta": "Según la teoría de preferencia por liquidez, para que un inversionista averso al riesgo prefiera una estrategia de mediano plazo (comprar y renovar bonos cortos) en vez de un bono directo a largo plazo, ¿qué relación debe cumplirse entre la tasa spot esperada futura (2r3) y la tasa forward (2f3)?",
     "alternativas": [
       "La tasa spot esperada debe ser mayor que la tasa forward (2r3 > 2f3), como compensación por el riesgo adicional",
-      "Ambas tasas deben ser exactamente iguales entre sí bajo cualquier escenario",
-      "La tasa forward debe ser mayor que la tasa spot esperada futura, no al revés",
-      "No existe ninguna relación entre ambas tasas bajo esta teoría de preferencia"
+      "Ambas tasas deben ser exactamente iguales entre sí bajo cualquier escenario de mercado posible",
+      "La tasa forward debe ser mayor que la tasa spot esperada futura, exactamente al revés de lo anterior",
+      "No existe ninguna relación posible entre ambas tasas bajo esta teoría de preferencia por liquidez"
     ],
     "correcta": 0,
     "explicacion": "La estrategia indirecta (bonos cortos renovados) es más riesgosa que la directa a largo plazo, por lo que debe ofrecer un flujo esperado mayor para compensar ese riesgo adicional.",
@@ -55,9 +55,9 @@
     "pregunta": "¿Cuál de las siguientes es una limitación real del criterio TIR frente al criterio VAN?",
     "alternativas": [
       "Puede arrojar múltiples soluciones y no distingue bien entre proyectos de inversión y de financiamiento",
-      "No puede calcularse sin conocer previamente la tasa de descuento del proyecto",
-      "Siempre entrega exactamente el mismo resultado que el VAN",
-      "Solo puede aplicarse a proyectos que duran un único período"
+      "No puede calcularse sin conocer previamente la tasa de descuento exigida al proyecto",
+      "Siempre entrega exactamente el mismo resultado numérico que arroja el cálculo del VAN",
+      "Solo puede aplicarse a proyectos de inversión que duran un único período de tiempo"
     ],
     "correcta": 0,
     "explicacion": "Además del problema de múltiples TIR con flujos negativos intermedios, la TIR tiene problemas de escala y de timing al comparar proyectos mutuamente excluyentes.",
@@ -71,9 +71,9 @@
     "pregunta": "Aunque la TIR se calcula solo con la información propia de un proyecto, ¿por qué no es más \"autosuficiente\" que el VAN para tomar una decisión de inversión?",
     "alternativas": [
       "Porque igual se necesita comparar la TIR obtenida contra la tasa de descuento apropiada para poder decidir",
-      "Porque el VAN tampoco necesita ninguna tasa de descuento externa para calcularse",
-      "Porque la TIR nunca puede calcularse matemáticamente para ningún proyecto",
-      "Porque el VAN siempre requiere más información que la TIR para calcularse"
+      "Porque el VAN tampoco necesita ninguna tasa de descuento externa para poder calcularse",
+      "Porque la TIR nunca puede calcularse matemáticamente para ningún proyecto de inversión",
+      "Porque el VAN siempre requiere bastante más información que la TIR para poder calcularse"
     ],
     "correcta": 0,
     "explicacion": "Calcular la TIR es solo la mitad del trabajo: sin compararla contra la tasa de descuento apropiada del proyecto, no es posible tomar una decisión de aceptar o rechazar.",
@@ -103,9 +103,9 @@
     "pregunta": "En un bono Tipo Francés, ¿por qué el saldo insoluto (valor par pendiente de amortizar) cambia con el tiempo, aunque la cuota que se paga sea siempre la misma?",
     "alternativas": [
       "Porque cada cuota combina intereses y amortización, y la proporción de amortización de capital crece a medida que se acerca el vencimiento",
-      "Porque la tasa cupón del bono cambia cada trimestre siguiendo las condiciones del mercado",
-      "Porque el monto de la cuota que se paga disminuye progresivamente a medida que pasa el tiempo",
-      "Porque el valor nominal del bono se recalcula automáticamente cada año según la inflación"
+      "Porque la tasa cupón del bono cambia cada trimestre siguiendo las condiciones vigentes del mercado en ese momento",
+      "Porque el monto de la cuota que se paga cada período disminuye progresivamente a medida que va pasando el tiempo",
+      "Porque el valor nominal del bono se recalcula de forma automática cada año según la inflación acumulada"
     ],
     "correcta": 0,
     "explicacion": "En el sistema francés, la cuota total es constante, pero la parte que corresponde a intereses disminuye mientras la de amortización de capital aumenta a medida que avanza el plazo.",

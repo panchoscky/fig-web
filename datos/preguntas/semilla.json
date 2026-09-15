@@ -7,9 +7,9 @@
     "pregunta": "¿Qué mide el ratio precio/utilidad (P/E) de una acción?",
     "alternativas": [
       "Cuántas veces la utilidad por acción está contenida en el precio de la acción",
-      "El porcentaje de la utilidad que se reparte como dividendo",
-      "La deuda de la empresa respecto de su patrimonio",
-      "El retorno esperado de la acción el próximo año"
+      "El porcentaje de la utilidad que la empresa reparte como dividendo a sus accionistas",
+      "El nivel de deuda de la empresa respecto de su patrimonio contable total",
+      "El retorno esperado que tendrá la acción durante el próximo año calendario"
     ],
     "correcta": 0,
     "explicacion": "El P/E divide el precio de la acción por la utilidad por acción (EPS): indica cuántos años de utilidades 'pagas' al precio actual. Un P/E alto suele reflejar expectativas de crecimiento, no una promesa de retorno.",
@@ -22,10 +22,10 @@
     "dificultad": 1,
     "pregunta": "La diversificación de un portafolio reduce principalmente…",
     "alternativas": [
-      "El riesgo idiosincrático (propio de cada empresa)",
-      "El riesgo de mercado (sistemático)",
-      "Los costos de transacción",
-      "La carga tributaria de las ganancias"
+      "El riesgo idiosincrático, propio de cada empresa individual dentro del portafolio",
+      "El riesgo de mercado (sistemático) que afecta a todos los activos por igual",
+      "Los costos de transacción asociados a comprar y vender activos financieros",
+      "La carga tributaria que se paga sobre las ganancias obtenidas en el portafolio"
     ],
     "correcta": 0,
     "explicacion": "Combinando activos poco correlacionados se diluye el riesgo específico de cada empresa. El riesgo sistemático, el del mercado completo, no se elimina diversificando; ese se gestiona con asignación de activos y cobertura.",
@@ -38,10 +38,10 @@
     "dificultad": 2,
     "pregunta": "En el Torneo Portafolio de FIG las carteras se miden contra el iShares MSCI ACWI. ¿Qué rol cumple ese índice?",
     "alternativas": [
-      "Es el benchmark: la vara contra la que se compara el desempeño",
-      "Es el activo libre de riesgo del modelo",
-      "Es el único ETF en que se puede invertir",
-      "Define el monto inicial de cada cartera"
+      "Es el benchmark: la vara de medida contra la que se compara el desempeño de cada cartera",
+      "Es el activo libre de riesgo que se usa dentro del modelo de evaluación del torneo",
+      "Es el único ETF en el que está permitido invertir dentro del torneo",
+      "Define el monto inicial en dólares con el que arranca cada cartera participante"
     ],
     "correcta": 0,
     "explicacion": "Un benchmark es el punto de comparación: ganarle al ACWI significa generar retorno por sobre el mercado global accesible. Métricas como el information ratio miden precisamente ese exceso ajustado por riesgo.",
@@ -70,10 +70,10 @@
     "dificultad": 2,
     "pregunta": "¿Qué mide la duración (duration) de un bono?",
     "alternativas": [
-      "La sensibilidad del precio del bono ante cambios en la tasa de interés",
-      "Los años que faltan exactos hasta el vencimiento",
-      "La probabilidad de que el emisor no pague",
-      "El monto total de cupones que quedan por cobrar"
+      "La sensibilidad del precio del bono ante cambios en la tasa de interés de mercado",
+      "Los años exactos que faltan hasta la fecha de vencimiento del bono",
+      "La probabilidad de que el emisor del bono no cumpla con el pago pactado",
+      "El monto total de los cupones que todavía quedan por cobrar del bono"
     ],
     "correcta": 0,
     "explicacion": "La duración aproxima cuánto cae (o sube) el precio ante un alza (o baja) de 1% en la tasa. No es lo mismo que el plazo al vencimiento, aunque se mida en años: un bono con cupones altos tiene duración menor que su plazo.",
@@ -86,10 +86,10 @@
     "dificultad": 2,
     "pregunta": "Un bono cupón cero se caracteriza por…",
     "alternativas": [
-      "No pagar cupones: se compra con descuento y paga todo al vencimiento",
-      "Pagar cupones solo si la empresa tiene utilidades",
-      "Tener tasa de interés igual a cero",
-      "No tener fecha de vencimiento"
+      "No pagar cupones periódicos: se compra con descuento y paga todo junto al vencimiento",
+      "Pagar cupones únicamente en los años en que la empresa emisora tiene utilidades",
+      "Tener una tasa de interés cupón igual a cero por definición del instrumento",
+      "No tener ninguna fecha de vencimiento fijada en el contrato de emisión"
     ],
     "correcta": 0,
     "explicacion": "El cupón cero se vende bajo su valor nominal y la ganancia del inversionista es la diferencia al vencimiento. Que no pague cupones no significa tasa cero: la rentabilidad está implícita en el descuento.",
@@ -102,10 +102,10 @@
     "dificultad": 1,
     "pregunta": "¿Qué mide el IPC (Índice de Precios al Consumidor)?",
     "alternativas": [
-      "La variación del precio de una canasta representativa de consumo",
-      "El precio de las acciones de las empresas de consumo",
-      "El crecimiento del producto interno bruto",
-      "El tipo de cambio del dólar"
+      "La variación del precio de una canasta representativa de bienes y servicios de consumo",
+      "El precio promedio de las acciones de las empresas del sector consumo en bolsa",
+      "El crecimiento porcentual del producto interno bruto durante el período medido",
+      "El tipo de cambio del dólar frente a la moneda local en un momento dado"
     ],
     "correcta": 0,
     "explicacion": "El IPC sigue el costo de una canasta de bienes y servicios de los hogares; su variación porcentual es la medida estándar de inflación. Por eso los bancos centrales lo miran para decidir la tasa de política monetaria.",
@@ -135,9 +135,9 @@
     "pregunta": "El PIB de un país corresponde a…",
     "alternativas": [
       "El valor de los bienes y servicios finales producidos dentro del país en un período",
-      "La suma de todo el dinero que circula en la economía",
-      "Los ingresos del Estado por impuestos",
-      "El valor de las exportaciones menos las importaciones"
+      "La suma de todo el dinero que circula en la economía durante ese mismo período",
+      "Los ingresos que recibe el Estado por concepto de impuestos durante el año",
+      "El valor de las exportaciones del país menos el valor de sus importaciones"
     ],
     "correcta": 0,
     "explicacion": "El PIB mide producción final dentro de las fronteras en un período dado. Las exportaciones netas son solo uno de sus componentes (junto a consumo, inversión y gasto de gobierno).",
@@ -166,10 +166,10 @@
     "dificultad": 2,
     "pregunta": "La burbuja 'puntocom' que reventó en el año 2000 se caracterizó por…",
     "alternativas": [
-      "Valorizaciones extremas de empresas de internet sin utilidades",
-      "El colapso del precio del petróleo",
-      "Una crisis de deuda soberana europea",
-      "La quiebra masiva de bancos hipotecarios"
+      "Valorizaciones extremas de empresas de internet que todavía no generaban utilidades",
+      "El colapso sostenido del precio internacional del petróleo durante esos años",
+      "Una crisis de deuda soberana concentrada en varios países de Europa",
+      "La quiebra masiva y simultánea de bancos hipotecarios en Estados Unidos"
     ],
     "correcta": 0,
     "explicacion": "A fines de los 90 bastaba un '.com' para levantar capital; muchas empresas cotizaban a múltiplos absurdos sin generar caja. El Nasdaq cayó cerca de un 78% desde su peak, recordatorio de que el precio necesita utilidades detrás.",
@@ -182,10 +182,10 @@
     "dificultad": 2,
     "pregunta": "La quiebra de Lehman Brothers en septiembre de 2008 fue un hito de…",
     "alternativas": [
-      "La crisis financiera global originada en las hipotecas subprime",
-      "La crisis asiática de 1997",
-      "El lunes negro de 1987",
-      "La crisis de la deuda latinoamericana de los 80"
+      "La crisis financiera global originada en las hipotecas subprime de Estados Unidos",
+      "La crisis asiática de 1997, que afectó a varias economías emergentes del continente",
+      "El lunes negro bursátil de 1987, con una caída histórica en un solo día",
+      "La crisis de la deuda externa latinoamericana ocurrida durante la década de los 80"
     ],
     "correcta": 0,
     "explicacion": "Lehman cayó cargada de activos ligados a hipotecas de alto riesgo y su quiebra congeló el crédito mundial. La lección para el inversionista: el riesgo de contraparte y el apalancamiento importan incluso en los gigantes.",
