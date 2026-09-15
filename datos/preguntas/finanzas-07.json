@@ -7,9 +7,9 @@
     "pregunta": "Según el análisis de LAN, ¿por qué \"más liquidez implica menor rentabilidad\" en una empresa?",
     "alternativas": [
       "Porque mantener más activos líquidos (menos riesgosos) implica tener menos activos fijos, que son los que generan mayor flujo operacional",
-      "Porque los activos líquidos siempre generan pérdidas contables para la empresa",
-      "Porque la liquidez aumenta automáticamente el pasivo total de la empresa",
-      "Porque no existe relación real entre liquidez y rentabilidad"
+      "Porque los activos líquidos siempre generan pérdidas contables directas para la empresa",
+      "Porque la liquidez aumenta de forma automática el pasivo total de la empresa",
+      "Porque no existe ninguna relación real entre la liquidez y la rentabilidad de una empresa"
     ],
     "correcta": 0,
     "explicacion": "Existe un trade-off: los activos líquidos son más seguros pero generan menos flujo, mientras que los activos fijos (más riesgosos) son los que generan mayor rentabilidad operacional.",
@@ -199,9 +199,9 @@
     "pregunta": "La frase \"Una empresa LAN más otra empresa TAM es igual a media empresa LATAM\", usada al analizar esta fusión, ilustra qué idea?",
     "alternativas": [
       "Que combinar dos empresas no garantiza que el resultado conjunto sea mejor; en este caso los indicadores financieros empeoraron pese al aumento de ventas",
-      "Que LATAM terminó siendo una empresa más grande y rentable que LAN y TAM por separado",
-      "Que la fusión no tuvo ningún efecto sobre los estados financieros de la empresa",
-      "Que TAM absorbió por completo las operaciones y la marca de LAN"
+      "Que LATAM terminó siendo una empresa más grande y rentable que LAN y TAM por separado, mejorando todos sus indicadores",
+      "Que la fusión no tuvo absolutamente ningún efecto sobre los estados financieros consolidados de la empresa",
+      "Que TAM absorbió por completo las operaciones, la marca y la administración de LAN tras la fusión"
     ],
     "correcta": 0,
     "explicacion": "La frase resume que el aumento de tamaño (ventas) no se tradujo en mejores resultados, sino en un deterioro de la rentabilidad y la cobertura de intereses.",

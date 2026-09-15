@@ -87,7 +87,7 @@
     "pregunta": "¿Bajo qué condición específica la tasa forward implícita en la curva de tasas es exactamente igual a la tasa spot que el mercado espera que rija en el futuro?",
     "alternativas": [
       "Cuando los inversionistas son neutros al riesgo, ya que en ese caso no exigen ningún premio adicional por incertidumbre sobre tasas futuras",
-      "Siempre, sin importar las preferencias de riesgo de los inversionistas del mercado",
+      "Siempre, sin importar cuáles sean las preferencias de riesgo de los inversionistas del mercado",
       "Solo cuando la inflación esperada es igual a cero durante todo el horizonte de la curva",
       "Nunca, la tasa forward jamás coincide con la tasa spot esperada bajo ninguna condición"
     ],

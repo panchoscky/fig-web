@@ -7,8 +7,8 @@
     "pregunta": "Si la razón corriente (activo circulante / pasivo circulante) de una empresa es notoriamente más baja que el estándar de su industria, pero es una empresa de servicios sin grandes inventarios, ¿qué conclusión es más prudente?",
     "alternativas": [
       "El indicador puede ser adecuado según el negocio, pero debe compararse contra empresas comparables de la industria antes de concluir problemas de liquidez",
-      "Se puede concluir de inmediato que la empresa está en quiebra técnica sin más análisis",
-      "El indicador siempre es irrelevante para cualquier tipo de empresa, sea de servicios o industrial",
+      "Se puede concluir de inmediato que la empresa está en quiebra técnica, sin más análisis adicional",
+      "El indicador siempre es irrelevante para cualquier tipo de empresa, sea de servicios, comercial o industrial",
       "Una razón corriente baja siempre significa que la empresa administra mal sus cuentas por cobrar"
     ],
     "correcta": 0,
@@ -23,7 +23,7 @@
     "pregunta": "Si el período promedio de cobro de una empresa es más del doble que el de su industria, ¿qué posibles causas se pueden inferir?",
     "alternativas": [
       "Fallas en la gestión de cobranza o una política de crédito muy amplia, aunque también podría ser una estrategia deliberada para impulsar ventas",
-      "Únicamente que la empresa tiene más efectivo disponible que su industria",
+      "Únicamente que la empresa cuenta con más efectivo disponible que el resto de las empresas de su industria",
       "Que la empresa necesariamente tiene menores costos operacionales que su industria",
       "Que el período de cobro no tiene relación alguna con la política comercial de la empresa"
     ],
@@ -55,9 +55,9 @@
     "pregunta": "Al revisar el Estado de Flujo de Efectivo (EFE), ¿cómo se puede determinar si una empresa tuvo capacidad para cumplir sus obligaciones por deuda?",
     "alternativas": [
       "Comparando las salidas por financiamiento contra el flujo operacional: si son menores, la operación financia la deuda; si son mayores, recurre a otras fuentes",
-      "Revisando únicamente el resultado neto del Estado de Resultados, sin considerar el EFE",
-      "Contando el número de páginas que ocupa el EFE en la memoria anual de la empresa",
-      "Solo es posible determinarlo revisando el balance general, el EFE no aporta información relevante"
+      "Revisando únicamente el resultado neto del Estado de Resultados, sin considerar para nada el EFE",
+      "Contando el número exacto de páginas que ocupa el EFE dentro de la memoria anual de la empresa",
+      "Solo es posible determinarlo revisando el balance general de la empresa, ya que el EFE no aporta información relevante"
     ],
     "correcta": 0,
     "explicacion": "El EFE permite ver si las salidas por financiamiento (pago de deuda) están siendo cubiertas por el flujo operacional positivo, o si la empresa depende de nuevas fuentes de financiamiento o desinversión para cumplir sus obligaciones.",
@@ -72,8 +72,8 @@
     "alternativas": [
       "No necesariamente: depende del vencimiento de su deuda y de los plazos en que sus cuentas por cobrar e inventarios se conviertan en efectivo",
       "Sí, un flujo operacional negativo siempre implica una quiebra inminente de la empresa",
-      "No, porque el flujo operacional negativo nunca afecta la capacidad de pago de una empresa",
-      "Sí, pero solo en empresas que no cotizan en bolsa"
+      "No, porque el flujo operacional negativo nunca afecta en nada la capacidad de pago de una empresa",
+      "Sí, pero eso ocurre solamente en el caso de empresas que no cotizan en bolsa"
     ],
     "correcta": 0,
     "explicacion": "Un flujo operacional negativo no implica automáticamente iliquidez si los plazos de cobro y pago de la empresa le permiten sostener la situación temporalmente, aunque en el largo plazo se requiere generar recursos genuinos.",

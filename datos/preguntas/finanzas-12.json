@@ -151,7 +151,7 @@
     "pregunta": "¿Cómo se resuelve correctamente el problema de comparar dos proyectos mutuamente excluyentes de distinta escala usando el criterio de la TIR?",
     "alternativas": [
       "Calculando la TIR incremental sobre la diferencia de flujos entre ambos proyectos, y aceptando el grande si esa TIR supera la tasa de descuento",
-      "Eligiendo siempre el proyecto de menor inversión inicial, sin más análisis",
+      "Eligiendo siempre el proyecto de menor inversión inicial, sin realizar ningún otro análisis adicional",
       "Sumando las TIR de ambos proyectos y comparando el resultado con la tasa de descuento",
       "Ignorando la TIR por completo y usando solo el período de recuperación de la inversión"
     ],
@@ -183,9 +183,9 @@
     "pregunta": "¿Qué problema surge al calcular la TIR de un proyecto cuyos flujos de caja cambian de signo más de una vez a lo largo de su vida?",
     "alternativas": [
       "Puede existir más de una tasa interna de retorno matemáticamente válida, lo que hace que no exista una regla de decisión única basada en la TIR",
-      "La TIR de ese proyecto siempre será igual a cero, independientemente de los flujos",
-      "El VAN del proyecto deja de poder calcularse en esos casos",
-      "La TIR del proyecto se vuelve negativa automáticamente en todos los casos"
+      "La TIR de ese proyecto siempre resultará igual a cero, sin importar cuáles sean los flujos de caja",
+      "El VAN del proyecto deja de poder calcularse correctamente en esos casos particulares",
+      "La TIR del proyecto se vuelve negativa de forma automática en todos esos casos"
     ],
     "correcta": 0,
     "explicacion": "Cuando el signo de los flujos de caja cambia más de una vez, la ecuación del VAN igualado a cero puede tener múltiples soluciones válidas, generando ambigüedad en la regla de decisión de la TIR.",
@@ -231,8 +231,8 @@
     "pregunta": "¿Qué elementos de una emisión de bonos afectan directamente su precio de mercado, según los factores discutidos en la valoración de instrumentos de renta fija?",
     "alternativas": [
       "El tipo de emisor y su clasificación de riesgo, la tasa cupón, el plazo al vencimiento y las cláusulas especiales (prepago, rescate, convertibilidad)",
-      "Únicamente el nombre comercial de la empresa emisora del bono, sin otros factores técnicos",
-      "Solo la fecha exacta del calendario en que se emitió el bono, sin otros factores",
+      "Únicamente el nombre comercial de la empresa emisora del bono, sin ningún otro factor técnico",
+      "Solo la fecha exacta del calendario en que se emitió el bono, sin ningún otro factor técnico relevante",
       "Únicamente el volumen de acciones transadas por la empresa emisora en el último mes"
     ],
     "correcta": 0,
@@ -247,9 +247,9 @@
     "pregunta": "Si una oferta consiste en pagar una cuota anual constante durante 10 años y luego recibir esa misma cuota como perpetuidad a partir del año 11, y se define que este es un trato \"justo\" (mismo valor presente en ambos lados), ¿cómo se determina la tasa de interés asociada al trato?",
     "alternativas": [
       "Igualando el valor presente de la anualidad que se paga con el de la perpetuidad que se recibe, y despejando la tasa que satisface esa igualdad",
-      "Sumando directamente los montos nominales pagados y recibidos, sin traerlos a valor presente",
+      "Sumando directamente los montos nominales pagados y recibidos, sin traerlos nunca a valor presente",
       "Usando siempre la tasa de mercado vigente sin necesidad de ningún cálculo adicional",
-      "Dividiendo el número de años de pago por el número de años de la perpetuidad"
+      "Dividiendo simplemente el número de años de pago por el número de años de la perpetuidad"
     ],
     "correcta": 0,
     "explicacion": "Un trato se considera justo cuando el valor presente de lo que se paga es igual al valor presente de lo que se recibe; igualando ambas expresiones se puede despejar la tasa de interés implícita del trato.",

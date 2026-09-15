@@ -103,9 +103,9 @@
     "pregunta": "Aunque la riqueza de los accionistas originales sea la misma al financiar un proyecto con deuda o con emisión de nuevas acciones, ¿qué diferencia práctica sí existe entre ambas alternativas para los accionistas originales?",
     "alternativas": [
       "El control de la empresa: financiar con nuevas acciones diluye la propiedad de los accionistas originales, mientras financiar con deuda la mantiene intacta",
-      "No existe ninguna diferencia práctica relevante entre ambas alternativas de financiamiento",
-      "La emisión de acciones siempre elimina por completo el riesgo financiero de la empresa",
-      "El uso de deuda siempre elimina la posibilidad de que la empresa emita acciones en el futuro"
+      "No existe ninguna diferencia práctica relevante entre ambas alternativas de financiamiento disponibles",
+      "La emisión de nuevas acciones siempre elimina por completo el riesgo financiero de la empresa",
+      "El uso de deuda siempre elimina por completo la posibilidad de que la empresa emita acciones en el futuro"
     ],
     "correcta": 0,
     "explicacion": "Aunque la riqueza total no cambie bajo mercado de capitales perfecto, emitir nuevas acciones reduce el porcentaje de propiedad y control de los accionistas originales, mientras que financiarse con deuda preserva ese control.",

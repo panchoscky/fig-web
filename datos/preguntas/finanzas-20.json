@@ -7,8 +7,8 @@
     "pregunta": "Si existe un activo libre de riesgo disponible, ¿es óptimo para un inversionista averso al riesgo invertir en el portafolio de mínima varianza de activos riesgosos?",
     "alternativas": [
       "No, ese portafolio está dominado por combinaciones en la Línea de Mercado de Capitales (libre de riesgo + portafolio tangente), que rinden más para igual riesgo",
-      "Sí, el portafolio de mínima varianza siempre es la mejor opción para cualquier inversionista averso al riesgo",
-      "Sí, pero solo si el inversionista tiene una aversión al riesgo extremadamente alta",
+      "Sí, el portafolio de mínima varianza siempre es la mejor opción posible para cualquier tipo de inversionista averso al riesgo",
+      "Sí, pero eso solo ocurre si el inversionista tiene una aversión al riesgo extremadamente alta",
       "No, porque el portafolio de mínima varianza nunca puede construirse cuando existe un activo libre de riesgo"
     ],
     "correcta": 0,
@@ -103,9 +103,9 @@
     "pregunta": "¿Por qué se considera que el portafolio de mercado es un portafolio eficiente?",
     "alternativas": [
       "Porque está compuesto por todos los activos disponibles en la economía (acciones, bonos, bienes raíces, etc.), siendo la cartera más diversificada posible",
-      "Porque contiene únicamente las acciones que se ubican sobre la frontera eficiente de Markowitz",
-      "Porque el portafolio de mercado nunca cambia de composición en el tiempo",
-      "Porque excluye deliberadamente los activos de renta fija para minimizar el riesgo"
+      "Porque contiene únicamente las acciones que se ubican exactamente sobre la frontera eficiente de Markowitz",
+      "Porque el portafolio de mercado nunca cambia de composición a lo largo del tiempo",
+      "Porque excluye deliberadamente todos los activos de renta fija para minimizar el riesgo total"
     ],
     "correcta": 0,
     "explicacion": "El portafolio de mercado incluye todos los activos de la economía, no solo acciones, lo que lo convierte en la cartera más diversificada posible, eliminando todo el riesgo diversificable posible.",
@@ -135,7 +135,7 @@
     "pregunta": "Un banco calcula el VaR diario de su portafolio al 5% de significancia y, tras 1000 días, observa que sus pérdidas nunca superaron ese VaR. ¿Significa esto que el cálculo del VaR fue correcto?",
     "alternativas": [
       "No, un cálculo correcto debería haber sido superado aproximadamente 50 veces en 1000 días (5%); si nunca se superó, el VaR estuvo sobreestimado",
-      "Sí, que nunca se haya superado el VaR es la señal exacta de que el cálculo fue perfecto",
+      "Sí, que nunca se haya superado el VaR es la señal exacta de que el modelo fue calibrado a la perfección",
       "No, porque el VaR nunca debería calcularse con datos de más de 100 días de historia",
       "Sí, siempre que el banco haya usado el mismo nivel de significancia todos los días"
     ],
@@ -167,7 +167,7 @@
     "pregunta": "¿Cuál es uno de los principales beneficios de la diversificación según el modelo de Markowitz?",
     "alternativas": [
       "Permite alcanzar un nivel de riesgo del portafolio menor al que tendría el activo individual menos riesgoso, gracias al efecto de la covarianza entre activos",
-      "Elimina por completo cualquier tipo de riesgo, incluyendo el riesgo sistemático de mercado",
+      "Elimina por completo cualquier tipo de riesgo del portafolio, incluyendo por completo el riesgo sistemático de mercado",
       "Garantiza que el portafolio siempre tendrá un retorno esperado mayor que cualquier activo individual",
       "Solo reduce el riesgo si todos los activos del portafolio tienen exactamente el mismo retorno esperado"
     ],

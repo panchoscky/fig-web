@@ -39,9 +39,9 @@
     "pregunta": "¿Qué caracteriza al método de flujos al patrimonio (flujo de caja del accionista) para valorar una empresa, en comparación con el flujo de caja total (FCFF)?",
     "alternativas": [
       "Descuenta al costo patrimonial (kp) los flujos que quedan tras pagar intereses, amortizar deuda e impuestos, reflejando la perspectiva del accionista",
-      "Es una perspectiva 'total' de la empresa que ignora la estructura de financiamiento por completo",
-      "Se descuenta siempre al WACC, igual que el flujo de caja total",
-      "No incluye el pago de impuestos, ya que esos los asume directamente el Estado"
+      "Es una perspectiva 'total' de la empresa que ignora por completo la estructura de financiamiento de la empresa",
+      "Se descuenta siempre al WACC, exactamente igual que el flujo de caja total de la empresa",
+      "No incluye nunca el pago de impuestos, ya que esos los asume directamente el Estado"
     ],
     "correcta": 0,
     "explicacion": "El flujo al patrimonio (FCFE) es la caja que efectivamente le queda al accionista tras cubrir intereses, amortización de capital e impuestos; por representar su perspectiva, se descuenta a la tasa de costo patrimonial (kp), no al WACC.",

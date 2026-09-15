@@ -71,7 +71,7 @@
     "pregunta": "Si en el mercado los precios de una call y una put no cumplen la relación de paridad put-call, ¿qué se puede hacer?",
     "alternativas": [
       "Aprovechar una oportunidad de arbitraje comprando lo que está relativamente barato y vendiendo lo que está relativamente caro entre ambas opciones y el activo",
-      "No se puede hacer nada, ya que la paridad put-call es solo una aproximación teórica sin aplicación práctica",
+      "No se puede hacer nada, ya que la paridad put-call es solo una aproximación teórica sin ninguna aplicación práctica real",
       "Se debe esperar a que ambas opciones venzan sin ejercerlas, sin tomar ninguna posición adicional",
       "Solo se puede aprovechar la diferencia si se cuenta con información privilegiada sobre el activo"
     ],
@@ -119,9 +119,9 @@
     "pregunta": "¿Qué mide la \"delta\" de una opción y para qué se utiliza en la cobertura de una posición?",
     "alternativas": [
       "Mide cuánto varía el precio de la opción ante un cambio pequeño del subyacente; se usa para saber cuántas unidades comprar o vender para cubrir la posición",
-      "Mide el tiempo que falta para el vencimiento de la opción, sin relación con el precio del subyacente",
-      "Mide la tasa de interés libre de riesgo implícita en el precio de mercado de la opción",
-      "Mide únicamente la diferencia entre el precio de ejercicio y el precio spot del activo"
+      "Mide el tiempo que falta para el vencimiento de la opción, sin ninguna relación con el precio del activo subyacente",
+      "Mide la tasa de interés libre de riesgo que está implícita en el precio de mercado de la opción",
+      "Mide únicamente la diferencia entre el precio de ejercicio y el precio spot del activo subyacente"
     ],
     "correcta": 0,
     "explicacion": "La delta indica la sensibilidad del precio de la opción ante cambios en el subyacente; para cubrir una posición en opciones, se toma una posición en el subyacente proporcional a la delta multiplicada por la cantidad de opciones.",
@@ -135,9 +135,9 @@
     "pregunta": "Si un inversionista cubre una posición en opciones ajustando su posición en el activo subyacente según la delta, ¿por qué debe reajustar esa cobertura periódicamente?",
     "alternativas": [
       "Porque la delta cambia con el tiempo y con el precio del subyacente, por lo que la cobertura debe rebalancearse dinámicamente para mantenerse efectiva",
-      "Porque las opciones cambian su precio de ejercicio automáticamente cada cierto tiempo",
-      "Porque la tasa libre de riesgo cambia todos los días, invalidando la cobertura inicial",
-      "En realidad no es necesario reajustar nunca una cobertura delta una vez establecida"
+      "Porque las opciones cambian su precio de ejercicio de forma automática cada cierto tiempo fijo",
+      "Porque la tasa libre de riesgo cambia todos los días de forma significativa, invalidando la cobertura",
+      "En realidad no es necesario reajustar nunca una cobertura delta una vez que fue establecida"
     ],
     "correcta": 0,
     "explicacion": "La delta no es constante: varía a medida que cambia el precio del subyacente y se acerca el vencimiento, por lo que una cobertura delta debe ajustarse periódicamente (delta hedging dinámico) para seguir siendo efectiva.",
@@ -152,7 +152,7 @@
     "alternativas": [
       "Una estrategia de volatilidad como un straddle o strangle (posiciones largas en call y put), que gana si el precio se mueve fuerte en cualquier dirección",
       "Un bull spread, que es una estrategia direccional pensada para cuando se espera que el precio suba",
-      "Una posición corta simple en una opción call, sin combinarla con ninguna otra posición",
+      "Una posición corta simple en una sola opción call, sin combinarla jamás con ninguna otra posición de opciones adicional",
       "No existe ninguna estrategia con opciones que se beneficie de un aumento en la volatilidad"
     ],
     "correcta": 0,

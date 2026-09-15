@@ -183,9 +183,9 @@
     "pregunta": "¿Por qué alguien podría preferir comprar un contrato de futuros sobre un commodity en vez de comprar directamente el activo subyacente?",
     "alternativas": [
       "Los futuros permiten especular o cubrirse del riesgo de precio sin manejar el activo físico, y suelen ser más líquidos para entrar y salir de la posición",
-      "Comprar un futuro siempre es más barato que comprar el activo subyacente directamente, sin excepción",
+      "Comprar un futuro siempre es más barato que comprar el activo subyacente directamente, sin ninguna excepción posible",
       "Los futuros eliminan por completo cualquier tipo de riesgo asociado al precio del activo subyacente",
-      "No existe ninguna razón práctica para preferir un futuro sobre la compra directa del activo"
+      "No existe ninguna razón práctica real para preferir un futuro sobre la compra directa del activo"
     ],
     "correcta": 0,
     "explicacion": "Los futuros permiten tomar exposición al precio de un activo (para especular o cubrirse) sin necesidad de almacenarlo o transportarlo físicamente, y su mayor liquidez facilita entrar y salir de la posición cuantas veces se desee.",

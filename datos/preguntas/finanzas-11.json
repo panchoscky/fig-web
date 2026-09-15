@@ -40,8 +40,8 @@
     "alternativas": [
       "La paridad de Fisher: la tasa real efectiva se aproxima a la diferencia entre la tasa nominal y la tasa de inflación cuando ambas son pequeñas",
       "La tasa real siempre es igual a la tasa nominal, independiente de la inflación esperada",
-      "La tasa real se obtiene multiplicando la tasa nominal por la tasa de inflación",
-      "No existe relación entre la tasa nominal, la inflación y la tasa real"
+      "La tasa real se obtiene multiplicando directamente la tasa nominal por la tasa de inflación esperada",
+      "No existe ninguna relación matemática entre la tasa nominal, la inflación y la tasa real"
     ],
     "correcta": 0,
     "explicacion": "La paridad de Fisher relaciona tasa nominal, tasa real e inflación; cuando ambas tasas son pequeñas, la tasa real efectiva se aproxima bien restando la inflación a la tasa nominal.",
@@ -87,9 +87,9 @@
     "pregunta": "¿Por qué el gasto por intereses de la deuda no debe incluirse en el flujo de caja libre de un proyecto puro?",
     "alternativas": [
       "Porque el efecto del financiamiento se incorpora en la tasa de descuento (costo de capital), no directamente en los flujos operacionales del proyecto",
-      "Porque los intereses nunca son deducibles de impuestos en ningún país",
-      "Porque el gasto por intereses siempre es igual a cero en proyectos nuevos",
-      "Porque solo los proyectos financiados con capital propio generan flujo de caja libre"
+      "Porque los intereses de la deuda nunca son deducibles de impuestos en ningún país del mundo",
+      "Porque el gasto por intereses siempre resulta igual a cero en cualquier proyecto recién iniciado",
+      "Porque solo los proyectos financiados íntegramente con capital propio pueden generar flujo de caja libre"
     ],
     "correcta": 0,
     "explicacion": "Separar la decisión de inversión de la de financiamiento implica evaluar el proyecto con flujos operacionales puros, dejando que el efecto de la deuda se refleje en la tasa de descuento usada para actualizar esos flujos.",
@@ -135,9 +135,9 @@
     "pregunta": "Al usar el beta de una empresa comparable para estimar el costo de capital de un proyecto con distinta estructura de financiamiento, ¿qué procedimiento corresponde aplicar?",
     "alternativas": [
       "Desapalancar el beta de la comparable (aislando el riesgo operacional) y luego reapalancarlo según la estructura de deuda/patrimonio propia del proyecto",
-      "Usar directamente el beta apalancado de la comparable, sin ningún ajuste adicional",
-      "Promediar el beta de la comparable con el beta de mercado, sin considerar el apalancamiento",
-      "Ignorar el beta de la comparable y usar siempre un beta igual a 1 para cualquier proyecto"
+      "Usar directamente el beta apalancado de la empresa comparable, sin ningún ajuste adicional",
+      "Promediar el beta de la comparable con el beta de mercado, sin considerar en absoluto el apalancamiento",
+      "Ignorar el beta de la comparable y usar siempre un beta igual a 1 para cualquier proyecto nuevo"
     ],
     "correcta": 0,
     "explicacion": "El beta apalancado de una comparable refleja su propio riesgo financiero; para aplicarlo a un proyecto con otra estructura de capital, primero se desapalanca (beta operacional puro) y luego se reapalanca con el apalancamiento objetivo del proyecto.",

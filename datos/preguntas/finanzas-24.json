@@ -40,8 +40,8 @@
     "alternativas": [
       "Myers y Majluf proponen un orden de financiamiento (pecking order) ante la asimetría de información; Ross explica por qué la deuda señaliza buena calidad",
       "Myers y Majluf se basan en problemas de agencia, mientras Ross se basa en asimetría de información",
-      "Ambos modelos concluyen que el endeudamiento es irrelevante para el valor de la empresa",
-      "Myers y Majluf recomiendan financiarse siempre con acciones nuevas antes que con deuda"
+      "Ambos modelos concluyen, de igual forma, que el endeudamiento es irrelevante para el valor de la empresa",
+      "Myers y Majluf recomiendan financiarse siempre con acciones nuevas antes de recurrir a la deuda"
     ],
     "correcta": 0,
     "explicacion": "Ambos parten de la asimetría de información, no de problemas de agencia. Myers y Majluf recomiendan la jerarquía recursos propios → deuda segura → deuda riesgosa → acciones nuevas; Ross explica que las empresas de buena calidad usan altos niveles de deuda como señal creíble de su capacidad de pago.",
@@ -87,9 +87,9 @@
     "pregunta": "En el modelo de crecimiento constante a perpetuidad (modelo de Gordon), ¿es cierto que aumentar la tasa de retención de utilidades siempre conviene porque incrementa el valor de la empresa?",
     "alternativas": [
       "No: solo conviene si esos recursos retenidos se invierten en proyectos con VAN positivo (rentabilidad sobre la tasa de costo de oportunidad)",
-      "Sí, siempre, porque menos dividendos hoy implican mayor crecimiento futuro garantizado",
+      "Sí, siempre, porque menos dividendos hoy implican siempre y en todo caso mayor crecimiento futuro garantizado",
       "No, porque la tasa de retención no tiene ningún efecto sobre el valor de la empresa",
-      "Sí, pero únicamente si la empresa no paga impuestos corporativos"
+      "Sí, pero únicamente en el caso de que la empresa no pague impuestos corporativos"
     ],
     "correcta": 0,
     "explicacion": "Retener más utilidades reduce dividendos hoy a cambio de mayor crecimiento futuro, pero eso solo agrega valor si los recursos se destinan a proyectos con VAN positivo. Retener e invertir en proyectos con retorno bajo la tasa de descuento destruye valor, aunque el crecimiento contable se vea mayor.",
@@ -135,9 +135,9 @@
     "pregunta": "¿Cuál es la diferencia entre un bono tipo 'bullet' (americano) y uno tipo 'francés' en el pago de la deuda?",
     "alternativas": [
       "El bullet paga solo intereses y amortiza el 100% del capital al vencimiento; el francés paga cuotas iguales que mezclan interés y amortización cada período",
-      "El bullet amortiza capital en cada cuota y el francés amortiza todo el capital al final",
+      "El bullet amortiza capital en cada una de sus cuotas y el francés amortiza todo el capital al final",
       "Ambos amortizan el capital de la misma forma; la diferencia está solo en la moneda de emisión",
-      "El bullet no paga intereses hasta el vencimiento, mientras el francés los paga desde el primer período"
+      "El bullet no paga intereses hasta el vencimiento, mientras que el francés los paga desde el primer período de vida"
     ],
     "correcta": 0,
     "explicacion": "En un bono bullet, cada cupón es solo interés y el capital se paga íntegro al final. En un bono francés, la cuota es constante y combina interés (decreciente) y amortización de capital (creciente) en cada período, como un crédito hipotecario tradicional.",

@@ -23,9 +23,9 @@
     "pregunta": "¿Qué diferencia el perfil de inversión de una Cuota de Fondo de Inversión (CFI) respecto de una Cuota de Fondo Mutuo (CFM)?",
     "alternativas": [
       "La CFI obtiene liquidez transándose en bolsa y puede invertir a más largo plazo; la CFM es rescatable y por eso invierte en instrumentos de mayor liquidez",
-      "Ambas cuotas son exactamente igual de líquidas y tienen el mismo horizonte de inversión permitido",
+      "Ambas cuotas son exactamente igual de líquidas y tienen exactamente el mismo horizonte de inversión que se les permite",
       "La CFM nunca puede rescatarse mientras la CFI siempre puede rescatarse en cualquier momento",
-      "La CFI invierte solo en depósitos a plazo mientras la CFM invierte solo en acciones"
+      "La CFI invierte solo en depósitos a plazo, mientras que la CFM invierte únicamente en acciones"
     ],
     "correcta": 0,
     "explicacion": "Al no ser rescatable, la CFI logra liquidez vendiéndose en bolsa y puede invertir en activos de más largo plazo; la CFM, al ser rescatable, debe mantener una cartera más líquida para hacer frente a los rescates.",
@@ -104,8 +104,8 @@
     "alternativas": [
       "Cambia qué portafolios son eficientes: genera una nueva frontera lineal (Línea de Mercado de Capitales) entre el activo libre de riesgo y el portafolio tangente",
       "No tiene ningún efecto relevante, simplemente se suma como una opción de inversión más entre muchas",
-      "Elimina por completo la posibilidad de diversificar el riesgo mediante una cartera de activos riesgosos",
-      "Hace que todos los portafolios riesgosos pasen a tener el mismo nivel de riesgo total"
+      "Elimina por completo la posibilidad de diversificar el riesgo mediante una cartera diversificada de activos riesgosos",
+      "Hace que todos los portafolios riesgosos pasen a tener exactamente el mismo nivel de riesgo total"
     ],
     "correcta": 0,
     "explicacion": "La incorporación de un activo libre de riesgo transforma la frontera eficiente en una combinación lineal entre ese activo y el portafolio tangente de mercado, la llamada Línea de Mercado de Capitales (LMC o CML).",
@@ -199,9 +199,9 @@
     "pregunta": "Además de las ventajas de especialización y diversificación, ¿qué desventaja importante trae consigo la separación entre propiedad y administración de una empresa?",
     "alternativas": [
       "Favorece conflictos de interés (problema de agencia) entre dueños y ejecutivos, quienes podrían descuidar sus obligaciones al administrar dinero que no es suyo",
-      "Impide por completo que la empresa pueda emitir nuevas acciones para reunir capital adicional",
-      "Elimina toda posibilidad de que los accionistas diversifiquen su riqueza en distintas sociedades",
-      "Obliga a que la empresa nunca pueda contratar administradores con conocimiento especializado"
+      "Impide por completo que la empresa pueda emitir nuevas acciones para reunir capital adicional en el futuro",
+      "Elimina toda posibilidad de que los accionistas diversifiquen su riqueza en distintas sociedades y clases de activos",
+      "Obliga a que la empresa nunca pueda contratar administradores con conocimiento técnico especializado"
     ],
     "correcta": 0,
     "explicacion": "La separación de propiedad y administración genera el clásico problema de agencia: los administradores podrían no actuar siempre en el mejor interés de los accionistas, quienes además no tienen toda la información sobre su desempeño.",

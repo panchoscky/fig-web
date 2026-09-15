@@ -71,9 +71,9 @@
     "pregunta": "Según el modelo de Modigliani & Miller (1963), si aumenta la tasa de impuesto corporativo, ¿qué ocurre con el valor del escudo tributario que aporta la deuda a una empresa endeudada?",
     "alternativas": [
       "Aumenta: el escudo tributario es tc multiplicado por el monto de deuda, por lo que una mayor tasa de impuesto incrementa directamente ese valor adicional",
-      "Disminuye, porque una mayor tasa de impuesto reduce la utilidad disponible para pagar la deuda",
+      "Disminuye, porque una mayor tasa de impuesto reduce directamente la utilidad disponible para pagar los intereses de la deuda",
       "Se mantiene igual, ya que el escudo tributario no depende de la tasa de impuesto corporativo",
-      "Se vuelve negativo, penalizando a las empresas que usan deuda"
+      "Se vuelve negativo, penalizando fuertemente a todas las empresas que utilizan deuda"
     ],
     "correcta": 0,
     "explicacion": "En MM (1963), el valor de la empresa con deuda es el valor sin deuda más tc por el monto de la deuda (tc·B). Como ese término crece directamente con la tasa de impuesto, un alza de impuestos corporativos aumenta el valor del escudo tributario para las empresas endeudadas.",

@@ -87,9 +87,9 @@
     "pregunta": "Al evaluar distintos usos alternativos para un edificio que la empresa ya posee y que se deprecia a lo largo de 30 años, ¿debe incluirse la depreciación del edificio original en el flujo de las alternativas que lo reutilizan?",
     "alternativas": [
       "No, porque la depreciación del edificio original no es un flujo incremental y su costo inicial ya es un costo hundido, independiente de la alternativa elegida",
-      "Sí, siempre debe incluirse la depreciación del edificio original en cualquier alternativa que lo utilice",
+      "Sí, siempre debe incluirse la depreciación del edificio original en cualquier alternativa futura que decida utilizarlo",
       "Sí, pero solo si el edificio se sigue arrendando a los ocupantes actuales durante el proyecto",
-      "No se puede determinar sin conocer el valor de mercado actual del edificio"
+      "No se puede determinar esto sin conocer primero el valor de mercado actual del edificio"
     ],
     "correcta": 0,
     "explicacion": "El costo del edificio original ya fue incurrido (costo hundido) y su depreciación no cambia entre alternativas, por lo que no es un flujo incremental relevante; solo importan las depreciaciones de las inversiones adicionales.",

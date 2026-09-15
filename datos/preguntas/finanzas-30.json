@@ -39,9 +39,9 @@
     "pregunta": "Si dos activos riesgosos tienen correlación exactamente -1 entre sí, ¿es posible construir un portafolio combinándolos que tenga riesgo (desviación estándar) igual a cero?",
     "alternativas": [
       "Sí: existe una combinación de pesos específica (proporcional a las volatilidades inversas de cada activo) que anula por completo el riesgo del portafolio",
-      "No, con correlación -1 el riesgo del portafolio solo se reduce a la mitad, nunca a cero",
-      "Sí, pero solo si además ambos activos tienen exactamente el mismo retorno esperado",
-      "No, es matemáticamente imposible reducir el riesgo de un portafolio de dos activos a cero"
+      "No, con correlación -1 el riesgo del portafolio solo se reduce a la mitad como máximo, nunca llega a cero",
+      "Sí, pero solo es posible si además ambos activos tienen exactamente el mismo retorno esperado",
+      "No, es matemáticamente imposible reducir a cero el riesgo de un portafolio de solo dos activos"
     ],
     "correcta": 0,
     "explicacion": "Con correlación -1, los pesos que anulan el riesgo del portafolio son w1 = σ2/(σ1+σ2) y w2 = σ1/(σ1+σ2): los movimientos de ambos activos se cancelan exactamente, dejando una desviación estándar de portafolio igual a cero (aunque el retorno esperado resultante no sea cero).",

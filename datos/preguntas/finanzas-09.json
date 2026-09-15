@@ -55,9 +55,9 @@
     "pregunta": "En un caso real donde una empresa evaluó construir una planta flexible (mayor costo, capaz de cambiar de producto) versus una planta fija (menor costo, más eficiente pero sin flexibilidad), ¿qué mostró el análisis de VAN?",
     "alternativas": [
       "La planta fija tenía mayor VAN, porque la opción de cambiar de producto no compensaba el mayor costo y menor eficiencia por unidad de la planta flexible",
-      "La planta flexible tenía mayor VAN gracias al valor de la opción de cambiar de producción",
-      "Ambas plantas resultaron tener exactamente el mismo VAN esperado",
-      "Ninguna de las dos alternativas resultaba rentable para la empresa"
+      "La planta flexible tenía mayor VAN gracias al valor adicional de la opción de cambiar de producción",
+      "Ambas plantas resultaron tener exactamente el mismo VAN esperado bajo cualquier escenario considerado en el análisis",
+      "Ninguna de las dos alternativas resultaba rentable para la empresa bajo ningún escenario analizado"
     ],
     "correcta": 0,
     "explicacion": "Aunque la flexibilidad tiene valor en teoría, en este caso el mayor precio de la planta flexible y su menor eficiencia por unidad no compensaban ese valor opcional.",

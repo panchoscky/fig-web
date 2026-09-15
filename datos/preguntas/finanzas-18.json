@@ -119,9 +119,9 @@
     "pregunta": "Al usar contratos de futuros que no coinciden exactamente con el activo que se quiere cubrir, ¿qué mide el \"ratio de cobertura de mínima varianza\"?",
     "alternativas": [
       "La proporción óptima de contratos de futuros a utilizar, en función de la correlación y las volatilidades relativas entre el activo a cubrir y el futuro usado",
-      "El número exacto de contratos de futuros disponibles en el mercado para ese activo específico",
-      "La diferencia porcentual entre el precio spot y el precio futuro del activo a cubrir",
-      "La tasa de interés libre de riesgo aplicable durante el período de cobertura"
+      "El número exacto de contratos de futuros disponibles en el mercado para ese activo específico en un momento dado",
+      "La diferencia porcentual entre el precio spot y el precio futuro del activo que se quiere cubrir",
+      "La tasa de interés libre de riesgo que resulta aplicable durante todo el período de cobertura"
     ],
     "correcta": 0,
     "explicacion": "El ratio de cobertura de mínima varianza se calcula a partir de la correlación entre los precios spot y futuro, y la razón entre sus volatilidades, minimizando el riesgo residual de la posición cubierta.",
@@ -167,9 +167,9 @@
     "pregunta": "Al valorar un contrato forward sobre un bono que paga cupones durante la vida del contrato, ¿qué ajuste adicional se debe hacer respecto a un forward sobre un activo que no paga flujos intermedios?",
     "alternativas": [
       "Restar el valor presente de los cupones que se pagan antes del vencimiento del forward, antes de capitalizar el precio a la tasa libre de riesgo",
-      "Sumar el valor nominal completo del bono al precio spot, sin ningún otro ajuste",
-      "Ignorar por completo los cupones, ya que no afectan el precio forward de un bono",
-      "Multiplicar el precio spot del bono por la tasa cupón antes de capitalizarlo"
+      "Sumar el valor nominal completo del bono al precio spot, sin realizar ningún otro ajuste adicional",
+      "Ignorar por completo los cupones intermedios, ya que no afectan en nada el precio forward",
+      "Multiplicar el precio spot del bono por la tasa cupón vigente antes de capitalizarlo a la tasa libre de riesgo"
     ],
     "correcta": 0,
     "explicacion": "Los cupones que el tenedor del bono recibiría antes del vencimiento del forward deben restarse (en valor presente) del precio spot, ya que quien toma la posición forward no los recibe; luego se capitaliza el resultado.",
