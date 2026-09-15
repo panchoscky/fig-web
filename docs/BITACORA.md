@@ -2270,3 +2270,45 @@ rectangulares y no dibujan anillo con puntero. Se comprobó con el mismo método
 
 Verificado: `verificar_sitio.py`, `verificar_paginas.js`, `verificar_movil.js` y
 `verificar_mesa.js`, todos verdes.
+
+## Cambios del 2026-09-14 — Desafío FIG: interfaz y banco de preguntas
+
+Auditoría pedida por Francisco sobre el "Desafío FIG" (`desafio/index.html` + 348
+preguntas en `datos/preguntas/`), con **Argos** para la interfaz y **Epimeteo** para el
+contenido — la primera vez que se audita esta pieza desde que existe.
+
+**Bug real corregido (🔴 de Argos)**: el selector de modo Estudio mostraba el total real
+del banco por tema/ramo (ej. "57 preg.") pero `armarEstudio()` siempre corta a 20 — el
+usuario veía un número y recibía otro. El contador ahora muestra `min(total, 20)`.
+Afectaba a 7 de 12 temas y 3 de 5 ramos.
+
+**Puntaje/barra de decaimiento ocultos en modo Estudio**: quedaban visibles pero
+congelados ("0 PTS" fijo, barra 100% fija) sin aplicar a ese modo — ahora se ocultan
+cuando `modo !== "desafio"`.
+
+**Contenido del banco (Epimeteo, dos pasadas, ~100% de las 348 revisadas)**: cero
+errores factuales o de fórmula en todo el banco — CAPM, WACC, MM con/sin impuestos,
+VAN/TIR, duración de Macaulay, paridad put-call, VaR/backtesting, todo consistente.
+Sí encontró y se corrigieron 4 problemas de forma:
+- **14 preguntas** con la correcta detectable por ser la más larga (regla propia de
+  `LEEME.md`) — distractores alargados a largo comparable.
+- **Hallazgo mayor, a nivel de banco completo**: la correcta resultó ser la
+  alternativa más larga en **306 de 348 preguntas (88%)** — patrón sistémico, no un
+  problema puntual de las 14 de arriba. Se corrigieron las **40 más extremas** (brecha
+  &gt;50 caracteres entre la correcta y el segundo distractor más largo, ej. `his-006`
+  con 68 caracteres de brecha); las ~266 restantes con brecha menor quedan para un pase
+  de contenido más grande, fuera del alcance de hoy — decisión explícita de Francisco.
+- 12 preguntas de `semilla.json` con `fuente:"semilla-demo"` (fuera del vocabulario del
+  esquema) pasadas a `"conocimiento-general"`.
+- 3 preguntas con el prefijo del `id` desalineado de su `tema` (`ec-016`→`rv-044`,
+  `ep-047`→`ec-040`, `rf-021`→`rif-020`) — el `tema` ya estaba correcto, solo el prefijo.
+
+**Sincronizado al espejo de Manuel** en dos tandas (`5979cd9`→`8b08730`→`de44f9f`), con
+la cadena completa `sincronizar_espejo.py` → `despublicar_fiw.py` →
+`despublicar_trading.py` → `generar_sitemap.py`. De paso se arrastró al espejo una
+limpieza de fuentes IBM Plex Mono 500/600 pendiente desde el 11-sep que nunca se había
+sincronizado (`fig.css` + 4 `.woff2` huérfanos).
+
+**Pendiente para la próxima**: el pase grande de longitud de alternativas sobre las
+~266 preguntas restantes (patrón sistémico, no error de contenido). Detalle completo en
+`seguimiento` de la sesión — no se duplica acá.
