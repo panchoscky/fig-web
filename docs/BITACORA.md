@@ -2312,3 +2312,23 @@ sincronizado (`fig.css` + 4 `.woff2` huérfanos).
 **Pendiente para la próxima**: el pase grande de longitud de alternativas sobre las
 ~266 preguntas restantes (patrón sistémico, no error de contenido). Detalle completo en
 `seguimiento` de la sesión — no se duplica acá.
+
+## Cambios del 2026-09-19 — `estudio-personal/`, estudio personal de Francisco
+
+Agregada `estudio-personal/micro3/index.html`: copia directa de
+`Fen/trivia-micro3/micro3-trivia.html` (154 preguntas, ya auditada por Minos —
+ver la memoria de Isac `trivia_micro3`), para que Francisco entre a repasar
+desde cualquier dispositivo. **No es contenido del club**: sin nav, sin
+sitemap, sin el crédito de pie de página ni el beacon de métricas que llevan
+las páginas del sitio — es una URL personal que aprovecha el mismo hosting.
+
+**Blindaje del espejo, mismo patrón que FIG Woman y Trading**: se agregó
+`"estudio-personal/"` a `NO_SE_COPIAN` en `sincronizar_espejo.py` (un solo
+prefijo, cubre cualquier ramo que se sume ahí después — Cuanti 1/2,
+Estadística 1/2, lo que venga) y la regla quedó en `CLAUDE.md` §Reglas duras.
+Pedido explícito de Francisco (19-sep): ni siquiera con su autorización se
+publica en el espejo de Manuel sin una confirmación aparte, nombrando ramo +
+destino + forma — doble seguro, sin excepciones. Detalle completo en la
+memoria de Isac `feedback_publicacion_trivia_fig_web`.
+
+Commiteado localmente, **sin push** — a confirmar con Francisco antes de subirlo.

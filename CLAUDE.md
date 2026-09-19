@@ -68,6 +68,13 @@ sobre el navy se leía como una mancha pegada encima. Pasaron a `--navy-panel` e
   Trading Challenge tenga bases formales). `despublicar_trading.py` lo saca del espejo.
 - **FIG Woman NO se publica en el repo de Manuel.** `despublicar_fiw.py` lo saca del
   espejo. Ver "El espejo" más abajo.
+- **`estudio-personal/` NO se publica en el repo de Manuel, nunca por defecto** (desde
+  el 2026-09-19). Es material de estudio personal de Francisco (Micro 3 hoy, otros
+  ramos después), no contenido del club. Ni siquiera con autorización de Francisco se
+  publica ahí directo: hace falta además una confirmación aparte, en español,
+  nombrando el ramo exacto, el destino y la forma de publicación — doble seguro
+  explícito, sin excepciones. `sincronizar_espejo.py` ya excluye toda la carpeta en
+  `NO_SE_COPIAN` (un solo prefijo cubre cualquier ramo nuevo que se agregue ahí).
 - **Nunca** commitear datos personales más allá de nombre + rol + LinkedIn público.
 - **Sin build step**: HTML/CSS/JS planos, sin npm ni bundler.
 - Todo texto de cara al usuario va en **español**. Única excepción: `en/` (y

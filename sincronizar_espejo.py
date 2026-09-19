@@ -98,6 +98,19 @@ NO_SE_COPIAN = {
     # URL (le sacan /index.html y el #). Copiar la de aca se los borraria.
     "MAPA_CONTENIDO_FIG.html": "guia interna; el espejo tiene su version con scripts propios",
     "frames/": "salida temporal del grabador de video",
+    # Estudio personal de Francisco (trivia de Micro 3 y lo que venga despues:
+    # Cuanti 1/2, Estadistica 1/2). NO es contenido del club -- vive en fig-web
+    # solo para que Francisco entre desde cualquier dispositivo. Regla dada por
+    # Francisco el 2026-09-19: nunca se publica en el espejo de Manuel sin su
+    # autorizacion explicita Y una confirmacion aparte nombrando el ramo, el
+    # destino y la forma de publicacion -- doble seguro, sin excepciones. Un
+    # solo prefijo de carpeta cubre a proposito CUALQUIER ramo futuro que se
+    # agregue bajo estudio-personal/, para que el default sea "no se publica"
+    # y haya que decidir caso a caso, no al reves.
+    "estudio-personal/": "estudio personal de Francisco (no es contenido del "
+                         "club); nunca se publica en el espejo sin autorizacion "
+                         "explicita y doble confirmacion, ver memoria de Isac "
+                         "'feedback_publicacion_trivia_fig_web'",
     # El espejo tiene su PROPIO CLAUDE.md, mas corto (7 KB contra 16), que en su
     # primera linea avisa "Este repo es el ESPEJO, no la fuente... no desarrolles
     # aca". Copiar el de aca borraria ese aviso, que es lo que lee una sesion de
