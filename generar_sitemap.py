@@ -47,6 +47,9 @@ EXCLUIDAS = {
     # mandar a alguien a una animacion sin navegacion ni contexto.
     "torneo/pantalla.html": "pantalla en bucle para las TV",
     "torneo/pantalla-facultad.html": "fuente del video semanal",
+    "estudio-personal/micro3/index.html": "estudio personal de Francisco, no "
+        "contenido del club -- no se declara a buscadores, ver estudio-personal/ "
+        "en NO_SE_COPIAN de sincronizar_espejo.py",
 }
 
 # Prioridad relativa. Lo que no este aca va con 0.5.
