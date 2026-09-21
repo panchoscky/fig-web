@@ -2332,3 +2332,33 @@ destino + forma — doble seguro, sin excepciones. Detalle completo en la
 memoria de Isac `feedback_publicacion_trivia_fig_web`.
 
 Commiteado localmente, **sin push** — a confirmar con Francisco antes de subirlo.
+
+## Cambios del 2026-09-21 — backfill semanas 17-19 del Torneo + bug real en el recorrido de archivos
+
+Corte semanas 17, 18 y 19 (04, 11, 18-sep, 43 equipos) publicado en `fig-web`
+(`a4d141a`) y en el espejo (`e8e3653`). Los 3 Excel oficiales los generó
+Agustín en `torneo-bloomberg-oficial` (backfill desde un único TMSG
+acumulado, Ret. Exceso reconstruido). Detalle del bug de peniques `IMEU LN
+Equity` que infló 4 cortes ya publicados (07-31 a 08-28) y de "Los
+Estadísticos Inconscientes" (reapareció con transacciones pese a estar
+eliminado, se dejó fuera de los 3 cortes nuevos) — en la memoria de Isac
+`project-torneo-bloomberg`, no acá, porque es del repo del torneo.
+
+**Bug real encontrado y corregido**: `generar_sitemap.py`, `verificar_sitio.py`
+y `verificar_paginas.js` recorrían el árbol de archivos completo sin excluir
+carpetas ocultas. Un worktree huérfano dentro del repo
+(`.claude/worktrees/auditoria-2026-09-18/` — una copia vieja del sitio, sin
+registrar en `git worktree list`, quedó suelta de una sesión de auditoría de
+diseño) inflaba el sitemap a 80 URLs falsas, rompía las 3 verificaciones, y
+**habría contaminado el espejo de Manuel con 368 archivos** si se corría
+`sincronizar_espejo.py` tal cual. Los 4 scripts ya excluyen directorios que
+empiezan con `.`. La carpeta en sí sigue ahí — no se borró sin que Francisco
+lo confirme, puede tener trabajo de diseño sin guardar en otro lado.
+
+Aparte, `sincronizar_espejo.py` también agregó `.claude` a `IGNORADOS` (mismo
+bug, mismo fix).
+
+Los 2 archivos de contenido ajeno al torneo que estaban sueltos en el repo
+(`Q1B_INVENTARIO_PROBLEMAS_MATEMATICOS.md`, `docs/PROPUESTAS_DISENO_2026-09-18.md`)
+se dejaron fuera del commit y de la sincronización a propósito — siguen sin
+commitear, esperando su momento.
