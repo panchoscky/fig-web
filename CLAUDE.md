@@ -37,8 +37,9 @@ IBM Plex Mono (autoalojadas en `fuentes/`), reveals on-scroll, respeto total a
 `prefers-reduced-motion`. **Tres páginas tienen paleta propia** y no siguen esa base:
 `fiw/index.html` (oro rosa), `portafolio/index.html` (azul `#08213F` + naranja
 `#EC7000` de Itaú, por el sponsor del Torneo Portafolio; 2026-09-02) y
-`trading/index.html` (rojo `#FF0000` + `#18181E` de XTB, por el Alpha Trading
-Challenge; 2026-09-04). En las tres los NOMBRES de las variables son los mismos que
+`trading/index.html` (rojo `#FF0000` + crema `#F9F6EF`/`#FCFAF3` de XTB, por el Alpha
+Trading Challenge; 2026-09-04, repaletizada sin navy a pedido de Manuel el 2026-09-21).
+En las tres los NOMBRES de las variables son los mismos que
 en el resto del sitio (`--acc`, `--acc-light`…): cambia el valor, nunca el token.
 No tocar esos valores sin pedírselo a Francisco.
 El grafito `#22252B` de BlackRock **ya no existe**: era el token `--graph` y su
@@ -64,8 +65,12 @@ sobre el navy se leía como una mancha pegada encima. Pasaron a `--navy-panel` e
   una IA, ese mismo archivo sí se puede editar después. **Nunca** editar ni borrar algo
   que ya existía en el Drive antes de la sesión. Después de crear o editar, avisarle
   qué se hizo.
-- **Trading NO se publica en el repo de Manuel** (desde el 2026-09-10, hasta que el Alpha
-  Trading Challenge tenga bases formales). `despublicar_trading.py` lo saca del espejo.
+- **Trading SÍ se publica en el repo de Manuel** desde el 2026-09-21 — Manuel dio el
+  visto bueno al rediseño (paleta crema+rojo) y Francisco autorizó explícitamente
+  publicar. Del 2026-09-10 al 2026-09-21 estuvo oculto (`despublicar_trading.py` lo
+  sacaba del espejo, sin bases formales del Alpha Trading Challenge); ese paso **ya no
+  se corre** en la rutina semanal. Si algún día hay que volver a ocultarlo, el script
+  sigue existiendo, solo hay que agregarlo de nuevo a la cadena.
 - **FIG Woman NO se publica en el repo de Manuel.** `despublicar_fiw.py` lo saca del
   espejo. Ver "El espejo" más abajo.
 - **`estudio-personal/` NO se publica en el repo de Manuel, nunca por defecto** (desde
@@ -106,8 +111,7 @@ node verificar_paginas.js                # las páginas en un navegador de verda
 node verificar_movil.js                  # teléfono
 node verificar_menu_movil.js --pag=<página>   # SOLO si se tocó un menú móvil (una página por corrida)
 python sincronizar_espejo.py --aplicar
-python despublicar_fiw.py --aplicar      # SIEMPRE después del anterior
-python despublicar_trading.py --aplicar  # SIEMPRE después: saca Trading
+python despublicar_fiw.py --aplicar      # SIEMPRE después del anterior (Trading ya NO se saca, ver Reglas duras)
 cd ../mpazq-afk.github.io && python generar_sitemap.py
 ```
 
@@ -176,10 +180,17 @@ Cada una costó tiempo al menos una vez. El registro completo está en `docs/BIT
   publican en el espejo desde el 2026-08-30. Lo que le falta al espejo es `miembros/`.
   Los `docs/*.md` y el `CLAUDE.md` del espejo tienen encabezado propio: `sincronizar_espejo.py`
   ya los marca (`CLAUDE.md` en `NO_SE_COPIAN`, los tres `docs/` en `DIFIEREN`).
-- **`sincronizar_espejo.py`, `despublicar_fiw.py` y `despublicar_trading.py` son una CADENA de TRES**, en ese orden (era un par hasta el 2026-09-10: Trading tampoco se publica todavía), y después
-  `generar_sitemap.py` DENTRO del espejo. Como el segundo reescribe 7 archivos
-  (404, eventos, postula, valuation, portafolio, trading y en/), el primero **siempre**
-  los reportará como "por copiar" aunque nada haya cambiado: no es un error.
+- **`sincronizar_espejo.py` y `despublicar_fiw.py` son un PAR indivisible**, en ese
+  orden, y después `generar_sitemap.py` DENTRO del espejo. (Fue una cadena de TRES con
+  `despublicar_trading.py` entre el 2026-09-10 y el 2026-09-21, mientras Trading estaba
+  oculto — ver Reglas duras.) Como `despublicar_fiw.py` reescribe 7 archivos
+  (404, eventos, postula, valuation, portafolio, trading y en/), `sincronizar_espejo.py`
+  **siempre** los reportará como "por copiar" aunque nada haya cambiado: no es un error.
+- **`sincronizar_espejo.py` copia desde el árbol de trabajo, no solo lo commiteado.**
+  Cualquier archivo suelto sin commitear en `fig-web` (un borrador, una nota) puede
+  colarse al espejo igual — revisar `git status` en fig-web ANTES de sincronizar, y el
+  del espejo después. Pasó el 2026-09-21 con dos borradores de Francisco sin relación
+  con lo que se estaba publicando; se sacaron a mano antes de commitear allá.
 - El espejo está en **CRLF** y este repo en LF. El script ya lo respeta; si lo tocas, no
   rompas `copiar_conservando_fin_de_linea()` o cada archivo saldrá como si hubieran
   cambiado sus 3.000 líneas.
