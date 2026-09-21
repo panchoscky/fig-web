@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trading — FIG</title>
 <meta name="description" content="Trading: el área de FEN Investment Group dedicada a los mercados en tiempo real, el análisis técnico y la gestión del riesgo. Universidad de Chile.">
-<meta name="theme-color" content="#0A1128">
+<meta name="theme-color" content="#F9F6EF">
 <link rel="canonical" href="https://feninvestmentgroup.com/trading/">
 <meta property="og:url" content="https://feninvestmentgroup.com/trading/">
 <meta property="og:title" content="Trading — FIG">
@@ -52,16 +52,16 @@
   /* Sin esto Chrome dibuja las barras de scroll y los controles nativos en
      gris claro sobre el navy, y pinta el lienzo en blanco antes de la primera
      pintada: en un sitio 100% oscuro se ve como un destello o una barra blanca. */
-  color-scheme:dark;
-  --navy-deep:#060B1C; --navy:#0A1128; --navy-panel:#101731;
+  color-scheme:light;
+  --navy-deep:#F2EDE2; --navy:#F9F6EF; --navy-panel:#FCFAF3;
   --acc:#FF0000;          /* rojo XTB        */
   --acc-light:#FF7A68;    /* rojo claro      */
   --acc-deep:#A81616;     /* rojo profundo   */
   --acc-warm:#FF9478;     /* rojo cálido     */
-  --acc-dim:rgba(255,0,0,.34);
-  --acc-faint:rgba(255,0,0,.12);
+  --acc-dim:rgba(255,0,0,.4);
+  --acc-faint:rgba(255,0,0,.16);
   --ivory:#F9F6EF; --paper:#FCFAF3; --ink:#141019; --ink-soft:#5A5347;
-  --line-l:rgba(20,16,25,.13); --line-d:rgba(255,0,0,.2);
+  --line-l:rgba(20,16,25,.13); --line-d:rgba(255,0,0,.3);
   --f-disp:"Playfair Display",Georgia,serif;
   --f-body:"Inter",-apple-system,"Segoe UI",sans-serif;
   --f-mono:"IBM Plex Mono","SF Mono",monospace;
@@ -79,7 +79,7 @@
 html{scroll-behavior:smooth;scrollbar-gutter:stable}
 section[id]{scroll-margin-top:80px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}}
-body{background:var(--navy);color:var(--ivory);font-family:var(--f-body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--navy);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 ::selection{background:var(--acc);color:var(--navy)}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
@@ -92,13 +92,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .h-sec{font-family:var(--f-disp);font-weight:600;font-size:clamp(2.1rem,4.6vw,3.4rem);line-height:1.1;letter-spacing:-.012em;margin:18px 0 0}
 .h-sec em{font-style:italic;color:var(--acc)}
 .section--light .h-sec em{color:var(--acc-deep)}
-.lead{font-size:1.05rem;color:rgba(249,246,239,.78);max-width:58ch}
+.lead{font-size:1.05rem;color:rgba(20,16,25,.78);max-width:58ch}
 .section--light .lead{color:var(--ink-soft)}
 .mono-tag{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);border:1px solid var(--acc-dim);border-radius:100px;padding:5px 13px;display:inline-block}
 .btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:.92rem;padding:15px 30px;border-radius:2px;transition:transform .4s var(--ease),box-shadow .4s,background .35s,color .35s,border-color .35s;white-space:nowrap}
-.btn--acc{background:var(--acc);color:var(--navy)}
+.btn--acc{background:var(--acc);color:var(--ink)}
 .btn--acc:hover{background:var(--acc-light);transform:translateY(-2px);box-shadow:0 16px 38px -12px rgba(255,0,0,.5)}
-.btn--ghost{border:1px solid var(--acc-dim);color:var(--ivory)}
+.btn--ghost{border:1px solid var(--acc-dim);color:var(--ink)}
 .btn--ghost:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-2px)}
 .btn--navy{background:var(--navy);color:var(--acc)}
 .btn--navy:hover{transform:translateY(-2px);box-shadow:0 18px 40px -14px rgba(10,17,40,.6)}
@@ -121,7 +121,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 #preloader.p1 .in-logo{opacity:1;transform:scale(1)}
 #preloader .in-text{max-width:0;overflow:hidden;white-space:nowrap;opacity:0;transition:max-width .85s var(--ease),opacity .6s ease .12s}
 #preloader.p2 .in-text{max-width:380px;opacity:1}
-#preloader .in-text b{display:block;font-family:var(--f-disp);font-weight:600;font-size:1.2rem;color:var(--ivory);line-height:1.2}
+#preloader .in-text b{display:block;font-family:var(--f-disp);font-weight:600;font-size:1.2rem;color:var(--ink);line-height:1.2}
 #preloader .in-text span{display:block;font-family:var(--f-mono);font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:var(--acc);margin-top:5px}
 .brand-logo{width:40px;height:40px;object-fit:contain;flex:none}
 
@@ -133,7 +133,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .brand-name{font-family:var(--f-disp);font-weight:600;font-size:1.02rem;line-height:1.15}
 .brand-sub{font-family:var(--f-mono);font-size:.55rem;letter-spacing:.32em;text-transform:uppercase;color:var(--acc);display:block;margin-top:2px}
 .nav__links{display:flex;align-items:center;gap:30px;list-style:none}
-.nav__links a{font-size:.84rem;font-weight:500;color:rgba(249,246,239,.82);padding:6px 0;position:relative;transition:color .3s}
+.nav__links a{font-size:.84rem;font-weight:500;color:rgba(20,16,25,.82);padding:6px 0;position:relative;transition:color .3s}
 .nav__links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
 .nav__links a:hover,.nav__links a.active{color:var(--acc)}
 .nav__links a:hover::after,.nav__links a.active::after{transform:scaleX(1)}
@@ -151,11 +151,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .nav__drop:hover .nav__drop-menu,.nav__drop:focus-within .nav__drop-menu{
   opacity:1;visibility:visible;transform:translate(-50%,0);
 }
-.nav__drop-menu a{display:block;padding:11px 14px;font-size:.82rem;color:rgba(249,246,239,.85);white-space:nowrap}
+.nav__drop-menu a{display:block;padding:11px 14px;font-size:.82rem;color:rgba(20,16,25,.85);white-space:nowrap}
 .nav__drop-menu a::after{display:none}
 .nav__drop-menu a:hover{background:var(--acc-faint);color:var(--acc)}
 .nav__burger{display:none;flex-direction:column;gap:5.5px;padding:8px;z-index:1101}
-.nav__burger i{display:block;width:24px;height:2px;background:var(--ivory);transition:transform .35s var(--ease),opacity .3s}
+.nav__burger i{display:block;width:24px;height:2px;background:var(--ink);transition:transform .35s var(--ease),opacity .3s}
 .nav__burger.open i:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
 .nav__burger.open i:nth-child(2){opacity:0}
 .nav__burger.open i:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
@@ -221,8 +221,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .photo-marquee{position:absolute;inset:0;overflow:hidden;z-index:0;opacity:.13}
 .photo-marquee .pm-track{display:flex;align-items:center;gap:16px;height:100%;width:max-content;animation:pmScroll 90s linear infinite}
 .photo-marquee .pm-track img{height:46%;min-height:170px;width:auto;object-fit:cover;border-radius:2px;filter:grayscale(.3) contrast(1.05) brightness(.85)}
-.photo-marquee::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,11,28,1) 0%,transparent 14%,transparent 86%,rgba(6,11,28,1) 100%)}
-.photo-marquee::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 50%,transparent 25%,rgba(6,11,28,.94) 100%)}
+.photo-marquee::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(242,237,226,1) 0%,transparent 14%,transparent 86%,rgba(242,237,226,1) 100%)}
+.photo-marquee::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 50%,transparent 25%,rgba(242,237,226,.94) 100%)}
 @keyframes pmScroll{to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.photo-marquee .pm-track{animation:none}}
 @media(max-width:640px){.photo-marquee{opacity:.1}}
@@ -232,9 +232,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hero h1 .ln>span{display:inline-block;transform:translateY(118%);transition:transform 1.05s cubic-bezier(.16,1,.3,1)}
 .hero h1 .ln:nth-child(2)>span{transition-delay:.1s}
 body.hero-in .hero h1 .ln>span{transform:none}
-.hero__sub{max-width:50ch;font-size:1.08rem;color:rgba(249,246,239,.8);margin-bottom:36px}
+.hero__sub{max-width:50ch;font-size:1.08rem;color:rgba(20,16,25,.8);margin-bottom:36px}
 .hero__cta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:40px}
-.hero__meta{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(249,246,239,.6);display:flex;gap:22px;flex-wrap:wrap}
+.hero__meta{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(20,16,25,.6);display:flex;gap:22px;flex-wrap:wrap}
 /* En un teléfono estas cifras no caben en una línea y `flex-wrap` las partía
    dejando la última sola y desalineada, como si sobrara. En vertical se
    reparten en columnas iguales, cada cifra sobre su rótulo, separadas por un
@@ -258,7 +258,7 @@ body.hero-in .hero h1 .ln>span{transform:none}
 .marq__track{display:flex;width:max-content;animation:marquee 38s linear infinite}
 .marq:hover .marq__track{animation-play-state:paused}
 @keyframes marquee{to{transform:translateX(-50%)}}
-.mq{font-family:var(--f-disp);font-style:italic;font-size:1.05rem;color:rgba(249,246,239,.55);padding:14px 34px;white-space:nowrap;border-right:1px solid var(--acc-faint)}
+.mq{font-family:var(--f-disp);font-style:italic;font-size:1.05rem;color:rgba(20,16,25,.55);padding:14px 34px;white-space:nowrap;border-right:1px solid var(--acc-faint)}
 .mq b{color:var(--acc);font-weight:600}
 
 /* Clubes invitados — cinta de logos, mismo mecanismo que .marq (duplicar
@@ -275,7 +275,7 @@ body.hero-in .hero h1 .ln>span{transform:none}
 .club-item{display:flex;align-items:center;gap:12px;white-space:nowrap}
 .club-item img{height:38px;width:auto;max-width:130px;object-fit:contain;opacity:.85;transition:opacity .3s,filter .3s;filter:grayscale(.2)}
 .club-item:hover img{opacity:1;filter:none}
-.club-item span{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(249,246,239,.5)}
+.club-item span{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(20,16,25,.5)}
 @media(max-width:640px){
   .club-marq__viewport::before,.club-marq__viewport::after{width:44px}
   .club-marq__track{gap:40px}
@@ -294,7 +294,7 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .section--dark{background:
   radial-gradient(920px 440px at 10% -2%,rgba(255,0,0,.055),transparent 62%),
   radial-gradient(760px 400px at 94% 102%,rgba(168,22,22,.075),transparent 60%),var(--navy);
-  color:var(--ivory)}
+  color:var(--ink)}
 .sec-head{max-width:740px;margin-bottom:clamp(2.4rem,5vw,3.8rem)}
 .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2.5rem,6vw,5rem);align-items:start}
 .drop{font-family:var(--f-disp);font-size:1.45rem;line-height:1.38;color:var(--ink);font-weight:500;margin-bottom:22px}
@@ -318,7 +318,7 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .pilar:hover::before{opacity:1}
 .pilar .p-num{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.3em;color:var(--acc);position:relative}
 .pilar h3{font-family:var(--f-disp);font-size:1.5rem;font-weight:600;line-height:1.2;position:relative}
-.pilar p{font-size:.93rem;color:rgba(249,246,239,.72);position:relative}
+.pilar p{font-size:.93rem;color:rgba(20,16,25,.72);position:relative}
 
 /* Torneo */
 .torneo-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,5vw,4rem);align-items:start}
@@ -327,11 +327,11 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .facts .k{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--acc-deep);flex:none}
 .facts .v{text-align:right;color:var(--ink);font-weight:500}
 .torneo-ctas{display:flex;gap:14px;flex-wrap:wrap}
-.torneo-card{background:var(--navy);color:var(--ivory);border:1px solid var(--line-d);border-radius:12px;padding:34px 30px;position:relative;overflow:hidden}
-.torneo-card::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 240px at 90% -10%,rgba(255,0,0,.18),transparent 60%);pointer-events:none}
+.torneo-card{background:var(--navy-panel);color:var(--ink);border:1px solid var(--line-d);border-radius:12px;padding:34px 30px;position:relative;overflow:hidden}
+.torneo-card::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 240px at 90% -10%,rgba(255,0,0,.10),transparent 60%);pointer-events:none}
 .torneo-card .mono-tag{margin-bottom:16px}
 .torneo-card h3{font-family:var(--f-disp);font-weight:600;font-size:1.7rem;line-height:1.16;position:relative;margin-bottom:12px}
-.torneo-card p{font-size:.95rem;color:rgba(249,246,239,.76);position:relative}
+.torneo-card p{font-size:.95rem;color:rgba(20,16,25,.76);position:relative}
 .torneo-card .tc-tag{position:relative;display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
 .torneo-card .tc-dot{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 rgba(255,0,0,.5);animation:pulse 2.4s infinite}
 /* AUSPICIADORES DEL TORNEO (2026-09-04) — franja de logos pegada bajo la
@@ -392,7 +392,7 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .avatar.has-photo{color:transparent}
 .p-name{font-family:var(--f-disp);font-weight:600;font-size:1.12rem;line-height:1.25}
 .p-role{font-family:var(--f-mono);font-size:.61rem;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-top:4px}
-.p-extra{font-size:.84rem;color:rgba(249,246,239,.65);line-height:1.55}
+.p-extra{font-size:.84rem;color:rgba(20,16,25,.65);line-height:1.55}
 /* WCAG 2.2: medido a 390px, esta zona tocable no llegaba a 24px de alto.
    El padding la agranda y el margen negativo lo compensa exacto. */
 .p-link{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-top:auto;display:inline-flex;align-items:center;gap:6px;transition:gap .3s;padding:5px 3px;margin-left:-3px;margin-right:-3px;margin-bottom:-5px}
@@ -409,15 +409,15 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .ev-body{position:relative;padding:28px 28px 24px;display:flex;flex-direction:column;gap:12px}
 .ev-top{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .ev-date{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);font-weight:600}
-.ev-type{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(249,246,239,.65);border:1px solid rgba(249,246,239,.2);border-radius:100px;padding:4px 11px}
+.ev-type{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,16,25,.65);border:1px solid rgba(20,16,25,.2);border-radius:100px;padding:4px 11px}
 .ev-live{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.2em;color:#5FC08B}
 .ev-proximo{color:var(--acc);border-color:var(--acc-dim)}
 .live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#5FC08B;animation:pulseGreen 1.9s ease-out infinite}
 @keyframes pulseGreen{0%{box-shadow:0 0 0 0 rgba(95,192,139,.55)}70%{box-shadow:0 0 0 9px rgba(95,192,139,0)}100%{box-shadow:0 0 0 0 rgba(95,192,139,0)}}
 .ev-card h3{font-family:var(--f-disp);font-weight:600;font-size:clamp(1.3rem,2.2vw,1.7rem);line-height:1.2}
-.ev-res{font-size:.9rem;color:rgba(249,246,239,.72);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:60ch}
+.ev-res{font-size:.9rem;color:rgba(20,16,25,.72);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:60ch}
 .ev-foot{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:4px;flex-wrap:wrap}
-.ev-part{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(249,246,239,.5)}
+.ev-part{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(20,16,25,.5)}
 .ev-link{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);display:inline-flex;gap:9px;align-items:center}
 .ev-link .arr{transition:transform .35s var(--ease)}
 .ev-card:hover .ev-link .arr{transform:translateX(5px)}
@@ -438,8 +438,8 @@ footer{background:var(--navy-deep);padding:34px 0;border-top:1px solid var(--lin
    alto tocable, bajo los 24px que pide WCAG 2.2. El margen negativo compensa
    el padding, asi que el pie se dibuja igual. */
 footer .wrap a{display:inline-block;padding:6px 0;margin:-6px 0}
-footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--f-mono);font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(249,246,239,.45)}
-footer a{display:inline-block;padding:6px 4px;margin:-6px -4px;color:rgba(249,246,239,.65);transition:color .3s}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--f-mono);font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(20,16,25,.45)}
+footer a{display:inline-block;padding:6px 4px;margin:-6px -4px;color:rgba(20,16,25,.65);transition:color .3s}
 footer a:hover{color:var(--acc)}
 
 /* Reveals + responsive */
@@ -727,12 +727,12 @@ var DATA={
     titulo:"Alpha Trading Challenge 2026",
     bajada:"Alianza entre FEN Investment Group y XTB: el torneo de trading universitario más grande de Chile, abierto a estudiantes de pregrado y postgrado de todo el país.",
     estado:"Inscripciones desde el 21 de septiembre",
-    formUrl:"",
+    formUrl:"https://cl.xtb.com/trading-cup-fen",
     basesUrl:"",
     datos:[
       {k:"Formato",v:"Torneo interuniversitario de trading en alianza con XTB"},
       {k:"Inscripciones",v:"21 de septiembre al 4 de octubre"},
-      {k:"Torneo",v:"14 de octubre al 6 de noviembre"},
+      {k:"Torneo",v:"11 de octubre al 6 de noviembre"},
       {k:"Quiénes pueden participar",v:"Estudiantes de pregrado y postgrado de universidades de todo Chile"},
       {k:"Organiza",v:"Área Trading · FIG, junto a XTB"}
     ]
