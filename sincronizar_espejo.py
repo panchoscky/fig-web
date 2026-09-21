@@ -143,7 +143,7 @@ DIFIEREN = {
 # Existen solo en el espejo y estan bien asi.
 SOLO_ESPEJO = {"CNAME": "es lo que apunta el dominio propio a ese repo"}
 
-IGNORADOS = (".git", "__pycache__", "node_modules", ".DS_Store")
+IGNORADOS = (".git", "__pycache__", "node_modules", ".DS_Store", ".claude")
 
 
 # Archivos de texto donde el fin de linea importa para que el diff sea legible.

@@ -79,7 +79,7 @@ function paginas(raiz) {
   const lista = [];
   (function recorrer(dir) {
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (e.name === ".git" || e.name === "node_modules") continue;
+      if (e.name.startsWith(".") || e.name === "node_modules") continue;
       const p = path.join(dir, e.name);
       if (e.isDirectory()) {
         // las 54 micro-paginas son identicas salvo los datos: basta una

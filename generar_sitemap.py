@@ -47,9 +47,10 @@ EXCLUIDAS = {
     # mandar a alguien a una animacion sin navegacion ni contexto.
     "torneo/pantalla.html": "pantalla en bucle para las TV",
     "torneo/pantalla-facultad.html": "fuente del video semanal",
-    "estudio-personal/micro3/index.html": "estudio personal de Francisco, no "
-        "contenido del club -- no se declara a buscadores, ver estudio-personal/ "
-        "en NO_SE_COPIAN de sincronizar_espejo.py",
+    # estudio-personal/ completo queda afuera por PREFIJO en main() (como
+    # torneo/e/), no por entradas una por una acá -- cualquier trivia nueva
+    # que se agregue ahí (Cuanti, Estadística, ISLP y lo que venga) queda
+    # excluida del sitemap automaticamente, sin tocar este archivo de nuevo.
 }
 
 # Prioridad relativa. Lo que no este aca va con 0.5.
@@ -107,8 +108,10 @@ def main() -> int:
 
     urls = []
     for ruta in sorted(RAIZ.rglob("*.html")):
+        if any(parte.startswith(".") for parte in ruta.relative_to(RAIZ).parts):
+            continue  # carpetas ocultas (.claude/, .git/, worktrees sueltos) no son contenido del sitio
         rel = str(ruta.relative_to(RAIZ)).replace("\\", "/")
-        if rel.startswith("torneo/e/") or rel in EXCLUIDAS:   # ver EXCLUIDAS
+        if rel.startswith("torneo/e/") or rel.startswith("estudio-personal/") or rel in EXCLUIDAS:   # ver EXCLUIDAS
             continue
         # index.html se publica como la carpeta, sin el nombre de archivo
         publica = rel[:-len("index.html")] if rel.endswith("index.html") else rel

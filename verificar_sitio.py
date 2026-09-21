@@ -391,7 +391,9 @@ def _sitemap_esperado() -> tuple[str, dict[str, pathlib.Path]]:
     out: dict[str, pathlib.Path] = {}
     for ruta in sorted(RAIZ.rglob("*.html")):
         r = str(ruta.relative_to(RAIZ)).replace("\\", "/")
-        if r.startswith("torneo/e/") or r in generar_sitemap.EXCLUIDAS:
+        if any(parte.startswith(".") for parte in ruta.relative_to(RAIZ).parts):
+            continue  # carpetas ocultas (.claude/, .git/, worktrees sueltos) no son contenido del sitio
+        if r.startswith("torneo/e/") or r.startswith("estudio-personal/") or r in generar_sitemap.EXCLUIDAS:
             continue
         publica = r[:-len("index.html")] if r.endswith("index.html") else r
         out[f"{sitio}/{publica}"] = ruta
