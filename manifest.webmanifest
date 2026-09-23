@@ -1,0 +1,25 @@
+{
+  "id": "./",
+  "name": "FEN Investment Group",
+  "short_name": "FIG",
+  "description": "El club de inversiones de la FEN: ranking del Torneo Portafolio, áreas, eventos y miembros.",
+  "lang": "es-CL",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0A1128",
+  "theme_color": "#0A1128",
+  "categories": ["education", "finance"],
+  "icons": [
+    {"src": "iconos/icono-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "iconos/icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "iconos/icono-mascara-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
+  "shortcuts": [
+    {"name": "Ranking del torneo", "short_name": "Ranking", "url": "torneo/index.html", "icons": [{"src": "iconos/icono-192.png", "sizes": "192x192"}]},
+    {"name": "Portafolio", "url": "portafolio/index.html", "icons": [{"src": "iconos/icono-192.png", "sizes": "192x192"}]},
+    {"name": "Trading", "url": "trading/index.html", "icons": [{"src": "iconos/icono-192.png", "sizes": "192x192"}]}
+  ]
+}

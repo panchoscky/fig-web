@@ -140,6 +140,12 @@ footer a:hover{color:var(--gold)}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
 @media (max-width:720px){.f-grid{grid-template-columns:1fr}.nav__links{display:none}}
 </style>
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../iconos/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="FIG">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 </head>
 <body>
 
@@ -357,5 +363,6 @@ figJSON("../datos/club.json")
 }catch(e){}
 })();
 </script>
+<script>if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("../sw.js").catch(function(){});});}</script>
 </body>
 </html>

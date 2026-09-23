@@ -231,6 +231,12 @@ footer a:hover{color:var(--acc)}
   .reveal{opacity:1;transform:none}
 }
 </style>
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../../iconos/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="FIG">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 </head>
 <body>
 <script>document.documentElement.classList.remove("no-js")</script>
@@ -1236,5 +1242,6 @@ fetch("../../datos/club.json",{cache:"no-cache"})
 }catch(e){}
 })();
 </script>
+<script>if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("../../sw.js").catch(function(){});});}</script>
 </body>
 </html>

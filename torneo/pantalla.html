@@ -198,6 +198,12 @@ body{font-family:var(--f-body);color:var(--ivory);position:relative;
 #cargando{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   font-family:var(--f-mono);font-size:20px;letter-spacing:.3em;color:var(--dim)}
 </style>
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../iconos/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="FIG">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 </head>
 <body>
 
@@ -783,5 +789,6 @@ fetch("../datos/club.json",{cache:"no-cache"})
 }catch(e){}
 })();
 </script>
+<script>if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("../sw.js").catch(function(){});});}</script>
 </body>
 </html>

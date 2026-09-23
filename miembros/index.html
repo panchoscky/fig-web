@@ -458,6 +458,12 @@ footer{background:var(--navy-deep);border-top:1px solid var(--line-d);padding:56
 .f-bottom a{display:inline-block;padding:6px 0;margin:-6px 0}
 .f-bottom a{color:var(--gold);opacity:.85}
 </style>
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../iconos/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="FIG">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 </head>
 <body>
 
@@ -2016,5 +2022,6 @@ figJSON("../datos/club.json")
 }catch(e){}
 })();
 </script>
+<script>if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("../sw.js").catch(function(){});});}</script>
 </body>
 </html>

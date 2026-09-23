@@ -40,6 +40,7 @@ SITIO_POR_DEFECTO = "https://feninvestmentgroup.com"
 # Fuera del sitemap, con el motivo al lado.
 EXCLUIDAS = {
     "404.html": "pagina de error",
+    "offline.html": "respaldo sin conexion de la app instalable (sw.js)",
     "GUIA_DRIVE_FIG.html": "guia interna del equipo",
     "MAPA_CONTENIDO_FIG.html": "guia interna del equipo",
     # Las dos pantallas no son paginas para leer: una corre en bucle en un TV y

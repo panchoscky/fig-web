@@ -2362,3 +2362,42 @@ Los 2 archivos de contenido ajeno al torneo que estaban sueltos en el repo
 (`Q1B_INVENTARIO_PROBLEMAS_MATEMATICOS.md`, `docs/PROPUESTAS_DISENO_2026-09-18.md`)
 se dejaron fuera del commit y de la sincronización a propósito — siguen sin
 commitear, esperando su momento.
+
+## Cambios del 2026-09-23 — el sitio se instala como app (PWA)
+
+Francisco pidió poder "instalar" el sitio en el teléfono. Se descartó la app
+nativa (US$99/año Apple, revisión de tienda, Mac para compilar iOS) y se hizo
+una **app web instalable**: ícono en la pantalla de inicio, abre a pantalla
+completa y muestra sin internet lo ya visitado.
+
+- `manifest.webmanifest` (raíz): nombre "FEN Investment Group" / "FIG",
+  navy `#0A1128`, atajos a Ranking, Portafolio y Trading. **Todas las rutas
+  son relativas** para que sirva igual en `panchoscky.github.io/fig-web/` y en
+  la raíz del dominio del espejo.
+- `sw.js` (raíz): **red primero** para páginas y `*.json` — el ranking cambia
+  cada semana y no se puede mostrar uno viejo teniendo internet; el caché es
+  solo respaldo sin conexión. Letras, logos, fotos e íconos: caché primero y
+  se refrescan por detrás. Otros dominios (métricas del Apps Script) y todo lo
+  que no sea GET no se tocan. **Para que todos los teléfonos descarten lo
+  guardado, subir `VERSION`.**
+- `offline.html`: lo que se ve al abrir sin internet una página nunca
+  visitada. Fuera del sitemap (`EXCLUIDAS` de `generar_sitemap.py`).
+- `iconos/` desde `logos/fig-oro.png` con `generar_iconos_app.py` (toro
+  dorado sobre navy; la versión "maskable" deja el disco en la zona segura
+  del 80% porque Android lo recorta en círculo).
+- `aplicar_pwa.py` conectó 16 páginas (enlace al manifiesto + ícono de
+  iPhone en el `<head>`, registro del worker antes de `</body>`). Es
+  idempotente y aborta si no hay exactamente un `</head>` y un `</body>` **en
+  línea propia**: `torneo/index.html` trae otro par dentro de un string de JS.
+  Fuera a propósito: `404.html` (se sirve desde cualquier ruta, los enlaces
+  relativos fallarían), `torneo/e/` (solo redirigen), las guías internas y
+  `estudio-personal/`.
+- **Página nueva = correr `python aplicar_pwa.py --aplicar`**, o no se va a
+  poder instalar desde ella.
+
+Verificado en Chrome por CDP: instalable sin errores, worker activo con
+alcance en la raíz, y **sin conexión real (servidor apagado)** la página ya
+visitada abre desde el caché y una no visitada muestra `offline.html`. Ojo:
+`Network.emulateNetworkConditions offline` **no alcanza al service worker** —
+con eso la prueba "pasa" aunque el worker esté pidiendo a la red. Hay que
+apagar el servidor.
