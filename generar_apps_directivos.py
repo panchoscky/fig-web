@@ -14,6 +14,8 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent
 DIR = RAIZ / "directivos"
+# Subirla cada vez que cambian los íconos: el ?v= obliga al teléfono a bajarlos de nuevo.
+VERSION_ICONOS = 2
 
 PLANTILLA = """<!doctype html>
 <html lang="es-CL">
@@ -25,8 +27,8 @@ PLANTILLA = """<!doctype html>
 <title>FIG Directivos · {nombre}</title>
 <meta name="theme-color" content="{fondo}">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="iconos/icono-192.png">
-<link rel="apple-touch-icon" href="iconos/apple-touch-icon.png">
+<link rel="icon" href="iconos/icono-192.png?v={v}">
+<link rel="apple-touch-icon" href="iconos/apple-touch-icon.png?v={v}">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="FIG {codigo}">
@@ -56,7 +58,7 @@ def main():
         area_js = json.dumps({"codigo": a["codigo"], "nombre": a["nombre"], "carpeta": carpeta}, ensure_ascii=False)
         (destino / "index.html").write_text(PLANTILLA.format(
             nombre=a["nombre"], codigo=a["codigo"], fondo=a["fondo"], acento=a["acento"],
-            area_js=area_js, areas_js=json.dumps(por_codigo, ensure_ascii=False)), encoding="utf-8")
+            v=VERSION_ICONOS, area_js=area_js, areas_js=json.dumps(por_codigo, ensure_ascii=False)), encoding="utf-8")
         manifest = {
             "id": "./", "name": f"FIG Directivos · {a['nombre']}", "short_name": f"FIG {a['codigo']}",
             "description": f"App interna de directivos de {a['nombre']}: publicar eventos, fotos y comunicados de FIG.",
@@ -64,9 +66,9 @@ def main():
             "orientation": "portrait", "background_color": "#F4F3EF", "theme_color": a["fondo"],
             "categories": ["business", "productivity"],
             "icons": [
-                {"src": "iconos/icono-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-                {"src": "iconos/icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
-                {"src": "iconos/icono-mascara-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"},
+                {"src": f"iconos/icono-192.png?v={VERSION_ICONOS}", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+                {"src": f"iconos/icono-512.png?v={VERSION_ICONOS}", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+                {"src": f"iconos/icono-mascara-512.png?v={VERSION_ICONOS}", "sizes": "512x512", "type": "image/png", "purpose": "maskable"},
             ],
         }
         (destino / "manifest.webmanifest").write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
