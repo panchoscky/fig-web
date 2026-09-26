@@ -36,13 +36,25 @@
   }
 
   /* --- servidor --- */
-  function pedir(datos) {
+  function pedir(datos, intento) {
     if (!ENDPOINT) return Promise.reject(new Error("el sitio no tiene configurado el endpoint"));
+    intento = intento || 1;
     datos.token = datos.token || leerToken();
     // text/plain = pedido "simple": el Apps Script no acepta el preflight CORS de application/json.
-    return fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(datos) })
+    // ?r= distinto en cada envío: que ningún caché del teléfono o de la red devuelva una respuesta vieja.
+    var url = ENDPOINT + (ENDPOINT.indexOf("?") < 0 ? "?" : "&") + "r=" + Date.now() + "-" + intento;
+    return fetch(url, { method: "POST", cache: "no-store", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(datos) })
       .then(function (res) {
         return res.text().then(function (t) {
+          // "Endpoint FIG activo" = a Google le llegó una VISITA sin datos (el envío se convirtió en
+          // GET en el camino; pasó en un teléfono el 25-sep). Ahí doPost ni corrió, así que
+          // reintentar no duplica nada.
+          if (t.trim() === "Endpoint FIG activo") {
+            if (intento < 3) return new Promise(function (ok) { setTimeout(ok, 600 * intento); })
+              .then(function () { return { __reintentar: true }; });
+            throw new Error("Google recibió el envío vacío (pasa en algunos teléfonos o redes). " +
+              "Prueba con otra conexión (wifi ↔ datos) o desde Chrome, y si sigue, avísale a Francisco.");
+          }
           try { return JSON.parse(t); } catch (e) {
             // Google respondió una página de error en vez de datos: mostrar su título, que dice qué pasó.
             var titulo = (t.match(/<title>([^<]*)<\/title>/i) || [])[1] || "";
@@ -53,6 +65,7 @@
         });
       })
       .then(function (r) {
+        if (r.__reintentar) return pedir(datos, intento + 1);
         if (r.error === "sesion") { guardarToken(""); yo = null; pantallaEntrada(r.mensaje); throw new Error(r.mensaje); }
         return r;
       });
