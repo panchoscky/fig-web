@@ -2512,3 +2512,9 @@ Reemplaza la fase 1 del 23-sep (que nunca se desplegó).
 - **Falta** (Francisco): pegar el Apps Script y las 3 propiedades, commit/push,
   y decidir cuándo portar al espejo de Manuel (`app/`, `directivos/`,
   `apps_script/`, `eventos/`, `trading/`, `manifest`, `sw.js`).
+
+## 2026-09-25 (noche) — publicado en fig-web + dos arreglos
+
+- `021f23b` publica las apps (solo fig-web, NO el espejo). Francisco pegó el Apps Script v2 y las propiedades; login y fotos de Drive probados en vivo (las fotos se ven públicas).
+- `ac2e92a`: en un teléfono el login respondió `Endpoint FIG activo` (el POST llegó a Google como GET, doPost no corrió). La app ahora reintenta hasta 3 veces, agrega `?r=` único y `cache:no-store`, y muestra un mensaje claro. Causa de fondo no identificada: si vuelve, averiguar navegador y red del teléfono.
+- `19f0782`: el marco de los íconos de directivos era un círculo; ahora sigue el borde del cuadrado redondeado como en el artefacto elegido (marco 7 %, toro 66 %, maskable al 76 %). `VERSION_ICONOS` en `generar_apps_directivos.py` agrega `?v=` para que los teléfonos los bajen de nuevo: subirla cada vez que cambien.
