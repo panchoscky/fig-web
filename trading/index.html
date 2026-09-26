@@ -466,6 +466,17 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
   .facts .v{text-align:left}
   .facts li{flex-direction:column;gap:2px}
 }
+/* Tabla del Alpha Trading Challenge — la sube el área Trading desde su app
+   FIG Directivos y llega EN VIVO del Apps Script (?tipo=tabla_trading). */
+.tv-tabla{margin-top:56px}
+.tv-tabla h3{font-family:var(--f-disp);font-weight:600;font-size:1.6rem;margin:0 0 4px}
+.tv-tabla .tv-corte{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 16px}
+.tv-tabla .tw{overflow-x:auto;border:1px solid var(--line-l);background:var(--paper)}
+.tv-tabla table{width:100%;border-collapse:collapse;font-size:.92rem}
+.tv-tabla th,.tv-tabla td{text-align:left;padding:11px 16px;border-bottom:1px solid var(--line-l);white-space:nowrap}
+.tv-tabla th{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
+.tv-tabla tr:last-child td{border-bottom:none}
+.tv-tabla tbody tr:nth-child(-n+3) td:first-child{color:var(--acc-deep);font-weight:700}
 </style>
 <link rel="manifest" href="../manifest.webmanifest">
 <link rel="apple-touch-icon" href="../iconos/apple-touch-icon.png">
@@ -654,6 +665,11 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
         </div>
              ═══════════════════════════════════════════════════════════════════ -->
       </div>
+    </div>
+    <div class="tv-tabla" id="tvTabla" hidden>
+      <h3>Tabla del torneo</h3>
+      <p class="tv-corte" id="tvTablaCorte"></p>
+      <div class="tw" id="tvTablaCont"></div>
     </div>
   </div>
 </section>
@@ -917,6 +933,27 @@ fetch("../datos/eventos.json",{cache:"no-cache"})
 fetch("../datos/trading.json",{cache:"no-cache"})
   .then(function(r){return r.ok?r.json():null})
   .then(function(d){if(d){for(var k in d){DATA[k]=d[k];}renderData();}})
+  .catch(function(){});
+
+/* ---------------- Tabla del torneo, en vivo ----------------
+   La sube un directivo de Trading desde su app (directivos/trading/) y la
+   guarda el Apps Script COMPARTIDO (apps_script/Codigo.gs). Si todavía no hay
+   tabla, o el script no responde, el bloque sigue oculto y la página queda
+   igual que antes. */
+fetch("../datos/club.json",{cache:"no-cache"}).then(function(r){return r.ok?r.json():null})
+  .then(function(c){
+    var ep=c&&c.config&&c.config.figEndpoint;
+    if(!ep)return null;
+    return fetch(ep+"?tipo=tabla_trading",{cache:"no-store"}).then(function(r){return r.json()});
+  })
+  .then(function(t){
+    if(!t||!t.columnas||!t.filas||!t.filas.length||!DATA.torneo||!DATA.torneo.activo)return;
+    $("#tvTablaCorte").textContent=t.titulo||"";
+    $("#tvTablaCont").innerHTML='<table><thead><tr>'+t.columnas.map(function(x){return "<th>"+esc(x)+"</th>"}).join("")
+      +'</tr></thead><tbody>'+t.filas.map(function(f){return "<tr>"+f.map(function(x){return "<td>"+esc(x)+"</td>"}).join("")+"</tr>"}).join("")
+      +'</tbody></table>';
+    $("#tvTabla").hidden=false;
+  })
   .catch(function(){});
 
 /* ---------------- Infraestructura compartida ---------------- */

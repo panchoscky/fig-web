@@ -1,3 +1,7 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+# Cuentas de FIG Directivos (claves en texto plano, solo en este PC)
+*.local.csv
+*.local.txt

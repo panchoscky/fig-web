@@ -2401,3 +2401,114 @@ visitada abre desde el caché y una no visitada muestra `offline.html`. Ojo:
 `Network.emulateNetworkConditions offline` **no alcanza al service worker** —
 con eso la prueba "pasa" aunque el worker esté pidiendo a la red. Hay que
 apagar el servidor.
+
+## Cambios del 2026-09-23 — app "FIG Directivos · Portafolio" (fase 1, sin publicar)
+
+Pedido de Francisco: retomar la [[propuesta-apps-fig]] del mismo día, empezando
+por Portafolio. Fase 1 acordada con él por preguntas concretas: (1) reusar el
+Apps Script COMPARTIDO del sitio en vez de un backend nuevo — cero API keys en
+el repo; (2) la foto va con el evento, comprimida en el navegador; (3) el
+paso de publicar al sitio lo corre y lo pushea Francisco, no es automático.
+**Nada de esto está commiteado ni desplegado todavía** — queda pendiente de
+que Francisco revise y de que él mismo pegue el Apps Script actualizado.
+
+- **`directivos/portafolio/`** — app instalable propia (manifest + service
+  worker con su propio scope, aislada de la pública siguiendo la trampa ya
+  anotada en la propuesta), sin login: banner visible avisando que es prueba
+  interna. Lee `datos/eventos.json`, `datos/torneo-tabla.json`,
+  `datos/portafolio.json` y `datos/trading.json` (solo lectura, tal como
+  ya son públicos) y agrega 2 formularios de escritura: **Nuevo evento**
+  (con foto opcional) y **Anuncio**. Excluida de `generar_sitemap.py` y
+  `verificar_sitio.py` por prefijo, mismo patrón que `estudio-personal/`.
+- **Íconos propios** (`generar_iconos_directivos.py`, nuevo): mismo
+  logo (`logos/fig-oro.png`) sobre el navy de Portafolio (`#061A33`) con un
+  anillo naranja (`#FF7A00`), para que no se confunda con el ícono de la app
+  pública en el teléfono. Agregar un área nueva (Trading, Valuation...) es
+  sumar una entrada al diccionario `AREAS` del script.
+- **Apps Script COMPARTIDO ampliado** (código en `HOJA_DE_RUTA_FIG.md`,
+  sección "Código del Apps Script COMPARTIDO"): 2 `tipo` nuevos en `doPost`
+  (`evento_directivo`, `anuncio_directivo`) y 2 en `doGet`
+  (`eventos_directivos`, `anuncios`), más una función que crea sola la
+  carpeta de Drive "FIG - Fotos Directivos" la primera vez que hace falta.
+  **Pendiente de Francisco**: pegar el código actualizado en
+  script.google.com (edición de la implementación existente, no una nueva —
+  la URL de `config.figEndpoint` no cambia) y crear las 2 pestañas nuevas
+  (`EventosDirectivos`, `Anuncios`) en su planilla.
+- **`generar_contenido_directivos.py`** (nuevo, no corrido todavía): trae lo
+  que quede en la planilla/Drive y lo agrega a `datos/eventos.json` +
+  `datos/anuncios.json` (nuevo archivo). Idempotente por `id`. Las fotos
+  llegan como link de Drive (`fotoDriveUrl`) — bajarlas y numerarlas en
+  `fotos/eventos/<carpeta>/` sigue siendo manual, como con cualquier foto del
+  sitio; este script no lo automatiza.
+- **Por qué no hay login todavía**: pedido explícito de Francisco para esta
+  fase — "solo yo la usaré para probar cómo publica". La propuesta original
+  (candado en el servidor vía lista de correos + Google login en el Apps
+  Script) queda para cuando se decida restringir acceso de verdad; hoy
+  cualquiera con el link de `directivos/portafolio/` podría enviar un evento
+  o anuncio, por eso la página lleva `noindex` y no está enlazada desde
+  ningún nav público.
+- **Colores del ícono, elegidos probándolos en vivo**: se armó un artefacto
+  interactivo ("Íconos de FIG Directivos") con inputs de color reales sobre
+  el PNG con transparencia del toro (dorado/navy/blanco), para las 4 áreas
+  con página propia. Francisco eligió **toro blanco en las 4**, con
+  Portafolio en negro+oro, Trading en rojo oscuro (`#CB0606`)+oro, Valuation
+  en rojo (`#FF0000`)+navy y FIW en navy+violeta (`#8C00FF`) — colores de
+  identidad para el ÍCONO, no la paleta de esas páginas (Negro/naranja
+  "prestados" de BlackRock/Itaú, mencionados como tal en el artefacto).
+  `generar_iconos_directivos.py` quedó con esos 4 valores. **Solo Portafolio
+  tiene app real hoy**: se le actualizó también el `manifest.webmanifest` y
+  los tokens `--navy-deep/--navy/--navy-panel/--acc/--acc-light` de
+  `directivos/portafolio/index.html` a negro+oro para que la app abierta
+  combine con su ícono (antes había quedado en navy+naranja). De paso se
+  encontró y corrigió un `rgba(255,122,0,…)` viejo a mano en `.badge` que el
+  cambio de tokens no habría tocado solo — la misma trampa ya documentada
+  para el resto del sitio.
+- **Pendiente si se construyen las apps de Trading/Valuation/FIW**: aplicarles
+  el mismo tratamiento (manifest + tokens de la página, no solo el ícono)
+  cuando llegue el momento, con sus colores ya elegidos arriba.
+
+## Cambios del 2026-09-25 — app pública de 3 pestañas + 5 apps de directivos con login (sin publicar)
+
+Pedido de Francisco: etapa 1 = la app pública solo muestra la tabla del Torneo
+Portafolio, la del Alpha Trading Challenge y los eventos; las apps de directivos
+(una por área) publican eventos, fotos y comunicados etiquetados por área. Decidió:
+usuario = código de área + código de 3 letras de Miembros (`PRT` + `FVA` =
+`PRTFVA`; se acepta `prt-fva`), publicación **al tiro en apps y web** (sin
+revisión), y la tabla de Trading la sube un directivo de Trading desde su app.
+Reemplaza la fase 1 del 23-sep (que nunca se desplegó).
+
+- **`apps_script/Codigo.gs`** — versión 2 COMPLETA del Apps Script compartido
+  (se pega entero; los tipos viejos postulación/rally/visita siguen igual). El
+  candado está en el servidor: `login` entrega un token HMAC de 30 días; todo lo
+  demás lo exige; **el área la pone el servidor según el usuario**, nunca la app
+  (solo un admin elige área). 5 intentos fallidos bloquean 15 min. Cambiar la
+  clave o borrar al usuario invalida sus tokens. Lecturas públicas
+  `?tipo=publicaciones` y `?tipo=tabla_trading` con caché de 60 s que cada
+  escritura borra. Pestañas `Publicaciones` (columna `visible` para ocultar a
+  mano), `TablaTrading`, `Registro` — las crea solo.
+- **Secretos fuera del repo**: `crear_usuarios_directivos.py` arma la plantilla
+  de los 15 directivos desde `miembros.json` y convierte las claves en hash
+  (HMAC-SHA256 con pimienta) para pegar en Propiedades del script. Los
+  `*.local.csv/txt` están en `.gitignore`. Admin: solo `PRTFVA`.
+- **`directivos/`** — UNA base (`app.js`, `app.css`, `sw.js`, `offline.html`) y
+  5 carcasas generadas (`portafolio`, `trading`, `valuation`, `fiw`,
+  `administracion`) por `generar_apps_directivos.py` desde
+  `directivos/areas.json`, que también lee `generar_iconos_directivos.py`. Un
+  usuario que abre la app de otra área ve un aviso con el link a la suya.
+  Borrados `directivos/portafolio/sw.js`/`offline.html` y
+  `generar_contenido_directivos.py` (leían las pestañas del 23-sep, ya obsoletas).
+- **`app/index.html`** — la app pública (Portafolio / Trading / Eventos, con
+  comunicados arriba en Eventos). `manifest.webmanifest` ahora tiene
+  `start_url: app/` y atajos a `app/#…`; `sw.js` sube a `fig-v2`. Excluida del
+  sitemap (`noindex`).
+- **Web en vivo**: `eventos/index.html` pinta los eventos de directivos después
+  de los del repo (fotos de Drive vía `fotosCache` bajo carpeta `vivo-<id>`);
+  `trading/index.html` muestra la tabla subida si existe.
+- **Probado** con un simulador del Apps Script en Node (31/31 casos del candado,
+  incluida la compatibilidad del hash Python↔Apps Script) y de punta a punta en
+  Chrome por CDP a 390 px: login, clave mala, evento con 2 fotos (~200 KB c/u),
+  comunicado, tabla, app ajena, app pública y las dos páginas web. Sin errores
+  de JS. `verificar_sitio.py` sin errores.
+- **Falta** (Francisco): pegar el Apps Script y las 3 propiedades, commit/push,
+  y decidir cuándo portar al espejo de Manuel (`app/`, `directivos/`,
+  `apps_script/`, `eventos/`, `trading/`, `manifest`, `sw.js`).

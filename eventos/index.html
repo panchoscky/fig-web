@@ -627,6 +627,10 @@ function resumenCorto(e){
       im.onerror=function(){intentar(urls,i+1)};
       im.src=urls[i];
     }
+    if(c.indexOf("vivo-")===0){           /* evento de un directivo: su foto está en Drive */
+      if(fotosCache[c]&&fotosCache[c].length)intentar([fotosCache[c][0].replace("sz=w1600","sz=w800")],0);
+      return;
+    }
     intentar([fotoWebp(c,1,true),fotoWebp(c,1,false),fotoJpg(c,1)],0);
   });
   $$(".ev-card",g).forEach(function(card){
@@ -924,7 +928,39 @@ Promise.all([
   if(d&&d.eventos&&d.eventos.length){DATA=d;buildYearRow();renderGrid();openFromHash();datosEstructurados();}
   else if(res[1]){renderGrid();}          /* el manifiesto solo cambia las fotos: repintar igual */
   if(window.__armaPantalla)window.__armaPantalla();
-}).catch(function(){if(window.__armaPantalla)window.__armaPantalla();});
+}).catch(function(){if(window.__armaPantalla)window.__armaPantalla();})
+  .then(eventosDirectivos).then(function(vivos){
+    if(!vivos.length)return;
+    DATA.eventos=vivos.concat(DATA.eventos.filter(function(e){return String(e.id).indexOf("d-")!==0}));
+    currentYear="todos";buildYearRow();renderGrid();openFromHash();
+  });
+
+/* ---------------- Eventos publicados por los directivos (en vivo) ----------------
+   Los directivos publican desde su app (directivos/<area>/, FIG Directivos) y
+   el Apps Script COMPARTIDO (apps_script/Codigo.gs) los devuelve en
+   ?tipo=publicaciones — solo los visibles. Se pintan DESPUÉS de lo del repo,
+   así un Apps Script lento o caído nunca atrasa ni rompe la página. Sus fotos
+   están en Drive: se dejan en fotosCache bajo una carpeta "vivo-<id>", que
+   probeFotos() y los fondos de la grilla ya saben leer. */
+function eventosDirectivos(){
+  return figJSON("../datos/club.json").then(function(c){
+    var ep=c&&c.config&&c.config.figEndpoint;
+    if(!ep)return [];
+    var ctl=window.AbortController?new AbortController():null;
+    if(ctl)setTimeout(function(){ctl.abort()},8000);
+    return fetch(ep+"?tipo=publicaciones",{cache:"no-store",signal:ctl&&ctl.signal})
+      .then(function(r){return r.json()})
+      .then(function(l){
+        var M=["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"];
+        return (Array.isArray(l)?l:[]).filter(function(p){return p.clase==="evento"&&/^\d{4}-\d{2}-\d{2}$/.test(p.fechaEvento)}).map(function(p){
+          var f=p.fechaEvento.split("-"),carpeta="vivo-"+p.id;
+          fotosCache[carpeta]=(p.fotos||[]).map(function(id){return "https://drive.google.com/thumbnail?id="+encodeURIComponent(id)+"&sz=w1600"});
+          return {id:"d-"+p.id,titulo:p.titulo,fecha:p.fechaEvento,fechaTexto:(+f[2])+" · "+M[+f[1]-1]+" · "+f[0],
+                  tipo:"comunidad",lugar:p.lugar||"",resumen:p.texto||"",participantes:[],carpeta:carpeta};
+        });
+      });
+  }).catch(function(){return []});
+}
 
 /* ---------------- Modo proyección (?pantalla=1) ----------------
    Fotos de todos los eventos a pantalla completa con título y fecha,

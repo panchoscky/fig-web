@@ -1,0 +1,35 @@
+{
+ "_como_editar": "Colores de las apps FIG Directivos, una por área. `fondo` = color del ícono y de la barra de la app; `acento` = anillo del ícono y detalles. Después de cambiarlos: python generar_iconos_directivos.py && python generar_apps_directivos.py. Portafolio, Trading, Valuation y FIW los eligió Francisco el 2026-09-23; Trading (#B31919) y Administración los fijó Francisco el 2026-09-25 en el mismo artefacto.",
+ "areas": {
+  "portafolio": {
+   "codigo": "PRT",
+   "nombre": "Portafolio",
+   "fondo": "#000000",
+   "acento": "#D4AF37"
+  },
+  "trading": {
+   "codigo": "TRD",
+   "nombre": "Trading",
+   "fondo": "#B31919",
+   "acento": "#D4AF37"
+  },
+  "valuation": {
+   "codigo": "VAL",
+   "nombre": "Valuation",
+   "fondo": "#FF0000",
+   "acento": "#0A1128"
+  },
+  "fiw": {
+   "codigo": "FIW",
+   "nombre": "FEN Investment Woman",
+   "fondo": "#0A1128",
+   "acento": "#8C00FF"
+  },
+  "administracion": {
+   "codigo": "ADM",
+   "nombre": "Administración",
+   "fondo": "#2E2A4F",
+   "acento": "#1AACEA"
+  }
+ }
+}

@@ -41,6 +41,7 @@ SITIO_POR_DEFECTO = "https://feninvestmentgroup.com"
 EXCLUIDAS = {
     "404.html": "pagina de error",
     "offline.html": "respaldo sin conexion de la app instalable (sw.js)",
+    "app/index.html": "carcasa de la app publica instalable (noindex; repite torneo y eventos)",
     "GUIA_DRIVE_FIG.html": "guia interna del equipo",
     "MAPA_CONTENIDO_FIG.html": "guia interna del equipo",
     # Las dos pantallas no son paginas para leer: una corre en bucle en un TV y
@@ -112,7 +113,7 @@ def main() -> int:
         if any(parte.startswith(".") for parte in ruta.relative_to(RAIZ).parts):
             continue  # carpetas ocultas (.claude/, .git/, worktrees sueltos) no son contenido del sitio
         rel = str(ruta.relative_to(RAIZ)).replace("\\", "/")
-        if rel.startswith("torneo/e/") or rel.startswith("estudio-personal/") or rel in EXCLUIDAS:   # ver EXCLUIDAS
+        if rel.startswith("torneo/e/") or rel.startswith("estudio-personal/") or rel.startswith("directivos/") or rel in EXCLUIDAS:   # ver EXCLUIDAS
             continue
         # index.html se publica como la carpeta, sin el nombre de archivo
         publica = rel[:-len("index.html")] if rel.endswith("index.html") else rel

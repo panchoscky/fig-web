@@ -8,9 +8,9 @@
  *   - otros dominios (métricas, etc.)      → no se tocan
  * Para forzar que todos los teléfonos descarten lo guardado, subir VERSION.
  */
-const VERSION = "fig-v1";
+const VERSION = "fig-v2";
 const BASE = new URL("./", self.location).pathname;
-const PRECARGA = ["./", "offline.html", "iconos/icono-192.png"];
+const PRECARGA = ["./", "app/", "offline.html", "iconos/icono-192.png"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(VERSION).then((c) => c.addAll(PRECARGA)).then(() => self.skipWaiting()));

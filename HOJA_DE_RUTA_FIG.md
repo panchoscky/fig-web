@@ -495,6 +495,18 @@ en qué pestaña escribir; el ranking del juego además usa `doGet` para leer.
 | `Postulaciones` | `fecha` \| `nombre` \| `correo` \| `carrera` \| `Año` \| `area` \| `motivacion` \| `linkedin` |
 | `Ranking` | `fecha` \| `nombre` \| `valor` |
 | `Visitas` | `fecha` \| `pagina` \| `origen` |
+| `EventosDirectivos` | `fecha` \| `area` \| `autor` \| `titulo` \| `fechaEvento` \| `lugar` \| `resumen` \| `fotoUrl` |
+| `Anuncios` | `fecha` \| `area` \| `autor` \| `titulo` \| `texto` |
+
+**Las dos últimas son nuevas (2026-09-23), para la app "FIG Directivos ·
+Portafolio"** (`directivos/portafolio/`): un directivo publica un evento (con
+foto opcional) o un anuncio desde su teléfono, sin login por ahora — la app
+completa avisa que es una prueba interna, sin restringir acceso todavía.
+`fotoUrl` la llena el propio script (ver Paso 2): sube la foto a una carpeta
+de Drive que crea sola la primera vez ("FIG - Fotos Directivos") y anota el
+link. Nada de esto llega solo al sitio público: queda en la planilla/Drive
+hasta que alguien corre `generar_contenido_directivos.py` y hace commit/push
+— ver la entrada del 2026-09-23 en `docs/BITACORA.md`.
 
 Los encabezados son solo para que tú identifiques cada columna — el script
 escribe por posición (`appendRow`), no busca el nombre exacto. Por eso la
@@ -517,12 +529,45 @@ function doPost(e) {
     ss.getSheetByName("Ranking").appendRow([d.fecha, d.nombre, d.valor]);
   } else if (d.tipo === "visita") {
     ss.getSheetByName("Visitas").appendRow([d.fecha, d.pagina, d.origen]);
+  } else if (d.tipo === "evento_directivo") {
+    var fotoUrl = "";
+    if (d.fotoBase64) {
+      var carpeta = carpetaFotosDirectivos_();
+      var blob = Utilities.newBlob(Utilities.base64Decode(d.fotoBase64),
+        d.fotoTipo || "image/jpeg", d.fotoNombre || "foto.jpg");
+      var archivo = carpeta.createFile(blob);
+      archivo.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+      fotoUrl = archivo.getUrl();
+    }
+    ss.getSheetByName("EventosDirectivos").appendRow(
+      [d.fecha, d.area, d.autor, d.titulo, d.fechaEvento, d.lugar, d.resumen, fotoUrl]);
+  } else if (d.tipo === "anuncio_directivo") {
+    ss.getSheetByName("Anuncios").appendRow([d.fecha, d.area, d.autor, d.titulo, d.texto]);
   }
   return ContentService.createTextOutput("OK");
 }
 
+// Carpeta de Drive donde se guardan las fotos que suben los directivos desde
+// su app. La crea la primera vez que hace falta; después la reutiliza.
+function carpetaFotosDirectivos_() {
+  var nombre = "FIG - Fotos Directivos";
+  var carpetas = DriveApp.getFoldersByName(nombre);
+  return carpetas.hasNext() ? carpetas.next() : DriveApp.createFolder(nombre);
+}
+
+function filasComoObjetos_(nombreHoja, columnas) {
+  var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(nombreHoja);
+  if (!hoja) return [];
+  return hoja.getDataRange().getValues().slice(1).map(function(f) {
+    var o = {};
+    columnas.forEach(function(c, i) { o[c] = f[i]; });
+    return o;
+  });
+}
+
 function doGet(e) {
-  if (e.parameter && e.parameter.tipo === "rally") {
+  var tipo = e.parameter && e.parameter.tipo;
+  if (tipo === "rally") {
     var top = parseInt(e.parameter.top || "10", 10);
     var hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Ranking");
     var filas = hoja.getDataRange().getValues().slice(1); // sin encabezado
@@ -534,6 +579,17 @@ function doGet(e) {
     return ContentService.createTextOutput(JSON.stringify(scores))
       .setMimeType(ContentService.MimeType.JSON);
   }
+  if (tipo === "eventos_directivos") {
+    var eventos = filasComoObjetos_("EventosDirectivos",
+      ["fecha", "area", "autor", "titulo", "fechaEvento", "lugar", "resumen", "fotoUrl"]);
+    return ContentService.createTextOutput(JSON.stringify(eventos))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  if (tipo === "anuncios") {
+    var anuncios = filasComoObjetos_("Anuncios", ["fecha", "area", "autor", "titulo", "texto"]);
+    return ContentService.createTextOutput(JSON.stringify(anuncios))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
   return ContentService.createTextOutput("Endpoint FIG activo");
 }
 ```
@@ -542,6 +598,22 @@ function doGet(e) {
 web**: Ejecutar como **"Yo"**, Acceso **"Cualquier usuario"**. Copiar la
 URL `/exec` resultante y pegarla **una sola vez** en
 `datos/club.json → config.figEndpoint`.
+
+> ⚠️ **REEMPLAZADO el 2026-09-25**: el código vigente del Apps Script ya no
+> es el de arriba sino **`apps_script/Codigo.gs`** (se pega entero). Suma el
+> login de directivos, publicaciones en vivo y la tabla de Trading; las
+> pestañas `EventosDirectivos`/`Anuncios` de la tabla de arriba nunca se
+> usaron (se reemplazan por `Publicaciones`, `TablaTrading` y `Registro`, que
+> el script crea solo). Ver la entrada del 2026-09-25 en `docs/BITACORA.md`.
+
+**Actualización 2026-09-23 (app de directivos):** si el script ya estaba
+desplegado, no hace falta una implementación nueva ni cambiar la URL —
+**Implementar → Administrar implementaciones → ✎ Editar** la implementación
+activa, pegar el código de arriba (ya incluye los `tipo` viejos, no se
+pierden) y guardar como **nueva versión** de la MISMA implementación. La
+primera vez que corra `carpetaFotosDirectivos_()`, Google va a pedir
+autorizar el permiso de Drive (es el propio script de Francisco pidiéndole
+permiso a su propia cuenta, no una clave nueva ni nada que vaya al repo).
 
 No hay que tocar ningún HTML — `postula/index.html`, `juego/index.html` y
 el beacon de las 8 páginas ya están listos para consumir ese mismo

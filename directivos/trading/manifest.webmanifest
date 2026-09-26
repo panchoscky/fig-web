@@ -1,0 +1,38 @@
+{
+ "id": "./",
+ "name": "FIG Directivos · Trading",
+ "short_name": "FIG TRD",
+ "description": "App interna de directivos de Trading: publicar eventos, fotos y comunicados de FIG.",
+ "lang": "es-CL",
+ "dir": "ltr",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#F4F3EF",
+ "theme_color": "#B31919",
+ "categories": [
+  "business",
+  "productivity"
+ ],
+ "icons": [
+  {
+   "src": "iconos/icono-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "iconos/icono-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "iconos/icono-mascara-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
