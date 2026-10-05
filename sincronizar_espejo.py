@@ -116,6 +116,22 @@ NO_SE_COPIAN = {
     # aca". Copiar el de aca borraria ese aviso, que es lo que lee una sesion de
     # Claude Code abierta en la carpeta de Manuel.
     "CLAUDE.md": "el espejo tiene el suyo, mas corto, que avisa 'no desarrolles aca'",
+    # --- Apps FIG Directivos (decision de Francisco, 2026-10-04) ----------------
+    # Al espejo viajan app/, directivos/ (menos lo de abajo), manifest, sw.js,
+    # iconos/, offline.html y apps_script/. Lo siguiente NO:
+    "directivos_cuentas.local.csv": "CLAVES de los directivos en texto plano; nunca sale de este PC",
+    "directivos_propiedades.local.txt": "valor de FIG_USUARIOS (hashes); nunca sale de este PC",
+    "crear_usuarios_directivos.py": "herramienta del admin para armar cuentas; alla no sirve",
+    "directivos/fiw/": "app del area FIW: el area no se publica en el espejo (decision del 2026-08-30)",
+    "directivos/areas.json": "solo lo leen los generadores; nombra a FIW, y la app no lo carga",
+    "generar_apps_directivos.py": "generador que se corre en el repo de trabajo",
+    "generar_iconos_directivos.py": "generador que se corre en el repo de trabajo",
+    "generar_iconos_app.py": "generador que se corre en el repo de trabajo",
+    "aplicar_pwa.py": "herramienta del repo de trabajo; alla no se desarrolla",
+    # Material personal / de trabajo suelto (2026-10-04)
+    "torneo_portafolio_facultad.mp4": "video de trabajo, pesado y personal",
+    "Q1B_INVENTARIO_PROBLEMAS_MATEMATICOS.md": "material personal de estudio, no es del club",
+    "docs/PROPUESTAS_DISENO_2026-09-18.md": "documento de trabajo de Francisco",
 }
 
 # Difieren a proposito y NUNCA se pisan. main() los imprime por nombre con su
