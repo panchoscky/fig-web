@@ -636,34 +636,13 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
           <p id="tvCardTexto">Completa el formulario y te avisamos con las bases y las fechas apenas estén listas.</p>
           <span class="tc-tag"><span class="tc-dot"></span><span id="tvEstado">Por confirmar</span></span>
         </aside>
-        <!-- ═══ FALTA EL LOGO DE XTB (2026-09-04) ═══════════════════════════
-             XTB es sponsor del Alpha Trading Challenge 2026 — lo declara
-             `datos/club.json` y lo dice la bajada de esta misma sección—, así que
-             acá va su logotipo, igual que Itaú y BlackRock en portafolio/. Falta
-             UNA sola cosa: el archivo. Hay que pedirle a XTB el logotipo oficial
-             en versión para FONDO CLARO (esta sección es crema) y guardarlo como
-             `logos/xtb.png`.
-
-             CUANDO LLEGUE EL ARCHIVO, son dos pasos y ninguno es de diseño:
-               1) guardar el logo en `logos/xtb.png`;
-               2) descomentar el bloque de acá abajo.
-             El CSS de `.spons` ya está escrito más arriba y es el mismo que usa
-             portafolio/, así que no hay nada más que tocar.
-
-             POR QUÉ NO QUEDÓ PUESTO DE ANTEMANO: se probaron las dos formas —el
-             <img> con el src escrito y un sondeo con `new Image()`— y las dos
-             meten un 404 en cada carga de la página. `verificar_paginas.js` falla
-             la página con ambas, y tiene razón. El repo sí perdona los 404 que son
-             sondeos legítimos (RUTAS_SONDEADAS, en ese script: `fotos/` y
-             `logos/industria/`), pero esos son mecanismos permanentes por diseño;
-             esto es un archivo que falta una vez. Ampliar esa lista para tapar un
-             hueco temporal sería arreglar el termómetro en vez de la fiebre.
-
+        <!-- Franja de auspiciador. XTB es sponsor del Alpha Trading Challenge 2026 (lo declara
+             datos/club.json). El logo va en su version para FONDO CLARO porque esta seccion es
+             crema; el CSS de .spons es el mismo de portafolio/. -->
         <div class="spons">
           <b>Auspicia el torneo</b>
-          <img src="../logos/xtb.png" alt="XTB">
+          <img class="sq" src="../logos/xtb.png" alt="XTB">
         </div>
-             ═══════════════════════════════════════════════════════════════════ -->
       </div>
     </div>
     <div class="tv-tabla" id="tvTabla" hidden>
