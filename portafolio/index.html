@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portafolio — FIG</title>
 <meta name="description" content="Portafolio: el área de FEN Investment Group dedicada a la gestión de carteras, la asignación de activos y el control de riesgo. Es el área que dirige el Torneo Portafolio 2026. Universidad de Chile.">
-<meta name="theme-color" content="#061A33">
+<meta name="theme-color" content="#0A0A0A">
 <link rel="canonical" href="https://feninvestmentgroup.com/portafolio/">
 <meta property="og:url" content="https://feninvestmentgroup.com/portafolio/">
 <meta property="og:title" content="Portafolio — FIG">
@@ -18,7 +18,7 @@
 <meta name="twitter:title" content="Portafolio — FIG">
 <meta name="twitter:description" content="Gestión de carteras, control de riesgo y el Torneo Portafolio 2026 en FEN Investment Group.">
 <meta name="twitter:image" content="/og-image.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23061A33'/%3E%3Ccircle cx='50' cy='50' r='34' fill='%23FF7A00'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230A0A0A'/%3E%3Ccircle cx='50' cy='50' r='34' fill='%23FF7A00'/%3E%3C/svg%3E">
 <!-- Tipografias autoalojadas: antes esto eran dos preconnect y una
      hoja de estilos de fonts.googleapis.com, que bloqueaba la primera
      pintada y le mandaba la IP de cada visitante a Google. Las genera
@@ -67,6 +67,19 @@
      gris claro sobre el navy, y pinta el lienzo en blanco antes de la primera
      pintada: en un sitio 100% oscuro se ve como un destello o una barra blanca. */
   color-scheme:dark;
+  /* PALETA "NEGRO BLACKROCK" (2026-10-21, elegida por Francisco entre cuatro
+     lecturas de la vitrina de rediseño): el navy pasa a negro y el marfil a la
+     crema #F5F5EB que BlackRock usa en sus paneles; el naranja de Itaú se
+     queda igual y gana contraste (7.58 sobre negro contra 6.68 sobre navy).
+     Así los dos sponsors quedan en un solo gesto: estructura negra y crema de
+     BlackRock (el universo del torneo son ETF iShares) con el acento de Itaú.
+     Los nombres --navy* se mantienen a propósito (ver el párrafo de abajo):
+     hoy valen negro. Medido sobre los valores nuevos:
+       --acc        sobre --navy   7.58   --acc-light sobre --navy 10.19
+       --bmk        sobre --navy   7.94   --bmk sobre --navy-panel  7.32
+       --acc-deep   sobre --ivory  5.33   --acc-chroma sobre --ivory 4.55
+       --ink-soft   sobre --ivory  6.81   --bmk-deep sobre --ivory   4.85
+     Lo que sigue es la historia de la paleta anterior ("Itaú terminal"). */
   /* PALETA PROPIA DE PORTAFOLIO — decisión de la directiva (2026-09-02),
      retocada el 2026-09-05 ("Itaú terminal"): mismo anclaje navy+naranja de
      Itaú, pero navy más saturado y naranja llevado a su tono de marca real
@@ -90,11 +103,11 @@
                     --acc-deep, solo para texto ≥24px)
        --bmk        sobre --navy   7.00  AAA (sube porque el navy se oscureció;
                     el azul en sí no cambió) */
-  --navy-deep:#030D1A; --navy:#061A33; --navy-panel:#0A2748;
+  --navy-deep:#000000; --navy:#0A0A0A; --navy-panel:#161514;
   --acc:#FF7A00;          /* naranja Itaú (tono de marca, sin atemperar) */
   --acc-light:#FFA64D;    /* naranja claro         */
-  --acc-deep:#AC4E00;     /* naranja profundo      */
-  --acc-chroma:#BB4E0A;   /* naranja display sobre crema — más rojo que --acc-deep,
+  --acc-deep:#A84800;     /* naranja profundo — 5.33 sobre la crema */
+  --acc-chroma:#BB4E0A;   /* 4.55 sobre la crema #F5F5EB; naranja display sobre crema — más rojo que --acc-deep,
                              solo para texto grande (≥24px): itálicas del título y .mrow-n */
   --acc-warm:#FFB870;     /* naranja cálido        */
   --acc-dim:rgba(255,122,0,.34);
@@ -116,9 +129,13 @@
   --bmk:#7BA7DE;         /* azul ACWI sobre fondo oscuro */
   --bmk-deep:#3C6DA8;    /* azul ACWI sobre fondo claro  */
   --bmk-faint:rgba(123,167,222,.16);
-  --ivory:#F4F6FA; --paper:#EFEDE6; --ink:#0E1420; --ink-soft:#565C68;
-  --line-l:rgba(14,20,32,.13); --line-d:rgba(255,122,0,.2);
-  --f-disp:"Playfair Display",Georgia,serif;
+  --ivory:#F5F5EB; --paper:#ECEBE0; --ink:#0A0A0A; --ink-soft:#57554C;
+  --line-l:rgba(10,10,10,.13); --line-d:rgba(255,122,0,.2);
+  /* Títulos: Archivo variable en ancho condensado (font-stretch en .hero h1,
+     .h-sec y compañía), como los titulares de BlackRock. Playfair queda de
+     respaldo solo si fuentes/fig.css no carga. */
+  --f-disp:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --disp-w:72%;
   --f-body:"Inter",-apple-system,"Segoe UI",sans-serif;
   --f-mono:"IBM Plex Mono","SF Mono",monospace;
   --wrap:1180px; --ease:cubic-bezier(.22,.61,.21,1);
@@ -135,7 +152,7 @@
 html{scroll-behavior:smooth;scrollbar-gutter:stable}
 section[id]{scroll-margin-top:80px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}}
-body{background:var(--navy);color:var(--ivory);font-family:var(--f-body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-stretch:var(--disp-w);background:var(--navy);color:var(--ivory);font-family:var(--f-body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 ::selection{background:var(--acc);color:var(--navy)}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
@@ -145,10 +162,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 .kicker{font-family:var(--f-mono);font-size:.72rem;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:var(--acc);display:flex;align-items:center;gap:14px}
 .kicker::before{content:"";width:34px;height:1px;background:var(--acc);opacity:.7;flex:none}
-.h-sec{font-family:var(--f-disp);font-weight:600;font-size:clamp(2.1rem,4.6vw,3.4rem);line-height:1.1;letter-spacing:-.012em;margin:18px 0 0}
-.h-sec em{font-style:italic;color:var(--acc)}
-.section--light .h-sec em{color:var(--acc-chroma)}
-.lead{font-size:1.05rem;color:rgba(244,246,250,.78);max-width:58ch}
+.h-sec{font-family:var(--f-disp);font-stretch:var(--disp-w);font-weight:760;font-size:clamp(2.2rem,4.8vw,3.6rem);line-height:1.02;letter-spacing:-.008em;margin:18px 0 0;text-wrap:balance}
+.h-sec em{font-style:normal;color:inherit}
+.section--light .h-sec em{color:inherit}
+.lead{font-size:1.05rem;color:rgba(245,245,235,.78);max-width:58ch}
 .section--light .lead{color:var(--ink-soft)}
 .mono-tag{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);border:1px solid var(--acc-dim);border-radius:100px;padding:5px 13px;display:inline-block}
 .btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:.92rem;padding:15px 30px;border-radius:2px;transition:transform .4s var(--ease),box-shadow .4s,background .35s,color .35s,border-color .35s;white-space:nowrap}
@@ -157,8 +174,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .btn--ghost{border:1px solid var(--acc-dim);color:var(--ivory)}
 .btn--ghost:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-2px)}
 .btn--navy{background:var(--navy);color:var(--acc)}
-.btn--navy:hover{transform:translateY(-2px);box-shadow:0 18px 40px -14px rgba(6,26,51,.6)}
-.btn.is-off{background:transparent;border:1px dashed var(--acc-dim);color:rgba(244,246,250,.5);cursor:default;pointer-events:none}
+.btn--navy:hover{transform:translateY(-2px);box-shadow:0 18px 40px -14px rgba(10,10,10,.6)}
+.btn.is-off{background:transparent;border:1px dashed var(--acc-dim);color:rgba(245,245,235,.5);cursor:default;pointer-events:none}
 .section--light .btn.is-off{color:var(--ink-soft)}
 /* sobre fondo claro el fantasma quedaba color marfil sobre marfil (invisible) */
 .section--light .btn--ghost{color:var(--ink);border-color:var(--line-l)}
@@ -183,13 +200,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* Nav */
 .nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 0;transition:padding .4s var(--ease),background .4s,border-color .4s;border-bottom:1px solid transparent}
-.nav.scrolled{padding:12px 0;background:rgba(3,13,26,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line-d)}
+.nav.scrolled{padding:12px 0;background:rgba(0,0,0,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line-d)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}
 .brand{display:flex;align-items:center;gap:13px}
 .brand-name{font-family:var(--f-disp);font-weight:600;font-size:1.02rem;line-height:1.15}
 .brand-sub{font-family:var(--f-mono);font-size:.55rem;letter-spacing:.32em;text-transform:uppercase;color:var(--acc);display:block;margin-top:2px}
 .nav__links{display:flex;align-items:center;gap:30px;list-style:none}
-.nav__links a{font-size:.84rem;font-weight:500;color:rgba(244,246,250,.82);padding:6px 0;position:relative;transition:color .3s}
+.nav__links a{font-size:.84rem;font-weight:500;color:rgba(245,245,235,.82);padding:6px 0;position:relative;transition:color .3s}
 .nav__links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
 .nav__links a:hover,.nav__links a.active{color:var(--acc)}
 .nav__links a:hover::after,.nav__links a.active::after{transform:scaleX(1)}
@@ -207,7 +224,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .nav__drop:hover .nav__drop-menu,.nav__drop:focus-within .nav__drop-menu{
   opacity:1;visibility:visible;transform:translate(-50%,0);
 }
-.nav__drop-menu a{display:block;padding:11px 14px;font-size:.82rem;color:rgba(244,246,250,.85);white-space:nowrap}
+.nav__drop-menu a{display:block;padding:11px 14px;font-size:.82rem;color:rgba(245,245,235,.85);white-space:nowrap}
 .nav__drop-menu a::after{display:none}
 .nav__drop-menu a:hover{background:var(--acc-faint);color:var(--acc)}
 .nav__burger{display:none;flex-direction:column;gap:5.5px;padding:8px;z-index:1101}
@@ -222,7 +239,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
    la pantalla, sin barra que arrastrar. Con flex-start + márgenes automáticos
    en los extremos queda igual de centrado mientras sobre espacio, y se
    scrollea entero cuando no. */
-.m-menu{position:fixed;inset:0;background:rgba(3,13,26,.97);backdrop-filter:blur(12px);z-index:1100;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility .45s;overflow-y:auto;overscroll-behavior:contain;padding:24px 20px}
+.m-menu{position:fixed;inset:0;background:rgba(0,0,0,.97);backdrop-filter:blur(12px);z-index:1100;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;opacity:0;visibility:hidden;transition:opacity .45s var(--ease),visibility .45s;overflow-y:auto;overscroll-behavior:contain;padding:24px 20px}
 .m-menu>:first-child{margin-top:auto}
 .m-menu>:last-child{margin-bottom:auto}
 .m-menu.open{opacity:1;visibility:visible}
@@ -309,13 +326,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hero-say::before{content:"";position:absolute;inset:-9% -13% -11% -46%;z-index:-1;
   pointer-events:none;
   background:radial-gradient(76% 68% at 36% 46%,
-    rgba(6,26,51,.93) 0%,rgba(6,26,51,.78) 38%,rgba(6,26,51,.34) 64%,transparent 80%)}
+    rgba(10,10,10,.93) 0%,rgba(10,10,10,.78) 38%,rgba(10,10,10,.34) 64%,transparent 80%)}
 /* En una columna el texto ocupa todo el ancho y el velo se comeria el campo
    entero: ahi basta con que baje el ruido justo detras del titulo. */
 @media(max-width:980px){
   .hero-say::before{inset:-6% -18%;
     background:radial-gradient(88% 52% at 44% 30%,
-      rgba(6,26,51,.88) 0%,rgba(6,26,51,.6) 44%,transparent 78%)}
+      rgba(10,10,10,.88) 0%,rgba(10,10,10,.6) 44%,transparent 78%)}
 }
 /* Los puntos del campo son las carteras dominadas, pero a 1265px se leian
    como polvo sobre la pantalla. Bajarlos deja las CURVAS como la figura y
@@ -338,7 +355,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* ---- El plano ---- */
 .plano{position:relative;border:1px solid var(--acc-dim);border-right:none;border-radius:3px 0 0 3px;
-  background:linear-gradient(205deg,rgba(10,39,72,.86),rgba(3,13,26,.92));
+  background:linear-gradient(205deg,rgba(22,21,20,.86),rgba(0,0,0,.92));
   padding:15px 16px 13px;
   opacity:0;transform:translateY(22px);
   transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
@@ -347,7 +364,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .pl-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
   padding-bottom:11px;margin-bottom:9px;border-bottom:1px solid var(--acc-faint);flex-wrap:wrap}
 .pl-ttl{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--acc)}
-.pl-when{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,246,250,.5)}
+.pl-when{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,245,235,.5)}
 .pl-svg svg{display:block;width:100%;height:auto}
 .pl-svg text{font-family:var(--f-mono);letter-spacing:.1em}
 .pl-svg circle{transition:opacity .25s}
@@ -355,28 +372,28 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .pl-svg circle.pt:hover{opacity:1}
 /* La regla dura del repo: ninguna cifra vive solo dentro de un SVG. El pie
    dice en texto lo mismo que el dibujo muestra. */
-.pl-foot{font-size:.76rem;line-height:1.6;color:rgba(244,246,250,.62);margin-top:10px}
+.pl-foot{font-size:.76rem;line-height:1.6;color:rgba(245,245,235,.62);margin-top:10px}
 .pl-foot b{color:var(--acc);font-weight:600;font-family:var(--f-mono);font-size:.8rem}
 
 /* ---- Columna de texto ---- */
-.hero h1{font-family:var(--f-disp);font-weight:600;font-size:clamp(2.6rem,5.4vw,4.5rem);line-height:1.04;letter-spacing:-.018em;margin:18px 0 24px;max-width:14ch}
-.hero h1 em{font-style:italic;color:var(--acc)}
+.hero h1{font-family:var(--f-disp);font-stretch:68%;font-weight:800;font-size:clamp(2.9rem,6vw,5.2rem);line-height:.98;letter-spacing:-.01em;margin:18px 0 24px;max-width:13ch}
+.hero h1 em{font-style:normal;color:var(--acc)}
 .hero h1 .ln{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
 .hero h1 .ln>span{display:inline-block;transform:translateY(118%);transition:transform 1.05s cubic-bezier(.16,1,.3,1)}
 .hero h1 .ln:nth-child(2)>span{transition-delay:.1s}
 body.hero-in .hero h1 .ln>span{transform:none}
-.hero__sub{max-width:46ch;font-size:1.04rem;color:rgba(244,246,250,.8);margin-bottom:32px}
+.hero__sub{max-width:46ch;font-size:1.04rem;color:rgba(245,245,235,.8);margin-bottom:32px}
 .hero__cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:34px}
 /* Cifras del corte al pie del título: filete arriba y abajo, sin caja. Antes
    eran una "cinta" con borde propio flotando sobre el plano de fondo; con el
    plano ya presente como pieza, otra caja al lado era ruido. */
 .hero__meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));
-  border-top:1px solid rgba(244,246,250,.13);border-bottom:1px solid rgba(244,246,250,.13);
+  border-top:1px solid rgba(245,245,235,.13);border-bottom:1px solid rgba(245,245,235,.13);
   font-family:var(--f-mono);text-transform:uppercase}
 .hero__meta span{padding:13px 16px 12px;line-height:1.45;font-size:.56rem;letter-spacing:.18em;
-  color:rgba(244,246,250,.55);min-width:0}
+  color:rgba(245,245,235,.55);min-width:0}
 .hero__meta span:first-child{padding-left:0}
-.hero__meta span+span{border-left:1px solid rgba(244,246,250,.1)}
+.hero__meta span+span{border-left:1px solid rgba(245,245,235,.1)}
 .hero__meta b{display:block;color:var(--acc);font-weight:600;font-size:1.02rem;letter-spacing:.02em;
   margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hero__meta .hm-txt b{font-family:var(--f-disp);font-size:1.05rem;letter-spacing:0;text-transform:none}
@@ -391,7 +408,7 @@ body.hero-in .hero h1 .ln>span{transform:none}
   .hero__meta{grid-template-columns:repeat(2,1fr)}
   .hero__meta span{padding:12px 14px;font-size:.54rem;letter-spacing:.12em}
   .hero__meta span:nth-child(odd){padding-left:0;border-left:none}
-  .hero__meta span:nth-child(n+3){border-top:1px solid rgba(244,246,250,.1)}
+  .hero__meta span:nth-child(n+3){border-top:1px solid rgba(245,245,235,.1)}
   .hero__meta b{font-size:.95rem}
   /* Un nombre de equipo no se corta con puntos suspensivos: se envuelve. */
   .hero__meta .hm-txt b{white-space:normal;overflow:visible;line-height:1.15}
@@ -404,18 +421,18 @@ body.hero-in .hero h1 .ln>span{transform:none}
    este desk conoce: la cinta de un piso de operaciones. Las palabras siguen
    en el HTML como respaldo: si el ranking no carga, la cinta se ve como
    antes en vez de quedar vacía. */
-.marq{border-top:1px solid var(--line-d);border-bottom:1px solid var(--line-d);background:rgba(3,13,26,.72);overflow:hidden;position:relative;z-index:2}
+.marq{border-top:1px solid var(--line-d);border-bottom:1px solid var(--line-d);background:rgba(0,0,0,.72);overflow:hidden;position:relative;z-index:2}
 .marq__track{display:flex;width:max-content;animation:marquee 46s linear infinite}
 .marq:hover .marq__track{animation-play-state:paused}
 @keyframes marquee{to{transform:translateX(-50%)}}
-.mq{font-family:var(--f-disp);font-style:italic;font-size:1.05rem;color:rgba(244,246,250,.55);padding:14px 34px;white-space:nowrap;border-right:1px solid var(--acc-faint)}
+.mq{font-family:var(--f-disp);font-stretch:var(--disp-w);font-style:normal;font-size:1.05rem;color:rgba(245,245,235,.55);padding:14px 34px;white-space:nowrap;border-right:1px solid var(--acc-faint)}
 .mq b{color:var(--acc);font-weight:600}
 .tk{display:flex;align-items:baseline;gap:11px;padding:13px 26px;white-space:nowrap;
   border-right:1px solid var(--acc-faint);font-family:var(--f-mono)}
-.tk i{font-style:normal;font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(244,246,250,.48)}
+.tk i{font-style:normal;font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(245,245,235,.48)}
 .tk b{font-size:.84rem;font-weight:600;color:var(--acc);font-variant-numeric:tabular-nums}
 .tk--bmk b{color:var(--bmk)}
-.tk--txt b{font-family:var(--f-disp);font-style:italic;font-weight:600;font-size:.98rem}
+.tk--txt b{font-family:var(--f-disp);font-stretch:var(--disp-w);font-style:normal;font-weight:700;font-size:.98rem}
 
 /* Secciones */
 section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
@@ -435,7 +452,7 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
    de un subtitulo y se le da aire. */
 .drop{font-family:var(--f-disp);font-size:clamp(1.5rem,3.2vw,2.2rem);line-height:1.24;
   letter-spacing:-.01em;color:var(--ink);font-weight:500;margin-bottom:26px;max-width:18ch}
-.drop em{font-style:italic;color:var(--acc-deep)}
+.drop em{font-style:normal;color:var(--acc-deep)}
 .about-copy p:not(.drop){color:var(--ink-soft);margin-bottom:18px;font-size:1.02rem}
 .about-copy p b{color:var(--ink);font-weight:600}
 /* Ficha del area: eran tres tarjetas separadas con sombra propia; ahora es una
@@ -497,7 +514,7 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .p-body{position:relative;max-width:62ch}
 .pilar .p-num{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.3em;color:var(--acc);display:block;margin-bottom:9px}
 .pilar h3{font-family:var(--f-disp);font-size:clamp(1.4rem,3vw,1.95rem);font-weight:600;line-height:1.18;margin-bottom:9px}
-.pilar p{font-size:.97rem;color:rgba(244,246,250,.72)}
+.pilar p{font-size:.97rem;color:rgba(245,245,235,.72)}
 @media(max-width:560px){
   .pilar{grid-template-columns:1fr;gap:.4rem}
   /* En una columna el riel no encadena nada: caería encima del texto. */
@@ -516,7 +533,7 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .torneo-card::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 240px at 90% -10%,rgba(255,122,0,.18),transparent 60%);pointer-events:none}
 .torneo-card .mono-tag{margin-bottom:16px}
 .torneo-card h3{font-family:var(--f-disp);font-weight:600;font-size:1.7rem;line-height:1.16;position:relative;margin-bottom:12px}
-.torneo-card p{font-size:.95rem;color:rgba(244,246,250,.76);position:relative}
+.torneo-card p{font-size:.95rem;color:rgba(245,245,235,.76);position:relative}
 .torneo-card .tc-tag{position:relative;display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
 .torneo-card .tc-dot{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 rgba(255,122,0,.5);animation:pulse 2.4s infinite}
 /* AUSPICIADORES DEL TORNEO (2026-09-04) — franja de logos pegada bajo la
@@ -578,18 +595,18 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .bd--s4{grid-column:span 4}
 .bd--s6{grid-column:span 6}
 .bd--s8{grid-column:span 8}
-.bd-k{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(244,246,250,.5)}
+.bd-k{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(245,245,235,.5)}
 /* Cifra principal en mono, que es la voz numérica de todo el sitio (el
    ranking, la pantalla de la facultad y el informe usan la misma). No va en
    la serif de los títulos: una cifra de dato no es un titular. */
 .bd-v{font-family:var(--f-mono);font-weight:600;font-size:clamp(1.7rem,4.4vw,2.6rem);
   line-height:1;letter-spacing:-.015em;color:var(--acc);font-variant-numeric:tabular-nums}
-.bd-v small{font-size:.42em;letter-spacing:.12em;color:rgba(244,246,250,.6);font-weight:500;margin-left:9px}
+.bd-v small{font-size:.42em;letter-spacing:.12em;color:rgba(245,245,235,.6);font-weight:500;margin-left:9px}
 /* El nombre de un equipo no es una cifra: usa la serif, se envuelve y no se
    corta. "Aconcagua Capital" no cabe en una línea a 390px. */
 .bd--lider .bd-v{font-family:var(--f-disp);font-size:clamp(1.6rem,4.6vw,2.8rem);
   line-height:1.08;letter-spacing:-.01em;overflow-wrap:anywhere}
-.bd-sub{font-size:.79rem;color:rgba(244,246,250,.6);line-height:1.5;margin-top:auto}
+.bd-sub{font-size:.79rem;color:rgba(245,245,235,.6);line-height:1.5;margin-top:auto}
 /* La celda del líder lleva un filete naranja al costado: es la única jerarquía
    del tablero que no depende del tamaño. */
 .bd--lider{box-shadow:inset 3px 0 0 0 var(--acc)}
@@ -604,7 +621,7 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 
 .ch-card{border:1px solid var(--line-d);background:var(--navy-panel);padding:26px 24px 20px;margin-top:-1px}
 .ch-title{font-family:var(--f-disp);font-size:clamp(1.15rem,2.4vw,1.45rem);font-weight:600;line-height:1.2}
-.ch-note{font-size:.82rem;color:rgba(244,246,250,.62);max-width:66ch;margin-top:8px}
+.ch-note{font-size:.82rem;color:rgba(245,245,235,.62);max-width:66ch;margin-top:8px}
 /* Cifras de cierre escritas, no solo en el tooltip: en un teléfono el hover no
    existe, y un valor nunca puede depender de él (misma corrección que ya se
    había hecho en el gráfico del hero de index.html). */
@@ -613,7 +630,7 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .ch-cif{padding:12px 18px;min-width:0}
 .ch-cif+.ch-cif{border-left:1px solid var(--acc-faint)}
 .ch-cif span{display:block;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.2em;
-  text-transform:uppercase;color:rgba(244,246,250,.55);margin-bottom:5px}
+  text-transform:uppercase;color:rgba(245,245,235,.55);margin-bottom:5px}
 .ch-cif b{font-family:var(--f-mono);font-size:1.02rem;font-weight:600;font-variant-numeric:tabular-nums}
 .ch-cif--fig b{color:var(--acc)}
 .ch-cif--bmk b{color:var(--bmk)}
@@ -627,16 +644,16 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .ch-plot svg{display:block;width:100%;height:auto}
 .ch-plot svg text{font-family:var(--f-mono);letter-spacing:.06em}
 .ch-tip{position:absolute;left:0;top:0;pointer-events:none;opacity:0;transition:opacity .14s;
-  background:rgba(3,13,26,.97);border:1px solid var(--acc-dim);border-radius:4px;padding:9px 12px;
+  background:rgba(0,0,0,.97);border:1px solid var(--acc-dim);border-radius:4px;padding:9px 12px;
   font-family:var(--f-mono);font-size:.66rem;line-height:1.75;white-space:nowrap;z-index:5;
   transform:translate(-50%,-116%)}
 .ch-tip.on{opacity:1}
 .ch-tip--abajo{transform:translate(-50%,16%)}
-.ch-tip u{display:block;text-decoration:none;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,246,250,.55);margin-bottom:3px}
+.ch-tip u{display:block;text-decoration:none;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,245,235,.55);margin-bottom:3px}
 .ch-tip .f{color:var(--acc)}
 .ch-tip .b{color:var(--bmk)}
 .ch-legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:16px;
-  font-family:var(--f-mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,246,250,.66)}
+  font-family:var(--f-mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,245,235,.66)}
 .ch-legend span{display:inline-flex;align-items:center;gap:9px}
 .ch-legend i{width:17px;height:3px;border-radius:2px;flex:none}
 .ch-legend .sw-fig{background:var(--acc)}
@@ -653,8 +670,8 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
   font-family:var(--f-mono);font-size:.72rem;font-variant-numeric:tabular-nums}
 .ch-tabla th,.ch-tabla td{padding:7px 10px;border-bottom:1px solid var(--acc-faint);text-align:right;white-space:nowrap}
 .ch-tabla th:first-child,.ch-tabla td:first-child{text-align:left}
-.ch-tabla th{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,246,250,.55);font-weight:500}
-.ch-tabla td{color:rgba(244,246,250,.82)}
+.ch-tabla th{font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,245,235,.55);font-weight:500}
+.ch-tabla td{color:rgba(245,245,235,.82)}
 .ch-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
 
 /* ============================================================================
@@ -684,11 +701,11 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .al-seg{position:relative;display:flex;flex-direction:column;justify-content:flex-end;
   padding:9px 12px;min-width:0;overflow:hidden;color:var(--navy);
   flex:0 0 0%;transition:flex-basis 1.1s var(--ease)}
-.al-seg+.al-seg{border-left:1px solid rgba(239,237,230,.55)}
+.al-seg+.al-seg{border-left:1px solid rgba(236,235,224,.55)}
 .alloc.in .al-seg{flex-basis:var(--w,0%)}
 .al-n{font-family:var(--f-mono);font-weight:600;font-size:1.05rem;line-height:1;font-variant-numeric:tabular-nums}
 .al-name{font-family:var(--f-mono);font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;
-  margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(6,26,51,.72)}
+  margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(10,10,10,.72)}
 @media(max-width:760px){.al-name{display:none}.al-n{font-size:.86rem}}
 /* La clave de la barra, siempre en texto: una cifra no puede vivir solo dentro
    de una figura. Cuando la barra se angosta y los rótulos de adentro se
@@ -766,7 +783,7 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .avatar.has-photo{color:transparent}
 .p-name{font-family:var(--f-disp);font-weight:600;font-size:1.12rem;line-height:1.25}
 .p-role{font-family:var(--f-mono);font-size:.61rem;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-top:4px}
-.p-extra{font-size:.84rem;color:rgba(244,246,250,.65);line-height:1.55}
+.p-extra{font-size:.84rem;color:rgba(245,245,235,.65);line-height:1.55}
 /* WCAG 2.2: medido a 390px, esta zona tocable no llegaba a 24px de alto.
    El padding la agranda y el margen negativo lo compensa exacto. */
 .p-link{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-top:auto;display:inline-flex;align-items:center;gap:6px;transition:gap .3s;padding:5px 3px;margin-left:-3px;margin-right:-3px;margin-bottom:-5px}
@@ -778,33 +795,33 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .ev-card:hover{transform:translateY(-8px);border-color:rgba(255,122,0,.5);box-shadow:0 32px 64px -26px rgba(0,0,0,.65)}
 .ev-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.02);transition:transform 1.2s var(--ease);filter:saturate(.9)}
 .ev-card:hover .ev-bg{transform:scale(1.08)}
-.ev-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,26,51,.25) 0%,rgba(6,26,51,.55) 45%,rgba(3,13,26,.94) 100%)}
+.ev-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.25) 0%,rgba(10,10,10,.55) 45%,rgba(0,0,0,.94) 100%)}
 .ev-ghost{position:absolute;top:-6px;right:10px;font-family:var(--f-disp);font-weight:700;font-size:clamp(4.5rem,8vw,6.5rem);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(255,122,0,.14);pointer-events:none;user-select:none}
 .ev-body{position:relative;padding:28px 28px 24px;display:flex;flex-direction:column;gap:12px}
 .ev-top{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .ev-date{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);font-weight:600}
-.ev-type{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,246,250,.65);border:1px solid rgba(244,246,250,.2);border-radius:100px;padding:4px 11px}
+.ev-type{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,245,235,.65);border:1px solid rgba(245,245,235,.2);border-radius:100px;padding:4px 11px}
 .ev-live{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.2em;color:#5FC08B}
 .ev-proximo{color:var(--acc);border-color:var(--acc-dim)}
 .live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#5FC08B;animation:pulseGreen 1.9s ease-out infinite}
 @keyframes pulseGreen{0%{box-shadow:0 0 0 0 rgba(95,192,139,.55)}70%{box-shadow:0 0 0 9px rgba(95,192,139,0)}100%{box-shadow:0 0 0 0 rgba(95,192,139,0)}}
 .ev-card h3{font-family:var(--f-disp);font-weight:600;font-size:clamp(1.3rem,2.2vw,1.7rem);line-height:1.2}
-.ev-res{font-size:.9rem;color:rgba(244,246,250,.72);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:60ch}
+.ev-res{font-size:.9rem;color:rgba(245,245,235,.72);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:60ch}
 .ev-foot{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:4px;flex-wrap:wrap}
-.ev-part{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,246,250,.5)}
+.ev-part{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,245,235,.5)}
 .ev-link{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);display:inline-flex;gap:9px;align-items:center}
 .ev-link .arr{transition:transform .35s var(--ease)}
 .ev-card:hover .ev-link .arr{transform:translateX(5px)}
 
 /* CTA */
 .cta-band{background:radial-gradient(900px 300px at 15% 0%,rgba(255,255,255,.24),transparent 60%),linear-gradient(120deg,var(--acc-deep),var(--acc) 48%,var(--acc-light));color:var(--navy);text-align:center;overflow:hidden}
-.cta-ghost{position:absolute;top:50%;left:0;transform:translateY(-50%);font-family:var(--f-disp);font-weight:700;font-size:clamp(5.5rem,15vw,11rem);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(6,26,51,.12);white-space:nowrap;pointer-events:none;user-select:none;animation:ghostSlide 46s linear infinite}
+.cta-ghost{position:absolute;top:50%;left:0;transform:translateY(-50%);font-family:var(--f-disp);font-weight:700;font-size:clamp(5.5rem,15vw,11rem);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(10,10,10,.12);white-space:nowrap;pointer-events:none;user-select:none;animation:ghostSlide 46s linear infinite}
 @keyframes ghostSlide{to{transform:translateY(-50%) translateX(-50%)}}
 .cta-band .kicker{color:var(--navy);justify-content:center}
 .cta-band .kicker::before{background:var(--navy)}
 .cta-band h2{font-family:var(--f-disp);font-weight:600;font-size:clamp(2.2rem,5.2vw,3.8rem);line-height:1.08;margin:20px auto 16px;max-width:16ch}
-.cta-band h2 em{font-style:italic}
-.cta-band p{max-width:52ch;margin:0 auto 32px;color:rgba(6,26,51,.78);font-size:1.03rem}
+.cta-band h2 em{font-style:normal}
+.cta-band p{max-width:52ch;margin:0 auto 32px;color:rgba(10,10,10,.78);font-size:1.03rem}
 
 /* Footer */
 footer{background:var(--navy-deep);padding:34px 0;border-top:1px solid var(--line-d)}
@@ -812,8 +829,8 @@ footer{background:var(--navy-deep);padding:34px 0;border-top:1px solid var(--lin
    alto tocable, bajo los 24px que pide WCAG 2.2. El margen negativo compensa
    el padding, asi que el pie se dibuja igual. */
 footer .wrap a{display:inline-block;padding:6px 0;margin:-6px 0}
-footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--f-mono);font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,246,250,.45)}
-footer a{display:inline-block;padding:6px 4px;margin:-6px -4px;color:rgba(244,246,250,.65);transition:color .3s}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--f-mono);font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,245,235,.45)}
+footer a{display:inline-block;padding:6px 4px;margin:-6px -4px;color:rgba(245,245,235,.65);transition:color .3s}
 footer a:hover{color:var(--acc)}
 
 /* ============================================================================
@@ -830,7 +847,7 @@ footer a:hover{color:var(--acc)}
 .rail{position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:900;
   display:none;flex-direction:column;gap:1px}
 .rail a{display:flex;align-items:center;gap:9px;padding:8px 6px;
-  color:rgba(244,246,250,.4);transition:color .35s}
+  color:rgba(245,245,235,.4);transition:color .35s}
 .rail a::before{content:"";width:14px;height:1px;background:currentColor;flex:none;
   transition:width .4s var(--ease)}
 .rail a.on::before{width:26px}
@@ -840,7 +857,7 @@ footer a:hover{color:var(--acc)}
   transition:max-width .5s var(--ease),opacity .35s}
 .rail a:hover,.rail a.on{color:var(--acc)}
 .rail a:hover .rl-t,.rail a.on .rl-t{max-width:112px;opacity:1}
-.rail.claro a{color:rgba(14,20,32,.42)}
+.rail.claro a{color:rgba(10,10,10,.42)}
 .rail.claro a:hover,.rail.claro a.on{color:var(--acc-deep)}
 /* Se muestra desde 1240px y no desde 1460: a 1280x720 -la pantalla en la que
    se trabaja este sitio- la guia de contenido empieza en 78px, asi que el riel
@@ -1615,13 +1632,13 @@ function pintarPlano(){
     if(Math.abs(v)<1e-9)return;
     G+='<line x1="'+pl+'" y1="'+sy(v).toFixed(1)+'" x2="'+(pl+iw)+'" y2="'+sy(v).toFixed(1)
       +'" stroke="rgba(255,122,0,.1)" stroke-width="1"/>'
-      +'<text x="'+(pl-8)+'" y="'+(sy(v)+3.2).toFixed(1)+'" text-anchor="end" font-size="9" fill="rgba(244,246,250,.45)">'+fmtPct(v,true)+'</text>';
+      +'<text x="'+(pl-8)+'" y="'+(sy(v)+3.2).toFixed(1)+'" text-anchor="end" font-size="9" fill="rgba(245,245,235,.45)">'+fmtPct(v,true)+'</text>';
   });
   marcas(0,xM,3).forEach(function(v){
     if(v<=0)return;
     G+='<line x1="'+sx(v).toFixed(1)+'" y1="'+pt+'" x2="'+sx(v).toFixed(1)+'" y2="'+(pt+ih)
       +'" stroke="rgba(255,122,0,.07)" stroke-width="1"/>'
-      +'<text x="'+sx(v).toFixed(1)+'" y="'+(pt+ih+14)+'" text-anchor="middle" font-size="9" fill="rgba(244,246,250,.45)">'+fmtPct(v)+'</text>';
+      +'<text x="'+sx(v).toFixed(1)+'" y="'+(pt+ih+14)+'" text-anchor="middle" font-size="9" fill="rgba(245,245,235,.45)">'+fmtPct(v)+'</text>';
   });
   /* El índice. Es la única línea azul del plano y no necesita leyenda: lleva
      su nombre escrito al final, como en el gráfico de §El corte. */
@@ -1656,8 +1673,8 @@ function pintarPlano(){
       +' font-size="9.5" fill="#FF7A00">'+esc(top.n.toUpperCase())+'</text>';
   }
   /* Rótulos de los ejes. */
-  G+='<text x="'+(pl+iw)+'" y="'+(H-8)+'" text-anchor="end" font-size="8.5" fill="rgba(244,246,250,.4)">RIESGO · CAÍDA MÁXIMA →</text>'
-    +'<text x="'+(pl-16)+'" y="'+(pt-11)+'" font-size="8.5" fill="rgba(244,246,250,.4)">↑ RETORNO SOBRE EL ÍNDICE</text>';
+  G+='<text x="'+(pl+iw)+'" y="'+(H-8)+'" text-anchor="end" font-size="8.5" fill="rgba(245,245,235,.4)">RIESGO · CAÍDA MÁXIMA →</text>'
+    +'<text x="'+(pl-16)+'" y="'+(pt-11)+'" font-size="8.5" fill="rgba(245,245,235,.4)">↑ RETORNO SOBRE EL ÍNDICE</text>';
 
   var g=gananIndice(TD)||{n:0,tot:pts.length};
   var etq="Plano riesgo / retorno de las "+pts.length+" carteras del corte: cada disco es una cartera, "
@@ -1765,8 +1782,8 @@ function pintarGrafico(){
   var ys=marcas(lo,hi,4);
   ys.forEach(function(v){
     var y=sy(v).toFixed(1);
-    G+='<line x1="'+pl+'" y1="'+y+'" x2="'+(pl+iw)+'" y2="'+y+'" stroke="'+(Math.abs(v)<1e-9?"rgba(244,246,250,.24)":"rgba(255,122,0,.11)")+'" stroke-width="1"/>';
-    G+='<text x="'+(pl-8)+'" y="'+(sy(v)+3.5).toFixed(1)+'" text-anchor="end" font-size="'+(chico?9:10)+'" fill="rgba(244,246,250,.5)">'+fmtPct(v,true)+'</text>';
+    G+='<line x1="'+pl+'" y1="'+y+'" x2="'+(pl+iw)+'" y2="'+y+'" stroke="'+(Math.abs(v)<1e-9?"rgba(245,245,235,.24)":"rgba(255,122,0,.11)")+'" stroke-width="1"/>';
+    G+='<text x="'+(pl-8)+'" y="'+(sy(v)+3.5).toFixed(1)+'" text-anchor="end" font-size="'+(chico?9:10)+'" fill="rgba(245,245,235,.5)">'+fmtPct(v,true)+'</text>';
   });
   /* Eje de semanas: la primera y la última SIEMPRE, más las intermedias que
      quepan. Una intermedia se descarta si queda a menos de 30 px de la última:
@@ -1775,7 +1792,7 @@ function pintarGrafico(){
   pts.forEach(function(p,k){
     var borde=(k===0||k===pts.length-1);
     if(!borde&&(k%salto||Math.abs(sx(p.semana)-xUlt)<30))return;
-    G+='<text x="'+sx(p.semana).toFixed(1)+'" y="'+(H-10)+'" text-anchor="middle" font-size="'+(chico?9:10)+'" fill="rgba(244,246,250,.5)">S'+p.semana+'</text>';
+    G+='<text x="'+sx(p.semana).toFixed(1)+'" y="'+(H-10)+'" text-anchor="middle" font-size="'+(chico?9:10)+'" fill="rgba(245,245,235,.5)">S'+p.semana+'</text>';
   });
   /* Banda intercuartil: el 50% central del campo. Es contexto, va detrás. */
   var arriba=pts.map(function(p){return sx(p.semana).toFixed(1)+" "+sy(p.q3).toFixed(1)});
@@ -1797,7 +1814,7 @@ function pintarGrafico(){
     +'" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>';
   /* Puntas: anillo del color del fondo para que no se peguen si coinciden. */
   function punta(x,y,c){
-    return '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="4" fill="'+c+'" stroke="#0A2748" stroke-width="2"/>';
+    return '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="4" fill="'+c+'" stroke="#161514" stroke-width="2"/>';
   }
   var fE=pts[pts.length-1],bE=bm.length?bm[bm.length-1]:null;
   if(bE)G+=punta(sx(bE.semana),sy(bE.bmk),"#7BA7DE");
@@ -1828,8 +1845,8 @@ function pintarGrafico(){
      horizontal al gráfico y le deja el vertical al scroll de la página: sin
      eso, en un teléfono el navegador se queda todos los toques como scroll. */
   G+='<line id="chGuide" x1="0" y1="'+pt+'" x2="0" y2="'+(pt+ih)+'" stroke="rgba(255,122,0,.45)" stroke-width="1" opacity="0"/>';
-  G+='<circle id="chDotF" r="4.5" fill="#FF7A00" stroke="#0A2748" stroke-width="2" opacity="0"/>';
-  G+='<circle id="chDotB" r="4.5" fill="#7BA7DE" stroke="#0A2748" stroke-width="2" opacity="0"/>';
+  G+='<circle id="chDotF" r="4.5" fill="#FF7A00" stroke="#161514" stroke-width="2" opacity="0"/>';
+  G+='<circle id="chDotB" r="4.5" fill="#7BA7DE" stroke="#161514" stroke-width="2" opacity="0"/>';
   G+='<rect id="chHit" x="'+pl+'" y="'+pt+'" width="'+iw+'" height="'+ih+'" fill="transparent"/>';
 
   var etq="Retorno acumulado del torneo: mediana de "+TD.equipos.length+" carteras contra el iShares MSCI ACWI, semana a semana. Las cifras están también en la tabla bajo el gráfico.";

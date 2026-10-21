@@ -66,6 +66,11 @@ URL_FUENTES = (
     "?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600"
     "&family=Inter:wght@400;500;600;700"
     "&family=IBM+Plex+Mono:wght@400"
+    # Archivo variable (ancho 62-125 %, peso 400-800): los titulos condensados
+    # de portafolio/ con la paleta "Negro BlackRock" (2026-10-21). Es UN solo
+    # archivo por subconjunto para todos los anchos y pesos; las paginas que no
+    # lo nombran no lo descargan.
+    "&family=Archivo:wdth,wght@62..125,400..800"
     "&display=swap"
 )
 

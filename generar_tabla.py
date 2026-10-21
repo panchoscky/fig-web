@@ -87,11 +87,21 @@ def derivar(completo: dict, sha1_fuente: str) -> dict:
     """Devuelve el mismo torneo sin el historial de los equipos."""
     semanas = set()
     equipos = []
+    sem = completo.get("semana")
     for eq in completo.get("equipos", []):
         for h in eq.get("historial", []) or []:
             if h.get("semana") is not None:
                 semanas.add(h["semana"])
-        equipos.append({k: v for k, v in eq.items() if k != "historial"})
+        fila = {k: v for k, v in eq.items() if k != "historial"}
+        # El retorno acumulado del corte vigente es la UNA cifra del historial
+        # que la tabla sí necesita: portafolio/ cuenta "le ganan al índice"
+        # como ret > ACWI (decisión de Francisco, 2026-10-21) y su plano se
+        # dibuja con este archivo, antes de que llegue el completo.
+        ret = next((h.get("ret") for h in eq.get("historial", []) or []
+                    if h.get("semana") == sem), None)
+        if ret is not None:
+            fila["ret"] = ret
+        equipos.append(fila)
 
     tabla = {k: v for k, v in completo.items() if k != "equipos"}
     tabla["equipos"] = equipos
