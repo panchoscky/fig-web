@@ -126,6 +126,15 @@ em{font-style:italic;color:var(--acc-warm)}
 .hz{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;background:var(--navy-panel);border:1px solid var(--line-n);border-left:2px solid var(--acc);padding:18px 22px;border-radius:2px}
 .hz::before{counter-increment:h;content:counter(h,decimal-leading-zero);font-family:var(--f-mono);font-size:.78rem;color:var(--acc);padding-top:3px}
 .hz p{margin:0;font-size:.98rem}
+/* If the tournament ended today: los 5 que irían a la final (bases §6.1) */
+.final{margin-top:clamp(2rem,4vw,2.8rem)}
+.final-h{font-family:var(--f-disp);font-weight:600;font-size:clamp(1.3rem,2.6vw,1.6rem);margin:0 0 8px}
+.final-p{max-width:760px;margin:0 0 18px;font-size:.98rem}
+.final-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line-n);border:1px solid var(--line-n)}
+.fc{background:var(--navy-panel);padding:16px 18px;min-width:0}
+.fc .p{font-family:var(--f-mono);font-size:.78rem;color:var(--acc)}
+.fc .nm{font-family:var(--f-disp);font-size:1.15rem;line-height:1.15;margin:6px 0 6px;overflow-wrap:anywhere}
+.fc .pt{font-family:var(--f-mono);font-size:.8rem;color:var(--dim);font-variant-numeric:tabular-nums}
 
 /* ---- FIGURAS / GRÁFICOS ---- */
 figure{margin:0}
@@ -231,8 +240,8 @@ footer a:hover{color:var(--acc)}
   .reveal{opacity:1;transform:none}
 }
 </style>
-<link rel="manifest" href="../../manifest.webmanifest">
-<link rel="apple-touch-icon" href="../../iconos/apple-touch-icon.png">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../iconos/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="FIG">
@@ -300,6 +309,11 @@ footer a:hover{color:var(--acc)}
       <p>Everything below is computed from the current cut. The figures recalculate themselves every time a new week is published.</p>
     </div>
     <div class="hallazgos reveal" id="hallazgos"></div>
+    <div class="final reveal" id="finalBox" hidden>
+      <h3 class="final-h">If the tournament ended today</h3>
+      <p class="final-p" id="finalTxt"></p>
+      <div class="final-grid" id="finalGrid"></div>
+    </div>
   </div>
 </section>
 
@@ -624,6 +638,7 @@ function arrancar(){
   $("#corteTxt").textContent="Cut of "+corteEN(D.corte)+" · week "+D.semana;
   pintarStats();
   pintarHallazgos();
+  pintarFinal();
   gMercado();gDist();gRiesgo();gMov();gPts();
   pintarTabla();pintarMeta();
   observar();
@@ -646,6 +661,28 @@ function pintarStats(){
   $("#stats").innerHTML=st.map(function(s){
     return '<div class="stat"><div class="n">'+s.n+'</div><div class="l">'+s.l+'</div><div class="s">'+s.s+'</div></div>';
   }).join("");
+}
+
+/* ==========================================================================
+   SI EL TORNEO TERMINARA HOY — los cinco con más puntaje van a la final
+   (bases de evaluación §6.1). La fecha de cierre sale de las bases; pasada
+   esa fecha la cuenta regresiva desaparece sola y el bloque queda como foto.
+   ========================================================================== */
+function pintarFinal(){
+  var ord=EQ.slice().sort(function(a,b){return a.posicion-b.posicion});
+  if(ord.length<6)return;
+  var cinco=ord.slice(0,5), sexto=ord[5];
+  var gap=cinco[4].puntos-sexto.puntos;
+  var hoy=new Date(), cierre=new Date(2026,10,2);
+  var dias=Math.ceil((cierre-new Date(hoy.getFullYear(),hoy.getMonth(),hoy.getDate()))/864e5);
+  var t="Under the rules, the five highest-scoring teams at the November 2 close reach the final. In the current cut, 5th place is <b>"+num(gap,2)+" pts</b> ahead of 6th place (<b>"+sexto.nombre+"</b>). ";
+  if(dias>0)t+="<b>"+dias+" days</b> remain and the rebalancing windows are closed: the market decides the rest. ";
+  t+="The final before the jury is scheduled for November 9.";
+  $("#finalTxt").innerHTML=t;
+  $("#finalGrid").innerHTML=cinco.map(function(e,i){
+    return '<div class="fc"><div class="p">#'+(i+1)+'</div><div class="nm">'+e.nombre+'</div><div class="pt">'+num(e.puntos,2)+' pts · +'+num(e.puntos-sexto.puntos,2)+' over 6th</div></div>';
+  }).join("");
+  $("#finalBox").hidden=false;
 }
 
 /* ==========================================================================
@@ -1242,6 +1279,6 @@ fetch("../../datos/club.json",{cache:"no-cache"})
 }catch(e){}
 })();
 </script>
-<script>if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("../../sw.js").catch(function(){});});}</script>
+<script>if("serviceWorker" in navigator){addEventListener("load",function(){navigator.serviceWorker.register("../sw.js").catch(function(){});});}</script>
 </body>
 </html>

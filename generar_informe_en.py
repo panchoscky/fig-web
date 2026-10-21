@@ -365,6 +365,16 @@ TRADUCCIONES = [
 ('aria-label="FEN Investment Group — Inicio"', 'aria-label="FEN Investment Group — Home"'),
 ('<b>Esto no es asesoría de inversión.</b> Las carteras del Torneo Portafolio son simuladas: ningún equipo administra dinero real y ninguna cifra de este informe constituye una recomendación de compra o venta. El torneo es una actividad formativa de FEN Investment Group.',
  '<b>This is not investment advice.</b> Portfolio Tournament portfolios are simulated: no team manages real money, and no figure in this report is a recommendation to buy or sell. The tournament is an educational activity run by FEN Investment Group.'),
+# ---- si el torneo terminara hoy (bloque del resumen, 2026-10-21) ----
+("Si el torneo terminara hoy", "If the tournament ended today"),
+("Las bases definen como finalistas a los cinco equipos con más puntaje al cierre del 2 de noviembre. Al corte vigente, el 5° lugar le saca <b>",
+ "Under the rules, the five highest-scoring teams at the November 2 close reach the final. In the current cut, 5th place is <b>"),
+(' pts</b> al 6° lugar (<b>', ' pts</b> ahead of 6th place (<b>'),
+('"Quedan <b>"+dias+" días</b> y ya no hay ventanas de rebalanceo: lo que falta lo decide el mercado. "',
+ '"<b>"+dias+" days</b> remain and the rebalancing windows are closed: the market decides the rest. "'),
+("La final ante el jurado está programada para el 9 de noviembre.", "The final before the jury is scheduled for November 9."),
+("""'<div class="fc"><div class="p">'+(i+1)+'°</div>""", """'<div class="fc"><div class="p">#'+(i+1)+'</div>"""),
+(" sobre el 6°</div>", " over 6th</div>"),
 # ---- conmutador de idioma: en la version en ingles apunta al reves ----
 ('<a href="../en/informe/index.html" hreflang="en" lang="en">English</a>',
  '<a href="../../informe/index.html" hreflang="es" lang="es">Español</a>'),
