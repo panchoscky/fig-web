@@ -35,8 +35,9 @@ Si algo cambia seguido, va en un `.json` bajo `datos/`.
 **Paleta y tipografías**: navy `#0A1128` + oro `#D4AF37`, Playfair Display + Inter +
 IBM Plex Mono (autoalojadas en `fuentes/`), reveals on-scroll, respeto total a
 `prefers-reduced-motion`. **Tres páginas tienen paleta propia** y no siguen esa base:
-`fiw/index.html` (oro rosa), `portafolio/index.html` (azul `#08213F` + naranja
-`#EC7000` de Itaú, por el sponsor del Torneo Portafolio; 2026-09-02) y
+`fiw/index.html` (oro rosa), `portafolio/index.html` ("Negro BlackRock": negro
+`#0A0A0A` + crema `#F5F5EB` de BlackRock + naranja `#FF7A00` de Itaú, títulos en
+Archivo condensado; 2026-10-21, antes navy+naranja desde el 2026-09-02) y
 `trading/index.html` (rojo `#FF0000` + crema `#F9F6EF`/`#FCFAF3` de XTB, por el Alpha
 Trading Challenge; 2026-09-04, repaletizada sin navy a pedido de Manuel el 2026-09-21).
 En las tres los NOMBRES de las variables son los mismos que

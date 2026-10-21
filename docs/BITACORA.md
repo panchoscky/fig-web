@@ -2518,3 +2518,28 @@ Reemplaza la fase 1 del 23-sep (que nunca se desplegó).
 - `021f23b` publica las apps (solo fig-web, NO el espejo). Francisco pegó el Apps Script v2 y las propiedades; login y fotos de Drive probados en vivo (las fotos se ven públicas).
 - `ac2e92a`: en un teléfono el login respondió `Endpoint FIG activo` (el POST llegó a Google como GET, doPost no corrió). La app ahora reintenta hasta 3 veces, agrega `?r=` único y `cache:no-store`, y muestra un mensaje claro. Causa de fondo no identificada: si vuelve, averiguar navegador y red del teléfono.
 - `19f0782`: el marco de los íconos de directivos era un círculo; ahora sigue el borde del cuadrado redondeado como en el artefacto elegido (marco 7 %, toro 66 %, maskable al 76 %). `VERSION_ICONOS` en `generar_apps_directivos.py` agrega `?v=` para que los teléfonos los bajen de nuevo: subirla cada vez que cambien.
+
+## 2026-10-21 — Portafolio rediseñado ("Negro BlackRock") + informe al día
+
+Francisco eligió, de una vitrina con cuatro paletas, la negra con crema de
+BlackRock y naranja de Itaú, títulos en Archivo condensado, «le ganan al índice»
+por retorno acumulado, y todas las piezas de experiencia propuestas.
+
+- `78b4ad3` paleta y tipografía (tokens del `:root` con contrastes medidos;
+  ~90 literales `rgba()` del navy viejo re-teñidos). Archivo variable se suma a
+  `descargar_fuentes.py` (un .woff2 por subconjunto para todos los anchos).
+  `generar_tabla.py` agrega `ret` (retorno acumulado del corte) a cada equipo de
+  `torneo-tabla.json`: el plano lo necesita en la primera pintada.
+- `719a080` piezas nuevas: cuenta regresiva (cierre 2-nov, final 9-nov), el
+  tablero cambia semana/carteras por más subió/más bajó, §Tu cartera (selector,
+  enlace `#<id>`, localStorage, resalta el disco), temporada en el plano (escala
+  fija por percentiles 2-98), §Los 100 puntos en pestañas con top 5, y
+  «¿Y si solo contara una métrica?». El plano en teléfono se dibuja 360×340.
+- **Trampa nueva:** el plano ahora es `ret − ACWI`, no `exc`. Si alguien vuelve a
+  `exc`, el pie del plano y el tablero dejarían de coincidir con informe/.
+- La temporada deja a la vista el caso IMEU: en las semanas 7 a 10 el líder del
+  plano es «Expertos en Blackrock» (cortes publicados con el error de peniques).
+- `0e4f146` informe: `etf.json` al 12-oct (41 equipos) y bloque «Si el torneo
+  terminara hoy»; inglés regenerado.
+- `6e1651b` §Súmate sin botón de Instagram (no se reciben postulaciones).
+
