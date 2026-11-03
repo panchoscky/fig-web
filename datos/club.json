@@ -115,6 +115,20 @@
         }
       },
       {
+        "iniciales": "DA",
+        "nombre": "Delia Avilán",
+        "rol": "Fundadora · FEN Investment Woman",
+        "liderArea": "FIW",
+        "detalle": "Co-fundadora · FEN Investment Woman, junto a Gabriela Domínguez y Victoria Espinoza.",
+        "perfil": {
+          "bio": "Co-fundadora de FEN Investment Group. Fundó junto a Gabriela Domínguez y Victoria Espinoza FEN Investment Woman, el área que impulsa la participación de mujeres en el mundo de las inversiones dentro de la FEN.",
+          "hitos": [
+            "Co-fundadora · FEN Investment Woman",
+            "Co-fundadora de FIG"
+          ]
+        }
+      },
+      {
         "iniciales": "AA",
         "nombre": "Agustín Arriagada",
         "rol": "Directivo · Portafolio",
@@ -225,20 +239,6 @@
             "Práctica · HSBC, Large Corporates & Institutional Banking",
             "Analista de Riesgo Financiero Junior · Banco BICE",
             "Coordinador del Laboratorio Bloomberg · FEN"
-          ]
-        }
-      },
-      {
-        "iniciales": "DA",
-        "nombre": "Delia Avilán",
-        "rol": "Fundadora · FEN Investment Woman",
-        "liderArea": "FIW",
-        "detalle": "Co-fundadora · FEN Investment Woman, junto a Gabriela Domínguez y Victoria Espinoza.",
-        "perfil": {
-          "bio": "Co-fundadora de FEN Investment Group. Fundó junto a Gabriela Domínguez y Victoria Espinoza FEN Investment Woman, el área que impulsa la participación de mujeres en el mundo de las inversiones dentro de la FEN.",
-          "hitos": [
-            "Co-fundadora · FEN Investment Woman",
-            "Co-fundadora de FIG"
           ]
         }
       },
