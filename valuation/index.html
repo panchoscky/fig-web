@@ -269,6 +269,8 @@ section{padding:clamp(5rem,9vw,8rem) 0;position:relative}
 .p-tag{display:inline-block;font-family:var(--f-mono);font-size:.5rem;font-weight:500;letter-spacing:.16em;
   text-transform:uppercase;color:var(--navy);background:var(--acc);border-radius:100px;padding:2px 9px;margin-top:7px}
 .avatar{width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 32% 28%,var(--acc-light),var(--acc) 60%,var(--acc-deep));color:var(--navy);display:flex;align-items:center;justify-content:center;flex:none;font-family:var(--f-disp);font-weight:600;font-size:1.15rem;background-size:cover;background-position:center top;overflow:hidden}
+a.avatar--link{text-decoration:none;cursor:pointer;transition:box-shadow .25s,transform .25s}
+a.avatar--link:hover,a.avatar--link:focus-visible{box-shadow:0 0 0 3px var(--acc);transform:scale(1.04)}
 .avatar.has-photo{color:transparent}
 .p-name{font-family:var(--f-disp);font-weight:600;font-size:1.12rem;line-height:1.25}
 .p-role{font-family:var(--f-mono);font-size:.61rem;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-top:4px}
@@ -523,7 +525,7 @@ html:not(.no-js) body:not(.hero-in) .hero .reveal{opacity:0;transform:translateY
 <footer>
   <div class="wrap">
     <span>© 2026 Valuation · FIG</span>
-    <span>Creado por <a href="https://www.linkedin.com/in/francisco-ignacio-andr%C3%A9s-valenzuela-lecaros-128a69396/" target="_blank" rel="noopener">Francisco Valenzuela</a> y <a href="https://www.linkedin.com/in/mpazq" target="_blank" rel="noopener">Manuel Paz</a></span>
+    <span>Creado por <a href="https://www.linkedin.com/in/francisco-ignacio-valenzuela-lecaros-128a69396/" target="_blank" rel="noopener">Francisco Valenzuela</a> y <a href="https://www.linkedin.com/in/mpazq" target="_blank" rel="noopener">Manuel Paz</a></span>
     <a href="../index.html">← Volver a FEN Investment Group</a>
   </div>
 </footer>
@@ -642,7 +644,9 @@ function renderTorneo(){
 function renderResponsables(){
   var list=DATA.responsables||[];
   $("#valResponsables").innerHTML=list.map(function(p,i){
-    var av='<div class="avatar" data-slug="'+esc(p.slug||"")+'">'+esc(p.iniciales||"·")+'</div>';
+    var av=p.slug
+      ?'<a class="avatar avatar--link" href="../#perfil-'+esc(p.slug)+'" data-slug="'+esc(p.slug)+'" aria-label="Ver el perfil de '+esc(p.nombre)+'" title="Ver el perfil de '+esc(p.nombre)+'">'+esc(p.iniciales||"·")+'</a>'
+      :'<div class="avatar" data-slug="">'+esc(p.iniciales||"·")+'</div>';
     var link=p.linkedin?'<a class="p-link" href="'+esc(p.linkedin)+'" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>':"";
     return '<div class="p-card reveal '+(i%3===1?"d1":i%3===2?"d2":"")+(p.lidera?" p-card--area":"")+'">'
       +av
