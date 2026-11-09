@@ -663,7 +663,7 @@ function pintarFinal(){
   var dias=Math.ceil((cierre-new Date(hoy.getFullYear(),hoy.getMonth(),hoy.getDate()))/864e5);
   var t="Las bases definen como finalistas a los cinco equipos con más puntaje al cierre del 2 de noviembre. Al corte vigente, el 5° lugar le saca <b>"+num(gap,2)+" pts</b> al 6° lugar (<b>"+sexto.nombre+"</b>). ";
   if(dias>0)t+="Quedan <b>"+dias+" días</b> y ya no hay ventanas de rebalanceo: lo que falta lo decide el mercado. ";
-  t+="La final ante el jurado está programada para el 9 de noviembre.";
+  t+="La final ante el jurado está programada para el 9 de noviembre a las 14:00 hrs.";
   $("#finalTxt").innerHTML=t;
   $("#finalGrid").innerHTML=cinco.map(function(e,i){
     return '<div class="fc"><div class="p">'+(i+1)+'°</div><div class="nm">'+e.nombre+'</div><div class="pt">'+num(e.puntos,2)+' pts · +'+num(e.puntos-sexto.puntos,2)+' sobre el 6°</div></div>';

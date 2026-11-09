@@ -1394,7 +1394,7 @@ var DATA={
       {k:"Duración",v:"11 de mayo al 2 de noviembre de 2026"},
       {k:"Ranking",v:"Cada viernes · since-inception"},
       {k:"Ventanas de rebalanceo",v:"Junio · agosto · octubre"},
-      {k:"Final ante jurado",v:"5 finalistas · 9 de noviembre de 2026"},
+      {k:"Final ante jurado",v:"5 finalistas · 9 de noviembre de 2026, 14:00 hrs"},
       {k:"Premios",v:"Por confirmar"},
       {k:"Organiza",v:"Área Portafolio · FIG"}
     ]
@@ -2300,10 +2300,11 @@ function pintarCierre(){
   var cierre=new Date(2026,10,2),fin=new Date(2026,10,9);
   if(hoy>fin){el.hidden=true;return;}
   var d=Math.round((cierre-hoy)/864e5),t;
-  if(d>1)t="Quedan <b>"+d+" días</b> para el cierre del torneo · final ante jurado el 9 de noviembre";
-  else if(d===1)t="Queda <b>1 día</b> para el cierre del torneo · final ante jurado el 9 de noviembre";
-  else if(d===0)t="<b>Hoy cierra</b> el torneo · final ante jurado el 9 de noviembre";
-  else t="Torneo cerrado · <b>final ante jurado el 9 de noviembre</b>";
+  if(d>1)t="Quedan <b>"+d+" días</b> para el cierre del torneo · final ante jurado el 9 de noviembre, 14:00 hrs";
+  else if(d===1)t="Queda <b>1 día</b> para el cierre del torneo · final ante jurado el 9 de noviembre, 14:00 hrs";
+  else if(d===0)t="<b>Hoy cierra</b> el torneo · final ante jurado el 9 de noviembre, 14:00 hrs";
+  else if(+hoy===+fin)t="Torneo cerrado · <b>hoy es la final ante el jurado, a las 14:00 hrs</b>";
+  else t="Torneo cerrado · <b>final ante jurado el 9 de noviembre, 14:00 hrs</b>";
   el.innerHTML='<i aria-hidden="true"></i><span>'+t+'</span>';
   el.hidden=false;
 }
