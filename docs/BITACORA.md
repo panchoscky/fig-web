@@ -2543,3 +2543,15 @@ por retorno acumulado, y todas las piezas de experiencia propuestas.
   terminara hoy»; inglés regenerado.
 - `6e1651b` §Súmate sin botón de Instagram (no se reciben postulaciones).
 
+
+## 2026-11-21 · Se reabren las postulaciones en Portafolio y el Apps Script deja de aceptar fórmulas
+
+- `portafolio/` §Súmate (`#unete`): sale «Por ahora no estamos recibiendo postulaciones…» (puesto el 21-oct) y vuelve
+  «No necesitas experiencia previa, solo ganas de aprender», con un botón «Postula al club» → `../postula/index.html`
+  y el de Instagram al lado (borde navy, `.btn--linea`; en teléfono, los dos a ancho completo). Mirado en un navegador
+  real a 1280 px y en iPhone 13: sin scroll horizontal y el enlace responde 200.
+- El formulario `postula/` ya estaba activo (endpoint configurado, botón habilitado) y el «Quiero ser parte» de la
+  portada nunca se cerró: el único cierre era el texto de Portafolio.
+- `apps_script/Codigo.gs`: postulación, rally y visita pasan por `celda_()` (largo máximo y apóstrofo delante de lo
+  que Sheets tomaría como fórmula). **Hay que pegarlo en el Apps Script y publicar una versión nueva** para que rija.
+- Para el espejo: `portafolio/` se copia entero con `sincronizar_espejo.py` (y después `despublicar_fiw.py`).
