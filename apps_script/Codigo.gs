@@ -57,15 +57,18 @@ function doPost(e) {
   // --- los 3 usos viejos del sitio, sin cambios (responden "OK" en texto) ---
   if (d.tipo === "postulacion") {
     ss.getSheetByName("Postulaciones").appendRow(
-      [d.fecha, d.nombre, d.correo, d.carrera, d.anio, d.area, d.motivacion, d.linkedin]);
+      [celda_(d.fecha, 40), celda_(d.nombre, 120), celda_(d.correo, 120), celda_(d.carrera, 120), celda_(d.anio, 20),
+       celda_(d.area, 60), celda_(d.motivacion, 3000), celda_(d.linkedin, 200)]);
     return ContentService.createTextOutput("OK");
   }
   if (d.tipo === "rally") {
-    ss.getSheetByName("Ranking").appendRow([d.fecha, d.nombre, d.valor]);
+    var valor = Number(d.valor);
+    if (!isFinite(valor)) return ContentService.createTextOutput("OK");   // un puntaje que no es número no entra
+    ss.getSheetByName("Ranking").appendRow([celda_(d.fecha, 40), celda_(d.nombre, 40), valor]);
     return ContentService.createTextOutput("OK");
   }
   if (d.tipo === "visita") {
-    ss.getSheetByName("Visitas").appendRow([d.fecha, d.pagina, d.origen]);
+    ss.getSheetByName("Visitas").appendRow([celda_(d.fecha, 40), celda_(d.pagina, 200), celda_(d.origen, 200)]);
     return ContentService.createTextOutput("OK");
   }
 
@@ -308,6 +311,14 @@ function hashClave_(sal, clave) {
 function firma_(texto) {
   return hex_(Utilities.computeHmacSha256Signature(texto, secreto_("FIG_SECRETO"),
     Utilities.Charset.UTF_8));
+}
+
+// Lo que llega del sitio público va a una planilla: un texto que empieza con = + - @ (o tab/retorno) Sheets lo
+// interpretaría como FÓRMULA (p. ej. =IMPORTXML(...) podría sacar datos de otras filas al abrir la hoja). Se le
+// antepone un apóstrofo, que Sheets muestra como texto; y se corta el largo para que nadie llene la hoja.
+function celda_(s, max) {
+  var t = limpiar_(s, max);
+  return /^[=+\-@\t\r]/.test(t) ? "'" + t : t;
 }
 
 function limpiar_(s, max) {
